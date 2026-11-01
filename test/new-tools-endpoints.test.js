@@ -6,7 +6,7 @@ import { openStore } from '../src/store.js';
 test('new endpoints: compare-cities and i18n respond correctly over HTTP', async () => {
   const store = openStore(':memory:');
   const server = createApp(store, 'test-token-at-least-24-chars-long', {}, {
-    rateLimits: { v1: { limit: 500, windowMs: 60000 }, admin: { limit: 60, windowMs: 60000 }, static: { limit: 240, windowMs: 60000 } }
+    rateLimits: { v1: { limit: 500, windowMs: 60000 }, tools: { limit: 500, windowMs: 60000 }, admin: { limit: 60, windowMs: 60000 }, static: { limit: 240, windowMs: 60000 } }
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const port = server.address().port;

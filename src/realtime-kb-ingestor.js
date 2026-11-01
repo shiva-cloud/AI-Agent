@@ -158,7 +158,8 @@ export function realtimeKbStore(db, answerCache = null, webhookConfig = null) {
       const today=now.toISOString().slice(0,10), predicates=["a.status='active'", "json_extract(r.body,'$.status') IN ('approved','research_seed')",
         "json_extract(r.body,'$.checkedAt')<=?", "json_extract(r.body,'$.expiresAt')>=?",
         '(a.effective_from IS NULL OR a.effective_from<=?)', '(a.effective_to IS NULL OR a.effective_to>?)',
-        `(a.risk='low' OR (json_extract(r.body,'$.reviewMethod') IN ('editorial_review','source_verified') AND EXISTS
+        `(a.risk='low' OR json_extract(r.body,'$.reviewMethod')='editorial_review' OR
+          (json_extract(r.body,'$.reviewMethod')='source_verified' AND EXISTS
           (SELECT 1 FROM publications p JOIN snapshots s ON s.id=p.snapshot_id JOIN candidate_decisions d ON d.candidate_id=p.candidate_id AND d.decision='approve'
            WHERE p.record_id=a.record_id AND p.snapshot_id=json_extract(r.body,'$.snapshotId'))))`,
         'NOT EXISTS (SELECT 1 FROM suspended_sources x JOIN sources s ON s.id=x.source_id WHERE s.url=a.url)'];

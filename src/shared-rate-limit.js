@@ -30,7 +30,7 @@ export function openSharedRateLimits(path, { key, clock = Date.now } = {}) {
     close() { db.close(); secret.fill(0); },
     checkReady() { db.prepare('SELECT version FROM quota_meta').get(); },
     createLimiter(family, { limit, windowMs, maxClients = 10000 }) {
-      if (!['v1', 'admin', 'static'].includes(family) || !Number.isSafeInteger(limit) || limit < 1 || limit >= Number.MAX_SAFE_INTEGER ||
+      if (!['v1', 'tools', 'admin', 'static'].includes(family) || !Number.isSafeInteger(limit) || limit < 1 || limit >= Number.MAX_SAFE_INTEGER ||
           !Number.isSafeInteger(windowMs) || windowMs < 1 || windowMs > 86400000 || !Number.isSafeInteger(maxClients) || maxClients < 1 || maxClients > 100000) {
         throw new Error('Invalid shared quota rule');
       }

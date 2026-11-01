@@ -2,6 +2,22 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.49 — Audit remediation: evidence visibility, tool input and UI fixes (2 November 2026)
+
+Fixes for the 2 November external audit report:
+
+- **Evidence visibility gate fixed (critical):** `publicEvidence()` withheld every high-risk record — even the 285 that already carry an audited `editorial_review` stamp — because it also demanded a `publications` row that the direct-review path never creates. An editorial stamp now publishes on its own (the stamp is only obtainable through audited paths); `source_verified` still requires the publication/snapshot chain. User-visible records rose from 242 to 563: health 0→23, housing 2→49, employment 7→106, driving 0→25. The realtime-alert gate was aligned to the same rule.
+- **Automated official-page check applied:** `scripts/kb-verify-publish.js --apply` verified 388 remaining bulk-approved records against their live official pages (quote word-for-word plus every summary figure) and published the 45 that passed as `source_verified`, labelled "Checked against the official page · automated". The rest stay withheld with honest reasons (153 quote drift, 42 dead links, 56 network failures, …) and remain in the publish queue for editors. Database backup taken first.
+- **legal-notices crash fixed:** the POST handler accepted only canonical parameter names, so every website/API call with the form's field names failed with 400 "senderName is required". It now accepts both namings, splits semicolon lists and applies the same defaults as GET.
+- **POST tool handlers accept website form field names:** a new alias table (`applyFormAliases`) mirrors the GET mappings for study-to-pr (which returned the same default answer for every user), visitor-visa-financial-ties (monthly income), us-h1b-opt (I-94 date), uk-skilled-worker (new entrant), workplace-rights (injury date), lmia-readiness, sin-healthcare, pr-matrix, family-reunification, tax-shield, calendar-sync, australia-reforms, germany-chancenkarte, moving-tax-calc, severance-bardal, ei-benefits, esa-wage-theft, fcr-bridging, poe-rights, gcms-analyzer, global-visa-matrix and super-visa-lico — 23 mapping rows in total. The branch endpoints that cannot be row-mapped (`cra-newcomer-wealth`, `ontario-bc-tenancy`, `global-expat`, `canada-status-admissibility`) mirror the GET per-branch parameters while still accepting the canonical JSON keys. A new contract test (`test/tool-form-contract.test.js`) drives every website tool form over POST and GET with default and varied values and asserts identical results (iCalendar UID/DTSTAMP lines normalized).
+- **Translation API error handling:** a non-string `targetLanguage`/`termKey` no longer renders as "[object Object]"; it falls back to the documented defaults. The bilingual view already handles non-string text.
+- **/v1/account 404s removed:** without plans enabled, `/v1/account/usage` and `/v1/account/keys` now return 204 like `/v1/account`, and the website treats 204 as "plans not enabled" instead of rendering broken usage tiles.
+- **"In short" no longer half empty:** evidence leads longer than the summary cap were dropped entirely; they are now shortened at a sentence boundary.
+- **Dropdown arrow restored:** the composer and language-selector selects reset the shared arrow background image with `background:transparent`; both now re-declare it.
+- **Tool runs get their own rate-limit family** (240/min) so quick form retries never starve chat answers; custom `rateLimits` overrides now merge over defaults so a partial override cannot leave a family without a limiter, and the shared quota store accepts the new family.
+- **Longer pasted text accepted:** the default request-body cap rose from 12 KB to 64 KB (the ~18 KB paste rejection).
+- **Tests:** new `test/public-evidence.test.js` and `test/tool-form-aliases.test.js`; request-body, deep-audit and new-tools tests updated for the new default cap and rate family. Full suite green.
+
 ## 0.19.48 — Project review and hygiene batch (2 November 2026)
 
 Full external review pass; fixes from the review report:

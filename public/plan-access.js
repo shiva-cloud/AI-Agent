@@ -140,7 +140,7 @@ async function openUsageDashboard() {
 
   const res = await window.fetch('/v1/account/usage');
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) { body.replaceChildren(el('p', { textContent: data.error || 'Usage is not available.' })); return; }
+  if (res.status === 204 || !res.ok) { body.replaceChildren(el('p', { textContent: res.status === 204 ? 'Usage is not available on this server.' : (data.error || 'Usage is not available.') })); return; }
 
   const reset = new Date(data.resetAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', timeZone: 'UTC' });
   const left = f => Math.max(0, data.limits[f] - data.totals[f]);
@@ -279,7 +279,7 @@ export function mountPlanAccess(container) {
   const keyForm = el('form', { className: 'plan-form' }, labelLabel, createKey);
   async function loadKeys() {
     const res = await window.fetch('/v1/account/keys');
-    if (!res.ok) { keyList.replaceChildren(); return; }
+    if (!res.ok || res.status === 204) { keyList.replaceChildren(); return; }
     const data = await res.json();
     const active = data.keys.filter(k => !k.revokedAt);
     keyList.replaceChildren(...active.map(k => {

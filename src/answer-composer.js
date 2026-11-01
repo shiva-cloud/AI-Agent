@@ -220,6 +220,17 @@ export function splitSentences(text) {
   }
   return sentences.filter(Boolean);
 }
+// A lead longer than the summary cap used to be dropped, leaving "In short"
+// half empty; shorten it at a sentence boundary instead.
+function summaryLine(lead,cap=420) {
+  if(!lead||lead.length<=cap) return lead;
+  let line='';
+  for(const sentence of splitSentences(lead)) {
+    if(line && `${line} ${sentence}`.length>cap) break;
+    line=line?`${line} ${sentence}`:sentence;
+  }
+  return line||lead.slice(0,cap).trim();
+}
 
 const capitalise=text=>text ? text.charAt(0).toUpperCase()+text.slice(1) : text;
 
@@ -437,8 +448,8 @@ export function composePresentation(result,{aiSummary=null}={}) {
   // shown in reading order. Checklists summarise themselves through steps.
   const summary=aiSummary
     ? [aiSummary]
-    : primary.map((s,i)=>({lead:s.lead,i,score:s.lead?overlap(s.lead,terms)-i*0.1:-1}))
-      .filter(x=>x.lead && x.lead.length<=420).sort((a,b)=>b.score-a.score).slice(0,2).sort((a,b)=>a.i-b.i).map(x=>x.lead);
+    : primary.map((s,i)=>({lead:summaryLine(s.lead),i,score:s.lead?overlap(s.lead,terms)-i*0.1:-1}))
+      .filter(x=>x.lead).sort((a,b)=>b.score-a.score).slice(0,2).sort((a,b)=>a.i-b.i).map(x=>x.lead);
   return {
     version:PRESENTATION_VERSION,
     headline:headlineFor(result||{}),

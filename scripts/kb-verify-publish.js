@@ -47,18 +47,36 @@ export async function verifyAndPublish(store, { apply = false, topic = null, lim
   const queue = publishQueue(store.db, store.records(), store.ingestion.sources(), store.ingestion.candidates(), now);
   const rows = queue.rows.filter(r => r.state === 'ready' && (!topic || r.topic === topic)).slice(0, limit);
   const pages = await fetchAll(new Set(rows.map(r => r.url)), { fetchImpl });
+  // Pages that are gone or block the fetch get one honest second chance: the
+  // Internet Archive copy of the same official URL, when a snapshot exists.
+  // The provenance note records that the archived copy was the evidence.
+  const archiveTargets = new Map();
+  for (const row of rows) {
+    const page = pages.get(row.url);
+    if (!page.text && ['http_404', 'http_403'].includes(page.error)) archiveTargets.set(row.id, `https://web.archive.org/web/2026/${row.url}`);
+  }
+  const archivePages = archiveTargets.size ? await fetchAll(new Set(archiveTargets.values()), { fetchImpl }) : new Map();
   const results = [];
   for (const row of rows) {
     const page = pages.get(row.url);
-    const check = page.text ? verifyAgainstPage(row.draft, page.text) : { ok: false, reason: page.error };
-    const result = { id: row.id, topic: row.topic, jurisdiction: row.jurisdiction, url: row.url, ok: check.ok, reason: check.reason ?? null, detail: check.detail ?? null, published: false };
+    let check = page.text ? verifyAgainstPage(row.draft, page.text) : { ok: false, reason: page.error };
+    let viaArchive = false;
+    const archiveUrl = archiveTargets.get(row.id);
+    if (!check.ok && archiveUrl) {
+      const archived = archivePages.get(archiveUrl);
+      check = archived?.text ? verifyAgainstPage(row.draft, archived.text)
+        : { ok: false, reason: `archive_${archived?.error ?? 'page_unavailable'}` };
+      if (check.ok) viaArchive = true;
+      else if (!String(check.reason).startsWith('archive_')) check = { ok: false, reason: `archive_${check.reason}`, detail: check.detail ?? null };
+    }
+    const result = { id: row.id, topic: row.topic, jurisdiction: row.jurisdiction, url: row.url, ok: check.ok, viaArchive, reason: check.reason ?? null, detail: check.detail ?? null, published: false };
     if (check.ok && apply) {
       try {
         const record = { ...row.draft, quote: check.quote };
         const candidate = store.ingestion.ingest({ sourceId: row.sourceId, requestKey: `verify-${row.id}-${today.replaceAll('-', '')}`.slice(0, 80), content: check.excerpt, record });
         if (candidate.status === 'pending') {
           store.ingestion.decide(candidate.id, { decision: 'approve', reviewer: REVIEWER, reviewMethod: 'source_verified',
-            note: `Automated check on ${today}: the quote appears word for word on the official page, and every figure in the summary appears on the page. Not an editor's review.` });
+            note: `Automated check on ${today}: the quote appears word for word on ${viaArchive ? 'the archived copy of the official page (web.archive.org)' : 'the official page'}, and every figure in the summary appears on the page. Not an editor's review.` });
         }
         result.published = true;
       } catch (e) { result.ok = false; result.reason = 'import_refused'; result.detail = e.message; }

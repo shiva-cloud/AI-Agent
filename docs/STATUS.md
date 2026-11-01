@@ -1,6 +1,16 @@
 # Implementation status — 2 November 2026
 
-## Current release: 0.19.48, English-only
+## Current release: 0.19.49, English-only
+
+### Audit remediation batch (0.19.49)
+
+Fixes for the 2 November external audit report; details in `docs/CHANGELOG.md` 0.19.49:
+
+- The evidence visibility gate no longer withholds editorially reviewed high-risk records (double-gate bug in `publicEvidence`), and the automated official-page check published 45 more records as `source_verified`. User-visible records: 242 → 563 (health 0→23, housing 2→49, employment 7→106, driving 0→25).
+- legal-notices POST crash fixed; 23 POST tool handlers now accept the website's form field names through one alias table (study-to-pr's "same answer for everyone" and the dead monthly-income / I-94 / new-entrant / injury-date / LMIA-wage fields included), and the four branch endpoints (cra-newcomer-wealth, ontario-bc-tenancy, global-expat, canada-status-admissibility) mirror their GET per-branch parameters while still taking canonical JSON. A contract test drives every website tool form over POST and GET (default + varied) and asserts identical results.
+- Translation API garbage output fixed; `/v1/account/usage` and `/v1/account/keys` no longer 404 without plans; "In short" no longer drops long leads; composer/language dropdown arrows restored.
+- Tool runs got their own 240/min rate-limit family; request-body default cap 12 KB → 64 KB.
+- Full suite green after the batch.
 
 ### Project review and hygiene batch (0.19.48)
 

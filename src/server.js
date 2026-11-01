@@ -274,9 +274,19 @@ const ALIAS_TRANSFORMS={
   number:value=>{const n=Number(value);return value!==''&&value!==null&&Number.isFinite(n)?n:undefined;},
   boolTrue:value=>value===true||value==='true',
   notFalse:value=>!(value===false||value==='false'),
-  csv:value=>Array.isArray(value)?value:(typeof value==='string'?value.split(',').map(s=>s.trim()).filter(Boolean):undefined)
+  csv:value=>Array.isArray(value)?value:(typeof value==='string'?value.split(',').map(s=>s.trim()).filter(Boolean):undefined),
+  branch:value=>({parental:'parental_standard',qpip:'qpip_paternity',sickness:'sickness'}[value]??value)
 };
 const TOOL_FORM_ALIASES={
+  '/v1/tools/study-permit-cap-pal':{
+    tuition:[['tuitionFeeFirstYearCad'],'number'],
+    funds:[['liquidFundsAvailableCad'],'number'],
+    dependents:[['familyMembersAccompanying'],'number'],
+    inland:[['isInCanadaApplication'],'boolTrue'],
+    extension:[['isExtensionOfStudyPermit'],'boolTrue'],
+    familyExempt:[['isFamilyOfWorkOrStudyHolder'],'boolTrue'],
+    field:'fieldOfStudyCategory',cip:'cipCode',applicant:'applicantName'
+  },
   '/v1/tools/study-to-pr':{
     degree:'studyLevel',
     clb:[['expectedClbLanguage'],'number'],
@@ -309,10 +319,6 @@ const TOOL_FORM_ALIASES={
     reported:[['reportedToSupervisor'],'notFalse'],disciplined:[['employerDisciplinedOrFiredWorker'],'boolTrue'],
     wageCut:[['unilateralWageReductionPercent'],'number']
   },
-  '/v1/tools/ei-benefits':{
-    reason:'quitReasonCategory',earnings:[['averageWeeklyEarningsCad'],'number'],
-    hours:[['insurableHoursAccrued'],'number'],rate:[['regionalUnemploymentRatePercent'],'number']
-  },
   '/v1/tools/esa-wage-theft':{
     earnings:[['grossEarningsCad'],'number'],
     years:[['yearsOfService','yearsOfContinuousService'],'number'],
@@ -336,13 +342,61 @@ const TOOL_FORM_ALIASES={
   },
   '/v1/tools/global-visa-matrix':{
     countries:[['preferredCountries'],'csv'],education:'educationLevel',field:'fieldOfStudy',
-    experience:[['yearsExperience'],'number'],jobOffer:[['hasJobOffer'],'boolTrue']
+    experience:[['yearsExperience'],'number'],jobOffer:[['hasJobOffer'],'boolTrue'],age:[['applicantAge'],'number']
   },
   '/v1/tools/super-visa-lico':{
     hostMembers:[['hostFamilyMembersInCanada'],'number'],visitingMembers:[['parentsGrandparentsToSponsor'],'number'],
-    income:[['hostAnnualIncomeCad'],'number'],coSignerIncome:['coSignerIncomeCad'],
-    insurance:['hasCanadianHealthInsurance'],coverage:[['insuranceCoverageAmountCad'],'number'],
-    appType:'applicationType'
+    income:[['hostAnnualIncomeCad'],'number'],coSignerIncome:[['coSignerIncomeCad'],'number'],
+    insurance:[['hasCanadianHealthInsurance'],'notFalse'],coverage:[['insuranceCoverageAmountCad'],'number'],
+    appType:[['applicationType'],'plain']
+  },
+  '/v1/tools/ei-benefits':{
+    reason:'quitReasonCategory',earnings:[['averageWeeklyEarningsCad'],'number'],
+    hours:[['insurableHoursAccrued'],'number'],rate:[['regionalUnemploymentRatePercent'],'number'],
+    action:[['benefitType'],'branch']
+  },
+  '/v1/tools/lmia-readiness':{
+    employer:'employerName',wage:[['offeredHourlyWageCad'],'number'],noc:'nocCode',teer:[['teerCategory'],'number'],
+    isExempt:[['isExemptionClaimed'],'boolTrue'],exemptionCode:'exemptionCode',nclc:[['frenchProficiencyNclc'],'number'],
+    citizenship:'applicantCitizenship',unemploymentHigh:[['cmaUnemploymentOver6Percent'],'boolTrue'],
+    tfwProportion:[['currentTfwProportionPercent'],'number']
+  },
+  '/v1/tools/sin-healthcare':{
+    status:'statusInCanada',studyWork:[['studyPermitHasWorkCondition'],'notFalse'],
+    permitMonths:[['workPermitMinDurationMonths'],'number'],leaseReady:[['residencyDocumentsReady'],'notFalse']
+  },
+  '/v1/tools/pr-matrix':{
+    education:'educationLevel',age:[['age'],'number'],experience:[['yearsExperience'],'number'],
+    clb:[['englishLanguageScore'],'number'],jobOffer:[['hasJobOffer'],'boolTrue'],secondaryLang:[['hasSecondaryLanguage'],'boolTrue']
+  },
+  '/v1/tools/family-reunification':{
+    category:'category',sponsorStatus:'sponsorStatus',programType:[['studentProgramType'],'plain']
+  },
+  '/v1/tools/tax-shield':{
+    income:[['annualEmploymentIncomeCad'],'number']
+  },
+  '/v1/tools/calendar-sync':{
+    milestone:[['milestoneType'],'plain'],date:[['anchorDate'],'plain'],name:[['applicantName'],'plain']
+  },
+  '/v1/tools/australia-reforms':{
+    subclass:[['visaSubclass'],'plain'],ceasedDays:[['daysSinceCeasedEmployment'],'number'],
+    cumulativeDays:[['totalCumulativeCessationDays'],'number'],income:[['annualTaxableIncomeAud'],'number'],
+    hasMes:[['hasMedicareEntitlementStatement'],'boolTrue']
+  },
+  '/v1/tools/germany-chancenkarte':{
+    points:[['chancenkartePoints'],'number'],language:[['germanLanguageLevel'],'plain'],
+    hours:[['secondaryWorkHoursPerWeek'],'number'],nebenkostenMonths:[['nebenkostenInvoiceMonthsAfterPeriod'],'number'],
+    arrears:[['nebenkostenArrearsDemandedEur'],'number']
+  },
+  '/v1/tools/moving-tax-calc':{
+    oldToNewKm:[['distanceOldHomeToNewWorkKm'],'number'],newToNewKm:[['distanceNewHomeToNewWorkKm'],'number'],
+    movers:[['transportAndStorageCostsCad'],'number'],travelKm:[['travelDistanceKm'],'number'],
+    tempDays:[['temporaryLivingDays'],'number'],tempLodging:[['temporaryLivingLodgingCad'],'number']
+  },
+  '/v1/tools/severance-bardal':{
+    age:[['employeeAge'],'number'],service:[['yearsOfService'],'number'],salary:[['annualSalaryCad'],'number'],
+    role:[['employmentRole'],'plain'],largePayroll:[['employerPayrollOver2Point5Million'],'notFalse'],
+    hasClause:[['hasSignedEnforceableEsaOnlyClause'],'boolTrue'],jobMarket:[['availabilityOfSimilarJobs'],'plain']
   }
 };
 export function applyFormAliases(path,input){
@@ -6158,49 +6212,121 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
       return send(200, evaluatePortOfEntryRights(input));
     }
     if(path==='/v1/tools/cra-newcomer-wealth') {
-      return send(200, evaluateNewcomerWealthPlan(input));
+      // Mirror the GET endpoint for form/flat bodies; canonical nested plan objects pass through as-is.
+      const num=(v,d)=>{const n=Number(v);return n!==''&&v!=null&&v!==''&&Number.isFinite(n)?n:d;};
+      const isObj=v=>v&&typeof v==='object'&&!Array.isArray(v);
+      const hbp=num(input.hbp??input.plannedHbp,60000);
+      return send(200, evaluateNewcomerWealthPlan({
+        fhsa: isObj(input.fhsa)?input.fhsa:{ plannedContributionCad: num(input.fhsa??input.plannedFhsa,8000) },
+        hbp: isObj(input.hbp)?input.hbp:{ requestedWithdrawalCad: hbp, rrspBalanceCad: hbp },
+        foreignProperty: isObj(input.foreignProperty)?input.foreignProperty:{ foreignPropertyFmvAtLandingCad: num(input.foreignFmv,250000) },
+        gift: isObj(input.gift)?input.gift:{ giftAmountCad: num(input.gift??input.giftAmount,50000) }
+      }));
     }
     if(path==='/v1/tools/ontario-bc-tenancy') {
-      if (input.province === 'BC' || input.type === 'bc_tenancy') {
-        return send(200, auditBcTenancyNotice(input));
+      // Mirror the GET endpoint for form bodies; canonical API keys win when present.
+      const isTrue=v=>v===true||v==='true';
+      const notEmpty=v=>v!=null&&v!=='';
+      const numOr=(v,d)=>{const n=Number(v);return notEmpty(v)&&Number.isFinite(n)?n:d;};
+      const province=String(input.province||'ON').toUpperCase();
+      const currentRent=numOr(input.currentRent,2000);
+      const proposedRent=numOr(input.proposedRent,2100);
+      const action=input.action||'rent_increase';
+      if (province === 'BC' || input.type === 'bc_tenancy') {
+        return send(200, auditBcTenancyNotice({
+          type: input.type || (action === 'landlord_use' ? 'landlord_use' : 'rent_increase'),
+          currentRentCad: numOr(input.currentRentCad,currentRent),
+          proposedRentCad: numOr(input.proposedRentCad,proposedRent),
+          landlordFailedToOccupyFor6Months: isTrue(input.landlordFailedToOccupyFor6Months??input.badFaith)
+        }));
       }
-      if (input.action === 'shared_facility') {
-        return send(200, evaluateOntarioSharedKitchenBathroomJurisdiction(input));
+      if (action === 'shared_facility') {
+        return send(200, evaluateOntarioSharedKitchenBathroomJurisdiction({
+          sharesKitchenOrBathroomWithLandlord: isTrue(input.sharesKitchenOrBathroomWithLandlord??input.shares),
+          landlordOrFamilyLivesInUnit: isTrue(input.landlordOrFamilyLivesInUnit??input.landlordLivesIn),
+          relativeRelationshipToLandlord: input.relativeRelationshipToLandlord ?? (input.relation || 'self')
+        }));
       }
-      if (input.action === 'n12_audit') {
-        return send(200, auditOntarioFormN12Notice(input));
+      if (action === 'n12_audit') {
+        return send(200, auditOntarioFormN12Notice({
+          monthlyRentCad: numOr(input.monthlyRentCad,currentRent),
+          compensationPaidDate: input.compensationPaidDate ?? (input.paidDate||null)
+        }));
       }
-      if (input.action === 't1_refund') {
-        return send(200, evaluateOntarioT1RefundClaim(input));
+      if (action === 't1_refund') {
+        return send(200, evaluateOntarioT1RefundClaim({
+          amountPaidCad: numOr(input.amountPaidCad, numOr(input.amount, 1500)),
+          paymentDate: input.paymentDate ?? (input.paidDate||'2025-06-01')
+        }));
       }
-      return send(200, auditOntarioRentIncrease(input));
+      return send(200, auditOntarioRentIncrease({
+        currentMonthlyRentCad: numOr(input.currentMonthlyRentCad,currentRent),
+        proposedMonthlyRentCad: numOr(input.proposedMonthlyRentCad,proposedRent)
+      }));
     }
     if(path==='/v1/tools/global-expat') {
-      if (input.country === 'uae_gratuity' || input.action === 'gratuity') {
-        return send(200, evaluateUaeGratuityAndWps(input));
+      // Mirror the GET endpoint for form bodies; canonical API keys win when present.
+      const notEmpty=v=>v!=null&&v!=='';
+      const numOr=(v,d)=>{const n=Number(v);return notEmpty(v)&&Number.isFinite(n)?n:d;};
+      const country=String(input.country||'uae').toLowerCase();
+      if (country === 'uae' || country === 'uae_gratuity' || input.action === 'gratuity' || notEmpty(input.monthlyBasicSalaryAed)) {
+        return send(200, evaluateUaeGratuityAndWps({
+          monthlyBasicSalaryAed: numOr(input.monthlyBasicSalaryAed, numOr(input.salary,15000)),
+          yearsOfService: numOr(input.yearsOfService, numOr(input.years,3)),
+          unlawfulDeductionsClaimedByEmployerAed: numOr(input.unlawfulDeductionsClaimedByEmployerAed, numOr(input.deductions,0))
+        }));
       }
-      if (input.country === 'dubai_eviction' || input.action === 'dubai_rera') {
-        return send(200, auditDubaiReraEvictionNotice(input));
+      if (country === 'dubai' || country === 'dubai_eviction' || country === 'dubai_rera' || input.action === 'dubai_rera' || notEmpty(input.noticeMethod) || notEmpty(input.noticeMonthsGiven)) {
+        return send(200, auditDubaiReraEvictionNotice({
+          noticeMethod: input.noticeMethod ?? (input.method || 'email'),
+          noticeMonthsGiven: numOr(input.noticeMonthsGiven, numOr(input.months,12))
+        }));
       }
-      if (input.country === 'nz' || input.action === 'new_zealand') {
-        return send(200, evaluateNewZealandAewvAndTenancy(input));
+      if (country === 'nz' || input.action === 'new_zealand') {
+        return send(200, evaluateNewZealandAewvAndTenancy({
+          daysSinceJobLoss: numOr(input.daysSinceJobLoss, numOr(input.jobLossDays,25)),
+          bondWorkingDaysSincePayment: numOr(input.bondWorkingDaysSincePayment, numOr(input.bondDays,15))
+        }));
       }
-      if (input.country === 'ireland' || input.action === 'ireland') {
-        return send(200, evaluateIrelandCsepAndRpz(input));
+      if (country === 'ireland' || input.action === 'ireland') {
+        return send(200, evaluateIrelandCsepAndRpz({
+          monthsWorkedOnCsep: numOr(input.monthsWorkedOnCsep, numOr(input.csepMonths,22))
+        }));
       }
-      return send(200, evaluateSingaporeCompassPass(input));
+      if (notEmpty(input.salaryPoints) || notEmpty(input.qualificationPoints)) {
+        return send(200, evaluateSingaporeCompassPass(input));
+      }
+      const score=numOr(input.score,40);
+      return send(200, evaluateSingaporeCompassPass({ salaryPoints: score >= 20 ? 20 : score, qualificationPoints: score >= 40 ? 20 : 10 }));
     }
     if(path==='/v1/tools/canada-status-admissibility') {
-      if (input.category === 'restoration' || input.statusExpiredDate) {
-        return send(200, evaluateRestorationOfStatus(input));
+      // Mirror the GET endpoint for form bodies; canonical API keys win when present.
+      const isTrue=v=>v===true||v==='true';
+      const notEmpty=v=>v!=null&&v!=='';
+      const numOr=(v,d)=>{const n=Number(v);return notEmpty(v)&&Number.isFinite(n)?n:d;};
+      const category=String(input.category||'restoration').toLowerCase();
+      if (category === 'flagpoling' || notEmpty(input.borderPort) || notEmpty(input.requestedPermitType)) {
+        return send(200, auditFlagpolingEligibility({
+          requestedPermitType: input.requestedPermitType ?? (input.permit || 'pgwp'),
+          borderPort: input.borderPort ?? (input.port || 'peace_bridge'),
+          dayOfWeek: input.dayOfWeek ?? (input.day || 'wednesday')
+        }));
       }
-      if (input.category === 'flagpoling' || input.borderPort) {
-        return send(200, auditFlagpolingEligibility(input));
+      if (category === 'dli_leave' || input.leaveDurationDays !== undefined) {
+        return send(200, auditDliAuthorizedLeave({
+          leaveDurationDays: numOr(input.leaveDurationDays, numOr(input.days,120)),
+          workedDuringLeave: isTrue(input.workedDuringLeave ?? input.worked)
+        }));
       }
-      if (input.category === 'dli_leave' || input.leaveDurationDays !== undefined) {
-        return send(200, auditDliAuthorizedLeave(input));
+      if (category === 'criminal_inadmissibility' || notEmpty(input.offenseClassification) || input.yearsSinceSentenceCompleted !== undefined) {
+        return send(200, evaluateCriminalInadmissibility({
+          offenseClassification: input.offenseClassification ?? (isTrue(input.serious) ? 'serious_criminality' : 'non_serious_summary'),
+          yearsSinceSentenceCompleted: numOr(input.yearsSinceSentenceCompleted, numOr(input.years,11))
+        }));
       }
-      return send(200, evaluateCriminalInadmissibility(input));
+      return send(200, evaluateRestorationOfStatus({
+        statusExpiredDate: input.statusExpiredDate ?? (input.expiredDate || '2026-03-01')
+      }));
     }
     if(path==='/v1/kb/classify-policy') {
       const classification = classifyPolicySeverity(input || {});

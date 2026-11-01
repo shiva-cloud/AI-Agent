@@ -2,7 +2,7 @@ export class RequestBodyError extends Error {
   constructor(status, code, message) { super(message); this.status = status; this.code = code; }
 }
 
-export function readRequestBody(req, { maxBytes = 12000, timeoutMs = 10000 } = {}) {
+export function readRequestBody(req, { maxBytes = 65536, timeoutMs = 10000 } = {}) {
   if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || maxBytes > 1048576 || !Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 15000) throw new Error('Invalid body reader configuration');
   return new Promise((resolve, reject) => {
     let size = 0, settled = false, timer;

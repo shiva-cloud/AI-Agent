@@ -404,9 +404,12 @@ export function translatePolicyDelta(params = {}) {
     termKey = 'OVERTIME_PAY',
     targetLanguage = 'hi'
   } = safeParams;
-  const langKey = String(targetLanguage || 'hi').toLowerCase();
+  // Only plain text is a language code; objects or arrays would render as
+  // "[object Object]" in the response, so they fall back to the default.
+  const langKey = (typeof targetLanguage === 'string' && targetLanguage.trim()
+    ? targetLanguage : 'hi').toLowerCase().slice(0, 10);
   const dict = MULTILINGUAL_SYNSET_TERMS[langKey] || MULTILINGUAL_SYNSET_TERMS.hi;
-  const tk = String(termKey || 'OVERTIME_PAY').toUpperCase();
+  const tk = (typeof termKey === 'string' && termKey.trim() ? termKey : 'OVERTIME_PAY').toUpperCase().slice(0, 80);
   const translated = dict[tk] || tk;
 
   return {

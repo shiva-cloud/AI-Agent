@@ -21,7 +21,7 @@ test('body reader preserves split bytes and releases listeners on success and re
 test('disconnect and advertised oversize terminate body reads',async()=>{
  const req=new PassThrough();req.headers={};const pending=readRequestBody(req);req.emit('aborted');
  await assert.rejects(pending,error=>error.status===400);
- const declared=new PassThrough();declared.headers={'content-length':'12001'};
+ const declared=new PassThrough();declared.headers={'content-length':'65537'};
  await assert.rejects(readRequestBody(declared),error=>error.status===413);
  assert.equal(declared.listenerCount('data'),0);
 });
@@ -30,7 +30,7 @@ test('slow and oversized HTTP uploads receive bounded errors; healthy requests s
  const store=openStore(':memory:'),server=createApp(store,null,{}, {bodyTimeoutMs:50});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const port=server.address().port;
  const request=oversized=>new Promise((resolve,reject)=>{
-  const req=http.request({host:'127.0.0.1',port,path:'/v1/answers',method:'POST',headers:{'Content-Type':'application/json',...(oversized?{'Content-Length':'12001'}:{'Transfer-Encoding':'chunked'})}},res=>{
+  const req=http.request({host:'127.0.0.1',port,path:'/v1/answers',method:'POST',headers:{'Content-Type':'application/json',...(oversized?{'Content-Length':'65537'}:{'Transfer-Encoding':'chunked'})}},res=>{
    let body='';res.on('data',chunk=>body+=chunk);res.on('end',()=>{resolve({status:res.statusCode,headers:res.headers,body:JSON.parse(body)});req.destroy();});
   });
   req.on('error',reject);req.flushHeaders();if(!oversized)req.write('{');

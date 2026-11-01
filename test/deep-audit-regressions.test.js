@@ -12,7 +12,7 @@ import { ValidationError } from '../src/api-errors.js';
 test('tool routes reject suffixes for GET and POST and invalid dates return 400', async () => {
   const store = openStore(':memory:');
   const server = createApp(store, undefined, {}, {
-    rateLimits: { v1: { limit: 1000, windowMs: 60000 }, admin: { limit: 60, windowMs: 60000 }, static: { limit: 240, windowMs: 60000 } }
+    rateLimits: { v1: { limit: 1000, windowMs: 60000 }, tools: { limit: 1000, windowMs: 60000 }, admin: { limit: 60, windowMs: 60000 }, static: { limit: 240, windowMs: 60000 } }
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
