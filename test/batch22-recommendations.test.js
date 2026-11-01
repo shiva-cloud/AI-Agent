@@ -11,9 +11,7 @@ import { evaluateChildDisabilityBenefit } from '../src/child-disability-benefit-
 import { evaluateChildWelfareAndGuardianship } from '../src/child-welfare-guardianship-navigator.js';
 import { evaluateChildCareSubsidy } from '../src/childcare-subsidy-navigator.js';
 import {
-  evaluateFhsaEligibility,
-  evaluateHbpWithdrawal,
-  evaluateForeignPropertyAndLandingStepUp,
+
   evaluateNewcomerWealthPlan
 } from '../src/cra-newcomer-wealth-navigator.js';
 import {

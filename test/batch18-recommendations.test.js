@@ -1,21 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluateAutoInsuranceProfile, AUTO_INSURANCE_CONSTANTS } from '../src/auto-insurance-navigator.js';
-import { evaluateBowpPathway, calculateDaysToExpiry, evaluateSpousalSowp, BOWP_CONSTANTS } from '../src/bowp-navigator.js';
-import { evaluateCommercialLease, COMMERCIAL_LEASE_CONSTANTS, COMMERCIAL_LEASE_TYPES } from '../src/commercial-lease-navigator.js';
-import { evaluateConsumerContract, CONSUMER_PROTECTION_CONSTANTS } from '../src/consumer-protection-navigator.js';
-import { evaluateVoluntaryDisclosure, CRA_VDP_CONSTANTS } from '../src/cra-voluntary-disclosure.js';
-import { evaluateCredentialPathway, ECA_ORGANIZATIONS, REGULATED_PROFESSIONS } from '../src/credential-navigator.js';
-import { evaluateCurrencyExchange, FINTRAC_STATUTORY_CONSTANTS, MID_MARKET_BENCHMARK_RATES } from '../src/currency-exchange-navigator.js';
-import { evaluateDebtCollectionDefense, calculateYearsElapsed, DEBT_DEFENSE_CONSTANTS } from '../src/debt-collection-defense.js';
-import { auditEmploymentReferenceLetter, REFERENCE_AUDIT_CONSTANTS } from '../src/employment-reference-audit.js';
-import { auditEvictionNotice, EVICTION_FORM_RULES } from '../src/eviction-defense.js';
-import { evaluateLmiaReadiness, PROVINCIAL_MEDIAN_WAGES_2025_2026, LMIA_EXEMPTION_CODES } from '../src/lmia-readiness-navigator.js';
-import { evaluateMedicalAdmissibility, ANNUAL_EXCESSIVE_DEMAND_THRESHOLD_CAD, FIVE_YEAR_EXCESSIVE_DEMAND_THRESHOLD_CAD } from '../src/medical-admissibility.js';
-import { evaluateNbpnpSkilledWorker, calculateNbpnpSettlementFunds, NBPNP_PASS_MARK_POINTS } from '../src/new-brunswick-provincial-nominee-skilled-worker-navigator.js';
-import { evaluateOasGisEligibility, generateSeniorBenefitRoadmap, OAS_GIS_CONSTANTS, TOTALIZATION_PARTNER_COUNTRIES } from '../src/oas-gis-navigator.js';
-import { evaluatePetImportation, CFIA_FIRST_ANIMAL_INSPECTION_FEE_CAD, BANNED_ONTARIO_BSL_BREEDS } from '../src/pet-importation.js';
+import { evaluateAutoInsuranceProfile } from '../src/auto-insurance-navigator.js';
+import { evaluateBowpPathway } from '../src/bowp-navigator.js';
+import { evaluateCommercialLease } from '../src/commercial-lease-navigator.js';
+import { evaluateConsumerContract } from '../src/consumer-protection-navigator.js';
+import { evaluateVoluntaryDisclosure } from '../src/cra-voluntary-disclosure.js';
+import { evaluateCredentialPathway } from '../src/credential-navigator.js';
+import { evaluateCurrencyExchange } from '../src/currency-exchange-navigator.js';
+import { evaluateDebtCollectionDefense } from '../src/debt-collection-defense.js';
+import { auditEmploymentReferenceLetter } from '../src/employment-reference-audit.js';
+import { auditEvictionNotice } from '../src/eviction-defense.js';
+import { evaluateLmiaReadiness } from '../src/lmia-readiness-navigator.js';
+import { evaluateMedicalAdmissibility } from '../src/medical-admissibility.js';
+import { evaluateNbpnpSkilledWorker, calculateNbpnpSettlementFunds } from '../src/new-brunswick-provincial-nominee-skilled-worker-navigator.js';
+import { evaluateOasGisEligibility, generateSeniorBenefitRoadmap } from '../src/oas-gis-navigator.js';
+import { evaluatePetImportation, CFIA_FIRST_ANIMAL_INSPECTION_FEE_CAD } from '../src/pet-importation.js';
 
 test('Batch 18 Recommendations (Sweep 25: Recs 336–350)', async (t) => {
   await t.test('Rec 336: evaluateAutoInsuranceProfile audits GTA FSA rating, foreign letter discount, SABS IRB, and Take-All-Comers rule', () => {

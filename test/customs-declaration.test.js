@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateCustomsDeclaration, TARIFF_REGIMES } from '../src/customs-declaration.js';
+import { evaluateCustomsDeclaration } from '../src/customs-declaration.js';
 
 test('evaluateCustomsDeclaration: applies Tariff Item 9807.00.00 for Permanent Resident settlers', () => {
   const result = evaluateCustomsDeclaration({

@@ -2,10 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   evaluateAlbertaOvertimeBanking,
-  calculateAlbertaOvertimeHours,
-  ALBERTA_STATUTORY_DAILY_OVERTIME_HOURS,
-  ALBERTA_STATUTORY_WEEKLY_OVERTIME_HOURS,
-  ALBERTA_OVERTIME_MULTIPLIER
+  calculateAlbertaOvertimeHours
 } from '../src/alberta-employment-overtime-banking-navigator.js';
 
 test('Alberta Overtime - 8/44 Rule (Daily excess greater than weekly excess)', () => {

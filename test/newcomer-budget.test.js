@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { calculateNewcomerBudget, OFFICIAL_FOOD_BASKET_MONTHLY, MAX_MONTHLY_CCB_PER_CHILD } from '../src/newcomer-budget.js';
+import { calculateNewcomerBudget, OFFICIAL_FOOD_BASKET_MONTHLY } from '../src/newcomer-budget.js';
 
 test('OFFICIAL_FOOD_BASKET_MONTHLY defines healthy food baskets for all household tiers', () => {
   assert.ok(OFFICIAL_FOOD_BASKET_MONTHLY.single_adult > 300);

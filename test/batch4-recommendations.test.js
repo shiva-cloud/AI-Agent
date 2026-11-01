@@ -5,8 +5,7 @@ import {
   evaluateHbpWithdrawal,
   evaluateTfsaNonResidentPenalty,
   evaluateForeignPropertyAndLandingStepUp,
-  evaluateOverseasGiftAndAmlProof,
-  evaluateNewcomerWealthPlan
+  evaluateOverseasGiftAndAmlProof
 } from '../src/cra-newcomer-wealth-navigator.js';
 import {
   auditOntarioRentIncrease,

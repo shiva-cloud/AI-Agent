@@ -1,21 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluateBcChildYouthEmployment, BC_LIGHT_WORK_ACTIVITIES } from '../src/british-columbia-employment-child-youth-employment-navigator.js';
-import { evaluateBcIllnessInjuryLeave, BC_SICK_LEAVE_CONSTANTS } from '../src/british-columbia-employment-illness-injury-leave-navigator.js';
-import { evaluateBcOvertimeBanking, BC_OVERTIME_CONSTANTS } from '../src/british-columbia-employment-overtime-banking-navigator.js';
-import { evaluateBcGroupTerminationNotice, calculateBcIndividualNoticeWeeks } from '../src/british-columbia-employment-severance-group-termination-navigator.js';
-import { auditBcEmploymentUniformAndDeductions, BC_UNIFORM_DEDUCTION_CONSTANTS } from '../src/british-columbia-employment-uniform-equipment-deduction-navigator.js';
-import { evaluateBcRtbDisputeTrack, BC_RTB_EXPEDITED_CONSTANTS } from '../src/british-columbia-residential-tenancy-dispute-resolution-urgency-navigator.js';
-import { evaluateBcLandlordUseEviction, BC_LANDLORD_USE_CONSTANTS } from '../src/british-columbia-residential-tenancy-landlord-use-eviction-navigator.js';
-import { evaluateBcSecurityDepositDoublePenalty, BC_DEPOSIT_PENALTY_CONSTANTS } from '../src/british-columbia-residential-tenancy-security-deposit-double-penalty-navigator.js';
-import { evaluateBcStrataEvCharging, BC_STRATA_EV_RULES } from '../src/british-columbia-strata-ev-charging-navigator.js';
+import { evaluateBcChildYouthEmployment } from '../src/british-columbia-employment-child-youth-employment-navigator.js';
+import { evaluateBcIllnessInjuryLeave } from '../src/british-columbia-employment-illness-injury-leave-navigator.js';
+import { evaluateBcOvertimeBanking } from '../src/british-columbia-employment-overtime-banking-navigator.js';
+import { evaluateBcGroupTerminationNotice } from '../src/british-columbia-employment-severance-group-termination-navigator.js';
+import { auditBcEmploymentUniformAndDeductions } from '../src/british-columbia-employment-uniform-equipment-deduction-navigator.js';
+import { evaluateBcRtbDisputeTrack } from '../src/british-columbia-residential-tenancy-dispute-resolution-urgency-navigator.js';
+import { evaluateBcLandlordUseEviction } from '../src/british-columbia-residential-tenancy-landlord-use-eviction-navigator.js';
+import { evaluateBcSecurityDepositDoublePenalty } from '../src/british-columbia-residential-tenancy-security-deposit-double-penalty-navigator.js';
+import { evaluateBcStrataEvCharging } from '../src/british-columbia-strata-ev-charging-navigator.js';
 import { evaluateBcRoommateAndSharedKitchen } from '../src/british-columbia-tenancy-roommate-shared-kitchen-navigator.js';
-import { auditCalgarySecondarySuite, CALGARY_SUITE_RULES } from '../src/calgary-secondary-suite-amnesty-navigator.js';
-import { evaluateManitobaEmploymentLeave, MANITOBA_SERVICE_REQUIREMENTS, MANITOBA_MAX_LEAVE_WEEKS } from '../src/manitoba-employment-leave-job-protection-navigator.js';
-import { evaluateManitobaGeneralHolidayPay, MANITOBA_HOLIDAY_CONSTANTS } from '../src/manitoba-employment-statutory-holiday-pay-navigator.js';
-import { evaluateManitobaPnpSkilledWorker, MPNP_CONSTANTS } from '../src/manitoba-pnp-skilled-worker-navigator.js';
-import { evaluateManitobaRentIncrease, MANITOBA_RENT_CONSTANTS } from '../src/manitoba-residential-tenancy-rent-increase-guideline-navigator.js';
+import { auditCalgarySecondarySuite } from '../src/calgary-secondary-suite-amnesty-navigator.js';
+import { evaluateManitobaEmploymentLeave } from '../src/manitoba-employment-leave-job-protection-navigator.js';
+import { evaluateManitobaGeneralHolidayPay } from '../src/manitoba-employment-statutory-holiday-pay-navigator.js';
+import { evaluateManitobaPnpSkilledWorker } from '../src/manitoba-pnp-skilled-worker-navigator.js';
+import { evaluateManitobaRentIncrease } from '../src/manitoba-residential-tenancy-rent-increase-guideline-navigator.js';
 
 test('Rec 426: evaluateBcChildYouthEmployment sanitizes inputs, bounds text/dates, and audits light work and hazardous restrictions under BC ESA ss. 9, 9.1', () => {
   const res = evaluateBcChildYouthEmployment({

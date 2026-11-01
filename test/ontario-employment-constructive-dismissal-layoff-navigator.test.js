@@ -4,7 +4,6 @@ import {
   ESA_LAYOFF_RULES,
   calculateEsaStatutoryNoticeWeeks,
   calculateEsaStatutorySeveranceWeeks,
-  estimateBardalNoticeMonths,
   evaluateEsaConstructiveDismissalLayoff
 } from '../src/ontario-employment-constructive-dismissal-layoff-navigator.js';
 

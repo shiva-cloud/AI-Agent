@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generateLegalNotice, NOTICE_TYPES, STATUTORY_METADATA } from '../src/legal-notice-generator.js';
+import { generateLegalNotice, NOTICE_TYPES } from '../src/legal-notice-generator.js';
 
 test('Legal Notice Generator — Validates required fields and notice types', () => {
   assert.throws(() => generateLegalNotice(null), /must be an object/);

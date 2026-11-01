@@ -2,8 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   evaluateBcGroupTerminationNotice,
-  calculateBcIndividualNoticeWeeks,
-  BC_GROUP_TERMINATION_THRESHOLDS
+  calculateBcIndividualNoticeWeeks
 } from '../src/british-columbia-employment-severance-group-termination-navigator.js';
 
 test('BC Group Termination - 75 employees (8 weeks notice) with s. 64 and s. 63 stacking', () => {

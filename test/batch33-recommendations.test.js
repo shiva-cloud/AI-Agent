@@ -3,28 +3,23 @@ import assert from 'node:assert/strict';
 
 // Rec 561
 import {
-  evaluateChildWelfareAndGuardianship,
-  CHILD_WELFARE_CONSTANTS,
-  PROTECTION_GROUNDS_TAXONOMY
+  evaluateChildWelfareAndGuardianship
 } from '../src/child-welfare-guardianship-navigator.js';
 
 // Rec 562
 import {
   extractStatutoryCitations,
-  linkifyStatutoryCitations,
-  STATUTORY_REPOSITORIES
+  linkifyStatutoryCitations
 } from '../src/citation-linker.js';
 
 // Rec 563
 import {
-  evaluateCitizenshipEligibility,
-  CITIZENSHIP_STATUTORY_CONSTANTS
+  evaluateCitizenshipEligibility
 } from '../src/citizenship-navigator.js';
 
 // Rec 564
 import {
-  compareCities,
-  CANADIAN_METROS
+  compareCities
 } from '../src/city-comparison.js';
 
 // Rec 565
@@ -35,9 +30,7 @@ import {
 
 // Rec 566
 import {
-  evaluateCommercialLease,
-  COMMERCIAL_LEASE_CONSTANTS,
-  COMMERCIAL_LEASE_TYPES
+  evaluateCommercialLease
 } from '../src/commercial-lease-navigator.js';
 
 // Rec 567
@@ -48,8 +41,7 @@ import {
 
 // Rec 568
 import {
-  evaluateConsumerContract,
-  CONSUMER_PROTECTION_CONSTANTS
+  evaluateConsumerContract
 } from '../src/consumer-protection-navigator.js';
 
 // Rec 569
@@ -62,8 +54,7 @@ import {
 // Rec 570
 import {
   getCorridor,
-  listSupportedCorridorCodes,
-  SUPPORTED_CORRIDORS
+  listSupportedCorridorCodes
 } from '../src/corridors-registry.js';
 
 // Rec 571
@@ -91,8 +82,7 @@ import {
 
 // Rec 574
 import {
-  evaluateVoluntaryDisclosure,
-  CRA_VDP_CONSTANTS
+  evaluateVoluntaryDisclosure
 } from '../src/cra-voluntary-disclosure.js';
 
 // Rec 575

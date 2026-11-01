@@ -5,83 +5,66 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  evaluateExpressEntryCrs,
-  CRS_STATUTORY_CONSTANTS,
-  BENCHMARK_DRAW_CUTOFFS
+  evaluateExpressEntryCrs
 } from '../src/express-entry-optimizer.js';
 
 import {
-  evaluateExpressEntryTieBreak,
-  EXPRESS_ENTRY_RULES
+  evaluateExpressEntryTieBreak
 } from '../src/express-entry-tie-breaking-navigator.js';
 
 import {
   calculateChildSupportTableAmount,
-  evaluateFamilyLawAndSupport,
-  FAMILY_LAW_CONSTANTS
+  evaluateFamilyLawAndSupport
 } from '../src/family-law-navigator.js';
 
 import {
-  evaluateFamilyReunification,
-  LICO_2025_TABLE
+  evaluateFamilyReunification
 } from '../src/family-reunification-navigator.js';
 
 import {
   evaluateFcrMicroLoans,
-  evaluateIenSpepEligibility,
-  evaluateImgPracticeReadyAssessment,
-  FCR_BRIDGING_CONSTANTS
+  evaluateImgPracticeReadyAssessment
 } from '../src/fcr-healthcare-bridge-navigator.js';
 
 import {
-  evaluateFederalBridgingOpenWorkPermit,
-  FEDERAL_BOWP_CONSTANTS
+  evaluateFederalBridgingOpenWorkPermit
 } from '../src/federal-bridging-open-work-permit-pr-acknowledgement-navigator.js';
 
 import {
-  evaluateFederalC10SignificantBenefit,
-  FEDERAL_C10_CONSTANTS
+  evaluateFederalC10SignificantBenefit
 } from '../src/federal-c10-significant-benefit-work-permit-navigator.js';
 
 import {
-  evaluateFederalFtaProfessionalWorkPermit,
-  FEDERAL_FTA_CONSTANTS
+  evaluateFederalFtaProfessionalWorkPermit
 } from '../src/federal-c12-gats-professional-fta-navigator.js';
 
 import {
-  evaluateFederalIntraCompanyTransferee,
-  FEDERAL_ICT_CONSTANTS
+  evaluateFederalIntraCompanyTransferee
 } from '../src/federal-c14-intra-company-transferee-navigator.js';
 
 import {
-  evaluateFederalReciprocalEmployment,
-  FEDERAL_C20_CONSTANTS
+  evaluateFederalReciprocalEmployment
 } from '../src/federal-c20-reciprocal-employment-work-permit-navigator.js';
 
 import {
-  evaluateFederalCaregiverPrPathway,
-  FEDERAL_CAREGIVER_CONSTANTS
+  evaluateFederalCaregiverPrPathway
 } from '../src/federal-caregiver-pr-pathway-experience-navigator.js';
 
 import {
-  auditCitizenshipPhysicalPresence,
-  CITIZENSHIP_PRESENCE_REQUIREMENTS
+  auditCitizenshipPhysicalPresence
 } from '../src/federal-citizenship-residence-calculator-audit-navigator.js';
 
 import {
-  evaluateCitizenshipRevocationDefense,
-  CITIZENSHIP_REVOCATION_NOTICE_RESPONSE_WINDOW_DAYS
+  evaluateCitizenshipRevocationDefense
 } from '../src/federal-citizenship-revocation-defense-navigator.js';
 
 import {
   calculateFcipSettlementFunds,
-  evaluateFrancophoneCommunityPilot,
-  FCIP_PARTICIPATING_COMMUNITIES
+  evaluateFrancophoneCommunityPilot
 } from '../src/federal-francophone-community-pilot-navigator.js';
 
 import {
-  evaluateFederalSuperVisaInsuranceLico,
-  FEDERAL_SUPER_VISA_CONSTANTS
+  evaluateFederalSuperVisaInsuranceLico
 } from '../src/federal-parent-grandparent-super-visa-medical-insurance-navigator.js';
 
 // Rec 276: Express Entry Optimizer

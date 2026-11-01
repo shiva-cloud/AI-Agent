@@ -1,14 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { syncEncryptedBackupOffsite, pruneOldBackups } from '../src/offsite-backup-sync.js';
+import { syncEncryptedBackupOffsite } from '../src/offsite-backup-sync.js';
 import {
   PINNED_MODELS,
   makeOllamaProvider,
-  createAIRouter,
   sanitizePayloadPii
 } from '../src/ai-router.js';
 import { parse, sanitizePromptInjection } from '../src/engine.js';
-import { lookupFaqCache, PRECOMPUTED_FAQ_CACHE } from '../src/synthetic-faq-cache.js';
+import { lookupFaqCache } from '../src/synthetic-faq-cache.js';
 import { DailyTokenQuotaManager } from '../src/ai-token-quota.js';
 import { auditLighthouseCompliance } from '../scripts/audit-lighthouse.js';
 import { minifyCss, minifyJs, bundleAssets } from '../scripts/bundle-assets.js';

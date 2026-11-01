@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateCitizenshipEligibility, CITIZENSHIP_STATUTORY_CONSTANTS } from '../src/citizenship-navigator.js';
+import { evaluateCitizenshipEligibility } from '../src/citizenship-navigator.js';
 
 test('evaluateCitizenshipEligibility: fully eligible applicant meets all statutory criteria', () => {
   const result = evaluateCitizenshipEligibility({

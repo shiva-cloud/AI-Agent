@@ -2,33 +2,27 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  evaluateBcSpeculationTaxDeclaration,
-  BC_SVT_CONSTANTS
+  evaluateBcSpeculationTaxDeclaration
 } from '../src/bc-speculation-tax-declaration-navigator.js';
 
 import {
-  evaluateBcStrataBylawDefense,
-  STRATA_CONSTANTS
+  evaluateBcStrataBylawDefense
 } from '../src/bc-strata-bylaw-navigator.js';
 
 import {
-  evaluateBcTechPilotEligibility,
-  BC_PNP_TECH_CONSTANTS
+  evaluateBcTechPilotEligibility
 } from '../src/british-columbia-pnp-skills-immigration-tech-navigator.js';
 
 import {
-  auditBcSvtNoticeOfObjection,
-  BC_SVT_APPEAL_RULES
+  auditBcSvtNoticeOfObjection
 } from '../src/british-columbia-speculation-tax-audit-appeal-navigator.js';
 
 import {
-  evaluateBcStrataDepreciationReport,
-  BC_STRATA_CRF_CONSTANTS
+  evaluateBcStrataDepreciationReport
 } from '../src/british-columbia-strata-depreciation-report-reserve-fund-navigator.js';
 
 import {
-  auditBcStrataShortTermRental,
-  BC_STRATA_STR_CONSTANTS
+  auditBcStrataShortTermRental
 } from '../src/british-columbia-strata-short-term-rental-bylaw-navigator.js';
 
 import {
@@ -37,48 +31,36 @@ import {
 } from '../src/child-disability-benefit-navigator.js';
 
 import {
-  evaluateChildWelfareAndGuardianship,
-  CHILD_WELFARE_CONSTANTS
+  evaluateChildWelfareAndGuardianship
 } from '../src/child-welfare-guardianship-navigator.js';
 
 import {
-  evaluateChildCareSubsidy,
-  CHILDCARE_CONSTANTS
+  evaluateChildCareSubsidy
 } from '../src/childcare-subsidy-navigator.js';
 
 import {
-  evaluateFhsaEligibility,
-  evaluateHbpWithdrawal,
-  evaluateTfsaNonResidentPenalty,
-  evaluateForeignPropertyAndLandingStepUp,
-  evaluateOverseasGiftAndAmlProof,
-  evaluateNewcomerWealthPlan,
-  CRA_WEALTH_CONSTANTS
+
+  evaluateNewcomerWealthPlan
 } from '../src/cra-newcomer-wealth-navigator.js';
 
 import {
-  evaluateCrossBorderTaxObligations,
-  CROSS_BORDER_CONSTANTS
+  evaluateCrossBorderTaxObligations
 } from '../src/cross-border-tax-navigator.js';
 
 import {
-  evaluatePlatformWorkerRights,
-  PLATFORM_WORKER_CONSTANTS
+  evaluatePlatformWorkerRights
 } from '../src/digital-platform-worker-navigator.js';
 
 import {
-  evaluateEiDisqualificationAndAllocation,
-  EI_CONSTANTS
+  evaluateEiDisqualificationAndAllocation
 } from '../src/ei-disqualification-navigator.js';
 
 import {
-  evaluateEstatePlanProfile,
-  ESTATE_PLANNING_CONSTANTS
+  evaluateEstatePlanProfile
 } from '../src/estate-planning-navigator.js';
 
 import {
-  evaluateExcessiveDemandMitigation,
-  EXCESSIVE_DEMAND_CONSTANTS
+  evaluateExcessiveDemandMitigation
 } from '../src/excessive-demand-mitigation-navigator.js';
 
 // Recommendation 261

@@ -8,7 +8,7 @@ import {
   parseTemporalContext,
   deconstructMultiSentenceQuery
 } from '../src/engine.js';
-import { rankHybrid, computeDenseSemanticScore } from '../src/search.js';
+import { rankHybrid } from '../src/search.js';
 
 test('Benchmark 500 synthetic newcomer queries for parser accuracy and throughput (Rec 13)', () => {
   const benchmarkDataset = [];

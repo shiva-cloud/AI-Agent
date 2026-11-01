@@ -9,7 +9,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { evaluateQuebecCsqSkilledWorker } from '../src/quebec-csq-skilled-worker-arrima-navigator.js';
-import { evaluateQuebecPeqTemporaryWorker, auditQuebecFrenchProficiency } from '../src/quebec-peq-temporary-worker-navigator.js';
+import { evaluateQuebecPeqTemporaryWorker } from '../src/quebec-peq-temporary-worker-navigator.js';
 import { evaluateSinpTechTalent } from '../src/saskatchewan-immigrant-nominee-tech-talent-navigator.js';
 import { evaluateSinpHardToFillSkills } from '../src/saskatchewan-sinp-hard-to-fill-navigator.js';
 import { evaluateSaskatchewanLayoffNotice } from '../src/saskatchewan-employment-layoff-notice-severance-navigator.js';

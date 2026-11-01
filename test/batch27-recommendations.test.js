@@ -1,20 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluatePgwpEligibility, generatePgwpDocumentRoadmap, PGWP_CONSTANTS } from '../src/pgwp-eligibility-navigator.js';
-import { evaluatePrCardRenewalUrgent, PR_CARD_CONSTANTS } from '../src/pr-card-renewal-urgent-navigator.js';
+import { evaluatePgwpEligibility, generatePgwpDocumentRoadmap } from '../src/pgwp-eligibility-navigator.js';
+import { evaluatePrCardRenewalUrgent } from '../src/pr-card-renewal-urgent-navigator.js';
 import { evaluatePrMatrix } from '../src/pr-matrix-simulator.js';
-import { evaluatePrResidencyObligation, STATUTORY_RESIDENCY_REQUIREMENT_DAYS } from '../src/pr-residency-navigator.js';
-import { evaluatePrtdHumanitarian, PRTD_HC_CONSTANTS } from '../src/pr-travel-document-humanitarian-navigator.js';
+import { evaluatePrResidencyObligation } from '../src/pr-residency-navigator.js';
+import { evaluatePrtdHumanitarian } from '../src/pr-travel-document-humanitarian-navigator.js';
 import { evaluateQuebecCsqSkilledWorker, QUEBEC_CSQ_GRID_CONSTANTS } from '../src/quebec-csq-skilled-worker-arrima-navigator.js';
-import { evaluateQuebecPeqTemporaryWorker, PEQ_WORKER_RULES } from '../src/quebec-peq-temporary-worker-navigator.js';
-import { evaluateRuralRenewalEligibility, RURAL_AAIP_CONSTANTS } from '../src/rural-renewal-navigator.js';
-import { evaluateSaskatchewanLayoffNotice, SASKATCHEWAN_LAYOFF_CONSTANTS } from '../src/saskatchewan-employment-layoff-notice-severance-navigator.js';
-import { evaluateSinpTechTalent, SINP_ELIGIBLE_TECH_NOCS } from '../src/saskatchewan-immigrant-nominee-tech-talent-navigator.js';
-import { evaluateSaskatchewanSecurityDepositReturn, SASKATCHEWAN_DEPOSIT_CONSTANTS } from '../src/saskatchewan-residential-tenancy-security-deposit-return-navigator.js';
-import { evaluateSinpHardToFillSkills, SINP_ELIGIBILITY_RULES } from '../src/saskatchewan-sinp-hard-to-fill-navigator.js';
-import { calculateSchengenStay, SCHENGEN_CONSTANTS } from '../src/schengen-calculator.js';
-import { generateSettlementJourney, IMMIGRATION_CATEGORIES } from '../src/settlement-journey.js';
+import { evaluateQuebecPeqTemporaryWorker } from '../src/quebec-peq-temporary-worker-navigator.js';
+import { evaluateRuralRenewalEligibility } from '../src/rural-renewal-navigator.js';
+import { evaluateSaskatchewanLayoffNotice } from '../src/saskatchewan-employment-layoff-notice-severance-navigator.js';
+import { evaluateSinpTechTalent } from '../src/saskatchewan-immigrant-nominee-tech-talent-navigator.js';
+import { evaluateSaskatchewanSecurityDepositReturn } from '../src/saskatchewan-residential-tenancy-security-deposit-return-navigator.js';
+import { evaluateSinpHardToFillSkills } from '../src/saskatchewan-sinp-hard-to-fill-navigator.js';
+import { calculateSchengenStay } from '../src/schengen-calculator.js';
+import { generateSettlementJourney } from '../src/settlement-journey.js';
 import { calculateSeveranceAndNotice } from '../src/severance-bardal-calculator.js';
 
 // Rec 471: PGWP Eligibility Navigator

@@ -32,6 +32,9 @@ Full external review pass; fixes from the review report:
   - `no-unused-vars` finalized as `args: 'none'`, `caughtErrors: 'none'`, `ignoreRestSiblings: true`: navigators document accepted inputs as destructured option defaults by design (`protectionGrounds = […]`-style schema surface), catch bindings are idiomatic (`} catch (e) {}`), and rest-sibling drops are the standard unused-field exclusion idiom. Symbol-level findings (unused declarations, imports, functions) remain enforced.
   - Full `npm test` green after the sweep (2,294 passed).
 
+
+- **Unused-symbol sweep extension — test suites (same day, batch 4):** the remaining 364 `no-unused-vars` findings across 65 `test/` files are resolved (361 via the same verifier-backed suggestion machinery — unused import specifiers dominate, generated boilerplate in the batch-suite tests; 3 at the margin: a `Buffer.from(...)` dummy hash plus its feeding literal resolved by the string-aware pure-call allowlist, and two write-only `callIndex` counters whose declaration + increment lines were removed by hand). Applicator hardening from this pass: adjacent unused import specifiers get ESLint *name-only* fixes, so union-merging now closes separator-only gaps, and orphan-comma lines inside edited specifier lists are cleaned; the per-file parse check auto-reverted two files whose first splice was invalid and they re-applied cleanly. `eslint src scripts test` now exits 0 with zero errors and zero warnings — the 597-warning backlog documented at batch 2 is fully resolved end to end. Full `npm test` green after the extension (2,297 passed).
+
 ## 0.19.47 — Recommendations 666–680 Verified (1 November 2026)
 
 - **Completed Sweep 47 (Recommendations 666–680)** reaching **680 total verified recommendations**:

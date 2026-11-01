@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { resolveQuestionBankBatch3Item, searchQuestionBankBatch3, getQuestionBankBatch3Stats, QUESTION_BANK_BATCH_3 } from '../src/global-immigration-question-bank-batch3-resolver.js';
+import { resolveQuestionBankBatch3Item, searchQuestionBankBatch3, getQuestionBankBatch3Stats } from '../src/global-immigration-question-bank-batch3-resolver.js';
 import { answer } from '../src/engine.js';
-import { seeds } from '../src/knowledge.js';
+
 
 test('Batch 3 Question Bank: stats and registry size', () => {
   const stats = getQuestionBankBatch3Stats();

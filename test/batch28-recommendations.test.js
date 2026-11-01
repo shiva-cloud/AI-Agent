@@ -5,10 +5,10 @@ import { evaluateGovernmentEnrollment } from '../src/sin-healthcare-navigator.js
 import { evaluateSmallClaimsDispute, SMALL_CLAIMS_CONSTANTS } from '../src/small-claims-navigator.js';
 import { evaluateSocialAssistance, SOCIAL_ASSISTANCE_CONSTANTS } from '../src/social-assistance-navigator.js';
 import { resolveSocialCrisisGuidance, SOCIAL_CRISIS_TYPES } from '../src/social-qa-crisis-navigator.js';
-import { evaluateSowpEligibility, generateSowpApplicationChecklist, SOWP_CONSTANTS } from '../src/sowp-eligibility-navigator.js';
-import { evaluateSpeculationTaxAndRebates, SPECULATION_TAX_CONSTANTS } from '../src/speculation-tax-rebate-navigator.js';
+import { evaluateSowpEligibility, generateSowpApplicationChecklist } from '../src/sowp-eligibility-navigator.js';
+import { evaluateSpeculationTaxAndRebates } from '../src/speculation-tax-rebate-navigator.js';
 import { auditStatutoryPayAndWages, STATUTORY_PAY_CONSTANTS } from '../src/statutory-pay-calculator.js';
-import { evaluateStatutorySeveranceNotice, SEVERANCE_CONSTANTS } from '../src/statutory-severance-notice-navigator.js';
+import { evaluateStatutorySeveranceNotice } from '../src/statutory-severance-notice-navigator.js';
 import { evaluateStudentWorkCompliance, STATUTORY_OFF_CAMPUS_WEEKLY_HOUR_CAP } from '../src/student-compliance.js';
 import { evaluateStudyPermitCapAndPal, STATUTORY_LIVING_COST_BASE_CAD } from '../src/study-permit-cap-pal-navigator.js';
 import { auditStudyPermitAndPal, PROGRAM_LEVELS, INSTITUTION_TYPES } from '../src/study-permit-pal-navigator.js';

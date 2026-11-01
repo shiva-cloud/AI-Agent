@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { openStore } from '../src/store.js';
 import { generateSyntheticRecords } from '../scripts/generate-synthetic-data.js';
-import { executeAuditRollback } from '../scripts/audit-rollback.js';
+
 
 test('Rec 92: SQLite FTS5 Full-Text Search virtual table queries records rapidly', () => {
   const store = openStore(':memory:');

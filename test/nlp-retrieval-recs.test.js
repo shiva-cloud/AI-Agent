@@ -16,8 +16,7 @@ import {
   deconstructMultiSentenceQuery
 } from '../src/multi-sentence-deconstructor.js';
 import {
-  getTermWeight,
-  STATUTORY_PROPER_TERMS
+  getTermWeight
 } from '../src/search.js';
 
 test('Rec 7: Negation & Scope Guard accurately parses exclusionary clauses', () => {

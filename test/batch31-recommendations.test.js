@@ -2,49 +2,49 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 // Rec 531: Alberta RTA Security Deposit & Inspection Bar
-import { evaluateAlbertaSecurityDeposit, ALBERTA_RTA_CONSTANTS } from '../src/alberta-tenancy-security-deposit-navigator.js';
+import { evaluateAlbertaSecurityDeposit } from '../src/alberta-tenancy-security-deposit-navigator.js';
 
 // Rec 532: Atlantic Immigration Program (AIP)
-import { evaluateAtlanticImmigrationEligibility, AIP_CONSTANTS } from '../src/atlantic-immigration-navigator.js';
+import { evaluateAtlanticImmigrationEligibility } from '../src/atlantic-immigration-navigator.js';
 
 // Rec 533: ATS Resume Matcher & Privacy Auditor
-import { scoreCvAgainstJd, auditCvPrivacyAndStyle, normalizeAtsText } from '../src/ats-matcher.js';
+import { scoreCvAgainstJd } from '../src/ats-matcher.js';
 
 // Rec 534: Audio Speech Helper & SSML Generator
 import { cleanTextForSpeech, chunkTextForTTS, generateSSML, getAvailableSpeechProfiles } from '../src/audio-speech-helper.js';
 
 // Rec 535: Auto Insurance Discrimination & SABS Benefits
-import { evaluateAutoInsuranceProfile, AUTO_INSURANCE_CONSTANTS } from '../src/auto-insurance-navigator.js';
+import { evaluateAutoInsuranceProfile } from '../src/auto-insurance-navigator.js';
 
 // Rec 536: BC Speculation and Vacancy Tax (SVT)
 import { evaluateBcSpeculationTaxDeclaration, BC_SVT_CONSTANTS } from '../src/bc-speculation-tax-declaration-navigator.js';
 
 // Rec 537: BC Strata Bylaw Defense & Bill 44
-import { evaluateBcStrataBylawDefense, STRATA_CONSTANTS } from '../src/bc-strata-bylaw-navigator.js';
+import { evaluateBcStrataBylawDefense } from '../src/bc-strata-bylaw-navigator.js';
 
 // Rec 538: Bilingual View Helper
 import { generateBilingualView } from '../src/bilingual-view-helper.js';
 
 // Rec 539: Border Flagpoling Feasibility Navigator
-import { evaluateFlagpolingFeasibility, CBSA_PORTS } from '../src/border-flagpoling-navigator.js';
+import { evaluateFlagpolingFeasibility } from '../src/border-flagpoling-navigator.js';
 
 // Rec 540: BOWP & Maintained Status Navigator
 import { evaluateBowpPathway, BOWP_CONSTANTS } from '../src/bowp-navigator.js';
 
 // Rec 541: BC Child & Youth Employment Navigator
-import { evaluateBcChildYouthEmployment, BC_LIGHT_WORK_ACTIVITIES, BC_HAZARDOUS_WORK_ACTIVITIES } from '../src/british-columbia-employment-child-youth-employment-navigator.js';
+import { evaluateBcChildYouthEmployment } from '../src/british-columbia-employment-child-youth-employment-navigator.js';
 
 // Rec 542: BC Illness or Injury Leave Navigator
-import { evaluateBcIllnessInjuryLeave, BC_SICK_LEAVE_CONSTANTS } from '../src/british-columbia-employment-illness-injury-leave-navigator.js';
+import { evaluateBcIllnessInjuryLeave } from '../src/british-columbia-employment-illness-injury-leave-navigator.js';
 
 // Rec 543: BC Overtime & Time Banking Navigator
-import { evaluateBcOvertimeBanking, BC_OVERTIME_CONSTANTS } from '../src/british-columbia-employment-overtime-banking-navigator.js';
+import { evaluateBcOvertimeBanking } from '../src/british-columbia-employment-overtime-banking-navigator.js';
 
 // Rec 544: BC Group Termination & Severance Navigator
-import { evaluateBcGroupTerminationNotice, calculateBcIndividualNoticeWeeks } from '../src/british-columbia-employment-severance-group-termination-navigator.js';
+import { evaluateBcGroupTerminationNotice } from '../src/british-columbia-employment-severance-group-termination-navigator.js';
 
 // Rec 545: BC Uniform & Equipment Deduction Navigator
-import { auditBcEmploymentUniformAndDeductions, BC_UNIFORM_DEDUCTION_CONSTANTS } from '../src/british-columbia-employment-uniform-equipment-deduction-navigator.js';
+import { auditBcEmploymentUniformAndDeductions } from '../src/british-columbia-employment-uniform-equipment-deduction-navigator.js';
 
 // -----------------------------------------------------------------------------
 // Test 1 (Rec 531): Alberta RTA Security Deposit & Inspection Forfeiture

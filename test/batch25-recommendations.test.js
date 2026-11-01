@@ -1,21 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluateAlbertaOpportunityStream, AAIP_AOS_CONSTANTS } from '../src/alberta-opportunity-stream-navigator.js';
-import { evaluateAtlanticImmigrationEligibility, ATLANTIC_PROVINCE_NAMES } from '../src/atlantic-immigration-navigator.js';
-import { evaluateCriminalInadmissibilityAndRehab, REHAB_CONSTANTS, OFFENSE_EQUIVALENCY_TAXONOMY } from '../src/criminal-rehabilitation-navigator.js';
-import { evaluateEiRegularBenefits, EI_CONSTANTS } from '../src/ei-benefits-navigator.js';
+import { evaluateAlbertaOpportunityStream } from '../src/alberta-opportunity-stream-navigator.js';
+import { evaluateAtlanticImmigrationEligibility } from '../src/atlantic-immigration-navigator.js';
+import { evaluateCriminalInadmissibilityAndRehab, REHAB_CONSTANTS } from '../src/criminal-rehabilitation-navigator.js';
+import { evaluateEiRegularBenefits } from '../src/ei-benefits-navigator.js';
 import { evaluateFamilyLawAndSupport } from '../src/family-law-navigator.js';
 import { evaluateFamilyReunification } from '../src/family-reunification-navigator.js';
-import { evaluateFcrMicroLoans, FCR_BRIDGING_CONSTANTS } from '../src/fcr-healthcare-bridge-navigator.js';
+import { evaluateFcrMicroLoans } from '../src/fcr-healthcare-bridge-navigator.js';
 import { evaluateFederalBridgingOpenWorkPermit, FEDERAL_BOWP_CONSTANTS } from '../src/federal-bridging-open-work-permit-pr-acknowledgement-navigator.js';
 import { evaluateFederalC10SignificantBenefit, FEDERAL_C10_CONSTANTS } from '../src/federal-c10-significant-benefit-work-permit-navigator.js';
 import { evaluateFederalC11EntrepreneurWorkPermit, FEDERAL_C11_CONSTANTS } from '../src/federal-c11-entrepreneur-self-employed-work-permit-navigator.js';
 import { evaluateFederalFtaProfessionalWorkPermit, FEDERAL_FTA_CONSTANTS } from '../src/federal-c12-gats-professional-fta-navigator.js';
 import { evaluateFederalIntraCompanyTransferee, FEDERAL_ICT_CONSTANTS } from '../src/federal-c14-intra-company-transferee-navigator.js';
 import { evaluateFederalReciprocalEmployment, FEDERAL_C20_CONSTANTS } from '../src/federal-c20-reciprocal-employment-work-permit-navigator.js';
-import { evaluateFederalCaregiverPrPathway, FEDERAL_CAREGIVER_CONSTANTS } from '../src/federal-caregiver-pr-pathway-experience-navigator.js';
-import { auditCitizenshipPhysicalPresence, CITIZENSHIP_PRESENCE_REQUIREMENTS } from '../src/federal-citizenship-residence-calculator-audit-navigator.js';
+import { evaluateFederalCaregiverPrPathway } from '../src/federal-caregiver-pr-pathway-experience-navigator.js';
+import { auditCitizenshipPhysicalPresence } from '../src/federal-citizenship-residence-calculator-audit-navigator.js';
 
 test('Rec 441: evaluateAlbertaOpportunityStream sanitizes inputs, bounds text/dates, and audits AAIP AOS and THS eligibility', () => {
   const res = evaluateAlbertaOpportunityStream({

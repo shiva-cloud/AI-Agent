@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateStatutoryTimeline, generateIcsCalendar } from '../src/timeline-calendar-sync.js';
+import { evaluateStatutoryTimeline } from '../src/timeline-calendar-sync.js';
 
 test('Timeline Calendar Sync — Generates RFC 5545 compliant work permit alerts', () => {
   const result = evaluateStatutoryTimeline({

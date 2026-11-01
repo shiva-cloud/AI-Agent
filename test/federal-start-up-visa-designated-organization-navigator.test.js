@@ -2,8 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   evaluateStartUpVisaEligibility,
-  calculateSuvSettlementFunds,
-  SUV_DESIGNATED_ENTITY_TYPES
+  calculateSuvSettlementFunds
 } from '../src/federal-start-up-visa-designated-organization-navigator.js';
 
 test('Start-Up Visa - Fully Eligible Venture Capital Stream', () => {

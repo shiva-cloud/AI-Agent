@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { queryTerms, rankLexically } from '../src/search.js';
+import { queryTerms } from '../src/search.js';
 import { extractStatutoryCitations, linkifyStatutoryCitations } from '../src/citation-linker.js';
 import { auditKbRecordExpiries, flagImpendingExpiriesInDb } from '../src/kb-expiry-monitor.js';
 import { createProvenanceBlock, verifyProvenanceChain, GENESIS_HASH } from '../src/kb-provenance-chain.js';

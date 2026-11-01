@@ -3,7 +3,6 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   ECA_ORGANIZATIONS,
-  REGULATED_PROFESSIONS,
   evaluateCredentialPathway
 } from '../src/credential-navigator.js';
 

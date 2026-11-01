@@ -5,21 +5,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  evaluateAtlanticImmigrationEligibility,
-  AIP_CONSTANTS,
-  ATLANTIC_PROVINCE_NAMES
+  evaluateAtlanticImmigrationEligibility
 } from '../src/atlantic-immigration-navigator.js';
 
 import {
-  evaluateFlagpolingFeasibility,
-  CBSA_PORTS
+  evaluateFlagpolingFeasibility
 } from '../src/border-flagpoling-navigator.js';
 
 import {
   evaluateCriminalInadmissibilityAndRehab,
   generateRehabilitationActionPlan,
-  REHAB_CONSTANTS,
-  OFFENSE_EQUIVALENCY_TAXONOMY
+  REHAB_CONSTANTS
 } from '../src/criminal-rehabilitation-navigator.js';
 
 import {
@@ -33,57 +29,45 @@ import {
 
 import {
   evaluateFederalSkilledTradesProgram,
-  isNocEligibleForSkilledTrades,
-  FSTP_STATUTORY_RULES
+  isNocEligibleForSkilledTrades
 } from '../src/federal-skilled-trades-navigator.js';
 
 import {
   evaluateStartUpVisaEligibility,
-  calculateSuvSettlementFunds,
-  SUV_DESIGNATED_ENTITY_TYPES
+  calculateSuvSettlementFunds
 } from '../src/federal-start-up-visa-designated-organization-navigator.js';
 
 import {
-  evaluateFederalVisitorExtensionAndRestoration,
-  FEDERAL_VISITOR_STATUS_CONSTANTS
+  evaluateFederalVisitorExtensionAndRestoration
 } from '../src/federal-visitor-record-extension-status-restoration-navigator.js';
 
 import {
-  evaluateDualIntentCompliance,
-  DUAL_INTENT_CONSTANTS
+  evaluateDualIntentCompliance
 } from '../src/federal-work-permit-dual-intent-assessment-navigator.js';
 
 import {
-  evaluateForeignWorkerPermitTransition,
-  TFW_TRANSITION_RULES
+  evaluateForeignWorkerPermitTransition
 } from '../src/foreign-worker-closed-permit-transition-navigator.js';
 
 import {
   evaluateFranchiseDisclosure,
-  generateFranchiseRescissionNotice,
-  FRANCHISE_ACT_CONSTANTS,
-  PROVINCIAL_FRANCHISE_ACTS
+  generateFranchiseRescissionNotice
 } from '../src/franchise-disclosure-navigator.js';
 
 import {
-  evaluateInternationallyTrainedNurse,
-  IEN_CONSTANTS
+  evaluateInternationallyTrainedNurse
 } from '../src/internationally-trained-nurse-navigator.js';
 
 import {
-  evaluateManitobaEmploymentLeave,
-  MANITOBA_SERVICE_REQUIREMENTS,
-  MANITOBA_MAX_LEAVE_WEEKS
+  evaluateManitobaEmploymentLeave
 } from '../src/manitoba-employment-leave-job-protection-navigator.js';
 
 import {
-  evaluateManitobaPnpSkilledWorker,
-  MPNP_CONSTANTS
+  evaluateManitobaPnpSkilledWorker
 } from '../src/manitoba-pnp-skilled-worker-navigator.js';
 
 import {
-  evaluateManitobaRentIncrease,
-  MANITOBA_RENT_CONSTANTS
+  evaluateManitobaRentIncrease
 } from '../src/manitoba-residential-tenancy-rent-increase-guideline-navigator.js';
 
 test('Rec 291: evaluateAtlanticImmigrationEligibility audits international graduates and skilled workers with input bounding', () => {

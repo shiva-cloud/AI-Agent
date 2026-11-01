@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 import { evaluateAlbertaRuralEntrepreneur, AAIP_RURAL_ENTREPRENEUR_MIN_NET_WORTH_CAD, AAIP_RURAL_ENTREPRENEUR_MIN_INVESTMENT_CAD } from '../src/alberta-alep-rural-entrepreneur-stream-navigator.js';
 import { evaluateAustraliaReforms, evaluateGermanyChancenkarteAndTenancy } from '../src/australia-germany-global-navigator.js';
-import { evaluateBusinessStructure, CRA_BUSINESS_STATUTORY_CONSTANTS } from '../src/business-navigator.js';
+import { evaluateBusinessStructure } from '../src/business-navigator.js';
 import { evaluateRestorationOfStatus, auditFlagpolingEligibility, auditDliAuthorizedLeave, evaluateCriminalInadmissibility } from '../src/canada-status-admissibility-guard.js';
 import { evaluateChildcareSupport, calculateOntarioSubsidyContribution } from '../src/childcare-navigator.js';
 import { compareCities } from '../src/city-comparison.js';
@@ -14,16 +14,15 @@ import {
   calculatePublicHolidayPay,
   evaluateEsaStatutorySeverance,
   auditContractorMisclassification,
-  auditEqualPayForEqualWork,
-  ESA_CONSTANTS
+  auditEqualPayForEqualWork
 } from '../src/esa-wage-theft-navigator.js';
-import { evaluateEuHealthRights, EU_HEALTH_CONSTANTS } from '../src/eu-health-rights-navigator.js';
+import { evaluateEuHealthRights } from '../src/eu-health-rights-navigator.js';
 import { evaluateLeaseAssignmentExit, calculateDaysBetween, addDaysToDate } from '../src/lease-assignment-navigator.js';
-import { assessMovingExpenses, MOVING_TAX_CONSTANTS } from '../src/moving-tax-navigator.js';
+import { assessMovingExpenses } from '../src/moving-tax-navigator.js';
 import { calculateNewcomerBenefits } from '../src/newcomer-benefits-calculator.js';
 import { calculateNewcomerBudget } from '../src/newcomer-budget.js';
 import { evaluateOntarioRemoteWorkJurisdiction } from '../src/ontario-employment-remote-telework-jurisdiction-navigator.js';
-import { evaluateOntarioEmploymentReprisal, ONTARIO_REPRISAL_CONSTANTS } from '../src/ontario-employment-reprisal-complaint-navigator.js';
+import { evaluateOntarioEmploymentReprisal } from '../src/ontario-employment-reprisal-complaint-navigator.js';
 
 test('Batch 20 Recommendations (Sweep 27: Recs 366–380)', async (t) => {
   await t.test('Rec 366: evaluateAlbertaRuralEntrepreneur validates endorsement, net worth, investment, and bounded inputs', () => {

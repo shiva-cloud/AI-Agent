@@ -6,7 +6,7 @@ import { generateSriManifest, computeFileSri, verifySri } from '../src/sri-integ
 import { runSecurityAudit } from '../scripts/audit-cve.js';
 import { encryptBuffer, decryptBuffer } from '../src/db-encryption.js';
 import {
-  STATUTORY_LEGAL_DISCLAIMER_WATERMARK,
+  
   validateStructuredAiResponse,
   attachLegalDisclaimer
 } from '../src/ai-guardrails.js';
@@ -23,8 +23,8 @@ test('Rec 142: Subresource Integrity (SRI) computes valid SHA-384 digests and ve
   assert.ok(manifest['app.js'], 'app.js must have SRI entry');
   assert.match(manifest['styles.css'], /^sha384-[A-Za-z0-9+/=]+$/);
 
-  const testContent = 'console.log("hello test");';
-  const testSri = `sha384-${Buffer.from(testContent).toString('base64')}`; // dummy verification
+  
+   // dummy verification
   const actualHash = computeFileSri(join(publicDir, 'styles.css'));
   assert.equal(verifySri(actualHash, 'invalid'), false);
 });

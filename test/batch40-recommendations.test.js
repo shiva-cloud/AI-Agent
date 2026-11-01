@@ -27,15 +27,15 @@ import { computeProvenanceHash, createProvenanceBlock, verifyProvenanceChain, GE
 import { checkRecord, checkRecords, recordWarnings } from '../src/kb-quality.js';
 import { seeds, cities, topics, topicLabels, agencies } from '../src/knowledge.js';
 import { kycRecords, checkedAt as kycCheckedAt, expiresAt as kycExpiresAt } from '../src/kyc-records.js';
-import { assertEnglishText, assertEnglishData, assertEnglishRecord } from '../src/language.js';
-import { detectPreferredLanguage, SUPPORTED_I18N_LOCALES } from '../src/language-detector.js';
-import { convertLanguageScores, SUPPORTED_TESTS, CLB_SOURCE } from '../src/language-score-clb.js';
-import { evaluateLeaseAssignmentExit, calculateDaysBetween, addDaysToDate, LEASE_ASSIGNMENT_CONSTANTS } from '../src/lease-assignment-navigator.js';
-import { auditLeaseAgreement, PROVINCIAL_LEASE_RULES } from '../src/lease-guard.js';
-import { generateLegalNotice, NOTICE_TYPES, STATUTORY_METADATA } from '../src/legal-notice-generator.js';
+import { assertEnglishText, assertEnglishData } from '../src/language.js';
+import { detectPreferredLanguage } from '../src/language-detector.js';
+import { convertLanguageScores } from '../src/language-score-clb.js';
+import { evaluateLeaseAssignmentExit, calculateDaysBetween, addDaysToDate } from '../src/lease-assignment-navigator.js';
+import { auditLeaseAgreement } from '../src/lease-guard.js';
+import { generateLegalNotice, NOTICE_TYPES } from '../src/legal-notice-generator.js';
 import { licenceContext, originCountryContext } from '../src/licence-context.js';
 import { createShutdown } from '../src/lifecycle.js';
-import { evaluateLmiaReadiness, PROVINCIAL_MEDIAN_WAGES_2025_2026, LMIA_EXEMPTION_CODES } from '../src/lmia-readiness-navigator.js';
+import { evaluateLmiaReadiness } from '../src/lmia-readiness-navigator.js';
 import { createMailer, mailerFromEnvironment, accountEmails } from '../src/mailer.js';
 import { handleManage } from '../src/manage-api.js';
 

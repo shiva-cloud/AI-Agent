@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import {seeds} from '../src/knowledge.js';
 import {gapRecords} from '../scripts/inject-real-world-and-gap-records.js';
 import {insiderImmigrationRecords} from '../src/insider-immigration-records.js';
-import { answer, parse } from '../src/engine.js';
-import { detectAndTranslateMultilingualQuery } from '../src/multilingual-layer.js';
+import { answer } from '../src/engine.js';
+
 
 // Deterministic retrieval fixtures, not a working-database publication audit.
 const records = [...new Map([...seeds,...insiderImmigrationRecords,...gapRecords].map(r=>[r.id,r])).values()];

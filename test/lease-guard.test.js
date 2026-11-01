@@ -3,7 +3,6 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   PROVINCIAL_LEASE_RULES,
-  COMMON_ILLEGAL_CLAUSES,
   auditLeaseAgreement
 } from '../src/lease-guard.js';
 

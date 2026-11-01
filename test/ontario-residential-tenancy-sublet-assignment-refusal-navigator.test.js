@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  evaluateOntarioTenancyAssignmentSublet,
-  RTA_STATUTORY_TIMELINES
+  evaluateOntarioTenancyAssignmentSublet
 } from '../src/ontario-residential-tenancy-sublet-assignment-refusal-navigator.js';
 
 test('Ontario Tenancy - General Assignment Request ignored past 7 days triggers 30-day N9 right', () => {

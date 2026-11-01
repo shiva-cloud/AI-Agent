@@ -24,15 +24,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 
-import { evaluateHomebuyerTaxIncentives, HOMEBUYER_CONSTANTS } from '../src/homebuyer-tax-incentives.js';
+import { evaluateHomebuyerTaxIncentives } from '../src/homebuyer-tax-incentives.js';
 import { housingQuestionSubjects, recordHousingSubject, housingSubjects } from '../src/housing.js';
-import { evaluateHomebuyerEligibility, calculateOntarioLandTransferTax, calculateTorontoMunicipalLtt, calculateMinimumDownPaymentCad } from '../src/housing-tax-navigator.js';
-import { evaluateWorkplaceDiscriminationAndConstructiveDismissal, HUMAN_RIGHTS_JURISDICTIONS } from '../src/human-rights-defense.js';
-import { getLocalizedKit, SUPPORTED_LANGUAGES, UI_LABELS } from '../src/i18n-dictionary.js';
-import { evaluateIdentityHarmonization, PROVINCIAL_NAME_CHANGE_RULES } from '../src/identity-harmonization.js';
+import { evaluateHomebuyerEligibility, calculateMinimumDownPaymentCad } from '../src/housing-tax-navigator.js';
+import { evaluateWorkplaceDiscriminationAndConstructiveDismissal } from '../src/human-rights-defense.js';
+import { getLocalizedKit, SUPPORTED_LANGUAGES } from '../src/i18n-dictionary.js';
+import { evaluateIdentityHarmonization } from '../src/identity-harmonization.js';
 import { ingestionStore } from '../src/ingestion.js';
 import { insiderImmigrationRecords, insiderSources, checkedAt, expiresAt } from '../src/insider-immigration-records.js';
-import { evaluateInternationallyTrainedNurse, IEN_CONSTANTS } from '../src/internationally-trained-nurse-navigator.js';
+import { evaluateInternationallyTrainedNurse } from '../src/internationally-trained-nurse-navigator.js';
 import { JobPolicyDenied } from '../src/job-policy.js';
 import { openJobQueue } from '../src/jobs.js';
 import { runOneJob } from '../src/job-worker.js';
@@ -379,7 +379,7 @@ test('Rec 663: Knowledge Base Expiry & Scheduled Review Monitor — 14-day thres
   `);
 
   // Insert test records: 1 expired, 1 expiring in 5 days, 1 compliant in 90 days
-  const now = new Date('2026-11-01T00:00:00Z');
+  
   const expiredDate = '2026-10-15';
   const expiringSoonDate = '2026-11-06';
   const compliantDate = '2027-02-01';

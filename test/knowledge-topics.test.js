@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {topics, topicLabels} from '../src/knowledge.js';
 import {assertEnglishData} from '../src/language.js';
 import {answer, coverage, coverageDetail} from '../src/engine.js';
-import {seeds, cities} from '../src/knowledge.js';
+import {seeds} from '../src/knowledge.js';
 const now=new Date('2026-10-28T23:59:59Z');
 
 test('every topic id has a distinct human-readable label, all English',()=>{

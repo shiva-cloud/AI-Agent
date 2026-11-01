@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { Readable, Writable } from 'node:stream';
+
 import { REALTIME_SOURCES, MONITORED_DESTINATIONS, queryRealtimeSources } from '../src/realtime-registry.js';
-import { cleanHtmlContent, computeContentHash, detectContentDelta, pollSource, runCrawlCycle } from '../src/realtime-crawler.js';
+import { cleanHtmlContent, computeContentHash, detectContentDelta, pollSource } from '../src/realtime-crawler.js';
 import { extractPolicyDelta, extractDatesFromText } from '../src/realtime-extractor.js';
 import { realtimeKbStore } from '../src/realtime-kb-ingestor.js';
 import { formatSlackMessage, formatTelegramMessage, dispatchAlertWebhook } from '../src/realtime-alerts.js';

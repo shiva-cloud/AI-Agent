@@ -3,7 +3,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   HEALTHCARE_TRIAGE_MAP,
-  COMMON_DRUG_EQUIVALENCES,
   triageHealthcareNeed,
   mapDrugGeneric
 } from '../src/healthcare-triage.js';

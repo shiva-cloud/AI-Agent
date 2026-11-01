@@ -23,10 +23,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 
-import { configureEnglishDatabase } from '../src/migrations.js';
-import { configureIngestion } from '../src/ingestion.js';
+
+
 import { configureGapWorkflow, gapWorkflow } from '../src/gap-workflow.js';
-import { analyzeGcmsRefusalNotes, KNOWN_GCMS_REFUSAL_GROUNDS } from '../src/gcms-refusal-analyzer.js';
+import { analyzeGcmsRefusalNotes } from '../src/gcms-refusal-analyzer.js';
 import { resolveClauseGeography, hasUnsupportedDestination, places, GEOGRAPHY_VERSION } from '../src/geography.js';
 import {
   evaluateUaeGratuityAndWps,
@@ -54,13 +54,13 @@ import {
   searchGlobalSettlement,
   getGlobalSettlementStats
 } from '../src/global-settlement-resolver.js';
-import { evaluateGlobalVisaPathways, GLOBAL_DESTINATION_RULES } from '../src/global-visa-matrix.js';
-import { conceptGlossaryIds, buildConceptTerm, GLOSSARY_AREAS } from '../src/glossary-concepts.js';
+import { evaluateGlobalVisaPathways } from '../src/global-visa-matrix.js';
+import { conceptGlossaryIds, buildConceptTerm } from '../src/glossary-concepts.js';
 import { computePayloadHash, detectPolicyDrift, MONITORED_GOV_PAGES } from '../src/gov-scraper-alerts.js';
-import { evaluateHealthcareEligibility, PROVINCIAL_HEALTH_PLANS } from '../src/healthcare-navigator.js';
-import { evaluateHealthcarePortabilityAndIfhp, PROVINCIAL_HEALTHCARE_SCHEMES } from '../src/healthcare-portability-navigator.js';
-import { triageHealthcareNeed, mapDrugGeneric, HEALTHCARE_TRIAGE_MAP } from '../src/healthcare-triage.js';
-import { evaluateConsumerCreditAgreement, CREDIT_DEFENSE_CONSTANTS } from '../src/high-cost-credit-navigator.js';
+import { evaluateHealthcareEligibility } from '../src/healthcare-navigator.js';
+import { evaluateHealthcarePortabilityAndIfhp } from '../src/healthcare-portability-navigator.js';
+import { triageHealthcareNeed, mapDrugGeneric } from '../src/healthcare-triage.js';
+import { evaluateConsumerCreditAgreement } from '../src/high-cost-credit-navigator.js';
 
 test('Rec 636: Gap Workflow Engine — Lifecycle tracking, English policy triggers & public summary', () => {
   const db = new DatabaseSync(':memory:');

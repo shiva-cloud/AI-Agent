@@ -8,11 +8,11 @@ import { calculateOntarioStatutorySeverance } from '../src/ontario-employment-se
 import { evaluateSpeculationTaxAndRebates } from '../src/speculation-tax-rebate-navigator.js';
 import { evaluateStatutorySeveranceNotice } from '../src/statutory-severance-notice-navigator.js';
 import { evaluateGovernmentEnrollment } from '../src/sin-healthcare-navigator.js';
-import { resolveSocialCrisisGuidance, detectSocialCrisisScenario } from '../src/social-qa-crisis-navigator.js';
+import { resolveSocialCrisisGuidance } from '../src/social-qa-crisis-navigator.js';
 import { evaluatePortOfEntryRights } from '../src/poe-rights-navigator.js';
 import { calculateSchoolPlacement, auditIspaCompliance } from '../src/schooling-catchment.js';
-import { evaluateStatutoryTimeline, generateIcsCalendar } from '../src/timeline-calendar-sync.js';
-import { evaluateSuperVisaAndFamilySponsorship, getStatutoryLicoThreshold } from '../src/super-visa-sponsor.js';
+import { evaluateStatutoryTimeline } from '../src/timeline-calendar-sync.js';
+import { evaluateSuperVisaAndFamilySponsorship } from '../src/super-visa-sponsor.js';
 import { evaluateTaxShield } from '../src/tax-shield-optimizer.js';
 import { evaluateYukonCriticalImpactWorker } from '../src/yukon-nominee-critical-impact-worker-navigator.js';
 import { evaluateRealEstateAssignment, generateAssignmentStatement } from '../src/real-estate-assignment-navigator.js';

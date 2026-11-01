@@ -1,21 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluateCitizenshipRevocationDefense, CITIZENSHIP_REVOCATION_NOTICE_RESPONSE_WINDOW_DAYS } from '../src/federal-citizenship-revocation-defense-navigator.js';
-import { evaluateFrancophoneCommunityPilot, FCIP_PARTICIPATING_COMMUNITIES } from '../src/federal-francophone-community-pilot-navigator.js';
+import { evaluateCitizenshipRevocationDefense } from '../src/federal-citizenship-revocation-defense-navigator.js';
+import { evaluateFrancophoneCommunityPilot } from '../src/federal-francophone-community-pilot-navigator.js';
 import { evaluateFederalFrancophoneMobilityC16, FEDERAL_C16_CONSTANTS } from '../src/federal-francophone-mobility-c16-expansion-navigator.js';
 import { evaluateFederalSuperVisaInsuranceLico, FEDERAL_SUPER_VISA_CONSTANTS } from '../src/federal-parent-grandparent-super-visa-medical-insurance-navigator.js';
 import { evaluateRefugeeCessationRisk } from '../src/federal-refugee-cessation-citizenship-audit-navigator.js';
 import { evaluateSelfEmployedProgram, SELF_EMPLOYED_PASS_MARK_POINTS } from '../src/federal-self-employed-persons-program-navigator.js';
-import { evaluateFederalSkilledTradesProgram, FSTP_STATUTORY_RULES } from '../src/federal-skilled-trades-navigator.js';
-import { evaluateStartUpVisaEligibility, SUV_DESIGNATED_ENTITY_TYPES } from '../src/federal-start-up-visa-designated-organization-navigator.js';
-import { evaluateFederalSuvPeerReview, FEDERAL_SUV_CONSTANTS } from '../src/federal-start-up-visa-peer-review-navigator.js';
+import { evaluateFederalSkilledTradesProgram } from '../src/federal-skilled-trades-navigator.js';
+import { evaluateStartUpVisaEligibility } from '../src/federal-start-up-visa-designated-organization-navigator.js';
+import { evaluateFederalSuvPeerReview } from '../src/federal-start-up-visa-peer-review-navigator.js';
 import { evaluateNbpnpSkilledWorker, NBPNP_PASS_MARK_POINTS } from '../src/new-brunswick-provincial-nominee-skilled-worker-navigator.js';
-import { evaluateNovaScotiaExperienceStream, NSNP_EXPERIENCE_RULES } from '../src/nova-scotia-experience-stream-navigator.js';
-import { evaluateEsaReprisal, ESA_REPRISAL_RULES } from '../src/ontario-employment-standards-reprisal-navigator.js';
-import { evaluateOntarioRoommateAndOccupantRights, RTA_UNAUTHORIZED_OCCUPANT_LIMITATION_DAYS } from '../src/ontario-residential-tenancy-roommate-subtenant-eviction-navigator.js';
-import { evaluateOntarioUrgentRepairsT6, ONTARIO_T6_MAINTENANCE_CONSTANTS } from '../src/ontario-residential-tenancy-urgent-repairs-t6-navigator.js';
-import { evaluatePeiOccupationsInDemand, PEI_ELIGIBLE_TARGET_NOCS } from '../src/pei-provincial-nominee-occupations-in-demand-navigator.js';
+import { evaluateNovaScotiaExperienceStream } from '../src/nova-scotia-experience-stream-navigator.js';
+import { evaluateEsaReprisal } from '../src/ontario-employment-standards-reprisal-navigator.js';
+import { evaluateOntarioRoommateAndOccupantRights } from '../src/ontario-residential-tenancy-roommate-subtenant-eviction-navigator.js';
+import { evaluateOntarioUrgentRepairsT6 } from '../src/ontario-residential-tenancy-urgent-repairs-t6-navigator.js';
+import { evaluatePeiOccupationsInDemand } from '../src/pei-provincial-nominee-occupations-in-demand-navigator.js';
 
 test('Rec 456: evaluateCitizenshipRevocationDefense sanitizes inputs, bounds text/dates, and audits 30-day notice response window under Citizenship Act s. 10(4)', () => {
   const res = evaluateCitizenshipRevocationDefense({

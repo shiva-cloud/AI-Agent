@@ -3,7 +3,6 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   CHILDCARE_AGE_GROUPS,
-  MUNICIPAL_PORTALS,
   calculateOntarioSubsidyContribution,
   evaluateChildcareSupport
 } from '../src/childcare-navigator.js';

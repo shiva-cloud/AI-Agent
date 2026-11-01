@@ -95,9 +95,7 @@ test('failover: when first provider fails, second is tried immediately', async (
 });
 
 test('rate-limited provider is put into cooldown', async () => {
-  let callIndex = 0;
   const fetchImpl = async (url) => {
-    callIndex++;
     if (url.includes('anyrouter.dev')) {
       return rateLimitResponse();
     }
@@ -178,9 +176,7 @@ test('network error causes immediate failover', async () => {
 });
 
 test('HTTP 402 (payment required) triggers cooldown on openrouter', async () => {
-  let callIndex = 0;
   const fetchImpl = async (url) => {
-    callIndex++;
     if (url.includes('openrouter.ai')) {
       return { ok: false, status: 402, json: async () => ({}) };
     }

@@ -6,8 +6,8 @@ import { join } from 'node:path';
 import { unlinkSync } from 'node:fs';
 
 // Sweep 42 (Recommendations 591-605) Modules
-import { auditEmploymentReferenceLetter, REFERENCE_AUDIT_CONSTANTS } from '../src/employment-reference-audit.js';
-import { auditWorkerClassificationAndWageTheft, PROVINCIAL_OVERTIME_THRESHOLDS } from '../src/employment-standards.js';
+import { auditEmploymentReferenceLetter } from '../src/employment-reference-audit.js';
+import { auditWorkerClassificationAndWageTheft } from '../src/employment-standards.js';
 import { retrieve, answer } from '../src/engine.js';
 import {
   calculateOntarioOvertimePay,
@@ -15,27 +15,23 @@ import {
   calculatePublicHolidayPay,
   evaluateEsaStatutorySeverance,
   auditContractorMisclassification,
-  auditEqualPayForEqualWork,
-  ESA_CONSTANTS
+  auditEqualPayForEqualWork
 } from '../src/esa-wage-theft-navigator.js';
-import { evaluateEstatePlanProfile, ESTATE_PLANNING_CONSTANTS } from '../src/estate-planning-navigator.js';
-import { evaluateEuHealthRights, EU_HEALTH_CONSTANTS } from '../src/eu-health-rights-navigator.js';
+import { evaluateEstatePlanProfile } from '../src/estate-planning-navigator.js';
+import { evaluateEuHealthRights } from '../src/eu-health-rights-navigator.js';
 import { checkAnswerConstraints, evaluate } from '../src/evaluation.js';
-import { auditEvictionNotice, EVICTION_FORM_RULES } from '../src/eviction-defense.js';
+import { auditEvictionNotice } from '../src/eviction-defense.js';
 import { openEvidenceIndex } from '../src/evidence-index.js';
-import { assertEvidencePolicy, lintEvidence, highRiskTopics } from '../src/evidence-policy.js';
+import { assertEvidencePolicy, lintEvidence } from '../src/evidence-policy.js';
 import { backupEvidenceEncrypted, restoreEvidenceEncryptedDrill } from '../src/evidence-recovery-encrypted.js';
 import { createPublicEvidenceSnapshot } from '../src/evidence-revision.js';
 import { evidenceWorkerOptions } from '../src/evidence-worker.js';
-import { evaluateExcessiveDemandMitigation, EXCESSIVE_DEMAND_CONSTANTS, MITIGATION_VIABILITY_RULES } from '../src/excessive-demand-mitigation-navigator.js';
+import { evaluateExcessiveDemandMitigation } from '../src/excessive-demand-mitigation-navigator.js';
 import {
   evaluateExpressEntryCrs,
   getAgePoints,
   getEducationPoints,
-  getLanguageAbilityPoints,
-  getCanadianExperiencePoints,
-  CRS_STATUTORY_CONSTANTS,
-  BENCHMARK_DRAW_CUTOFFS
+  getLanguageAbilityPoints
 } from '../src/express-entry-optimizer.js';
 
 // Rec 591: Employment Reference Audit Engine

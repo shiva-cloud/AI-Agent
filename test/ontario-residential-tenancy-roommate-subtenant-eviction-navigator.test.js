@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  evaluateOntarioRoommateAndOccupantRights,
-  RTA_UNAUTHORIZED_OCCUPANT_LIMITATION_DAYS
+  evaluateOntarioRoommateAndOccupantRights
 } from '../src/ontario-residential-tenancy-roommate-subtenant-eviction-navigator.js';
 
 test('Ontario Roommate - Section 5(i) Exemption (Shared kitchen with owner)', () => {

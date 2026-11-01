@@ -13,8 +13,7 @@ import {
   auditConstructiveDismissal,
   auditCanadianExperienceBarriers,
   auditOhsaWorkRefusalAndReprisal,
-  auditWsibInjuryClaimDeadline,
-  WORKPLACE_RIGHTS_CONSTANTS
+  auditWsibInjuryClaimDeadline
 } from '../src/workplace-rights-defense-navigator.js';
 import {
   evaluateEiRegularBenefits,

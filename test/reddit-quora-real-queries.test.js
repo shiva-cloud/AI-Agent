@@ -4,7 +4,6 @@ import {
   answer,
   deconstructNarrative,
   detectLegalMyth,
-  resolveNarrativeCrisis,
   cleanEmotionalFluff,
   normalizeSlangAndTypos
 } from '../src/engine.js';

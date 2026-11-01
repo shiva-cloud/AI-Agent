@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { openStore } from '../src/store.js';
 import {
   answer,
-  parse,
   resolveSocialCrisisGuidance,
   detectSocialCrisisScenario,
   SOCIAL_CRISIS_TYPES

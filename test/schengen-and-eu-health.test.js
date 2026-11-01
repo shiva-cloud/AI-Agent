@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { calculateSchengenStay, SCHENGEN_CONSTANTS } from '../src/schengen-calculator.js';
-import { evaluateEuHealthRights, EU_HEALTH_CONSTANTS } from '../src/eu-health-rights-navigator.js';
+import { calculateSchengenStay } from '../src/schengen-calculator.js';
+import { evaluateEuHealthRights } from '../src/eu-health-rights-navigator.js';
 
 test('Rec 32: Schengen 90/180-Day Rolling Calculator enforces Regulation (EU) 2016/399 Art. 6', () => {
   // Scenario 1: First-time visitor with 30 days spent -> 60 days remaining

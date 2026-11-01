@@ -22,21 +22,21 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluateFederalFrancophoneMobilityC16, FEDERAL_C16_CONSTANTS } from '../src/federal-francophone-mobility-c16-expansion-navigator.js';
-import { evaluateFederalSuperVisaInsuranceLico, FEDERAL_SUPER_VISA_CONSTANTS } from '../src/federal-parent-grandparent-super-visa-medical-insurance-navigator.js';
+import { evaluateFederalFrancophoneMobilityC16 } from '../src/federal-francophone-mobility-c16-expansion-navigator.js';
+import { evaluateFederalSuperVisaInsuranceLico } from '../src/federal-parent-grandparent-super-visa-medical-insurance-navigator.js';
 import { evaluateRefugeeCessationRisk } from '../src/federal-refugee-cessation-citizenship-audit-navigator.js';
 import { evaluateSelfEmployedProgram, SELF_EMPLOYED_PASS_MARK_POINTS } from '../src/federal-self-employed-persons-program-navigator.js';
-import { evaluateFederalSkilledTradesProgram, isNocEligibleForSkilledTrades, FSTP_STATUTORY_RULES } from '../src/federal-skilled-trades-navigator.js';
-import { evaluateStartUpVisaEligibility, calculateSuvSettlementFunds, SUV_DESIGNATED_ENTITY_TYPES } from '../src/federal-start-up-visa-designated-organization-navigator.js';
-import { evaluateFederalSuvPeerReview, FEDERAL_SUV_CONSTANTS } from '../src/federal-start-up-visa-peer-review-navigator.js';
+import { evaluateFederalSkilledTradesProgram, isNocEligibleForSkilledTrades } from '../src/federal-skilled-trades-navigator.js';
+import { evaluateStartUpVisaEligibility, calculateSuvSettlementFunds } from '../src/federal-start-up-visa-designated-organization-navigator.js';
+import { evaluateFederalSuvPeerReview } from '../src/federal-start-up-visa-peer-review-navigator.js';
 import { evaluateFederalStudentOffCampusWork, FEDERAL_STUDENT_WORK_CONSTANTS } from '../src/federal-study-permit-off-campus-work-hours-navigator.js';
-import { evaluateFederalVisitorExtensionAndRestoration, FEDERAL_VISITOR_STATUS_CONSTANTS } from '../src/federal-visitor-record-extension-status-restoration-navigator.js';
-import { evaluateDualIntentCompliance, DUAL_INTENT_CONSTANTS } from '../src/federal-work-permit-dual-intent-assessment-navigator.js';
+import { evaluateFederalVisitorExtensionAndRestoration } from '../src/federal-visitor-record-extension-status-restoration-navigator.js';
+import { evaluateDualIntentCompliance } from '../src/federal-work-permit-dual-intent-assessment-navigator.js';
 import { assertFiniteInput } from '../src/finite-input.js';
-import { evaluateForeignWorkerPermitTransition, TFW_TRANSITION_RULES } from '../src/foreign-worker-closed-permit-transition-navigator.js';
+import { evaluateForeignWorkerPermitTransition } from '../src/foreign-worker-closed-permit-transition-navigator.js';
 import { evaluateForeignWorkerTransition, TFW_TRANSITION_CONSTANTS } from '../src/foreign-worker-transition-navigator.js';
-import { evaluateFranchiseDisclosure, PROVINCIAL_FRANCHISE_ACTS } from '../src/franchise-disclosure-navigator.js';
-import { evaluateFrancophoneMobility, FRANCOPHONE_MOBILITY_CONSTANTS } from '../src/francophone-mobility-navigator.js';
+import { evaluateFranchiseDisclosure } from '../src/franchise-disclosure-navigator.js';
+import { evaluateFrancophoneMobility } from '../src/francophone-mobility-navigator.js';
 
 test('Rec 621: Federal Francophone Mobility C16 Expansion Navigator — IRPR s. 205(a) oral NCLC 5+ & TEER scope', () => {
   // 1. Safe default handling on null

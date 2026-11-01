@@ -1,27 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { evaluatePeiOccupationsInDemand, PEI_ELIGIBLE_TARGET_NOCS } from '../src/pei-provincial-nominee-occupations-in-demand-navigator.js';
-import { evaluatePrCardRenewalUrgent, PR_CARD_CONSTANTS } from '../src/pr-card-renewal-urgent-navigator.js';
-import { evaluateRuralRenewalEligibility, RURAL_AAIP_CONSTANTS, DESIGNATED_RURAL_COMMUNITIES } from '../src/rural-renewal-navigator.js';
-import { evaluateSocialAssistance, SOCIAL_ASSISTANCE_CONSTANTS } from '../src/social-assistance-navigator.js';
-import { evaluateSowpEligibility, generateSowpApplicationChecklist, SOWP_CONSTANTS } from '../src/sowp-eligibility-navigator.js';
-import { assessTelecomDispute, TELECOM_CONSTANTS } from '../src/telecom-contract-defense.js';
-import { evaluateTrpCompellingBalance, TRP_STATUTORY_RULES } from '../src/temporary-resident-permit-inadmissibility-navigator.js';
-import { evaluateTenancyRepairs, TENANCY_REPAIR_CONSTANTS, REPAIR_ISSUE_TAXONOMY } from '../src/tenancy-repairs-navigator.js';
-import { evaluateUkSkilledWorkerAndIlr, UK_SALARY_THRESHOLDS, SECTION_21_ABOLISHED_FROM } from '../src/uk-skilled-worker-ilr-navigator.js';
+import { evaluatePeiOccupationsInDemand } from '../src/pei-provincial-nominee-occupations-in-demand-navigator.js';
+import { evaluatePrCardRenewalUrgent } from '../src/pr-card-renewal-urgent-navigator.js';
+import { evaluateRuralRenewalEligibility } from '../src/rural-renewal-navigator.js';
+import { evaluateSocialAssistance } from '../src/social-assistance-navigator.js';
+import { evaluateSowpEligibility, generateSowpApplicationChecklist } from '../src/sowp-eligibility-navigator.js';
+import { assessTelecomDispute } from '../src/telecom-contract-defense.js';
+import { evaluateTrpCompellingBalance } from '../src/temporary-resident-permit-inadmissibility-navigator.js';
+import { evaluateTenancyRepairs } from '../src/tenancy-repairs-navigator.js';
+import { evaluateUkSkilledWorkerAndIlr } from '../src/uk-skilled-worker-ilr-navigator.js';
 import { evaluateUsH1bOptStatus } from '../src/us-h1b-opt-navigator.js';
 import { evaluateVisitorVisaTies } from '../src/visitor-visa-financial-ties-navigator.js';
 import {
   auditConstructiveDismissal,
   auditCanadianExperienceBarriers,
   auditOhsaWorkRefusalAndReprisal,
-  auditWsibInjuryClaimDeadline,
-  WORKPLACE_RIGHTS_CONSTANTS
+  auditWsibInjuryClaimDeadline
 } from '../src/workplace-rights-defense-navigator.js';
-import { evaluateConsumerCreditAgreement, CREDIT_DEFENSE_CONSTANTS } from '../src/high-cost-credit-navigator.js';
-import { evaluateHomebuyerTaxIncentives, HOMEBUYER_CONSTANTS } from '../src/homebuyer-tax-incentives.js';
-import { evaluateHealthcarePortabilityAndIfhp, generateHealthcareRegistrationGuide, HEALTHCARE_CONSTANTS } from '../src/healthcare-portability-navigator.js';
+import { evaluateConsumerCreditAgreement } from '../src/high-cost-credit-navigator.js';
+import { evaluateHomebuyerTaxIncentives } from '../src/homebuyer-tax-incentives.js';
+import { evaluateHealthcarePortabilityAndIfhp, generateHealthcareRegistrationGuide } from '../src/healthcare-portability-navigator.js';
 
 test('Batch 19 Recommendations (Sweep 26: Recs 351–365)', async (t) => {
   await t.test('Rec 351: evaluatePeiOccupationsInDemand verifies target NOCs, employer tenure, CLB 4, and settlement funds', () => {

@@ -2,21 +2,21 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 // Sweep 43 (Recommendations 606-620) Modules
-import { evaluateExpressEntryTieBreak, EXPRESS_ENTRY_RULES } from '../src/express-entry-tie-breaking-navigator.js';
-import { evaluateFamilyLawAndSupport, calculateChildSupportTableAmount, FAMILY_LAW_CONSTANTS } from '../src/family-law-navigator.js';
-import { evaluateFamilyReunification, LICO_2025_TABLE } from '../src/family-reunification-navigator.js';
-import { evaluateFcrMicroLoans, evaluateIenSpepEligibility, evaluateImgPracticeReadyAssessment, FCR_BRIDGING_CONSTANTS } from '../src/fcr-healthcare-bridge-navigator.js';
-import { evaluateFederalBridgingOpenWorkPermit, FEDERAL_BOWP_CONSTANTS } from '../src/federal-bridging-open-work-permit-pr-acknowledgement-navigator.js';
-import { evaluateFederalC10SignificantBenefit, FEDERAL_C10_CONSTANTS } from '../src/federal-c10-significant-benefit-work-permit-navigator.js';
-import { evaluateFederalC11EntrepreneurWorkPermit, FEDERAL_C11_CONSTANTS } from '../src/federal-c11-entrepreneur-self-employed-work-permit-navigator.js';
+import { evaluateExpressEntryTieBreak } from '../src/express-entry-tie-breaking-navigator.js';
+import { evaluateFamilyLawAndSupport, calculateChildSupportTableAmount } from '../src/family-law-navigator.js';
+import { evaluateFamilyReunification } from '../src/family-reunification-navigator.js';
+import { evaluateFcrMicroLoans, evaluateIenSpepEligibility, evaluateImgPracticeReadyAssessment } from '../src/fcr-healthcare-bridge-navigator.js';
+import { evaluateFederalBridgingOpenWorkPermit } from '../src/federal-bridging-open-work-permit-pr-acknowledgement-navigator.js';
+import { evaluateFederalC10SignificantBenefit } from '../src/federal-c10-significant-benefit-work-permit-navigator.js';
+import { evaluateFederalC11EntrepreneurWorkPermit } from '../src/federal-c11-entrepreneur-self-employed-work-permit-navigator.js';
 import { evaluateFederalFtaProfessionalWorkPermit, FEDERAL_FTA_CONSTANTS } from '../src/federal-c12-gats-professional-fta-navigator.js';
-import { evaluateFederalIntraCompanyTransferee, FEDERAL_ICT_CONSTANTS } from '../src/federal-c14-intra-company-transferee-navigator.js';
-import { evaluateFederalReciprocalEmployment, FEDERAL_C20_CONSTANTS } from '../src/federal-c20-reciprocal-employment-work-permit-navigator.js';
-import { evaluateCaregiverDirectToPr, CAREGIVER_ELIGIBLE_NOCS, CAREGIVER_MINIMUM_CLB } from '../src/federal-caregiver-direct-to-pr-pilot-navigator.js';
-import { evaluateFederalCaregiverPrPathway, FEDERAL_CAREGIVER_CONSTANTS } from '../src/federal-caregiver-pr-pathway-experience-navigator.js';
-import { auditCitizenshipPhysicalPresence, CITIZENSHIP_PRESENCE_REQUIREMENTS } from '../src/federal-citizenship-residence-calculator-audit-navigator.js';
-import { evaluateCitizenshipRevocationDefense, CITIZENSHIP_REVOCATION_NOTICE_RESPONSE_WINDOW_DAYS } from '../src/federal-citizenship-revocation-defense-navigator.js';
-import { evaluateFrancophoneCommunityPilot, calculateFcipSettlementFunds, FCIP_PARTICIPATING_COMMUNITIES } from '../src/federal-francophone-community-pilot-navigator.js';
+import { evaluateFederalIntraCompanyTransferee } from '../src/federal-c14-intra-company-transferee-navigator.js';
+import { evaluateFederalReciprocalEmployment } from '../src/federal-c20-reciprocal-employment-work-permit-navigator.js';
+import { evaluateCaregiverDirectToPr } from '../src/federal-caregiver-direct-to-pr-pilot-navigator.js';
+import { evaluateFederalCaregiverPrPathway } from '../src/federal-caregiver-pr-pathway-experience-navigator.js';
+import { auditCitizenshipPhysicalPresence } from '../src/federal-citizenship-residence-calculator-audit-navigator.js';
+import { evaluateCitizenshipRevocationDefense } from '../src/federal-citizenship-revocation-defense-navigator.js';
+import { evaluateFrancophoneCommunityPilot, calculateFcipSettlementFunds } from '../src/federal-francophone-community-pilot-navigator.js';
 
 // Rec 606: Express Entry Tie-Breaking Navigator
 test('Rec 606: evaluateExpressEntryTieBreak handles null, tie-breaker timestamps and PNP boost', () => {

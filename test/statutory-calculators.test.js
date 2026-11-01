@@ -7,8 +7,7 @@ import {
   calculateSeveranceAndEi,
   calculateTenancyDamages,
   calculateDocumentExpiryRunway,
-  evaluateExcessiveDemandMedical,
-  RECIPROCAL_DRIVING_COUNTRIES
+  evaluateExcessiveDemandMedical
 } from '../src/statutory-calculators.js';
 
 test('credit trajectory simulator accurately models utilization tiers and hard inquiries', () => {

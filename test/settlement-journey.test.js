@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { IMMIGRATION_CATEGORIES, SETTLEMENT_PHASES, MASTER_MILESTONES, generateSettlementJourney } from '../src/settlement-journey.js';
+import { IMMIGRATION_CATEGORIES, SETTLEMENT_PHASES, generateSettlementJourney } from '../src/settlement-journey.js';
 
 test('IMMIGRATION_CATEGORIES contains key newcomer streams', () => {
   const keys = Object.keys(IMMIGRATION_CATEGORIES);

@@ -2,8 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   evaluateNbpnpSkilledWorker,
-  calculateNbpnpSettlementFunds,
-  NBPNP_PASS_MARK_POINTS
+  calculateNbpnpSettlementFunds
 } from '../src/new-brunswick-provincial-nominee-skilled-worker-navigator.js';
 
 test('NBPNP Skilled Worker - Eligible Candidate with 72 Points', () => {

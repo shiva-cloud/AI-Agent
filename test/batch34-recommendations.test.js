@@ -6,21 +6,21 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 // Sweep 41 (Recommendations 576-590) Modules
-import { assessCredentialLicensure, evaluateCredentialLicensurePathway, REGULATED_PROFESSIONS_DIRECTORY } from '../src/credential-licensure-bridge.js';
-import { evaluateCredentialPathway, ECA_ORGANIZATIONS, REGULATED_PROFESSIONS } from '../src/credential-navigator.js';
-import { evaluateCriminalInadmissibilityAndRehab, generateRehabilitationActionPlan, REHAB_CONSTANTS, OFFENSE_EQUIVALENCY_TAXONOMY } from '../src/criminal-rehabilitation-navigator.js';
-import { evaluateCrossBorderTaxObligations, CROSS_BORDER_CONSTANTS } from '../src/cross-border-tax-navigator.js';
-import { evaluateCurrencyExchange, FINTRAC_STATUTORY_CONSTANTS, MID_MARKET_BENCHMARK_RATES } from '../src/currency-exchange-navigator.js';
-import { evaluateCustomsDeclaration, TARIFF_REGIMES } from '../src/customs-declaration.js';
+import { assessCredentialLicensure, evaluateCredentialLicensurePathway } from '../src/credential-licensure-bridge.js';
+import { evaluateCredentialPathway } from '../src/credential-navigator.js';
+import { evaluateCriminalInadmissibilityAndRehab, generateRehabilitationActionPlan, REHAB_CONSTANTS } from '../src/criminal-rehabilitation-navigator.js';
+import { evaluateCrossBorderTaxObligations } from '../src/cross-border-tax-navigator.js';
+import { evaluateCurrencyExchange } from '../src/currency-exchange-navigator.js';
+import { evaluateCustomsDeclaration } from '../src/customs-declaration.js';
 import { deriveEncryptionKey, encryptBuffer, decryptBuffer, encryptDatabaseFile, decryptDatabaseFile } from '../src/db-encryption.js';
 import { runDatabaseMaintenance } from '../src/db-maintenance.js';
 import { createDatabasePool } from '../src/db-pool.js';
-import { evaluateDebtCollectionDefense, calculateYearsElapsed, DEBT_DEFENSE_CONSTANTS } from '../src/debt-collection-defense.js';
-import { isValidCityForCountry, resolveInputCountry, globalDestinations, destinationCities } from '../src/destinations.js';
-import { evaluatePlatformWorkerRights, PLATFORM_WORKER_CONSTANTS } from '../src/digital-platform-worker-navigator.js';
-import { validateDocument, validateNewcomerDocuments, DOCUMENT_TYPE_POLICIES } from '../src/document-validator.js';
-import { evaluateEiRegularBenefits, auditEiVoluntaryQuitJustCause, evaluateEiParentalAndSicknessBenefits, EI_CONSTANTS } from '../src/ei-benefits-navigator.js';
-import { evaluateEiDisqualificationAndAllocation, STATUTORY_JUST_CAUSE_CIRCUMSTANCES } from '../src/ei-disqualification-navigator.js';
+import { evaluateDebtCollectionDefense } from '../src/debt-collection-defense.js';
+import { isValidCityForCountry, resolveInputCountry } from '../src/destinations.js';
+import { evaluatePlatformWorkerRights } from '../src/digital-platform-worker-navigator.js';
+import { validateDocument, validateNewcomerDocuments } from '../src/document-validator.js';
+import { evaluateEiRegularBenefits, auditEiVoluntaryQuitJustCause, evaluateEiParentalAndSicknessBenefits } from '../src/ei-benefits-navigator.js';
+import { evaluateEiDisqualificationAndAllocation } from '../src/ei-disqualification-navigator.js';
 
 // Rec 576: Credential Licensure Bridge Engine
 test('Rec 576: assessCredentialLicensure handles null, FARPACTA Canadian experience ban, and alternative unlicensed roles', () => {

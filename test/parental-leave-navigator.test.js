@@ -3,7 +3,6 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   EI_STATUTORY_CONSTANTS,
-  PROVINCIAL_JOB_PROTECTION_STANDARDS,
   evaluateParentalLeave
 } from '../src/parental-leave-navigator.js';
 

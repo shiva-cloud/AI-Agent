@@ -12,30 +12,26 @@ import { join } from 'node:path';
 // Rec 681: Manitoba Employment Leave & Job Protection Navigator
 import {
   evaluateManitobaEmploymentLeave,
-  assessManitobaEmploymentLeave,
-  MANITOBA_SERVICE_REQUIREMENTS,
-  MANITOBA_MAX_LEAVE_WEEKS
+  assessManitobaEmploymentLeave
 } from '../src/manitoba-employment-leave-job-protection-navigator.js';
 
 // Rec 682: Manitoba Employment Statutory Holiday Pay Navigator
 import {
-  evaluateManitobaGeneralHolidayPay,
+  
   calculateManitobaStatutoryHolidayPay,
   MANITOBA_HOLIDAY_CONSTANTS
 } from '../src/manitoba-employment-statutory-holiday-pay-navigator.js';
 
 // Rec 683: Manitoba PNP Skilled Worker Navigator
 import {
-  evaluateManitobaPnpSkilledWorker,
-  assessManitobaPnpSkilledWorker,
-  MPNP_CONSTANTS
+  
+  assessManitobaPnpSkilledWorker
 } from '../src/manitoba-pnp-skilled-worker-navigator.js';
 
 // Rec 684: Manitoba Residential Tenancy Rent Increase Guideline Navigator
 import {
-  evaluateManitobaRentIncrease,
-  assessManitobaRentIncrease,
-  MANITOBA_RENT_CONSTANTS
+  
+  assessManitobaRentIncrease
 } from '../src/manitoba-residential-tenancy-rent-increase-guideline-navigator.js';
 
 // Rec 685: Market Gap Batch 1 Resolver
@@ -58,8 +54,7 @@ import {
 
 // Rec 688: Medical Admissibility Navigator
 import {
-  evaluateMedicalAdmissibility,
-  ANNUAL_EXCESSIVE_DEMAND_THRESHOLD_CAD
+  evaluateMedicalAdmissibility
 } from '../src/medical-admissibility.js';
 
 // Rec 689: Migration Dry Run

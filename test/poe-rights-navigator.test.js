@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluatePortOfEntryRights, BORDER_AUTHORITIES } from '../src/poe-rights-navigator.js';
+import { evaluatePortOfEntryRights } from '../src/poe-rights-navigator.js';
 
 test('POE Rights Navigator — Input validation', () => {
   assert.throws(() => evaluatePortOfEntryRights(null), /must be a valid object/);

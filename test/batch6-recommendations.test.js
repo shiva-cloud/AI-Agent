@@ -9,14 +9,12 @@ import {
   auditAustraliaDhaGazette,
   syncCorridorMigrationRules,
   translatePolicyDelta,
-  auditMultiCountryGazettes,
   MULTI_COUNTRY_GAZETTE_CONSTANTS
 } from '../src/multi-country-gazette-crawler.js';
 import {
-  autoPopulateForm,
-  OFFICIAL_FORM_TEMPLATES
+  autoPopulateForm
 } from '../src/official-forms.js';
-import { compareCities, CANADIAN_METROS } from '../src/city-comparison.js';
+import { compareCities } from '../src/city-comparison.js';
 import { createApp } from '../src/server.js';
 import { openStore } from '../src/store.js';
 
