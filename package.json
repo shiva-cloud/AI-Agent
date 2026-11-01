@@ -1,0 +1,46 @@
+{
+  "name": "settlement-intelligence",
+  "version": "0.19.48",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "benchmark": "node scripts/benchmark.js",
+    "benchmark-http": "node scripts/http-benchmark.js",
+    "migrate": "node scripts/migrate.js",
+    "migrate-dry-run": "node scripts/migrate-dry-run.js",
+    "policy-lint": "node scripts/policy-lint.js",
+    "pre-flight": "node scripts/verify-everything.js",
+    "verify-data": "node scripts/verify-data.js",
+    "evaluate": "node scripts/evaluate.js",
+    "backup": "node scripts/backup.js",
+    "verify-backup": "node scripts/verify-backup.js",
+    "restore-drill": "node scripts/restore-drill.js",
+    "api:export": "node scripts/export-openapi.js",
+    "api:validate": "node scripts/validate-openapi.js",
+    "api:client": "node scripts/prepare-openapi-generator.js && openapi-typescript docs/openapi.json -o generated/api.d.ts",
+    "api:typecheck": "tsc -p tsconfig.client.json",
+    "start:test": "node scripts/start-testing-mode.js",
+    "kb:health": "node scripts/kb-health.js",
+    "kb:corrections": "node scripts/kb-corrections-2026-11-01.js",
+    "kb:corrections:apply": "node scripts/kb-corrections-2026-11-01.js --apply",
+    "kb:review": "node scripts/kb-review-queue.js"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "13.1.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "openapi-fetch": "0.17.0",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "@redocly/openapi-core": {
+      "minimatch": "11.0.3"
+    }
+  }
+}

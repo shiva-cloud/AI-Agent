@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    image: northstar-local:review
+    init: true
+    restart: unless-stopped
+    ports: ["127.0.0.1:3100:3000"]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DB_PATH: /app/data/settlement.sqlite
+      PUBLIC_ORIGIN: http://127.0.0.1:3100
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+    volumes: ["evidence:/app/data", "backups:/app/backups"]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/tmp]
+  crawler:
+    image: northstar-local:review
+    profiles: [crawler]
+    init: true
+    restart: unless-stopped
+    command: [node, scripts/realtime-cron-runner.js, --daemon, --interval, "300000"]
+    environment:
+      DB_PATH: /app/data/settlement.sqlite
+    volumes: ["evidence:/app/data"]
+    healthcheck:
+      disable: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/tmp]
+volumes:
+  evidence:
+  backups:

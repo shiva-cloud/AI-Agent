@@ -1,0 +1,15 @@
+node_modules
+.git
+.github
+evaluation
+test
+*.log
+.DS_Store
+tmp
+scratch
+data
+backups
+artifacts
+recovery-drills
+.env
+.env.*

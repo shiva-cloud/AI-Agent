@@ -1,0 +1,15 @@
+data/*.sqlite*
+.env
+node_modules/
+artifacts/
+backups/
+recovery-drills/
+scratch/
+*.log
+.env.*
+!.env.example
+data/*.secret
+data/*.json
+backups/archive-*/
+project-bundle.zip
+release-*.zip

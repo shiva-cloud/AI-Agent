@@ -1,0 +1,17 @@
+{
+  "name": "Northstar Settlement Intelligence",
+  "short_name": "Northstar",
+  "description": "Plain-English settlement guidance for newcomers, with official sources, a document checklist and an arrival kit that works offline",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,944 @@
+{
+  "/v1/question-bank/batch3": {
+    "get": {
+      "operationId": "get__v1_question_bank_batch3",
+      "security": [],
+      "parameters": [
+        {
+          "name": "q",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "category",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 20
+          }
+        },
+        {
+          "name": "offset",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer"
+                  },
+                  "offset": {
+                    "type": "integer"
+                  },
+                  "limit": {
+                    "type": "integer"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "question": {
+                          "type": "string"
+                        },
+                        "statutoryRule": {
+                          "type": "string"
+                        },
+                        "citation": {
+                          "type": "string"
+                        },
+                        "verdict": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "category",
+                        "question",
+                        "statutoryRule",
+                        "citation",
+                        "verdict"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "total",
+                  "offset",
+                  "limit",
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/question-bank/batch3/stats": {
+    "get": {
+      "operationId": "get__v1_question_bank_batch3_stats",
+      "security": [],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "totalQuestions": {
+                    "type": "integer"
+                  },
+                  "range": {
+                    "type": "string"
+                  },
+                  "categories": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "totalQuestions",
+                  "range",
+                  "categories"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/question-bank/batch3/{id}": {
+    "get": {
+      "operationId": "get__v1_question_bank_batch3_id_",
+      "security": [],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "question": {
+                        "type": "string"
+                      },
+                      "statutoryRule": {
+                        "type": "string"
+                      },
+                      "citation": {
+                        "type": "string"
+                      },
+                      "verdict": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "category",
+                      "question",
+                      "statutoryRule",
+                      "citation",
+                      "verdict"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "item"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/market-gap/batch1/stats": {
+    "get": {
+      "operationId": "get__v1_market_gap_batch1_stats",
+      "security": [],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "totalQuestions": {
+                    "type": "integer"
+                  },
+                  "range": {
+                    "type": "string"
+                  },
+                  "tiers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "topics": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "scenarios": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "totalCountries": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "totalQuestions",
+                  "range",
+                  "tiers",
+                  "topics",
+                  "scenarios",
+                  "totalCountries"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/market-gap/batch1": {
+    "get": {
+      "operationId": "get__v1_market_gap_batch1",
+      "security": [],
+      "parameters": [
+        {
+          "name": "q",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "country",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "topic",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "default": 20
+          }
+        },
+        {
+          "name": "offset",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "default": 0
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer"
+                  },
+                  "offset": {
+                    "type": "integer"
+                  },
+                  "limit": {
+                    "type": "integer"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "tier": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "topic": {
+                          "type": "string"
+                        },
+                        "scenarioName": {
+                          "type": "string"
+                        },
+                        "question": {
+                          "type": "string"
+                        },
+                        "statutoryRule": {
+                          "type": "string"
+                        },
+                        "citation": {
+                          "type": "string"
+                        },
+                        "verdict": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "tier",
+                        "country",
+                        "topic",
+                        "scenarioName",
+                        "question",
+                        "statutoryRule",
+                        "citation",
+                        "verdict"
+                      ],
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "required": [
+                  "total",
+                  "offset",
+                  "limit",
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/market-gap/batch1/{id}": {
+    "get": {
+      "operationId": "get__v1_market_gap_batch1_id_",
+      "security": [],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "tier": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "topic": {
+                        "type": "string"
+                      },
+                      "scenarioName": {
+                        "type": "string"
+                      },
+                      "question": {
+                        "type": "string"
+                      },
+                      "statutoryRule": {
+                        "type": "string"
+                      },
+                      "citation": {
+                        "type": "string"
+                      },
+                      "verdict": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "tier",
+                      "country",
+                      "topic",
+                      "scenarioName",
+                      "question",
+                      "statutoryRule",
+                      "citation",
+                      "verdict"
+                    ],
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "item"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/market-gap/batch2/stats": {
+    "get": {
+      "operationId": "get__v1_market_gap_batch2_stats",
+      "security": [],
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "totalQuestions": {
+                    "type": "integer"
+                  },
+                  "range": {
+                    "type": "string"
+                  },
+                  "tiers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "topics": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "scenarios": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "totalCountries": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "totalQuestions",
+                  "range",
+                  "tiers",
+                  "topics",
+                  "scenarios",
+                  "totalCountries"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/market-gap/batch2": {
+    "get": {
+      "operationId": "get__v1_market_gap_batch2",
+      "security": [],
+      "parameters": [
+        {
+          "name": "q",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "country",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "topic",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "default": 20
+          }
+        },
+        {
+          "name": "offset",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "default": 0
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer"
+                  },
+                  "offset": {
+                    "type": "integer"
+                  },
+                  "limit": {
+                    "type": "integer"
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "tier": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "topic": {
+                          "type": "string"
+                        },
+                        "scenarioName": {
+                          "type": "string"
+                        },
+                        "question": {
+                          "type": "string"
+                        },
+                        "statutoryRule": {
+                          "type": "string"
+                        },
+                        "citation": {
+                          "type": "string"
+                        },
+                        "verdict": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "tier",
+                        "country",
+                        "topic",
+                        "scenarioName",
+                        "question",
+                        "statutoryRule",
+                        "citation",
+                        "verdict"
+                      ],
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "required": [
+                  "total",
+                  "offset",
+                  "limit",
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/v1/market-gap/batch2/{id}": {
+    "get": {
+      "operationId": "get__v1_market_gap_batch2_id_",
+      "security": [],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "tier": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "topic": {
+                        "type": "string"
+                      },
+                      "scenarioName": {
+                        "type": "string"
+                      },
+                      "question": {
+                        "type": "string"
+                      },
+                      "statutoryRule": {
+                        "type": "string"
+                      },
+                      "citation": {
+                        "type": "string"
+                      },
+                      "verdict": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "tier",
+                      "country",
+                      "topic",
+                      "scenarioName",
+                      "question",
+                      "statutoryRule",
+                      "citation",
+                      "verdict"
+                    ],
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "item"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "default": {
+          "description": "JSON API failure. Some failures include additional context.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "error",
+                  "code"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

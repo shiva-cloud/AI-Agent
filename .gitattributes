@@ -1,0 +1,10 @@
+# Normalize all text to LF in the repository and in working trees, so the
+# Windows workstation and the Linux CI never fight over line endings.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+*.sqlite binary

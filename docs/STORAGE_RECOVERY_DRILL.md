@@ -1,0 +1,9 @@
+# Storage contention and recovery
+
+Recognized SQLite busy/locked errors (including extended codes) now return HTTP 503 with `code: storage_busy` and `Retry-After: 1`. Messages, paths and SQL remain private. Other unexpected errors retain HTTP 500. This applies to errors reaching the server's common exception handler; readiness and shared-quota handlers retain their specific 503 contracts. A retry hint is not a promise that storage will be available after one second. Clients should use bounded backoff; do not blindly retry non-idempotent mutations whose outcome is uncertain.
+
+Run `node scripts/storage-recovery-drill.js [concurrency]`, with concurrency 1–16 (default 8). The harness creates a disposable local WAL database and an ephemeral loopback server with AI disabled. It sends a successful batch, holds a real second-connection SQLite write transaction, sends a failure batch, releases the lock and sends a recovery batch without restarting the server. Request deadlines are bounded.
+
+Assertions cover the expected 200/503/200 phases, positive Retry-After, no changed trace/gap/workflow counts during failed requests, independent successful trace IDs, sanitized persistence-stage diagnostics and SQLite quick_check. Cleanup closes the lock, server and database and verifies the temporary directory boundary before removal. No production database or configured provider is accessed.
+
+The default eight-concurrent-request drill passed with 16 successful persisted traces and eight diagnosed failures during contention. The report is artifacts/storage-recovery-drill.json. This is a short functional failure/recovery drill, not representative production capacity, disk-failure simulation or an explanation of the historical S16 failure. SQLite synchronous calls can still block the event loop; broader deployment-specific soak and resource measurements remain required.

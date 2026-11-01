@@ -1,0 +1,1202 @@
+[
+  {
+    "id": 1501,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can two applicants with identical immigration profiles receive different decisions under the same immigration policy, and how can such inconsistencies be measured?"
+  },
+  {
+    "id": 1502,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How do immigration authorities interpret legal provisions that do not explicitly define exceptional circumstances?"
+  },
+  {
+    "id": 1503,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can an immigration policy remain legally valid while its practical implementation systematically disadvantages certain applicants?"
+  },
+  {
+    "id": 1504,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How should applicants interpret conflicting immigration instructions published by different government departments?"
+  },
+  {
+    "id": 1505,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can an immigration officer legally rely on an unpublished internal assessment criterion?"
+  },
+  {
+    "id": 1506,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "What happens when immigration legislation changes after an application is submitted but before a decision is issued?"
+  },
+  {
+    "id": 1507,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How do countries determine which version of immigration law applies to applications submitted during transitional periods?"
+  },
+  {
+    "id": 1508,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can administrative discretion create immigration outcomes that are inconsistent with published eligibility requirements?"
+  },
+  {
+    "id": 1509,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "What legal remedies exist when an immigration authority fails to follow its own published procedural guidelines?"
+  },
+  {
+    "id": 1510,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How can applicants distinguish between a legally binding immigration requirement and an informal administrative recommendation?"
+  },
+  {
+    "id": 1511,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can an immigration decision be challenged because the authority misunderstood the applicant's personal circumstances?"
+  },
+  {
+    "id": 1512,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How do courts evaluate immigration decisions involving incomplete or ambiguous government guidance?"
+  },
+  {
+    "id": 1513,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "What happens when two immigration laws appear to contradict each other?"
+  },
+  {
+    "id": 1514,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can an applicant challenge an immigration decision based on inconsistent treatment of comparable cases?"
+  },
+  {
+    "id": 1515,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How do immigration authorities evaluate applications involving circumstances that were not anticipated when legislation was drafted?"
+  },
+  {
+    "id": 1516,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can a country retrospectively change the conditions attached to an existing immigration status?"
+  },
+  {
+    "id": 1517,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How do immigration systems handle legal ambiguities involving digital documents and electronic verification?"
+  },
+  {
+    "id": 1518,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "Can an applicant rely on incorrect information provided by an official immigration helpdesk?"
+  },
+  {
+    "id": 1519,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "What legal consequences arise when an immigration authority changes its interpretation of a policy without formally amending it?"
+  },
+  {
+    "id": 1520,
+    "part": "A",
+    "section": "Immigration Policy and Legal Interpretation",
+    "question": "How can researchers identify hidden inconsistencies between immigration legislation and administrative practice?"
+  },
+  {
+    "id": 1521,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can an applicant successfully reapply after a refusal without changing any factual circumstances?"
+  },
+  {
+    "id": 1522,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How should an applicant respond when a refusal letter identifies a concern that was never raised during the assessment?"
+  },
+  {
+    "id": 1523,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can a previous visa refusal influence an application submitted to an unrelated country?"
+  },
+  {
+    "id": 1524,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How do immigration officers distinguish between genuine uncertainty and intentional misrepresentation?"
+  },
+  {
+    "id": 1525,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "What happens when an applicant discovers an error in an application after receiving a visa approval?"
+  },
+  {
+    "id": 1526,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can a minor discrepancy between two official documents create a long-term immigration problem?"
+  },
+  {
+    "id": 1527,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How should applicants handle conflicting personal details across historical passports?"
+  },
+  {
+    "id": 1528,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can an immigration authority refuse an application because it cannot independently verify a legitimate document?"
+  },
+  {
+    "id": 1529,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How do authorities evaluate applications involving unusual but legally valid sources of income?"
+  },
+  {
+    "id": 1530,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can an applicant request reconsideration when a refusal appears to rely on outdated information?"
+  },
+  {
+    "id": 1531,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "What happens when a sponsor withdraws support after an application has been approved but before the applicant travels?"
+  },
+  {
+    "id": 1532,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can an immigration application remain valid when one supporting document expires during processing?"
+  },
+  {
+    "id": 1533,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How do immigration authorities assess applications involving applicants who have lived in several countries with different documentation standards?"
+  },
+  {
+    "id": 1534,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can an applicant be refused because their professional experience is difficult to classify under an immigration occupation framework?"
+  },
+  {
+    "id": 1535,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "What happens when an immigration officer incorrectly interprets an applicant's employment history?"
+  },
+  {
+    "id": 1536,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can a visa application be rejected because a third-party verification service provides incomplete information?"
+  },
+  {
+    "id": 1537,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How should an applicant approach a refusal involving several independent grounds of inadmissibility?"
+  },
+  {
+    "id": 1538,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "Can an applicant challenge a decision when the reasons provided are too general to identify the actual problem?"
+  },
+  {
+    "id": 1539,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "What happens when an applicant's eligibility changes while an appeal is pending?"
+  },
+  {
+    "id": 1540,
+    "part": "B",
+    "section": "Visa Refusals and Complex Application Scenarios",
+    "question": "How can applicants evaluate whether reapplication, administrative review or judicial review is the most appropriate remedy?"
+  },
+  {
+    "id": 1541,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How should immigrants structure their finances before becoming tax residents of another country?"
+  },
+  {
+    "id": 1542,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can transferring savings between countries create unexplained-source-of-funds concerns?"
+  },
+  {
+    "id": 1543,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How do immigration authorities evaluate wealth accumulated through informal family businesses?"
+  },
+  {
+    "id": 1544,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can a gift from a relative qualify as acceptable settlement funding when the donor lives in another country?"
+  },
+  {
+    "id": 1545,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How should immigrants document wealth accumulated across multiple currencies over several decades?"
+  },
+  {
+    "id": 1546,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "What happens when an applicant's savings lose substantial value because of exchange-rate fluctuations during processing?"
+  },
+  {
+    "id": 1547,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can a foreign bank's inability to issue a particular certificate affect immigration eligibility?"
+  },
+  {
+    "id": 1548,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How do countries evaluate inherited assets that have not yet been formally distributed among heirs?"
+  },
+  {
+    "id": 1549,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "What financial evidence is appropriate when an applicant earns income from several independent online platforms?"
+  },
+  {
+    "id": 1550,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can an applicant's financial eligibility change because of an unexpected international banking restriction?"
+  },
+  {
+    "id": 1551,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How should immigrants manage assets that may be taxed differently in their destination and origin countries?"
+  },
+  {
+    "id": 1552,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "What happens when the source of funds is legitimate but the original financial records no longer exist?"
+  },
+  {
+    "id": 1553,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can cryptocurrency wealth be accepted as proof of settlement funds, and under what verification standards?"
+  },
+  {
+    "id": 1554,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How do authorities assess business income when the applicant owns several companies in different jurisdictions?"
+  },
+  {
+    "id": 1555,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can a sudden increase in an applicant's bank balance create additional verification requirements?"
+  },
+  {
+    "id": 1556,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How should immigrants evaluate the financial consequences of becoming tax residents before physically relocating?"
+  },
+  {
+    "id": 1557,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "What happens when a country changes its tax treatment of foreign income after an immigrant becomes resident?"
+  },
+  {
+    "id": 1558,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can an immigrant legally maintain multiple bank accounts across countries while complying with reporting obligations?"
+  },
+  {
+    "id": 1559,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "How should families plan international asset transfers when immigration and inheritance laws differ?"
+  },
+  {
+    "id": 1560,
+    "part": "C",
+    "section": "Financial Immigration and Cross-Border Wealth",
+    "question": "Can an immigrant's financial obligations in their former country continue after acquiring permanent residency elsewhere?"
+  },
+  {
+    "id": 1561,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How do immigration authorities evaluate professional experience gained through unpaid but substantial work?"
+  },
+  {
+    "id": 1562,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can employment undertaken through a foreign subsidiary qualify as local skilled work experience?"
+  },
+  {
+    "id": 1563,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How should applicants document professional responsibilities when their original job title does not match the destination country's occupation classification?"
+  },
+  {
+    "id": 1564,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can an employer withdraw a sponsorship after an employee has received conditional immigration approval?"
+  },
+  {
+    "id": 1565,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How do countries distinguish between independent contracting and disguised employment for immigration purposes?"
+  },
+  {
+    "id": 1566,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "What happens when an immigrant's occupation becomes regulated after their immigration application has been approved?"
+  },
+  {
+    "id": 1567,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can professional experience gained in an informal family business qualify toward skilled migration criteria?"
+  },
+  {
+    "id": 1568,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How should immigrants handle professional licensing delays that prevent them from starting their intended occupation?"
+  },
+  {
+    "id": 1569,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can remote employment for an overseas company violate conditions attached to a local work permit?"
+  },
+  {
+    "id": 1570,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "What happens when an employee changes departments but retains the same employer and immigration sponsor?"
+  },
+  {
+    "id": 1571,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How do immigration systems evaluate applicants with multidisciplinary careers that cross several occupational categories?"
+  },
+  {
+    "id": 1572,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can a promotion change an employee's immigration eligibility even when the employer remains unchanged?"
+  },
+  {
+    "id": 1573,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How should skilled migrants handle a mismatch between their educational qualifications and their actual professional responsibilities?"
+  },
+  {
+    "id": 1574,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can employment history be counted when the applicant worked for a company that subsequently ceased operations?"
+  },
+  {
+    "id": 1575,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "What happens when an employer's immigration sponsorship licence is suspended during an employee's application?"
+  },
+  {
+    "id": 1576,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How do countries assess foreign professional qualifications when no direct local equivalent exists?"
+  },
+  {
+    "id": 1577,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can a skilled migrant legally establish a side business while holding an employer-sponsored work permit?"
+  },
+  {
+    "id": 1578,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "How should applicants evaluate immigration risks associated with accepting a probationary employment contract?"
+  },
+  {
+    "id": 1579,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "Can a professional's immigration status be affected by a change in industry classification?"
+  },
+  {
+    "id": 1580,
+    "part": "D",
+    "section": "Employment and Professional Immigration",
+    "question": "What happens when an employer relocates the employee to another country without obtaining the necessary immigration permissions?"
+  },
+  {
+    "id": 1581,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can a permanent resident lose residency rights without committing a criminal offence?"
+  },
+  {
+    "id": 1582,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "How do countries determine whether a permanent resident has genuinely maintained residence when frequent international travel is involved?"
+  },
+  {
+    "id": 1583,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can time spent outside a country for medical treatment count toward physical-presence requirements?"
+  },
+  {
+    "id": 1584,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "How should permanent residents document residence when they frequently work across international borders?"
+  },
+  {
+    "id": 1585,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can a citizenship application be refused because an applicant's identity records contain historical inconsistencies?"
+  },
+  {
+    "id": 1586,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "What happens when a permanent resident's country of origin stops issuing valid passports?"
+  },
+  {
+    "id": 1587,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can a country revoke citizenship obtained through naturalisation if new evidence emerges years later?"
+  },
+  {
+    "id": 1588,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "How do citizenship authorities evaluate applicants whose names have changed several times across different legal systems?"
+  },
+  {
+    "id": 1589,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can periods of lawful temporary residence count toward citizenship when immigration categories have changed?"
+  },
+  {
+    "id": 1590,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "What happens when a permanent resident becomes incapacitated and cannot meet a physical-presence requirement?"
+  },
+  {
+    "id": 1591,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can an applicant qualify for citizenship when their birth records are unavailable due to conflict or natural disaster?"
+  },
+  {
+    "id": 1592,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "How do countries handle citizenship applications involving conflicting nationality laws?"
+  },
+  {
+    "id": 1593,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can permanent residency rights survive a marriage breakdown when the original immigration pathway was family-based?"
+  },
+  {
+    "id": 1594,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "What legal protections exist when a country changes its permanent residency renewal rules?"
+  },
+  {
+    "id": 1595,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can a naturalised citizen face different administrative treatment from a citizen by birth?"
+  },
+  {
+    "id": 1596,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "How should immigrants assess the consequences of voluntarily renouncing their original citizenship?"
+  },
+  {
+    "id": 1597,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "What happens when an applicant discovers that their historical immigration status was incorrectly recorded in government databases?"
+  },
+  {
+    "id": 1598,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can an applicant challenge a citizenship refusal based on an excessively broad interpretation of good character?"
+  },
+  {
+    "id": 1599,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "How do countries treat long-term residents whose immigration status was never formally documented despite decades of residence?"
+  },
+  {
+    "id": 1600,
+    "part": "E",
+    "section": "Permanent Residency and Citizenship",
+    "question": "Can a permanent resident's right to return be affected by changes in national security legislation?"
+  },
+  {
+    "id": 1601,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How do immigration authorities assess genuine family relationships when relatives have lived separately for many years?"
+  },
+  {
+    "id": 1602,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can an adult dependent qualify for family migration because of long-term financial dependence rather than disability?"
+  },
+  {
+    "id": 1603,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "What happens when a sponsoring parent loses legal custody during a dependent child's immigration application?"
+  },
+  {
+    "id": 1604,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How should families handle situations where different countries recognise the same marriage differently?"
+  },
+  {
+    "id": 1605,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can an immigrant sponsor a family member when their own immigration status is approaching expiry?"
+  },
+  {
+    "id": 1606,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How do authorities evaluate family relationships involving customary marriages that are not registered under civil law?"
+  },
+  {
+    "id": 1607,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can a dependent child retain immigration eligibility after reaching the age threshold during processing delays?"
+  },
+  {
+    "id": 1608,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "What happens when parents disagree about which country should be considered their child's habitual residence?"
+  },
+  {
+    "id": 1609,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can a family reunification application succeed when the sponsor has irregular income but substantial assets?"
+  },
+  {
+    "id": 1610,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How should immigration authorities assess guardianship arrangements involving relatives living in different countries?"
+  },
+  {
+    "id": 1611,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can a family sponsor be held responsible for a dependent's financial misconduct?"
+  },
+  {
+    "id": 1612,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "What immigration consequences arise when a legally recognised marriage is later annulled?"
+  },
+  {
+    "id": 1613,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How do countries handle dependent applications involving adopted children whose adoption is recognised differently across jurisdictions?"
+  },
+  {
+    "id": 1614,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can a parent obtain immigration rights through a child who has acquired citizenship independently?"
+  },
+  {
+    "id": 1615,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "What happens when family members receive different immigration decisions despite applying together?"
+  },
+  {
+    "id": 1616,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can a spouse's immigration status remain valid after a relationship ends because of circumstances beyond the applicant's control?"
+  },
+  {
+    "id": 1617,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How should applicants document family relationships when official civil records were never created?"
+  },
+  {
+    "id": 1618,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "Can a dependent family member independently change immigration categories without affecting the sponsor?"
+  },
+  {
+    "id": 1619,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "How do immigration authorities evaluate applications involving multiple simultaneous sponsorship relationships?"
+  },
+  {
+    "id": 1620,
+    "part": "F",
+    "section": "Family, Marriage and Dependent Immigration",
+    "question": "What happens when a family member becomes financially independent while their dependent immigration application is pending?"
+  },
+  {
+    "id": 1621,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can a student maintain immigration compliance when their educational institution unexpectedly loses accreditation?"
+  },
+  {
+    "id": 1622,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How do immigration authorities treat academic interruptions caused by institutional strikes or administrative failures?"
+  },
+  {
+    "id": 1623,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can credits earned at an overseas institution count toward local post-study immigration eligibility?"
+  },
+  {
+    "id": 1624,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "What happens when an international student changes from full-time to part-time study because of financial hardship?"
+  },
+  {
+    "id": 1625,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How should students evaluate immigration consequences before transferring between institutions?"
+  },
+  {
+    "id": 1626,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can a student qualify for a post-study work pathway after completing a qualification through a combination of online and in-person study?"
+  },
+  {
+    "id": 1627,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How do countries distinguish genuine academic progression from repeated enrolment in qualifications of similar levels?"
+  },
+  {
+    "id": 1628,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "What happens when a student's final examination results are delayed beyond their visa expiry date?"
+  },
+  {
+    "id": 1629,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can an international student work remotely for an overseas employer while studying in another country?"
+  },
+  {
+    "id": 1630,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How should students manage immigration status when a university merges with another institution?"
+  },
+  {
+    "id": 1631,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can previous professional experience substitute for formal education in a student-to-skilled-migration pathway?"
+  },
+  {
+    "id": 1632,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "What happens when a student receives a scholarship after already demonstrating sufficient personal financial resources?"
+  },
+  {
+    "id": 1633,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can a student change their intended field of study without notifying immigration authorities?"
+  },
+  {
+    "id": 1634,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How do authorities assess educational qualifications earned through institutions that subsequently close?"
+  },
+  {
+    "id": 1635,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can an international graduate qualify for skilled migration when their occupation is unrelated to their degree?"
+  },
+  {
+    "id": 1636,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "What happens when an educational institution reports incorrect attendance information to immigration authorities?"
+  },
+  {
+    "id": 1637,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How should students assess the immigration consequences of taking an approved gap semester?"
+  },
+  {
+    "id": 1638,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can a student retain eligibility for a graduate work visa after completing an accelerated qualification?"
+  },
+  {
+    "id": 1639,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "How do immigration systems treat students who complete a qualification across multiple countries?"
+  },
+  {
+    "id": 1640,
+    "part": "G",
+    "section": "Education and International Student Immigration",
+    "question": "Can international students be required to disclose academic misconduct findings from institutions outside their destination country?"
+  },
+  {
+    "id": 1641,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How can newly arrived immigrants establish a rental history when their previous housing records are not recognised locally?"
+  },
+  {
+    "id": 1642,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can an immigrant legally rent property before receiving a local tax identification number?"
+  },
+  {
+    "id": 1643,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "What happens when a landlord refuses to accept foreign income documents despite their legal validity?"
+  },
+  {
+    "id": 1644,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How do immigrants establish proof of residence when they initially live in temporary accommodation?"
+  },
+  {
+    "id": 1645,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can an immigrant's housing arrangement affect eligibility for certain public services?"
+  },
+  {
+    "id": 1646,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How should newcomers evaluate the legal differences between a residential lease and a lodging agreement?"
+  },
+  {
+    "id": 1647,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "What happens when an immigrant discovers that their rented property does not meet local occupancy standards?"
+  },
+  {
+    "id": 1648,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can a newly arrived immigrant be held liable for unpaid utility bills from a previous tenant?"
+  },
+  {
+    "id": 1649,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How do local housing registration requirements interact with immigration address-reporting obligations?"
+  },
+  {
+    "id": 1650,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "What legal options exist when a newcomer is unable to secure accommodation because they lack a local credit history?"
+  },
+  {
+    "id": 1651,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can an immigrant use a relative's address for official correspondence while living elsewhere?"
+  },
+  {
+    "id": 1652,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How should immigrants document temporary accommodation when applying for local identity documents?"
+  },
+  {
+    "id": 1653,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "What happens when a housing dispute causes an immigrant to lose the address recorded with immigration authorities?"
+  },
+  {
+    "id": 1654,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can a foreign national legally purchase property before obtaining permanent residency?"
+  },
+  {
+    "id": 1655,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How do property ownership restrictions differ from immigration residence rights?"
+  },
+  {
+    "id": 1656,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can owning residential property provide any independent basis for long-term immigration status?"
+  },
+  {
+    "id": 1657,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "What happens when an immigrant's employer-provided accommodation is withdrawn unexpectedly?"
+  },
+  {
+    "id": 1658,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How should families evaluate housing requirements when several relatives arrive at different times?"
+  },
+  {
+    "id": 1659,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "Can a newcomer challenge discriminatory rental screening based on immigration status?"
+  },
+  {
+    "id": 1660,
+    "part": "H",
+    "section": "Housing and Settlement Challenges",
+    "question": "How do countries handle proof-of-address requirements for people who are genuinely homeless?"
+  },
+  {
+    "id": 1661,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How do immigrants determine which healthcare services are available immediately after arrival?"
+  },
+  {
+    "id": 1662,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can a person maintain healthcare coverage in two countries without creating conflicting insurance obligations?"
+  },
+  {
+    "id": 1663,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "What happens when an immigrant's private insurance policy excludes a condition diagnosed after arrival?"
+  },
+  {
+    "id": 1664,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How do countries coordinate social security contributions when a person has worked in multiple jurisdictions?"
+  },
+  {
+    "id": 1665,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can contributions made to a foreign pension scheme be transferred into a destination country's system?"
+  },
+  {
+    "id": 1666,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "What happens when a migrant worker becomes unemployed before qualifying for local social insurance?"
+  },
+  {
+    "id": 1667,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How should newcomers understand the difference between immigration eligibility and eligibility for public benefits?"
+  },
+  {
+    "id": 1668,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can an immigrant access emergency healthcare when their immigration documentation is being renewed?"
+  },
+  {
+    "id": 1669,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How do countries handle social security agreements when two countries use different contribution systems?"
+  },
+  {
+    "id": 1670,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can an immigrant lose access to a healthcare benefit after changing from temporary to permanent residence?"
+  },
+  {
+    "id": 1671,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "What happens when an international insurance provider refuses to recognise a locally issued medical report?"
+  },
+  {
+    "id": 1672,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How should families plan healthcare coverage when dependents arrive several months after the primary applicant?"
+  },
+  {
+    "id": 1673,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can a migrant's pension contributions remain claimable after permanent departure from the country?"
+  },
+  {
+    "id": 1674,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How do immigration authorities distinguish between genuine financial hardship and an attempt to access restricted public benefits?"
+  },
+  {
+    "id": 1675,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can a person qualify for social security benefits based on contributions made before becoming a permanent resident?"
+  },
+  {
+    "id": 1676,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "What happens when an immigrant's insurance coverage expires while an immigration appeal is pending?"
+  },
+  {
+    "id": 1677,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How should newcomers compare employer-provided health insurance with mandatory public insurance?"
+  },
+  {
+    "id": 1678,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "Can a migrant worker's social insurance rights survive a change of employer?"
+  },
+  {
+    "id": 1679,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "How do bilateral agreements prevent double social security contributions?"
+  },
+  {
+    "id": 1680,
+    "part": "I",
+    "section": "Healthcare, Insurance and Social Protection",
+    "question": "What happens when a destination country changes the eligibility rules for public healthcare after an immigrant has settled?"
+  },
+  {
+    "id": 1681,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Is it possible to design an immigration system that produces identical decisions for applicants with identical legally relevant circumstances?"
+  },
+  {
+    "id": 1682,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How can immigration researchers distinguish genuine policy effectiveness from outcomes caused by applicant self-selection?"
+  },
+  {
+    "id": 1683,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can an immigration system be considered fair when its written rules are equal but the cost of complying with them differs dramatically between applicants?"
+  },
+  {
+    "id": 1684,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How should governments measure the long-term consequences of refusing applicants who later become highly successful immigrants elsewhere?"
+  },
+  {
+    "id": 1685,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Could immigration eligibility be evaluated through a transparent algorithm without removing necessary human discretion?"
+  },
+  {
+    "id": 1686,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How should authorities correct automated immigration decisions when the underlying data source contains historical errors?"
+  },
+  {
+    "id": 1687,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can an immigration system reliably measure an applicant's future economic contribution before migration occurs?"
+  },
+  {
+    "id": 1688,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "What would happen if every country adopted mutually compatible digital immigration identity standards?"
+  },
+  {
+    "id": 1689,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can governments develop a universally accepted method for verifying professional experience across different legal systems?"
+  },
+  {
+    "id": 1690,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How should researchers quantify the economic cost of immigration processing uncertainty?"
+  },
+  {
+    "id": 1691,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can immigration policy be designed to minimise unnecessary family separation without compromising legitimate eligibility controls?"
+  },
+  {
+    "id": 1692,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How should governments evaluate the fairness of immigration systems that use occupation shortage lists updated at different intervals?"
+  },
+  {
+    "id": 1693,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can two countries legally recognise the same immigration history while reaching different conclusions about an individual's admissibility?"
+  },
+  {
+    "id": 1694,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How could researchers identify immigration applicants who were wrongly refused but never pursued an appeal?"
+  },
+  {
+    "id": 1695,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can a country's immigration system unintentionally create incentives for immigrants to remain economically inactive?"
+  },
+  {
+    "id": 1696,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "What is the measurable relationship between uncertainty in immigration policy and the settlement decisions of skilled migrants?"
+  },
+  {
+    "id": 1697,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Could a global framework standardise the definition of continuous residence without requiring countries to surrender immigration sovereignty?"
+  },
+  {
+    "id": 1698,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "How should immigration systems respond when predictive employment models consistently underestimate the potential of foreign-qualified professionals?"
+  },
+  {
+    "id": 1699,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "Can the concept of immigration compliance be measured independently of an individual's ability to understand complex legal instructions?"
+  },
+  {
+    "id": 1700,
+    "part": "J",
+    "section": "Advanced, Logical and Unanswered Immigration Questions",
+    "question": "What would an ideal immigration system look like if it were designed around long-term human mobility rather than temporary visa categories?"
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "suite": "Northstar Statutory Gold Standard Benchmarks",
+  "version": "1.0.0",
+  "updatedAt": "2026-10-31",
+  "cases": [
+    {
+      "id": "gold-study-pal-masters",
+      "tool": "study-permit-cap-pal",
+      "input": {
+        "studyLevel": "masters",
+        "tuitionFeeFirstYearCad": 28000,
+        "liquidFundsAvailableCad": 52000
+      },
+      "expected": {
+        "isPalRequired": false,
+        "palStatus": "PAL_EXEMPT",
+        "financialAudit": { "isFinanciallySufficient": true },
+        "pgwpPathway": { "status": "eligible", "requiredLanguageClb": 7 }
+      }
+    },
+    {
+      "id": "gold-study-college-priority",
+      "tool": "study-permit-cap-pal",
+      "input": {
+        "studyLevel": "college_diploma",
+        "fieldOfStudyCategory": "trades_construction",
+        "tuitionFeeFirstYearCad": 16000,
+        "liquidFundsAvailableCad": 40000
+      },
+      "expected": {
+        "isPalRequired": true,
+        "palStatus": "PAL_MANDATORY",
+        "financialAudit": { "isFinanciallySufficient": true },
+        "pgwpPathway": { "status": "eligible_field_aligned", "requiredLanguageClb": 5 }
+      }
+    },
+    {
+      "id": "gold-visitor-dual-intent",
+      "tool": "visitor-visa-financial-ties",
+      "input": {
+        "plannedStayDays": 20,
+        "liquidFundsCad": 14000,
+        "hasApprovedJobLeaveLetter": true,
+        "yearsAtCurrentJob": 3,
+        "ownsRealEstateProperty": true,
+        "isDualIntentPrPending": true
+      },
+      "expected": {
+        "riskTier": "LOW_RISK"
+      }
+    },
+    {
+      "id": "gold-lmia-c16-franco",
+      "tool": "lmia-readiness",
+      "input": {
+        "province": "ON",
+        "offeredHourlyWageCad": 38.0,
+        "isExemptionClaimed": true,
+        "exemptionCode": "C16",
+        "frenchProficiencyNclc": 7,
+        "teerCategory": 1
+      },
+      "expected": {
+        "wageAnalysis": { "stream": "HIGH_WAGE_STREAM" },
+        "exemptionAudit": { "isEligible": true }
+      }
+    },
+    {
+      "id": "gold-sin-ohip-worker",
+      "tool": "sin-healthcare",
+      "input": {
+        "statusInCanada": "work_permit",
+        "province": "ON",
+        "workPermitMinDurationMonths": 12
+      },
+      "expected": {
+        "sinEvaluation": { "eligible": true, "sinType": "temporary_9_series" },
+        "healthcareEvaluation": { "eligible": true, "waitingPeriodDays": 0 }
+      }
+    },
+    {
+      "id": "gold-study-to-pr-masters",
+      "tool": "study-to-pr",
+      "input": {
+        "studyLevel": "masters",
+        "province": "ON",
+        "expectedClbLanguage": 9
+      },
+      "expected": {
+        "pgwpEntitlement": { "durationMonths": 36 },
+        "prPathways": { "projectedCrsGain": 120 }
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  regression:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - run: npm audit --audit-level=moderate
+      - run: npm run api:validate
+      - run: npm run api:client
+      - run: npm run api:typecheck
+      - run: npm test
+      - run: node scripts/evaluate.js
+      - run: node scripts/verify-everything.js
+      - run: node scripts/worker-smoke.js
+      - run: node scripts/server-smoke.js
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t settlement-ci .
+      - run: |
+          docker run -d --name settlement-ci -p 127.0.0.1:3300:3000 settlement-ci
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:3300/ready; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - if: always()
+        run: docker rm -f -v settlement-ci

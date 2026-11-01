@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northstar Q&amp;A Explorer — Live Verification Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/explorer.css">
+</head>
+<body>
+  <div class="explorer-container">
+
+    <!-- Top Header & Metrics Dashboard -->
+    <header class="explorer-header">
+      <div class="header-top">
+        <div class="header-titles">
+          <div class="header-badge-row">
+            <span class="pulse-dot"></span>
+            <span class="badge-label">Live Browser Q&amp;A Explorer</span>
+            <span class="badge-count">100 Technical Scenarios</span>
+            <a class="brand-link" href="/" title="Open Main Northstar Workspace">← Back to Workspace</a>
+          </div>
+          <h1 class="header-h1">Northstar <span>Settlement &amp; Immigration</span> Audit</h1>
+          <p class="header-desc">
+            लाइव परीक्षण: व्यक्तिगत प्रोफाइल, फैमिली स्पॉन्सरशिप, CRS गणना, N12 बेदखली और देश-वार पुलिस क्लीयरेंस के सटीक सरकारी जवाब।
+          </p>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="header-metrics">
+          <div class="metric-card">
+            <div class="metric-num green">80%</div>
+            <div class="metric-lbl">Guidance Rate</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num blue">78.3</div>
+            <div class="metric-lbl">Avg Score / 100</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num purple">55</div>
+            <div class="metric-lbl">Direct &amp; Perfect</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div class="controls-bar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input id="searchInput" type="text" class="search-input"
+            placeholder="सर्च करें: mother, N12, CRS, licence, PCC, WES, rent..."
+            aria-label="Search questions and statutory rules">
+          <button id="searchClearBtn" class="search-clear-btn" type="button" aria-label="Clear search input">✕</button>
+        </div>
+
+        <div id="categoryFilters" class="category-pills" role="tablist" aria-label="Question Categories">
+          <button data-cat="all" class="cat-btn tab-active" type="button">All (100)</button>
+          <button data-cat="Family &amp; Parents" class="cat-btn" type="button">Family &amp; Parents (20)</button>
+          <button data-cat="Work Experience &amp; CRS" class="cat-btn" type="button">Work &amp; CRS (25)</button>
+          <button data-cat="Tenancy &amp; Housing" class="cat-btn" type="button">Tenancy (15)</button>
+          <button data-cat="Driving &amp; Licence" class="cat-btn" type="button">Driving (10)</button>
+          <button data-cat="Multi-Country &amp; PCC" class="cat-btn" type="button">PCC &amp; Multi-Country (15)</button>
+          <button data-cat="Education &amp; ECA" class="cat-btn" type="button">Education (15)</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dual Panel Split View -->
+    <main id="explorerMain" class="explorer-main">
+
+      <!-- Left Column: Questions List -->
+      <section class="questions-column" aria-label="Questions directory">
+        <div class="column-header">
+          <span class="column-title">
+            <span>📋</span> प्रश्न सूची (<span id="visibleCount">100</span> दिख रहे हैं)
+          </span>
+          <button id="toggleListBtn" class="toggle-list-btn" type="button" title="Show or hide questions list to expand detail inspector">
+            <span>👁️</span> <span>Hide List</span>
+          </button>
+        </div>
+
+        <div id="questionsList" class="questions-scroll-area">
+          <!-- Rendered dynamically by explorer.js -->
+        </div>
+      </section>
+
+      <!-- Right Column: Detail & Reply Inspector -->
+      <section id="detailPanel" class="detail-column" aria-label="Question detail and official guidance">
+        <div id="emptyDetailPrompt" class="empty-prompt">
+          <div class="empty-icon">👈</div>
+          <h2 class="empty-title">कोई भी प्रश्न चुनें</h2>
+          <p class="empty-desc">बाईं ओर किसी भी सवाल पर क्लिक करें ताकि उसका सटीक सरकारी जवाब, दावे और स्रोत यहाँ देख सकें।</p>
+        </div>
+
+        <div id="detailContent" class="detail-content" style="display: none;">
+          <!-- Detail Header & Status Badges -->
+          <div class="detail-header-card">
+            <div class="detail-meta-left">
+              <span id="detailId" class="q-id-badge">ID</span>
+              <span id="detailCategory" class="badge-count">Category</span>
+            </div>
+            <div class="detail-meta-right">
+              <span id="detailStatus" class="status-badge guidance">GUIDANCE</span>
+              <span id="detailScore" class="q-score-badge">Score: 95</span>
+            </div>
+          </div>
+
+          <!-- Section 1: Scenario & User Question Accordion -->
+          <details class="accordion-section" open>
+            <summary>
+              <span class="summary-title"><span>👤</span> <strong>Scenario &amp; User Question</strong></span>
+              <span class="summary-chevron">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <div id="detailScenario" class="scenario-text"></div>
+              <div class="question-box">
+                <p id="detailQuestion"></p>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 2: System Verified Response Accordion -->
+          <details class="accordion-section" open>
+            <summary>
+              <div class="summary-title" style="justify-content: space-between; width: 100%; padding-right: 8px;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                  <span>🏛️</span> <strong>System Verified Response (सरकारी उत्तर)</strong>
+                </span>
+                <span id="detailLatency" style="font-size: 11px; color: var(--text-faint); font-family: ui-monospace, monospace;">32 ms</span>
+              </div>
+              <span class="summary-chevron">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <div id="detailClaimsContainer" class="claims-container">
+                <!-- Claims dynamically rendered by explorer.js -->
+              </div>
+              <div id="detailClarificationBox" class="clarification-box" style="display: none;">
+                <div class="clarification-title">⚠️ Clarification Requested:</div>
+                <p id="detailClarificationText" class="clarification-text"></p>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 3: Official Authorities & Sources Accordion -->
+          <details class="accordion-section" open>
+            <summary>
+              <span class="summary-title"><span>📑</span> <strong>Official Authorities &amp; Sources Cited (उद्धृत सरकारी स्रोत)</strong></span>
+              <span class="summary-chevron">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <div id="detailSourcesContainer" class="sources-container">
+                <!-- Sources dynamically rendered by explorer.js -->
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 4: Perfection & Directness Audit Accordion -->
+          <details class="accordion-section" open>
+            <summary>
+              <span class="summary-title"><span>🔍</span> <strong>Perfection &amp; Directness Audit</strong></span>
+              <span class="summary-chevron">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <div id="detailPerfectionAnalysis" class="audit-box"></div>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="/explorer.js"></script>
+</body>
+</html>

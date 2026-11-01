@@ -1,0 +1,17 @@
+# Local load harness and API inventory
+
+`node scripts/soak-local.js [seconds] [concurrency]` accepts 1–3600 seconds and 1–32 clients, defaulting to 30 seconds and five clients. It creates temporary evidence and metrics WAL databases, uses an ephemeral loopback server, disables external AI and validates response/citation links and persisted trace counts. It records HTTP failures, first-100,000-request latency samples, event-loop delay and RSS. Temporary cleanup is constrained to the created directory. Results are written to `artifacts/local-soak.json`.
+
+Synthetic proxy client addresses rotate every 100 requests to exercise answer processing below per-client quotas. This harness does not simulate realistic traffic identity distribution or independently establish a production rate-limit model. Existing HTTP benchmark and proxy tests cover throttling. The corpus is the current seed dataset. Large corpora, remote network/provider behavior, multi-host operation and multi-hour leak detection remain separate validation work. No pass/fail latency SLA is inferred from one run.
+
+On 29 October 2026 a 30-second run at concurrency eight completed 2,416/2,416 requests and persisted 2,416 traces. Observed p95 was 110.9 ms, p99 153.1 ms, event-loop p99 131.9 ms and peak RSS 192,598,016 bytes. This is a short synthetic local run with durable telemetry enabled, not a production SLA or proof of stable long-term memory use.
+
+`node scripts/export-openapi.js` writes `docs/openapi.json`, containing 37 paths and 39 operations, bearer authentication and role metadata, core question request constraints, route parameters and generic response envelopes. Static assets are excluded. Tests check literal route inventory and alignment with backend role enforcement.
+
+The document is an OpenAPI 3.1 route inventory. Detailed editorial payloads and domain response schemas are still permissive; it is not a fully validated client-generation contract. That remaining B14 work must reflect runtime validation rather than invent constraints. Re-export after API/package changes. Existing API, queue, access and error documents provide detailed behavior.
+
+Request-contract update: all 13 POST operations now define fields and requirements, including editorial and operational payloads. The earlier statement that editorial requests are entirely generic is superseded. Responses remain generic, and cross-field/provenance/language rules require backend validation. The document has not yet been certified with an independent OpenAPI validator or exercised through generated clients.
+
+Independent validation is now available via node scripts/validate-openapi.js. Install development dependencies with npm ci --ignore-scripts first. Swagger Parser validates the OpenAPI document; Ajv 2020 validates schema compilation and fixture HTTP responses with format support. This supersedes the earlier independent-validator limitation, while incomplete domain response schemas and generated-client verification remain open.
+
+Generated-client compatibility is now exercised by test/generated-client.test.js using generated/api.d.ts and scripts/client-contract.ts. Run npm run api:client after exporting a changed contract, followed by npm run api:typecheck. The development-only client test covers answers, feedback, operational reads/writes and unauthorized responses against an isolated real HTTP server. It does not alter the public frontend or establish a published SDK release.

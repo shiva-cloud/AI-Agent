@@ -1,0 +1,13 @@
+# Location follow-up. Release 0.14.0 adds city choices beneath an answer that needs a location and contains no conflicting or unsupported geography. Selecting Toronto, Mississauga, Brampton or Vancouver resubmits the original English question with that city. The question is displayed beside the choices so the user can see what will be retried. The same "resubmit unchanged question" rule now also backs the other-city chips on unavailable answers; a changed question visibly refuses submission.
+
+Conflicting places, unsupported locations and ambiguous city comparisons do not get an override button. They offer an edit action instead, preserving the engine's geography checks. Licence-country clarification is separate and does not get city choices. If the question text has changed, old choices stop and ask the user to submit the edited question. A request sequence prevents an older response from replacing a newer one.
+
+Original question context stays in the rendered page's event handlers. No local storage, cookies, profile table or conversation history is added. Resubmitted questions follow the existing answer API and its optional provider configuration; this is not a claim that questions never leave the browser. Server traces continue to omit raw questions. Refreshing the page loses the follow-up context.
+
+## Copy as report is an export, not a transcript
+
+The frontend's "Copy as report" and Print actions are user-initiated, moment-in-time exports of whatever answer is currently on screen. They leave nothing behind: no retention, no server-side copy, no history beyond the trace data the answers API already persists (statuses, topics, timings — never question text). This deliberately serves the "take your answer with you" intent that a display-only answer transcript would serve, without creating a stored conversation artifact that would contradict the no-history framing above. The decision recorded for a browsing-session transcript remains unchanged: not implemented until a product call is made, and this export is not that transcript.
+
+At the time of writing, the full project suite passes (211 tests at the latest count) and public JavaScript passes syntax validation. These flows have also been verified repeatedly in interactive browser sessions with zero console errors.
+
+This is one-step location clarification, not a general conversational memory system. Multi-turn licence details, editable profiles, arbitrary follow-up interpretation and production UX validation remain pending. Existing high-risk review and freshness gates still apply after a city is chosen. Restart the local server to load the new static-module route before trying the UI.

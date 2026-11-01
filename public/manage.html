@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Northstar admin</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/manage.css">
+</head>
+<body class="manage">
+<header class="m-header">
+  <a class="m-brand" href="/">← Northstar</a>
+  <h1>Admin panel</h1>
+  <span id="m-who" class="m-who"></span>
+</header>
+<div id="m-test" class="test-mode-banner" hidden></div>
+<main id="m-main">
+  <section id="m-login" class="m-card" hidden>
+    <h2>Administrator sign-in</h2>
+    <p class="m-muted">Sign in with an administrator account, or paste an admin token.</p>
+    <form id="m-login-form" class="m-form">
+      <label>Email <input type="email" name="email" autocomplete="email" required></label>
+      <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+      <button type="submit">Sign in</button>
+    </form>
+    <details class="m-token"><summary>Use an admin token instead</summary>
+      <form id="m-token-form" class="m-form">
+        <label>Admin token <input type="password" name="token" autocomplete="off"></label>
+        <button type="submit">Use token</button>
+      </form>
+    </details>
+    <p id="m-login-message" class="m-message" role="status"></p>
+  </section>
+
+  <div id="m-app" hidden>
+    <nav class="m-tabs" role="tablist">
+      <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button role="tab" data-tab="users">Users</button>
+      <button role="tab" data-tab="plans">Plans</button>
+      <button role="tab" data-tab="tools">Tools</button>
+      <button role="tab" data-tab="settings">Settings</button>
+      <button role="tab" data-tab="audit">Audit log</button>
+    </nav>
+    <p id="m-message" class="m-message" role="status"></p>
+    <section id="tab-overview" class="m-tab"></section>
+    <section id="tab-users" class="m-tab" hidden></section>
+    <section id="tab-plans" class="m-tab" hidden></section>
+    <section id="tab-tools" class="m-tab" hidden></section>
+    <section id="tab-settings" class="m-tab" hidden></section>
+    <section id="tab-audit" class="m-tab" hidden></section>
+  </div>
+</main>
+<script type="module" src="/manage.js"></script>
+</body>
+</html>

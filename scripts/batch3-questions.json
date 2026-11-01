@@ -1,0 +1,1202 @@
+[
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1901,
+    "question": "Can an individual qualify for international protection when persecution is carried out by non-governmental actors rather than the government?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1902,
+    "question": "How should asylum authorities evaluate claims involving persecution that has not yet occurred but is supported by credible evidence of future risk?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1903,
+    "question": "Can a person obtain refugee protection when their government is willing to protect them in theory but consistently fails to do so in practice?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1904,
+    "question": "How do countries evaluate asylum applications involving persecution based on a combination of political opinion, professional activities and family relationships?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1905,
+    "question": "Can an applicant qualify for asylum when the persecution experienced in their home country was initially economic but later became politically motivated?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1906,
+    "question": "What happens when an asylum applicant's country of origin becomes safe after their protection claim has already been accepted?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1907,
+    "question": "How should authorities assess asylum claims involving persecution through digital surveillance, online threats and coordinated harassment?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1908,
+    "question": "Can a person qualify for refugee protection when their government does not officially recognise the group to which they belong?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1909,
+    "question": "How do asylum authorities distinguish between general insecurity and individualised persecution?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1910,
+    "question": "Can an individual receive humanitarian protection when they cannot establish refugee status under the applicable legal definition?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1911,
+    "question": "What happens when an asylum applicant has credible evidence but cannot safely contact witnesses in their home country?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1912,
+    "question": "How should authorities evaluate claims involving forced displacement caused by environmental disasters?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1913,
+    "question": "Can climate-related displacement become a recognised basis for international protection under existing refugee law?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1914,
+    "question": "How do countries assess asylum claims involving persecution that occurred decades before the application?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1915,
+    "question": "Can a refugee lose protection because the government responsible for their persecution has been replaced?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1916,
+    "question": "What legal protections apply when an asylum applicant is unable to participate in an interview because of psychological trauma?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1917,
+    "question": "How should authorities evaluate an asylum application when the applicant's country of origin has no reliable independent media?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1918,
+    "question": "Can a person qualify for refugee protection because returning home would expose them to systematic discrimination rather than direct physical violence?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1919,
+    "question": "What happens when two countries issue contradictory decisions concerning the same refugee protection claim?"
+  },
+  {
+    "category": "A",
+    "categoryName": "Asylum, Refugees and Humanitarian Immigration",
+    "id": 1920,
+    "question": "Could international law establish a consistent minimum standard for assessing humanitarian protection applications?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1921,
+    "question": "How can a person establish legal identity when no country recognises them as a national?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1922,
+    "question": "What happens when a child is born in a country that does not grant birthright citizenship and neither parent can transmit nationality?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1923,
+    "question": "Can a person become stateless because of conflicting nationality laws even when both parents hold valid citizenship?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1924,
+    "question": "How do countries determine nationality when birth records were destroyed during a civil war?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1925,
+    "question": "Can a stateless individual obtain permanent residence without possessing a passport from any recognised country?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1926,
+    "question": "What international protections apply when a country refuses to recognise a person's historical nationality?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1927,
+    "question": "How should authorities determine nationality when an individual was born before the dissolution of their country of origin?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1928,
+    "question": "Can a child inherit statelessness through parents whose citizenship was revoked before the child's birth?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1929,
+    "question": "What happens when a person's nationality is recognised by their home country but rejected by every neighbouring country?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1930,
+    "question": "Can an individual challenge nationality deprivation when the government claims the original citizenship was obtained incorrectly?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1931,
+    "question": "How do immigration authorities evaluate the identity of individuals who have lived for decades without civil registration?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1932,
+    "question": "Can a stateless person legally establish a business in a country where they have no recognised nationality?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1933,
+    "question": "What happens when a stateless individual's only identity document expires and the issuing authority no longer exists?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1934,
+    "question": "How should countries handle citizenship applications involving people whose parents' nationalities cannot be established?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1935,
+    "question": "Can an individual acquire citizenship through long-term residence when they cannot prove their original nationality?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1936,
+    "question": "What legal remedies exist when a country refuses to issue travel documents to a recognised stateless resident?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1937,
+    "question": "Can an individual become stateless through voluntary renunciation when the intended replacement citizenship is never granted?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1938,
+    "question": "How should immigration systems distinguish between undocumented migrants and legally stateless individuals?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1939,
+    "question": "What protections should apply to stateless children whose parents have different unresolved nationality claims?"
+  },
+  {
+    "category": "B",
+    "categoryName": "Statelessness and Nationality Law",
+    "id": 1940,
+    "question": "Could a global identity framework eliminate administrative barriers faced by stateless people without forcing them to accept a particular nationality?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1941,
+    "question": "How do bilateral immigration agreements interact with domestic immigration legislation?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1942,
+    "question": "Can a country terminate an immigration treaty without affecting rights already acquired under that treaty?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1943,
+    "question": "What happens when two countries interpret the same international mobility agreement differently?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1944,
+    "question": "Can an international treaty create immigration rights that are enforceable directly in domestic courts?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1945,
+    "question": "How should authorities handle applicants whose eligibility depends on a treaty that has been amended during processing?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1946,
+    "question": "Can an individual challenge a domestic immigration decision by relying on an international human rights convention?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1947,
+    "question": "What happens when domestic immigration law conflicts with a country's obligations under an international treaty?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1948,
+    "question": "How do international agreements affect the recognition of foreign professional qualifications?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1949,
+    "question": "Can regional free-movement agreements protect residents who are not citizens of the participating countries?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1950,
+    "question": "What legal consequences arise when a country withdraws from a regional mobility arrangement?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1951,
+    "question": "How should immigration authorities interpret treaty provisions that do not define the term habitual residence?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1952,
+    "question": "Can an international agreement prevent a country from deporting a person to a state where they face serious harm?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1953,
+    "question": "How do countries determine which treaty applies when multiple international agreements govern the same immigration issue?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1954,
+    "question": "Can bilateral social security agreements preserve pension rights after an immigrant permanently relocates?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1955,
+    "question": "What happens when an international mobility treaty is suspended during a diplomatic dispute?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1956,
+    "question": "Can a country impose additional documentary requirements that effectively undermine an international visa exemption agreement?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1957,
+    "question": "How do international conventions influence family reunification decisions?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1958,
+    "question": "Can an immigration authority be required to explain why it did not apply a relevant international treaty?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1959,
+    "question": "How should countries resolve disputes involving incompatible definitions of permanent residence in different treaties?"
+  },
+  {
+    "category": "C",
+    "categoryName": "International Treaties and Immigration Agreements",
+    "id": 1960,
+    "question": "Could an international immigration court improve consistency in the interpretation of cross-border mobility agreements?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1961,
+    "question": "Can decades of continuous residence create legal protections for an undocumented migrant even without formal immigration status?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1962,
+    "question": "How do countries distinguish between unlawful entry and unlawful residence when evaluating regularisation applications?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1963,
+    "question": "Can an undocumented individual establish a legal right to remain based on long-term family and community connections?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1964,
+    "question": "What happens when a migrant's immigration status expires because an administrative renewal application was never processed?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1965,
+    "question": "How should authorities assess immigration applications from individuals who have lived under an incorrect identity for many years?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1966,
+    "question": "Can an undocumented migrant obtain a work permit through an independent employer sponsorship programme?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1967,
+    "question": "What legal consequences arise when an individual unknowingly overstays because their visa expiry date was incorrectly calculated?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1968,
+    "question": "How do countries evaluate regularisation applications involving long-term informal employment?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1969,
+    "question": "Can an undocumented migrant access judicial protection against an unlawful eviction?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1970,
+    "question": "What happens when an undocumented person is the primary caregiver of a citizen child?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1971,
+    "question": "Can a migrant regularise their status through marriage when the relationship began during an irregular stay?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1972,
+    "question": "How should immigration authorities evaluate applicants whose undocumented residence resulted from exploitation by an employer?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1973,
+    "question": "Can an undocumented individual claim unpaid wages without automatically triggering immigration enforcement?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1974,
+    "question": "What legal safeguards should apply when a person is detained for immigration purposes without a criminal conviction?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1975,
+    "question": "Can a country grant permanent residence based on exceptional contributions made during an undocumented period?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1976,
+    "question": "How should governments handle individuals who entered legally but became undocumented because their sponsor disappeared?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1977,
+    "question": "What happens when a deportation order cannot be implemented because no country will accept the individual?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1978,
+    "question": "Can long-term undocumented residence contribute toward an exceptional humanitarian residence application?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1979,
+    "question": "How should authorities distinguish between deliberate immigration violations and status problems caused by administrative failures?"
+  },
+  {
+    "category": "D",
+    "categoryName": "Undocumented Residence and Irregular Immigration",
+    "id": 1980,
+    "question": "Could international minimum standards protect undocumented migrants from exploitation without automatically granting immigration status?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1981,
+    "question": "Can an applicant change immigration categories while their existing visa remains valid but an appeal is pending?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1982,
+    "question": "What happens when a temporary visa holder becomes eligible for permanent residence immediately before their temporary permission expires?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1983,
+    "question": "Can an individual hold two independently valid immigration permissions that have different employment conditions?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1984,
+    "question": "How should authorities determine the effective date of a new immigration status when approval and document issuance occur on different dates?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1985,
+    "question": "Can a person transition from student immigration status to a business immigration category without leaving the destination country?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1986,
+    "question": "What happens when a work permit expires during the processing of a family-based residence application?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1987,
+    "question": "Can an individual retain employment rights while moving from an employer-sponsored visa to an independent immigration category?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1988,
+    "question": "How do countries treat time spent under a bridging or interim visa when calculating permanent residence eligibility?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1989,
+    "question": "Can a person move from humanitarian protection to skilled migration without losing protections during processing?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1990,
+    "question": "What happens when a visa conversion application is approved but the applicant has already travelled outside the country?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1991,
+    "question": "Can a dependent change to an independent immigration status without affecting the primary applicant's existing permit?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1992,
+    "question": "How should applicants handle immigration transitions when the new category has stricter financial requirements than the existing category?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1993,
+    "question": "Can a person preserve continuous lawful residence when switching between different immigration programmes?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1994,
+    "question": "What happens when the validity of a temporary permit is extended automatically but the applicant's physical immigration document still shows the old expiry date?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1995,
+    "question": "Can a visa holder change employers during an immigration status transition without triggering a compliance violation?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1996,
+    "question": "How do countries determine whether a person has abandoned an existing application by submitting a new application under another category?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1997,
+    "question": "Can an immigration authority retrospectively recognise a status transition that was delayed because of its own administrative error?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1998,
+    "question": "What happens when an applicant's eligibility for a new immigration category depends on a status that expires before the decision is issued?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 1999,
+    "question": "Can a person switch from a dependent permit to an independent work permit when their sponsor loses eligibility?"
+  },
+  {
+    "category": "E",
+    "categoryName": "Complex Visa Transitions and Immigration Status Changes",
+    "id": 2000,
+    "question": "How should immigration authorities prevent gaps in lawful residence during complicated multi-category transitions?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2001,
+    "question": "Can an employee's overseas work experience qualify for immigration points when the employer had no legal presence in the destination country?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2002,
+    "question": "How do countries evaluate employment involving multiple employers and overlapping contractual periods?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2003,
+    "question": "Can a professional qualify for skilled migration based on work performed through a platform economy rather than traditional employment?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2004,
+    "question": "What happens when an overseas employer refuses to provide employment verification after the company closes?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2005,
+    "question": "How should immigration authorities assess international experience when the applicant's professional responsibilities changed significantly over time?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2006,
+    "question": "Can remote workers be considered employed in the destination country for immigration eligibility purposes?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2007,
+    "question": "What immigration consequences arise when a foreign employee is transferred to a local subsidiary under a different legal entity?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2008,
+    "question": "Can an employee count professional experience gained during a period when their immigration status did not permit that work?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2009,
+    "question": "How do countries evaluate professional experience acquired in jurisdictions where the occupation is not formally regulated?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2010,
+    "question": "Can an international contractor qualify for employer-sponsored migration when their contract does not guarantee minimum working hours?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2011,
+    "question": "What happens when a migrant's employer changes ownership but the employee's contract remains unchanged?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2012,
+    "question": "How should applicants document professional experience gained through multiple simultaneous consulting engagements?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2013,
+    "question": "Can international volunteers qualify for migration pathways based on experience gained through unpaid service?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2014,
+    "question": "What happens when an immigrant's occupation becomes obsolete because of technological changes after permanent residence is granted?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2015,
+    "question": "Can a professional's immigration eligibility be affected by an overseas employer's tax non-compliance?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2016,
+    "question": "How should countries evaluate employment contracts governed by foreign labour laws?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2017,
+    "question": "Can a foreign national establish self-employment while maintaining a work permit tied to another employer?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2018,
+    "question": "What legal protections apply when an employer threatens to withdraw immigration sponsorship to prevent an employee from resigning?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2019,
+    "question": "Can work experience gained during a company merger be counted continuously when the original legal employer no longer exists?"
+  },
+  {
+    "category": "F",
+    "categoryName": "International Employment and Labour Mobility",
+    "id": 2020,
+    "question": "How should immigration systems assess applicants whose careers involve frequent transitions between employment, freelancing and entrepreneurship?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2021,
+    "question": "How do banks determine whether an immigrant's overseas financial history is sufficient to establish a local credit profile?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2022,
+    "question": "Can an immigrant maintain access to financial services when their passport expires but their local residence permit remains valid?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2023,
+    "question": "What happens when an immigrant's bank account is frozen because an international compliance system cannot verify their identity?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2024,
+    "question": "How should applicants document savings held in multiple financial institutions across different countries?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2025,
+    "question": "Can foreign bank statements be rejected solely because they use a different accounting or reporting format?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2026,
+    "question": "What happens when international banking restrictions prevent an applicant from paying immigration application fees?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2027,
+    "question": "How do countries evaluate financial sponsorship involving money held in joint accounts with relatives?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2028,
+    "question": "Can an immigrant transfer ownership of foreign assets without affecting immigration eligibility?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2029,
+    "question": "What legal consequences arise when a destination country's banking rules conflict with the applicant's home-country currency controls?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2030,
+    "question": "How should immigrants evaluate financial exposure when their original and destination countries have different deposit protection systems?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2031,
+    "question": "Can an applicant use business equity as evidence of settlement funds when the assets cannot be immediately liquidated?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2032,
+    "question": "What happens when a financial institution refuses to disclose the historical origin of funds because of its record-retention policy?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2033,
+    "question": "Can an immigrant's credit history be recognised across borders through an international reporting agreement?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2034,
+    "question": "How should immigrants document funds received through legitimate family remittances over many years?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2035,
+    "question": "Can a country require immigrants to disclose financial assets held by family members who are not included in the application?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2036,
+    "question": "What happens when a government changes its accepted financial evidence standards after an application is submitted?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2037,
+    "question": "Can an immigrant maintain a foreign mortgage after becoming a permanent resident in another country?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2038,
+    "question": "How should applicants evaluate the immigration implications of holding funds in a country subject to international sanctions?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2039,
+    "question": "Can the inability to open a local bank account affect an immigrant's access to employment or housing?"
+  },
+  {
+    "category": "G",
+    "categoryName": "Cross-Border Banking and Financial Immigration",
+    "id": 2040,
+    "question": "What financial documentation framework would make cross-border immigration applications more consistent?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2041,
+    "question": "Can an immigration policy violate human rights even when it is applied equally to every applicant?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2042,
+    "question": "How should courts balance national immigration control against the right to family life?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2043,
+    "question": "Can a long-term lawful resident claim constitutional protection against sudden removal from the country?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2044,
+    "question": "What legal standards apply when immigration detention becomes excessively prolonged?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2045,
+    "question": "Can a person's right to privacy restrict the use of personal digital information in immigration assessments?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2046,
+    "question": "How should authorities accommodate applicants with disabilities during immigration interviews and medical assessments?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2047,
+    "question": "Can an immigration authority refuse an application because the applicant exercises a legally protected freedom of expression?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2048,
+    "question": "What protections should apply to migrant children whose immigration status depends entirely on their parents?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2049,
+    "question": "How should countries evaluate immigration policies that indirectly discriminate against people from economically disadvantaged backgrounds?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2050,
+    "question": "Can access to legal representation be considered an essential procedural protection in complex immigration cases?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2051,
+    "question": "What happens when an immigration authority refuses to recognise a foreign court order that protects an applicant's fundamental rights?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2052,
+    "question": "Can a country restrict immigration based on public health concerns without violating international human rights obligations?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2053,
+    "question": "How should governments balance biometric identification requirements with the right to bodily privacy?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2054,
+    "question": "Can an immigrant challenge a government decision that disproportionately affects their religious or cultural practices?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2055,
+    "question": "What protections should apply when a migrant's employer confiscates their passport?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2056,
+    "question": "Can a person seek international human rights protection after exhausting domestic immigration remedies?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2057,
+    "question": "How should authorities handle immigration decisions affecting individuals who cannot understand the language of the proceedings?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2058,
+    "question": "Can the right to education protect children whose parents have no lawful immigration status?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2059,
+    "question": "What legal safeguards should exist when immigration enforcement takes place inside hospitals, schools or other sensitive locations?"
+  },
+  {
+    "category": "H",
+    "categoryName": "Immigration, Human Rights and Constitutional Protection",
+    "id": 2060,
+    "question": "Could an international minimum-rights charter establish consistent protections for all migrants regardless of their immigration category?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2061,
+    "question": "How can economists measure the long-term fiscal contribution of immigrants who initially receive public settlement assistance?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2062,
+    "question": "Can immigration increase overall productivity while reducing wages in specific occupational sectors?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2063,
+    "question": "How should governments evaluate the economic impact of immigrants who create jobs indirectly through consumption?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2064,
+    "question": "What methods can distinguish the employment effects of skilled immigration from those of broader economic expansion?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2065,
+    "question": "Can immigration policies create artificial labour shortages by excluding workers with equivalent foreign qualifications?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2066,
+    "question": "How do countries measure the economic cost of professional skills that remain unused after migration?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2067,
+    "question": "Can a country benefit economically from immigration even when some migrants later leave permanently?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2068,
+    "question": "How should governments calculate the long-term economic impact of family migration?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2069,
+    "question": "What happens when an immigration programme selects applicants based on current labour shortages that disappear before arrival?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2070,
+    "question": "Can immigration policy reduce regional inequality by directing skilled migrants toward economically weaker regions?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2071,
+    "question": "How should governments measure the economic value of immigrant entrepreneurship that remains informal during its early stages?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2072,
+    "question": "Can high immigration application fees discourage applicants whose skills would otherwise benefit the destination economy?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2073,
+    "question": "What is the relationship between immigration processing delays and international competition for skilled workers?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2074,
+    "question": "How do immigrant remittances influence the economic development of countries of origin?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2075,
+    "question": "Can a country experience a net fiscal benefit from immigration while individual local communities experience additional service costs?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2076,
+    "question": "How should governments measure the economic contribution of migrant caregivers and domestic workers?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2077,
+    "question": "Can immigration systems accurately predict which applicants will remain in a destination country for the long term?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2078,
+    "question": "What economic consequences arise when highly qualified migrants accept jobs substantially below their professional qualifications?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2079,
+    "question": "How can policymakers measure the economic effects of allowing permanent residents to change employers freely?"
+  },
+  {
+    "category": "I",
+    "categoryName": "Immigration Economics and Labour Market Analysis",
+    "id": 2080,
+    "question": "Could immigration selection systems use lifetime economic contribution rather than initial salary as an assessment criterion?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2081,
+    "question": "What happens when an individual receives permanent residence in a country but later discovers that the original approval contained an incorrect identity record?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2082,
+    "question": "Can a person legally become a permanent resident of two countries with incompatible physical-presence obligations?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2083,
+    "question": "How should immigration authorities assess an applicant whose legal identity has been changed by a foreign court but not yet recognised by their home country?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2084,
+    "question": "If a country dissolves and its immigration authority ceases to exist, who becomes responsible for validating previously issued residence permits?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2085,
+    "question": "Can an immigrant's lawful residence be interrupted by a government database error even when all required conditions were satisfied?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2086,
+    "question": "How should governments handle immigration applications when the applicant's home country does not recognise the destination country's issuing authority?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2087,
+    "question": "Could a global migration identity number simplify immigration history verification without creating excessive privacy risks?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2088,
+    "question": "What happens when an individual has valid travel permission but no country is willing to recognise their right of entry?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2089,
+    "question": "Can an applicant challenge an immigration decision based on an algorithm that cannot provide a meaningful explanation of its conclusion?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2090,
+    "question": "How should immigration authorities handle cases in which the applicant's legal identity changes multiple times due to legitimate court proceedings?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2091,
+    "question": "Could a permanent residence system guarantee continued status to immigrants who satisfy all legal obligations but become unable to meet physical-presence requirements because of a global emergency?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2092,
+    "question": "What happens when a country's immigration laws recognise a dependent relationship that the applicant's country of origin does not legally recognise?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2093,
+    "question": "Can an individual maintain lawful immigration status when the destination country temporarily loses the ability to issue or renew residence documents?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2094,
+    "question": "How should countries evaluate immigration claims involving historical territories whose borders and legal identities have changed several times?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2095,
+    "question": "Can an immigrant's previous legal status be restored when the original cancellation is later declared unlawful?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2096,
+    "question": "What legal framework should apply when immigration authorities from different countries exchange conflicting information about the same individual?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2097,
+    "question": "Could international law establish a minimum right to immigration record correction across all participating countries?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2098,
+    "question": "How should governments handle permanent residents whose country of origin revokes their nationality while they are living abroad?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2099,
+    "question": "Is it possible to design a universal immigration assessment framework that respects national sovereignty while ensuring consistent procedural fairness?"
+  },
+  {
+    "category": "J",
+    "categoryName": "Unusual Immigration Scenarios and Advanced Research Questions",
+    "id": 2100,
+    "question": "What would happen if immigration law recognised long-term human attachment to a country as an independent factor in residence eligibility, separate from employment, investment and family sponsorship?"
+  }
+]

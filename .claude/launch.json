@@ -1,0 +1,45 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "northstar-ui-check",
+      "runtimeExecutable": "pwsh",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:DB_PATH=(Join-Path $env:TEMP 'northstar-ui-check.sqlite'); $env:PORT='3917'; $env:HOST='127.0.0.1'; $env:ANYROUTER_API_KEY=''; $env:OPENROUTER_API_KEY=''; $env:ADMIN_TOKEN=''; node src/server.js"
+      ],
+      "port": 3917
+    },
+    {
+      "name": "northstar-saas-check",
+      "runtimeExecutable": "pwsh",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:DB_PATH=(Join-Path $env:TEMP 'northstar-saas-check.sqlite'); $env:ACCOUNTS_DB_PATH=(Join-Path $env:TEMP 'northstar-saas-accounts.sqlite'); $env:ACCOUNTS_SECRET='1111111111111111111111111111111111111111111111111111111111111111'; $env:PORT='3918'; $env:HOST='127.0.0.1'; $env:ANYROUTER_API_KEY=''; $env:OPENROUTER_API_KEY=''; $env:ADMIN_TOKEN=''; $env:EMAIL_PROVIDER='console'; node src/server.js"
+      ],
+      "port": 3918
+    },
+    {
+      "name": "northstar-testmode-check",
+      "runtimeExecutable": "pwsh",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:DB_PATH=(Join-Path $env:TEMP 'northstar-tm-check.sqlite'); $env:ACCOUNTS_DB_PATH=(Join-Path $env:TEMP 'northstar-tm-accounts.sqlite'); $env:ACCOUNTS_SECRET='2222222222222222222222222222222222222222222222222222222222222222'; $env:TEST_MODE='1'; $env:PORT='3919'; $env:HOST='127.0.0.1'; $env:ANYROUTER_API_KEY=''; $env:OPENROUTER_API_KEY=''; $env:ADMIN_TOKEN=''; $env:EMAIL_PROVIDER='console'; node src/server.js"
+      ],
+      "port": 3919
+    },
+    {
+      "name": "northstar-diagnose",
+      "runtimeExecutable": "pwsh",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:DB_PATH='C:/Users/shiva/AppData/Local/Temp/claude/C--Users-shiva-Music-Project-AI/0151b97c-e1db-40bb-9044-4b6a84a267a6/scratchpad/probe-db.sqlite'; $env:PORT='3921'; $env:HOST='127.0.0.1'; $env:ANYROUTER_API_KEY=''; $env:OPENROUTER_API_KEY=''; $env:ADMIN_TOKEN='diagnose-local-admin-token-000000000000'; node src/server.js"
+      ],
+      "port": 3921
+    }
+  ]
+}

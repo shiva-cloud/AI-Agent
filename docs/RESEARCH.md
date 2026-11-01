@@ -1,0 +1,48 @@
+# Research and design rationale
+
+Research checked 28 October 2026 through web search results and their supplied page excerpts. This is an initial primary-source research pass, not a complete Canadian settlement-law review. No comprehensive crawl, raw-page archival or human legal review has been completed. Seed snippets are short excerpts for traceability; full licensed snapshots are a next milestone.
+
+## Findings that change the implementation
+
+| Finding | Primary source | Engineering consequence |
+|---|---|---|
+| SIN has an official application route and situation-dependent instructions | [Service Canada — Apply](https://www.canada.ca/en/employment-social-development/services/sin/apply.html) | Start with official route guidance; do not infer work authorization or required documents from generic newcomer status |
+| Ontario says there is no OHIP waiting period for eligible people | [Ontario — OHIP](https://www.ontario.ca/page/apply-ohip-and-get-health-card) | Health answer must separate waiting period from eligibility; seeded as pending review |
+| BC describes a residence-based MSP waiting period and exceptions | [BC — coverage wait period](https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol/coverage-wait-period) | Never transfer Ontario guidance to Vancouver; timing cannot be calculated from arrival alone |
+| The Peel District School Board registers through a school locator and portal routes; children born in 2022 can register for the 2026-27 kindergarten year | [PDSB — Register for School](https://www.peelschools.org/registration) | Peel cities need their own board records; one shared regional page is registered per city scope, still pending review |
+| DPCDSB admits non-Canadians on an individual basis and runs legislated Open Access secondary admissions | [DPCDSB — Admissions](https://www.dpcdsb.org/admissions) | Newcomer admission guidance registered pending review without inferring any family's eligibility |
+| CRA publishes CCB eligibility conditions including a refugee-claimant exception and the temporary-resident 18-month/19th-month permit rule | [CRA — Who can apply (CCB)](https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit/who-apply.html) | Benefit eligibility registered pending review; no dollar amount quoted because the amount is income-based |
+| One CCB application also covers related provincial and territorial programs; newcomers file Form RC66 with Schedule RC66SCH | [CRA — How to apply (CCB)](https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit/how-apply.html) | Application routes registered pending review without deciding any family's outcome |
+| The IRCC Interim Federal Health Program covers interim cohorts until provincial insurance qualifies, with a verbatim claim-start rule | [IRCC — IFHP eligibility](https://www.canada.ca/en/immigration-refugees-citizenship/services/refugees/help-within-canada/health-care/interim-federal-health-program/eligibility.html) | Interim health coverage registered pending review; no status, group or duration is decided for any person |
+| IFHP coverage: basic free, $4 per prescription, 70%/30% supplemental split, one immigration medical exam for certain groups | [IRCC — IFHP coverage](https://www.canada.ca/en/immigration-refugees-citizenship/services/refugees/help-within-canada/health-care/interim-federal-health-program/coverage-summary.html) | Co-payment figures registered pending review; benefit-grid maximums live behind the grids and stay out |
+| ESDC states foreign credential recognition runs through the provincial or territorial regulator, with a tool and loans from $15,000 up to $30,000 | [ESDC — Foreign Credential Recognition](https://www.canada.ca/en/employment-social-development/programs/foreign-credential-recognition.html) | Licensing-pathway guidance registered pending review; no equivalency, authorization or licence outcome decided |
+| IRCC defines the educational credential assessment for Express Entry education points, issued only by designated organizations and professional bodies | [IRCC — ECA](https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/documents/education-assessment.html) | Immigration-pathway guidance registered pending review without assessing anyone's credentials |
+| ESDC states a SIN is the 9-digit identifier needed to work or access government programs, private by law, findable via MSCA or tax documents, permanent for citizens and PRs and permit-bound for temporary residents | [ESDC — Social Insurance Number](https://www.canada.ca/en/employment-social-development/services/sin.html) | Published sin guidance shipped as low-risk research_seed; no personal SIN or status confirmed |
+| ESDC lists the primary (legal status) and secondary (identity) documents for a SIN application by status, with name-change, translation and submission rules | [ESDC — Required documents for SIN](https://www.canada.ca/en/employment-social-development/services/sin/required-documents.html) | Document categories published as the page states them; acceptance of any specific document not guaranteed |
+| LTB guidance distinguishes eviction orders and enforcement | [LTB — ending a tenancy](https://tm2.tribunalsontario.ca/documents/ltb/Brochures/How%20a%20Landlord%20Can%20End%20a%20Tenancy.html) | Legal answers need scope/exceptions; an eviction excerpt does not answer rent-deposit questions |
+| IRCC maintains a newcomer-services directory | [IRCC directory](https://www.ircc.canada.ca/english/newcomers/services/index.asp) | Provide an official discovery route; avoid inventing local providers and eligibility |
+| Brampton and Mississauga libraries maintain newcomer-service pages | [Brampton Library](https://www.bramptonlibrary.ca/newcomer-services), [Mississauga Library](https://www.mississauga.ca/library/using-the-library/newcomers/) | Local service guidance can be useful without unsupported prices, schedules or phone numbers |
+| Toronto Public Library maintains newcomer information | [Toronto Public Library](https://tpl.ca/using-the-library/new-to-canada/information-for-newcomers/english/) | City-specific source routing, with freshness windows |
+| BC publishes an official newcomers’ guide | [WelcomeBC](https://www.welcomebc.ca/start-your-life-in-b-c/bc-newcomers-guide) | Starting route for Vancouver; not evidence of full neighborhood-level coverage |
+| PostgreSQL recommends GIN for full-text indexes | [PostgreSQL documentation](https://www.postgresql.org/docs/16/textsearch-indexes.html) | Production lexical search can live with structured facts in the same database |
+| pgvector documents combining full-text and vector retrieval with fusion or a reranker | [pgvector](https://github.com/pgvector/pgvector#hybrid-search) | Use a measured hybrid baseline before adding a separate search service; current prototype does not implement this |
+| RAG security must cover ingestion through output validation | [OWASP RAG security](https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html) | Crawled content is untrusted data; never grant it tools, policy authority or publication privileges |
+| Canadian privacy guidance stresses necessity, safeguards and personal-information protection | [Office of the Privacy Commissioner](https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/gd_principles_ai?wbdisable=true) | Minimize user information; no raw questions stored in the prototype; production needs a privacy review |
+
+## Source policy before automated acquisition
+
+All current seeds are `manual_only_until_access_policy_review`. A discoverable official page is not automatic permission for bulk copying or crawling. Record ownership, terms, robots policy, rate limit, licensing, permitted storage, allowed extraction and review owner. Prefer authorized feeds/APIs; use conditional HTTP requests where permitted. Start from an allowlist, reject private/link-local destinations, revalidate redirects, bound response size and parser time, and isolate PDF processing.
+
+Review date, fetch date, publication date, effective date and expiry are different fields. The prototype's `checkedAt` is the date of research, not a fresh autonomous page fetch. Expiry dates are conservative editorial defaults, not a claim that policy remains stable until then.
+
+## Evaluation research protocol
+
+Compare lexical-only, vector-only and hybrid retrieval under identical scope filters. Test exact entity names, English paraphrases, informal wording, misspellings, date-sensitive policy, vague locations, multiple questions, contradictory evidence and missing exceptions. Do not report synthetic template accuracy as real-world language understanding. Score answerability and complete coverage of question facets separately from citation correctness.
+
+## Open research work
+
+- Official tax/benefit eligibility, schools, regulated work, driving, transit, housing subtopics and newcomer service eligibility need deeper source collection and qualified review.
+- Commercial groceries, telecom plans and rent comparisons need licensed, date-stamped local evidence and transparent ranking rules.
+- City/province aliases need a maintained gazetteer, including international ambiguity and neighborhood resolution.
+- Source dependency and contradiction detection need structured claim keys, effective dates and independent provenance; matching strings cannot establish semantic consistency.
+- Model choice, embedding quality, deployment pricing, legal obligations and measured SLOs require later targeted evaluations.

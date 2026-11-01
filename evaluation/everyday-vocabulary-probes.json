@@ -1,0 +1,218 @@
+{
+  "description": "Developer-written everyday newcomer phrasings with the topic each must be recognised as. Checks topic recognition only, not answer quality. Not an independently reviewed gold set.",
+  "version": "vocab-4",
+  "cases": [
+    {
+      "question": "How do I find a family doctor in Toronto?",
+      "intent": "health"
+    },
+    {
+      "question": "Where is a walk-in clinic in Brampton?",
+      "intent": "health"
+    },
+    {
+      "question": "Doctor near Scarborough",
+      "intent": "health"
+    },
+    {
+      "question": "I need a doctor in Mississauga",
+      "intent": "health"
+    },
+    {
+      "question": "How do I refill my prescription in Vancouver?",
+      "intent": "health"
+    },
+    {
+      "question": "Which hospital emergency room should I go to in Toronto?",
+      "intent": "health"
+    },
+    {
+      "question": "How do I find a dentist in Brampton?",
+      "intent": "health"
+    },
+    {
+      "question": "Can I see a nurse practitioner in Mississauga?",
+      "intent": "health"
+    },
+    {
+      "question": "Where can I get my kids vaccinated in Toronto?",
+      "intent": "health"
+    },
+    {
+      "question": "Is there a free clinic for newcomers in Vancouver?",
+      "intent": "health"
+    },
+    {
+      "question": "How do I find an apartment in Toronto?",
+      "intent": "housing"
+    },
+    {
+      "question": "Looking for a room to rent in Brampton",
+      "intent": "housing"
+    },
+    {
+      "question": "How much is a one-bedroom apartment in Vancouver?",
+      "intent": "housing"
+    },
+    {
+      "question": "Is it safe to rent a basement unit in Mississauga?",
+      "intent": "housing"
+    },
+    {
+      "question": "Can my roommate be evicted in Toronto?",
+      "intent": "housing"
+    },
+    {
+      "question": "How do I find a condo to rent in Vancouver?",
+      "intent": "housing"
+    },
+    {
+      "question": "Can I sublet my apartment in Toronto?",
+      "intent": "housing"
+    },
+    {
+      "question": "How do I buy a Presto card in Toronto?",
+      "intent": "transit"
+    },
+    {
+      "question": "How much is the subway fare in Toronto?",
+      "intent": "transit"
+    },
+    {
+      "question": "Where do I get a Compass Card in Vancouver?",
+      "intent": "transit"
+    },
+    {
+      "question": "Does the streetcar accept cash in Toronto?",
+      "intent": "transit"
+    },
+    {
+      "question": "What public transportation is there in Mississauga?",
+      "intent": "transit"
+    },
+    {
+      "question": "How do I get a monthly transit pass in Brampton?",
+      "intent": "transit"
+    },
+    {
+      "question": "How do I get a cheap data plan in Toronto?",
+      "intent": "telecom"
+    },
+    {
+      "question": "Which cell phone provider is best in Vancouver?",
+      "intent": "telecom"
+    },
+    {
+      "question": "How do I get a Canadian phone number in Brampton?",
+      "intent": "telecom"
+    },
+    {
+      "question": "How do I open a bank account in Toronto?",
+      "intent": "money"
+    },
+    {
+      "question": "How do I file my tax return in Vancouver?",
+      "intent": "money"
+    },
+    {
+      "question": "How do I apply for a SIN in Mississauga?",
+      "intent": "sin"
+    },
+    {
+      "question": "Where is the nearest library in Brampton?",
+      "intent": "community"
+    },
+    {
+      "question": "How do I find a job in Toronto?",
+      "intent": "employment"
+    },
+    {
+      "question": "How do I register my child for school in Vancouver?",
+      "intent": "family"
+    },
+    {
+      "question": "How do I find daycare in Mississauga?",
+      "intent": "childcare"
+    },
+    {
+      "question": "Where can I buy cheap groceries in Brampton?",
+      "intent": "groceries"
+    },
+    {
+      "question": "How do I exchange my driver's licence in Toronto?",
+      "intent": "driving"
+    },
+    {
+      "question": "Where is a homeless shelter in Toronto?",
+      "intent": "housing"
+    },
+    {
+      "question": "How do I find an optometrist in Brampton?",
+      "intent": "health"
+    },
+    {
+      "question": "Where can I get an eye exam in Vancouver?",
+      "intent": "health"
+    },
+    {
+      "question": "How do I find a therapist in Mississauga?",
+      "intent": "health"
+    },
+    {
+      "question": "Where can I get a flu shot in Mississauga?",
+      "intent": "health"
+    },
+    {
+      "question": "How do I send money home from Toronto?",
+      "intent": "money"
+    },
+    {
+      "question": "Cheapest money transfer from Vancouver to India",
+      "intent": "money"
+    },
+    {
+      "question": "Where is a food bank in Brampton?",
+      "intent": "groceries"
+    },
+    {
+      "question": "How do I register for English classes in Toronto?",
+      "intent": "community"
+    },
+    {
+      "question": "Where can I take free ESL classes in Brampton?",
+      "intent": "community"
+    },
+    {
+      "question": "How do I apply for OSAP in Toronto?",
+      "intent": "money"
+    },
+    {
+      "question": "Can I get a student loan in Vancouver?",
+      "intent": "money"
+    },
+    {
+      "question": "What is the minimum wage in Toronto?",
+      "intent": "employment"
+    },
+    {
+      "question": "How do I get winter tires in Toronto?",
+      "intent": "driving"
+    },
+    {
+      "question": "How do I cancel my phone contract in Toronto?",
+      "intent": "telecom"
+    },
+    {
+      "question": "How do I set up a hydro bill in Toronto?",
+      "intent": "housing"
+    },
+    {
+      "question": "Can I apply for a daycare subsidy in Mississauga?",
+      "intent": "childcare"
+    },
+    {
+      "question": "Where can I find an after-school care program in Vancouver?",
+      "intent": "childcare"
+    }
+  ]
+}
