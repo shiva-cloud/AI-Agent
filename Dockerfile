@@ -7,6 +7,8 @@ COPY --chown=node:node src ./src
 COPY --chown=node:node public ./public
 COPY --chown=node:node scripts ./scripts
 COPY --chown=node:node docs ./docs
+# Runtime corpus: src/global-settlement-resolver.js reads this at first use.
+COPY --chown=node:node corpus ./corpus
 RUN mkdir -p /app/data /app/backups && chown node:node /app/data /app/backups
 USER node
 VOLUME ["/app/data", "/app/backups"]

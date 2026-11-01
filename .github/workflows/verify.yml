@@ -16,6 +16,7 @@ jobs:
           node-version: '24'
       - run: npm ci --ignore-scripts
       - run: npm audit --audit-level=moderate
+      - run: npm run lint
       - run: npm run api:validate
       - run: npm run api:client
       - run: npm run api:typecheck

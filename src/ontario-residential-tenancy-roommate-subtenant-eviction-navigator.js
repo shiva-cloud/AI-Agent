@@ -157,7 +157,6 @@ export function evaluateOntarioRoommateAndOccupantRights(params = {}) {
     occupantName: cleanOccupantName,
     assessmentDate: cleanAssessmentDate,
     isRtaCovered: true,
-    occupantName: cleanOccupantName,
     legalVerdict,
     jurisdictionalAssessment,
     statutoryFindings,

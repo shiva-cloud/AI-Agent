@@ -109,6 +109,6 @@ Checking the UI locally: `.claude/launch.json` defines `northstar-ui-check`, whi
 
 Monitoring: `node scripts/queue-monitor.js` (queue health, see `docs/QUEUE_MONITOR.md`) and `node scripts/runtime-monitor.js` (server error rate, answer latency and logging problems, see `docs/RUNTIME_MONITOR.md`) print transition events. Both can also send them to an HTTPS webhook (`ALERT_WEBHOOK_URL`, optional `ALERT_WEBHOOK_SECRET`) and remember delivered alerts across restarts (`ALERT_STATE_PATH`). No alert destination is configured by default.
 
-The Dockerfile is an optional packaging starting point and has not been container-tested. The app intentionally binds loopback. Production needs TLS ingress, authenticated reviewers, durable database backups, secret management and the gates in `docs/PLAN.md`.
+The Dockerfile is an optional packaging starting point. A local container check on 2 November 2026 built the image (`docker compose -f compose.local.yaml build app`), started the hardened stack, probed `/ready`, and answered a real `POST /v1/answers` with status `guidance`; the image now bundles the `corpus/` question index the resolver reads. The app intentionally binds loopback. Production needs TLS ingress, authenticated reviewers, durable database backups, secret management and the gates in `docs/PLAN.md`.
 
 See `docs/PLAN.md`, `docs/RESEARCH.md`, `docs/ARCHITECTURE.md`, `docs/LANGUAGE_POLICY.md`, `docs/INGESTION.md`, and `docs/STATUS.md`.
