@@ -20,6 +20,8 @@ Full external review pass of the whole workspace; fixes:
 
 - **Unused-symbol sweep extension (batch 4, test suites):** the remaining 364 `no-unused-vars` findings in `test/` (65 files) resolved with the same verifier-backed machinery — 361 suggestion-based (dominated by generated boilerplate imports in the batch suites), 3 marginal fixes by hand/allowlist, applicator hardened for adjacent name-only fixes and auto-revert-on-parse-error verified. `eslint src scripts test` is fully clean (0 errors / 0 warnings): the 597-warning backlog from batch 2 is resolved end to end. Full suite green after the extension (2,297 passed).
 
+- **Deployment port note (docs):** README documents that the listen port is `PORT || 3000`, that the local container maps host 3100 → container 3000, and that PM2's `env_production` deliberately serves 8080 (with the `ready` signal sent after listen); monitors and ingress point at 8080 under PM2.
+
 ### Platform Status: 680 Verified Recommendations Completed & Tested
 - **Test Suite**: **Clean PASS** across all runner suites (100% clean, 0 failures, 0 skips).
 - **Batch Suites**: **40 batch suites (552/552 tests PASS)** verifying Recommendations 1–680 across 47 completed sweeps.
