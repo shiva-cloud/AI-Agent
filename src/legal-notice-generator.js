@@ -84,9 +84,7 @@ export function generateLegalNotice(input = {}) {
     incidentDate = '',
     issues = [],
     totalClaimAmount = 0,
-    additionalDetails = '',
-    targetCountry = 'CA',
-    targetProvince = 'ON'
+    additionalDetails = ''
   } = input;
 
   if (!type || !Object.values(NOTICE_TYPES).includes(type)) {

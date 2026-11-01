@@ -58,8 +58,6 @@ export function evaluateFederalSkilledTradesProgram(params = {}) {
     clbReading = 4,
     clbWriting = 4,
     hasActiveExpressEntryProfile = true,
-    currentlyAuthorizedToWorkInCanada = true,
-    settlementFundsCad = 18000,
     candidateName = 'Tradesperson',
     assessmentDate = '2026-10-31'
   } = safeParams;
@@ -78,8 +76,8 @@ export function evaluateFederalSkilledTradesProgram(params = {}) {
   const sanitizedWriting = Number.isFinite(Number(clbWriting)) ? Math.max(0, Math.min(12, Math.floor(Number(clbWriting)))) : 4;
 
   const activeEeProfile = Boolean(hasActiveExpressEntryProfile);
-  const authorizedToWork = Boolean(currentlyAuthorizedToWorkInCanada);
-  const funds = Number.isFinite(Number(settlementFundsCad)) ? Math.max(0, Math.min(1000000000, Number(settlementFundsCad))) : 18000;
+  
+  
   const name = boundedText(candidateName, 'Tradesperson', 100);
   const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
 

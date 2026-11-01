@@ -27,8 +27,7 @@ export function evaluateOntarioTenancyAssignmentSublet(params = {}) {
     landlordResponse = 'NO_RESPONSE', // 'CONSENTED', 'REFUSED_GENERALLY', 'REFUSED_SPECIFICALLY', 'NO_RESPONSE'
     refusalReason = '',
     outOfPocketFeeChargedCad = 0,
-    actualDirectExpenseIncurredCad = 0,
-    tenantWishesToTerminate = true
+    actualDirectExpenseIncurredCad = 0
   } = params;
 
   const normalizedType = String(requestType).trim().toUpperCase();

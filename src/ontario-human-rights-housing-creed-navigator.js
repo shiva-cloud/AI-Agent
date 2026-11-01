@@ -26,10 +26,8 @@ export function evaluateOntarioHousingCreedAccommodation(params = {}) {
   const {
     tenantName = 'Tenant',
     landlordName = 'Landlord',
-    creedPracticeCategory = 'SUKKAH_STRUCTURE_ON_BALCONY', // 'SUKKAH_STRUCTURE_ON_BALCONY', 'MEZUZA_OR_DOORWAY_SYMBOL', 'PRAYER_INCENSE_OR_SMUDGING', 'DIETARY_SHARED_FACILITY', 'RELIGIOUS_GATHERING'
-    creedPracticeDescription = 'Erection of temporary Sukkah booth during festival',
+    creedPracticeCategory = 'SUKKAH_STRUCTURE_ON_BALCONY',
     isSincerelyHeldBelief = true,
-    hasTenantRequestedAccommodationInWriting = true,
     landlordRefusedAccommodation = true,
     landlordRefusalGround = 'BUILDING_AESTHETICS', // 'BUILDING_AESTHETICS', 'BLANKET_RULE_NO_BALCONY_OBJECTS', 'TENANT_COMPLAINTS', 'UNMITIGATED_FIRE_SAFETY_RISK', 'EXTREME_EXCESSIVE_FINANCIAL_COST'
     landlordOfferedAlternativeReasonableAccommodation = false,
@@ -42,12 +40,12 @@ export function evaluateOntarioHousingCreedAccommodation(params = {}) {
   const cleanTenant = boundedText(tenantName, 'Tenant', 100);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
   const category = boundedText(creedPracticeCategory, 'SUKKAH_STRUCTURE_ON_BALCONY', 60).toUpperCase();
-  const cleanDescription = boundedText(creedPracticeDescription, 'Erection of temporary Sukkah booth during festival', 200);
+  
   const refusalGround = boundedText(landlordRefusalGround, 'BUILDING_AESTHETICS', 60).toUpperCase();
   const altDescription = boundedText(alternativeAccommodationDescription, '', 200);
 
   const sincereBelief = Boolean(isSincerelyHeldBelief);
-  const tenantRequestedInWriting = Boolean(hasTenantRequestedAccommodationInWriting);
+  
   const landlordRefused = Boolean(landlordRefusedAccommodation);
   const altOffered = Boolean(landlordOfferedAlternativeReasonableAccommodation);
   const harassmentReported = Boolean(harassmentOrHostileCommentFromLandlord);
@@ -74,7 +72,7 @@ export function evaluateOntarioHousingCreedAccommodation(params = {}) {
 
   // 2. Assess Landlord Refusal and Undue Hardship Standard (s. 11 & s. 17)
   if (landlordRefused) {
-    const isLegitimateUndueHardship = OHRC_UNDUE_HARDSHIP_STATUTORY_FACTORS.some(factor => factor === refusalGround);
+    
 
     if (refusalGround === 'BUILDING_AESTHETICS' || refusalGround === 'BLANKET_RULE_NO_BALCONY_OBJECTS') {
       statutoryViolations.push({

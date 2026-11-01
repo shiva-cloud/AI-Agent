@@ -40,8 +40,8 @@ export function evaluateSelfEmployedProgram(params = {}) {
   };
   const intendsAndAbleToBeSelfEmployed = safeParams.intendsAndAbleToBeSelfEmployed !== false;
   const willMakeSignificantContributionToCanada = safeParams.willMakeSignificantContributionToCanada !== false;
-  const settlementFundsCad = Number.isFinite(Number(safeParams.settlementFundsCad)) ? Math.max(0, Math.min(1000000000, Number(safeParams.settlementFundsCad))) : 30000;
-  const familySize = Number.isFinite(Number(safeParams.familySize)) ? Math.max(1, Math.min(20, Math.floor(Number(safeParams.familySize)))) : 1;
+  
+  
 
   const disqualifications = [];
   const riskWarnings = [];

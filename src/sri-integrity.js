@@ -4,7 +4,7 @@
 
 import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import {  join } from 'node:path';
 
 export function computeFileSri(filePath) {
   if (!existsSync(filePath)) {

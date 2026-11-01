@@ -129,7 +129,7 @@ export function extractPolicyDelta({ source, content, delta, simulatedInput = nu
   }
 
   // Automatic heuristic extraction from content
-  const detectedDates = extractDatesFromText(content);
+  
   const effectiveFrom = null; // Mentioned dates are not proof of a legal effective date.
 
   // Quote a clean sentence from the page. Markup leftovers (attributes, URLs,

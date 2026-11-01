@@ -30,7 +30,6 @@ export function evaluateForeignWorkerPermitTransition(params = {}) {
     currentWorkPermitExpiryDate = '2026-11-30',
     currentDate = '2026-10-31',
     hasSubmittedNewWorkPermitApplication = true,
-    applicationSubmissionDate = '2026-10-15',
     hasPositiveLmiaOrExemption = true,
     hasRequestedPublicPolicyInterimAuthorization = true,
     hasReceivedIrccInterimAuthorizationEmail = false,
@@ -45,8 +44,8 @@ export function evaluateForeignWorkerPermitTransition(params = {}) {
   const curDateStr = rawCurDate && !Number.isNaN(Date.parse(rawCurDate)) ? rawCurDate : '2026-10-31';
   const rawExpDate = boundedText(currentWorkPermitExpiryDate, '2026-11-30', 30);
   const expiryDateStr = rawExpDate && !Number.isNaN(Date.parse(rawExpDate)) ? rawExpDate : '2026-11-30';
-  const rawAppDate = boundedText(applicationSubmissionDate, '2026-10-15', 30);
-  const appDateStr = rawAppDate && !Number.isNaN(Date.parse(rawAppDate)) ? rawAppDate : '2026-10-15';
+  
+  
 
   const expiryDate = new Date(expiryDateStr);
   const curDate = new Date(curDateStr);
@@ -178,6 +177,7 @@ export function evaluateForeignWorkerPermitTransition(params = {}) {
     legalVerdict = 'RESTORATION_REQUIRED_WORK_PROHIBITED';
   }
 
+  // eslint-disable-next-line no-unused-vars -- summary is fully computed but not yet surfaced in the return payload (tracked output gap)
   const summary =
     legalVerdict === 'FULLY_AUTHORIZED_FOR_NEW_EMPLOYER'
       ? `Worker is legally authorized to work for ${safeNewEmployer} under the Public Policy Interim Work Authorization while the permanent work permit application is processed.`

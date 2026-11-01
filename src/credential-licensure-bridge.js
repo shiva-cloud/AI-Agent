@@ -273,19 +273,17 @@ export function assessCredentialLicensure(input = {}) {
     candidateName = 'Candidate',
     profession = 'software_engineer',
     province = 'ON',
-    foreignDegreeLevel = 'bachelors',
     yearsOfForeignExperience = 5,
     hasEca = false,
     ecaOrganization = 'WES',
     officialLanguageClb = 8,
-    hasInitiatedCollegeRegistration = false,
     assessmentDate
   } = safeInput;
   const cleanCandidateName = boundedText(candidateName, 'Candidate', 100);
   const cleanProf = boundedText(profession, 'software_engineer', 60);
   const cleanProv = boundedText(province, 'ON', 10).toUpperCase();
-  const cleanDegree = boundedText(foreignDegreeLevel, 'bachelors', 50);
-  const cleanEcaOrg = boundedText(ecaOrganization, 'WES', 30);
+  
+  
   const safeDate = safeIsoDate(assessmentDate);
 
   const prov = cleanProv;

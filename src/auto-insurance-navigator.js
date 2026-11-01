@@ -60,7 +60,7 @@ export function evaluateAutoInsuranceProfile({
   const weeksWorked = Math.max(0, Math.min(52, Number(weeksEmployedPast52) || 0));
   const foreignYears = Math.max(0, Math.min(60, Number(foreignDrivingYears) || 0));
   const hasLetter = Boolean(hasForeignExperienceLetter);
-  const licenceClass = boundedText(canadianLicenceClass, 'G', 20);
+  
   const irbCap = Math.max(400, Math.min(2000, Number(optionalIrbEndorsementWeeklyCad) || 400));
   const refusalReported = Boolean(experiencedRefusalOrUnreasonableDelay);
 

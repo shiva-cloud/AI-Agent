@@ -40,15 +40,15 @@ export function evaluateManitobaEmploymentLeave(params = {}) {
   const weeksReq = Number.isFinite(Number(safeParams.weeksRequested)) ? Math.max(0, Math.min(104, Number(safeParams.weeksRequested))) : 17;
   const ivDaysReq = Number.isFinite(Number(safeParams.interpersonalViolenceDaysRequested)) ? Math.max(0, Math.min(10, Number(safeParams.interpersonalViolenceDaysRequested))) : 5;
   const medicalCert = safeParams.hasMedicalCertificateProvided !== false;
-  const writtenNotice = safeParams.hasWrittenNoticeGiven !== false;
-  const noticeWeeks = Number.isFinite(Number(safeParams.noticeWeeksGiven)) ? Math.max(0, Math.min(52, Number(safeParams.noticeWeeksGiven))) : 2;
+  
+  
   const employerRefused = Boolean(safeParams.employerRefusedLeave);
   const employerDismissed = Boolean(safeParams.employerDismissedOrDisciplinedEmployee);
   const employerRefusesReinstatement = Boolean(safeParams.employerRefusesReinstatementToSameOrComparableRole);
   const wage = Number.isFinite(Number(safeParams.regularHourlyWageCad)) ? Math.max(0, Math.min(10000, Number(safeParams.regularHourlyWageCad))) : 24;
   const weeklyHours = Number.isFinite(Number(safeParams.regularWeeklyHours)) ? Math.max(0, Math.min(168, Number(safeParams.regularWeeklyHours))) : 40;
 
-  const statutoryFindings = [];
+  
   const statutoryViolations = [];
   const actionableRemedies = [];
   const complianceChecklist = [];

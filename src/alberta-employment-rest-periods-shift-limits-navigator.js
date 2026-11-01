@@ -89,8 +89,8 @@ export function auditAlbertaEmploymentRestPeriods({
   const actionableRemedies = [];
 
   // 2. Intra-Shift Rest Period Audit (s. 18): 30 mins per 5 consecutive hours worked
-  const numberOf5HourBlocks = Math.floor(shiftHours / 5);
-  const requiredBreakMinutes = numberOf5HourBlocks * ALBERTA_REST_PERIOD_CONSTANTS.MANDATORY_REST_MINUTES_PER_5_HOURS;
+  
+  
   const hasIntraShiftBreakViolation = shiftHours > 5 && breakMinutes < 30;
 
   if (hasIntraShiftBreakViolation) {

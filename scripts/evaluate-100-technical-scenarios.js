@@ -839,7 +839,7 @@ for (let i = 0; i < technical100Questions.length; i++) {
   const isGuidanceOrPartial = ['guidance', 'partial'].includes(res.status);
   
   // 2. Did the system provide citations from verified official sources?
-  const hasOfficialSources = res.sources.length > 0;
+  
   
   // 3. Round-about / evasiveness check:
   // Does the response contain claims related to the core topic, or is it completely generic / off-topic?

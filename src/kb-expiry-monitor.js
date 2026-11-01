@@ -10,7 +10,7 @@ export function auditKbRecordExpiries(db, options = {}) {
   const { referenceDate = new Date().toISOString().slice(0, 10), warningDays = 14 } = safeOptions;
   const rows = db.prepare('SELECT id, body FROM records').all();
   const refTime = new Date(referenceDate).getTime();
-  const warningMs = warningDays * 24 * 60 * 60 * 1000;
+  
 
   const expired = [];
   const impendingExpiry = [];

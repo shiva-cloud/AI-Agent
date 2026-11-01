@@ -5,7 +5,7 @@
 // and CLB 4 language requirement for ages 18-54 (s. 5(1)(d)).
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+
 
 export const CITIZENSHIP_STATUTORY_CONSTANTS = {
   statutoryDaysRequired: 1095, // 3 full years

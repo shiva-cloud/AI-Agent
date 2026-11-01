@@ -27,8 +27,6 @@ export function evaluateBcRoommateAndSharedKitchen(params = {}) {
     landlordChargesGuestOrOccupantFee = false,
     monthlyGuestFeeCad = 0,
     tenancyAgreementLimitsOccupants = false,
-    statedOccupancyLimit = 2,
-    currentOccupantsCount = 2,
     daysNoticeGivenToRoommate = 14
   } = safeParams;
 
@@ -39,12 +37,8 @@ export function evaluateBcRoommateAndSharedKitchen(params = {}) {
   const guestFee = Number.isFinite(Number(monthlyGuestFeeCad))
     ? Math.max(0, Math.min(100000, Number(monthlyGuestFeeCad)))
     : 0;
-  const occupancyLimit = Number.isFinite(Number(statedOccupancyLimit))
-    ? Math.max(1, Math.min(50, Math.floor(Number(statedOccupancyLimit))))
-    : 2;
-  const occupantsCount = Number.isFinite(Number(currentOccupantsCount))
-    ? Math.max(1, Math.min(50, Math.floor(Number(currentOccupantsCount))))
-    : 2;
+  
+  
   const noticeDays = Number.isFinite(Number(daysNoticeGivenToRoommate))
     ? Math.max(0, Math.min(3650, Math.floor(Number(daysNoticeGivenToRoommate))))
     : 14;

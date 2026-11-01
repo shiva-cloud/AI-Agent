@@ -11,18 +11,18 @@ import {highRiskTopics} from './evidence-policy.js';
 import {telecomContext} from './telecom.js';
 import {hasUnsupportedDestination,supportedCitiesIn,supportedRegionsIn,describeLocationClarification,resolveClauseGeography,GEOGRAPHY_VERSION} from './geography.js';
 import {queryRequirements,assessAnswerability} from './query-contract.js';
-import {resolveQuestionBankItem, searchQuestionBankBatch2, getQuestionBankBatch2Stats} from './global-immigration-question-bank-resolver.js';
-import {resolveQuestionBankBatch3Item, searchQuestionBankBatch3, getQuestionBankBatch3Stats, resolveQuestionBankAny} from './global-immigration-question-bank-batch3-resolver.js';
-import {resolveMarketGapBatch1Item, searchMarketGapBatch1, getMarketGapBatch1Stats} from './market-gap-batch1-resolver.js';
-import {resolveMarketGapBatch2Item, searchMarketGapBatch2, getMarketGapBatch2Stats} from './market-gap-batch2-resolver.js';
-import {resolveMarketGapBatch3Item, searchMarketGapBatch3, getMarketGapBatch3Stats} from './market-gap-batch3-resolver.js';
-import {resolveGlobalSettlementItem, searchGlobalSettlement, getGlobalSettlementStats} from './global-settlement-resolver.js';
-import {resolveSocialCrisisGuidance, detectSocialCrisisScenario} from './social-qa-crisis-navigator.js';
+import {resolveQuestionBankItem} from './global-immigration-question-bank-resolver.js';
+import {resolveQuestionBankBatch3Item, resolveQuestionBankAny} from './global-immigration-question-bank-batch3-resolver.js';
+import {resolveMarketGapBatch1Item} from './market-gap-batch1-resolver.js';
+import {resolveMarketGapBatch2Item} from './market-gap-batch2-resolver.js';
+import {resolveMarketGapBatch3Item} from './market-gap-batch3-resolver.js';
+import {resolveGlobalSettlementItem} from './global-settlement-resolver.js';
+import {resolveSocialCrisisGuidance} from './social-qa-crisis-navigator.js';
 import {detectAndTranslateMultilingualQuery} from './multilingual-layer.js';
 import {resolveNarrativeCrisis} from './narrative-crisis-resolver.js';
-import {deconstructNarrative} from './narrative-deconstructor.js';
-import {detectLegalMyth} from './myth-buster.js';
-import {cleanEmotionalFluff, normalizeSlangAndTypos} from './slang-normalizer.js';
+
+
+
 
 const lexicon = {
  sin: /\bsin\b|social insurance|\bsin disclosure\b|\b900[- ]series\b|\bssn\b|\bsocial security(?:\s+number)?\b|\bnin\b|\bnational insurance(?:\s+number)?\b|\btfn\b|\btax file number\b|\bsteuer[- ]id\b|\bemirates id\b|\bird number\b|\bpps number\b|\bppsn\b|\bitin\b|\bform w[- ]?7\b|\bcpf\b|\bdigid\b|\bfin\b|\bpersonnummer\b|\bnie\b|\btie\b|\bcarte vitale\b|\bburgerservicenummer\b|\bbsn\b|\bsin number\b|\bsin card\b|\bnin number\b|\bssn card\b/iu,
@@ -150,7 +150,7 @@ export function parse(input) {
   if (!multilingual) {
     assertEnglishText(input.question, 'Question');
   }
-  const hasPromptInjection = INJECTION_PATTERNS.some(pat => pat.test(effectiveQuestion));
+  
   const sanitizedQuestion=sanitizePromptInjection(effectiveQuestion);
   const q=normalizeEnglishQuestion(sanitizedQuestion || effectiveQuestion), language='en';
   const queryForMatching=normalizeNewcomerTypos(q);
@@ -326,7 +326,7 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
   const mkt3Match = !input?.gmsId && !input?.questionBankId ? resolveMarketGapBatch3Item(input?.marketGapId || input?.question) : null;
   const gmsMatch = !input?.marketGapId && !input?.questionBankId ? resolveGlobalSettlementItem(input?.gmsId || input?.question) : null;
   const directResolved = Boolean(qbMatch || mkt1Match || mkt2Match || mkt3Match || gmsMatch);
-  const narrativeDecon = deconstructNarrative(input?.question);
+  
   const narrativeCrisis = !directResolved ? resolveNarrativeCrisis(input?.question, input) : null;
   const directHandled = directResolved;
   const parsed = directResolved

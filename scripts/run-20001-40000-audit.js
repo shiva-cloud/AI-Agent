@@ -1,6 +1,6 @@
 // scripts/run-20001-40000-audit.js
 import fs from 'node:fs';
-import path from 'node:path';
+import 'node:path';
 import readline from 'node:readline';
 import { performance } from 'node:perf_hooks';
 import { openStore } from '../src/store.js';
@@ -100,7 +100,7 @@ export async function run20001Audit(options = {}) {
       (rawCountry === 'European Union' && (countryKey.includes('France') || countryKey.includes('Netherlands') || countryKey.includes('Spain') || countryKey.includes('Ireland') || countryKey.includes('Germany')));
 
     let res;
-    const qStart = performance.now();
+    
     try {
       res = answer({ question: line.replace(/^-\s+/, '') }, records, evalDate);
     } catch (err) {
@@ -111,10 +111,10 @@ export async function run20001Audit(options = {}) {
         gaps: [{ reason: err.message }]
       };
     }
-    const latency = performance.now() - qStart;
+    
 
     const claims = res.claims || [];
-    const sources = res.sources || [];
+    
     const clarification = res.clarification || '';
     const placeClarification = res.placeClarification || {};
 
@@ -152,40 +152,33 @@ export async function run20001Audit(options = {}) {
     }
 
     // 4. Classification
-    let classification = 'unknown';
     if (hasHallucination) {
-      classification = 'hallucination';
       hallucinationCount++;
       countryStats[countryKey].hallucination++;
       if (sampleHallucinations.length < 5) sampleHallucinations.push({ qId, country: countryKey, text: questionText, claims });
     } else if (isEvasive) {
-      classification = 'ai_ne_ghumaya';
       evasionCount++;
       countryStats[countryKey].evasion++;
       categoryStats[category].evasion++;
       sectionStats[currentSection].evasion++;
       if (sampleEvasions.length < 5) sampleEvasions.push({ qId, country: countryKey, text: questionText, clarification });
     } else if (isWrongAnswer) {
-      classification = 'wrong_answer';
       wrongAnswerCount++;
       countryStats[countryKey].wrong++;
       if (sampleWrongAnswers.length < 5) sampleWrongAnswers.push({ qId, country: countryKey, text: questionText, claims });
     } else if ((res.status === 'guidance' || res.status === 'partial') && claims.length > 0) {
-      classification = 'proper_answer';
       properSupportedCount++;
       countryStats[countryKey].proper++;
       categoryStats[category].proper++;
       sectionStats[currentSection].proper++;
       if (sampleProper.length < 5) sampleProper.push({ qId, country: countryKey, cat: category, claimsCount: claims.length, title: claims[0]?.title });
     } else if (res.status === 'clarification' && (placeClarification.reason === 'unsupported_place' || res.clarification?.includes('does not cover that place yet') || res.clarification?.includes('outside our verified municipal settlement dataset'))) {
-      classification = 'authoritative_boundary';
       authoritativeBoundaryCount++;
       countryStats[countryKey].boundary++;
       categoryStats[category].boundary++;
       sectionStats[currentSection].boundary++;
       if (sampleBoundaries.length < 5) sampleBoundaries.push({ qId, country: countryKey, cat: category, clarification: res.clarification?.substring(0, 100) });
     } else {
-      classification = 'unavailable';
       unavailableCount++;
       countryStats[countryKey].unavailable++;
       categoryStats[category].unavailable++;

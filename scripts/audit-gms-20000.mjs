@@ -3,7 +3,7 @@ import readline from 'node:readline';
 import { performance } from 'node:perf_hooks';
 import { openStore } from '../src/store.js';
 import { answer } from '../src/engine.js';
-import { destinationCountries } from '../src/destinations.js';
+
 
 async function runGmsAudit() {
   console.log('================================================================');
@@ -21,7 +21,7 @@ async function runGmsAudit() {
   console.log(`Knowledge Base loaded: ${records.length} records in SQLite store.`);
 
   const evalDate = new Date('2026-10-31T12:00:00Z');
-  const supportedSet = new Set(destinationCountries);
+  
 
   const fileStream = fs.createReadStream(filePath, { encoding: 'utf8' });
   const rl = readline.createInterface({ input: fileStream, crlfDelay: Infinity });

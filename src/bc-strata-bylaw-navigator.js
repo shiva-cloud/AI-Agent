@@ -53,9 +53,7 @@ export const STRATA_CONSTANTS = Object.freeze({
 export function evaluateBcStrataBylawDefense(options = {}) {
   const dispute = boundedText(options.disputeType, 'rental_restriction', 50).toLowerCase();
   const isLongTerm = options.isLongTermRental !== false;
-  const termMonths = Number.isFinite(Number(options.rentalTermMonths))
-    ? Math.max(1, Math.min(120, Math.floor(Number(options.rentalTermMonths))))
-    : 12;
+  
   const ageMin = Number.isFinite(Number(options.strataAgeMinimum))
     ? Math.max(0, Math.min(120, Math.floor(Number(options.strataAgeMinimum))))
     : 19;

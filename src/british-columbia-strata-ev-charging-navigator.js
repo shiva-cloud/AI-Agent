@@ -29,9 +29,7 @@ export function evaluateBcStrataEvCharging(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     requestDate = '2026-08-01',
-    currentDate = '2026-10-31',
-    stallType = 'limited_common_property', // or 'common_property', 'strata_lot'
-    applicantStatus = 'owner', // or 'tenant'
+    currentDate = '2026-10-31', // or 'tenant'
     strataLotCount = 48,
     strataRegion = 'metro_vancouver', // or 'fraser_valley', 'capital_regional_district', 'other_bc'
     hasStrataCouncilResponded = false,

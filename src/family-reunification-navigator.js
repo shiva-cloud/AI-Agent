@@ -19,7 +19,7 @@ export function evaluateFamilyReunification(input = {}) {
   const applicantName = boundedText(safeInput.applicantName, 'Applicant', 100);
   const assessmentDate = safeIsoDate(safeInput.assessmentDate, '2026-10-31');
   const category = boundedText(safeInput.category, 'spousal_open_work_permit', 50).toLowerCase();
-  const country = boundedText(safeInput.country, 'Canada', 50).toUpperCase();
+  
 
   // 1. CANADA: SPOUSAL OPEN WORK PERMIT (SOWP) 2024/2025 ELIGIBILITY
   if (category === 'spousal_open_work_permit' || category === 'sowp') {

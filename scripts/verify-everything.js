@@ -99,7 +99,7 @@ try {
     CREATE TABLE gaps(id INTEGER PRIMARY KEY, trace_id TEXT, topic TEXT, reason TEXT, at TEXT);
     CREATE TABLE feedback(id INTEGER PRIMARY KEY, trace_id TEXT, issue TEXT, at TEXT);`);
   for (const seed of seeds) {
-    const { summary, language, ...legacy } = seed;
+    const { summary, ...legacy } = seed;
     db.prepare('INSERT INTO records VALUES (?,?)').run(seed.id, JSON.stringify({ ...legacy, en: summary }));
   }
   configureEnglishDatabase(db);

@@ -85,8 +85,7 @@ export function evaluateIenSpepEligibility(params = {}) {
     assessmentDate = '2026-10-31',
     hasNnasAdvisoryReport = true,
     cnoRegistrationNumber = 'valid',
-    outstandingRequirements = ['evidence_of_practice', 'language_proficiency'],
-    hasOntarioHospitalPlacement = true
+    outstandingRequirements = ['evidence_of_practice', 'language_proficiency']
   } = safeParams;
 
   const cleanCandidateName = boundedText(candidateName, 'Candidate', 100);

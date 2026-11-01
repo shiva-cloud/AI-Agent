@@ -1,7 +1,7 @@
 // Automated Asset Minification & Bundling Tool (Rec 159)
 // Minifies production CSS and JavaScript bundles to optimize network payloads.
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 
 export function minifyCss(cssContent) {
   return cssContent

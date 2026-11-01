@@ -52,9 +52,9 @@ export function evaluateYukonCriticalImpactWorker({
   assessmentDate = '2026-10-31'
 } = {}) {
   const safeCandidate = boundedText(candidateName, 'Nominee Candidate', 100);
-  const safeNocCode = boundedText(nocCode, '65201', 20);
-  const safeCommunity = boundedText(targetCommunity, 'whitehorse', 50);
-  const safeStatus = boundedText(currentStatusInCanada, 'work_permit', 50);
+  
+  
+  
   const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
 
   const sanitizedTeer = Math.max(0, Math.min(5, Number(targetNocTeer) || 4));

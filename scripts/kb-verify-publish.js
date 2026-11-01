@@ -92,6 +92,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   const out = opt('--report') || join(root, 'data', 'kb-verify-publish-report.json');
   writeFileSync(out, JSON.stringify(report, null, 2));
-  const { results: _r, ...summary } = report;
+  const {  ...summary } = report;
   console.log(JSON.stringify(summary, null, 2));
 }

@@ -1,5 +1,5 @@
 // scripts/generate-non-repeated-500-questions.js
-import fs from 'node:fs';
+import 'node:fs';
 import { openStore } from '../src/store.js';
 import { fresh500SocialSuite } from './fresh-500-social-suite.js';
 import { master500EvaluationSuite } from './master-500-question-suite.js';

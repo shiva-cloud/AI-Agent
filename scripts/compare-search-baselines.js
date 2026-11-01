@@ -6,7 +6,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { openStore } from '../src/store.js';
-import { queryTerms, rankLexically, rankHybrid, computeDenseSemanticScore } from '../src/search.js';
+import { queryTerms, rankLexically, rankHybrid } from '../src/search.js';
 
 const BENCHMARK_QUERIES = [
   // Statutory Canadian Terms

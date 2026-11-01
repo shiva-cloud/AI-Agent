@@ -55,7 +55,7 @@ export function auditOntarioRentIncrease({
     defects.push(`Rent cannot be increased until at least 12 months after the last increase or beginning of tenancy (RTA s. 119(1)). Only ${monthsSinceLastIncrease} months elapsed.`);
   }
 
-  let isExemptFromGuideline = isPostNov2018;
+  
   let isIncreaseLawful = false;
 
   if (isPostNov2018) {

@@ -112,7 +112,7 @@ export function evaluateLeaseAssignmentExit(input = {}, referenceDate = new Date
   const requestType = boundedText(safeInput.requestType, 'assignment', 40);
   const stage = boundedText(safeInput.requestStage, 'not_yet_requested', 60);
 
-  const monthlyRent = Math.max(0, Math.min(100000, Number(safeInput.monthlyRentCad) || 2400));
+  
   const demandedPenalty = Math.max(0, Math.min(1000000, Number(safeInput.landlordDemandedPenaltyCad) || 0));
   const demandedAssignmentFee = Math.max(0, Math.min(1000000, Number(safeInput.landlordDemandedAssignmentFeeCad) || 0));
 

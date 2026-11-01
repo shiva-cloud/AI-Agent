@@ -1,6 +1,6 @@
 // scripts/find-compare-post.js
 import fs from 'node:fs';
-import path from 'node:path';
+import 'node:path';
 import readline from 'node:readline';
 
 const p = 'C:/Users/shiva/.gemini/antigravity/brain/1fc8bc7d-d1f7-49ab-96d0-ab33882e90fc/.system_generated/logs/transcript_full.jsonl';

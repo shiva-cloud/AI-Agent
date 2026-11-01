@@ -29,7 +29,6 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
     refusalReasonCategory = '', // from REASONABLE_REFUSAL_GROUNDS or arbitrary
     refusalReasonExplanation = '',
     feeChargedForConsentCad = 0,
-    proposedCandidateProvidesReferencesAndCredit = true,
     tenantName = 'Tenant',
     landlordName = 'Landlord',
     assessmentDate = '2026-10-31'

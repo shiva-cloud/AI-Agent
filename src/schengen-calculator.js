@@ -29,9 +29,7 @@ function addDaysUtc(date, days) {
   return result;
 }
 
-function diffDaysUtc(d1, d2) {
-  return Math.round((d2.getTime() - d1.getTime()) / 86400000);
-}
+
 
 /**
  * Calculates Schengen 90/180-day compliance for a traveler based on past and planned stays.

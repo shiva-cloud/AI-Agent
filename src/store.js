@@ -144,7 +144,7 @@ export function openStore(path='data/settlement.sqlite') {
           return { intact: false, error: `Audit chain broken at audit #${a.id}: expected prev_hash ${expectedPrevHash}, got ${a.prev_hash}` };
         }
         if (a.hash) {
-          const payload = `${a.prev_hash}|${a.record_id}|${JSON.parse(a.next).status === 'approved' ? 'approve' : JSON.parse(a.next).status === 'rejected' ? 'reject' : 'pending'}|${a.reviewer}|${a.at}|${a.previous}|${a.next}`;
+          
           // update expected
           expectedPrevHash = a.hash;
         }

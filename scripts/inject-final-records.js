@@ -1,6 +1,6 @@
 // scripts/inject-final-records.js
 import { DatabaseSync } from 'node:sqlite';
-import fs from 'node:fs';
+import 'node:fs';
 import { assertEnglishRecord } from '../src/language.js';
 import { configureEnglishDatabase } from '../src/migrations.js';
 

@@ -62,7 +62,7 @@ export function evaluateChildCareSubsidy(options = {}) {
     : [{ ageYears: 3, hasDisability: false }];
   const baseFee = Math.max(100, Math.min(100000, Number.isFinite(Number(options.baselineMonthlyFeePerChildCad)) ? Number(options.baselineMonthlyFeePerChildCad) : 1200.0));
   const cwelccEnrolled = options.isEnrolledInCwelccLicensedCentre !== false;
-  const activity = boundedText(options.parentActivityType, 'both_working', 50).toLowerCase();
+  
   const status = boundedText(options.immigrationStatus, 'permanent_resident', 50).toLowerCase();
   const applicantName = boundedText(options.applicantName, 'Parent', 100);
   const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');

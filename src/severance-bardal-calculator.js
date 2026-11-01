@@ -48,7 +48,7 @@ export function calculateSeveranceAndNotice({
   // common law is displaced. However, under Waksdale v. Swegon North America (2020 ONCA 391), if any part of the
   // termination clause violates ESA (e.g. overreaching "for cause" provisions), the entire clause is void.
   let commonLawNoticeMonths = 0;
-  let isContractClauseVulnerable = !hasSignedEnforceableEsaOnlyClause;
+  
 
   if (hasSignedEnforceableEsaOnlyClause) {
     // Limited to statutory floor by contract

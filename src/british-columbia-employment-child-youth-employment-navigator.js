@@ -49,9 +49,6 @@ export function evaluateBcChildYouthEmployment(params = {}) {
     dailyHoursOnSchoolDay = 3,
     dailyHoursOnNonSchoolDay = 6,
     weeklyHoursDuringSchoolWeek = 15,
-    shiftStartTime = '16:00', // e.g. 4:00 PM
-    shiftEndTime = '19:00',   // e.g. 7:00 PM
-    isWorkingDuringSummerVacation = false,
     hasAdultSupervisionOnSite = true
   } = safeParams;
 

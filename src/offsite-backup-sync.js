@@ -4,7 +4,7 @@
 
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, readdirSync, statSync, unlinkSync, mkdirSync, existsSync, mkdtempSync, rmdirSync } from 'node:fs';
-import { join, basename } from 'node:path';
+import { join } from 'node:path';
 import {DatabaseSync,backup} from 'node:sqlite';
 import {randomUUID} from 'node:crypto';
 import { encryptDatabaseFile } from './db-encryption.js';

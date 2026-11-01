@@ -147,7 +147,7 @@ function event(id,actor,action,at) {
 }
 function endorseTranslation(options = {}) {
   const { id, actor } = (options && typeof options === 'object') ? options : {};
-  const safeActor = actorId(actor); const now = new Date().toISOString();
+  actorId(actor); const now = new Date().toISOString();
   if(dbInstance) {
     dbInstance.exec('BEGIN IMMEDIATE');
     try {

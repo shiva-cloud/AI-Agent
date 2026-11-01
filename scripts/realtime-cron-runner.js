@@ -11,7 +11,7 @@
 
 import { openStore } from '../src/store.js';
 import { databasePath } from '../src/runtime-config.js';
-import { runCronCycle, startCronWorker, getCronStats } from '../src/realtime-cron.js';
+import { runCronCycle, startCronWorker } from '../src/realtime-cron.js';
 
 const isOnce = process.argv.includes('--once');
 const isDaemon = process.argv.includes('--daemon');

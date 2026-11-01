@@ -108,7 +108,7 @@ export function evaluateConsumerCreditAgreement(params = {}) {
 
   // 2. Criminal Code s. 347 35% APR Audit (for non-payday installment / auto / title loans)
   let isCriminalInterestBreach = false;
-  let effectiveApr = statedApr;
+  
 
   if (type !== 'payday_loan' && statedApr > CREDIT_DEFENSE_CONSTANTS.FEDERAL_CRIMINAL_APR_CAP) {
     isCriminalInterestBreach = true;

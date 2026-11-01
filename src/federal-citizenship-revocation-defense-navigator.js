@@ -25,16 +25,13 @@ export function evaluateCitizenshipRevocationDefense(params = {}) {
     assessmentDate = '2026-10-31',
     noticeOfIntentDate = '2026-10-01',
     currentDate = '2026-10-25',
-    allegationType = 'FALSE_REPRESENTATION', // 'FALSE_REPRESENTATION', 'FRAUD', 'CONCEALING_MATERIAL_CIRCUMSTANCES', 'UNSUBSTANTIATED'
-    allegationContext = 'RESIDENCE_CALCULATION', // 'RESIDENCE_CALCULATION', 'CRIMINAL_RECORD_FAILURE_TO_DISCLOSE', 'IDENTITY_FRAUD'
+    allegationType = 'FALSE_REPRESENTATION', // 'RESIDENCE_CALCULATION', 'CRIMINAL_RECORD_FAILURE_TO_DISCLOSE', 'IDENTITY_FRAUD'
     yearsAsCanadianCitizen = 8,
     yearsResidingInCanada = 12,
     hasSubstantialTiesToCanada = true,
     hasMinorChildrenAffected = true,
     minorChildrenAreCanadianCitizens = true,
-    wouldBeRenderedStateless = false,
-    requestedFederalCourtReference = true,
-    hasCompellingHAndCGrounds = true
+    wouldBeRenderedStateless = false
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Citizen', 100);
@@ -42,7 +39,7 @@ export function evaluateCitizenshipRevocationDefense(params = {}) {
   const cleanNoticeDate = safeIsoDate(noticeOfIntentDate, '2026-10-01');
   const cleanCurrentDate = safeIsoDate(currentDate, cleanAssessmentDate);
   const cleanAllegation = boundedText(allegationType, 'FALSE_REPRESENTATION', 60);
-  const cleanContext = boundedText(allegationContext, 'RESIDENCE_CALCULATION', 60);
+  
 
   const dateNoticeMs = Date.parse(cleanNoticeDate);
   const dateCurrMs = Date.parse(cleanCurrentDate);

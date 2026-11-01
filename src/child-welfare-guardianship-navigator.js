@@ -60,11 +60,9 @@ export function evaluateChildWelfareAndGuardianship(params = {}) {
   const {
     pathway = 'vysa_youth_services', // 'vysa_youth_services' | 'kinship_guardianship' | 'intercountry_adoption'
     youthAgeYears = 16,
-    protectionGrounds = ['abandonment_forced_homelessness'],
     hasSafeExtendedFamily = true, // Kinship caregiver available
     kinshipRelationship = 'aunt_uncle', // 'grandparent' | 'aunt_uncle' | 'adult_sibling' | 'family_friend'
     isCanadianCitizenParentForAdoption = true,
-    adoptionCountry = 'India',
     isHagueConventionCountry = true,
     adoptionLegallyFinalizedAbroad = true,
     preAdoptionTiesSevered = true,
@@ -75,7 +73,7 @@ export function evaluateChildWelfareAndGuardianship(params = {}) {
   const age = Number.isFinite(Number(youthAgeYears)) ? Math.max(0, Math.min(100, Math.floor(Number(youthAgeYears)))) : 16;
   const safeYouth = boundedText(youthName, 'Youth', 100);
   const safeKinshipRelationship = boundedText(kinshipRelationship, 'aunt_uncle', 50);
-  const safeAdoptionCountry = boundedText(adoptionCountry, 'India', 60);
+  
   const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
 
   const compliancePoints = [];

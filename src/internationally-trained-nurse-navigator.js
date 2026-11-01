@@ -73,7 +73,7 @@ export function evaluateInternationallyTrainedNurse(options = {}) {
   const rawDesignation = boundedText(safeOptions.nursingDesignation, 'rn', 20).toLowerCase();
   const designation = ['rn', 'rpn_lpn', 'np'].includes(rawDesignation) ? rawDesignation : 'rn';
 
-  const totalExp = Number.isFinite(Number(safeOptions.yearsOfClinicalExperience)) ? Math.max(0, Math.min(60, Number(safeOptions.yearsOfClinicalExperience))) : 5;
+  
   const yearsSincePractice = Number.isFinite(Number(safeOptions.yearsSinceLastClinicalPractice)) ? Math.max(0, Math.min(60, Number(safeOptions.yearsSinceLastClinicalPractice))) : 1;
   const langRoute = boundedText(safeOptions.languageProficiencyRoute, 'ielts_academic', 50).toLowerCase();
   const ieltsScore = Number.isFinite(Number(safeOptions.ieltsOverallScore)) ? Math.max(0, Math.min(9, Number(safeOptions.ieltsOverallScore))) : 7.5;

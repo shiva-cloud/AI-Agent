@@ -49,7 +49,6 @@ export function evaluateCommercialLease(params = {}) {
     baseRentMonthlyCad = 3500,
     additionalRentMonthlyCad = 1500,
     squareFootage = 1200,
-    leaseType = 'triple_net_nnn',
     leaseTermYears = 5,
     yearsRemaining = 3.5,
     hasPersonalGuarantee = true,

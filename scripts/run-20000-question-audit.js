@@ -1,6 +1,6 @@
 // scripts/run-20000-question-audit.js
 import fs from 'node:fs';
-import path from 'node:path';
+import 'node:path';
 import readline from 'node:readline';
 import { performance } from 'node:perf_hooks';
 import { openStore } from '../src/store.js';

@@ -2,10 +2,10 @@
 // Simulates sudden SQLite database corruption, triggers recovery drill,
 // asserts logical integrity and verifies sub-60-second operational restoration.
 
-import { DatabaseSync } from 'node:sqlite';
+
 import { restoreDrill } from '../src/recovery.js';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+
+
 
 export async function runDisasterRecoveryDrill({
   backupDir = 'backups',

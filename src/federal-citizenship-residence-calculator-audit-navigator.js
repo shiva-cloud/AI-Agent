@@ -77,7 +77,7 @@ export function auditCitizenshipPhysicalPresence(params = {}) {
 
   // 3. Language & Knowledge requirement age exemptions (s. 5(1)(d), (e)): required only for ages 18-54
   const isSubjectToLanguageKnowledge = age >= 18 && age <= 54;
-  const satisfiesLanguageKnowledge = !isSubjectToLanguageKnowledge || meetsLanguageAndKnowledgeCriteria;
+  
 
   // 4. Ineligibility and risk flags
   const statutoryViolations = [];

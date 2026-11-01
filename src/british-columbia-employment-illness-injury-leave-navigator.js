@@ -44,8 +44,6 @@ export function evaluateBcIllnessInjuryLeave(params = {}) {
     consecutiveDaysEmployed = 120,
     paidSickDaysTakenThisYear = 0,
     paidSickDaysRequested = 1,
-    unpaidSickDaysTakenThisYear = 0,
-    unpaidSickDaysRequested = 0,
     wagesEarnedInPast30DaysCad = 3200,
     daysWorkedInPast30Days = 20,
     employerRefusedPaidSickDays = false,
@@ -66,12 +64,8 @@ export function evaluateBcIllnessInjuryLeave(params = {}) {
   const paidReq = Number.isFinite(Number(paidSickDaysRequested))
     ? Math.max(0, Math.min(365, Math.floor(Number(paidSickDaysRequested))))
     : 0;
-  const unpaidTaken = Number.isFinite(Number(unpaidSickDaysTakenThisYear))
-    ? Math.max(0, Math.min(365, Math.floor(Number(unpaidSickDaysTakenThisYear))))
-    : 0;
-  const unpaidReq = Number.isFinite(Number(unpaidSickDaysRequested))
-    ? Math.max(0, Math.min(365, Math.floor(Number(unpaidSickDaysRequested))))
-    : 0;
+  
+  
   const wages30Days = Number.isFinite(Number(wagesEarnedInPast30DaysCad))
     ? Math.max(0, Math.min(1_000_000, Number(wagesEarnedInPast30DaysCad)))
     : 0;
@@ -100,7 +94,7 @@ export function evaluateBcIllnessInjuryLeave(params = {}) {
 
   // 2. Entitlement Quota Audit
   const remainingPaidDays = Math.max(0, BC_SICK_LEAVE_CONSTANTS.MAX_PAID_SICK_DAYS_PER_CALENDAR_YEAR - paidTaken);
-  const remainingUnpaidDays = Math.max(0, BC_SICK_LEAVE_CONSTANTS.MAX_UNPAID_SICK_DAYS_PER_CALENDAR_YEAR - unpaidTaken);
+  
 
   const approvedPaidDays = meets90DayThreshold ? Math.min(paidReq, remainingPaidDays) : 0;
   const excessPaidDaysRequested = Math.max(0, paidReq - approvedPaidDays);

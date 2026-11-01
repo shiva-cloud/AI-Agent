@@ -158,7 +158,7 @@ export function evaluateBowpPathway(input = {}, referenceDate = new Date()) {
   const isExpired = daysToExpiry < 0;
 
   // 1. Program Validity Checks
-  const isEligiblePrProgram = BOWP_CONSTANTS.ELIGIBLE_PR_PROGRAMS.includes(prProgram);
+  
   const isEligiblePermitType = BOWP_CONSTANTS.ELIGIBLE_CURRENT_PERMIT_TYPES.includes(permitType);
 
   // 2. Critical Flaw Audits

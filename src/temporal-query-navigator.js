@@ -40,7 +40,7 @@ export function rankByTemporalRelevance(records, temporalContext, referenceDate 
   if (!records || !Array.isArray(records)) return [];
   if (!temporalContext || !temporalContext.hasTemporalQuery) return records;
 
-  const dateStr = safeIsoDate(referenceDate, '2026-10-31');
+  
 
   return [...records].sort((a, b) => {
     // If future or new rule query, prioritize newer effectiveFrom dates

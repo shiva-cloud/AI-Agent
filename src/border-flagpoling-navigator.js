@@ -109,12 +109,12 @@ export function evaluateFlagpolingFeasibility({
   const isTrvExempt = citizenCode === 'US' || TRV_EXEMPT_COUNTRIES.has(citizenCode);
   const normalizedDay = safeDay ? safeDay.charAt(0).toUpperCase() + safeDay.slice(1).toLowerCase() : 'Wednesday';
 
-  const jobOffer = Boolean(hasJobOffer);
+  
   const approvedLmia = Boolean(hasApprovedLmia);
   const lmiaExempt = Boolean(isLmiaExempt);
-  const medicalExam = Boolean(hasMedicalExamIfRequired);
+  
   const validUsVisa = Boolean(hasValidUsVisa);
-  const priorRefusals = Boolean(hasPriorRefusals);
+  
 
   const warnings = [];
   const legalBarriers = [];

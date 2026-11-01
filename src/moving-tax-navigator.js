@@ -67,7 +67,6 @@ export function assessMovingExpenses(params = {}) {
     oldCity = 'Seattle',
     newCity = 'Vancouver',
     distanceKm = 230,
-    householdSize = 1,
     arrivalDateStr = '2026-08-01',
     canadianIncomeEarnedInYearCad = 0,
     travelExpensesCad = 0,
@@ -87,7 +86,7 @@ export function assessMovingExpenses(params = {}) {
   oldCity = boundedText(oldCity, 'Seattle', 80);
   newCity = boundedText(newCity, 'Vancouver', 80);
   const prov = boundedText(province, 'ON', 10).toUpperCase();
-  const safeHousehold = Math.max(1, Math.min(20, parseInt(householdSize, 10) || 1));
+  
   const safeDistance = Math.max(0, Math.min(100000, Number(distanceKm) || 0));
   const safeIncome = Math.max(0, Math.min(1000000000, Number(canadianIncomeEarnedInYearCad) || 0));
 
@@ -120,7 +119,7 @@ export function assessMovingExpenses(params = {}) {
   // Temporary Living Expense Statutory Cap (ITA s. 62(3)(c): Max 15 days)
   const allowedLivingDays = Math.min(rawLivingDays, MOVING_TAX_CONSTANTS.MAX_TEMPORARY_LIVING_DAYS);
   const excessLivingDays = Math.max(0, rawLivingDays - MOVING_TAX_CONSTANTS.MAX_TEMPORARY_LIVING_DAYS);
-  const totalLivingClaimed = rawLivingDays * rawLivingDaily;
+  
   const eligibleTemporaryLivingCad = allowedLivingDays * rawLivingDaily;
   const disallowedTemporaryLivingCad = excessLivingDays * rawLivingDaily;
 

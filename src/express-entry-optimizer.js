@@ -133,8 +133,7 @@ export function evaluateExpressEntryCrs(params = {}) {
   const {
     age = 29,
     educationLevel = 'masters', // 'doctoral', 'masters', 'two_or_more_degrees', 'bachelors', 'diploma_2_year', 'certificate_1_year', 'secondary'
-    firstLanguageClb = { reading: 9, writing: 9, listening: 9, speaking: 9 }, // Object or uniform number
-    secondLanguageClb = { reading: 0, writing: 0, listening: 0, speaking: 0 },
+    firstLanguageClb = { reading: 9, writing: 9, listening: 9, speaking: 9 },
     canadianWorkExperienceYears = 1,
     foreignWorkExperienceYears = 3,
     isMarried = false,
@@ -174,7 +173,7 @@ export function evaluateExpressEntryCrs(params = {}) {
     clbSpeak = Math.max(0, Math.min(12, Number.isFinite(Number(firstLanguageClb.speaking)) ? Number(firstLanguageClb.speaking) : 9));
   }
   const minFirstLangClb = Math.min(clbRead, clbWrite, clbListen, clbSpeak);
-  const avgFirstLangClb = (clbRead + clbWrite + clbListen + clbSpeak) / 4;
+  
 
   // 1. Core Human Capital Points
   const agePoints = getAgePoints(normAge, normMarried);

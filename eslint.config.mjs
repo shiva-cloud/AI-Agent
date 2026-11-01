@@ -68,7 +68,16 @@ export default defineConfig([
       'no-import-assign': 'error',
       'no-dupe-keys': 'error',
       'no-unsafe-negation': 'error',
-      'no-unused-vars': 'warn',
+      // Symbol-level findings (unused declarations, imports) stay enforced.
+      // Function-argument findings are off by deliberate policy: this codebase
+      // documents each navigator's accepted input as destructured option
+      // defaults (schema surface), and uniform callback signatures like
+      // `ruleTemplate: (c, prof) =>` carry placeholder args by design.
+      'no-unused-vars': ['warn', {
+        args: 'none',
+        caughtErrors: 'none',
+        ignoreRestSiblings: true,
+      }],
     },
   },
 ]);

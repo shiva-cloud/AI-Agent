@@ -65,7 +65,6 @@ export function auditEvictionNotice(params = {}) {
     isLandlordACorporation = false,
     intendedOccupant = 'landlord',
     buildingUnitCount = 1,
-    allegedRentArrearsCad = 0,
     includesIllegalCharges = false,
     coercedOrMisrepresented = false,
     tenantName = 'Tenant',

@@ -46,7 +46,7 @@ const queries = [
 console.log('Testing Global Settlement Engine across all destination countries...\n');
 let passed = 0;
 
-for (const { q, country, expectedTopic } of queries) {
+for (const { q, country } of queries) {
   const res = answer({ question: q, country }, records, now);
   const ok = res.status !== 'clarification' && res.claims.length > 0 && res.sources.some(s => s.jurisdiction === country);
   if (ok) {

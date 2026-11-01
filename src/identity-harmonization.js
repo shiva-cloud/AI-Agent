@@ -45,22 +45,20 @@ export function evaluateIdentityHarmonization(params = {}) {
     currentStatusInCanada = 'permanent_resident', // 'canadian_citizen', 'permanent_resident', 'work_permit_holder', 'study_permit_holder'
     residenceProvince = 'ON', // 'ON', 'BC', 'AB', 'OTHER'
     monthsLivedInProvince = 14,
-    hasForeignPassportSingleName = true,
-    foreignCountryOfOrigin = 'IN',
-    documentsShowingDiscrepancy = ['copr_pr_card', 'bank_accounts', 'sin_paper']
+    foreignCountryOfOrigin = 'IN'
   } = safeParams;
   const normDiscrepancy = String(discrepancyType || 'single_name_blank_surname').toLowerCase().trim();
   const normStatus = String(currentStatusInCanada || 'permanent_resident').toLowerCase().trim();
   const normProvince = String(residenceProvince || 'ON').toUpperCase().trim();
   const normOrigin = String(foreignCountryOfOrigin || 'IN').toUpperCase().trim();
   const monthsInProv = Number.isFinite(Number(monthsLivedInProvince)) ? Math.max(0, Math.floor(Number(monthsLivedInProvince))) : 0;
-  const docs = Array.isArray(documentsShowingDiscrepancy) ? documentsShowingDiscrepancy.slice(0, 50).map(d => String(d).toLowerCase().trim()) : [];
+  
 
   const violations = [];
   const statutoryAdvisories = [];
   const actionChecklist = [];
   let isProvincialNameChangeEligible = false;
-  let resolutionVerdict = 'STATUTORY_REMEDY_AVAILABLE';
+  
   let summaryHeadline = '';
 
   const provRules = PROVINCIAL_NAME_CHANGE_RULES[normProvince] || {

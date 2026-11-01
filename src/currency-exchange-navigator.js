@@ -108,7 +108,7 @@ export function evaluateCurrencyExchange(params = {}) {
   const big5SpreadPct = 0.0275; // 2.75% retail spread
   const big5SpreadCost = grossBenchmarkReceived * big5SpreadPct;
   const big5InboundWireFeeCad = 15;
-  const big5OutboundWireFeeCad = hasCrossBorderAccount ? 0 : 35;
+  
   const big5TotalFeeDragCad = big5SpreadCost + big5InboundWireFeeCad + (hasCrossBorderAccount ? 0 : 25); // Intermediary SWIFT fees
   const big5EstimatedReceived = Math.max(0, grossBenchmarkReceived - big5TotalFeeDragCad);
   const big5EffectiveRate = big5EstimatedReceived / normAmount;

@@ -1,4 +1,4 @@
-import {publicEvidence} from './public-evidence.js';
+﻿import {publicEvidence} from './public-evidence.js';
 import {createPublicEvidenceSnapshot} from './evidence-revision.js';
 import {assertFiniteInput} from './finite-input.js';
 import {createStreamLogger} from './stream-logger.js';
@@ -207,9 +207,9 @@ import {evaluateVisitorVisaTies} from './visitor-visa-financial-ties-navigator.j
 import {evaluateLmiaReadiness} from './lmia-readiness-navigator.js';
 import {evaluateGovernmentEnrollment} from './sin-healthcare-navigator.js';
 import {REALTIME_SOURCES, MONITORED_DESTINATIONS, queryRealtimeSources} from './realtime-registry.js';
-import {runCrawlCycle} from './realtime-crawler.js';
+
 import {extractPolicyDelta} from './realtime-extractor.js';
-import {getCronStats, runCronCycle, startCronWorker} from './realtime-cron.js';
+import {getCronStats, runCronCycle} from './realtime-cron.js';
 import {evaluatePrMatrix} from './pr-matrix-simulator.js';
 import {evaluateFamilyReunification} from './family-reunification-navigator.js';
 import {evaluateTaxShield} from './tax-shield-optimizer.js';
@@ -235,8 +235,8 @@ import {auditOntarioRentIncrease, evaluateOntarioSharedKitchenBathroomJurisdicti
 import {evaluateUaeGratuityAndWps, auditDubaiReraEvictionNotice, evaluateNewZealandAewvAndTenancy, evaluateIrelandCsepAndRpz, evaluateSingaporeCompassPass} from './global-expat-navigator.js';
 import {evaluateRestorationOfStatus, auditFlagpolingEligibility, auditDliAuthorizedLeave, evaluateCriminalInadmissibility} from './canada-status-admissibility-guard.js';
 import {extractStatutoryCitations, linkifyStatutoryCitations} from './citation-linker.js';
-import {auditKbRecordExpiries, flagImpendingExpiriesInDb} from './kb-expiry-monitor.js';
-import {createProvenanceBlock, verifyProvenanceChain, GENESIS_HASH} from './kb-provenance-chain.js';
+import {auditKbRecordExpiries} from './kb-expiry-monitor.js';
+import {createProvenanceBlock, verifyProvenanceChain} from './kb-provenance-chain.js';
 import {classifyPolicySeverity, auditStatutoryHierarchyConflict} from './kb-policy-classifier.js';
 import {calculateOntarioOvertimePay, calculateVacationPayStepUp, calculatePublicHolidayPay, evaluateEsaStatutorySeverance, auditContractorMisclassification, auditEqualPayForEqualWork} from './esa-wage-theft-navigator.js';
 import {auditConstructiveDismissal, auditCanadianExperienceBarriers, auditOhsaWorkRefusalAndReprisal, auditWsibInjuryClaimDeadline} from './workplace-rights-defense-navigator.js';
@@ -246,7 +246,7 @@ import {autoPopulateForm} from './official-forms.js';
 import {auditMultiCountryGazettes, syncCorridorMigrationRules, translatePolicyDelta} from './multi-country-gazette-crawler.js';
 import { getLocaleDictionary, getSupportedLocales } from './ui-locale-dictionary.js';
 import { searchGlossary, getGlossaryCategories, getGlossaryTerm } from './settlement-glossary-500.js';
-import { initTranslationLedger, submitTranslationSuggestion, endorseTranslation, verifyTranslation, listTranslations } from './community-translation-ledger.js';
+import { initTranslationLedger } from './community-translation-ledger.js';
 import { getAirportPhrases, getAirportCategories, getAirportPhraseById } from './airport-phrasebook.js';
 import { getAvailableSpeechProfiles } from './audio-speech-helper.js';
 import { generateBilingualView } from './bilingual-view-helper.js';
@@ -263,6 +263,102 @@ export function normalizeTypedNumber(value){
 export function normalizeToolInput(input){
   if(!input||typeof input!=='object'||Array.isArray(input))return input;
   for(const [k,v] of Object.entries(input))input[k]=normalizeTypedNumber(v);
+  return input;
+}
+// POST tool handlers accept the same friendly field names the website forms and
+// the GET endpoints use; evaluators expect their canonical parameter names.
+// Each entry maps formName -> [canonicalName(s), transform]; the transforms
+// mirror the coercion the GET handlers apply (mirrors diagnosis 2026-11-01).
+const ALIAS_TRANSFORMS={
+  plain:value=>value,
+  number:value=>{const n=Number(value);return value!==''&&value!==null&&Number.isFinite(n)?n:undefined;},
+  boolTrue:value=>value===true||value==='true',
+  notFalse:value=>!(value===false||value==='false'),
+  csv:value=>Array.isArray(value)?value:(typeof value==='string'?value.split(',').map(s=>s.trim()).filter(Boolean):undefined)
+};
+const TOOL_FORM_ALIASES={
+  '/v1/tools/study-to-pr':{
+    degree:'studyLevel',
+    clb:[['expectedClbLanguage'],'number'],
+    teer:[['targetNocTeer'],'number'],
+    foreignExperience:[['hasPriorForeignExperience'],'notFalse'],
+    foreignYears:[['yearsForeignExperience'],'number']
+  },
+  '/v1/tools/visitor-visa-financial-ties':{
+    applicant:'applicantName',country:'countryOfResidence',host:'hostInCanadaRelationship',
+    days:[['plannedStayDays'],'number'],funds:[['liquidFundsCad'],'number'],
+    tenure:[['yearsAtCurrentJob'],'number'],income:[['monthlyIncomeCad'],'number'],
+    leaveLetter:[['hasApprovedJobLeaveLetter'],'notFalse'],property:[['ownsRealEstateProperty'],'notFalse'],
+    familyHome:[['hasImmediateFamilyRemainingHome'],'notFalse'],familyTraveling:[['allImmediateFamilyTravelingTogether'],'boolTrue'],
+    g7Travel:[['hasPriorCompliantTravelG7'],'notFalse'],refusal:[['hasPreviousVisaRefusal'],'boolTrue'],
+    dualIntent:[['isDualIntentPrPending'],'boolTrue']
+  },
+  '/v1/tools/us-h1b-opt':{
+    status:'visaStatus',lastWorked:'lastDayWorkedDate',i94:'i94ExpirationDate',
+    hasH1bCos:[['hasTimelyFiledH1bCos'],'boolTrue'],unauthorizedDays:[['unauthorizedWorkDaysAccrued'],'number'],
+    hasI485:[['hasPendingGreenCardI485'],'boolTrue']
+  },
+  '/v1/tools/uk-skilled-worker':{
+    salary:[['annualOfferedSalaryGbp'],'number'],soc:'socCode',age:[['applicantAge'],'number'],
+    preApril2024:[['isPreApril2024VisaHolder'],'boolTrue'],newEntrant:[['isNewEntrantRecentGraduate'],'boolTrue'],
+    healthCare:[['isHealthAndCareOccupation'],'boolTrue'],absentDays:[['maxAbsenceDaysInAny12Months'],'number'],
+    gasSafety:[['landlordGasSafetyProvided'],'notFalse']
+  },
+  '/v1/tools/workplace-rights':{
+    profession:'regulatedProfessionName',accidentDate:'dateOfAccident',
+    reported:[['reportedToSupervisor'],'notFalse'],disciplined:[['employerDisciplinedOrFiredWorker'],'boolTrue'],
+    wageCut:[['unilateralWageReductionPercent'],'number']
+  },
+  '/v1/tools/ei-benefits':{
+    reason:'quitReasonCategory',earnings:[['averageWeeklyEarningsCad'],'number'],
+    hours:[['insurableHoursAccrued'],'number'],rate:[['regionalUnemploymentRatePercent'],'number']
+  },
+  '/v1/tools/esa-wage-theft':{
+    earnings:[['grossEarningsCad'],'number'],
+    years:[['yearsOfService','yearsOfContinuousService'],'number'],
+    wages:[['wagesEarnedInPrior4WeeksCad'],'number'],weekly:[['regularWeeklyWagesCad'],'number'],
+    payroll:[['employerOntarioPayrollCad'],'number'],control:[['hasControlOverSchedule'],'boolTrue'],
+    tempRate:[['temporaryAgencyHourlyRateCad'],'number'],permRate:[['permanentEmployeeHourlyRateCad'],'number'],
+    rate:[['hourlyRateCad'],'number'],hours:[['weeklyHoursWorked'],'number']
+  },
+  '/v1/tools/fcr-bridging':{
+    nnas:[['hasNnasAdvisoryReport'],'notFalse'],province:'targetProvince',
+    status:'immigrationStatus',funding:[['fundingRequiredCad'],'number']
+  },
+  '/v1/tools/poe-rights':{
+    status:'statusCategory',
+    secondary:[['isInSecondaryInspection'],'boolTrue'],deviceSearch:[['hasDigitalDeviceSearchConcern'],'boolTrue'],
+    refusalRisk:[['facingRefusalRisk'],'boolTrue']
+  },
+  '/v1/tools/gcms-analyzer':{
+    type:'applicationType',notes:'rawOfficerNotesText',
+    codes:[['refusalCodes'],'csv'],days:[['daysSinceRefusal'],'number']
+  },
+  '/v1/tools/global-visa-matrix':{
+    countries:[['preferredCountries'],'csv'],education:'educationLevel',field:'fieldOfStudy',
+    experience:[['yearsExperience'],'number'],jobOffer:[['hasJobOffer'],'boolTrue']
+  },
+  '/v1/tools/super-visa-lico':{
+    hostMembers:[['hostFamilyMembersInCanada'],'number'],visitingMembers:[['parentsGrandparentsToSponsor'],'number'],
+    income:[['hostAnnualIncomeCad'],'number'],coSignerIncome:['coSignerIncomeCad'],
+    insurance:['hasCanadianHealthInsurance'],coverage:[['insuranceCoverageAmountCad'],'number'],
+    appType:'applicationType'
+  }
+};
+export function applyFormAliases(path,input){
+  const aliases=TOOL_FORM_ALIASES[path];
+  if(!aliases||!input||typeof input!=='object'||Array.isArray(input))return input;
+  for(const [formKey,spec] of Object.entries(aliases)){
+    if(!(formKey in input))continue;
+    const value=input[formKey];
+    if(value===undefined||value===null||value==='')continue;
+    const specList=Array.isArray(spec)?spec:[spec,'plain'];
+    const names=Array.isArray(specList[0])?specList[0]:[specList[0]];
+    const transform=ALIAS_TRANSFORMS[specList[1]]||ALIAS_TRANSFORMS.plain;
+    const mapped=transform(value);
+    if(mapped===undefined)continue;
+    for(const name of names)if(input[name]===undefined)input[name]=mapped;
+  }
   return input;
 }
 // Text that must never reach a user: values of the wrong type rendered into prose.
@@ -285,9 +381,13 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
  let draining=false;
  // Route families get separate rate-limit buckets, so answering questions is
  // never throttled by static reloads and admin traffic is capped harder.
- const rules=options.rateLimits??{v1:{limit:120,windowMs:60000},admin:{limit:60,windowMs:60000},static:{limit:240,windowMs:60000}};
+ // Custom rules override per family; families they omit keep the default rule,
+ // so a partial override cannot leave a family without a limiter.
+ const DEFAULT_RATE_LIMITS={v1:{limit:120,windowMs:60000},tools:{limit:240,windowMs:60000},admin:{limit:60,windowMs:60000},static:{limit:240,windowMs:60000}};
+ const rules={...DEFAULT_RATE_LIMITS,...(options.rateLimits??{})};
  const limiters=Object.fromEntries(Object.entries(rules).map(([family,rule])=>[family,options.quotaStore?options.quotaStore.createLimiter(family,rule):createRateLimiter(rule)]));
- const familyOf=path=>path.startsWith('/admin/')?'admin':path.startsWith('/v1/')||path==='/health'?'v1':'static';
+ // Tool runs get their own bucket so quick form retries never starve chat answers.
+ const familyOf=path=>path.startsWith('/admin/')?'admin':path.startsWith('/v1/tools/')?'tools':path.startsWith('/v1/')||path==='/health'?'v1':'static';
  // Aggregate, process-local counts of questions the engine could not interpret.
  // No question text, IP or identifier is retained; this is demand signal for
  // editors, not user data. It resets when the server restarts.
@@ -364,7 +464,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
    if(path==='/v1/plans'&&req.method==='GET')return send(200,options.accounts?options.accounts.registry().publicCatalog():publicCatalog());
    if(path==='/v1/test-mode'&&req.method==='GET')return options.testMode?send(200,{enabled:true,email:options.testMode.email,password:options.testMode.password,notice:'Testing mode: this demo account and its password are public. Do not store real data.'}):send(404,{error:'Testing mode is off.',code:'test_mode_off'});
    // Without plans there is no account; 204 tells the website so without a console error.
-   if(!options.accounts&&path==='/v1/account'&&req.method==='GET'){res.writeHead(204,headers);return res.end();}
+   if(!options.accounts&&req.method==='GET'&&(path==='/v1/account'||path==='/v1/account/usage'||path==='/v1/account/keys')){res.writeHead(204,headers);return res.end();}
    if(options.accounts&&path.startsWith('/v1/')) {
      try {
        const authorization=req.headers.authorization;
@@ -5199,7 +5299,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
         .sort((a,b)=>b.checkedAt.localeCompare(a.checkedAt)||b.id.localeCompare(a.id)).slice(0,12);
       const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
       const updated=items[0]?.checkedAt??new Date().toISOString().slice(0,10);
-      const xml='<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n<title>Northstar evidence currency</title>\n<subtitle>Aggregate source-checked evidence currency for the settlement research pilot. No visitor data.</subtitle>\n<link rel="self" href="/v1/changes.xml"/>\n<updated>' + esc(updated) + '</updated>\n<id>/v1/changes.xml</id>\n' + items.map(i=>'<entry>\n<title>' + esc(i.title) + '</title>\n<id>' + esc(i.id) + '</id>\n<updated>' + esc(i.checkedAt) + '</updated>\n<summary>' + esc(i.status.replaceAll('_',' ') + ' · checked ' + i.checkedAt + ' · expires ' + i.expiresAt) + '</summary>\n</entry>\n').join('') + '</feed>';
+      const xml='<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n<title>Northstar evidence currency</title>\n<subtitle>Aggregate source-checked evidence currency for the settlement research pilot. No visitor data.</subtitle>\n<link rel="self" href="/v1/changes.xml"/>\n<updated>' + esc(updated) + '</updated>\n<id>/v1/changes.xml</id>\n' + items.map(i=>'<entry>\n<title>' + esc(i.title) + '</title>\n<id>' + esc(i.id) + '</id>\n<updated>' + esc(i.checkedAt) + '</updated>\n<summary>' + esc(i.status.replaceAll('_',' ') + ' Â· checked ' + i.checkedAt + ' Â· expires ' + i.expiresAt) + '</summary>\n</entry>\n').join('') + '</feed>';
       res.writeHead(200,{...headers,'Content-Type':'application/atom+xml; charset=utf-8'});
       return res.end(xml);
     }
@@ -5372,7 +5472,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
     let input;try {input=JSON.parse(raw);}catch{return send(400,{error:'Invalid JSON'});}
     if(!input || typeof input!=='object' || Array.isArray(input)) return send(400,{error:'JSON object required'});
     assertFiniteInput(input);
-    if(isToolRequest)normalizeToolInput(input);
+    if(isToolRequest){normalizeToolInput(input);applyFormAliases(path,input);}
     if(options.accounts&&req.manager&&path.startsWith('/v1/manage/')){
       try{const result=handleManage({accounts:options.accounts,method:'POST',path,query:url.searchParams,input,actor:req.manager,testMode:options.testMode});return result?send(result.status,result.body):send(404,{error:'Not found'});}
       catch(error){if(error instanceof PlanError)return send(error.status,{error:error.message,code:error.code,...error.details});throw error;}
@@ -6040,7 +6140,19 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
       return send(200, evaluateGermanyChancenkarteAndTenancy(input));
     }
     if(path==='/v1/tools/legal-notices') {
-      return send(200, generateLegalNotice(input));
+      // Accept the website form's field names (sender, recipient, amount, issues as
+      // a semicolon list) and the canonical API names alike; empty strings and
+      // non-numeric amounts fall back to the same defaults the GET endpoint uses.
+      const num=v=>{const n=Number(v);return Number.isFinite(n)&&String(v).trim()!==''?n:0;};
+      const issues=Array.isArray(input.issues)?input.issues
+        :typeof input.issues==='string'?input.issues.split(';').map(s=>s.trim()).filter(Boolean):[];
+      return send(200, generateLegalNotice({
+        ...input,
+        senderName:input.senderName||input.sender||'Applicant',
+        recipientName:input.recipientName||input.recipient||'Respondent',
+        totalClaimAmount:input.totalClaimAmount??num(input.amount),
+        issues
+      }));
     }
     if(path==='/v1/tools/poe-rights') {
       return send(200, evaluatePortOfEntryRights(input));
@@ -6144,7 +6256,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
       return send(200, autoPopulateForm({ formType, fieldOverrides, declarantDate: input.declarantDate }));
     }
     if(path==='/v1/realtime/gazettes') {
-      const country = input.country || 'CA';
+      
       if (input.action === 'corridor') {
         return send(200, syncCorridorMigrationRules({ originCountry: input.originCountry, destinationCountry: input.destinationCountry }));
       }
@@ -6251,7 +6363,7 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
    try {quotaStore=openSharedRateLimits(process.env.RATE_LIMIT_DB_PATH,{key:quotaKey});}finally{quotaKey.fill(0);}
  }
  const answerCacheEntries=Number(process.env.ANSWER_CACHE_ENTRIES??0);
- if(!Number.isInteger(answerCacheEntries)||answerCacheEntries<0||answerCacheEntries>1000)throw new Error('ANSWER_CACHE_ENTRIES must be 0–1000');
+ if(!Number.isInteger(answerCacheEntries)||answerCacheEntries<0||answerCacheEntries>1000)throw new Error('ANSWER_CACHE_ENTRIES must be 0â€“1000');
  createAdminAuth({actors,legacyToken:process.env.ADMIN_TOKEN});
  let jobQueue;
  if(process.env.ADMIN_JOB_DB_PATH) {

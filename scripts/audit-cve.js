@@ -3,7 +3,7 @@
 // and produces structured compliance reports.
 
 import { execSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+
 
 export function runSecurityAudit() {
   const result = {

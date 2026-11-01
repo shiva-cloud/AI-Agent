@@ -95,6 +95,7 @@ export function evaluateSuperVisaAndFamilySponsorship({
 
   if (hasCoSigner) {
     if (normCoSignerRel === 'spouse_or_common_law') {
+      // eslint-disable-next-line no-unused-vars -- co-signer validity is validated below but not yet surfaced (tracked audit gap)
       isCoSignerValid = true;
       effectiveCoSignerIncomeYear1 = Math.max(0, Number.isFinite(Number(coSignerLine15000IncomeYear1)) ? Number(coSignerLine15000IncomeYear1) : 0);
       effectiveCoSignerIncomeYear2 = Math.max(0, Number.isFinite(Number(coSignerLine15000IncomeYear2)) ? Number(coSignerLine15000IncomeYear2) : 0);

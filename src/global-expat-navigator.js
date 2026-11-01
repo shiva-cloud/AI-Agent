@@ -33,7 +33,6 @@ export function evaluateUaeGratuityAndWps(params = {}) {
   const {
     monthlyBasicSalaryAed = 15000,
     yearsOfService = 3.5,
-    isTerminationOrResignation = 'termination',
     unlawfulDeductionsClaimedByEmployerAed = 0, // e.g. visa or recruitment costs
   } = safeParams;
   const dailyBasic = monthlyBasicSalaryAed / 30;

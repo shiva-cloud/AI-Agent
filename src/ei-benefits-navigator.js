@@ -96,8 +96,7 @@ export function auditEiVoluntaryQuitJustCause(params = {}) {
   const {
     applicantName = 'Applicant',
     assessmentDate = '2026-10-31',
-    quitReasonCategory = 'spouse_relocation', // 'spouse_relocation', 'harassment', 'wage_cut', 'unsafe_conditions', 'discrimination'
-    hasExhaustedInternalRemedies = true,
+    quitReasonCategory = 'spouse_relocation',
     hasProofDocumentation = true
   } = safeParams;
 

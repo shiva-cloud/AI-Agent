@@ -57,7 +57,6 @@ export function evaluateWorkplaceDiscriminationAndConstructiveDismissal(params =
     protectedGrounds = ['place_of_origin', 'citizenship'],
     conductTypes = ['canadian_experience_requirement', 'retaliation_or_reprisal'],
     daysSinceLastIncident = 30,
-    hasReportedInternally = false,
     employerResponse = 'none',
     annualSalaryCad = 80000,
     yearsOfService = 3,

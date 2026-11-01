@@ -57,7 +57,7 @@ export function evaluateSocialAssistance({
   const vehVal = Math.max(0, Math.min(10000000, Number(primaryVehicleValueCad) || 0));
   const ownsHome = Boolean(ownsPrimaryResidence);
   const earnedIncome = Math.max(0, Math.min(1000000, Number(grossMonthlyEmploymentIncomeCad) || 0));
-  const shelterCost = Math.max(0, Math.min(1000000, Number(monthlyShelterCostCad) || 0));
+  
   const sponsored = Boolean(isSponsoredImmigrant);
   const sponsorYears = Math.max(0, Math.min(30, Math.floor(Number(sponsorshipYearsRemaining) || 0)));
 

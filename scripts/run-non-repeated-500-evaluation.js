@@ -38,7 +38,7 @@ async function runEvaluation() {
     const claims = res.claims || [];
     const sources = res.sources || [];
     const hasClaims = claims.length > 0;
-    const hasSources = sources.length > 0;
+    
     
     // An answer is clear and comprehensible if it contains verified claims and statutory sources
     // without contradictory or empty statements

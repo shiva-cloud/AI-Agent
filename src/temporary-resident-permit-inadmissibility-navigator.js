@@ -51,8 +51,8 @@ export function evaluateTrpCompellingBalance({
   const safeApplicant = boundedText(applicantName, 'Applicant', 120);
   const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
   const safeInadmissibilityType = boundedText(inadmissibilityType, 'criminality_s36_2', 60);
-  const safeCompellingCategory = boundedText(compellingReasonCategory, 'urgent_family_need', 60);
-  const safeLocation = boundedText(applicantLocation, 'outside_canada', 40);
+  
+  
   const sanitizedYears = Math.max(0, Math.min(100, Math.floor(Number(yearsElapsedSinceSentenceOrTrigger) || 0)));
 
   const deficiencies = [];

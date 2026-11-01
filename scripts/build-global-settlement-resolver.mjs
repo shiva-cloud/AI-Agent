@@ -383,59 +383,7 @@ const CATEGORY_STATUTORY_MAP = {
   }
 };
 
-function determineVerdict(q, category, country, prof) {
-  const qLower = q.toLowerCase();
-  
-  if (qLower.startsWith('what does ') && qLower.includes(' mean')) {
-    const termMatch = q.match(/what does (.*?) mean/i);
-    const term = termMatch ? termMatch[1].trim() : 'this concept';
-    return `In ${country}, "${term}" is defined under ${prof.immigAct} and related statutory instruments as a regulated legal procedure governed by ${prof.immigAuth}.`;
-  }
-  
-  if (qLower.startsWith('who can use ') || qLower.includes('who can access')) {
-    return `Eligibility is restricted to individuals holding verified lawful status (citizens, permanent residents, or authorized temporary visa holders) meeting statutory entitlement requirements in ${country}.`;
-  }
-  
-  if (qLower.startsWith('where can i find official information')) {
-    return `Official, legally binding guidance is published by ${prof.immigAuth} at ${prof.immigUrl} and in official statutory registers.`;
-  }
-  
-  if (qLower.startsWith('which documents are normally needed') || qLower.includes('what documents apply')) {
-    return `Normally required primary documents include valid passport/identity documents, official proof of legal immigration status, proof of local residential address, and completed statutory application forms.`;
-  }
-  
-  if (qLower.startsWith('how do i start the process') || qLower.startsWith('what steps')) {
-    return `The process begins by verifying statutory eligibility, preparing verified supporting documentation, and submitting the formal application through the official portal of ${prof.immigAuth}.`;
-  }
-  
-  if (qLower.startsWith('is ') && (qLower.includes('federal') || qLower.includes('provincial') || qLower.includes('state') || qLower.includes('local'))) {
-    if (category.includes('Transit') || category.includes('Municipal') || category.includes('Community')) {
-      return `This is primarily administered at the local or municipal level under delegated provincial/state legislation in ${country}.`;
-    }
-    if (category.includes('Housing') || category.includes('Healthcare') || category.includes('Driving') || category.includes('Schools')) {
-      return `This is administered at the provincial or state level in ${country}, within broad national statutory standards.`;
-    }
-    return `This is administered at the federal/national level under primary legislation governed by ${prof.immigAuth} in ${country}.`;
-  }
-  
-  if (qLower.startsWith('as a ') && qLower.includes('how do i deal with')) {
-    return `Applicants in this situation are protected by statutory safeguards under ${prof.immigAct}; recourse involves submitting formal documentation to ${prof.immigAuth} or competent tribunals.`;
-  }
-  
-  if (qLower.startsWith('which official agency should i contact')) {
-    return `You should contact ${prof.immigAuth} or the designated local competent authority, preparing full identity, status, and certified supporting evidence.`;
-  }
-  
-  if (qLower.includes('common mistakes and scams') || qLower.includes('fraud')) {
-    return `Common pitfalls include relying on unauthorized agents, failing to retain submission receipts, and missing statutory filing deadlines; always verify credentials through ${prof.immigAuth}.`;
-  }
-  
-  if (qLower.startsWith('what options exist')) {
-    return `Available options include applying for statutory status extensions, seeking discretionary administrative relief under ${prof.immigAct}, or pursuing established legal appeal channels.`;
-  }
-  
-  return `Under ${country} law, this matter is governed by statutory standards enforced by ${prof.immigAuth}; applicants must comply with codified evidentiary and procedural requirements.`;
-}
+
 
 console.log('Writing src/global-settlement-resolver.js ...');
 

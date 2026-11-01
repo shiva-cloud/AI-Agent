@@ -31,7 +31,6 @@ export function evaluateEstatePlanProfile(params = {}) {
     province = 'ON',
     maritalStatus = 'married',
     hasChildren = true,
-    childrenCount = 1,
     hasMinorChildren = true,
     canadianRealEstateCad = 800000,
     realEstateOwnershipStructure = 'joint_tenancy',
@@ -39,7 +38,6 @@ export function evaluateEstatePlanProfile(params = {}) {
     hasDesignatedBeneficiariesOnRegisteredAccounts = true,
     canadianBankAccountsAndLiquidCad = 50000,
     hasForeignRealEstateOrAssets = false,
-    foreignAssetsValueCad = 0,
     foreignCountry = 'United States',
     hasExistingForeignWill = false,
     hasCanadianWill = false,
@@ -55,7 +53,7 @@ export function evaluateEstatePlanProfile(params = {}) {
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const status = boundedText(maritalStatus, 'married', 30).toLowerCase();
   const hasKids = Boolean(hasChildren);
-  const numKids = Math.max(0, Math.min(50, Number.isFinite(Number(childrenCount)) ? Math.floor(Number(childrenCount)) : 1));
+  
   const hasMinors = Boolean(hasMinorChildren);
 
   const realEstateVal = Math.max(0, Math.min(1000000000, Number.isFinite(Number(canadianRealEstateCad)) ? Number(canadianRealEstateCad) : 800000));
@@ -65,7 +63,7 @@ export function evaluateEstatePlanProfile(params = {}) {
   const liquidVal = Math.max(0, Math.min(1000000000, Number.isFinite(Number(canadianBankAccountsAndLiquidCad)) ? Number(canadianBankAccountsAndLiquidCad) : 50000));
 
   const hasForeign = Boolean(hasForeignRealEstateOrAssets);
-  const foreignVal = Math.max(0, Math.min(1000000000, Number.isFinite(Number(foreignAssetsValueCad)) ? Number(foreignAssetsValueCad) : 0));
+  
   const originCountry = boundedText(foreignCountry, 'Abroad', 60);
   const hasForeignWill = Boolean(hasExistingForeignWill);
   const hasCanWill = Boolean(hasCanadianWill);
