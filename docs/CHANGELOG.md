@@ -2,6 +2,14 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.50 — Country coverage instrumentation (3 November 2026)
+
+Documentation and tooling for the per-country coverage question; no content or evidence behavior changed:
+
+- **Country coverage analysis:** `docs/COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md` compares how the knowledge base is built for Canada (207 records, 63 province-domain navigator files, 19 tool forms, 20 publication-chain records) against the big-12 (276 records, all audited, but 7 published, no sub-national layer, 14 non-Canada navigator files) and the rest-of-world (423 records over 216 jurisdictions, ~2 per country, 189 of them pointing only at IRCC's generic settlement page). It lists the gaps P0–P2 and a phased plan (F0–F9) with KPI targets, and updates `docs/README.md`.
+- **Coverage report command:** `npm run coverage:report` (`scripts/country-coverage-report.js`, read-only) measures the same KPI table on demand: per-group record/audited/published counts, summary depth, topics present, publication chain, IRCC dependence, navigator parallelism, language contract; `--json` for machines.
+- **Coverage floors test:** `test/country-coverage.test.js` freezes the current build as lower bounds — corridor contracts complete (13), per-country settlement seeds (54) and portal registry (177) keep their quality fields, market-gap batches keep 2,000 researched rows × 78 countries, and, when the evidence database is present, the record/audit/publication floors from the analysis. Source-layer floors are CI-safe (the evidence database is a local artifact, not a git file).
+
 ## 0.19.49 — Audit remediation: evidence visibility, tool input and UI fixes (2 November 2026)
 
 Fixes for the 2 November external audit report:

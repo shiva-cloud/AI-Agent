@@ -15,7 +15,7 @@
 | कनाडा (शहर) | Toronto, Mississauga, Brampton, Vancouver, Calgary, Ottawa, Montreal | 29 | 2–7 | 6/13 |
 | **कनाडा कुल** | | **207** | | सम्पूर्ण लेयर |
 | बड़े 12 | Australia 39, US 38, UK 36, Germany 31, UAE 26, NZ 23, France 16, Ireland 15, Netherlands 14, Singapore 13, Spain 13, Sweden 12 | **276** | 12–39 | 8–13 (AU/UK/UAE 13/13) |
-| बाक़ी लगभग 150 | ~150 देश | **423** | **≈2–3** | **2/13** (driving + community) |
+| बाक़ी बाकी देश | 216 जेयुरिस्डिक्शन | **423** | **औसत ≈2.0** | **2/13** (driving + community) |
 
 नमूना (बाक़ी-150 का "बिल्ड"): `japan-mpd-licence` (driving, Tokyo पुलिस पेज) + `japan-settlement-services` (community, URL = **IRCC का जेनेरिक "free newcomer services" पेज**)। यही पैटर्न Brazil, Mexico, Kenya, Nepal, Nigeria, Poland, Vietnam… हर जगह दोहराया गया है — यानी उन स्वयं देशों की सरकारों से लिखा हुआ सेटलमेंट-कॉन्टेंट प्रायः **शून्य** है।
 
@@ -26,7 +26,7 @@
 1. **गहराई**: औसत समरी-लंबाई 859 chars (संघीय) — हर रिकॉर्ड पर `quote` + `reviewBasis` + `checkedAt`/`expiresAt` ताज़गी (0 expired)।
 2. **ईमानदार ऑडिट-लेयर**: कनाडा-समूह में rejected 5, research_seed 14 भी दिखते हैं — रिव्यू बैच-मुहर नहीं लगता।
 3. **सब-नैशनल लेयर**: ON (51) + BC (14) + 10 शहर (29) — यानी **97/207 (~47%)** रिकॉर्ड कनाडा संघीय से नीचे की जेयुरिस्डिक्शन के हैं।
-4. **शासकीय navigator**: `src/` में 167 navigator/resolver फ़ाइलों में से **156 कनाडा** (94 संघीय + 62 प्रांत + शहर)।
+4. **शासकीय navigator**: `src/` की 167 navigator/resolver फ़ाइलों में क्लासिफायर अनुसार 63 प्रांत/प्रादेशिक-डोमेन कनाडा के हैं; बाकी फेडरल/शहरी/साझा जम्मे हैं।
 5. **Tool फॉर्म**: 30 में से 19 कनाडा-डोमेन।
 6. **कानूनी constants**: `multi-country-gazette-crawler.js` में ESDC मज़दूरी मानदंड (8 प्रांत), LMIA cap, UK/AU थ्रेशोल्ड — लेकिन gazette-आकर्षण का वास्तविक pipeline कनाडा-गहन है।
 7. **स्रोत-रजिस्ट्री**: 657 स्रोतों में 169 `.ca`-होस्ट (~26%)।
@@ -76,7 +76,7 @@ COUNTRY_GAZETTE_CONSTANTS में DE/AE/NL/IE/SG/FR/ES/SE के statutory thr
 ### P1-5. भाषा-कॉन्ट्रैक्ट: कॉन्टेंट en-only
 LANGUAGE_POLICY.md का सौदा एक स्पष्ट सीमा है: रिकॉर्ड/समरी/उद्धरण सिर्फ en। glossary (SETTLEMENT_GLOSSARY_500) में hi/pa/es मौजूद — पर KB की स्वयं देश-सामग्री के लिए भाषा-तह कोई plan नहीं (जैसे FR देश की साइट की समरी en-का अनुवाद-मात्र है)। यह पॉलिसी-डेसिशन है, त्रुटि नहीं — पर रोडमैप में होनी चाहिए।
 
-### P2-1. ~150 देशों का टेम्पलेट-ब्लॉक शब्दार्थ-रूप से खाली
+### P2-1. लगभग 216 देशों/जेयुरिस्डिक्शनों का टेम्पलेट-ब्लॉक शब्दार्थ-रूप से खाली
 प्रति देश 2 रिकॉर्ड: (a) driving-licence स्रोत-रिकॉर्ड, (b) `X-settlement-services` जो IRCC के एक ही जेनेरिक URL पर गया। स्रोत-रजिस्ट्री प्रति देश मात्र 1 host। इनकी identity "India→Canada जानेवाले को बस IRCC पढ़ो" बन गई है।
 
 ### P2-2. country-portals में English-उद्धरण अद-हूर
@@ -116,8 +116,8 @@ LANGUAGE_POLICY.md का सौदा एक स्पष्ट सीमा �
 | सब-नैशनल रिकॉर्ड (गैर-कनाडा) | 0 | ~40 | ~150 |
 | non-CA navigator फ़ाइलें | 10 | ≥18 | ≥30 |
 | per-country tool फॉर्म | 5 | ≥12 | ≥24 |
-| बाक़ी-150 प्रति-देश रिकॉर्ड | ≈2 | ≥3.5 | ≥4.5 |
-| IRCC-आश्रित देश-पंक्तियाँ | ~150 | ≤80 | ≤20 |
+| बाक़ी-216 प्रति-देश औसत रिकॉर्ड | ≈2.0 | ≥3.0 | ≥4.5 |
+| IRCC-आश्रित रिकॉर्ड (rest) | 189 | ≤100 | ≤20 |
 
 ## 9. जुड़ी हुई मौजूदा कमियाँ (संदर्भ)
 
@@ -126,5 +126,6 @@ LANGUAGE_POLICY.md का सौदा एक स्पष्ट सीमा �
 ## प्रमाण-स्रोत
 
 - Read-only प्रोब: `node:sqlite` DatabaseSync readOnly — records/jurisdiction/topic-status-risk/summary-length/audits/publications/snapshots वितरण।
-- `git grep` फ़ाइल-इन्वेंट्री: `src/*navigator*/resolver/matrix` = 167 फ़ाइलें; `public/tool-modal.js` TOOL_FORMS = 30; `src/market-gap/batch{1,2,3}.json` = 78×10×3; `src/country-portals.js` = ~200 देश; `src/corridors-registry.js` = 13 codes; README/पॉलिसी दोक।
+- स्थायी माप: `npm run coverage:report` (`scripts/country-coverage-report.js`, read-only) — इसी तालिका को हर बार नए सिरे से नापता है; floors `test/country-coverage.test.js` में बंद हैं।
+- `git grep` फ़ाइल-इन्वेंट्री: `src/*navigator*/resolver/matrix` = 167 फ़ाइलें; `public/tool-modal.js` TOOL_FORMS = 30; `src/market-gap/batch{1,2,3}.json` = 78×10×3; `src/country-portals.js` = 177 देश; `src/country-settlement.js` = 54 देश; `src/corridors-registry.js` = 13 codes; README/पॉलिसी दोक।
 - कोई DB-लेखन नहीं, कोई क увидा-पृष्ठ नहीं — रिपोर्ट केवल निष्कर्ष।

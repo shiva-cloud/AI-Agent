@@ -1,6 +1,14 @@
-# Implementation status — 2 November 2026
+# Implementation status — 3 November 2026
 
-## Current release: 0.19.49, English-only
+## Current release: 0.19.50, English-only
+
+### Country coverage instrumentation (0.19.50)
+
+Details in `docs/CHANGELOG.md` 0.19.50:
+
+- `docs/COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md` documents the coverage comparison across countries (Canada 207 records with province/city layers and 63 province-domain navigators; big-12 276 records all audited but 7 published and no sub-national layer; rest-of-world 423 records over 216 jurisdictions, 189 pointing at IRCC's generic page) and the phased plan F0–F9 with KPI targets.
+- `npm run coverage:report` measures that KPI table on demand (read-only); `test/country-coverage.test.js` freezes the current build as lower bounds (CI-safe source floors plus evidence-database floors when the database exists).
+- Full suite and lint green after the batch; the analysis and tooling changed no evidence or content behavior.
 
 ### Audit remediation batch (0.19.49)
 
