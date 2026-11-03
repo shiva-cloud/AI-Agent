@@ -146,6 +146,26 @@ const TOOL_FORM_ALIASES={
     age:[['employeeAge'],'number'],service:[['yearsOfService'],'number'],salary:[['annualSalaryCad'],'number'],
     role:[['employmentRole'],'plain'],largePayroll:[['employerPayrollOver2Point5Million'],'notFalse'],
     hasClause:[['hasSignedEnforceableEsaOnlyClause'],'boolTrue'],jobMarket:[['availabilityOfSimilarJobs'],'plain']
+  },
+  '/v1/tools/australia-tenancy':{
+    state:[['state'],'plain'],weeklyRent:[['weeklyRentAud'],'number'],bondPaid:[['bondPaidAud'],'number'],
+    rentIncreasePercent:[['rentIncreasePercent'],'number'],monthsSinceLastIncrease:[['monthsSinceLastRentIncrease'],'number'],
+    noticeGivenDays:[['noticeGivenDays'],'number']
+  },
+  '/v1/tools/us-state-tenancy':{
+    state:[['state'],'plain'],monthlyRent:[['monthlyRentUsd'],'number'],securityDeposit:[['securityDepositPaidUsd'],'number'],
+    rentIncreasePercent:[['rentIncreasePercent'],'number'],tenancyMonths:[['tenancyDurationMonths'],'number'],
+    daysSinceMoveOut:[['daysSinceMoveOut'],'number']
+  },
+  '/v1/tools/uk-devolved-tenancy':{
+    nation:[['nation'],'plain'],monthlyRent:[['monthlyRentGbp'],'number'],depositPaid:[['depositPaidGbp'],'number'],
+    tenureMonths:[['tenureDurationMonths'],'number'],noticeGivenDays:[['noticeGivenDays'],'number'],
+    evictionGround:[['evictionGround'],'plain']
+  },
+  '/v1/tools/uae-tenancy-dispute':{
+    emirate:[['emirate'],'plain'],currentRent:[['currentAnnualRentAed'],'number'],marketRent:[['averageMarketRentAed'],'number'],
+    proposedRent:[['proposedAnnualRentAed'],'number'],noticeDays:[['noticeDaysPriorToRenewal'],'number'],
+    evictionNotice:[['evictionNoticeGiven'],'boolTrue'],notaryServed:[['evictionServedViaNotary'],'notFalse']
   }
 };
 export function applyFormAliases(path,input){
