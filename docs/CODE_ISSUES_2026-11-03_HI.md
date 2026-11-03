@@ -82,9 +82,9 @@ Version 0.19.50 (HEAD `cab9338` + uncommitted काम)। यह analysis ह�
 - [src/routes/tools.js](../src/routes/tools.js) (5,487 lines): 193 GET और 194 POST handlers; **193 tools दोनों में अलग-अलग** लिखे हैं (जैसे Alberta maternity: line 3775 और 5184)। Param parsing और defaults दो जगह अलग-अलग बिगड़ सकते हैं।
 - **Fix:** Tool registry `{id, schema, evaluate}`: एक schema से GET query और POST body दोनों validate हों, handler एक ही। OpenAPI भी उसी से बने।
 
-### 13. बहुत बड़ी files
-- `public/app/tool-renderers.js` 6,504, `public/app/setup.js` 5,520, `src/routes/tools.js` 5,487, `public/app.js` 3,873 lines।
-- **Fix:** Tool registry (#12) के बाद per-tool या per-domain modules।
+### 13. बहुत बड़ी files — 🟡 In Progress (Backend routes split complete)
+
+> `src/routes/tools.js` (5,613 lines) को डोमेन-आधारित 7 मॉड्यूल्स में विभाजित कर दिया गया है: [src/routes/tools/immigration.js](../src/routes/tools/immigration.js), `employment.js`, `housing.js`, `finance.js`, `legal.js`, `settlement.js`, और `international.js`। `src/routes/tools.js` अब केवल 32 पंक्तियों का एक मुख्य router facade है। Frontend फाइलों (`tool-renderers.js`, `setup.js`) का विभाजन भविष्य के UI रिफैक्टरिंग फेज में प्रस्तावित है।
 
 ### 14. Duplicate helpers — ✅ Fixed (3 Nov)
 
