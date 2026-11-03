@@ -24,13 +24,14 @@ export const COUNTRY_CITIES = {
   'Australia': ['New South Wales', 'Victoria', 'Queensland', 'Western Australia', 'South Australia', 'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'],
   'Germany': ['Bavaria', 'North Rhine-Westphalia', 'Baden-Württemberg', 'Berlin', 'Munich', 'Frankfurt', 'Hamburg', 'Cologne', 'Dusseldorf', 'Stuttgart'],
   'United Arab Emirates': ['Dubai', 'Abu Dhabi', 'Sharjah'],
-  'New Zealand': ['Auckland', 'Wellington', 'Christchurch'],
+  'New Zealand': ['Auckland', 'Wellington', 'Canterbury', 'Christchurch'],
   'Ireland': ['Dublin', 'Cork', 'Galway', 'Limerick'],
   'Singapore': ['Singapore'],
-  'France': ['Paris', 'Lyon', 'Marseille'],
+  'France': ['Île-de-France', 'Auvergne-Rhône-Alpes', 'Provence-Alpes-Côte d\'Azur', 'Paris', 'Lyon', 'Marseille'],
   'Netherlands': ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht'],
   'Sweden': ['Stockholm', 'Gothenburg', 'Malmo'],
-  'Spain': ['Madrid', 'Barcelona', 'Valencia', 'Seville']
+  'Spain': ['Catalonia', 'Community of Madrid', 'Andalusia', 'Valencian Community', 'Madrid', 'Barcelona', 'Valencia', 'Seville'],
+  'India': ['Punjab', 'Maharashtra', 'Delhi NCR', 'Gujarat', 'Delhi', 'Mumbai', 'Bengaluru']
 };
 
 export const ASK_LABEL = 'Find guidance';
