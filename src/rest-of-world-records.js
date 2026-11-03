@@ -37,6 +37,7 @@ function createRecord({
     reviewMethod: 'editorial_review'
   };
   if (housingSubject) rec.housingSubject = housingSubject;
+  else if (topic === 'housing') rec.housingSubject = 'agreement';
   return rec;
 }
 

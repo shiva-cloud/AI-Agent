@@ -14,7 +14,7 @@ function createGlobalRecord({ id, title, topic, jurisdiction, url, quote, summar
     url,
     quote,
     summary,
-    ...(housingSubject ? { housingSubject } : {}),
+    ...(housingSubject ? { housingSubject } : (topic === 'housing' ? { housingSubject: 'agreement' } : {})),
     risk: 'high',
     language: 'en',
     status: 'approved',
