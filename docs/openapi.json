@@ -239,6 +239,69 @@
         }
       }
     },
+    "/v1/coverage/countries": {
+      "get": {
+        "operationId": "get__v1_coverage_countries",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "asOf": {
+                      "type": "string"
+                    },
+                    "big12": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    },
+                    "restOfWorld": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "canada": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/coverage/{city}": {
       "get": {
         "operationId": "get__v1_coverage_city_",
@@ -3078,408 +3141,6 @@
                     "error",
                     "code"
                   ],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/tools/australia-tenancy": {
-      "get": {
-        "operationId": "get__v1_tools_australia_tenancy",
-        "security": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "state": { "type": "string" },
-                    "financialSummary": { "type": "object", "additionalProperties": true },
-                    "violations": { "type": "array", "items": { "type": "string" } },
-                    "overallComplianceStatus": { "type": "string" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "operationId": "post__v1_tools_australia_tenancy",
-        "security": [],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "state": { "type": "string" },
-                  "weeklyRentAud": { "type": "number" },
-                  "bondPaidAud": { "type": "number" }
-                },
-                "required": ["state"],
-                "additionalProperties": true
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "state": { "type": "string" },
-                    "financialSummary": { "type": "object", "additionalProperties": true },
-                    "violations": { "type": "array", "items": { "type": "string" } },
-                    "overallComplianceStatus": { "type": "string" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/tools/us-state-tenancy": {
-      "get": {
-        "operationId": "get__v1_tools_us_state_tenancy",
-        "security": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "state": { "type": "string" },
-                    "financialOverview": { "type": "object", "additionalProperties": true },
-                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
-                    "overallStatus": { "type": "string" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "operationId": "post__v1_tools_us_state_tenancy",
-        "security": [],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "state": { "type": "string" },
-                  "monthlyRentUsd": { "type": "number" },
-                  "securityDepositPaidUsd": { "type": "number" }
-                },
-                "required": ["state"],
-                "additionalProperties": true
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "state": { "type": "string" },
-                    "financialOverview": { "type": "object", "additionalProperties": true },
-                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
-                    "overallStatus": { "type": "string" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/tools/uk-devolved-tenancy": {
-      "get": {
-        "operationId": "get__v1_tools_uk_devolved_tenancy",
-        "security": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "nation": { "type": "string" },
-                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
-                    "overallCompliance": { "type": "string" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "operationId": "post__v1_tools_uk_devolved_tenancy",
-        "security": [],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nation": { "type": "string" },
-                  "monthlyRentGbp": { "type": "number" },
-                  "depositPaidGbp": { "type": "number" }
-                },
-                "required": ["nation"],
-                "additionalProperties": true
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "nation": { "type": "string" },
-                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
-                    "overallCompliance": { "type": "string" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/tools/uae-tenancy-dispute": {
-      "get": {
-        "operationId": "get__v1_tools_uae_tenancy_dispute",
-        "security": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "emirate": { "type": "string" },
-                    "financialOverview": { "type": "object", "additionalProperties": true },
-                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
-                    "isCompliant": { "type": "boolean" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
-                  "additionalProperties": true
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "operationId": "post__v1_tools_uae_tenancy_dispute",
-        "security": [],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "emirate": { "type": "string" },
-                  "currentAnnualRentAed": { "type": "number" },
-                  "averageMarketRentAed": { "type": "number" }
-                },
-                "required": ["emirate"],
-                "additionalProperties": true
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "jurisdiction": { "type": "string" },
-                    "emirate": { "type": "string" },
-                    "financialOverview": { "type": "object", "additionalProperties": true },
-                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
-                    "isCompliant": { "type": "boolean" }
-                  },
-                  "additionalProperties": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "JSON API failure.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": { "type": "string" },
-                    "code": { "type": "string" }
-                  },
-                  "required": ["error", "code"],
                   "additionalProperties": true
                 }
               }
@@ -44795,6 +44456,834 @@
                   "type": "object",
                   "properties": {
                     "isEligible": {
+                      "type": "boolean"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/australia-tenancy": {
+      "get": {
+        "operationId": "get__v1_tools_australia_tenancy",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "tribunal": {
+                      "type": "string"
+                    },
+                    "financialSummary": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryRemedies": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "violations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "overallComplianceStatus": {
+                      "type": "string"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_australia_tenancy",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 3
+                  },
+                  "weeklyRentAud": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "bondPaidAud": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "rentIncreasePercent": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "monthsSinceLastRentIncrease": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 120
+                  },
+                  "noticeGivenDays": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 365
+                  },
+                  "tenantName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  },
+                  "assessmentDate": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 20
+                  }
+                },
+                "required": [
+                  "state"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "tribunal": {
+                      "type": "string"
+                    },
+                    "financialSummary": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryRemedies": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "violations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "overallComplianceStatus": {
+                      "type": "string"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/us-state-tenancy": {
+      "get": {
+        "operationId": "get__v1_tools_us_state_tenancy",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "financialOverview": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryViolations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "overallStatus": {
+                      "type": "string"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_us_state_tenancy",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2
+                  },
+                  "monthlyRentUsd": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "securityDepositPaidUsd": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "rentIncreasePercent": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "tenancyDurationMonths": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 600
+                  },
+                  "daysSinceMoveOut": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 365
+                  },
+                  "tenantName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  },
+                  "assessmentDate": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 20
+                  }
+                },
+                "required": [
+                  "state"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "financialOverview": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryViolations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "overallStatus": {
+                      "type": "string"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/uk-devolved-tenancy": {
+      "get": {
+        "operationId": "get__v1_tools_uk_devolved_tenancy",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "nation": {
+                      "type": "string"
+                    },
+                    "evictionAssessment": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryViolations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "overallCompliance": {
+                      "type": "string"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_uk_devolved_tenancy",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30
+                  },
+                  "monthlyRentGbp": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "depositPaidGbp": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "tenureDurationMonths": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 600
+                  },
+                  "noticeGivenDays": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 365
+                  },
+                  "evictionGround": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "tenantName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  },
+                  "assessmentDate": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 20
+                  }
+                },
+                "required": [
+                  "nation"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "nation": {
+                      "type": "string"
+                    },
+                    "evictionAssessment": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryViolations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "overallCompliance": {
+                      "type": "string"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/uae-tenancy-dispute": {
+      "get": {
+        "operationId": "get__v1_tools_uae_tenancy_dispute",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "emirate": {
+                      "type": "string"
+                    },
+                    "portal": {
+                      "type": "string"
+                    },
+                    "disputeForum": {
+                      "type": "string"
+                    },
+                    "financialOverview": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryViolations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "isCompliant": {
+                      "type": "boolean"
+                    },
+                    "assumedInputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Inputs the caller did not provide; the tool used built-in defaults for them."
+                    },
+                    "assumptionNotice": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure. Some failures include additional context.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "code"
+                  ],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_uae_tenancy_dispute",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emirate": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30
+                  },
+                  "currentAnnualRentAed": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "averageMarketRentAed": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "proposedAnnualRentAed": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "noticeDaysPriorToRenewal": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 365
+                  },
+                  "evictionNoticeGiven": {
+                    "type": "boolean"
+                  },
+                  "evictionServedViaNotary": {
+                    "type": "boolean"
+                  },
+                  "tenantName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  },
+                  "assessmentDate": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 20
+                  }
+                },
+                "required": [
+                  "emirate"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": {
+                      "type": "string"
+                    },
+                    "emirate": {
+                      "type": "string"
+                    },
+                    "portal": {
+                      "type": "string"
+                    },
+                    "disputeForum": {
+                      "type": "string"
+                    },
+                    "financialOverview": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "statutoryViolations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "isCompliant": {
                       "type": "boolean"
                     },
                     "assumedInputs": {

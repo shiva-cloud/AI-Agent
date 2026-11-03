@@ -582,6 +582,53 @@ export function coverageDetail(city,records,now=new Date()) {
   })};
 }
 
+export function countryCoverage(records, now=new Date()) {
+  const date = now.toISOString().slice(0, 10);
+  const big12Countries = [
+    'Australia', 'United States', 'United Kingdom', 'Germany',
+    'United Arab Emirates', 'New Zealand', 'France', 'Ireland',
+    'Netherlands', 'Singapore', 'Spain', 'Sweden'
+  ];
+
+  const big12 = big12Countries.map(country => {
+    const countryRecs = records.filter(r => r.jurisdiction === country || (r.country && r.country === country));
+    const subnationalRecs = records.filter(r => r.destinationCountry === country && r.jurisdiction && r.jurisdiction !== country);
+    const allRecs = [...countryRecs, ...subnationalRecs];
+    const coveredTopics = [...new Set(allRecs.map(r => r.topic))];
+    const subnationalRegions = [...new Set(subnationalRecs.map(r => r.jurisdiction))].sort();
+    return {
+      country,
+      totalRecords: allRecs.length,
+      nationalRecords: countryRecs.length,
+      subnationalRecords: subnationalRecs.length,
+      topicsCovered: coveredTopics.length,
+      totalTopics: topics.length,
+      topicParityRatio: `${coveredTopics.length}/${topics.length}`,
+      subnationalRegions,
+      status: coveredTopics.length >= 13 ? 'complete_parity' : 'partial'
+    };
+  });
+
+  const canadianJurisdictions = ['CA', 'ON', 'BC', 'AB', 'QC', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE', 'NT', 'NU', 'YT', 'Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Ottawa', 'Montreal'];
+  const restRecs = records.filter(r => !big12Countries.includes(r.jurisdiction) && !big12Countries.includes(r.destinationCountry) && !canadianJurisdictions.includes(r.jurisdiction));
+  const restDistinctCountries = [...new Set(restRecs.map(r => r.jurisdiction))];
+
+  return {
+    asOf: date,
+    big12,
+    restOfWorld: {
+      totalRecords: restRecs.length,
+      distinctCountriesCount: restDistinctCountries.length,
+      irccContaminationCount: restRecs.filter(r => (r.url || '').includes('canada.ca') || (r.url || '').includes('cic.gc.ca')).length
+    },
+    canada: {
+      federalRecords: records.filter(r => r.jurisdiction === 'CA').length,
+      provincialRecords: records.filter(r => ['ON', 'BC', 'AB', 'QC', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE', 'NT', 'NU', 'YT'].includes(r.jurisdiction)).length,
+      cityRecords: records.filter(r => ['Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Ottawa', 'Montreal'].includes(r.jurisdiction)).length
+    }
+  };
+}
+
 export { parseNegationScopeGuards, filterByNegationScope } from './negation-scope-guard.js';
 export { parseTemporalContext, rankByTemporalRelevance } from './temporal-query-navigator.js';
 export { clusterZeroResultQueries, generateEditorialMarkdownReport } from './zero-result-clusterer.js';

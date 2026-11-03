@@ -35,6 +35,15 @@ export const US_TENANCY_CONSTANTS = {
     SECURITY_DEPOSIT_RETURN_DAYS_NO_CLAIM: 15, // Fla. Stat. § 83.49(3)(a)
     SECURITY_DEPOSIT_CLAIM_NOTICE_DAYS: 30,    // Certified mail with itemized deductions
     TENANT_OBJECTION_WINDOW_DAYS: 15
+  },
+  WASHINGTON: {
+    SECURITY_DEPOSIT_RETURN_DAYS: 30, // RCW 59.18.280 (30 days with specific itemized basis)
+    PAY_OR_VACATE_NOTICE_DAYS: 14     // RCW 59.18.057
+  },
+  ILLINOIS: {
+    SECURITY_DEPOSIT_RETURN_DAYS: 45, // Chicago RLTO § 5-12-080(c) (45 days or 30 days if deductions made)
+    DEDUCTION_ITEMIZATION_DAYS: 30,
+    PENALTY_MULTIPLIER: 2             // Chicago RLTO § 5-12-080(f)
   }
 };
 
@@ -57,7 +66,7 @@ export function auditUsStateTenancy({
   const cleanName = boundedText(tenantName, 'Tenant', 100);
   const cleanState = String(state).trim().toUpperCase();
   const safeDate = safeIsoDate(assessmentDate);
-  const validState = ['CA', 'NY', 'TX', 'FL'].includes(cleanState) ? cleanState : 'CA';
+  const validState = ['CA', 'NY', 'TX', 'FL', 'WA', 'IL'].includes(cleanState) ? cleanState : 'CA';
 
   const safeRent = Number.isFinite(Number(monthlyRentUsd)) ? Math.max(0, Number(monthlyRentUsd)) : 0;
   const safeDeposit = Number.isFinite(Number(securityDepositPaidUsd)) ? Math.max(0, Number(securityDepositPaidUsd)) : 0;
@@ -118,6 +127,20 @@ export function auditUsStateTenancy({
       violations.push(`FL 15-DAY RETURN BREACH: Landlord must return full deposit within 15 days if no claim is made.`);
     }
     statutoryRights.push('FL TENANT OBJECTION RIGHT: Tenant has 15 days from receipt of landlord certified notice to object in writing to proposed deposit deductions (Fla. Stat. § 83.49(3)(b)).');
+  } else if (validState === 'WA') {
+    // Washington State RLTA (RCW 59.18)
+    if (safeDaysSinceMove > US_TENANCY_CONSTANTS.WASHINGTON.SECURITY_DEPOSIT_RETURN_DAYS && !landlordProvidedItemizedStatement) {
+      violations.push('WA DEPOSIT RETURN VIOLATION: Landlord failed to deliver full refund and specific itemized statement within 30 days of vacating (RCW 59.18.280). Landlord liable for up to 2x the deposit amount plus attorney fees.');
+    }
+    statutoryRights.push('WA MOVE-IN CHECKLIST PROTECTION: Under RCW 59.18.260, no security deposit may be collected or retained unless a signed move-in condition checklist was provided at lease inception.');
+    statutoryRights.push('WA 14-DAY NOTICE REQUIREMENT: Landlords must provide a statutory 14-day notice to pay rent or vacate before initiating unlawful detainer proceedings (RCW 59.18.057).');
+  } else if (validState === 'IL') {
+    // Illinois / Chicago RLTO (Municipal Code § 5-12-080)
+    if (safeDaysSinceMove > US_TENANCY_CONSTANTS.ILLINOIS.SECURITY_DEPOSIT_RETURN_DAYS && !landlordProvidedItemizedStatement) {
+      violations.push('IL/CHICAGO RLTO DEPOSIT VIOLATION: Under Chicago RLTO § 5-12-080(c), deposit must be returned within 45 days (or itemized within 30 days). Landlord liable for statutory penalty equal to 2x the deposit amount.');
+    }
+    statutoryRights.push('IL/CHICAGO RLTO INTEREST REQUIREMENT: Landlord must hold deposit in a federally insured Illinois account and pay annual interest within 30 days of each 12-month period (§ 5-12-080(a)).');
+    statutoryRights.push('IL 5-DAY NOTICE REQUIREMENT: Illinois 735 ILCS 5/9-209 requires a 5-day written notice of demand for rent prior to tenancy termination.');
   }
 
   return {
@@ -140,6 +163,10 @@ export function auditUsStateTenancy({
       ? 'New York City Housing Court / Small Claims Court (claims up to $10,000)'
       : validState === 'TX'
       ? 'Texas Justice of the Peace (JP) Court (claims up to $20,000)'
-      : 'Florida County Court / Small Claims Division (claims up to $8,000)'
+      : validState === 'FL'
+      ? 'Florida County Court / Small Claims Division (claims up to $8,000)'
+      : validState === 'WA'
+      ? 'Washington District Court Small Claims Division (claims up to $10,000)'
+      : 'Cook County Circuit Court / First Municipal District (Chicago RLTO Claims)'
   };
 }

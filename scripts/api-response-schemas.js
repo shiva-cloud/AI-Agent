@@ -2943,6 +2943,78 @@ export function addResponseSchemas(paths) {
   response('/v1/tools/australia-reforms', 'get', '200', australiaReformsSchema);
   response('/v1/tools/australia-reforms', 'post', '200', australiaReformsSchema);
 
+  const australiaTenancySchema = {
+    type: 'object',
+    properties: {
+      jurisdiction: text,
+      state: text,
+      tribunal: text,
+      financialSummary: { type: 'object', additionalProperties: true },
+      statutoryRemedies: { type: 'array', items: text },
+      violations: { type: 'array', items: text },
+      overallComplianceStatus: text
+    },
+    additionalProperties: true
+  };
+  response('/v1/tools/australia-tenancy', 'get', '200', australiaTenancySchema);
+  response('/v1/tools/australia-tenancy', 'post', '200', australiaTenancySchema);
+
+  const usStateTenancySchema = {
+    type: 'object',
+    properties: {
+      jurisdiction: text,
+      state: text,
+      financialOverview: { type: 'object', additionalProperties: true },
+      statutoryViolations: { type: 'array', items: text },
+      overallStatus: text
+    },
+    additionalProperties: true
+  };
+  response('/v1/tools/us-state-tenancy', 'get', '200', usStateTenancySchema);
+  response('/v1/tools/us-state-tenancy', 'post', '200', usStateTenancySchema);
+
+  const ukDevolvedTenancySchema = {
+    type: 'object',
+    properties: {
+      jurisdiction: text,
+      nation: text,
+      evictionAssessment: { type: 'object', additionalProperties: true },
+      statutoryViolations: { type: 'array', items: text },
+      overallCompliance: text
+    },
+    additionalProperties: true
+  };
+  response('/v1/tools/uk-devolved-tenancy', 'get', '200', ukDevolvedTenancySchema);
+  response('/v1/tools/uk-devolved-tenancy', 'post', '200', ukDevolvedTenancySchema);
+
+  const uaeTenancyDisputeSchema = {
+    type: 'object',
+    properties: {
+      jurisdiction: text,
+      emirate: text,
+      portal: text,
+      disputeForum: text,
+      financialOverview: { type: 'object', additionalProperties: true },
+      statutoryViolations: { type: 'array', items: text },
+      isCompliant: { type: 'boolean' }
+    },
+    additionalProperties: true
+  };
+  response('/v1/tools/uae-tenancy-dispute', 'get', '200', uaeTenancyDisputeSchema);
+  response('/v1/tools/uae-tenancy-dispute', 'post', '200', uaeTenancyDisputeSchema);
+
+  const countryCoverageSchema = {
+    type: 'object',
+    properties: {
+      asOf: text,
+      big12: { type: 'array', items: { type: 'object', additionalProperties: true } },
+      restOfWorld: { type: 'object', additionalProperties: true },
+      canada: { type: 'object', additionalProperties: true }
+    },
+    additionalProperties: true
+  };
+  response('/v1/coverage/countries', 'get', '200', countryCoverageSchema);
+
   const germanyChancenkarteSchema = {
     type: 'object',
     properties: {

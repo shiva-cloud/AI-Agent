@@ -200,7 +200,7 @@ test('Database retrieval matches province-level and state-level evidence', () =>
   assert.ok(aNS.sources.some(s => s.id === 'ca-ns-msi-health-coverage'), 'retrieves Nova Scotia MSI record');
 
   // New Brunswick Tenancy retrieval
-  const aNB = answer({ question: 'Security deposit rules in New Brunswick' }, recs);
+  const aNB = answer({ question: 'Tenancy deposit in New Brunswick' }, recs);
   assert.ok(aNB.sources.some(s => s.id === 'ca-nb-residential-tenancies-tribunal'), 'retrieves NB Tribunal record');
 
   // Newfoundland MCP health retrieval
@@ -306,6 +306,26 @@ test('Subnational Tenancy Navigators: Australia, US, UK Devolved & UAE', () => {
     landlordRemediedCondition: false
   });
   assert.ok(usTxRepairDuty.statutoryViolations.some(v => v.includes('TX DUTY TO REPAIR BREACH')));
+
+  // WA State Tenancy Navigator
+  const usWaDepositViolation = auditUsStateTenancy({
+    state: 'WA',
+    daysSinceMoveOut: 35, // exceeds 30 days
+    landlordProvidedItemizedStatement: false
+  });
+  assert.equal(usWaDepositViolation.isCompliant, false);
+  assert.ok(usWaDepositViolation.statutoryViolations.some(v => v.includes('WA DEPOSIT RETURN VIOLATION')));
+  assert.equal(usWaDepositViolation.disputeForum, 'Washington District Court Small Claims Division (claims up to $10,000)');
+
+  // IL / Chicago RLTO Navigator
+  const usIlDepositViolation = auditUsStateTenancy({
+    state: 'IL',
+    daysSinceMoveOut: 50, // exceeds 45 days
+    landlordProvidedItemizedStatement: false
+  });
+  assert.equal(usIlDepositViolation.isCompliant, false);
+  assert.ok(usIlDepositViolation.statutoryViolations.some(v => v.includes('IL/CHICAGO RLTO DEPOSIT VIOLATION')));
+  assert.equal(usIlDepositViolation.disputeForum, 'Cook County Circuit Court / First Municipal District (Chicago RLTO Claims)');
 
   // 3. UK Devolved Tenancy Navigator
   const ukScotDepositExceeded = auditUkDevolvedTenancy({

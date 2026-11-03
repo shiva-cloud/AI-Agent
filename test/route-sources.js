@@ -4,7 +4,7 @@ import {readFileSync, readdirSync} from 'node:fs';
 
 export function routeSourceFiles() {
   const routes = new URL('../src/routes/', import.meta.url);
-  return [new URL('../src/server.js', import.meta.url), ...readdirSync(routes).filter(name => name.endsWith('.js')).sort().map(name => new URL(name, routes))];
+  return [new URL('../src/server.js', import.meta.url), ...readdirSync(routes, { recursive: true }).filter(name => name.endsWith('.js')).sort().map(name => new URL(name.replace(/\\/g, '/'), routes))];
 }
 
 export function routeSource() {

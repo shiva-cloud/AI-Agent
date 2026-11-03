@@ -7,6 +7,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { listSupportedCorridorCodes, getCorridor } from '../src/corridors-registry.js';
 import { countrySettlementRecords } from '../src/country-settlement.js';
 import { countryPortals } from '../src/country-portals.js';
+import { countryCoverage } from '../src/engine.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -133,4 +134,30 @@ test('evidence database coverage floors hold when the database is present', (t) 
 
   assert.ok(auditedIds.size >= 864, 'editorial audit trail floor');
   assert.ok(publishedIds.size >= 66, 'publication-chain floor');
+});
+
+test('countryCoverage engine function produces structured global coverage matrix', () => {
+  const sample = [
+    { id: 'au-medicare', jurisdiction: 'Australia', topic: 'healthcare', url: 'https://servicesaustralia.gov.au' },
+    { id: 'au-nsw-tenancy', jurisdiction: 'NSW', destinationCountry: 'Australia', topic: 'housing', url: 'https://fairtrading.nsw.gov.au' },
+    { id: 'ca-fed-sin', jurisdiction: 'CA', topic: 'identification', url: 'https://canada.ca' },
+    { id: 'ca-on-ohip', jurisdiction: 'ON', topic: 'healthcare', url: 'https://ontario.ca' },
+    { id: 'ca-toronto-welcome', jurisdiction: 'Toronto', topic: 'settlement', url: 'https://toronto.ca' },
+    { id: 'jp-resident', jurisdiction: 'Japan', topic: 'residency', url: 'https://mofa.go.jp' }
+  ];
+  const matrix = countryCoverage(sample, new Date('2026-11-03T12:00:00Z'));
+  assert.equal(matrix.asOf, '2026-11-03');
+  assert.equal(matrix.big12.length, 12);
+  const au = matrix.big12.find(c => c.country === 'Australia');
+  assert.ok(au);
+  assert.equal(au.nationalRecords, 1);
+  assert.equal(au.subnationalRecords, 1);
+  assert.equal(au.totalRecords, 2);
+  assert.deepEqual(au.subnationalRegions, ['NSW']);
+  assert.equal(au.topicsCovered, 2);
+  assert.equal(matrix.canada.federalRecords, 1);
+  assert.equal(matrix.canada.provincialRecords, 1);
+  assert.equal(matrix.canada.cityRecords, 1);
+  assert.equal(matrix.restOfWorld.totalRecords, 1);
+  assert.equal(matrix.restOfWorld.distinctCountriesCount, 1);
 });

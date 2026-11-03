@@ -17,7 +17,7 @@ import { handleAdminGet, handleAdminPost } from './routes/admin.js';
 const rawBrotli = promisify(brotliCompress);
 const compressBrotli = (buf) => rawBrotli(buf, { params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 5 } });
 const compressGzip = promisify(gzip);
-import { answer, parse, retrieve, coverage, coverageDetail, deconstructNarrative, resolveNarrativeCrisis, detectLegalMyth, cleanEmotionalFluff, normalizeSlangAndTypos } from './engine.js';
+import { answer, parse, retrieve, coverage, coverageDetail, countryCoverage, deconstructNarrative, resolveNarrativeCrisis, detectLegalMyth, cleanEmotionalFluff, normalizeSlangAndTypos } from './engine.js';
 import { handleCatalogRoute } from './routes/catalog.js';
 import { topics, topicLabels, cities, agencies } from './knowledge.js';
 import { lintEvidence } from './evidence-policy.js';
@@ -289,6 +289,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
     const i18nMatch = path.match(/^\/v1\/i18n\/([a-z0-9_-]{2,10})$/i);
     if(i18nMatch) return send(200, getLocalizedKit(i18nMatch[1]));
     if(path==='/v1/coverage') return send(200,{coverage:coverage(readPublicRecords())});
+    if(path==='/v1/coverage/countries') return send(200, countryCoverage(readPublicRecords()));
     const cityDetail=path.match(/^\/v1\/coverage\/([A-Za-z]+)$/);
     if(cityDetail) {
       const name=cityDetail[1].charAt(0).toUpperCase()+cityDetail[1].slice(1).toLowerCase();

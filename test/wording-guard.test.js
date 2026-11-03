@@ -17,7 +17,7 @@ test('UI and tool code make no absolute legal or tax promises', () => {
     new URL('../public/index.html', import.meta.url),
     ...appSourceFiles(),
     ...readdirSync(new URL('../src/', import.meta.url)).filter(name => name.endsWith('.js') && !KB_FILES.has(name)).map(name => new URL(`../src/${name}`, import.meta.url)),
-    ...readdirSync(new URL('../src/routes/', import.meta.url)).filter(name => name.endsWith('.js')).map(name => new URL(`../src/routes/${name}`, import.meta.url))
+    ...readdirSync(new URL('../src/routes/', import.meta.url), { recursive: true }).filter(name => name.endsWith('.js')).map(name => new URL(name.replace(/\\/g, '/'), new URL('../src/routes/', import.meta.url)))
   ];
   const hits = [];
   for (const file of files) {
