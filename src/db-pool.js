@@ -43,10 +43,14 @@ export function createDatabasePool(dbPath, options = {}) {
     },
     close() {
       for (const conn of readPool) {
-        try { conn.close(); } catch {}
+        try { conn.close(); } catch (err) {
+          if (process.env.NODE_ENV !== 'test') console.warn('[db-pool] Error closing read connection:', err?.message || err);
+        }
       }
       if (writerConn) {
-        try { writerConn.close(); } catch {}
+        try { writerConn.close(); } catch (err) {
+          if (process.env.NODE_ENV !== 'test') console.warn('[db-pool] Error closing writer connection:', err?.message || err);
+        }
       }
     }
   };

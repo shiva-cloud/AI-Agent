@@ -325,6 +325,314 @@ export function auditAustraliaDhaGazette(textOrHtml = '') {
 }
 
 /**
+ * Audits Germany Federal Gazettes & AufenthG Revisions
+ */
+export function auditGermanyFederalGazette(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/chancenkarte|opportunity card|§\s*20a/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Fachkräfteeinwanderungsgesetz (FEG) & AufenthG § 20a',
+      title: 'Opportunity Card (Chancenkarte) Points-Based Search Matrix',
+      type: 'residence_search_reform',
+      entitlements: [
+        'Points awarded for foreign qualifications, German/English language skills, work experience, and age under 35.',
+        'Grants 1-year job search with 20 hours/week secondary employment and 2-week trial work with employers.'
+      ]
+    });
+  }
+
+  if (/blue card|blaue karte|§\s*18g|45,300|41,041/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'EU Blue Card Directive Implementation & AufenthG § 18g',
+      title: `German EU Blue Card Salary Threshold (€${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.DE_EU_BLUE_CARD_GENERAL_ANNUAL_EUR)})`,
+      type: 'blue_card_threshold',
+      entitlements: [
+        `General salary floor is €${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.DE_EU_BLUE_CARD_GENERAL_ANNUAL_EUR)}/year; shortage/MINT occupations reduced to €${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.DE_EU_BLUE_CARD_SHORTAGE_ANNUAL_EUR)}/year.`,
+        'PR pathway shortened to 27 months (21 months with B1 German proficiency).'
+      ]
+    });
+  }
+
+  return {
+    authority: 'Bundesgesetzblatt (BGBl) & Bundesministerium des Innern und für Heimat (BMI)',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Aufenthaltsgesetz (AufenthG)',
+      title: 'Standard German Federal Gazette Notice',
+      type: 'administrative_update',
+      entitlements: ['Standard Aufenthaltsgesetz provisions apply without gazetted revisions.']
+    }]
+  };
+}
+
+/**
+ * Audits UAE Official Gazette & Ministerial Resolutions
+ */
+export function auditUaeOfficialGazette(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/golden visa|30,000|2,000,000|cabinet resolution/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Cabinet Resolution No. 65 of 2022 on Executive Regulations of Foreigners Entry',
+      title: 'UAE Golden Visa 10-Year Residency Benchmark',
+      type: 'long_term_residence',
+      entitlements: [
+        `Skilled Professionals (Category 1/2) require valid UAE employment contract with salary of at least AED ${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.UAE_GOLDEN_VISA_MONTHLY_SALARY_AED)}/month.`,
+        `Real Estate Investors require property investment of at least AED ${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.UAE_GOLDEN_VISA_PROPERTY_INVESTMENT_AED)}.`,
+        '10-year self-sponsored visa with 100% foreign ownership and zero limit on stay outside the UAE.'
+      ]
+    });
+  }
+
+  if (/decree 43|rent increase|rera calculator/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Decree No. 43 of 2013 Determining Rent Increases in Dubai',
+      title: 'RERA Statutory Rent Increase Cap Matrix',
+      type: 'rent_cap_regulation',
+      entitlements: [
+        'Landlords cannot increase rent if current rent is within 10% of market average for the specific area and unit type.',
+        'Increases capped at 5% (11-20% below), 10% (21-30% below), 15% (31-40% below), and max 20% (>40% below).'
+      ]
+    });
+  }
+
+  return {
+    authority: 'UAE Federal Official Gazette & MOHRE / ICP',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Federal Decree-Law No. 29 of 2021 on Entry and Residence of Foreigners',
+      title: 'Standard UAE Ministerial Bulletin',
+      type: 'administrative_update',
+      entitlements: ['Standard residency and labour regulations apply.']
+    }]
+  };
+}
+
+/**
+ * Audits New Zealand Gazette & Immigration Instructions
+ */
+export function auditNewZealandGazette(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/aewv|accredited employer|median wage|31\.61/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Immigration New Zealand Operational Manual (Amendment Circular 2024)',
+      title: 'AEWV Wage Benchmarks and Maximum Continuous Stay Rules',
+      type: 'work_visa_amendment',
+      entitlements: [
+        `AEWV benchmark median wage is $${MULTI_COUNTRY_GAZETTE_CONSTANTS.NZ_AEWV_MEDIAN_WAGE_HOURLY_NZD} NZD/hour for skilled occupational pathways.`,
+        'Maximum continuous stay limits enforced: 5 years for roles at or above median wage, 3 years for specific lower-wage roles.'
+      ]
+    });
+  }
+
+  return {
+    authority: 'New Zealand Gazette & Immigration New Zealand (INZ)',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Immigration Act 2009',
+      title: 'Standard New Zealand Immigration Notice',
+      type: 'administrative_update',
+      entitlements: ['Standard INZ operational instructions apply.']
+    }]
+  };
+}
+
+/**
+ * Audits France Journal Officiel & Immigration Directives
+ */
+export function auditFranceJournalOfficiel(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/smic|passeport talent|loi immigration/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Loi n° 2024-42 du 26 janvier 2024 pour contrôler l immigration',
+      title: 'French Statutory Wage & Talent Passport Criteria',
+      type: 'immigration_reform',
+      entitlements: [
+        `Gross hourly SMIC set at €${MULTI_COUNTRY_GAZETTE_CONSTANTS.FR_SMIC_HOURLY_EUR}/hour (€${MULTI_COUNTRY_GAZETTE_CONSTANTS.FR_SMIC_MONTHLY_GROSS_EUR}/month).`,
+        `Passeport Talent Salarié Qualifié requires gross annual salary of at least €${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.FR_PASSEPORT_TALENT_SALARY_FLOOR_EUR)}.`,
+        'Multi-year residence card requires republican integration commitment (CIR) and demonstrable language progress.'
+      ]
+    });
+  }
+
+  return {
+    authority: 'Journal Officiel de la République Française (JORF) & Ministère de l Intérieur',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Code de l entrée et du séjour des étrangers et du droit d asile (CESEDA)',
+      title: 'Avis officiel du Ministère de l Intérieur',
+      type: 'administrative_update',
+      entitlements: ['Standard CESEDA regulations apply.']
+    }]
+  };
+}
+
+/**
+ * Audits Ireland Iris Oifigiúil & DETE Employment Permit Regulations
+ */
+export function auditIrelandIrisOifigiuil(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/csep|critical skills|38,000|64,000/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Employment Permits Act 2024 & DETE Regulations',
+      title: 'Critical Skills Employment Permit (CSEP) Salary Thresholds',
+      type: 'csep_salary_threshold',
+      entitlements: [
+        `Eligible degree holders in Critical Skills occupations require minimum annual remuneration of €${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.IE_CSEP_MINIMUM_SALARY_EUR)}.`,
+        'Fast-track Stamp 4 permanent residence pathway after 21 months of compliant employment.'
+      ]
+    });
+  }
+
+  return {
+    authority: 'Iris Oifigiúil & Department of Enterprise, Trade and Employment (DETE)',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Employment Permits Acts',
+      title: 'Standard Irish Statutory Notice',
+      type: 'administrative_update',
+      entitlements: ['Standard DETE regulations apply.']
+    }]
+  };
+}
+
+/**
+ * Audits Netherlands Staatscourant & IND Kennismigrant Regulations
+ */
+export function auditNetherlandsStaatscourant(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/kennismigrant|highly skilled migrant|30%|wws/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Vreemdelingenbesluit 2000 & IND Kennismigrantenregeling',
+      title: 'Dutch Highly Skilled Migrant & 30% Ruling Thresholds',
+      type: 'highly_skilled_migrant',
+      entitlements: [
+        `30% tax ruling taxable salary benchmark is €${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.NL_30_PERCENT_RULING_ANNUAL_TAXABLE_EUR)}/year.`,
+        `WWS rent liberalization boundary fixed at €${MULTI_COUNTRY_GAZETTE_CONSTANTS.NL_RENT_LIBERALIZATION_THRESHOLD_EUR}/month.`
+      ]
+    });
+  }
+
+  return {
+    authority: 'Staatscourant & Immigratie- en Naturalisatiedienst (IND)',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Vreemdelingenwet 2000',
+      title: 'Staatscourant Publicatie',
+      type: 'administrative_update',
+      entitlements: ['Standard IND operational directives apply.']
+    }]
+  };
+}
+
+/**
+ * Audits Singapore Government Gazette & MOM Directives
+ */
+export function auditSingaporeGovernmentGazette(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/compass|employment pass|5,000|s pass|3,150/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Employment of Foreign Manpower Act (EFMA) & COMPASS Framework',
+      title: 'MOM Employment Pass & COMPASS Evaluation Standards',
+      type: 'work_pass_framework',
+      entitlements: [
+        `EP minimum qualifying salary set at S$${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.SG_EP_QUALIFYING_SALARY_MONTHLY_SGD)}/month (S$5,500 for financial services).`,
+        `S Pass minimum qualifying salary set at S$${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.SG_SPASS_QUALIFYING_SALARY_MONTHLY_SGD)}/month.`,
+        'COMPASS points framework evaluates salary, qualifications, diversity, and local employment support.'
+      ]
+    });
+  }
+
+  return {
+    authority: 'Singapore Government Gazette & Ministry of Manpower (MOM)',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Employment of Foreign Manpower Act',
+      title: 'Standard MOM Gazette Notice',
+      type: 'administrative_update',
+      entitlements: ['Standard MOM employment pass directives apply.']
+    }]
+  };
+}
+
+/**
+ * Audits Spain Boletín Oficial del Estado (BOE)
+ */
+export function auditSpainBoletinOficial(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/smi|salario m[ií]nimo|beckham|lau|fianza/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Real Decreto 145/2024 & Ley de Arrendamientos Urbanos (LAU)',
+      title: 'Spanish Statutory Wage, Tenancy, and Tax Directives',
+      type: 'statutory_benchmark',
+      entitlements: [
+        `National minimum wage (SMI) set at €${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.ES_SMI_MONTHLY_EUR_14_PAYMENTS)}/month in 14 payments (€${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.ES_SMI_MONTHLY_EUR_12_PAYMENTS)} in 12 payments).`,
+        'Residential tenancy legal deposit (fianza) strictly capped at 1 month rent (plus max 2 months additional contractual guarantee).',
+        `Beckham Law special tax regime provides 24% flat rate up to €600,000 for qualifying arriving expatriates.`
+      ]
+    });
+  }
+
+  return {
+    authority: 'Boletín Oficial del Estado (BOE) & Ministerio de Trabajo',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Ley de Extranjería (LO 4/2000)',
+      title: 'Disposición General del BOE',
+      type: 'administrative_update',
+      entitlements: ['Standard Spanish statutory standards apply.']
+    }]
+  };
+}
+
+/**
+ * Audits Sweden Svensk författningssamling (SFS) & Migrationsverket
+ */
+export function auditSwedenStatensOffentliga(textOrHtml = '') {
+  const text = String(textOrHtml);
+  const notices = [];
+
+  if (/migrationsverket|work permit|maintenance|28,480|blue card/i.test(text)) {
+    notices.push({
+      instrumentCitation: 'Utlänningsförordningen (2006:97) & Migrationsverket Föreskrifter',
+      title: 'Swedish Work Permit Maintenance & Blue Card Standards',
+      type: 'maintenance_requirement',
+      entitlements: [
+        `Work permit wage must meet at least 80% of Swedish median salary (SEK ${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.SE_WORK_PERMIT_MINIMUM_MONTHLY_SEK)}/month).`,
+        `Swedish EU Blue Card gross salary floor set at SEK ${fmt(MULTI_COUNTRY_GAZETTE_CONSTANTS.SE_EU_BLUE_CARD_MINIMUM_MONTHLY_SEK)}/month.`,
+        'Mandatory occupational insurance (health, life, occupational pension, industrial injury) required from employer.'
+      ]
+    });
+  }
+
+  return {
+    authority: 'Svensk författningssamling (SFS) & Migrationsverket',
+    noticesCount: notices.length,
+    notices: notices.length > 0 ? notices : [{
+      instrumentCitation: 'Utlänningslagen (2005:716)',
+      title: 'Standard Swedish Migration Directive',
+      type: 'administrative_update',
+      entitlements: ['Standard Swedish statutory regulations apply.']
+    }]
+  };
+}
+
+/**
  * Corridor Migration Rule Sync Engine (Rec 113)
  */
 export const CORRIDOR_REGISTRY = {
@@ -594,6 +902,60 @@ export function auditMultiCountryGazettes(params = {}) {
     return {
       country: 'AU',
       dhaAudit: auditAustraliaDhaGazette(htmlContent)
+    };
+  }
+  if (c === 'DE') {
+    return {
+      country: 'DE',
+      federalGazetteAudit: auditGermanyFederalGazette(htmlContent)
+    };
+  }
+  if (c === 'AE') {
+    return {
+      country: 'AE',
+      officialGazetteAudit: auditUaeOfficialGazette(htmlContent)
+    };
+  }
+  if (c === 'NZ') {
+    return {
+      country: 'NZ',
+      gazetteAudit: auditNewZealandGazette(htmlContent)
+    };
+  }
+  if (c === 'FR') {
+    return {
+      country: 'FR',
+      journalOfficielAudit: auditFranceJournalOfficiel(htmlContent)
+    };
+  }
+  if (c === 'IE') {
+    return {
+      country: 'IE',
+      irisOifigiuilAudit: auditIrelandIrisOifigiuil(htmlContent)
+    };
+  }
+  if (c === 'NL') {
+    return {
+      country: 'NL',
+      staatscourantAudit: auditNetherlandsStaatscourant(htmlContent)
+    };
+  }
+  if (c === 'SG') {
+    return {
+      country: 'SG',
+      governmentGazetteAudit: auditSingaporeGovernmentGazette(htmlContent)
+    };
+  }
+  if (c === 'ES') {
+    return {
+      country: 'ES',
+      boletinOficialAudit: auditSpainBoletinOficial(htmlContent)
+    };
+  }
+  if (c === 'SE') {
+    return {
+      country: 'SE',
+      statensOffentligaAudit: auditSwedenStatensOffentliga(htmlContent)
     };
   }
   return {

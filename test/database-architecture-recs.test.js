@@ -53,8 +53,9 @@ test('Audit chain integrity detects payload and linkage tampering', () => {
     assert.equal(tamperedContent.intact, false);
     assert.ok(tamperedContent.error.includes('SHA-256 payload digest mismatch'));
 
-    // Revert reviewer and tamper with linkage
-    store.db.prepare("UPDATE audits SET reviewer='Alice Senior Editor', prev_hash='bad-hash' WHERE id=2").run();
+    // Revert reviewer on audit #1 and tamper with linkage on audit #2
+    store.db.prepare("UPDATE audits SET reviewer='Alice Senior Editor' WHERE id=1").run();
+    store.db.prepare("UPDATE audits SET prev_hash='bad-hash' WHERE id=2").run();
     const tamperedLink = store.verifyAuditChainIntegrity();
     assert.equal(tamperedLink.intact, false);
     assert.ok(tamperedLink.error.includes('Audit chain broken at audit #2'));

@@ -7,6 +7,16 @@ import {
   auditUsFederalRegisterNotices,
   auditUkHomeOfficeStatementOfChanges,
   auditAustraliaDhaGazette,
+  auditGermanyFederalGazette,
+  auditUaeOfficialGazette,
+  auditNewZealandGazette,
+  auditFranceJournalOfficiel,
+  auditIrelandIrisOifigiuil,
+  auditNetherlandsStaatscourant,
+  auditSingaporeGovernmentGazette,
+  auditSpainBoletinOficial,
+  auditSwedenStatensOffentliga,
+  auditMultiCountryGazettes,
   syncCorridorMigrationRules,
   translatePolicyDelta,
   MULTI_COUNTRY_GAZETTE_CONSTANTS
@@ -69,6 +79,71 @@ test('Multi-Country Gazette Crawlers: parses IRCC, ESDC, US Federal Register, UK
   assert.equal(auResult.noticesCount, 2);
   assert.ok(auResult.notices.some(n => n.type === 'visa_condition_reform'));
   assert.ok(auResult.notices.some(n => n.type === 'tsmit_salary_floor'));
+
+  // 6. Germany Federal Gazette (BGBl) & AufenthG
+  const deSample = 'Fachkräfteeinwanderungsgesetz Chancenkarte points system and EU Blue Card salary threshold 45,300.';
+  const deResult = auditGermanyFederalGazette(deSample);
+  assert.equal(deResult.noticesCount, 2);
+  assert.ok(deResult.notices.some(n => n.type === 'residence_search_reform'));
+  assert.ok(deResult.notices.some(n => n.type === 'blue_card_threshold'));
+
+  // 7. UAE Official Gazette & RERA Decree 43
+  const uaeSample = 'Cabinet Resolution Golden Visa with 30,000 monthly salary or 2,000,000 property investment and Decree 43 rent increase calculation.';
+  const uaeResult = auditUaeOfficialGazette(uaeSample);
+  assert.equal(uaeResult.noticesCount, 2);
+  assert.ok(uaeResult.notices.some(n => n.type === 'long_term_residence'));
+  assert.ok(uaeResult.notices.some(n => n.type === 'rent_cap_regulation'));
+
+  // 8. New Zealand Gazette & AEWV
+  const nzSample = 'Immigration New Zealand operational manual update on AEWV median wage 31.61 threshold.';
+  const nzResult = auditNewZealandGazette(nzSample);
+  assert.equal(nzResult.noticesCount, 1);
+  assert.ok(nzResult.notices.some(n => n.type === 'work_visa_amendment'));
+
+  // 9. France Journal Officiel & SMIC / Passeport Talent
+  const frSample = 'Loi immigration et revalorisation du SMIC et passeport talent salarié qualifié.';
+  const frResult = auditFranceJournalOfficiel(frSample);
+  assert.equal(frResult.noticesCount, 1);
+  assert.ok(frResult.notices.some(n => n.type === 'immigration_reform'));
+
+  // 10. Ireland Iris Oifigiúil
+  const ieSample = 'Employment Permits Act revisions to Critical Skills Employment Permit CSEP 38,000 threshold.';
+  const ieResult = auditIrelandIrisOifigiuil(ieSample);
+  assert.equal(ieResult.noticesCount, 1);
+  assert.ok(ieResult.notices.some(n => n.type === 'csep_salary_threshold'));
+
+  // 11. Netherlands Staatscourant
+  const nlSample = 'Staatscourant publicatie over kennismigrant regeling en 30% regeling.';
+  const nlResult = auditNetherlandsStaatscourant(nlSample);
+  assert.equal(nlResult.noticesCount, 1);
+  assert.ok(nlResult.notices.some(n => n.type === 'highly_skilled_migrant'));
+
+  // 12. Singapore Government Gazette
+  const sgSample = 'Ministry of Manpower update on COMPASS framework and Employment Pass 5,000 qualifying salary.';
+  const sgResult = auditSingaporeGovernmentGazette(sgSample);
+  assert.equal(sgResult.noticesCount, 1);
+  assert.ok(sgResult.notices.some(n => n.type === 'work_pass_framework'));
+
+  // 13. Spain BOE
+  const esSample = 'Real Decreto actualizando el SMI salario mínimo y fianza bajo la LAU con ley Beckham.';
+  const esResult = auditSpainBoletinOficial(esSample);
+  assert.equal(esResult.noticesCount, 1);
+  assert.ok(esResult.notices.some(n => n.type === 'statutory_benchmark'));
+
+  // 14. Sweden SFS
+  const seSample = 'Migrationsverket föreskrifter regarding work permit maintenance 28,480 SEK salary threshold.';
+  const seResult = auditSwedenStatensOffentliga(seSample);
+  assert.equal(seResult.noticesCount, 1);
+  assert.ok(seResult.notices.some(n => n.type === 'maintenance_requirement'));
+
+  // 15. Unified multi-country gazette dispatcher
+  const multiDe = auditMultiCountryGazettes({ country: 'DE', htmlContent: deSample });
+  assert.equal(multiDe.country, 'DE');
+  assert.ok(multiDe.federalGazetteAudit.noticesCount >= 1);
+
+  const multiSg = auditMultiCountryGazettes({ country: 'SG', htmlContent: sgSample });
+  assert.equal(multiSg.country, 'SG');
+  assert.ok(multiSg.governmentGazetteAudit.noticesCount >= 1);
 });
 
 test('Corridor Migration Rules & Multilingual Policy Delta: verifies bilateral corridors and canonical translations', () => {
@@ -82,6 +157,19 @@ test('Corridor Migration Rules & Multilingual Policy Delta: verifies bilateral c
   const corridorNgUk = syncCorridorMigrationRules({ originCountry: 'NG', destinationCountry: 'UK' });
   assert.equal(corridorNgUk.corridorCode, 'NG_UK');
   assert.ok(corridorNgUk.requirements.primaryEducationAssessor.includes('UK ENIC'));
+
+  // New Big-12 Corridors
+  const corridorInAu = syncCorridorMigrationRules({ originCountry: 'IN', destinationCountry: 'AU' });
+  assert.equal(corridorInAu.corridorCode, 'IN_AU');
+  assert.ok(corridorInAu.requirements.primaryEducationAssessor.includes('VETASSESS'));
+
+  const corridorInDe = syncCorridorMigrationRules({ originCountry: 'IN', destinationCountry: 'DE' });
+  assert.equal(corridorInDe.corridorCode, 'IN_DE');
+  assert.ok(corridorInDe.requirements.primaryEducationAssessor.includes('ZAB'));
+
+  const corridorInSg = syncCorridorMigrationRules({ originCountry: 'IN', destinationCountry: 'SG' });
+  assert.equal(corridorInSg.corridorCode, 'IN_SG');
+  assert.ok(corridorInSg.requirements.driversLicenseExchange.includes('Basic Theory Test'));
 
   // 2. Deterministic Multilingual Policy Delta Translation (Rec 119)
   const transHindi = translatePolicyDelta({ termKey: 'OVERTIME_PAY', targetLanguage: 'hi' });

@@ -110,7 +110,9 @@ export function openStore(path='data/settlement.sqlite') {
         try {
           db.prepare('DELETE FROM records_fts WHERE id=?').run(id);
           db.prepare('INSERT INTO records_fts(id, title, summary, quote, topic) VALUES (?,?,?,?,?)').run(id, next.title||'', next.summary||'', next.quote||'', next.topic||'');
-        } catch {}
+        } catch (ftsErr) {
+          if (process.env.NODE_ENV !== 'test') console.warn(`[store.review] FTS index update failed for ${id}:`, ftsErr?.message || ftsErr);
+        }
         appendAudit(db, {
           recordId: id,
           previous: row.body,
@@ -139,7 +141,8 @@ export function openStore(path='data/settlement.sqlite') {
           LIMIT ?
         `).all(terms, limit);
         return rows.map(r => JSON.parse(r.body));
-      } catch {
+      } catch (err) {
+        if (process.env.NODE_ENV !== 'test') console.warn('[store.searchFts] FTS search query error:', err?.message || err);
         return [];
       }
     },

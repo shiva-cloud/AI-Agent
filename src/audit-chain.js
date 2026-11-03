@@ -2,6 +2,11 @@ import { createHash } from 'node:crypto';
 
 export const GENESIS_HASH = '0000000000000000000000000000000000000000000000000000000000000000';
 
+export const AUDIT_ACTIONS = [
+  'approve', 'approved', 'editorial_review', 'correction', 'correct', 'basis', 'reject', 'template',
+  'jurisdiction', 'update', 'quote_restore', 'create', 'withdrawn', 'reinstate'
+];
+
 export function computeAuditHash({ prevHash, recordId, action = 'approve', reviewer, at, previous, next }) {
   const prevStr = typeof previous === 'string' ? previous : (previous ? JSON.stringify(previous) : null);
   const nextStr = typeof next === 'string' ? next : (next ? JSON.stringify(next) : null);
@@ -20,46 +25,47 @@ export function appendAudit(db, { recordId, previous, next, reviewer, note, at =
   return { prevHash, hash, at };
 }
 
-export const KNOWN_ACTIONS = [
-  'correct',
-  'jurisdiction',
-  'template',
-  'basis',
-  'approve',
-  'approved',
-  'reject',
-  'rejected',
-  'rollback',
-  'editorial_review'
-];
-
 export function verifyAuditChain(db) {
   const audits = db.prepare('SELECT * FROM audits ORDER BY id ASC').all();
   let expectedPrevHash = GENESIS_HASH;
-  let verifiedCount = 0;
+  let verifiedHashes = 0;
+
   for (const a of audits) {
+    // 1. Linkage verification
     if (a.prev_hash && a.prev_hash !== expectedPrevHash && a.prev_hash !== GENESIS_HASH) {
-      return { intact: false, error: `Audit chain broken at audit #${a.id}: expected prev_hash ${expectedPrevHash}, got ${a.prev_hash}` };
+      return {
+        intact: false,
+        error: `Audit chain linkage broken at audit #${a.id}: expected prev_hash ${expectedPrevHash}, got ${a.prev_hash}`
+      };
     }
+
+    // 2. Cryptographic hash recalculation & integrity verification
     if (a.hash) {
-      const match = KNOWN_ACTIONS.some(act => {
-        const h = computeAuditHash({
-          prevHash: a.prev_hash,
-          recordId: a.record_id,
-          action: act,
-          reviewer: a.reviewer,
-          at: a.at,
-          previous: a.previous,
-          next: a.next
-        });
-        return h === a.hash;
-      });
-      if (!match) {
-        return { intact: false, error: `Audit content integrity compromised at audit #${a.id}: SHA-256 payload digest mismatch` };
+      let matched = false;
+      for (const act of AUDIT_ACTIONS) {
+        const payload = `${a.prev_hash || GENESIS_HASH}|${a.record_id}|${act}|${a.reviewer}|${a.at}|${a.previous}|${a.next}`;
+        const computed = createHash('sha256').update(payload).digest('hex');
+        if (computed === a.hash) {
+          matched = true;
+          break;
+        }
       }
-      verifiedCount++;
+
+      if (!matched) {
+        return {
+          intact: false,
+          error: `Audit cryptographic tampering detected at audit #${a.id} for record "${a.record_id}": stored hash ${a.hash} does not match computed hash`
+        };
+      }
+
+      verifiedHashes++;
       expectedPrevHash = a.hash;
     }
   }
-  return { intact: true, auditedCount: audits.length, verifiedCount };
+
+  return {
+    intact: true,
+    auditedCount: audits.length,
+    verifiedHashes
+  };
 }

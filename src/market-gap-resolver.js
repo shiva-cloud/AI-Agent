@@ -22,7 +22,8 @@ export function createMarketGapBatch({ items, first, last, scenarios }) {
     itemById.set(item.id, item);
     const norm = normalizeText(item.question);
     itemByNormalizedQuestion.set(norm, item);
-    normalizedItems.push({ item, norm });
+    const searchBlob = `${norm} ${item.citation?.toLowerCase() || ''} ${item.statutoryRule?.toLowerCase() || ''} ${item.verdict?.toLowerCase() || ''} ${item.id}`;
+    normalizedItems.push({ item, norm, len: norm.length, searchBlob });
   }
   const inRange = id => id >= first && id <= last;
 
@@ -51,10 +52,15 @@ export function createMarketGapBatch({ items, first, last, scenarios }) {
     const exact = itemByNormalizedQuestion.get(cleanQ);
     if (exact) return exact;
 
-    // 4. Substring match with bounded length (using precomputed normalized strings)
+    // 4. Substring match with bounded length (using precomputed normalized strings and length checks)
     if (cleanQ.length >= 35) {
-      for (const { item, norm } of normalizedItems) {
-        if (norm.includes(cleanQ) || cleanQ.includes(norm)) return item;
+      const qLen = cleanQ.length;
+      for (const { item, norm, len } of normalizedItems) {
+        if (len >= qLen) {
+          if (norm.includes(cleanQ)) return item;
+        } else {
+          if (cleanQ.includes(norm)) return item;
+        }
       }
     }
 

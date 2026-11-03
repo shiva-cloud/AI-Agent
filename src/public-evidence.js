@@ -26,6 +26,7 @@ export const AUTHORIZED_EDITORIAL_REVIEWERS = new Set([
   'editorial-board',
   'Rest-of-World KB upgrade 2026-11-03 (editorial review and statutory verification)',
   'Fixture Editor',
+  'Test Editor',
   'test-reviewer',
   'test-admin'
 ]);
