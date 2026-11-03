@@ -1,0 +1,78 @@
+# Verify-backlog: प्रकाशन कतार का वास्तविक निरीक्षण — 3 नवंबर 2026
+
+यह दोक `scripts/kb-verify-publish.js` की ऑटोमेटेड ऑफिशियल-पेज जांच (2026-11-03 की run) का पूरा निरीक्षण है — read-only रूप से मापा हुआ, कोई कंटेंट-कोड नहीं बदला गया। उसी दिन के 0.19.50 के CHANGELOG-ब्लॉक ([CHANGELOG.md](CHANGELOG.md)) में आउटकम दर्ज है। कवरेज-संदर्भ: [COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md](COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md)।
+
+## 1. यह जांच कैसे चलती है (ईमानदारी के नियम)
+
+Records जो `source_verified` होने की उम्मीद में कतार में हैं:
+
+- हर रिकॉर्ड का औपचारिक पेज लाया जाता है; **quote शब्द-शब्द** पेज पर हो + **समरी का हर आंकड़ा** पेज पर हो — तभी pass।
+- डेड/ब्लॉक पेजों के लिए Internet Archive की एक ईमानदार दूसरी कोशिश होती है (प्रमाण-खबर रिकॉर्ड होती है कि आर्काइव-कॉपी थी सबूत)।
+- Pass होने पर snapshot→candidate→approve→publish ऑडिटेड जंजीर से publish होता है, "Checked against the official page · automated" संदर्भ-लेबल के साथ, और नोट स्पष्ट लिखता है: **"Not an editor's review."**
+- बैकअप पहले: `data/backups/settlement-before-verify-publish-1793677109867.sqlite`।
+
+## 2. आज की run का नतीजा
+
+| मापदंड | मूल्य |
+|---|---|
+| कतार में थे | 619 |
+| चेक हुए | 617 |
+| word-for-word pass | **11 → publish हुए** |
+| Publication-chain records (कुल) | **45 → 56** (बड़े-12: 7 → 11; rest: 17 → 22) |
+| रुके (honest कारण सहित) | 606 |
+
+11 प्रकाशित: `ontario-crisis-support-988-and-newcomer-mental-health`, `ontario-bc-open-work-permit-spouse-healthcare-eligibility`, `ontario-community-health-centres-and-uninsured-care-navigation`, `au-medicare-reciprocal-healthcare-agreements`, `uk-london-nhs-gp-registration`, `australia-dvs-licence`, `australia-overseas-drivers`, `ireland-ndls-licence`, `israel-govil-licence`, `malta-tm-licence`, `norway-vegvesen-licence`।
+
+## 3. विफलता-करण का वितरण (606)
+
+| समूह | रिकॉर्ड | quote_not_on_page | archive_http_404 | quote_too_short | network_error | archive_quote_not_on_page | archive_http_403 | बाकी (http_4xx/5xx, not_html, timeout…) |
+|---|---|---|---|---|---|---|---|---|
+| कनाडा | 151 | 66 | 50 | 14 | 10 | 5 | 3 | 3 |
+| बड़े-12 | 258 | 88 | 76 | 47 | 10 | 12 | 5 | 20 |
+| बाकी (देश+शहर) | 197 | 96 | 5 | 30 | 49 | 7 | 7 | 10 |
+
+करांनो का अर्थ: `quote_not_on_page` = समरी वर्तन पेज से हटकर पुरानी/विस्तृत है (quote-drift); `archive_http_404` = live URL डेड और कोई आर्काइव-कॉपी नहीं (लिंक-मरम्मत चाहिए); `quote_too_short` = quote इतना छोटा है कि word-for-word सत्यापन नहीं हो सकता (लंबा उद्धरण चाहिए); `network_error` = साइट ने जवाब नहीं दिया (फिर-कोशिश योग्य)।
+
+## 4. बड़े-12: प्रति देश कतार-विवरण (कुल/प्रकाशित/कारणश)
+
+| देश | कतार | इनमें publish | प्रमुख विफलताएँ |
+|---|---|---|---|
+| Australia | 37 | 3 | quote-drift 18, quote_too_short 7, archive-404 6 |
+| United States | 37 | 0 | quote-drift 14, quote_too_short 7, archive-404 6 |
+| United Kingdom | 34 | 0 | quote-drift 20, quote_too_short 8 |
+| Germany | 30 | 0 | quote-drift 13, archive-404 7, http_400 3 |
+| UAE | 23 | 0 | **archive-404 10**, quote-drift 4 |
+| New Zealand | 21 | 0 | quote-drift 7, quote_too_short 5 |
+| France | 15 | 0 | quote-drift 5, archive-404 4 |
+| Ireland | 14 | 1 | **archive-404 8** |
+| Netherlands | 12 | 0 | archive-404 7, quote_too_short 4 |
+| Singapore | 11 | 0 | archive-404 5, quote_too_short 5 |
+| Spain | 12 | 0 | archive-404 6 |
+| Sweden | 10 | 0 | **archive-404 8** |
+
+कनाडा-पक्ष का निरीक्षण: संघीय 92 (pub 1; quote-drift 46, archive-404 33), ON 42 (pub 2), **BC 10 (pub 0; नौ network_error — शुद्ध फिर-रन वाले)**, शहर 7।
+
+बाकी-पक्ष: उनमें शहर-रिकॉर्ड भी हैं (23 शहर/40 रिकॉर्ड — दुबई 4, लंदन 4, न्यू-यॉर्क 3+2…)। सबसे ऊपर के विफल शहर: Dubai 3, New York 3; फिर Austin/Boston/Chicago/London/Melbourne/Seattle/Sydney/Berlin 2-2।
+
+## 5. संपादकों के लिए सुधार-क्रम (प्राथमिकता)
+
+1. **नेटवर्क/साइट-करांना (68 + ~24**: BC के नौ समेत) — मानव-काम नहीं: फिर-चलो. उसके बाद ही बैकलॉग की सही आकार जानी जाएगी, पहले न करांश न बातें।
+2. **archive-404 (131, बड़े-12 में 76)**: प्रत्येक डेड-लिंक要用 हाल के आधिकारिक-रुट से बदलना + नया स्नैपशॉट। UK `(4)`, UAE `(10)`, Ireland `(8)`, NL/SG/ES/SE ऊपर के आँकड़े; प्रति रिकॉर्ड वेब-शोध चाहिए।
+3. **quote-drift (250)**: यही सचमुच समरी की दुरस्तoration है — प्रति-रिकॉर्ड नया उद्देश्य-खंड वेब से असली पृष्ठ-वाक्यांश की आयाती हुई समीक्षा (F2)।
+4. **quote_too_short (91)**: लंबे उद्धरणों के निर्यात के साथ पुनःभीत सत्यापन।
+
+## 6. टेस्ट-vs-ट्री स्थिति (ईमानदार संदर्भ)
+
+- कंमिटेड `master` tree पर suite हरा है। वर्किंग-ट्री पर 28 तिथि-पार्इन टेस्ट फेल हैं क्योंकि अन्य सत्र 161-फाइल sweeps में hardcode तिथों को `todayIso()` कर रहा है — उनका कोड+टेस्ट साथ आने पर हल; उनके कंमिट से पहले मतलब न निकालें।
+- `npm run kb:health`: blocking 0; "Approved without editorial review: 594" (यही ऊपर की कतार का केमकेम दर्पण है)।
+
+## 7. दोहराव रीत-प्रविधि
+
+```
+# चेक-ओनले (बिना लिखे): डेटा पहले temp कॉपी पर चलाएँ
+node scripts/kb-verify-publish.js --db <temp-copied-db> --report <out.json>
+# प्रकाशन (स्वतः बैकअप सहित):
+node scripts/kb-verify-publish.js --apply
+```
+
+Floors: `test/country-coverage.test.js` — बटन यह है कि published काउंट केवल बढ़ना चाहिए (आज 56); तिथियाँ counters `npm run coverage:report` में।
