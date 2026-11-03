@@ -14,6 +14,12 @@ export function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
 }
 
+// Tagged template literal that auto-escapes all interpolated parameters
+export function html(parts, ...values) {
+  const entities = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+  return parts.reduce((result, part, index) => result + part + (index < values.length ? String(values[index] ?? '').replace(/[&<>"']/g, char => entities[char]) : ''), '');
+}
+
 // Storage can throw (blocked site data, private windows) and saved values can
 // be corrupt; neither may stop the app from loading.
 export function readStored(key, fallback, parse = false) {

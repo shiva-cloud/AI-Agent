@@ -11,6 +11,7 @@ test('boundedText cleans, bounds and falls back', () => {
   assert.equal(boundedText({ toString: () => 'nope' }, 'fallback'), 'fallback');
   assert.equal(boundedText('   ', 'fallback'), 'fallback');
   assert.equal(boundedText('a'.repeat(500), '', 120).length, 120);
+  assert.equal(boundedText('<script>alert("xss")</script><b>John</b>', 'x'), 'scriptalert("xss")/scriptbJohn/b');
 });
 
 test('tools that echo or scan free text accept hostile input without failing', () => {

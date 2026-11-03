@@ -316,6 +316,79 @@
         { id: 'proposedRent', label: 'Proposed New Rent ($ CAD)', type: 'number', default: 2400 }
       ]
     },
+    'australia-tenancy': {
+      title: 'Australia Subnational Tenancy: NSW NCAT, VIC VCAT, QLD QCAT & WA DMIRS',
+      fields: [
+        { id: 'state', label: 'State / Territory', type: 'select', options: [
+          { val: 'NSW', text: 'New South Wales (NCAT - RTA 2010)' },
+          { val: 'VIC', text: 'Victoria (VCAT - RTA 1997)' },
+          { val: 'QLD', text: 'Queensland (QCAT - RTRAA 2008)' },
+          { val: 'WA', text: 'Western Australia (DMIRS - RTA 1987)' }
+        ]},
+        { id: 'weeklyRent', label: 'Weekly Rent ($ AUD)', type: 'number', default: 650 },
+        { id: 'bondPaid', label: 'Bond Paid to Landlord ($ AUD)', type: 'number', default: 2600 },
+        { id: 'rentIncreasePercent', label: 'Proposed Rent Increase (%)', type: 'number', default: 0 },
+        { id: 'monthsSinceLastIncrease', label: 'Months Since Last Rent Increase (Min: 12)', type: 'number', default: 12 },
+        { id: 'noticeGivenDays', label: 'Written Notice Provided (Days, Min: 60)', type: 'number', default: 60 }
+      ]
+    },
+    'us-state-tenancy': {
+      title: 'US State Tenancy Defense: CA AB 1482, NY HSTPA, TX Ch 92 & FL Ch 83',
+      fields: [
+        { id: 'state', label: 'State Jurisdiction', type: 'select', options: [
+          { val: 'CA', text: 'California (AB 1482 & AB 12 1-Mo Deposit Cap)' },
+          { val: 'NY', text: 'New York (HSTPA 2019 14-Day Deposit Return)' },
+          { val: 'TX', text: 'Texas (Property Code Ch 92 7-Day Repair Duty)' },
+          { val: 'FL', text: 'Florida (Statutes Ch 83 15/30-Day Claims)' }
+        ]},
+        { id: 'monthlyRent', label: 'Monthly Rent ($ USD)', type: 'number', default: 2500 },
+        { id: 'securityDeposit', label: 'Security Deposit Paid ($ USD)', type: 'number', default: 2500 },
+        { id: 'rentIncreasePercent', label: 'Proposed Rent Increase (%)', type: 'number', default: 0 },
+        { id: 'tenancyMonths', label: 'Tenancy Tenure (Months)', type: 'number', default: 14 },
+        { id: 'daysSinceMoveOut', label: 'Days Elapsed Since Move-Out', type: 'number', default: 0 }
+      ]
+    },
+    'uk-devolved-tenancy': {
+      title: 'UK Devolved Nations Tenancy: Scotland PRT, Wales 6-Mo Notice & NI Protection',
+      fields: [
+        { id: 'nation', label: 'Devolved Nation', type: 'select', options: [
+          { val: 'Scotland', text: 'Scotland (PRT - Housing Act 2016, No s.21)' },
+          { val: 'Wales', text: 'Wales (Standard Occupation Contract, 6-Mo Notice)' },
+          { val: 'Northern Ireland', text: 'Northern Ireland (Private Tenancies Order)' }
+        ]},
+        { id: 'monthlyRent', label: 'Monthly Rent (£ GBP)', type: 'number', default: 1000 },
+        { id: 'depositPaid', label: 'Tenancy Deposit Paid (£ GBP)', type: 'number', default: 1000 },
+        { id: 'tenureMonths', label: 'Tenancy Tenure (Months)', type: 'number', default: 12 },
+        { id: 'noticeGivenDays', label: 'Notice Provided by Landlord (Days)', type: 'number', default: 28 },
+        { id: 'evictionGround', label: 'Eviction Ground Stated by Landlord', type: 'select', options: [
+          { val: 'landlord_intends_to_sell', text: 'Landlord Intends to Sell' },
+          { val: 'landlord_intends_to_live', text: 'Landlord or Family Member Moving In' },
+          { val: 'rent_arrears', text: 'Rent Arrears (3+ consecutive months)' },
+          { val: 'no_fault_s21', text: 'No-Fault Eviction Notice (Section 21 equivalent)' }
+        ]}
+      ]
+    },
+    'uae-tenancy-dispute': {
+      title: 'UAE Tenancy Dispute: Dubai RERA Decree 43 vs Abu Dhabi Tawtheeq 5% Cap',
+      fields: [
+        { id: 'emirate', label: 'Emirate Jurisdiction', type: 'select', options: [
+          { val: 'Dubai', text: 'Dubai (RERA Decree No. 43 of 2013 & Ejari)' },
+          { val: 'Abu Dhabi', text: 'Abu Dhabi (Tawtheeq & 5% Rent Cap)' }
+        ]},
+        { id: 'currentRent', label: 'Current Lawful Annual Rent (AED)', type: 'number', default: 80000 },
+        { id: 'marketRent', label: 'Official RERA / Market Average Rent (AED)', type: 'number', default: 100000 },
+        { id: 'proposedRent', label: 'Proposed New Annual Rent (AED)', type: 'number', default: 88000 },
+        { id: 'noticeDays', label: 'Days Notice Prior to Lease Renewal (Min: 90 / 60)', type: 'number', default: 90 },
+        { id: 'evictionNotice', label: 'Eviction Notice Served?', type: 'select', options: [
+          { val: 'false', text: 'No Eviction Notice Served' },
+          { val: 'true', text: 'Yes, Eviction Notice Served for Personal Use/Sale' }
+        ]},
+        { id: 'notaryServed', label: 'Eviction Service Method', type: 'select', options: [
+          { val: 'true', text: 'Formal Service via Notary Public / Registered Post' },
+          { val: 'false', text: 'Informal Service (Email / WhatsApp / Verbal)' }
+        ]}
+      ]
+    },
     'global-expat': {
       title: 'Global Expat: UAE Gratuity, Dubai RERA, NZ Cushion & Singapore COMPASS',
       fields: [

@@ -26,7 +26,11 @@ const CASES = [
   ['/v1/tools/gcms-analyzer', { type: 'study_permit', notes: 'Officer notes about funds.', codes: 'A4,A8', days: '10' }],
   ['/v1/tools/global-visa-matrix', { countries: 'CA,US', education: 'bachelors', experience: '3', field: 'stem', jobOffer: 'true' }],
   ['/v1/tools/super-visa-lico', { hostMembers: '3', visitingMembers: '2', income: '82000', insurance: 'true', appType: 'super_visa' }],
-  ['/v1/tools/legal-notices', { type: 'ontario_ltb_t2', sender: 'Jane Doe', recipient: 'Property Manager', amount: '75000', issues: 'Unlawful entry; vital services disruption' }]
+  ['/v1/tools/legal-notices', { type: 'ontario_ltb_t2', sender: 'Jane Doe', recipient: 'Property Manager', amount: '75000', issues: 'Unlawful entry; vital services disruption' }],
+  ['/v1/tools/australia-tenancy', { state: 'VIC', weeklyRent: '700', bondPaid: '2800', rentIncreasePercent: '5', monthsSinceLastIncrease: '10', noticeGivenDays: '45' }],
+  ['/v1/tools/us-state-tenancy', { state: 'NY', monthlyRent: '3000', securityDeposit: '3500', rentIncreasePercent: '0', tenancyMonths: '18', daysSinceMoveOut: '20' }],
+  ['/v1/tools/uk-devolved-tenancy', { nation: 'Wales', monthlyRent: '1200', depositPaid: '1200', tenureMonths: '4', noticeGivenDays: '60', evictionGround: 'no_fault_s21' }],
+  ['/v1/tools/uae-tenancy-dispute', { emirate: 'Dubai', currentRent: '90000', marketRent: '120000', proposedRent: '105000', noticeDays: '60', evictionNotice: 'true', notaryServed: 'false' }]
 ];
 
 test('POST with website form field names matches the equivalent GET', async () => {

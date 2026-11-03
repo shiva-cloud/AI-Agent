@@ -1,6 +1,12 @@
 export class ValidationError extends Error {
   constructor(message,statusCode=400){super(message);this.statusCode=statusCode;this.code=({400:'invalid_request',404:'not_found',409:'conflict'})[statusCode]||'invalid_request';}
 }
+export class ToolInputError extends ValidationError {
+  constructor(message = 'Some fields have the wrong type or format. Check the values (numbers without letters, dates as YYYY-MM-DD) and try again.', code = 'invalid_field_value') {
+    super(message, 400);
+    this.code = code;
+  }
+}
 export class PolicyReviewRequiredError extends Error {
   constructor(key,date) {
     super(`KB fact ${key} requires source review for ${date}`);

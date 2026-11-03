@@ -673,8 +673,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
     if(res.destroyed||res.writableEnded)return;
     if(e instanceof RequestBodyError){headers['Connection']='close';return send(e.status,{error:e.message,code:e.code});}
     if(e instanceof AdminConfigUnavailable)return send(503,{error:'Admin identity configuration unavailable',code:'identity_unavailable'});
-    // A tool that cannot handle a value's type is an input problem, not a server fault.
-    if(isToolRequest&&(e instanceof TypeError||e instanceof RangeError))return send(400,TOOL_INPUT_ERROR);
+    if(e instanceof ToolInputError)return send(400,{error:e.message,code:e.code});
     const failure=errorResponse(e);if(failure.body.code==='storage_busy')headers['Retry-After']='1';send(failure.status,failure.body);
   }
  });
