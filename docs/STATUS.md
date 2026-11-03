@@ -8,6 +8,7 @@ Details in `docs/CHANGELOG.md` 0.19.50:
 
 - `docs/COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md` documents the coverage comparison across countries (Canada 207 records with province/city layers and 63 province-domain navigators; big-12 276 records all audited but 7 published and no sub-national layer; rest-of-world 423 records over 216 jurisdictions, 189 pointing at IRCC's generic page) and the phased plan F0–F9 with KPI targets.
 - `npm run coverage:report` measures that KPI table on demand (read-only); `test/country-coverage.test.js` freezes the current build as lower bounds (CI-safe source floors plus evidence-database floors when the database exists).
+- The automated official-page publish check re-ran the 619-record withheld queue (backed up first); the 11 word-for-word passes published as `source_verified` through the audited chain — publication-chain records 45 → 56 (big-12 7 → 11). The remaining 606 stay withheld with honest per-record reasons; they are the editorial review queue for phases F1/F2 of the coverage analysis.
 - Full suite and lint green after the batch; the analysis and tooling changed no evidence or content behavior.
 
 ### Audit remediation batch (0.19.49)
