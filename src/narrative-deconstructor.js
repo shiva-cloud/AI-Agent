@@ -7,12 +7,12 @@ import { cleanEmotionalFluff, normalizeSlangAndTypos } from './slang-normalizer.
 import { detectLegalMyth } from './myth-buster.js';
 
 export const STATUS_PATTERNS = [
-  { id: 'closed_work_permit', label: 'Closed Work Permit (Employer-Specific)', pattern: /\b(?:closed\s+work\s+permit|employer[- ]specific\s+work\s+permit|tied\s+to\s+(?:an?\s+)?employer|lmia\s+work\s+permit|tied\s+work\s+permit)\b/i },
+  { id: 'closed_work_permit', label: 'Closed Work Permit (Employer-Specific)', pattern: /\b(?:closed\s+(?:work\s+permit|wp)|employer[- ]specific\s+(?:work\s+permit|wp)|tied\s+to\s+(?:an?\s+)?employer|lmia\s+(?:work\s+permit|wp)|tied\s+work\s+permit)\b/i },
   { id: 'pgwp', label: 'Post-Graduation Work Permit (PGWP)', pattern: /\b(?:pgwp|post[- ]grad(?:uation)?\s+work\s+permit)\b/i },
   { id: 'sowp', label: 'Spousal Open Work Permit (SOWP)', pattern: /\b(?:sowp|spous(?:e|al)\s+(?:open\s+)?work\s+permit)\b/i },
   { id: 'bowp', label: 'Bridging Open Work Permit (BOWP)', pattern: /\b(?:bowp|bridging\s+(?:open\s+)?work\s+permit)\b/i },
   { id: 'vwowp', label: 'Vulnerable Worker Open Work Permit (VWOWP)', pattern: /\b(?:vwowp|vulnerable\s+worker\s+(?:open\s+)?work\s+permit)\b/i },
-  { id: 'open_work_permit', label: 'Open Work Permit', pattern: /\b(?:open\s+work\s+permit|owp)\b/i },
+  { id: 'open_work_permit', label: 'Open Work Permit', pattern: /\b(?:open\s+(?:work\s+permit|wp)|owp)\b/i },
   { id: 'study_permit', label: 'Study Permit / Student Visa', pattern: /\b(?:study\s+permit|student\s+visa|international\s+student|dli\s+student|f[- ]?1\s+visa|cas\s+letter)\b/i },
   { id: 'visitor', label: 'Visitor / Tourist Visa', pattern: /\b(?:visitor\s+visa|tourist\s+visa|trv|visitor\s+record|b[- ]?1\s*\/?[ -]?b[- ]?2|visitor\s+status|tourist\s+status|schengen\s+tourist)\b/i },
   { id: 'permanent_resident', label: 'Permanent Resident (PR / Green Card / ILR)', pattern: /\b(?:permanent\s+resident|pr\s+card|copr|green\s+card\s+holder|ilr|indefinite\s+leave\s+to\s+remain|niederlassungserlaubnis)\b/i },

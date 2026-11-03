@@ -3086,6 +3086,408 @@
         }
       }
     },
+    "/v1/tools/australia-tenancy": {
+      "get": {
+        "operationId": "get__v1_tools_australia_tenancy",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "state": { "type": "string" },
+                    "financialSummary": { "type": "object", "additionalProperties": true },
+                    "violations": { "type": "array", "items": { "type": "string" } },
+                    "overallComplianceStatus": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_australia_tenancy",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": { "type": "string" },
+                  "weeklyRentAud": { "type": "number" },
+                  "bondPaidAud": { "type": "number" }
+                },
+                "required": ["state"],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "state": { "type": "string" },
+                    "financialSummary": { "type": "object", "additionalProperties": true },
+                    "violations": { "type": "array", "items": { "type": "string" } },
+                    "overallComplianceStatus": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/us-state-tenancy": {
+      "get": {
+        "operationId": "get__v1_tools_us_state_tenancy",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "state": { "type": "string" },
+                    "financialOverview": { "type": "object", "additionalProperties": true },
+                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
+                    "overallStatus": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_us_state_tenancy",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": { "type": "string" },
+                  "monthlyRentUsd": { "type": "number" },
+                  "securityDepositPaidUsd": { "type": "number" }
+                },
+                "required": ["state"],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "state": { "type": "string" },
+                    "financialOverview": { "type": "object", "additionalProperties": true },
+                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
+                    "overallStatus": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/uk-devolved-tenancy": {
+      "get": {
+        "operationId": "get__v1_tools_uk_devolved_tenancy",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "nation": { "type": "string" },
+                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
+                    "overallCompliance": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_uk_devolved_tenancy",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nation": { "type": "string" },
+                  "monthlyRentGbp": { "type": "number" },
+                  "depositPaidGbp": { "type": "number" }
+                },
+                "required": ["nation"],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "nation": { "type": "string" },
+                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
+                    "overallCompliance": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tools/uae-tenancy-dispute": {
+      "get": {
+        "operationId": "get__v1_tools_uae_tenancy_dispute",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "emirate": { "type": "string" },
+                    "financialOverview": { "type": "object", "additionalProperties": true },
+                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
+                    "isCompliant": { "type": "boolean" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post__v1_tools_uae_tenancy_dispute",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emirate": { "type": "string" },
+                  "currentAnnualRentAed": { "type": "number" },
+                  "averageMarketRentAed": { "type": "number" }
+                },
+                "required": ["emirate"],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "jurisdiction": { "type": "string" },
+                    "emirate": { "type": "string" },
+                    "financialOverview": { "type": "object", "additionalProperties": true },
+                    "statutoryViolations": { "type": "array", "items": { "type": "string" } },
+                    "isCompliant": { "type": "boolean" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "JSON API failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "code": { "type": "string" }
+                  },
+                  "required": ["error", "code"],
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/tools/germany-chancenkarte": {
       "get": {
         "operationId": "get__v1_tools_germany_chancenkarte",

@@ -35,7 +35,7 @@ test('Batch 21 Recommendations (Sweep 28: Recs 381–395)', async (t) => {
     });
 
     assert.equal(unlic.isLicensingLawful, false);
-    assert.equal(unlic.workerName, 'John Doe <script>alert(1)</script>');
+    assert.equal(unlic.workerName, 'John Doe scriptalert(1)/script');
     assert.equal(unlic.agencyName, 'Staffing Express Inc.');
     assert.equal(unlic.clientName, 'Ontario Logistics Hub');
     assert.equal(unlic.assessmentDate, todayIso());

@@ -213,7 +213,7 @@ export const COMMON_TYPOS_MAP = [
 
 export const CROSS_BORDER_SYNONYMS = [
   // US to UK/Canada/Australia
-  { pattern: /\bgreen\s+card\s+in\s+(?:the\s+)?(?:uk|united\s+kingdom|britain|england)\b/gi, replacement: 'Indefinite Leave to Remain ILR permanent residence in the United Kingdom' },
+  { pattern: /\bgreen\s+card\s+in\s+(?:the\s+)?(?:uk|united\s+kingdom|britain|england|london)\b|\b(?:in\s+london|in\s+the\s+uk|in\s+england|in\s+britain)\b.*?\bgreen\s+card\b/gi, replacement: 'Indefinite Leave to Remain ILR permanent residence in the United Kingdom' },
   { pattern: /\bgreen\s+card\s+in\s+canada\b/gi, replacement: 'Canadian permanent residence PR in Canada' },
   { pattern: /\bgreen\s+card\s+in\s+australia\b/gi, replacement: 'Australian permanent residence PR in Australia' },
   { pattern: /\bgreen\s+card\s+in\s+germany\b/gi, replacement: 'Niederlassungserlaubnis permanent settlement permit in Germany' },
@@ -239,7 +239,7 @@ export const HINGLISH_EXPANSIONS = [
 ];
 
 export const EMOTIONAL_FLUFF_PATTERNS = [
-  /\b(?:urgent\s*help\s*pls|please\s*help\s*me\s*urgent(?:ly)?|guys\s*please\s*help|need\s*advice\s*asap|i\s*am\s*crying|so\s*stressed\s*out|freaking\s*out|someone\s*please\s*tell\s*me|any\s*help\s*appreciated|throwaway\s*account|posting\s*for\s*a\s*friend)\b/gi,
+  /\b(?:urgent\s*help\s*pls|pls\s*help\s*me(?:\s*sir)?|please\s*help\s*me\s*urgent(?:ly)?|guys\s*please\s*help|need\s*advice\s*asap|i(?:'?m|\s+am)\s+crying(?:\s+so\s+much)?|so\s*stressed\s*out|freaking\s*out|someone\s*please\s*tell\s*me|any\s*help\s*appreciated|throwaway\s*account|posting\s*for\s*a\s*friend)\b/gi,
   /[!]{2,}/g,
   /[?]{2,}/g
 ];
