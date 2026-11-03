@@ -92,13 +92,18 @@ export function createMarketGapBatch({ items, first, last, scenarios }) {
     }
     if (query && query.trim().length > 0) {
       const norm = normalizeText(query);
-      results = results.filter(i =>
-        normalizeText(i.question).includes(norm) ||
-        i.citation.toLowerCase().includes(norm) ||
-        i.statutoryRule.toLowerCase().includes(norm) ||
-        i.verdict.toLowerCase().includes(norm) ||
-        String(i.id).includes(norm)
-      );
+      results = results.filter(i => {
+        const entry = itemById.get(i.id);
+        const candidate = entry ? normalizedItems.find(n => n.item.id === i.id) : null;
+        if (candidate) return candidate.searchBlob.includes(norm);
+        return (
+          normalizeText(i.question).includes(norm) ||
+          i.citation?.toLowerCase().includes(norm) ||
+          i.statutoryRule?.toLowerCase().includes(norm) ||
+          i.verdict?.toLowerCase().includes(norm) ||
+          String(i.id).includes(norm)
+        );
+      });
     }
     return { total: results.length, offset, limit, items: results.slice(offset, offset + limit) };
   }

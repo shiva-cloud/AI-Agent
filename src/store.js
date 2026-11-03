@@ -2,7 +2,6 @@ import {ValidationError} from './api-errors.js';
 import { DatabaseSync } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { createHash } from 'node:crypto';
 import { seeds } from './knowledge.js';
 import { configureEnglishDatabase } from './migrations.js';
 import { assertEnglishRecord, assertEnglishText } from './language.js';
@@ -196,7 +195,9 @@ export function openStore(path='data/settlement.sqlite') {
           for (const row of rows) {
             insertArchive.run(row.id, row.body, new Date().toISOString());
             delRecord.run(row.id);
-            try { delFts.run(row.id); } catch {}
+            try { delFts.run(row.id); } catch (ftsErr) {
+              if (process.env.NODE_ENV !== 'test') console.warn(`[archiveStaleRecords] FTS delete failed for ${row.id}:`, ftsErr?.message || ftsErr);
+            }
             archivedCount++;
           }
           db.exec('COMMIT');
@@ -220,7 +221,9 @@ export function openStore(path='data/settlement.sqlite') {
           db.prepare('INSERT INTO records_fts(id, title, summary, quote, topic) VALUES (?, ?, ?, ?, ?)').run(
             recordId, restoredRecord.title || '', restoredRecord.summary || '', restoredRecord.quote || '', restoredRecord.topic || ''
           );
-        } catch {}
+        } catch (ftsErr) {
+          if (process.env.NODE_ENV !== 'test') console.warn(`[store.rollbackAudit] FTS update failed for ${recordId}:`, ftsErr?.message || ftsErr);
+        }
 
         const at = new Date().toISOString();
         appendAudit(db, {

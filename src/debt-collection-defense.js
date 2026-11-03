@@ -27,7 +27,7 @@
  * - Dismantles immigration & deportation threats (identifying criminal extortion and zero-immigration-risk guarantees)
  * - Generates statutory Cease-and-Desist & "In Writing Only" dispute letters with provincial regulatory filing guides
  */
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { boundedText, safeIsoDate } from './text-input.js';
 
 export const DEBT_DEFENSE_CONSTANTS = Object.freeze({
   STATUTES: {

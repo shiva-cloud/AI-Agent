@@ -20,7 +20,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-import { safeIsoDate, todayIso } from './text-input.js';
+import { safeIsoDate } from './text-input.js';
 
 export const FRANCOPHONE_MOBILITY_CONSTANTS = Object.freeze({
   MIN_NCLC_LEVEL: 5,

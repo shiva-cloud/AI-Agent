@@ -33,3 +33,11 @@ export function safeIsoDate(val, fallback = todayIso()) {
   return fallback;
 }
 
+export function normalizeText(text) {
+  if (!text || typeof text !== 'string') return '';
+  return text.toLowerCase()
+    .replace(/[\s\p{P}]+/gu, ' ')
+    .trim();
+}
+
+

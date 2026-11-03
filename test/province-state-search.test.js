@@ -5,6 +5,10 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse, answer, retrieve } from '../src/engine.js';
 import { findPlaces, supportedRegionsIn } from '../src/geography.js';
+import { auditAustralianTenancy } from '../src/australia-tenancy-tribunal-navigator.js';
+import { auditUsStateTenancy } from '../src/us-state-tenancy-navigator.js';
+import { auditUkDevolvedTenancy } from '../src/uk-tenancy-devolved-navigator.js';
+import { auditUaeTenancy, calculateDubaiReraIncrease } from '../src/uae-tenancy-dispute-navigator.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dbPath = join(root, 'data', 'settlement.sqlite');
@@ -232,4 +236,99 @@ test('Database retrieval matches province-level and state-level evidence', () =>
   assert.equal(badIrcc.length, 0, 'zero rest records point to IRCC canada.ca');
 
   db.close();
+});
+
+test('Subnational Tenancy Navigators: Australia, US, UK Devolved & UAE', () => {
+  // 1. Australia Tenancy Tribunal Navigator
+  const auCompliant = auditAustralianTenancy({
+    tenantName: 'Sharma, Priya',
+    state: 'NSW',
+    weeklyRentAud: 600,
+    bondPaidAud: 2400,
+    rentIncreasePercent: 5,
+    monthsSinceLastRentIncrease: 12,
+    noticeGivenDays: 60
+  });
+  assert.equal(auCompliant.overallComplianceStatus, 'COMPLIANT');
+  assert.equal(auCompliant.financialSummary.maxStatutoryBondAud, 2400);
+  assert.equal(auCompliant.tribunal, 'NSW Civil and Administrative Tribunal (NCAT)');
+
+  const auExcessiveBond = auditAustralianTenancy({
+    state: 'VIC',
+    weeklyRentAud: 500,
+    bondPaidAud: 3000 // 6 weeks instead of 4
+  });
+  assert.equal(auExcessiveBond.overallComplianceStatus, 'STATUTORY_BREACH');
+  assert.ok(auExcessiveBond.violations.some(v => v.includes('BOND CAP EXCEEDED')));
+
+  // 2. US State Tenancy Navigator
+  const usCaRentCapExceeded = auditUsStateTenancy({
+    state: 'CA',
+    monthlyRentUsd: 2500,
+    rentIncreasePercent: 12.0 // exceeds 10% ceiling
+  });
+  assert.equal(usCaRentCapExceeded.isCompliant, false);
+  assert.ok(usCaRentCapExceeded.statutoryViolations.some(v => v.includes('CA AB 1482 RENT CAP EXCEEDED')));
+
+  const usNyDepositBreach = auditUsStateTenancy({
+    state: 'NY',
+    monthlyRentUsd: 3000,
+    securityDepositPaidUsd: 6000 // 2 months instead of 1
+  });
+  assert.equal(usNyDepositBreach.isCompliant, false);
+  assert.ok(usNyDepositBreach.statutoryViolations.some(v => v.includes('NY HSTPA SECURITY DEPOSIT EXCEEDED')));
+
+  const usTxRepairDuty = auditUsStateTenancy({
+    state: 'TX',
+    repairRequested: true,
+    daysSinceRepairRequest: 14,
+    landlordRemediedCondition: false
+  });
+  assert.ok(usTxRepairDuty.statutoryViolations.some(v => v.includes('TX DUTY TO REPAIR BREACH')));
+
+  // 3. UK Devolved Tenancy Navigator
+  const ukScotDepositExceeded = auditUkDevolvedTenancy({
+    nation: 'Scotland',
+    monthlyRentGbp: 1200,
+    depositPaidGbp: 3600 // 3 months instead of 2
+  });
+  assert.equal(ukScotDepositExceeded.isCompliant, false);
+  assert.ok(ukScotDepositExceeded.statutoryViolations.some(v => v.includes('SCOTLAND DEPOSIT EXCEEDED')));
+  assert.ok(ukScotDepositExceeded.statutoryProtections.some(p => p.includes('NO SECTION 21')));
+
+  const ukWalesNoticeBreach = auditUkDevolvedTenancy({
+    nation: 'Wales',
+    noticeType: 'section_173',
+    tenureDurationMonths: 4 // within 6-month moratorium
+  });
+  assert.ok(ukWalesNoticeBreach.statutoryViolations.some(v => v.includes('WALES 6-MONTH MORATORIUM')));
+
+  // 4. UAE Tenancy Dispute Navigator
+  const dubaiRera0 = calculateDubaiReraIncrease(80000, 85000); // 5.8% below -> 0%
+  assert.equal(dubaiRera0.maxIncreasePercent, 0);
+
+  const dubaiRera5 = calculateDubaiReraIncrease(80000, 95000); // 15.7% below -> 5%
+  assert.equal(dubaiRera5.maxIncreasePercent, 5);
+
+  const dubaiRera10 = calculateDubaiReraIncrease(75000, 100000); // 25% below -> 10%
+  assert.equal(dubaiRera10.maxIncreasePercent, 10);
+
+  const dubaiReraAudit = auditUaeTenancy({
+    emirate: 'Dubai',
+    currentRentAed: 80000,
+    averageMarketRentAed: 100000, // 20% below -> max 5%
+    proposedRentAed: 95000, // 18.7% increase requested (unlawful)
+    noticeGivenDays: 60 // under 90 days (unlawful)
+  });
+  assert.equal(dubaiReraAudit.isCompliant, false);
+  assert.ok(dubaiReraAudit.statutoryViolations.some(v => v.includes('90-DAY NOTICE VIOLATION')));
+  assert.ok(dubaiReraAudit.statutoryViolations.some(v => v.includes('RERA RENT INCREASE EXCEEDED')));
+
+  const abuDhabiAudit = auditUaeTenancy({
+    emirate: 'Abu Dhabi',
+    currentRentAed: 100000,
+    proposedRentAed: 110000 // 10% increase (exceeds 5% cap)
+  });
+  assert.equal(abuDhabiAudit.isCompliant, false);
+  assert.ok(abuDhabiAudit.statutoryViolations.some(v => v.includes('ABU DHABI 5% CAP EXCEEDED')));
 });

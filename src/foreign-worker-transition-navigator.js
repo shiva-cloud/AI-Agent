@@ -25,7 +25,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-import { safeIsoDate, todayIso } from './text-input.js';
+import { safeIsoDate } from './text-input.js';
 
 export const TFW_TRANSITION_CONSTANTS = Object.freeze({
   LOW_WAGE_CMA_UNEMPLOYMENT_FREEZE_RATE: 6.0,
