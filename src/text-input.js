@@ -12,7 +12,7 @@ export function boundedText(value, fallback = '', maxLength = 120) {
     limit = typeof maxLength === 'number' ? maxLength : 120;
   }
   if (typeof value !== 'string') return defaultVal;
-  const cleaned = value.replace(/[\u0000-\u001f\u007f]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const cleaned = value.replace(/[\u0000-\u001f\u007f]+/g, ' ').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim();
   return cleaned ? cleaned.slice(0, limit) : defaultVal;
 }
 
