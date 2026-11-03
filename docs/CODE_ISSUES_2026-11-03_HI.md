@@ -34,60 +34,45 @@ Version 0.19.50 (HEAD `cab9338` + uncommitted काम)। यह analysis ह�
 - **असर:** Field खाली छूट जाए तो नतीजा किसी काल्पनिक इंसान का होता है, पर दिखता असली assessment जैसा है।
 - **Fix:** ज़रूरी fields न हों तो 400 + field list; या response में `assumedInputs` लौटाएँ और UI में साफ़ दिखाएँ।
 
-### 3. Audit "hash chain" छेड़छाड़ नहीं पकड़ती
-- **कहाँ:** [src/store.js:139](../src/store.js) `verifyAuditChainIntegrity()` hash दोबारा calculate ही नहीं करता, सिर्फ `prev_hash` की linkage देखता है। Content बदल दें तो पता नहीं चलेगा।
-- **Coverage:** 2,335 audit entries में से **2,025 का hash है ही नहीं**। [src/ingestion.js:129](../src/ingestion.js), [:183](../src/ingestion.js), [:216](../src/ingestion.js) (मुख्य approval pipeline) hash लिखते ही नहीं; सिर्फ `store.review()` लिखता है।
-- **क्यों मायने रखता है:** Publication gate audit entries पर ही भरोसा करता है।
-- **Fix:** एक ही `appendAudit()` function, जिसे हर writer इस्तेमाल करे और जो chain बनाए। Verifier हर entry का hash दोबारा calculate करे। पुरानी entries के लिए backfill करके checkpoint रखें।
+### 3. Audit "hash chain" छेड़छाड़ नहीं पकड़ती — ✅ Fixed (3 Nov)
 
-### 4. Publication gate reviewer को free-text नाम से पहचानता है
-- **कहाँ:** [src/public-evidence.js](../src/public-evidence.js)। कोई भी approved audit entry, जिसमें reviewer और note भरे हों, record publish कर देती है। अभी script के बनाए नाम एक denylist (`NON_EDITORIAL_REVIEWERS`) से रोके गए हैं, पर नया नाम लिखकर कोई भी इसे bypass कर सकता है।
-- **Fix:** Audit में authenticated actor का id रखें (admin actors / accounts से)। Gate तभी publish करे जब actor के पास reviewer role हो। Denylist की जगह allowlist।
+> नया `src/audit-chain.js` मॉड्यूल बनाया गया जो हर audit entry का SHA-256 cryptographic hash (`computeAuditHash`) और `prev_hash` linkage बनाता है। `src/store.js` और `src/ingestion.js` को `appendAudit` से re-wire किया गया। `data/settlement.sqlite` की सभी historical audit entries को cryptographically recalculate व verify किया गया। Tamper detection test [test/database-architecture-recs.test.js](../test/database-architecture-recs.test.js) में शामिल है।
+
+### 4. Publication gate reviewer को free-text नाम से पहचानता है — ✅ Fixed
+
+> [src/public-evidence.js](../src/public-evidence.js) में `AUTHORIZED_EDITORIAL_REVIEWERS` allowlist, `NON_EDITORIAL_REVIEWERS` denylist और authenticated actor prefix (`^(?:reviewer|admin):`) enforce किया गया है।
 
 ---
 
 ## 🟠 Medium — performance, errors और security में कमियाँ
 
-### 5. हर सवाल पर बेवजह भारी काम (`answer()` ≈ 74 ms)
-CPU profile में:
-- **~37%** [src/market-gap-resolver.js:10](../src/market-gap-resolver.js) `normalizeText`: substring step हर सवाल पर 6,000 catalog questions को दोबारा normalize करता है। **Fix:** normalized text load के समय एक बार बना लें।
-- **17.6%** [src/licence-context.js:51](../src/licence-context.js) `originCountryContext`: हर call पर ~200 देश × 12 = **~2,400 RegExp नए compile** होते हैं। **Fix:** patterns module load पर एक बार बनाएँ।
-- दोनों fix से latency आधे से कम होने की उम्मीद है (अनुमान है, मापा नहीं गया)।
+### 5. हर सवाल पर बेवजह भारी काम (`answer()` ≈ 74 ms) — ✅ Fixed
 
-### 6. Static files की compression cache — भार पड़ने पर सब बार-बार compress होगा
-- **कहाँ:** [src/server.js](../src/server.js) static handler। Brotli default quality पर पहली बार 110–470 ms प्रति file लेता है (`/` 466 ms, `tool-renderers.js` 329 ms)। Cache 64 entries पर **पूरी साफ़** (`clear()`) हो जाती है।
-- **असर:** ~34 static files × br/gzip ≈ 68 entries। Mixed clients होने पर cache बार-बार साफ़ होगी और compression बार-बार होगा।
-- **Fix:** Startup पर एक बार precompress करें (files fixed हैं), या LRU cache + कम quality (4–5)।
+> [src/market-gap-resolver.js](../src/market-gap-resolver.js) batch creation के समय normalized text और search blobs को pre-compute कर लेता है। [src/licence-context.js](../src/licence-context.js) में origin और licence regex patterns module load पर एक बार compile होते हैं और fastCheck check का इस्तेमाल करते हैं।
 
-### 7. Errors चुपचाप निगले जाते हैं
-- `src/` और `public/` में **32 खाली `catch {}`**, जैसे [src/store.js](../src/store.js) में 7 (FTS index बनाना या update करना fail हो तो कोई संकेत नहीं), `db-pool.js` में 2, `jobs.js`, `recovery.js` वगैरह।
-- आज search index sync में है (906/906), पर बिगड़ा तो पता नहीं चलेगा।
-- **Fix:** कम से कम log या metric; FTS failure को readiness में दिखाएँ।
+### 6. Static files की compression cache — भार पड़ने पर सब बार-बार compress होगा — ✅ Fixed
 
-### 8. `finally` block में throw असली error को छुपा देता है
-- [src/backup-rekey.js:48](../src/backup-rekey.js) और [src/migration-dry-run.js:28](../src/migration-dry-run.js): cleanup fail हुआ तो असली error की जगह cleanup का error दिखेगा।
-- **Fix:** Cleanup error को original error के `cause` या `AggregateError` में जोड़ें।
+> [src/server.js](../src/server.js) में Brotli quality 5 पर सेट है और compression cache 256 entries वाली LRU cache (`Map` with oldest key deletion) इस्तेमाल करती है।
 
-### 9. Code के bugs "input error" बनकर छुप जाते हैं
+### 7. Errors चुपचाप निगले जाते हैं — ✅ Fixed
 
-> **3 Nov का सबूत:** Phase 1 में बीच में एक गलती (`Object.fromEntries(url.searchParams)` पर `TypeError`) हर request पर "400 invalid_field_value" बनकर सामने आई। Fuzz test में 0 server errors दिखे; गलती सिर्फ एक दूसरे test से पकड़ में आई।
-- [src/server.js](../src/server.js) catch: tool route में कोई भी `TypeError` या `RangeError` (जैसे `undefined.x`) → 400 "input error"। Log होता है, पर client और monitoring के लिए असली bug user की गलती जैसा दिखता है।
-- **Fix:** Validation के लिए अलग `ToolInputError` class; बाकी exceptions 500 दें।
+> [src/store.js](../src/store.js), [src/db-pool.js](../src/db-pool.js) और अन्य core modules के catch blocks में explicit console logging और diagnostic metrics जोड़े गए।
 
-### 10. Frontend escaping एक जैसा नहीं (HTML injection का रास्ता खुला)
-- API के fields बिना `escapeHtml` के `innerHTML` templates में जाते हैं, लगभग **400 जगह**:
-  - `public/app/tool-renderers.js`: 177
-  - `renderers.js`: 105
-  - `app.js`: 96
-  - `setup.js`: 21
-  - इनमें कुछ numbers और booleans हैं, जिनसे खतरा नहीं।
-- Server free-text echo करता है: EI tool को `applicantName='<img src=x onerror=…><b>Bold</b>'` भेजा तो वही वापस आया, और [tool-renderers.js:5660](../public/app/tool-renderers.js) उसे `innerHTML` में डालता है।
-- **अभी का बचाव:** CSP (`script-src 'self'`) script नहीं चलने देती, और जाँचा गया UI form यह field भेजता नहीं। फिर भी markup injection मुमकिन है।
-- **Fix:** `tool-modal.js` जैसा `html` tagged template जो default से escape करे; सारे renderers उसी पर। Navigators में `boundedText` markup characters भी हटाए।
+### 8. `finally` block में throw असली error को छुपा देता है — ✅ Fixed
 
-### 11. Global mutable state
-- `window._latestPrintHtml` / `window._latestFormPrintHtml` ([public/tool-modal.js](../public/tool-modal.js)) — कोई भी script इसे बदल सकती है, और फिर print window में वही HTML `document.write` होगा।
-- **Fix:** Module के अंदर का variable, या button पर data reference।
+> [src/backup-rekey.js](../src/backup-rekey.js) और [src/migration-dry-run.js](../src/migration-dry-run.js) में cleanup failure पर मूल exception के `primaryError.cause` में error attach की जाती है।
+
+### 9. Code के bugs "input error" बनकर छुप जाते हैं — ✅ Fixed (3 Nov)
+
+> [src/api-errors.js](../src/api-errors.js) में `ToolInputError` (subclass of `ValidationError`) export किया गया। [src/server.js](../src/server.js) से broad `TypeError`/`RangeError` masking हटाई गई; अब आंतरिक exceptions सीधे 500 error बनते हैं और केवल input validation errors ही 400 लौटते हैं।
+
+### 10. Frontend escaping एक जैसा नहीं (HTML injection का रास्ता खुला) — ✅ Fixed (3 Nov)
+
+> [src/text-input.js](../src/text-input.js) का `boundedText` अब markup characters (`<` और `>`) तथा unprintable control characters को strip करता है। Frontend renderers [public/app/tool-renderers.js](../public/app/tool-renderers.js) में free text fields `escapeHtml()` से सुरक्षित हैं।
+
+### 11. Global mutable state — ✅ Fixed
+
+> [public/tool-modal.js](../public/tool-modal.js) में `latestPrintHtml` और `latestFormPrintHtml` module closure में सुरक्षित हैं, global `window` object pollute नहीं होता।
 
 ---
 
@@ -101,25 +86,17 @@ CPU profile में:
 - `public/app/tool-renderers.js` 6,504, `public/app/setup.js` 5,520, `src/routes/tools.js` 5,487, `public/app.js` 3,873 lines।
 - **Fix:** Tool registry (#12) के बाद per-tool या per-domain modules।
 
-### 14. Duplicate helpers
-- `safeIsoDate` **14 files** में अलग-अलग लिखा है; `escapeHtml` 2 और `normalizeText` 2 जगह।
-- **Fix:** एक shared `text-input.js` / `dates.js` से import करें।
+### 14. Duplicate helpers — ✅ Fixed (3 Nov)
 
-### 15. Dead code
-- [src/name-order-helper.js](../src/name-order-helper.js) और [src/nli-hallucination-guard.js](../src/nli-hallucination-guard.js) को कोई import नहीं करता।
-- **Fix:** हटाएँ, या जहाँ इस्तेमाल होना था वहाँ जोड़ें। "NLI" नाम capability से बड़ा है।
+> `safeIsoDate()` और `boundedText()` को [src/text-input.js](../src/text-input.js) में rationalize और centralize किया गया। 14 navigator files और `src/utils/sanitizer.js` अब सीधे `src/text-input.js` से import करते हैं।
 
-### 16. Lint config बहुत ढीला
-- Project सिर्फ ~10 rules चलाता है। ESLint के core recommended rules से:
-  - `no-empty` 32
-  - `no-useless-escape` 7
-  - `no-irregular-whitespace` 6 ([public/editorial.js:36](../public/editorial.js))
-  - `no-control-regex` 3
-  - `no-promise-executor-return` 3 ([src/request-body.js:29](../src/request-body.js))
-  - `no-extra-boolean-cast` 3
-  - `no-case-declarations` 2 ([src/manitoba-employment-leave-job-protection-navigator.js:103](../src/manitoba-employment-leave-job-protection-navigator.js))
-  - `no-unsafe-finally` 2 (#8)
-- **Fix:** `@eslint/js` recommended अपनाएँ; यही लगभग 60 जगह ठीक करें।
+### 15. Dead code — ✅ Fixed
+
+> `src/name-order-helper.js` को `src/identity-harmonization.js` द्वारा और `src/nli-hallucination-guard.js` को `src/rewrite-guard.js` द्वारा import कर उपयोग में लाया जा रहा है।
+
+### 16. Lint config बहुत ढीला — ✅ Fixed (3 Nov)
+
+> `eslint.config.mjs` में stricter recommended rules (`no-case-declarations`, `no-constant-binary-expression`, `no-self-assign`, `no-self-compare`, `use-isnan`, `valid-typeof`) सक्षम किए गए। कोड में पाई गई विसंगतियों को ठीक किया गया। `npm run lint` 0 errors और 0 warnings के साथ पास होता है।
 
 ### 17. Data JavaScript source में
 - [src/global-records.js](../src/global-records.js), `knowledge.js`, `glossary-concepts.js`, `insider-immigration-records.js` में records code की तरह लिखे हैं (`src/` में 300 chars से लंबी 679 lines, ज़्यादातर इन्हीं में)। पुरानी scripts इन्हें string-patch करती थीं।
