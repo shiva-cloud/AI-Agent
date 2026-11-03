@@ -22,7 +22,9 @@ const CITIES = ['Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'O
 // removals below the current build fail loudly instead of silently. The
 // per-country and rest-of-world figures were re-frozen after the jurisdiction
 // naming normalization moved 5 records out of "rest" into the big-12 country
-// counts (scripts/jurisdiction-normalize-2026-11-03.js).
+// counts (scripts/jurisdiction-normalize-2026-11-03.js), and the
+// publication-chain floor was re-frozen twice the same day: the automated
+// publish-queue run (56) and the quote-restoration corrections run (60).
 
 test('every corridor defines a complete country contract', () => {
   const codes = listSupportedCorridorCodes();
@@ -129,5 +131,5 @@ test('evidence database coverage floors hold when the database is present', (t) 
   }
 
   assert.ok(auditedIds.size >= 864, 'editorial audit trail floor');
-  assert.ok(publishedIds.size >= 56, 'publication-chain floor');
+  assert.ok(publishedIds.size >= 60, 'publication-chain floor');
 });

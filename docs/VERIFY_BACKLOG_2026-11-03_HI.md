@@ -23,6 +23,8 @@ Records जो `source_verified` होने की उम्मीद मे�
 
 11 प्रकाशित: `ontario-crisis-support-988-and-newcomer-mental-health`, `ontario-bc-open-work-permit-spouse-healthcare-eligibility`, `ontario-community-health-centres-and-uninsured-care-navigation`, `au-medicare-reciprocal-healthcare-agreements`, `uk-london-nhs-gp-registration`, `australia-dvs-licence`, `australia-overseas-drivers`, `ireland-ndls-licence`, `israel-govil-licence`, `malta-tm-licence`, `norway-vegvesen-licence`।
 
+> **F2 पाइलट (उसी दिन, दूसरी run):** `scripts/kb-corrections-2026-11-03.js` ने 4 quote-drift रिकॉर्ड ठीक किए — BGB § 556g, § 556(3), § 551 (statute के शब्द-शब्द वाक्य; अंक statute के शब्द-रूप से, क्योंकि ऑटोमेटेड जांच digits से मिलाती है) और GOV.UK tenancy-deposit overview (30-दिन वाक्य शब्द-शब्द; नया APT-from-1-May-2026 तथ्य दर्ज)। फिर पूरी कतार (606) दोबारा चली: **ठीक यही 4 गेट पास → `source_verified` प्रकाशित** (publications 56 → 60; बड़े-12 11 → 15; Germany के पहले प्रकाशित रिकॉर्ड)। नया कारण-वितरण: quote_not_on_page 251 → **246**, network_error 69, बाकी लगभग वही। बैकअप: `data/backups/settlement-before-kb-audit-2026-11-03.sqlite` और `settlement-before-verify-publish-1793679860137.sqlite`।
+
 ## 3. विफलता-करण का वितरण (606)
 
 | समूह | रिकॉर्ड | quote_not_on_page | archive_http_404 | quote_too_short | network_error | archive_quote_not_on_page | archive_http_403 | बाकी (http_4xx/5xx, not_html, timeout…) |

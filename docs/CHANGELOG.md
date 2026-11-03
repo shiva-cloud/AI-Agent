@@ -2,6 +2,14 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.52 — Quote-restoration pilot: 4 records pass the official-page check (3 November 2026)
+
+First slice of phase F2 (quote drift) from the coverage analysis; 3 November corrections:
+
+- **Quote-restoration corrections:** new `scripts/kb-corrections-2026-11-03.js` (same audited corrections family as the 1 November script; dry run default, `--apply` with database backup, hash-chained "automated correction, not editorial review" audit rows, full-text index refresh) restores four records whose quotes had drifted off their official pages: the old quote was a transliterated or English-translated paraphrase never on the statute page (BGB § 556g rent-brake disclosure, BGB § 556(3) settlement deadline and preclusion, BGB § 551 deposit cap) and the GOV.UK tenancy-deposit protection overview. Summaries keep the same legal substance with the figures written the way the page proves them (the automated check matches digits literally, and the German statutes spell numbers out), and the GOV.UK record gains the overview's fresh fact that assured periodic tenancies replaced assured shorthold tenancies on 1 May 2026.
+- **Published through the audited chain:** the full 606-record queue re-ran through the word-for-word official-page check (backup first): exactly the 4 corrected records passed quote and summary-figure checks and published as `source_verified` (3 German housing statutes and the UK deposit protection record — Germany's first published records), each labelled "Checked against the official page · automated". Publication-chain records: 56 → 60 (big-12 11 → 15). Queue reasons after the run: 246 quote drift (was 250), 131 dead links with no archive copy, 91 short quotes, 69 network failures.
+- **Floors re-frozen:** `test/country-coverage.test.js` publication-chain floor 56 → 60; big-12 country floors unchanged (the corrections do not move records between groups) and summary-depth floors hold (big-12 average rose to 841).
+
 ## 0.19.51 — Jurisdiction naming normalization (3 November 2026)
 
 A naming-field fix for the naming split the coverage analysis surfaced; no quote or summary content changed:

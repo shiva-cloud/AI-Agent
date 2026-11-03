@@ -1,6 +1,14 @@
 # Implementation status — 3 November 2026
 
-## Current release: 0.19.51, English-only
+## Current release: 0.19.52, English-only
+
+### Quote-restoration pilot (0.19.52)
+
+Details in `docs/CHANGELOG.md` 0.19.52:
+
+- `scripts/kb-corrections-2026-11-03.js` (audited corrections family, dry run default, `--apply` with backup) restored four records whose quotes had drifted off their official pages — BGB § 556g, § 556(3) and § 551 (verbatim statutory sentences; figures moved to the word forms the statutes use) and the GOV.UK tenancy-deposit protection overview (verbatim 30-day sentence; the deposit-cap figures worded per the Tenant Fees Act; the fresh APT-from-1-May-2026 fact recorded).
+- The full 606-record publish queue re-ran through the word-for-word official-page check: exactly those 4 records passed and published as `source_verified` through the audited chain (Germany's first published records; UK deposit protection). Publication-chain records 56 → 60 (big-12 11 → 15). Backlog after the run: 246 quote drift, 131 dead links, 91 short quotes, 69 network failures.
+- `test/country-coverage.test.js` publication-chain floor re-frozen at 60.
 
 ### Jurisdiction naming normalization (0.19.51)
 
