@@ -5555,5 +5555,59 @@ export function handleToolPost(ctx) {
       const fieldOverrides = input.fieldOverrides !== undefined ? input.fieldOverrides : input.fields !== undefined ? input.fields : Object.fromEntries(Object.entries(input).filter(([key]) => !['formType', 'type', 'declarantDate'].includes(key)));
       return send(200, autoPopulateForm({ formType, fieldOverrides, declarantDate: input.declarantDate }));
     }
+    if(path==='/v1/tools/australia-tenancy') {
+      const numOr=(v,d)=>{const n=Number(v);return v!=null&&v!==''&&Number.isFinite(n)?n:d;};
+      return send(200, auditAustralianTenancy({
+        state: input.state || 'NSW',
+        weeklyRentAud: numOr(input.weeklyRentAud ?? input.weeklyRent, 650),
+        bondPaidAud: numOr(input.bondPaidAud ?? input.bondPaid, 2600),
+        rentIncreasePercent: numOr(input.rentIncreasePercent, 0),
+        monthsSinceLastRentIncrease: numOr(input.monthsSinceLastRentIncrease ?? input.monthsSinceLastIncrease, 12),
+        noticeGivenDays: numOr(input.noticeGivenDays ?? input.noticeDays, 60),
+        tenantName: input.tenantName || 'Tenant',
+        assessmentDate: input.assessmentDate
+      }));
+    }
+    if(path==='/v1/tools/us-state-tenancy') {
+      const numOr=(v,d)=>{const n=Number(v);return v!=null&&v!==''&&Number.isFinite(n)?n:d;};
+      return send(200, auditUsStateTenancy({
+        state: input.state || 'CA',
+        monthlyRentUsd: numOr(input.monthlyRentUsd ?? input.monthlyRent, 2500),
+        securityDepositPaidUsd: numOr(input.securityDepositPaidUsd ?? input.securityDeposit, 2500),
+        rentIncreasePercent: numOr(input.rentIncreasePercent, 0),
+        tenancyDurationMonths: numOr(input.tenancyDurationMonths ?? input.tenancyMonths, 14),
+        daysSinceMoveOut: numOr(input.daysSinceMoveOut, 0),
+        tenantName: input.tenantName || 'Tenant',
+        assessmentDate: input.assessmentDate
+      }));
+    }
+    if(path==='/v1/tools/uk-devolved-tenancy') {
+      const numOr=(v,d)=>{const n=Number(v);return v!=null&&v!==''&&Number.isFinite(n)?n:d;};
+      return send(200, auditUkDevolvedTenancy({
+        nation: input.nation || 'Scotland',
+        monthlyRentGbp: numOr(input.monthlyRentGbp ?? input.monthlyRent, 1000),
+        depositPaidGbp: numOr(input.depositPaidGbp ?? input.depositPaid, 1000),
+        tenureDurationMonths: numOr(input.tenureDurationMonths ?? input.tenureMonths, 12),
+        noticeGivenDays: numOr(input.noticeGivenDays ?? input.noticeDays, 28),
+        evictionGround: input.evictionGround || 'landlord_intends_to_sell',
+        tenantName: input.tenantName || 'Tenant',
+        assessmentDate: input.assessmentDate
+      }));
+    }
+    if(path==='/v1/tools/uae-tenancy-dispute') {
+      const isTrue=v=>v===true||v==='true';
+      const numOr=(v,d)=>{const n=Number(v);return v!=null&&v!==''&&Number.isFinite(n)?n:d;};
+      return send(200, auditUaeTenancy({
+        emirate: input.emirate || 'Dubai',
+        currentAnnualRentAed: numOr(input.currentAnnualRentAed ?? input.currentRent, 80000),
+        averageMarketRentAed: numOr(input.averageMarketRentAed ?? input.marketRent, 100000),
+        proposedAnnualRentAed: numOr(input.proposedAnnualRentAed ?? input.proposedRent, 88000),
+        noticeDaysPriorToRenewal: numOr(input.noticeDaysPriorToRenewal ?? input.noticeDays, 90),
+        evictionNoticeGiven: isTrue(input.evictionNoticeGiven ?? input.evictionNotice),
+        evictionServedViaNotary: input.notaryServed === undefined && input.evictionServedViaNotary === undefined ? true : isTrue(input.evictionServedViaNotary ?? input.notaryServed),
+        tenantName: input.tenantName || 'Tenant',
+        assessmentDate: input.assessmentDate
+      }));
+    }
   return false;
 }
