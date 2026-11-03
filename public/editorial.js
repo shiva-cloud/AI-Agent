@@ -33,7 +33,7 @@ function changeReport(report){
 // Text copied from a web page often carries typographic quotes, non-breaking
 // spaces and invisible characters; the import accepts plain English text only.
 export function cleanExcerpt(text) {
-  return String(text).replace(/[​-‏‪-‮⁠-⁯﻿]/g,'').replace(/ /g,' ')
+  return String(text).replace(/[\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]/g,'').replace(/\u00a0/g,' ')
     .replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[ \t]+\n/g,'\n').trim();
 }
 

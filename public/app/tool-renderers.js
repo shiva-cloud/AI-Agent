@@ -5657,7 +5657,7 @@ export function renderEiDisqualificationAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${statusTitle}</h4>
-      <p><strong>Claimant:</strong> ${applicantName} | <strong>Weekly Benefit:</strong> ${regularBenefits?.estimatedWeeklyBenefitCad?.toFixed(2) || '0.00'} CAD</p>
+      <p><strong>Claimant:</strong> ${escapeHtml(applicantName)} | <strong>Weekly Benefit:</strong> ${regularBenefits?.estimatedWeeklyBenefitCad?.toFixed(2) || '0.00'} CAD</p>
       <p>${regularBenefits?.disqualificationReason}</p>
     </div>
 
@@ -5757,7 +5757,7 @@ export function renderRuralRenewalAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Candidate:</strong> ${applicantName} | <strong>Stream:</strong> ${streamType === 'rural_renewal' ? 'Rural Renewal' : 'Rural Entrepreneur'} | <strong>Community:</strong> ${designatedCommunity?.name || 'Designated Community'}</p>
+      <p><strong>Candidate:</strong> ${escapeHtml(applicantName)} | <strong>Stream:</strong> ${streamType === 'rural_renewal' ? 'Rural Renewal' : 'Rural Entrepreneur'} | <strong>Community:</strong> ${escapeHtml(designatedCommunity?.name || 'Designated Community')}</p>
       <p class="u-text-sm muted">${statutoryBasis}</p>
     </div>
 
@@ -5916,7 +5916,7 @@ export function renderChildWelfareAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Youth/Child:</strong> ${youthName} | <strong>Pathway:</strong> ${pathway}</p>
+      <p><strong>Youth/Child:</strong> ${escapeHtml(youthName)} | <strong>Pathway:</strong> ${escapeHtml(pathway)}</p>
       <p class="u-text-sm muted">${statutoryBasis}</p>
     </div>
   `;
@@ -5990,7 +5990,7 @@ export function renderExcessiveDemandAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Applicant:</strong> ${applicantName} | <strong>Condition:</strong> ${diagnosedCondition} | <strong>Stream:</strong> ${immigrationStream}</p>
+      <p><strong>Applicant:</strong> ${escapeHtml(applicantName)} | <strong>Condition:</strong> ${escapeHtml(diagnosedCondition)} | <strong>Stream:</strong> ${escapeHtml(immigrationStream)}</p>
     </div>
 
     <div class="u-stat-grid u-mt-100">
@@ -6077,7 +6077,7 @@ export function renderFrancophoneMobilityAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Worker:</strong> ${applicantName} | <strong>Employer:</strong> ${employerName} | <strong>Destination:</strong> ${province} | <strong>Exemption Code:</strong> ${lmiaExemptionCode}</p>
+      <p><strong>Worker:</strong> ${escapeHtml(applicantName)} | <strong>Employer:</strong> ${escapeHtml(employerName)} | <strong>Destination:</strong> ${escapeHtml(province)} | <strong>Exemption Code:</strong> ${escapeHtml(lmiaExemptionCode)}</p>
     </div>
 
     <div class="u-stat-grid u-mt-100">
@@ -6175,7 +6175,7 @@ export function renderDigitalPlatformWorkerAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Worker:</strong> ${workerName} | <strong>Platform:</strong> ${platformName} | <strong>Legislation:</strong> ${governingLegislation}</p>
+      <p><strong>Worker:</strong> ${escapeHtml(workerName)} | <strong>Platform:</strong> ${escapeHtml(platformName)} | <strong>Legislation:</strong> ${escapeHtml(governingLegislation)}</p>
     </div>
 
     <div class="u-stat-grid u-mt-100">
@@ -6269,7 +6269,7 @@ export function renderAtlanticImmigrationAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Candidate:</strong> ${candidateName} | <strong>Province:</strong> ${province} | <strong>Stream:</strong> ${stream.replace('_', ' ')} | <strong>TEER:</strong> ${nocTeer}</p>
+      <p><strong>Candidate:</strong> ${escapeHtml(candidateName)} | <strong>Province:</strong> ${escapeHtml(province)} | <strong>Stream:</strong> ${escapeHtml(stream.replace('_', ' '))} | <strong>TEER:</strong> ${escapeHtml(nocTeer)}</p>
     </div>
 
     <div class="u-stat-grid u-mt-100">
@@ -6353,7 +6353,7 @@ export function renderChildCareSubsidyAssessment(data, container) {
   let html = `
     <div class="alert-box success">
       <h4>${summaryTitle}</h4>
-      <p><strong>Applicant:</strong> ${applicantName} | <strong>Municipality:</strong> ${municipality} (${province})</p>
+      <p><strong>Applicant:</strong> ${escapeHtml(applicantName)} | <strong>Municipality:</strong> ${escapeHtml(municipality)} (${escapeHtml(province)})</p>
     </div>
 
     <div class="u-stat-grid u-mt-100">
@@ -6444,7 +6444,7 @@ export function renderBcStrataBylawAssessment(data, container) {
   let html = `
     <div class="alert-box ${statusClass}">
       <h4>${summaryTitle}</h4>
-      <p><strong>Resident:</strong> ${residentName} | <strong>Strata Plan:</strong> ${strataPlanNumber} (Unit ${unitNumber}) | <strong>Dispute:</strong> ${disputeType.replace('_', ' ')}</p>
+      <p><strong>Resident:</strong> ${escapeHtml(residentName)} | <strong>Strata Plan:</strong> ${escapeHtml(strataPlanNumber)} (Unit ${escapeHtml(unitNumber)}) | <strong>Dispute:</strong> ${escapeHtml(disputeType.replace('_', ' '))}</p>
       <p class="u-text-sm muted">${statutoryBasis}</p>
     </div>
 

@@ -18,9 +18,7 @@
  *   valid for 2 years from date of issuance.
  */
 
-import { boundedText } from './utils/sanitizer.js';
-
-import { safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate } from './text-input.js';
 
 export const FRANCOPHONE_MOBILITY_CONSTANTS = Object.freeze({
   MIN_NCLC_LEVEL: 5,

@@ -78,6 +78,12 @@ export default defineConfig([
       'no-dupe-keys': 'error',
       'no-unsafe-negation': 'error',
       'no-undef': 'error',
+      'no-case-declarations': 'error',
+      'no-constant-binary-expression': 'error',
+      'no-self-assign': 'error',
+      'no-self-compare': 'error',
+      'use-isnan': 'error',
+      'valid-typeof': 'error',
       // Symbol-level findings (unused declarations, imports) stay enforced.
       // Function-argument findings are off by deliberate policy: this codebase
       // documents each navigator's accepted input as destructured option

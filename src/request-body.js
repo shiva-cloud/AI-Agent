@@ -26,8 +26,8 @@ export function readRequestBody(req, { maxBytes = 65536, timeoutMs = 10000 } = {
     const aborted = () => failed();
     const closed = () => { if (!req.complete) failed(); };
     const declared = req.headers['content-length'];
-    if (declared && /^\d+$/.test(declared) && Number(declared) > maxBytes) return finish(tooLarge());
-    if (req.destroyed || req.aborted) return failed();
+    if (declared && /^\d+$/.test(declared) && Number(declared) > maxBytes) { finish(tooLarge()); return; }
+    if (req.destroyed || req.aborted) { failed(); return; }
     req.on('data', data); req.once('end', end); req.once('error', failed); req.once('aborted', aborted); req.once('close', closed);
     timer = setTimeout(() => finish(new RequestBodyError(408, 'request_timeout', 'Request body timed out')), timeoutMs);
     timer.unref();

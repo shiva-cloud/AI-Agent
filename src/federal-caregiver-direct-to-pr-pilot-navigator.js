@@ -8,9 +8,7 @@
  * - National Occupational Classification (NOC 44100 & 44101)
  */
 
-import { boundedText } from './utils/sanitizer.js';
-
-import { safeIsoDate, todayIso } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CAREGIVER_ELIGIBLE_NOCS = Object.freeze({
   '44100': {

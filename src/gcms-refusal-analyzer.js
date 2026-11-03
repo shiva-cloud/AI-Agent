@@ -2,9 +2,7 @@
 // Statutory GCMS Refusal Notes Analyzer & Federal Court / Reapplication Remedy Engine
 // Based on IRPA s. 179(b), s. 220, s. 22(2), and Federal Court jurisprudence (Vavilov standard of review).
 
-import { boundedText } from './utils/sanitizer.js';
-
-import { safeIsoDate, todayIso } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const KNOWN_GCMS_REFUSAL_GROUNDS = {
   R179b_ASSETS_FUNDS: {

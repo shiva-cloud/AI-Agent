@@ -9,9 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText } from './utils/sanitizer.js';
-
-import { safeIsoDate, todayIso } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_STUDENT_WORK_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Immigration and Refugee Protection Regulations, SOR/2002-227, ss. 186(v), 200(3)(e); IRCC Fall 2024 Policy',

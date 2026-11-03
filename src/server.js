@@ -27,7 +27,7 @@ import { composePresentation } from './answer-composer.js';
 import { aiRouterOptions } from './ai-router.js';
 import { createRateLimiter } from './rate-limit.js';
 import { createShutdown } from './lifecycle.js';
-import { errorResponse, responseBody } from './api-errors.js';
+import { errorResponse, responseBody, ToolInputError } from './api-errors.js';
 import { databasePath, publicOrigin, validateProductionAccounts, assertTestModeAllowed, seedDatabaseFromSnapshot } from './runtime-config.js';
 import { createObservability, formatPrometheusMetrics } from './observability.js';
 import { createAdminAuth, createFileAdminAuth, AdminConfigUnavailable, actorsFromEnvironment, canAccess } from './admin-auth.js';

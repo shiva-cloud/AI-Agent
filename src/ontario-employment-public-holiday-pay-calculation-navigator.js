@@ -9,9 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText } from './utils/sanitizer.js';
-
-import { todayIso } from './text-input.js';
+import { boundedText, todayIso } from './text-input.js';
 export const ONTARIO_PUBLIC_HOLIDAY_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, 2000, S.O. 2000, c. 41, Part X ss. 24-32',
   LOOKBACK_DIVISOR: 20, // s. 24(1)

@@ -96,7 +96,7 @@ export function evaluateManitobaEmploymentLeave(params = {}) {
       }
       break;
 
-    case 'INTERPERSONAL_VIOLENCE':
+    case 'INTERPERSONAL_VIOLENCE': {
       maxPermissibleWeeks = MANITOBA_MAX_LEAVE_WEEKS.INTERPERSONAL_VIOLENCE_CONTINUOUS;
       isServiceRequirementMet = daysService >= MANITOBA_SERVICE_REQUIREMENTS.INTERPERSONAL_VIOLENCE_DAYS;
       // Manitoba ESC s. 59.11(3): First 5 days of leave taken in a 52-week period are PAID by the employer
@@ -119,6 +119,7 @@ export function evaluateManitobaEmploymentLeave(params = {}) {
         });
       }
       break;
+    }
 
     case 'SERIOUS_ILLNESS':
       maxPermissibleWeeks = MANITOBA_MAX_LEAVE_WEEKS.SERIOUS_ILLNESS;
