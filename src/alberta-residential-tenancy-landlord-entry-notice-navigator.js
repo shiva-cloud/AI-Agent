@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_ENTRY_NOTICE_CONSTANTS = Object.freeze({
   MINIMUM_NOTICE_HOURS: 24, // s. 23(1)(c)
@@ -42,11 +42,11 @@ export function evaluateAlbertaLandlordEntry({
   tenantConsentedToEntry = false,
   tenantName = 'Tenant',
   landlordName = 'Landlord',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const hoursNotice = Number.isFinite(Number(noticeHoursGiven))
     ? Math.max(0, Math.min(8760, Number(noticeHoursGiven)))
     : 0;

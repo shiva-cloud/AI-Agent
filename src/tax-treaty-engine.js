@@ -1,7 +1,7 @@
 // src/tax-treaty-engine.js
 // Cross-border Double Taxation Avoidance Agreement (DTAA) & Foreign Asset Disclosure Engine
 // Pure ES module with zero npm dependencies.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const DTAA_MATRIX = {
   'India': {
@@ -42,12 +42,12 @@ export function evaluateForeignAssetReporting({
   firstYear = true,
   bankBalanceUSD = 25000,
   taxpayerName = 'Taxpayer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeOrigin = boundedText(origin, 'India', 50);
   const safeDest = boundedText(dest, 'Canada', 50);
   const safeTaxpayerName = boundedText(taxpayerName, 'Taxpayer', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const cleanAssetsUSD = Number.isFinite(Number(assetsUSD)) ? Math.max(0, Math.min(1000000000, Number(assetsUSD))) : 125000;
   const cleanBankUSD = Number.isFinite(Number(bankBalanceUSD)) ? Math.max(0, Math.min(1000000000, Number(bankBalanceUSD))) : 25000;

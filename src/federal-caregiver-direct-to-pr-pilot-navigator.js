@@ -10,13 +10,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-function safeIsoDate(d) {
-  if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim())) {
-    const parsed = new Date(d.trim());
-    if (!Number.isNaN(parsed.getTime())) return d.trim();
-  }
-  return new Date().toISOString().slice(0, 10);
-}
+import { safeIsoDate, todayIso } from './text-input.js';
 
 export const CAREGIVER_ELIGIBLE_NOCS = Object.freeze({
   '44100': {
@@ -55,7 +49,7 @@ export function evaluateCaregiverDirectToPr(params = {}) {
     hasValidLegalStatusInCanada = true,
     applicantLocation = 'IN_CANADA', // 'IN_CANADA' or 'OUTSIDE_CANADA'
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
 
   const safeApplicantName = boundedText(applicantName, 120) || 'Applicant';

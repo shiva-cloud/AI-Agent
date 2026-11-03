@@ -16,13 +16,13 @@ export const VERDICT_TEXT = {
 export const CITIES = ['Toronto', 'Mississauga', 'Brampton', 'Vancouver'];
 
 export const COUNTRY_CITIES = {
-  '': ['Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Ottawa', 'Montreal'],
-  'CA': ['Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Ottawa', 'Montreal'],
-  'Canada': ['Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Ottawa', 'Montreal'],
-  'United States': ['New York', 'Los Angeles', 'Chicago', 'San Francisco', 'Seattle', 'Boston', 'Austin'],
-  'United Kingdom': ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow'],
-  'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'],
-  'Germany': ['Berlin', 'Munich', 'Frankfurt', 'Hamburg', 'Cologne', 'Dusseldorf', 'Stuttgart'],
+  '': ['Ontario', 'British Columbia', 'Alberta', 'Quebec', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'New Brunswick', 'Newfoundland and Labrador', 'Prince Edward Island', 'Yukon', 'Northwest Territories', 'Nunavut', 'Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Edmonton', 'Ottawa', 'Montreal', 'Winnipeg', 'Halifax'],
+  'CA': ['Ontario', 'British Columbia', 'Alberta', 'Quebec', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'New Brunswick', 'Newfoundland and Labrador', 'Prince Edward Island', 'Yukon', 'Northwest Territories', 'Nunavut', 'Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Edmonton', 'Ottawa', 'Montreal', 'Winnipeg', 'Halifax'],
+  'Canada': ['Ontario', 'British Columbia', 'Alberta', 'Quebec', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'New Brunswick', 'Newfoundland and Labrador', 'Prince Edward Island', 'Yukon', 'Northwest Territories', 'Nunavut', 'Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Edmonton', 'Ottawa', 'Montreal', 'Winnipeg', 'Halifax'],
+  'United States': ['California', 'New York', 'Texas', 'Florida', 'Washington State', 'Illinois', 'Los Angeles', 'San Francisco', 'Chicago', 'Seattle', 'Boston', 'Austin'],
+  'United Kingdom': ['England', 'Scotland', 'Wales', 'Northern Ireland', 'London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow'],
+  'Australia': ['New South Wales', 'Victoria', 'Queensland', 'Western Australia', 'South Australia', 'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'],
+  'Germany': ['Bavaria', 'North Rhine-Westphalia', 'Baden-Württemberg', 'Berlin', 'Munich', 'Frankfurt', 'Hamburg', 'Cologne', 'Dusseldorf', 'Stuttgart'],
   'United Arab Emirates': ['Dubai', 'Abu Dhabi', 'Sharjah'],
   'New Zealand': ['Auckland', 'Wellington', 'Christchurch'],
   'Ireland': ['Dublin', 'Cork', 'Galway', 'Limerick'],

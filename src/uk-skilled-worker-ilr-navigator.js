@@ -3,7 +3,7 @@
 // Grounded in UK Immigration Rules Appendix Skilled Worker, Appendix Continuous Residence, Deregulation Act 2015
 // and the Renters' Rights Act 2025, which abolished Section 21 notices in England from 1 May 2026.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 import { factValue } from './kb-facts.js';
 
 // Thresholds come from src/kb-facts.js (rules from 22 July 2025, HC 997). Health and
@@ -35,10 +35,10 @@ export function evaluateUkSkilledWorkerAndIlr({
   depositProtectedWithin30Days = true,
   noticeServedDate = null,
   applicantName = 'UK Migrant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeApplicant = boundedText(applicantName, 'UK Migrant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeSocCode = boundedText(socCode, '2136', 20);
   const safeSalary = Math.max(0, Math.min(10000000, Number(annualOfferedSalaryGbp) || 0));
   const safe12MonthAbsence = Math.max(0, Math.min(365, Math.floor(Number(maxAbsenceDaysInAny12Months) || 0)));

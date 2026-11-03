@@ -14,7 +14,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const TRP_STATUTORY_RULES = Object.freeze({
   MAX_TRP_DURATION_MONTHS: 36,
@@ -46,10 +46,10 @@ export function evaluateTrpCompellingBalance({
   applicantLocation = 'outside_canada', // or 'inside_canada'
   hasCanadianCitizenFamilyAffected = true,
   applicantName = 'Applicant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeApplicant = boundedText(applicantName, 'Applicant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeInadmissibilityType = boundedText(inadmissibilityType, 'criminality_s36_2', 60);
   
   

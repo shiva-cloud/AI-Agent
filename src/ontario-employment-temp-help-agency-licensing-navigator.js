@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ONTARIO_THA_LICENSING_CONSTANTS = Object.freeze({
   MANDATORY_LICENSING_EFFECTIVE_DATE: '2024-07-01',
@@ -35,7 +35,7 @@ export const ONTARIO_THA_LICENSING_CONSTANTS = Object.freeze({
  * @param {string} [params.workerName='Worker']
  * @param {string} [params.agencyName='Agency']
  * @param {string} [params.clientName='Client Employer']
- * @param {string} [params.assessmentDate='2026-10-31']
+ * @param {string} [params.assessmentDate=todayIso()]
  * @returns {Object} Licensing compliance audit, joint liability analysis, and actionable remedies
  */
 export function auditOntarioThaLicensing({
@@ -50,9 +50,9 @@ export function auditOntarioThaLicensing({
   workerName = 'Worker',
   agencyName = 'Agency',
   clientName = 'Client Employer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanRole = boundedText(entityRole, 'CLIENT_EMPLOYER', 50);
   const cleanWorker = boundedText(workerName, 'Worker', 100);
   const cleanAgency = boundedText(agencyName, 'Agency', 120);

@@ -5,7 +5,7 @@
 // Right: Authentic English Statutory Citation & Official Legal Text
 
 import { getLocaleDictionary } from './ui-locale-dictionary.js';
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 const COMMON_STATUTORY_PHRASES = {
   hi: [
@@ -42,11 +42,11 @@ export function generateBilingualView({
   targetLocale = 'hi',
   sourceId = null,
   citationTitle = 'Official Statutory Source',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const normLocale = boundedText(targetLocale, 'hi', 10).toLowerCase().trim().slice(0, 2);
   const dict = getLocaleDictionary(normLocale);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
 
   // Only text is displayed; any other type would render as "[object Object]".
   const englishStatute = boundedText(

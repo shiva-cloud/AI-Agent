@@ -1,6 +1,8 @@
 // City-Specific Settlement Intelligence Records for Global Destinations
 // Covers major destination gateways: New York, London, Sydney, Melbourne, Berlin, Dubai.
 
+import { expandedCityRecords } from './city-destination-records-expansion.js';
+
 export const checkedAt = '2026-10-31';
 export const expiresAt = '2027-01-31';
 
@@ -29,7 +31,7 @@ function createRecord({ id, topic, jurisdiction, title, url, quote, summary, hou
   };
 }
 
-export const cityDestinationRecords = [
+const baseCityDestinationRecords = [
   // ── NEW YORK (UNITED STATES) ────────────────────────────────────────────────
   createRecord({
     id: 'us-nyc-idnyc-municipal-id',
@@ -310,4 +312,9 @@ export const cityDestinationRecords = [
     quote: 'Hafilat is an automated smartcard fare collection system on Abu Dhabi public transport buses.',
     summary: 'The Integrated Transport Centre (ITC / Abu Dhabi Mobility) operates public bus services across Abu Dhabi Island, the surrounding suburbs, and regional routes to Al Ain. All passengers must use a rechargeable Hafilat smartcard, tapping on at validators upon entering and tapping off upon exiting. Local city trips carry a flat base fare of AED 2.00, and suburban trips add AED 0.05 per kilometer. Regular commuters can purchase a 7-day or 30-day Hafilat pass for unlimited city bus travel.'
   })
+];
+
+export const cityDestinationRecords = [
+  ...baseCityDestinationRecords,
+  ...expandedCityRecords
 ];

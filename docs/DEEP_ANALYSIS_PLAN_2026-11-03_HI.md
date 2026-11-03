@@ -162,4 +162,29 @@ node scripts/verify-everything.js
 - Server `/app/*.js` serve करता है (`src/app-modules.js`), SRI manifest में शामिल, service worker v39 इन्हें precache करता है; नया test यह सूची पूरी रखता है।
 - छुपे gaps ठीक किए: wording-guard test अब `src/routes/` और `public/app/` भी scan करता है; app.js text पढ़ने वाले 9 tests shared `test/app-source.js` पर; transitive-import tests अब `../` paths सही resolve करते हैं।
 - Verification: tests 2,317/2,317, lint (no-undef सहित), OpenAPI byte-identical, pre-flight, browser view smoke + modal safety + offline/service-worker + command palette (178 tools, search) — सब pass।
-- पहले से मौजूद (split से नहीं): CSP `style-src 'self'` के कारण inline `style=""` पर console errors; 1,976 inline styles को CSS classes में ले जाना बाकी।
+
+## 8. Progress — inline styles और CSP
+
+- ✅ index.html, tool-modal.js और app templates के सारे `style=""` हटाए (`scripts/convert-inline-styles.js`): 1,917 static attributes → `data-s` keys + generated `public/inline-styles.css` (358 rules, specificity (2,1,0) ताकि inline जैसा ही cascade रहे); 150 computed/`display:none` → `data-style`, जिन्हें `csp-styles.js` पहले की तरह CSSOM से लगाता है।
+- ✅ Bug ठीक किया: 2 "Copy Letter" और 2 "View & Print" buttons inline `onclick` की वजह से CSP से blocked थे (काम नहीं करते थे); अब delegated listeners। Browser में click करके verify: clipboard में text, print window खुली।
+- नतीजा: सारे 22 views में **CSP errors 1,964 → 0**; 10,204 elements × 44 computed CSS properties पहले/बाद **0 फर्क**।
+- नए tests: templates में कोई inline `style=`/`on*=` नहीं; हर `data-s` key का rule मौजूद; stylesheet linked।
+- Verification: tests 2,318/2,318, lint, pre-flight, browser view smoke + modal safety + offline — सब pass।
+
+## 9. Progress — explorer page और data scripts
+
+- ✅ Explorer page: `csp-styles.js` load नहीं होता, इसलिए इसके 13 inline styles browser चुपचाप ignore कर रहा था (बिगड़ा layout)। अब `explorer.css` की named classes; CSP errors 0; template values escaped, source links सिर्फ http(s)।
+- ✅ 12 data scripts `scripts/archive/` में (कारण archive README में): 10 `ingest-*` (records overwrite + मनगढ़ंत reviewer नाम से audit entries), `run-policy-audit.js` (हर record की checkedAt/expiry बिना जाँच "verified" लिखकर आगे बढ़ाना, सारे gaps resolve), `normalize-checked-date.js` (बिना audit dates बदलना)। नया guard test `test/script-provenance.test.js`।
+- ✅ **फैसला लागू (आपकी मंज़ूरी से):** `src/public-evidence.js` अब `NON_EDITORIAL_REVIEWERS` (script के बनाए दो नाम, और "automated correction, not editorial review") वाली audit entries को editorial approval नहीं मानता। 191 high-risk records जवाबों से रोके गए: 184 script-approvals + 7 जो KB-correction script की entries से published थे (उनका अपना label कहता था कि यह editorial review नहीं है)। अब published high-risk: सिर्फ 45 `source_verified`। 12 आम सवालों के नमूने में 4 अब "unavailable" और 1 "partial"। किसी असली reviewer के admin review endpoint से approve करते ही record फिर publish होगा। चलता हुआ server restart करना होगा (gate का नतीजा cached रहता है)।
+- Verification: tests 2,320/2,320, lint, pre-flight, evaluate, browser checks — सब pass।
+
+## 10. Progress — global-settlement catalog और disk inventory
+
+- ✅ `/v1/global-settlement` (20,000 entries): हर `statutoryRule` एक country-template है, authority/link question नहीं बल्कि country से चुने गए (जैसे US photo ID को USCIS के अंदर बताया), और citation का एक हिस्सा मनगढ़ंत label है। अब API सिर्फ question fields देता है; `statutoryRule`, `citation`, `verdict`, `authority`, `url` withheld (`src/market-gap-catalog.js`)। OpenAPI और client regenerate। Question-bank batch 2/3 हाथ से लिखे, specific case-law वाले हैं — बदले नहीं।
+- Disk inventory (कुछ delete नहीं किया):
+  - ✅ `backups/offsite-test` 376 MB — तीनों files `backups/encrypted-test` की byte-for-byte copies थीं (`cmp` से दोबारा पुष्टि); आपकी मंज़ूरी से 3 Nov को delete। Originals `encrypted-test` में सुरक्षित।
+  - `backups/encrypted-test` 569 MB — 4 encrypted snapshots (1 Nov)।
+  - `backups/archive-kb-audit-2026-11-01` 464 MB और `data/backups` 179 MB — KB corrections से पहले के DB snapshots (rollback सबूत; `kb-corrections` script और docs इन्हें बताते हैं)।
+  - `artifacts/` 336 MB — validation reports, कई docs में सबूत के तौर पर linked।
+  - `project-bundle.zip` 12 MB, `release/` 90 MB (Docker build input, दोबारा बन सकता है)।
+- Verification: tests 2,326/2,326, lint, evaluate, pre-flight, npm audit 0, browser checks — सब pass।

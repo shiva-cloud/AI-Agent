@@ -2,7 +2,7 @@
 // First 14-Day Government Enrollment Kit (SIN, Provincial Healthcare & Photo ID)
 // Based on DESDA s. 28.1, Health Insurance Acts (ON, BC, AB), and Provincial ID Statutes.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function evaluateGovernmentEnrollment({
   applicantName = 'Newcomer',
@@ -11,9 +11,9 @@ export function evaluateGovernmentEnrollment({
   studyPermitHasWorkCondition = true, // IRPR s. 186(v)
   workPermitMinDurationMonths = 12,
   residencyDocumentsReady = true, // Lease, utility bill, bank statement
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanApplicant = boundedText(applicantName, 'Newcomer', 100);
   const cleanStatus = boundedText(statusInCanada, 'work_permit', 50);
   const cleanProvince = boundedText(province, 'ON', 10).toUpperCase();

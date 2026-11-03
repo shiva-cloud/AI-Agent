@@ -13,7 +13,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const QUEBEC_CSQ_GRID_CONSTANTS = Object.freeze({
   PASS_MARK_SINGLE_APPLICANT: 50,
@@ -66,7 +66,7 @@ export function evaluateQuebecCsqSkilledWorker({
   numberOfChildren13to21 = 0,
   signedFinancialAutonomyContract = true,
   candidateName = 'Demandeur',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeCandidateName = boundedText(candidateName, 120) || 'Demandeur';
   const safeAssessmentDate = safeIsoDate(assessmentDate);

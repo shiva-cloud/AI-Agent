@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_FTA_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Immigration and Refugee Protection Regulations, SOR/2002-227, s. 204(a)',
@@ -42,7 +42,7 @@ export function evaluateFederalFtaProfessionalWorkPermit(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Professional',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     treaty = 'CUSMA',
     applicantCitizenshipCountry = 'USA',
     hasSignedServiceContractOrJobOffer = true,
@@ -55,7 +55,7 @@ export function evaluateFederalFtaProfessionalWorkPermit(params = {}) {
     contractTitle = 'Professional Service Contract'
   } = safeParams;
   const cleanApplicantName = boundedText(applicantName, 'Professional', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanEmployer = boundedText(employerName, 'Canadian Client or Employer');
   const cleanContract = boundedText(contractTitle, 'Professional Service Contract');
   const treatyKey = boundedText(treaty, 'CUSMA', 30).toUpperCase();

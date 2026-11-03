@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_STRATA_STR_CONSTANTS = Object.freeze({
   MAX_DAILY_FINE_STR_BYLAW_VIOLATION_CAD: 1000, // Strata Property Regulation s. 7.1(2)
@@ -49,12 +49,12 @@ export function auditBcStrataShortTermRental(params = {}) {
     hostName = 'Strata Host',
     strataPlanNumber = 'LMS 1234',
     unitNumber = '101',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeHostName = boundedText(hostName, 'Strata Host', 100);
   const safeStrataPlan = boundedText(strataPlanNumber, 'LMS 1234', 50);
   const safeUnitNumber = boundedText(unitNumber, '101', 20);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const stayDays = Math.max(0, Math.min(3650, Number.isFinite(Number(rentalStayDays)) ? Number(rentalStayDays) : 5));
   const pop = Math.max(0, Math.min(10000000, Number.isFinite(Number(communityPopulation)) ? Number(communityPopulation) : 25000));
   const dailyFine = Math.max(0, Math.min(100000, Number.isFinite(Number(fineAmountPerDayCad)) ? Number(fineAmountPerDayCad) : 1000));

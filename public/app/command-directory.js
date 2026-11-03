@@ -808,8 +808,8 @@ export const COMMAND_DIRECTORY = [
   {
     "id": "cmd-form-autopopulate",
     "toolModal": "form-autopopulate",
-    "title": "Official Forms Generator: CBSA BSF186, LTB T1/T2, CRA RC151 & PDF",
-    "desc": "Auto-populates official Canadian statutory forms with vector PDF-1.4 and print-ready formal document output",
+    "title": "Form Preparation Worksheets: CBSA, LTB, CRA & PDF",
+    "desc": "Prepare a draft worksheet. Complete the current official form separately before submission.",
     "icon": "📑",
     "keywords": [
       "forms",

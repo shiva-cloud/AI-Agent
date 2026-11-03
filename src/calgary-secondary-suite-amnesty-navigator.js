@@ -3,7 +3,7 @@
 // Statutory Basis: City of Calgary Land Use Bylaw 1P2007, Bylaw 28P2024 (R-CG Rezoning),
 // & National Building Code – Alberta Edition (NBC-AE) Part 9
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CALGARY_SUITE_RULES = {
   BYLAW: 'City of Calgary Land Use Bylaw 1P2007 & Bylaw 28P2024',
@@ -58,13 +58,13 @@ export function auditCalgarySecondarySuite(input = {}) {
     isRegisteredOnCalgaryRegistry = false,
     propertyAddress = '123 Centre St, Calgary, AB',
     ownerName = 'Property Owner',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeInput;
 
   const cleanPropertyAddress = boundedText(propertyAddress, '123 Centre St, Calgary, AB', 120);
   const cleanOwnerName = boundedText(ownerName, 'Property Owner', 100);
   const cleanSuiteType = boundedText(suiteType, 'basement_suite', 50);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const safetyDeficiencies = [];
   const compliancePoints = [];

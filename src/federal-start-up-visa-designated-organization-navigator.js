@@ -12,7 +12,7 @@
  *   - Section 98.12: Essential Person Refusal Rule
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 import { factTable } from './kb-facts.js';
 export const SUV_DESIGNATED_ENTITY_TYPES = Object.freeze({
@@ -50,7 +50,7 @@ export function calculateSuvSettlementFunds(familySize = 1) {
 export function evaluateStartUpVisaEligibility(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const candidateName = boundedText(safeParams.candidateName, 'Founding Entrepreneur', 100);
-  const assessmentDate = safeIsoDate(safeParams.assessmentDate, '2026-10-31');
+  const assessmentDate = safeIsoDate(safeParams.assessmentDate, todayIso());
   const normalizedType = boundedText(safeParams.entityType, 'VENTURE_CAPITAL_FUND', 50).toUpperCase();
   const designatedConfig = SUV_DESIGNATED_ENTITY_TYPES[normalizedType] || null;
   const hasCommitmentCertificate = Boolean(safeParams.hasCommitmentCertificate);

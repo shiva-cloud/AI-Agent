@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const PEQ_WORKER_RULES = Object.freeze({
   MIN_WORK_MONTHS_REQUIRED: 24,
@@ -56,7 +56,7 @@ export function evaluateQuebecPeqTemporaryWorker({
   isSelfEmployed = false,
   isSeasonalAgriculturalWorker = false,
   applicantName = 'Demandeur',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeApplicantName = boundedText(applicantName, 120) || 'Demandeur';
   const safeAssessmentDate = safeIsoDate(assessmentDate);

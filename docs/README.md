@@ -5,6 +5,7 @@ Start here. Dated audit and status reports from 31 October to 2 November 2026 ar
 ## Current status
 
 - [STATUS.md](STATUS.md) — implementation status
+- [CODE_ISSUES_2026-11-03_HI.md](CODE_ISSUES_2026-11-03_HI.md) — prioritized list of coding issues with locations and fixes (Hindi)
 - [DEEP_ANALYSIS_PLAN_2026-11-03_HI.md](DEEP_ANALYSIS_PLAN_2026-11-03_HI.md) — latest analysis and fix plan (Hindi), with fixed items marked
 - [COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md](COUNTRY_COVERAGE_ANALYSIS_2026-11-03_HI.md) — how Canada's settlement coverage is built versus other countries, and a phased plan for what is missing (Hindi)
 - [REMAINING_PROGRESS_2026-11-03.md](REMAINING_PROGRESS_2026-11-03.md) — latest remediation progress

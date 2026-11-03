@@ -14,7 +14,7 @@
  *   - Huang v. 1433725 Ontario Inc., 2011 HRTO 1445
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const OHRC_UNDUE_HARDSHIP_STATUTORY_FACTORS = Object.freeze([
   'FINANCIAL_COST_SO_EXTREME_AS_TO_ALTER_BUSINESS_ESSENCE',
@@ -33,10 +33,10 @@ export function evaluateOntarioHousingCreedAccommodation(params = {}) {
     landlordOfferedAlternativeReasonableAccommodation = false,
     alternativeAccommodationDescription = '',
     harassmentOrHostileCommentFromLandlord = false,
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = params;
 
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanTenant = boundedText(tenantName, 'Tenant', 100);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
   const category = boundedText(creedPracticeCategory, 'SUKKAH_STRUCTURE_ON_BALCONY', 60).toUpperCase();

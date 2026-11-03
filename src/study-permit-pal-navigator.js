@@ -1,5 +1,5 @@
 import { ValidationError } from './api-errors.js';
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 /**
  * Canadian Study Permit, Provincial Attestation Letter (PAL) & PGWP 2024/2025 Navigator
@@ -62,7 +62,7 @@ export function auditStudyPermitAndPal(input = {}) {
     accompanyingDependents = 0,
     targetProvince = 'ON',
     applicantName = 'Student Applicant',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = input;
 
   if (!programLevel || !Object.values(PROGRAM_LEVELS).includes(programLevel)) {
@@ -70,7 +70,7 @@ export function auditStudyPermitAndPal(input = {}) {
   }
 
   const safeApplicantName = boundedText(applicantName, 'Student Applicant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeProvince = boundedText(targetProvince, 'ON', 10).toUpperCase();
   const safeFieldOfStudy = boundedText(fieldOfStudy, 'general', 80);
 

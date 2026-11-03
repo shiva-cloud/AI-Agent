@@ -111,10 +111,13 @@ async function api(path, data, token) {
 }
 
 document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', async () => {
+  const target = document.getElementById(b.dataset.view);
+  if (!target?.classList.contains('view')) return;
   document.querySelectorAll('.view').forEach(v => v.hidden = v.id !== b.dataset.view);
-  document.querySelectorAll('.nav').forEach(n => {
-    n.classList.toggle('active', n === b);
-    if (n === b) n.setAttribute('aria-current', 'page');
+  document.querySelectorAll('[data-view]').forEach(n => {
+    const active = n.dataset.view === b.dataset.view;
+    n.classList.toggle('active', active);
+    if (active) n.setAttribute('aria-current', 'page');
     else n.removeAttribute('aria-current');
   });
   currentView = b.dataset.view;
@@ -123,7 +126,7 @@ document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click'
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   // Announce the new view to screen readers by moving focus to its heading.
   const heading = $(`#${b.dataset.view} h1`);
-  if (heading) heading.focus();
+  if (heading) { heading.tabIndex = -1; heading.focus(); }
   if (typeof syncSidebarActiveView === 'function') syncSidebarActiveView(b.dataset.view);
   if (typeof initViewToolSwitchers === 'function') initViewToolSwitchers(); // re-check dynamic views
   if (b.dataset.view === 'binder') renderBinder();
@@ -193,6 +196,16 @@ function renderExamples() {
   }
 }
 
+function isolateDialog(dialog) {
+  const state = [];
+  for (let node = dialog; node && node !== document.body; node = node.parentElement) {
+    for (const sibling of node.parentElement.children) {
+      if (sibling !== node) { state.push([sibling, sibling.inert]); sibling.inert = true; }
+    }
+  }
+  return () => { for (const [node, inert] of state) node.inert = inert; };
+}
+
 const helpOverlay = el('div', undefined, 'overlay');
 helpOverlay.hidden = true;
 helpOverlay.setAttribute('role', 'dialog');
@@ -208,10 +221,11 @@ helpCard.append(helpList, helpClose);
 helpOverlay.append(helpCard);
 document.body.append(helpOverlay);
 let helpReturnFocus = null;
+let restoreHelpBackground = null;
 function setHelp(open) {
   if (open === !helpOverlay.hidden) return;
-  if (open) { helpReturnFocus = document.activeElement; helpOverlay.hidden = false; helpClose.focus(); }
-  else { helpOverlay.hidden = true; helpReturnFocus?.focus?.(); }
+  if (open) { helpReturnFocus = document.activeElement; helpOverlay.hidden = false; restoreHelpBackground = isolateDialog(helpOverlay); helpClose.focus(); }
+  else { helpOverlay.hidden = true; restoreHelpBackground?.(); restoreHelpBackground = null; helpReturnFocus?.focus?.(); }
 }
 helpClose.addEventListener('click', () => setHelp(false));
 // Standard dialog behavior: a click on the dimmed backdrop closes it.
@@ -219,6 +233,7 @@ helpOverlay.addEventListener('mousedown', e => { if (e.target === helpOverlay) s
 $('#help-toggle').addEventListener('click', () => setHelp(helpOverlay.hidden));
 
 document.addEventListener('keydown', e => {
+  if (e.target?.closest?.('.tool-modal-overlay, #cmd-palette-modal, #settlement-wizard-modal')) return;
   const editing = /^(input|textarea|select)$/i.test(e.target?.tagName || '') || e.target?.isContentEditable;
   if (!helpOverlay.hidden) {
     if (e.key === 'Escape') { e.preventDefault(); setHelp(false); }
@@ -873,6 +888,17 @@ function renderCoverage() {
 // Printing opens the evidence sections so sources appear on paper.
 window.addEventListener('beforeprint', () => document.querySelectorAll('#answer details').forEach(d => d.open = true));
 window.addEventListener('afterprint', () => document.querySelectorAll('#answer details').forEach(d => d.open = false));
+
+// Copy buttons in tool results copy the text of the element right after them.
+// Delegated, because the CSP blocks inline onclick handlers in rendered templates.
+document.addEventListener('click', e => {
+  const button = e.target.closest?.('[data-copy-next]');
+  if (!button) return;
+  navigator.clipboard.writeText(button.nextElementSibling?.innerText ?? '').then(() => {
+    button.textContent = 'Copied!';
+    setTimeout(() => { button.textContent = button.dataset.copyLabel || 'Copy'; }, 2000);
+  }).catch(() => {});
+});
 
 
 
@@ -2628,9 +2654,19 @@ function setupCommandPalette() {
   let currentCategory = 'all';
   let currentPersona = 'all_personas';
   let filteredCommands = [...COMMAND_DIRECTORY];
+  let returnFocus = null;
+  let restoreBackground = null;
+  const selectionStatus = el('div', '', 'sr-only');
+  selectionStatus.setAttribute('role', 'status');
+  selectionStatus.setAttribute('aria-live', 'polite');
+  modal.querySelector('[role=dialog]').append(selectionStatus);
+  categoriesBar?.setAttribute('role', 'group');
 
   function openPalette(initialCategory = 'all') {
+    if (!modal.hidden || !helpOverlay.hidden) return;
+    returnFocus = document.activeElement;
     modal.hidden = false;
+    restoreBackground = isolateDialog(modal);
     input.value = '';
     currentCategory = initialCategory;
     currentPersona = 'all_personas';
@@ -2640,7 +2676,10 @@ function setupCommandPalette() {
   }
 
   function closePalette() {
+    if (modal.hidden) return;
     modal.hidden = true;
+    restoreBackground?.(); restoreBackground = null;
+    returnFocus?.focus?.();
   }
 
   function renderCategories() {
@@ -2706,6 +2745,11 @@ function setupCommandPalette() {
   }
 
   function applyFilter() {
+    categoriesBar?.querySelectorAll('button').forEach(button => {
+      const active = button.dataset.persona ? button.dataset.persona === currentPersona : currentPersona === 'all_personas' && button.dataset.cat === currentCategory;
+      button.setAttribute('aria-pressed', String(active));
+      button.classList.toggle('active', active);
+    });
     const q = input.value.trim().toLowerCase();
     let items = COMMAND_DIRECTORY;
 
@@ -2746,8 +2790,10 @@ function setupCommandPalette() {
   }
 
   function createRowElement(cmd, idx) {
+    filteredCommands.push(cmd);
     const row = el('div', undefined, 'cmd-row' + (idx === 0 ? ' selected' : ''));
     row.dataset.index = String(idx);
+    row.dataset.commandId = cmd.id;
 
     const catBadge = cmd.category ? `<span class="cmd-cat-badge">${cmd.category.toUpperCase()}</span>` : '';
     const toolBadge = cmd.toolModal ? '<span class="cmd-tool-tag">1-CLICK TOOL</span>' : '';
@@ -2772,18 +2818,28 @@ function setupCommandPalette() {
       togglePinnedTool(cmd.id);
       renderCategories();
       applyFilter();
+      const replacement = [...list.querySelectorAll('.cmd-row')].find(node => node.dataset.commandId === cmd.id);
+      (replacement?.querySelector('.cmd-pin-btn') || input).focus();
     });
 
+    const action = row.querySelector('.cmd-info');
+    action.setAttribute('role', 'button');
+    action.tabIndex = 0;
+    action.setAttribute('aria-label', cmd.title);
+    action.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); executeCommand(cmd); }
+    });
     row.addEventListener('click', () => executeCommand(cmd));
     return row;
   }
 
   function renderList(items, query, catFilter, personaFilter) {
-    filteredCommands = items;
+    filteredCommands = [];
     activeIndex = 0;
     list.innerHTML = '';
 
     if (items.length === 0) {
+      selectionStatus.textContent = 'No matching tools or commands found.';
       list.innerHTML = `
         <div class="cmd-empty">
           <div class="cmd-empty-icon">🔍</div>
@@ -2932,6 +2988,7 @@ function setupCommandPalette() {
   });
 
   function updateSelectedRow() {
+    selectionStatus.textContent = `${filteredCommands.length} results. Selected: ${filteredCommands[activeIndex]?.title || 'None'}`;
     list.querySelectorAll('.cmd-row').forEach((r, idx) => {
       r.classList.toggle('selected', idx === activeIndex);
       if (idx === activeIndex) r.scrollIntoView({ block: 'nearest' });
@@ -2944,8 +3001,18 @@ function setupCommandPalette() {
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closePalette();
   });
+  modal.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { event.preventDefault(); closePalette(); }
+    if (event.key === 'Tab') {
+      const controls = [...modal.querySelectorAll('button,input,[tabindex="0"]')].filter(node => !node.disabled && node.getClientRects().length);
+      const first = controls[0], last = controls.at(-1);
+      if (event.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || !controls.includes(document.activeElement))) { event.preventDefault(); first?.focus(); }
+    }
+  });
 
   document.addEventListener('keydown', (e) => {
+    if (e.target?.closest?.('.tool-modal-overlay, #settlement-wizard-modal') || !helpOverlay.hidden) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
       if (modal.hidden) openPalette('all');
@@ -3341,19 +3408,8 @@ window.addEventListener('appinstalled', () => {
   if (pwaBanner) pwaBanner.setAttribute('hidden', '');
 });
 
-// Mobile Bottom Navigation Handler (Rec 57)
-const mobileNavBtns = document.querySelectorAll('.mobile-nav-btn[data-view]');
-mobileNavBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const targetView = btn.dataset.view;
-    const sidebarTarget = document.querySelector(`.sidebar nav button[data-view="${targetView}"]`);
-    if (sidebarTarget) {
-      sidebarTarget.click();
-      mobileNavBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-  });
-});
+// Desktop and mobile share the view handler above; avoid duplicate rendering.
+document.querySelectorAll('[data-view="ask"]').forEach(btn => btn.setAttribute('aria-current', 'page'));
 
 const mobileToolsTrigger = document.getElementById('mobile-tools-trigger');
 if (mobileToolsTrigger) {
@@ -3456,7 +3512,7 @@ async function renderAirportPhrasebook() {
 
     container.innerHTML = '';
     if (!phrases || !phrases.length) {
-      container.innerHTML = '<p class="u-mt-75" style="color:var(--text-muted);">No matching airport dialogue phrases found.</p>';
+      container.innerHTML = '<p class="u-mt-75" data-s="color-text-muted">No matching airport dialogue phrases found.</p>';
       return;
     }
 
@@ -3539,7 +3595,7 @@ async function renderGlossaryModal() {
 
     container.innerHTML = '';
     if (!terms || !terms.length) {
-      container.innerHTML = '<p class="u-mt-75" style="color:var(--text-muted);">No matching terms found in 500-term glossary.</p>';
+      container.innerHTML = '<p class="u-mt-75" data-s="color-text-muted">No matching terms found in 500-term glossary.</p>';
       return;
     }
 

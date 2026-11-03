@@ -8,7 +8,7 @@
  * 5. Quebec Parental Insurance Plan (QPIP): Exclusive non-transferable paternity benefits
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const EI_CONSTANTS = {
   MAX_INSURABLE_EARNINGS_CAD_2024: 63200,
@@ -36,7 +36,7 @@ export function evaluateEiRegularBenefits(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     insurableHoursAccrued = 650,
     regionalUnemploymentRatePercent = 7.5,
     averageWeeklyInsurableEarningsCad = 1100,
@@ -44,7 +44,7 @@ export function evaluateEiRegularBenefits(params = {}) {
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanHours = Number.isFinite(Number(insurableHoursAccrued)) ? Math.max(0, Math.floor(Number(insurableHoursAccrued))) : 650;
   const cleanUnempRate = Number.isFinite(Number(regionalUnemploymentRatePercent)) ? Math.min(30, Math.max(0, Number(regionalUnemploymentRatePercent))) : 7.5;
   const cleanEarnings = Number.isFinite(Number(averageWeeklyInsurableEarningsCad)) ? Math.max(0, Number(averageWeeklyInsurableEarningsCad)) : 1100;
@@ -95,13 +95,13 @@ export function auditEiVoluntaryQuitJustCause(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     quitReasonCategory = 'spouse_relocation',
     hasProofDocumentation = true
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanQuitReason = boundedText(quitReasonCategory, 'spouse_relocation', 60);
 
   const recognizedGrounds = [
@@ -141,7 +141,7 @@ export function evaluateEiParentalAndSicknessBenefits(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     benefitType = 'parental_standard', // 'sickness', 'maternity', 'parental_standard', 'parental_extended', 'qpip_paternity'
     insurableHoursAccrued = 600,
     averageWeeklyEarningsCad = 1200,
@@ -150,7 +150,7 @@ export function evaluateEiParentalAndSicknessBenefits(params = {}) {
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanProvince = boundedText(provinceOfResidence, 'ON', 10).toUpperCase();
   const cleanHours = Number.isFinite(Number(insurableHoursAccrued)) ? Math.max(0, Math.floor(Number(insurableHoursAccrued))) : 600;
   const cleanEarnings = Number.isFinite(Number(averageWeeklyEarningsCad)) ? Math.max(0, Number(averageWeeklyEarningsCad)) : 1200;

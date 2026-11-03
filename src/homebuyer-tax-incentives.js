@@ -13,7 +13,7 @@
  * Pure ES module with zero npm runtime dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const HOMEBUYER_CONSTANTS = {
   FHSA_ANNUAL_LIMIT_CAD: 8000,
@@ -50,10 +50,10 @@ export function evaluateHomebuyerTaxIncentives(params = {}) {
     applicant2 = null,
     plannedPurchaseYear = 2026,
     applicantName = 'Homebuyer',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeApplicant = boundedText(applicantName, 'Homebuyer', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const cityName = boundedText(city, 'Toronto', 60);
   const price = Math.max(10000, Math.min(100000000, Number(homePurchasePriceCad) || 750000));

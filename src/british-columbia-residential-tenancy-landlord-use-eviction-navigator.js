@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_LANDLORD_USE_CONSTANTS = Object.freeze({
   MANDATORY_NOTICE_PERIOD_MONTHS: 4, // Bill 14 (formerly 2 months)
@@ -39,7 +39,7 @@ export function evaluateBcLandlordUseEviction(params = {}) {
   const {
     tenantName = 'Tenant',
     landlordName = 'Landlord',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     actorRole = 'TENANT',
     monthlyRentCad = 2200,
     noticeMonthsGiven = 4,
@@ -53,7 +53,7 @@ export function evaluateBcLandlordUseEviction(params = {}) {
 
   const cleanTenantName = boundedText(tenantName, 'Tenant', 100);
   const cleanLandlordName = boundedText(landlordName, 'Landlord', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanActor = boundedText(actorRole, 'TENANT', 20);
   const cleanRelationship = boundedText(intendedOccupantRelationship, 'LANDLORD_OR_SPOUSE', 50);
   const rent = Number.isFinite(Number(monthlyRentCad))

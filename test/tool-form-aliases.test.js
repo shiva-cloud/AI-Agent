@@ -46,7 +46,9 @@ test('POST with website form field names matches the equivalent GET', async () =
       assert.equal(getRes.status, 200, `${path} GET status`);
       const getBody = await getRes.json();
       const postBody = await postRes.json();
-      assert.deepEqual(postBody, getBody, `${path} POST result must equal GET result`);
+      // assumedInputs describes the request (field names differ between query and body), not the result.
+      const result = ({ assumedInputs, assumptionNotice, ...rest }) => rest;
+      assert.deepEqual(result(postBody), result(getBody), `${path} POST result must equal GET result`);
     }
   } finally {
     server.close();

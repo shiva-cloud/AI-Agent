@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_C20_CONSTANTS = Object.freeze({
   EXEMPTION_CODE: 'C20',
@@ -36,7 +36,7 @@ export function evaluateFederalReciprocalEmployment(params = {}) {
   const {
     workerName = 'Exchange Worker',
     employerName = 'Host Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     exchangeCategory = 'ACADEMIC_EXCHANGE',
     hasFormalWrittenReciprocalAgreement = true,
     canadiansEnjoySimilarOpportunitiesAbroad = true,
@@ -48,7 +48,7 @@ export function evaluateFederalReciprocalEmployment(params = {}) {
   } = safeParams;
   const cleanWorkerName = boundedText(workerName, 'Exchange Worker', 100);
   const cleanEmployerName = boundedText(employerName, 'Host Employer', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanCategory = boundedText(exchangeCategory, 'ACADEMIC_EXCHANGE', 60).toUpperCase();
   const outgoing = Math.max(0, Math.min(10000, Number.isFinite(Number(canadiansExchangedOutCount)) ? Math.round(Number(canadiansExchangedOutCount)) : 0));
   const incoming = Math.max(0, Math.min(10000, Number.isFinite(Number(foreignWorkersIncomingCount)) ? Math.round(Number(foreignWorkersIncomingCount)) : 0));

@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_PNP_TECH_CONSTANTS = Object.freeze({
   DESIGNATED_TECH_NOC_COUNT: 35,
@@ -58,11 +58,11 @@ export function evaluateBcTechPilotEligibility(params = {}) {
     highestEducationLevel = 'bachelors_degree',
     candidateName = 'Tech Candidate',
     employerName = 'BC Tech Employer',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeCandidateName = boundedText(candidateName, 'Tech Candidate', 100);
   const safeEmployerName = boundedText(employerName, 'BC Tech Employer', 150);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeNocCode = boundedText(nocCode, '21231', 10);
   const safeJobLocationRegion = boundedText(jobLocationRegion, 'METRO_VANCOUVER', 40);
   const safeHighestEducation = boundedText(highestEducationLevel, 'bachelors_degree', 40);

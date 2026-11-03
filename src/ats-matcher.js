@@ -2,7 +2,7 @@
 // Production ATS resume matcher, buzzword stripper, and privacy auditor
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BUZZWORDS = [
   'rockstar', 'ninja', 'guru', 'wizard', 'hard-working', 'go-getter',
@@ -85,10 +85,10 @@ export function auditCvPrivacyAndStyle(cvText = '') {
 /**
  * Evaluates semantic ATS alignment between CV and target Job Description
  */
-export function scoreCvAgainstJd({ cvText = '', jdText = '', customKeywords = STANDARD_TECH_KEYWORDS, assessmentDate = '2026-10-31' } = {}) {
+export function scoreCvAgainstJd({ cvText = '', jdText = '', customKeywords = STANDARD_TECH_KEYWORDS, assessmentDate = todayIso() } = {}) {
   const cleanCv = boundedText(cvText, '', 50000);
   const cleanJd = boundedText(jdText, '', 50000);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const targetKeywords = extractJdKeywords(cleanJd, customKeywords);
   const normCv = normalizeAtsText(cleanCv);
 

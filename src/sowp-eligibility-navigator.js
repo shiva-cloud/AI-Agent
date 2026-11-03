@@ -16,7 +16,7 @@
  *        employed in TEER 0, 1, 2, or 3 (or qualifying TEER 4/5 under public policy phase 2).
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SOWP_CONSTANTS = Object.freeze({
   POLICY_OVERHAUL_DATE: '2024-03-19',
@@ -52,7 +52,7 @@ export function evaluateSowpEligibility({
   hasJointFinancialEvidence = true,
   applicantName = 'Spouse Applicant',
   principalName = 'Principal Temporary Resident',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const type = boundedText(sponsorType, 'international_student', 40).toLowerCase();
   const progLevel = boundedText(studentProgramLevel, 'masters', 40).toLowerCase();
@@ -66,7 +66,7 @@ export function evaluateSowpEligibility({
 
   const safeApplicant = boundedText(applicantName, 'Spouse Applicant', 120);
   const safePrincipal = boundedText(principalName, 'Principal Applicant', 120);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const rejectionRisks = [];
   const complianceNotes = [];

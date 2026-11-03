@@ -63,9 +63,12 @@ test('every website tool form behaves identically over POST and GET', async () =
           const postBody = await postRes.json();
           // iCalendar output carries a fresh RFC 5545 UID per response (correct event
           // identity, deliberately non-deterministic); compare semantics, not UIDs.
-          const stable = (b) => b && typeof b.icsContent === 'string'
-            ? { ...b, icsContent: b.icsContent.replace(/^(UID|DTSTAMP):.*$/gm, '$1:<generated>') }
-            : b;
+          // assumedInputs describes the request (field names differ between query and body), not the result.
+          const stable = (b) => {
+            if (!b || typeof b !== 'object') return b;
+            const { assumedInputs, assumptionNotice, ...rest } = b;
+            return typeof rest.icsContent === 'string' ? { ...rest, icsContent: rest.icsContent.replace(/^(UID|DTSTAMP):.*$/gm, '$1:<generated>') } : rest;
+          };
           assert.deepEqual(stable(postBody), stable(getBody), `${id} [${mode}] POST result must equal GET result`);
         } else {
           await getRes.text(); await postRes.text();

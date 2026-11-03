@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ONTARIO_T6_MAINTENANCE_CONSTANTS = Object.freeze({
   MIN_STATUTORY_HEATING_TEMP_CELSIUS: 20, // O. Reg. 516/06 s. 4(1)
@@ -42,7 +42,7 @@ export function evaluateOntarioUrgentRepairsT6(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     tenantName = 'Tenant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     vitalServiceInterrupted = false,
     indoorTemperatureCelsius = null,
     calendarMonth = 1,
@@ -57,7 +57,7 @@ export function evaluateOntarioUrgentRepairsT6(params = {}) {
     rentalAddress = 'Rental Property'
   } = safeParams;
   const cleanTenant = boundedText(tenantName, 'Tenant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanLandlord = boundedText(landlordName, 'Landlord');
   const cleanAddress = boundedText(rentalAddress, 'Rental Property');
   const rent = Math.max(0, Number(monthlyRentCad) || 0);

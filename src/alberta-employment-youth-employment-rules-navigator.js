@@ -10,7 +10,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_YOUTH_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Code, RSA 2000, c. E-9, ss. 65-67; Alta. Reg. 211/2004 ss. 51-53',
@@ -54,10 +54,10 @@ export function evaluateAlbertaYouthEmploymentRules({
   duringSchoolHours = false,
   adultSupervisionPresent = true,
   employeeName = 'Youth Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanEmployee = boundedText(employeeName, 'Youth Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const age = Number.isFinite(Number(employeeAge))
     ? Math.max(0, Math.min(100, Math.floor(Number(employeeAge))))
     : 0;

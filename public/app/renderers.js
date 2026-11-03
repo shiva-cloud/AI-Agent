@@ -979,57 +979,57 @@ export async function renderCareersSuite() {
 
       container.innerHTML = `
         <div class="licensing-roadmap-card">
-          <div class="licensing-roadmap-header" style="margin-bottom:1rem;">
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+          <div class="licensing-roadmap-header" data-s="margin-bottom-1rem">
+            <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
               <div>
-                <span class="badge" style="background:#dbeafe;color:#1e40af;padding:0.2rem 0.5rem;border-radius:4px;font-weight:700;font-size:0.8rem;">🍁 REGULATED PROFESSION · ${d.targetProvince}</span>
-                <h3 style="margin:0.4rem 0 0.2rem 0;font-size:1.3rem;">${d.profession}</h3>
-                <span class="journey-milestone-cite" style="color:var(--text-muted);">${d.regulatoryBody} · ${d.statute}</span>
+                <span class="badge" data-s="background-dbeafe color-1e40af padding-0_2rem-0_5rem border-radius-4px font-weight-700 font-size-0_8rem">🍁 REGULATED PROFESSION · ${d.targetProvince}</span>
+                <h3 data-s="margin-0_4rem-0-0_2rem-0 font-size-1_3rem">${d.profession}</h3>
+                <span class="journey-milestone-cite" data-s="color-text-muted">${d.regulatoryBody} · ${d.statute}</span>
               </div>
-              <div style="text-align:right;">
-                <div style="font-size:1.25rem;font-weight:700;color:#0f766e;">~$${d.estimatedTotalCostCad} CAD</div>
-                <span style="font-size:0.8rem;color:var(--text-muted);">Est. Exam &amp; Evaluation Fees</span>
+              <div data-s="text-align-right">
+                <div data-s="font-size-1_25rem font-weight-700 color-0f766e">~$${d.estimatedTotalCostCad} CAD</div>
+                <span data-s="font-size-0_8rem color-text-muted">Est. Exam &amp; Evaluation Fees</span>
               </div>
             </div>
           </div>
 
-          <div style="margin-bottom:1.25rem;padding:0.85rem;background:#f0fdf4;border-left:4px solid #16a34a;border-radius:4px;font-size:0.88rem;line-height:1.45;">
-            <strong style="color:#15803d;">⚖️ Rules on “Canadian experience” requirements:</strong><br>
+          <div data-s="margin-bottom-1_25rem padding-0_85rem background-f0fdf4 border-left-4px-solid-16a34a border-radius-4px font-size-0_88rem line-height-1_45">
+            <strong data-s="color-15803d">⚖️ Rules on “Canadian experience” requirements:</strong><br>
             ${d.canadianExperiencePolicy.advisory}
           </div>
 
-          <div style="margin-bottom:1.25rem;padding:0.85rem;background:var(--bg-elevated, #f8fafc);border:1px solid #e2e8f0;border-radius:6px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+          <div data-s="margin-bottom-1_25rem padding-0_85rem background-bg-elevated-f8fafc border-1px-solid-e2e8f0 border-radius-6px">
+            <div data-s="display-flex justify-content-space-between align-items-center flex-wrap-wrap gap-0_5rem">
               <strong>Designated IRCC / Licensing Credential Body:</strong>
-              <span class="badge" style="background:#e0e7ff;color:#3730a3;font-weight:600;">${d.designatedEca.code} (~$${d.designatedEca.estimatedFeeCad} CAD)</span>
+              <span class="badge" data-s="background-e0e7ff color-3730a3 font-weight-600">${d.designatedEca.code} (~$${d.designatedEca.estimatedFeeCad} CAD)</span>
             </div>
-            <p style="margin:0.35rem 0 0.2rem 0;font-size:0.85rem;color:var(--text);">${d.designatedEca.name} — ${d.designatedEca.coverage}</p>
-            <div style="font-size:0.8rem;color:var(--text-muted);">⏱ Estimated Timeline: ${d.designatedEca.timelineWeeks} | Delivery: ${d.designatedEca.deliveryMethod}</div>
+            <p data-s="margin-0_35rem-0-0_2rem-0 font-size-0_85rem color-text">${d.designatedEca.name} — ${d.designatedEca.coverage}</p>
+            <div data-s="font-size-0_8rem color-text-muted">⏱ Estimated Timeline: ${d.designatedEca.timelineWeeks} | Delivery: ${d.designatedEca.deliveryMethod}</div>
           </div>
 
-          <h4 style="margin:1rem 0 0.5rem 0;font-size:1rem;">Licensing Steps &amp; Regulatory Milestones:</h4>
+          <h4 data-s="margin-1rem-0-0_5rem-0 font-size-1rem">Licensing Steps &amp; Regulatory Milestones:</h4>
           <div class="licensing-step-list">
             ${d.phases.map(p => `
               <div class="licensing-step-item">
                 <div class="licensing-step-num">${p.step}</div>
                 <div class="licensing-step-content">
-                  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.25rem;">
-                    <h4 class="licensing-step-title" style="margin:0;">${p.title}</h4>
-                    <span class="badge" style="font-size:0.75rem;background:#f1f5f9;color:#334155;">~$${p.feeEstimateCad} CAD · ${p.duration}</span>
+                  <div data-s="display-flex justify-content-space-between align-items-center flex-wrap-wrap gap-0_25rem">
+                    <h4 class="licensing-step-title" data-s="margin-0">${p.title}</h4>
+                    <span class="badge" data-s="font-size-0_75rem background-f1f5f9 color-334155">~$${p.feeEstimateCad} CAD · ${p.duration}</span>
                   </div>
-                  <p class="licensing-step-desc" style="margin:0.4rem 0 0.5rem 0;font-size:0.85rem;color:var(--text-muted);">${p.statutoryRequirement}</p>
-                  <ul style="margin:0;padding-left:1.25rem;font-size:0.83rem;line-height:1.45;">
-                    ${p.actions.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+                  <p class="licensing-step-desc" data-s="margin-0_4rem-0-0_5rem-0 font-size-0_85rem color-text-muted">${p.statutoryRequirement}</p>
+                  <ul data-s="margin-0 padding-left-1_25rem font-size-0_83rem line-height-1_45">
+                    ${p.actions.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
                   </ul>
                 </div>
               </div>
             `).join('')}
           </div>
 
-          <div style="margin-top:1.25rem;padding:0.85rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;font-size:0.85rem;">
-            <strong style="color:#1d4ed8;">💼 Financial Support &amp; Tax Credits:</strong>
-            <p style="margin:0.35rem 0 0.25rem 0;">Immigrant micro-loans (${d.financialAssistance.loanAmountRange}) available through <strong>${d.financialAssistance.loanPartners[0]}</strong> to cover exams, books, and bridge living costs.</p>
-            <div style="font-size:0.8rem;color:#1e40af;">${d.financialAssistance.taxDeductibility}</div>
+          <div data-s="margin-top-1_25rem padding-0_85rem background-eff6ff border-1px-solid-bfdbfe border-radius-6px font-size-0_85rem">
+            <strong data-s="color-1d4ed8">💼 Financial Support &amp; Tax Credits:</strong>
+            <p data-s="margin-0_35rem-0-0_25rem-0">Immigrant micro-loans (${d.financialAssistance.loanAmountRange}) available through <strong>${d.financialAssistance.loanPartners[0]}</strong> to cover exams, books, and bridge living costs.</p>
+            <div data-s="font-size-0_8rem color-1e40af">${d.financialAssistance.taxDeductibility}</div>
           </div>
         </div>
       `;
@@ -1446,10 +1446,10 @@ export function renderBorderFlagpolingResults(data, container) {
   }
 
   const barriersHtml = data.legalBarriers && data.legalBarriers.length > 0 ? `
-    <div style="background:#fee2e2;border:1px solid #ef4444;border-radius:8px;padding:0.85rem;margin-bottom:1rem;">
-      <div style="font-weight:700;color:#991b1b;font-size:0.9rem;margin-bottom:0.4rem;">⛔ STATUTORY & MINISTERIAL LEGAL BARRIERS:</div>
+    <div data-s="background-fee2e2 border-1px-solid-ef4444 border-radius-8px padding-0_85rem margin-bottom-1rem">
+      <div data-s="font-weight-700 color-991b1b font-size-0_9rem margin-bottom-0_4rem">⛔ STATUTORY & MINISTERIAL LEGAL BARRIERS:</div>
       ${data.legalBarriers.map(b => `
-        <div style="margin-bottom:0.5rem;font-size:0.85rem;color:#7f1d1d;">
+        <div data-s="margin-bottom-0_5rem font-size-0_85rem color-7f1d1d">
           <strong>${escapeHtml(b.rule)} [${escapeHtml(b.severity)}]:</strong>
           <div>${escapeHtml(b.description)}</div>
         </div>
@@ -1458,10 +1458,10 @@ export function renderBorderFlagpolingResults(data, container) {
   ` : '';
 
   const warningsHtml = data.warnings && data.warnings.length > 0 ? `
-    <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:0.85rem;margin-bottom:1rem;">
-      <div style="font-weight:700;color:#92400e;font-size:0.9rem;margin-bottom:0.4rem;">⚠️ OPERATIONAL & IMMIGRATION STATUS WARNINGS:</div>
+    <div data-s="background-fef3c7 border-1px-solid-f59e0b border-radius-8px padding-0_85rem margin-bottom-1rem">
+      <div data-s="font-weight-700 color-92400e font-size-0_9rem margin-bottom-0_4rem">⚠️ OPERATIONAL & IMMIGRATION STATUS WARNINGS:</div>
       ${data.warnings.map(w => `
-        <div style="margin-bottom:0.4rem;font-size:0.85rem;color:#78350f;">
+        <div data-s="margin-bottom-0_4rem font-size-0_85rem color-78350f">
           <strong>${escapeHtml(w.statute)} [${escapeHtml(w.level)}]:</strong> ${escapeHtml(w.message)}
         </div>
       `).join('')}
@@ -1470,80 +1470,80 @@ export function renderBorderFlagpolingResults(data, container) {
 
   const usImpact = data.usAdministrativeRefusalImpact || {};
   const usRefusalHtml = `
-    <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:0.85rem;margin-bottom:1rem;">
-      <div style="font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">🇺🇸 US CBP ADMINISTRATIVE REFUSAL &amp; IRPA s. 40 CANDOUR MANDATE:</div>
-      <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.45;">
+    <div data-s="background-bg-elevated border-1px-solid-border border-radius-8px padding-0_85rem margin-bottom-1rem">
+      <div data-s="font-weight-700 font-size-0_85rem margin-bottom-0_4rem">🇺🇸 US CBP ADMINISTRATIVE REFUSAL &amp; IRPA s. 40 CANDOUR MANDATE:</div>
+      <div data-s="font-size-0_8rem color-text-muted line-height-1_45">
         <div><strong>Turnaround Document:</strong> ${escapeHtml(usImpact.formName || 'CBP Form I-160A')}</div>
-        <div style="margin-top:0.25rem;"><strong>Mandatory Reporting:</strong> ${escapeHtml(usImpact.mandatoryDeclaration || '')}</div>
-        <div style="margin-top:0.25rem;color:#b91c1c;"><strong>Misrepresentation Risk:</strong> ${escapeHtml(usImpact.misrepresentationConsequence || '')}</div>
-        <div style="margin-top:0.25rem;"><strong>Advisory:</strong> ${escapeHtml(usImpact.advisory || '')}</div>
+        <div data-s="margin-top-0_25rem"><strong>Mandatory Reporting:</strong> ${escapeHtml(usImpact.mandatoryDeclaration || '')}</div>
+        <div data-s="margin-top-0_25rem color-b91c1c"><strong>Misrepresentation Risk:</strong> ${escapeHtml(usImpact.misrepresentationConsequence || '')}</div>
+        <div data-s="margin-top-0_25rem"><strong>Advisory:</strong> ${escapeHtml(usImpact.advisory || '')}</div>
       </div>
     </div>
   `;
 
   const docsHtml = data.requiredDocuments && data.requiredDocuments.length > 0 ? `
-    <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:0.85rem;margin-bottom:1rem;">
-      <div style="font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">📋 MANDATORY BORDER DOCUMENTATION CHECKLIST:</div>
-      <ul style="margin:0;padding-left:1.25rem;font-size:0.85rem;color:var(--text);">
-        ${data.requiredDocuments.map(d => `<li style="margin-bottom:0.25rem;">${escapeHtml(d)}</li>`).join('')}
+    <div data-s="background-bg-elevated border-1px-solid-border border-radius-8px padding-0_85rem margin-bottom-1rem">
+      <div data-s="font-weight-700 font-size-0_85rem margin-bottom-0_4rem">📋 MANDATORY BORDER DOCUMENTATION CHECKLIST:</div>
+      <ul data-s="margin-0 padding-left-1_25rem font-size-0_85rem color-text">
+        ${data.requiredDocuments.map(d => `<li data-s="margin-bottom-0_25rem">${escapeHtml(d)}</li>`).join('')}
       </ul>
     </div>
   ` : '';
 
   const prepHtml = data.borderInterviewPrep && data.borderInterviewPrep.length > 0 ? `
-    <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:0.85rem;margin-bottom:1rem;">
-      <div style="font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">🛡️ CBSA BORDER SERVICES OFFICER (BSO) INTERVIEW PREPARATION:</div>
-      <ul style="margin:0;padding-left:1.25rem;font-size:0.85rem;color:var(--text-muted);">
-        ${data.borderInterviewPrep.map(p => `<li style="margin-bottom:0.35rem;">${escapeHtml(p)}</li>`).join('')}
+    <div data-s="background-bg-elevated border-1px-solid-border border-radius-8px padding-0_85rem margin-bottom-1rem">
+      <div data-s="font-weight-700 font-size-0_85rem margin-bottom-0_4rem">🛡️ CBSA BORDER SERVICES OFFICER (BSO) INTERVIEW PREPARATION:</div>
+      <ul data-s="margin-0 padding-left-1_25rem font-size-0_85rem color-text-muted">
+        ${data.borderInterviewPrep.map(p => `<li data-s="margin-bottom-0_35rem">${escapeHtml(p)}</li>`).join('')}
       </ul>
     </div>
   ` : '';
 
   const statutesHtml = data.statutoryReferences && data.statutoryReferences.length > 0 ? `
-    <div style="font-size:0.75rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.75rem;margin-top:1rem;">
+    <div data-s="font-size-0_75rem color-text-muted border-top-1px-solid-border padding-top-0_75rem margin-top-1rem">
       <strong>Statutory Authorities:</strong> ${data.statutoryReferences.map(s => escapeHtml(s)).join(' • ')}
     </div>
   ` : '';
 
   container.innerHTML = `
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.25rem;">
+    <div data-s="background-bg-card border-1px-solid-border border-radius-10px padding-1_25rem">
       <!-- Header -->
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem;">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_75rem margin-bottom-1rem border-bottom-1px-solid-border padding-bottom-0_75rem">
         <div>
-          <span style="display:inline-block;padding:0.25rem 0.6rem;background:${badgeColor}20;color:${badgeColor};border:1px solid ${badgeColor};border-radius:4px;font-weight:700;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:0.4rem;">
+          <span data-style="display:inline-block;padding:0.25rem 0.6rem;background:${badgeColor}20;color:${badgeColor};border:1px solid ${badgeColor};border-radius:4px;font-weight:700;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:0.4rem;">
             ${escapeHtml(badgeText)}
           </span>
-          <h4 style="margin:0.2rem 0;font-size:1.15rem;">CBSA Flagpoling Assessment: ${escapeHtml(data.portOfEntry?.name || 'Border POE')}</h4>
+          <h4 data-s="margin-0_2rem-0 font-size-1_15rem">CBSA Flagpoling Assessment: ${escapeHtml(data.portOfEntry?.name || 'Border POE')}</h4>
         </div>
-        <div style="text-align:right;">
-          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">SCHEDULED DAY</div>
-          <div style="font-size:1.1rem;font-weight:700;color:${data.isOperatingDay ? '#16a34a' : '#dc2626'};">
+        <div data-s="text-align-right">
+          <div data-s="font-size-0_75rem color-text-muted font-weight-600">SCHEDULED DAY</div>
+          <div data-style="font-size:1.1rem;font-weight:700;color:${data.isOperatingDay ? '#16a34a' : '#dc2626'};">
             ${escapeHtml(data.dayScheduled || '')} (${data.isOperatingDay ? 'Operating Day' : 'Non-Operating Day'})
           </div>
         </div>
       </div>
 
-      <p style="font-size:0.95rem;margin:0 0 1rem 0;line-height:1.45;color:var(--text);">
+      <p data-s="font-size-0_95rem margin-0-0-1rem-0 line-height-1_45 color-text">
         ${escapeHtml(data.summary)}
       </p>
 
       <!-- Port Details Grid -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;margin-bottom:1rem;">
-        <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:0.75rem;">
-          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">OPERATING DAYS</div>
-          <div style="font-size:0.9rem;font-weight:700;margin-top:0.2rem;">
+      <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-200 gap-0_75rem margin-bottom-1rem">
+        <div data-s="background-bg-elevated border-1px-solid-border border-radius-8px padding-0_75rem">
+          <div data-s="font-size-0_75rem color-text-muted font-weight-600">OPERATING DAYS</div>
+          <div data-s="font-size-0_9rem font-weight-700 margin-top-0_2rem">
             ${(data.portOfEntry?.flagpolingDays || []).join(', ')}
           </div>
         </div>
-        <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:0.75rem;">
-          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">FLAGPOLING HOURS</div>
-          <div style="font-size:0.9rem;font-weight:700;margin-top:0.2rem;">
+        <div data-s="background-bg-elevated border-1px-solid-border border-radius-8px padding-0_75rem">
+          <div data-s="font-size-0_75rem color-text-muted font-weight-600">FLAGPOLING HOURS</div>
+          <div data-s="font-size-0_9rem font-weight-700 margin-top-0_2rem">
             ${escapeHtml(data.portOfEntry?.flagpolingHours || 'Check Port')}
           </div>
         </div>
-        <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:0.75rem;">
-          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">DAILY QUOTA CAP</div>
-          <div style="font-size:0.9rem;font-weight:700;margin-top:0.2rem;">
+        <div data-s="background-bg-elevated border-1px-solid-border border-radius-8px padding-0_75rem">
+          <div data-s="font-size-0_75rem color-text-muted font-weight-600">DAILY QUOTA CAP</div>
+          <div data-s="font-size-0_9rem font-weight-700 margin-top-0_2rem">
             ${escapeHtml(data.portOfEntry?.estimatedQuota || 'Discretionary')}
           </div>
         </div>
@@ -1565,16 +1565,16 @@ export function renderAlbertaOpportunityStreamResults(data, container) {
   const isEligible = data.isAosEligible || (data.eligibleStreams && data.eligibleStreams.length > 0);
 
   let html = `
-    <div class="result-banner ${isEligible ? 'result-compliant' : 'result-warning'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isEligible ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isEligible ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${isEligible ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner ${isEligible ? 'result-compliant' : 'result-warning'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isEligible ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isEligible ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${isEligible ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           ${isEligible ? '✅ QUALIFIES FOR AAIP PROVINCIAL NOMINATION' : '⚠️ AAIP STATUTORY BARS IDENTIFIED'}
         </h4>
-        <span class="badge" style="background:${isEligible ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${isEligible ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           ${data.overallVerdict || 'EVALUATED'}
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Candidate: <strong>${data.candidateName || 'Candidate'}</strong> | NOC: <strong>${data.occupationAudit?.nocCode || 'NOC'}</strong> (TEER ${data.occupationAudit?.teerCategory || 0}) | Sector: <strong>${data.occupationAudit?.sector || 'general'}</strong>.
       </p>
     </div>
@@ -1582,11 +1582,11 @@ export function renderAlbertaOpportunityStreamResults(data, container) {
 
   if (Array.isArray(data.eligibleStreams) && data.eligibleStreams.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;">🏔️ Eligible AAIP Streams</h5>
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0">🏔️ Eligible AAIP Streams</h5>
         ${data.eligibleStreams.map(s => `
-          <div style="border-left:3px solid #2e7d32;padding-left:0.75rem;margin-bottom:0.5rem;">
-            <strong>${s.streamName}</strong> - <span style="color:#2e7d32;font-weight:bold;">${s.status}</span> (Fee: ${s.applicationFeeCad} CAD)
+          <div data-s="border-left-3px-solid-2e7d32 padding-left-0_75rem margin-bottom-0_5rem">
+            <strong>${s.streamName}</strong> - <span data-s="color-2e7d32 font-weight-bold">${s.status}</span> (Fee: ${s.applicationFeeCad} CAD)
           </div>
         `).join('')}
       </div>
@@ -1594,20 +1594,20 @@ export function renderAlbertaOpportunityStreamResults(data, container) {
   }
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📋 Work Experience Audit</h5>
-        <div style="font-size:0.9rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📋 Work Experience Audit</h5>
+        <div data-s="font-size-0_9rem">
           Alberta Months: <strong>${data.workExperienceAudit?.albertaMonths || 0} / ${data.workExperienceAudit?.requiredAlbertaMonths || 12} required</strong><br>
-          Experience Status: <strong style="color:${data.workExperienceAudit?.isExperienceSatisfied ? '#2e7d32' : '#d32f2f'};">${data.workExperienceAudit?.isExperienceSatisfied ? 'SATISFIED' : 'SHORTFALL'}</strong>
+          Experience Status: <strong data-style="color:${data.workExperienceAudit?.isExperienceSatisfied ? '#2e7d32' : '#d32f2f'};">${data.workExperienceAudit?.isExperienceSatisfied ? 'SATISFIED' : 'SHORTFALL'}</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">🗣️ Language Benchmark</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">🗣️ Language Benchmark</h5>
+        <div data-s="font-size-0_9rem">
           Candidate Score: <strong>CLB ${data.languageAudit?.candidateClb || 0}</strong><br>
           Required Threshold: <strong>CLB ${data.languageAudit?.requiredClb || 5}</strong><br>
-          Status: <strong style="color:${data.languageAudit?.isLanguageSatisfied ? '#2e7d32' : '#d32f2f'};">${data.languageAudit?.isLanguageSatisfied ? 'SATISFIED' : 'DEFICIENT'}</strong>
+          Status: <strong data-style="color:${data.languageAudit?.isLanguageSatisfied ? '#2e7d32' : '#d32f2f'};">${data.languageAudit?.isLanguageSatisfied ? 'SATISFIED' : 'DEFICIENT'}</strong>
         </div>
       </div>
     </div>
@@ -1615,10 +1615,10 @@ export function renderAlbertaOpportunityStreamResults(data, container) {
 
   if (Array.isArray(data.violationsAndBars) && data.violationsAndBars.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Statutory Bars &amp; Deficiencies</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.violationsAndBars.map(v => `<li style="margin-bottom:0.25rem;">${v}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Statutory Bars &amp; Deficiencies</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.violationsAndBars.map(v => `<li data-s="margin-bottom-0_25rem">${v}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -1626,10 +1626,10 @@ export function renderAlbertaOpportunityStreamResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Application &amp; Mitigation Roadmap</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Application &amp; Mitigation Roadmap</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -1644,34 +1644,34 @@ export function renderBcSpeculationTaxDeclarationResults(data, container) {
   const isExempt = data.isExemptFromSvt;
 
   let html = `
-    <div class="result-banner ${isExempt ? 'result-compliant' : 'result-warning'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isExempt ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isExempt ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${isExempt ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner ${isExempt ? 'result-compliant' : 'result-warning'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isExempt ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isExempt ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${isExempt ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           ${isExempt ? '🏡 STATUTORILY EXEMPT FROM BC SPECULATION TAX' : '⚠️ SPECULATION & VACANCY TAX OWED'}
         </h4>
-        <span class="badge" style="background:${isExempt ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${isExempt ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           Estimated Tax: ${(data.estimatedTaxLiabilityCad || 0).toLocaleString()} CAD (${data.applicableTaxRatePercent || 0.5}%)
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Region: <strong>${data.propertyRegion || 'BC'}</strong> | Assessed Value: <strong>${(data.assessedPropertyValueCad || 0).toLocaleString()} CAD</strong> | Exemption: <strong>${data.exemptionReason || 'None'}</strong>.
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">⚖️ Legal Basis &amp; Rate Classification</h5>
-        <div style="font-size:0.9rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">⚖️ Legal Basis &amp; Rate Classification</h5>
+        <div data-s="font-size-0_9rem">
           Statutory Authority: <strong>${data.statutoryAuthority || 'SVT Act'}</strong><br>
           Satellite Family: <strong>${data.isSatelliteFamily ? 'YES (Subject to 2.0% Tax Rate)' : 'NO'}</strong><br>
           Tax Year: <strong>${data.taxYear || '2025'}</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📅 Filing Deadline &amp; Portal</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📅 Filing Deadline &amp; Portal</h5>
+        <div data-s="font-size-0_9rem">
           Declaration Due: <strong>March 31, ${Number(data.taxYear || 2025) + 1}</strong><br>
           Portal: <strong>gov.bc.ca/spectax</strong><br>
           Mandatory Requirement: <strong>All owners must declare</strong>
@@ -1682,10 +1682,10 @@ export function renderBcSpeculationTaxDeclarationResults(data, container) {
 
   if (Array.isArray(data.riskWarnings) && data.riskWarnings.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Statutory Warnings &amp; Satellite Family Bars</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.riskWarnings.map(w => `<li style="margin-bottom:0.25rem;">${w}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Statutory Warnings &amp; Satellite Family Bars</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.riskWarnings.map(w => `<li data-s="margin-bottom-0_25rem">${w}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -1693,10 +1693,10 @@ export function renderBcSpeculationTaxDeclarationResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Declaration Steps &amp; Action Plan</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Declaration Steps &amp; Action Plan</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -1712,32 +1712,32 @@ export function renderPrtdHumanitarianResults(data, container) {
   const isStrong = hc?.overallHcStrength === 'STRONG';
 
   let html = `
-    <div class="result-banner ${isStrong ? 'result-compliant' : 'result-warning'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isStrong ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isStrong ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${isStrong ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner ${isStrong ? 'result-compliant' : 'result-warning'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isStrong ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isStrong ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${isStrong ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           🌐 H&amp;C ASSESSMENT: ${hc?.overallHcStrength || 'MODERATE'} CASE
         </h4>
-        <span class="badge" style="background:${isStrong ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${isStrong ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           Physical Days: ${res?.physicalDaysInCanada || 0} / 730 (Shortfall: ${res?.daysShortfall || 0} days)
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
-        Reason for Absence: <strong>${(hc?.absenceReasonCategory || 'none').replace(/_/g, ' ')}</strong> | BIOC Engaged: <strong>${hc?.bestInterestsOfChildEngaged ? 'YES' : 'NO'}</strong> | Mandatory In-Person Appeal Travel Doc: <strong style="color:${appeal?.qualifiesForMandatoryInPersonTravelDocument ? '#2e7d32' : '#d32f2f'};">${appeal?.qualifiesForMandatoryInPersonTravelDocument ? 'YES (IRPA s. 31(3)(c))' : 'NO (&lt; 365 Days in Canada)'}</strong>.
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
+        Reason for Absence: <strong>${(hc?.absenceReasonCategory || 'none').replace(/_/g, ' ')}</strong> | BIOC Engaged: <strong>${hc?.bestInterestsOfChildEngaged ? 'YES' : 'NO'}</strong> | Mandatory In-Person Appeal Travel Doc: <strong data-style="color:${appeal?.qualifiesForMandatoryInPersonTravelDocument ? '#2e7d32' : '#d32f2f'};">${appeal?.qualifiesForMandatoryInPersonTravelDocument ? 'YES (IRPA s. 31(3)(c))' : 'NO (&lt; 365 Days in Canada)'}</strong>.
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">⚖️ Positive H&amp;C Merits (Kanthasamy)</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${(hc?.positiveHcFactors || []).map(f => `<li style="margin-bottom:0.25rem;">${f}</li>`).join('')}
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">⚖️ Positive H&amp;C Merits (Kanthasamy)</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${(hc?.positiveHcFactors || []).map(f => `<li data-s="margin-bottom-0_25rem">${f}</li>`).join('')}
         </ul>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">🏛️ Appeal Rights (IRPA s. 63(4))</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">🏛️ Appeal Rights (IRPA s. 63(4))</h5>
+        <div data-s="font-size-0_9rem">
           Appellate Body: <strong>Immigration Appeal Division (IAD)</strong><br>
           Limitation Window: <strong>60 Calendar Days from Written Refusal</strong><br>
           Travel Document Right: <strong>${appeal?.qualifiesForMandatoryInPersonTravelDocument ? 'Mandatory In-Person Travel Document' : 'Virtual / Leave Required'}</strong>
@@ -1748,10 +1748,10 @@ export function renderPrtdHumanitarianResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Defense Strategy &amp; Application Plan</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Defense Strategy &amp; Application Plan</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -1766,36 +1766,36 @@ export function renderSeveranceReasonableNoticeResults(data, container) {
   const { statutoryEsaAudit: esa, commonLawAssessment: cl, enforceabilityAudit: enf } = data;
 
   let html = `
-    <div class="result-banner" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid #1976d2;background:#e3f2fd;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:#0d47a1;font-size:1.1rem;">
+    <div class="result-banner" data-s="margin-bottom-1rem padding-1rem border-radius-6px border-1px-solid-1976d2 background-e3f2fd">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-s="margin-0 color-0d47a1 font-size-1_1rem">
           💼 COMMON LAW REASONABLE NOTICE ESTIMATION
         </h4>
-        <span class="badge" style="background:#1976d2;color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-s="background-1976d2 color-fff padding-0_25rem-0_5rem border-radius-4px font-size-0_85rem">
           Estimated Value: ${(cl?.estimatedCommonLawValueCad || 0).toLocaleString()} CAD (${cl?.estimatedNoticeMonths || 0} Months)
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
-        Statutory Minimum (Notice + Severance): <strong>${(esa?.totalStatutoryMinimumCad || 0).toLocaleString()} CAD</strong> | Potential Common Law Differential: <strong style="color:#2e7d32;">+${(cl?.differentialOverStatutoryCad || 0).toLocaleString()} CAD</strong>.
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
+        Statutory Minimum (Notice + Severance): <strong>${(esa?.totalStatutoryMinimumCad || 0).toLocaleString()} CAD</strong> | Potential Common Law Differential: <strong data-s="color-2e7d32">+${(cl?.differentialOverStatutoryCad || 0).toLocaleString()} CAD</strong>.
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📜 Employment Standards Act (ESA) Minimums</h5>
-        <div style="font-size:0.9rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📜 Employment Standards Act (ESA) Minimums</h5>
+        <div data-s="font-size-0_9rem">
           Statutory Notice: <strong>${esa?.statutoryNoticeWeeks || 0} Weeks (${(esa?.statutoryNoticePayCad || 0).toLocaleString()} CAD)</strong><br>
           Statutory Severance Pay (s. 64): <strong>${esa?.statutorySeveranceWeeks || 0} Weeks (${(esa?.statutorySeverancePayCad || 0).toLocaleString()} CAD)</strong><br>
           Qualifies for Severance ($2.5M+ Payroll &amp; 5+ Yrs): <strong>${esa?.qualifiesForStatutorySeverancePay ? 'YES' : 'NO'}</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">⚖️ Waksdale Clause Enforceability Audit</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">⚖️ Waksdale Clause Enforceability Audit</h5>
+        <div data-s="font-size-0_9rem">
           Written Termination Clause: <strong>${enf?.hasWrittenClause ? 'Present' : 'None'}</strong><br>
-          Clause Enforceability: <strong style="color:${enf?.isClauseEnforceable ? '#ed6c02' : '#2e7d32'};">${enf?.isClauseEnforceable ? 'Appears Compliant' : 'VOID UNDER WAKSDALE'}</strong><br>
+          Clause Enforceability: <strong data-style="color:${enf?.isClauseEnforceable ? '#ed6c02' : '#2e7d32'};">${enf?.isClauseEnforceable ? 'Appears Compliant' : 'VOID UNDER WAKSDALE'}</strong><br>
           Entitlement Doctrine: <strong>${enf?.recommendedLegalClaim || 'COMMON_LAW'}</strong>
         </div>
       </div>
@@ -1804,10 +1804,10 @@ export function renderSeveranceReasonableNoticeResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Negotiation &amp; Legal Next Steps</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Negotiation &amp; Legal Next Steps</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -1823,41 +1823,41 @@ export function renderManitobaPnpSkilledWorkerResults(data, container) {
   const isEligible = data.isStreamEligible;
 
   let html = `
-    <div class="result-banner ${isEligible ? 'result-compliant' : 'result-warning'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isEligible ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isEligible ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${isEligible ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner ${isEligible ? 'result-compliant' : 'result-warning'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isEligible ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isEligible ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${isEligible ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           ${isEligible ? '🌾 QUALIFIES FOR SKILLED WORKER IN MANITOBA' : '⚠️ MANITOBA EMPLOYMENT DURATION SHORTFALL'}
         </h4>
-        <span class="badge" style="background:${isEligible ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${isEligible ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           Total EOI Points: ${eoi?.totalEoiPoints || 0} / 1,000
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Candidate: <strong>${data.candidateName || 'Candidate'}</strong> | Months in Manitoba: <strong>${emp?.monthsWorkedInManitoba || 0} / ${emp?.requiredMonths || 6} required</strong> | Permanent Job Offer: <strong>${emp?.hasPermanentJobOffer ? 'YES' : 'NO'}</strong>.
       </p>
     </div>
   `;
 
   html += `
-    <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);margin-bottom:1rem;">
-      <h5 style="margin:0 0 0.5rem 0;">📊 MPNP 1,000-Point Factor Breakdown</h5>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;font-size:0.85rem;">
-        <div style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;">Language: <strong>${eoi?.pointsLanguage || 0} pts</strong></div>
-        <div style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;">Age: <strong>${eoi?.pointsAge || 0} pts</strong></div>
-        <div style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;">Experience: <strong>${eoi?.pointsWorkExperience || 0} pts</strong></div>
-        <div style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;">Education: <strong>${eoi?.pointsEducation || 0} pts</strong></div>
-        <div style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;">Adaptability: <strong>${eoi?.pointsAdaptability || 0} pts</strong></div>
-        <div style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;color:${(eoi?.riskDeductions || 0) < 0 ? '#d32f2f' : '#666'};">Risk Deductions: <strong>${eoi?.riskDeductions || 0} pts</strong></div>
+    <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border margin-bottom-1rem">
+      <h5 data-s="margin-0-0-0_5rem-0">📊 MPNP 1,000-Point Factor Breakdown</h5>
+      <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-140 gap-0_5rem font-size-0_85rem">
+        <div data-s="background-fff padding-0_5rem border-radius-4px border-1px-solid-ddd">Language: <strong>${eoi?.pointsLanguage || 0} pts</strong></div>
+        <div data-s="background-fff padding-0_5rem border-radius-4px border-1px-solid-ddd">Age: <strong>${eoi?.pointsAge || 0} pts</strong></div>
+        <div data-s="background-fff padding-0_5rem border-radius-4px border-1px-solid-ddd">Experience: <strong>${eoi?.pointsWorkExperience || 0} pts</strong></div>
+        <div data-s="background-fff padding-0_5rem border-radius-4px border-1px-solid-ddd">Education: <strong>${eoi?.pointsEducation || 0} pts</strong></div>
+        <div data-s="background-fff padding-0_5rem border-radius-4px border-1px-solid-ddd">Adaptability: <strong>${eoi?.pointsAdaptability || 0} pts</strong></div>
+        <div data-style="background:#fff;padding:0.5rem;border-radius:4px;border:1px solid #ddd;color:${(eoi?.riskDeductions || 0) < 0 ? '#d32f2f' : '#666'};">Risk Deductions: <strong>${eoi?.riskDeductions || 0} pts</strong></div>
       </div>
     </div>
   `;
 
   if (Array.isArray(data.riskWarnings) && data.riskWarnings.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Statutory Warnings &amp; Deductions</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.riskWarnings.map(w => `<li style="margin-bottom:0.25rem;">${w}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Statutory Warnings &amp; Deductions</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.riskWarnings.map(w => `<li data-s="margin-bottom-0_25rem">${w}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -1865,10 +1865,10 @@ export function renderManitobaPnpSkilledWorkerResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Application &amp; Next Steps</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Application &amp; Next Steps</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -1884,35 +1884,35 @@ export function renderPrCardRenewalResults(data, container) {
   const isCompliant = res?.residencyObligationMet;
 
   let html = `
-    <div class="result-banner ${isCompliant ? 'result-compliant' : 'result-warning'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isCompliant ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isCompliant ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${isCompliant ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner ${isCompliant ? 'result-compliant' : 'result-warning'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${isCompliant ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${isCompliant ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${isCompliant ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           ${isCompliant ? '✅ RESIDENCY OBLIGATION SATISFIED' : '⚠️ RESIDENCY OBLIGATION SHORTFALL'}
         </h4>
-        <span class="badge" style="background:${isCompliant ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${isCompliant ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           ${res?.totalCreditedDays || 0} / 730 Days Credited (${res?.compliancePercentage || 0}%)
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Physical days in Canada: <strong>${res?.daysInCanadaPhysical || 0}</strong> | Credited days abroad: <strong>${(res?.totalCreditedDays || 0) - (res?.daysInCanadaPhysical || 0)}</strong>.
-        ${!isCompliant ? ` Shortfall: <strong style="color:#d32f2f;">${res?.daysShortfall || 0} days</strong>.` : ''}
+        ${!isCompliant ? ` Shortfall: <strong data-s="color-d32f2f">${res?.daysShortfall || 0} days</strong>.` : ''}
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">⚡ Urgent Processing Audit</h5>
-        <div style="font-size:0.9rem;">
-          Status: <strong style="color:${urg?.qualifiesForUrgentProcessing ? '#2e7d32' : '#666'};">${urg?.qualifiesForUrgentProcessing ? 'QUALIFIES FOR URGENT' : 'STANDARD PROCESSING'}</strong><br>
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">⚡ Urgent Processing Audit</h5>
+        <div data-s="font-size-0_9rem">
+          Status: <strong data-style="color:${urg?.qualifiesForUrgentProcessing ? '#2e7d32' : '#666'};">${urg?.qualifiesForUrgentProcessing ? 'QUALIFIES FOR URGENT' : 'STANDARD PROCESSING'}</strong><br>
           Departure: <strong>${urg?.travelDepartureDaysFromNow || 0} days from now</strong><br>
           Urgent Ground: <strong>${(urg?.urgentReasonCategory || 'none').replace(/_/g, ' ')}</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📋 Application Pathway</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📋 Application Pathway</h5>
+        <div data-s="font-size-0_9rem">
           Form Required: <strong>${path?.recommendedForm || 'IMM 5444'}</strong><br>
           Submission Channel: <strong>${path?.filingChannel || 'PR Portal'}</strong><br>
           Government Fee: <strong>${path?.statutoryGovernmentFeeCad || 50} CAD</strong><br>
@@ -1924,10 +1924,10 @@ export function renderPrCardRenewalResults(data, container) {
 
   if (Array.isArray(data.requiredDocuments) && data.requiredDocuments.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;">📄 Required Documentation Checklist</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.requiredDocuments.map(d => `<li style="margin-bottom:0.25rem;">${d}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0">📄 Required Documentation Checklist</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.requiredDocuments.map(d => `<li data-s="margin-bottom-0_25rem">${d}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -1935,10 +1935,10 @@ export function renderPrCardRenewalResults(data, container) {
 
   if (Array.isArray(data.riskWarnings) && data.riskWarnings.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Statutory Warnings & Travel Bars</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.riskWarnings.map(w => `<li style="margin-bottom:0.25rem;">${w}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Statutory Warnings & Travel Bars</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.riskWarnings.map(w => `<li data-s="margin-bottom-0_25rem">${w}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -1946,10 +1946,10 @@ export function renderPrCardRenewalResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Step-by-Step Strategic Roadmap</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Step-by-Step Strategic Roadmap</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -1964,35 +1964,35 @@ export function renderForeignWorkerTransitionResults(data, container) {
   const { streamClassification: stream, lmiaAudit: lmia, currentPermitRunway: runway } = data;
 
   let html = `
-    <div class="result-banner" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${stream?.isHighWage ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${stream?.isHighWage ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${stream?.isHighWage ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${stream?.isHighWage ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${stream?.isHighWage ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${stream?.isHighWage ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           ${stream?.stream === 'HIGH_WAGE_STREAM' ? '💼 HIGH-WAGE STREAM (FREEZE-EXEMPT)' : '⚠️ LOW-WAGE STREAM (SUBJECT TO CAPS)'}
         </h4>
-        <span class="badge" style="background:${stream?.isHighWage ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${stream?.isHighWage ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           Wage: ${(stream?.wagePerHourCad || 0).toFixed(2)} / hr (Median: ${(stream?.provincialMedianWageCad || 0).toFixed(2)})
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Employer Location: <strong>${lmia?.employerLocationCma || 'Canada'}</strong> (Unemployment Rate: <strong>${(lmia?.cmaUnemploymentRatePercent || 0).toFixed(1)}%</strong>) | Sector: <strong>${lmia?.sector || 'general'}</strong>.
-        ${lmia?.isSubjectToCmaFreeze ? '<br><strong style="color:#d32f2f;">ESDC 6.0% Freeze Applies: Low-wage LMIA applications in this CMA are refused automatically.</strong>' : ''}
+        ${lmia?.isSubjectToCmaFreeze ? '<br><strong data-s="color-d32f2f">ESDC 6.0% Freeze Applies: Low-wage LMIA applications in this CMA are refused automatically.</strong>' : ''}
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">⏱️ Work Permit Runway</h5>
-        <div style="font-size:0.9rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-240 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">⏱️ Work Permit Runway</h5>
+        <div data-s="font-size-0_9rem">
           Days Remaining: <strong>${runway?.daysRemaining || 0} days</strong><br>
-          Runway Status: <strong style="color:${runway?.status === 'CRITICAL_URGENCY' ? '#d32f2f' : '#2e7d32'};">${runway?.status || 'HEALTHY'}</strong><br>
+          Runway Status: <strong data-style="color:${runway?.status === 'CRITICAL_URGENCY' ? '#d32f2f' : '#2e7d32'};">${runway?.status || 'HEALTHY'}</strong><br>
           Max Permit Duration: <strong>${lmia?.maxWorkPermitDurationMonths || 12} months</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">🏢 Employer Cap & Exemption Rules</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">🏢 Employer Cap & Exemption Rules</h5>
+        <div data-s="font-size-0_9rem">
           Applicable Cap: <strong>${lmia?.applicableEmployerCapPercent || 10}% of workforce</strong><br>
           Sector Exemption: <strong>${lmia?.isSectorExemptFromFreeze ? 'YES (Construction/Healthcare)' : 'NO (Standard 10% Cap)'}</strong>
         </div>
@@ -2002,12 +2002,12 @@ export function renderForeignWorkerTransitionResults(data, container) {
 
   if (Array.isArray(data.viablePathways) && data.viablePathways.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;">🚀 Viable Transition Alternatives</h5>
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0">🚀 Viable Transition Alternatives</h5>
         ${data.viablePathways.map(p => `
-          <div style="border-left:3px solid var(--color-primary);padding-left:0.75rem;margin-bottom:0.75rem;">
-            <strong>${p.pathwayName}</strong> <span class="badge" style="background:#1976d2;color:#fff;font-size:0.75rem;padding:0.15rem 0.35rem;border-radius:3px;">Feasibility: ${p.feasibility}</span><br>
-            <span style="font-size:0.85rem;color:#444;">${p.description} (<em>${p.statutoryReference}</em>)</span>
+          <div data-s="border-left-3px-solid-color-primary padding-left-0_75rem margin-bottom-0_75rem">
+            <strong>${p.pathwayName}</strong> <span class="badge" data-s="background-1976d2 color-fff font-size-0_75rem padding-0_15rem-0_35rem border-radius-3px">Feasibility: ${p.feasibility}</span><br>
+            <span data-s="font-size-0_85rem color-444">${p.description} (<em>${p.statutoryReference}</em>)</span>
           </div>
         `).join('')}
       </div>
@@ -2016,10 +2016,10 @@ export function renderForeignWorkerTransitionResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Actionable Transition Steps</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Actionable Transition Steps</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -2034,36 +2034,36 @@ export function renderChildDisabilityBenefitResults(data, container) {
   const { childDisabilityBenefit: cdb, rdspEntitlements: rdsp, dtcStatus: dtc } = data;
 
   let html = `
-    <div class="result-banner" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${cdb?.isEligible ? 'var(--color-success, #2e7d32)' : '#d32f2f'};background:${cdb?.isEligible ? '#e8f5e9' : '#ffebee'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${cdb?.isEligible ? '#1b5e20' : '#c62828'};font-size:1.1rem;">
+    <div class="result-banner" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${cdb?.isEligible ? 'var(--color-success, #2e7d32)' : '#d32f2f'};background:${cdb?.isEligible ? '#e8f5e9' : '#ffebee'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${cdb?.isEligible ? '#1b5e20' : '#c62828'};font-size:1.1rem;">
           ${cdb?.isEligible ? '🧸 CHILD DISABILITY BENEFIT ENTITLEMENT' : '⚠️ FORM T2201 PREREQUISITE REQUIRED'}
         </h4>
-        <span class="badge" style="background:${cdb?.isEligible ? '#2e7d32' : '#c62828'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${cdb?.isEligible ? '#2e7d32' : '#c62828'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           ${(cdb?.monthlyBenefitCad || 0).toFixed(2)} / month (${(cdb?.annualBenefitCad || 0).toFixed(2)} / yr)
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         DTC Status: <strong>${dtc?.isDtcPrerequisiteSatisfied ? 'Certified Form T2201 Approved' : 'Action Required (Form T2201 Pending)'}</strong> | Child Age: <strong>${cdb?.childAgeYears || 0} years</strong> | Adjusted Family Income: <strong>${(cdb?.familyNetIncomeCad || 0).toLocaleString()} CAD</strong>.
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">🇨🇦 RDSP Canada Disability Savings Grants</h5>
-        <div style="font-size:0.9rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">🇨🇦 RDSP Canada Disability Savings Grants</h5>
+        <div data-s="font-size-0_9rem">
           Proposed Deposit: <strong>${(rdsp?.proposedAnnualContributionCad || 0).toFixed(2)} CAD</strong><br>
-          Estimated Matching Grant: <strong style="color:#2e7d32;">+${(rdsp?.estimatedAnnualGrantCad || 0).toFixed(2)} CAD</strong><br>
-          Estimated Bond ($0 contribution): <strong style="color:#1976d2;">+${(rdsp?.estimatedAnnualBondCad || 0).toFixed(2)} CAD</strong><br>
-          Total Annual Govt Assistance: <strong style="color:#1565c0;">${(rdsp?.totalAnnualGovernmentAssistanceCad || 0).toFixed(2)} CAD</strong>
+          Estimated Matching Grant: <strong data-s="color-2e7d32">+${(rdsp?.estimatedAnnualGrantCad || 0).toFixed(2)} CAD</strong><br>
+          Estimated Bond ($0 contribution): <strong data-s="color-1976d2">+${(rdsp?.estimatedAnnualBondCad || 0).toFixed(2)} CAD</strong><br>
+          Total Annual Govt Assistance: <strong data-s="color-1565c0">${(rdsp?.totalAnnualGovernmentAssistanceCad || 0).toFixed(2)} CAD</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📈 Lifetime Limits &amp; Retroactive Catch-Up</h5>
-        <div style="font-size:0.9rem;">
-          10-Year Catch-Up Potential: <strong style="color:#7b1fa2;">${(rdsp?.retroactiveCatchUpPotentialCad || 0).toFixed(2)} CAD</strong><br>
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📈 Lifetime Limits &amp; Retroactive Catch-Up</h5>
+        <div data-s="font-size-0_9rem">
+          10-Year Catch-Up Potential: <strong data-s="color-7b1fa2">${(rdsp?.retroactiveCatchUpPotentialCad || 0).toFixed(2)} CAD</strong><br>
           Lifetime Max Grant: <strong>${(rdsp?.lifetimeGrantLimitCad || 70000).toLocaleString()} CAD</strong><br>
           Lifetime Max Bond: <strong>${(rdsp?.lifetimeBondLimitCad || 20000).toLocaleString()} CAD</strong>
         </div>
@@ -2073,10 +2073,10 @@ export function renderChildDisabilityBenefitResults(data, container) {
 
   if (Array.isArray(data.riskWarnings) && data.riskWarnings.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Statutory Preservation & Holdback Rules</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.riskWarnings.map(w => `<li style="margin-bottom:0.25rem;">${w}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Statutory Preservation & Holdback Rules</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.riskWarnings.map(w => `<li data-s="margin-bottom-0_25rem">${w}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -2084,10 +2084,10 @@ export function renderChildDisabilityBenefitResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Application & Account Setup Steps</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Application & Account Setup Steps</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -2102,39 +2102,39 @@ export function renderAlbertaSecurityDepositResults(data, container) {
   const { depositAudit: dep, inspectionCompliance: insp, refundAssessment: ref } = data;
 
   let html = `
-    <div class="result-banner ${insp?.landlordForfeitedDeductionRights ? 'result-warning' : 'result-compliant'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${insp?.landlordForfeitedDeductionRights ? '#d32f2f' : 'var(--color-success, #2e7d32)'};background:${insp?.landlordForfeitedDeductionRights ? '#ffebee' : '#e8f5e9'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${insp?.landlordForfeitedDeductionRights ? '#c62828' : '#1b5e20'};font-size:1.1rem;">
+    <div class="result-banner ${insp?.landlordForfeitedDeductionRights ? 'result-warning' : 'result-compliant'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${insp?.landlordForfeitedDeductionRights ? '#d32f2f' : 'var(--color-success, #2e7d32)'};background:${insp?.landlordForfeitedDeductionRights ? '#ffebee' : '#e8f5e9'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${insp?.landlordForfeitedDeductionRights ? '#c62828' : '#1b5e20'};font-size:1.1rem;">
           ${insp?.landlordForfeitedDeductionRights ? '⚖️ LANDLORD FORFEITED DEDUCTION RIGHTS (RTA s. 19(4))' : '📋 SECURITY DEPOSIT AUDIT COMPLETE'}
         </h4>
-        <span class="badge" style="background:${insp?.landlordForfeitedDeductionRights ? '#c62828' : '#2e7d32'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${insp?.landlordForfeitedDeductionRights ? '#c62828' : '#2e7d32'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           Total Refund Owed: ${(ref?.totalRefundOwedToTenantCad || 0).toFixed(2)} CAD
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Rental Unit: <strong>${data.rentalUnitAddress || 'Alberta Unit'}</strong> | Days Vacated: <strong>${ref?.daysSinceTenancyEnded || 0} days</strong> | Refund Status: <strong>${ref?.isRefundOverdue ? 'OVERDUE (Beyond 10-day statutory deadline)' : 'Within 10-day window'}</strong>.
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📝 Inspection Compliance (RTA s. 19)</h5>
-        <div style="font-size:0.9rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📝 Inspection Compliance (RTA s. 19)</h5>
+        <div data-s="font-size-0_9rem">
           Move-In Inspection Completed: <strong>${insp?.landlordConductedMoveInInspection ? 'YES' : 'NO (Violates RTA s. 19)'}</strong><br>
           Signed Report Provided: <strong>${insp?.tenantReceivedSignedMoveInReport ? 'YES' : 'NO (Violates RTA s. 19)'}</strong><br>
           Move-Out Inspection Completed: <strong>${insp?.landlordConductedMoveOutInspection ? 'YES' : 'NO'}</strong><br>
-          Forfeiture of Deduction Rights: <strong style="color:${insp?.landlordForfeitedDeductionRights ? '#d32f2f' : '#2e7d32'};">${insp?.landlordForfeitedDeductionRights ? 'FORFEITED UNDER STATUTE' : 'NO FORFEITURE'}</strong>
+          Forfeiture of Deduction Rights: <strong data-style="color:${insp?.landlordForfeitedDeductionRights ? '#d32f2f' : '#2e7d32'};">${insp?.landlordForfeitedDeductionRights ? 'FORFEITED UNDER STATUTE' : 'NO FORFEITURE'}</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">💰 Deposit &amp; Deductions Breakdown</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">💰 Deposit &amp; Deductions Breakdown</h5>
+        <div data-s="font-size-0_9rem">
           Deposit &amp; Fees Paid: <strong>${(dep?.totalDepositAndFeesPaid || 0).toFixed(2)} CAD</strong><br>
           Overcharged Deposit: <strong>${(dep?.overchargedDepositCad || 0).toFixed(2)} CAD</strong><br>
           Deductions Claimed: <strong>${(ref?.deductionsClaimedCad || 0).toFixed(2)} CAD</strong><br>
-          Illegal Deductions Identified: <strong style="color:#d32f2f;">${(ref?.illegalDeductionsCad || 0).toFixed(2)} CAD</strong>
+          Illegal Deductions Identified: <strong data-s="color-d32f2f">${(ref?.illegalDeductionsCad || 0).toFixed(2)} CAD</strong>
         </div>
       </div>
     </div>
@@ -2142,10 +2142,10 @@ export function renderAlbertaSecurityDepositResults(data, container) {
 
   if (Array.isArray(data.statutoryViolations) && data.statutoryViolations.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Statutory Violations Identified</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.statutoryViolations.map(v => `<li style="margin-bottom:0.25rem;">${v}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Statutory Violations Identified</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.statutoryViolations.map(v => `<li data-s="margin-bottom-0_25rem">${v}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -2153,10 +2153,10 @@ export function renderAlbertaSecurityDepositResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 RTDRS Dispute &amp; Demand Plan</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 RTDRS Dispute &amp; Demand Plan</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -2171,35 +2171,35 @@ export function renderInternationallyTrainedNurseResults(data, container) {
   const { nnasEvaluation: nnas, regulatoryRequirements: reg } = data;
 
   let html = `
-    <div class="result-banner ${nnas?.isExpeditedCountry ? 'result-compliant' : 'result-warning'}" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${nnas?.isExpeditedCountry ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${nnas?.isExpeditedCountry ? '#e8f5e9' : '#fff3e0'};">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${nnas?.isExpeditedCountry ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
+    <div class="result-banner ${nnas?.isExpeditedCountry ? 'result-compliant' : 'result-warning'}" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${nnas?.isExpeditedCountry ? 'var(--color-success, #2e7d32)' : 'var(--color-warning, #ed6c02)'};background:${nnas?.isExpeditedCountry ? '#e8f5e9' : '#fff3e0'};">
+      <div data-s="display-flex align-items-center justify-content-space-between flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${nnas?.isExpeditedCountry ? '#1b5e20' : '#e65100'};font-size:1.1rem;">
           ${nnas?.isExpeditedCountry ? '🩺 ACCELERATED NNAS EVALUATION QUALIFIED' : '📋 STANDARD NNAS EVALUATION REQUIRED'}
         </h4>
-        <span class="badge" style="background:${nnas?.isExpeditedCountry ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span class="badge" data-style="background:${nnas?.isExpeditedCountry ? '#2e7d32' : '#ed6c02'};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           ${nnas?.estimatedTimeline || 'Standard'}
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Designation: <strong>${data.nursingDesignation || 'RN'}</strong> | Education Country: <strong>${data.countryOfEducation || 'Philippines'}</strong> | Target Province: <strong>${data.targetProvince || 'ON'}</strong>.
-        ${reg?.qualifiesForTemporaryClass ? '<br><strong style="color:#2e7d32;">Qualified for Temporary Class Registration: Can practice as an RN under supervision in Ontario while completing the NCLEX-RN.</strong>' : ''}
+        ${reg?.qualifiesForTemporaryClass ? '<br><strong data-s="color-2e7d32">Qualified for Temporary Class Registration: Can practice as an RN under supervision in Ontario while completing the NCLEX-RN.</strong>' : ''}
       </p>
     </div>
   `;
 
   html += `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">🩺 Regulatory Gate Audits</h5>
-        <div style="font-size:0.9rem;">
-          Currency of Practice: <strong style="color:${reg?.isCurrencyOfPracticeMet ? '#2e7d32' : '#d32f2f'};">${reg?.isCurrencyOfPracticeMet ? 'SATISFIED (Last practiced ' + reg?.yearsSinceLastPractice + ' yr ago)' : 'EXPIRED (> ' + reg?.currencyThresholdYears + ' yrs gap)'}</strong><br>
-          Language Benchmark: <strong style="color:${reg?.isLanguageProficiencyMet ? '#2e7d32' : '#d32f2f'};">${reg?.isLanguageProficiencyMet ? 'SATISFIED' : 'PENDING'}</strong> (${reg?.languagePathway || 'standard'})<br>
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">🩺 Regulatory Gate Audits</h5>
+        <div data-s="font-size-0_9rem">
+          Currency of Practice: <strong data-style="color:${reg?.isCurrencyOfPracticeMet ? '#2e7d32' : '#d32f2f'};">${reg?.isCurrencyOfPracticeMet ? 'SATISFIED (Last practiced ' + reg?.yearsSinceLastPractice + ' yr ago)' : 'EXPIRED (> ' + reg?.currencyThresholdYears + ' yrs gap)'}</strong><br>
+          Language Benchmark: <strong data-style="color:${reg?.isLanguageProficiencyMet ? '#2e7d32' : '#d32f2f'};">${reg?.isLanguageProficiencyMet ? 'SATISFIED' : 'PENDING'}</strong> (${reg?.languagePathway || 'standard'})<br>
           NCLEX-RN Exam: <strong>${reg?.hasPassedNclex ? 'PASSED' : 'Authorization to Test (ATT) Needed'}</strong>
         </div>
       </div>
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">⚖️ Statutory Protections &amp; Funding</h5>
-        <div style="font-size:0.9rem;">
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">⚖️ Statutory Protections &amp; Funding</h5>
+        <div data-s="font-size-0_9rem">
           Canadian Experience Ban: <strong>FARPACTA s. 10.2 Protected</strong><br>
           Funded Supervised Placement: <strong>CNO SPEP (140–400 hours)</strong><br>
           NNAS Fee: <strong>${nnas?.applicationFeeUsd || 650} USD</strong>
@@ -2210,10 +2210,10 @@ export function renderInternationallyTrainedNurseResults(data, container) {
 
   if (Array.isArray(data.riskWarnings) && data.riskWarnings.length) {
     html += `
-      <div style="background:#ffebee;padding:1rem;border-radius:6px;border:1px solid #ef5350;margin-bottom:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;color:#c62828;">⚠️ Licensure Hazards & Currency Gaps</h5>
-        <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;color:#b71c1c;">
-          ${data.riskWarnings.map(w => `<li style="margin-bottom:0.25rem;">${w}</li>`).join('')}
+      <div data-s="background-ffebee padding-1rem border-radius-6px border-1px-solid-ef5350 margin-bottom-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0 color-c62828">⚠️ Licensure Hazards & Currency Gaps</h5>
+        <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem color-b71c1c">
+          ${data.riskWarnings.map(w => `<li data-s="margin-bottom-0_25rem">${w}</li>`).join('')}
         </ul>
       </div>
     `;
@@ -2221,10 +2221,10 @@ export function renderInternationallyTrainedNurseResults(data, container) {
 
   if (Array.isArray(data.actionPlan) && data.actionPlan.length) {
     html += `
-      <div style="background:var(--surface-sunken);padding:1rem;border-radius:6px;border:1px solid var(--border);">
-        <h5 style="margin:0 0 0.5rem 0;">📌 Step-by-Step Licensure Roadmap</h5>
-        <ol style="margin:0;padding-left:1.25rem;font-size:0.9rem;">
-          ${data.actionPlan.map(a => `<li style="margin-bottom:0.25rem;">${a}</li>`).join('')}
+      <div data-s="background-surface-sunken padding-1rem border-radius-6px border-1px-solid-border">
+        <h5 data-s="margin-0-0-0_5rem-0">📌 Step-by-Step Licensure Roadmap</h5>
+        <ol data-s="margin-0 padding-left-1_25rem font-size-0_9rem">
+          ${data.actionPlan.map(a => `<li data-s="margin-bottom-0_25rem">${a}</li>`).join('')}
         </ol>
       </div>
     `;
@@ -2245,17 +2245,17 @@ export function renderPrMatrixResults(data, container) {
     const flag = corridorKey.includes('canada') ? '🇨🇦' : corridorKey.includes('australia') ? '🇦🇺' : corridorKey.includes('germany') ? '🇩🇪' : corridorKey.includes('uk') ? '🇬🇧' : '🇳🇿';
 
     return `
-      <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-          <h5 style="margin:0;font-size:1rem;">${flag} ${corr.program}</h5>
-          <span style="background:${statusBg};color:${statusColor};padding:0.2rem 0.5rem;border-radius:4px;font-size:0.8rem;font-weight:bold;">
+      <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem">
+        <div data-s="display-flex justify-content-space-between align-items-center margin-bottom-0_5rem">
+          <h5 data-s="margin-0 font-size-1rem">${flag} ${corr.program}</h5>
+          <span data-style="background:${statusBg};color:${statusColor};padding:0.2rem 0.5rem;border-radius:4px;font-size:0.8rem;font-weight:bold;">
             ${corr.status.toUpperCase()}
           </span>
         </div>
-        <p style="margin:0.25rem 0;font-size:0.9rem;">
+        <p data-s="margin-0_25rem-0 font-size-0_9rem">
           Score: <strong>${corr.points}</strong> / ${corr.threshold} minimum threshold
         </p>
-        <p style="margin:0.25rem 0;font-size:0.8rem;color:#666;">
+        <p data-s="margin-0_25rem-0 font-size-0_8rem color-666">
           Statutory Authority: <em>${corr.statutoryAuthority}</em>
         </p>
       </div>
@@ -2263,13 +2263,13 @@ export function renderPrMatrixResults(data, container) {
   }).join('');
 
   container.innerHTML = `
-    <div class="result-banner result-compliant" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid var(--color-success, #2e7d32);background:#e8f5e9;">
-      <h4 style="margin:0 0 0.5rem 0;color:#1b5e20;">🌐 Cross-Corridor Simulation Complete</h4>
-      <p style="margin:0;font-size:0.95rem;color:#333;">
+    <div class="result-banner result-compliant" data-s="margin-bottom-1rem padding-1rem border-radius-6px border-1px-solid-color-success-2e7d32 background-e8f5e9">
+      <h4 data-s="margin-0-0-0_5rem-0 color-1b5e20">🌐 Cross-Corridor Simulation Complete</h4>
+      <p data-s="margin-0 font-size-0_95rem color-333">
         ${comparativeSummary.strategicTakeaway || 'Evaluation complete across Canada, Australia, Germany, UK, and New Zealand.'}
       </p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1rem;">
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-280 gap-1rem margin-bottom-1rem">
       ${cardsHtml}
     </div>
   `;
@@ -2286,27 +2286,27 @@ export function renderFamilyReunificationResults(data, container) {
   const remediesList = (data.remedialOptions || []).map(r => `<li>${r}</li>`).join('');
 
   container.innerHTML = `
-    <div class="result-banner" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${statusColor};background:${statusBg};">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:${statusColor};font-size:1.1rem;">
+    <div class="result-banner" data-style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid ${statusColor};background:${statusBg};">
+      <div data-s="display-flex justify-content-space-between align-items-center flex-wrap-wrap gap-0_5rem">
+        <h4 data-style="margin:0;color:${statusColor};font-size:1.1rem;">
           ${isEligible ? '✅ REUNIFICATION CRITERIA SATISFIED' : '⚠️ REUNIFICATION BARRIERS DETECTED'}
         </h4>
-        <span style="background:${statusColor};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+        <span data-style="background:${statusColor};color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
           ${data.auditVerdict || 'AUDIT COMPLETE'}
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Statutory Basis: <strong>${data.statutoryBasis}</strong>
       </p>
     </div>
-    <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1rem;">
-      <h5 style="margin:0 0 0.5rem 0;">📋 Statutory Findings & Policy Mandates</h5>
-      <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;line-height:1.5;">${findingsList}</ul>
+    <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem margin-bottom-1rem">
+      <h5 data-s="margin-0-0-0_5rem-0">📋 Statutory Findings & Policy Mandates</h5>
+      <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem line-height-1_5">${findingsList}</ul>
     </div>
     ${remediesList ? `
-    <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;">
-      <h5 style="margin:0 0 0.5rem 0;">💡 Remedial Options & Next Steps</h5>
-      <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;line-height:1.5;">${remediesList}</ul>
+    <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem">
+      <h5 data-s="margin-0-0-0_5rem-0">💡 Remedial Options & Next Steps</h5>
+      <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem line-height-1_5">${remediesList}</ul>
     </div>` : ''}
   `;
 }
@@ -2317,29 +2317,29 @@ export function renderTimelineCalendarSyncResults(data, container) {
   const milestones = data.milestones || [];
 
   const milestonesList = milestones.map(m => `
-    <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:0.75rem 1rem;margin-bottom:0.5rem;">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-0_75rem-1rem margin-bottom-0_5rem">
+      <div data-s="display-flex justify-content-space-between align-items-center">
         <strong>${m.summary}</strong>
-        <span class="badge" style="background:#1976d2;color:#fff;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.8rem;">${m.eventDate}</span>
+        <span class="badge" data-s="background-1976d2 color-fff padding-0_2rem-0_5rem border-radius-4px font-size-0_8rem">${m.eventDate}</span>
       </div>
-      <p style="margin:0.25rem 0;font-size:0.85rem;color:#444;">${m.description}</p>
-      <small style="color:#666;">Statutory authority: ${m.statutoryBasis}</small>
+      <p data-s="margin-0_25rem-0 font-size-0_85rem color-444">${m.description}</p>
+      <small data-s="color-666">Statutory authority: ${m.statutoryBasis}</small>
     </div>
   `).join('');
 
   container.innerHTML = `
-    <div class="result-banner result-compliant" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid var(--color-success, #2e7d32);background:#e8f5e9;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:#1b5e20;">📅 ${data.milestoneCount || milestones.length} Statutory Milestones Generated</h4>
-        <button type="button" class="primary" id="download-ics-action-btn" style="padding:0.4rem 0.8rem;font-size:0.85rem;">
+    <div class="result-banner result-compliant" data-s="margin-bottom-1rem padding-1rem border-radius-6px border-1px-solid-color-success-2e7d32 background-e8f5e9">
+      <div data-s="display-flex justify-content-space-between align-items-center flex-wrap-wrap gap-0_5rem">
+        <h4 data-s="margin-0 color-1b5e20">📅 ${data.milestoneCount || milestones.length} Statutory Milestones Generated</h4>
+        <button type="button" class="primary" id="download-ics-action-btn" data-s="padding-0_4rem-0_8rem font-size-0_85rem">
           Download .ICS Calendar File 📥
         </button>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Corridor: <strong>${data.corridor}</strong> | Anchor Date: <strong>${data.anchorDate}</strong>
       </p>
     </div>
-    <div style="margin-bottom:1rem;">
+    <div data-s="margin-bottom-1rem">
       ${milestonesList}
     </div>
   `;
@@ -2368,42 +2368,42 @@ export function renderTaxShieldResults(data, container) {
   const advisories = (data.statutoryAdvisories || []).map(a => `<li>${a}</li>`).join('');
 
   container.innerHTML = `
-    <div class="result-banner result-compliant" style="margin-bottom:1rem;padding:1rem;border-radius:6px;border:1px solid var(--color-success, #2e7d32);background:#e8f5e9;">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-        <h4 style="margin:0;color:#1b5e20;">🛡️ Total Newcomer Financial Boost</h4>
-        <span class="badge" style="background:#2e7d32;color:#fff;padding:0.25rem 0.5rem;border-radius:4px;font-size:1.1rem;font-weight:bold;">
+    <div class="result-banner result-compliant" data-s="margin-bottom-1rem padding-1rem border-radius-6px border-1px-solid-color-success-2e7d32 background-e8f5e9">
+      <div data-s="display-flex justify-content-space-between align-items-center flex-wrap-wrap gap-0_5rem">
+        <h4 data-s="margin-0 color-1b5e20">🛡️ Total Newcomer Financial Boost</h4>
+        <span class="badge" data-s="background-2e7d32 color-fff padding-0_25rem-0_5rem border-radius-4px font-size-1_1rem font-weight-bold">
           +$${netAnnualFinancialBoostCad.toLocaleString()} CAD / Year
         </span>
       </div>
-      <p style="margin:0.5rem 0 0 0;font-size:0.9rem;color:#333;">
+      <p data-s="margin-0_5rem-0-0-0 font-size-0_9rem color-333">
         Marginal Tax Rate: <strong>${data.marginalTaxRatePercent || 0}%</strong> | Tax Savings: <strong>$${(ts.totalTaxSavingsCad || 0).toLocaleString()}</strong> | Federal Benefits: <strong>$${(gb.totalAnnualBenefitsCad || 0).toLocaleString()}</strong>
       </p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-bottom:1rem;">
-      <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;">🏠 FHSA Tax Deduction</h5>
-        <p style="margin:0.25rem 0;font-size:0.9rem;">Contribution: <strong>$${(ts.fhsa?.contributionAmountCad || 0).toLocaleString()} CAD</strong></p>
-        <p style="margin:0.25rem 0;font-size:0.9rem;color:#2e7d32;">Tax Saved: <strong>$${(ts.fhsa?.taxSavedCad || 0).toLocaleString()} CAD</strong></p>
-        <small style="color:#666;">${ts.fhsa?.statutoryAuthority || ''}</small>
+    <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-250 gap-1rem margin-bottom-1rem">
+      <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0">🏠 FHSA Tax Deduction</h5>
+        <p data-s="margin-0_25rem-0 font-size-0_9rem">Contribution: <strong>$${(ts.fhsa?.contributionAmountCad || 0).toLocaleString()} CAD</strong></p>
+        <p data-s="margin-0_25rem-0 font-size-0_9rem color-2e7d32">Tax Saved: <strong>$${(ts.fhsa?.taxSavedCad || 0).toLocaleString()} CAD</strong></p>
+        <small data-s="color-666">${ts.fhsa?.statutoryAuthority || ''}</small>
       </div>
-      <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;">💳 TFSA $7,000 Room & Status</h5>
-        <p style="margin:0.25rem 0;font-size:0.9rem;">Room: <strong>$${(ts.tfsa?.roomCad || 0).toLocaleString()} CAD</strong></p>
-        <p style="margin:0.25rem 0;font-size:0.9rem;color:${ts.tfsa?.nonResidentPenaltyRisk ? '#d32f2f' : '#2e7d32'};">
+      <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0">💳 TFSA $7,000 Room & Status</h5>
+        <p data-s="margin-0_25rem-0 font-size-0_9rem">Room: <strong>$${(ts.tfsa?.roomCad || 0).toLocaleString()} CAD</strong></p>
+        <p data-style="margin:0.25rem 0;font-size:0.9rem;color:${ts.tfsa?.nonResidentPenaltyRisk ? '#d32f2f' : '#2e7d32'};">
           ${ts.tfsa?.nonResidentPenaltyRisk ? '⚠️ Non-Resident 1%/mo Penalty Risk' : '✅ Resident: Statutorily Tax-Exempt'}
         </p>
-        <small style="color:#666;">${ts.tfsa?.statutoryAuthority || ''}</small>
+        <small data-s="color-666">${ts.tfsa?.statutoryAuthority || ''}</small>
       </div>
-      <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;">
-        <h5 style="margin:0 0 0.5rem 0;">👨‍👩‍👧 CCB & GST/HST Family Cash</h5>
-        <p style="margin:0.25rem 0;font-size:0.9rem;">CCB Child Benefit: <strong>$${(gb.ccbAnnualCad || 0).toLocaleString()} CAD/yr</strong></p>
-        <p style="margin:0.25rem 0;font-size:0.9rem;">GST/HST Credit: <strong>$${(gb.gstHstCreditAnnualCad || 0).toLocaleString()} CAD/yr</strong></p>
-        <small style="color:#666;">${gb.statutoryAuthority || ''}</small>
+      <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem">
+        <h5 data-s="margin-0-0-0_5rem-0">👨‍👩‍👧 CCB & GST/HST Family Cash</h5>
+        <p data-s="margin-0_25rem-0 font-size-0_9rem">CCB Child Benefit: <strong>$${(gb.ccbAnnualCad || 0).toLocaleString()} CAD/yr</strong></p>
+        <p data-s="margin-0_25rem-0 font-size-0_9rem">GST/HST Credit: <strong>$${(gb.gstHstCreditAnnualCad || 0).toLocaleString()} CAD/yr</strong></p>
+        <small data-s="color-666">${gb.statutoryAuthority || ''}</small>
       </div>
     </div>
-    <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:6px;padding:1rem;">
-      <h5 style="margin:0 0 0.5rem 0;">⚖️ Statutory Strategy & Compliance</h5>
-      <ul style="margin:0;padding-left:1.25rem;font-size:0.9rem;line-height:1.5;">${advisories}</ul>
+    <div data-s="background-surface-sunken border-1px-solid-border border-radius-6px padding-1rem">
+      <h5 data-s="margin-0-0-0_5rem-0">⚖️ Statutory Strategy & Compliance</h5>
+      <ul data-s="margin-0 padding-left-1_25rem font-size-0_9rem line-height-1_5">${advisories}</ul>
     </div>
   `;
 }

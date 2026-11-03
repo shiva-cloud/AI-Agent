@@ -8,6 +8,7 @@
 // - Bank Act s. 627.17 (Customer Identification) & CRA/Service Canada Cascade
 // - Foreign Passport Surrender Acts (e.g. Indian Citizenship Act 1955 s. 9 dual-citizenship bar).
 // Pure ES module with zero npm dependencies.
+import { harmonizePassportName } from './name-order-helper.js';
 
 export const PROVINCIAL_NAME_CHANGE_RULES = {
   ON: {
@@ -222,6 +223,11 @@ export function evaluateIdentityHarmonization(params = {}) {
     minResidencyMonthsRequired: provRules.minResidencyMonths,
     requiresRcmpFingerprinting: provRules.requiresFingerprinting,
     statutoryViolations: violations,
+    nameStructureHarmonization: harmonizePassportName({
+      givenName: safeParams.givenName || 'Gurpreet',
+      surname: safeParams.surname || '',
+      countryOfOrigin: normOrigin
+    }),
     actionChecklist,
     governmentCascadeRoadmap,
     statutoryAdvisories,

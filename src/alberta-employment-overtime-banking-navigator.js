@@ -10,7 +10,7 @@
  * - Employment Standards Regulation, Alta. Reg. 14/1997
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_STATUTORY_DAILY_OVERTIME_HOURS = 8;
 export const ALBERTA_STATUTORY_WEEKLY_OVERTIME_HOURS = 44;
@@ -65,11 +65,11 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
     hoursTakenAsTimeOff = 0,
     hasManagerialOrProfessionalExemption = false,
     employeeName = 'Employee',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = params;
 
   const cleanEmployee = boundedText(employeeName, 'Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const wage = Number.isFinite(Number(regularHourlyWageCad)) ? Math.max(0, Math.min(100_000, Number(regularHourlyWageCad))) : 0;
   const otRate = wage * ALBERTA_OVERTIME_MULTIPLIER;
   const existingBank = Number.isFinite(Number(existingBankedHours)) ? Math.max(0, Math.min(10_000, Number(existingBankedHours))) : 0;

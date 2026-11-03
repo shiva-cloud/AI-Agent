@@ -1,4 +1,6 @@
 // Conservative lexical invariants, not a semantic proof. False positives fall back.
+import { detectNliContradiction } from './nli-hallucination-guard.js';
+
 function signature(text,pattern) {
  return (text.normalize('NFKC').toLowerCase().match(pattern)||[]).sort();
 }
@@ -14,6 +16,8 @@ export function assertRewriteInvariants(before,after) {
  for(const pattern of patterns) {
   if(JSON.stringify(signature(normalized(before),pattern))!==JSON.stringify(signature(normalized(after),pattern)))throw new Error('Rewrite changed protected evidence tokens');
  }
+ const nli = detectNliContradiction(after, before);
+ if (nli.contradiction) throw new Error('Rewrite contradicts source evidence polarity');
 }
 // A summary condenses several claims, so it may drop tokens but never add one:
 // every protected token it uses must already occur in the evidence it sums up.

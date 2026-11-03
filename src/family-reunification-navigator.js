@@ -2,7 +2,7 @@
 // Spousal & Family Reunification Navigator.
 // Audits Spousal Open Work Permits (SOWP), Super Visa income tests, Dependent Child cutoffs, and Partner Visas.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const LICO_2025_TABLE = {
   1: 29380,
@@ -17,7 +17,7 @@ export const LICO_2025_TABLE = {
 export function evaluateFamilyReunification(input = {}) {
   const safeInput = (input && typeof input === 'object') ? input : {};
   const applicantName = boundedText(safeInput.applicantName, 'Applicant', 100);
-  const assessmentDate = safeIsoDate(safeInput.assessmentDate, '2026-10-31');
+  const assessmentDate = safeIsoDate(safeInput.assessmentDate, todayIso());
   const category = boundedText(safeInput.category, 'spousal_open_work_permit', 50).toLowerCase();
   
 

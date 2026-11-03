@@ -10,7 +10,7 @@
  *   - Rural Entrepreneur Stream: Community-sponsored business establishment pathway.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const RURAL_AAIP_CONSTANTS = Object.freeze({
   MIN_COMMUNITY_POPULATION_CEILING: 100000,
@@ -69,7 +69,7 @@ export function evaluateRuralRenewalEligibility({
   jobsCreatedCount = 1,
   hasCompletedCommunityExploratoryVisit = true,
   applicantName = 'AAIP Candidate',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const stream = boundedText(streamType, 'rural_renewal', 40).toLowerCase();
   const commKey = boundedText(selectedCommunity, 'brooks', 50).toLowerCase();
@@ -89,7 +89,7 @@ export function evaluateRuralRenewalEligibility({
   const workingInAb = Boolean(isCurrentlyLivingAndWorkingInAlberta);
 
   const safeApplicant = boundedText(applicantName, 'Candidate', 120);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const deficiencies = [];
   const compliancePoints = [];

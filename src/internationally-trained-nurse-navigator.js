@@ -27,7 +27,7 @@
  *   as an RN/RPN under supervision while preparing for the NCLEX-RN exam.
  */
 
-import { boundedText } from './text-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const IEN_CONSTANTS = Object.freeze({
   NNAS_EXPEDITED_COUNTRIES: Object.freeze([
@@ -64,7 +64,7 @@ export const IEN_CONSTANTS = Object.freeze({
  * @param {boolean} [options.hasPassedNclex=false] - Already passed NCLEX-RN exam
  * @param {boolean} [options.interestedInSpepSupervisedPractice=true] - Willing to participate in funded SPEP
  * @param {string} [options.nurseName='IEN Candidate'] - Candidate name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive IEN licensure diagnostic
  */
 export function evaluateInternationallyTrainedNurse(options = {}) {
@@ -82,7 +82,7 @@ export function evaluateInternationallyTrainedNurse(options = {}) {
   const wantsSpep = safeOptions.interestedInSpepSupervisedPractice !== false;
   const nurse = boundedText(safeOptions.nurseName, 'IEN Candidate', 100);
   const rawDate = boundedText(safeOptions.assessmentDate, '', 30);
-  const assessDate = rawDate && !Number.isNaN(Date.parse(rawDate)) ? rawDate : new Date().toISOString().slice(0, 10);
+  const assessDate = rawDate && !Number.isNaN(Date.parse(rawDate)) ? rawDate : todayIso();
 
   const statutoryProtections = [];
   const riskWarnings = [];

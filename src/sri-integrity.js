@@ -23,6 +23,7 @@ export function generateSriManifest(publicDir) {
     'styles.css',
     'tool-modal.js',
     'tool-modal.css',
+    'inline-styles.css',
     'clarification.js',
     'errors.js',
     'editorial.js',

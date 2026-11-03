@@ -7,17 +7,18 @@
 // every normal rule in styles.css (at most one id per selector) and, being normal
 // declarations, below any author !important rule — the same place inline styles had.
 //
-// Left inline (csp-styles.js still applies them):
-//  - values with template expressions, escapes or newlines;
+// Everything else becomes data-style="…", which csp-styles.js applies through the
+// CSSOM exactly as it applied the blocked style attribute, without a CSP violation:
+//  - values with template expressions (computed colours, widths);
 //  - display:none, which scripts clear with element.style.display='' to show an element;
 //  - elements where a longhand precedes its shorthand (rule order could not express it).
 //
 // Usage: node scripts/convert-inline-styles.js [--check]
-//   --check  exit 1 if any convertible attribute remains (no files are written).
+//   --check  exit 1 if any style attribute remains (no files are written).
 import {readFileSync, writeFileSync, readdirSync} from 'node:fs';
 
 const CHECK = process.argv.includes('--check');
-const FILES = ['public/index.html', 'public/app.js', ...readdirSync('public/app').filter(n => n.endsWith('.js')).sort().map(n => `public/app/${n}`)];
+const FILES = ['public/index.html', 'public/app.js', 'public/tool-modal.js', ...readdirSync('public/app').filter(n => n.endsWith('.js')).sort().map(n => `public/app/${n}`)];
 const CSS_FILE = 'public/inline-styles.css';
 const NOT_ID = ':not(#\\#):not(#\\#)';
 
@@ -52,7 +53,9 @@ function parseStyle(value) {
   return decls.filter((d, i) => last.get(d.prop) === i);
 }
 
-const isShorthandOf = (short, long) => long !== short && long.startsWith(short + '-');
+// Prefix matches that are not shorthand/longhand pairs (the shorthand does not reset them).
+const NOT_RESET = {border: /^border-(?:radius|.*-radius|collapse|spacing)$/, flex: /^flex-(?:direction|wrap|flow)$/, grid: /^grid-(?:column|row|area)/};
+const isShorthandOf = (short, long) => long !== short && long.startsWith(short + '-') && !NOT_RESET[short]?.test(long);
 const depth = prop => (prop.startsWith('--') ? 0 : prop.split('-').length);
 
 const keyOf = new Map(); // "prop:val" -> key
@@ -68,26 +71,57 @@ function key(prop, val) {
   return k;
 }
 
+// End of an attribute value that starts at `from` and is closed by `q`, skipping
+// ${…} template expressions (which may contain quotes of their own).
+function valueEnd(text, from, q) {
+  let depth = 0;
+  for (let i = from; i < text.length; i++) {
+    if (text.startsWith('${', i)) { depth++; i++; continue; }
+    if (depth) {
+      if (text[i] === '{') depth++;
+      else if (text[i] === '}') depth--;
+      continue;
+    }
+    if (text.startsWith(q, i)) return i;
+    if (text[i] === '\n' || text[i] === '<' || text[i] === '>') return -1;
+  }
+  return -1;
+}
+
+function convertAttribute(value, q) {
+  const decls = !value.includes('${') && !value.includes('\\') ? parseStyle(value) : null;
+  if (!decls) return null;
+  for (let i = 0; i < decls.length; i++) for (let j = i + 1; j < decls.length; j++) {
+    if (isShorthandOf(decls[j].prop, decls[i].prop)) return null;
+  }
+  const keep = decls.filter(d => d.prop === 'display' && d.val === 'none');
+  const move = decls.filter(d => !keep.includes(d));
+  if (!move.length) return null;
+  const keys = move.map(d => { const k = key(d.prop, d.val); rules.set(k, d); return k; });
+  const rest = keep.length ? ` data-style=${q}${keep.map(d => `${d.prop}:${d.val}`).join(';')}${q}` : '';
+  return `data-s=${q}${keys.join(' ')}${q}${rest}`;
+}
+
 const rules = new Map(); // key -> {prop, val}
-let converted = 0, partial = 0, skipped = 0;
+let converted = 0, runtime = 0;
 const changed = [];
 for (const file of FILES) {
   const text = readFileSync(file, 'utf8');
-  const out = text.replace(/(\s)style=(\\?["'])([^"'\\\n]*?)\2/g, (all, space, q, value) => {
-    if (value.includes('${') || !value.trim()) { skipped++; return all; }
-    const decls = parseStyle(value);
-    if (!decls) { skipped++; return all; }
-    for (let i = 0; i < decls.length; i++) for (let j = i + 1; j < decls.length; j++) {
-      if (isShorthandOf(decls[j].prop, decls[i].prop)) { skipped++; return all; }
-    }
-    const keep = decls.filter(d => d.prop === 'display' && d.val === 'none');
-    const move = decls.filter(d => !keep.includes(d));
-    if (!move.length) { skipped++; return all; }
-    const keys = move.map(d => { const k = key(d.prop, d.val); rules.set(k, d); return k; });
-    if (keep.length) partial++; else converted++;
-    const rest = keep.length ? `${space}style=${q}${keep.map(d => `${d.prop}:${d.val}`).join(';')}${q}` : '';
-    return `${space}data-s=${q}${keys.join(' ')}${q}${rest}`;
-  });
+  let out = '', pos = 0;
+  for (const m of text.matchAll(/(?<=\s)style=(\\?["'])/g)) {
+    if (m.index < pos) continue;
+    const q = m[1];
+    const start = m.index + m[0].length;
+    const end = valueEnd(text, start, q);
+    if (end < 0) continue;
+    const value = text.slice(start, end);
+    if (!value.trim()) continue;
+    const replacement = convertAttribute(value, q);
+    if (replacement) converted++; else runtime++;
+    out += text.slice(pos, m.index) + (replacement ?? `data-style=${q}${value}${q}`);
+    pos = end + q.length;
+  }
+  out += text.slice(pos);
   if (out !== text) changed.push([file, out]);
 }
 
@@ -101,8 +135,8 @@ ${sorted.map(([k, d]) => `[data-s~="${k}"]${NOT_ID}{${d.prop}:${d.val}}`).join('
 `;
 
 if (CHECK) {
-  console.log(JSON.stringify({convertible: converted + partial, skipped}));
-  process.exit(converted + partial ? 1 : 0);
+  console.log(JSON.stringify({styleAttributes: converted + runtime, toRules: converted, toDataStyle: runtime}));
+  process.exit(converted + runtime ? 1 : 0);
 }
 // Merge with rules already generated by an earlier run.
 let existing = '';
@@ -113,4 +147,4 @@ if (existing) {
 const merged = [...rules].sort(([ka, a], [kb, b]) => depth(a.prop) - depth(b.prop) || ka.localeCompare(kb));
 writeFileSync(CSS_FILE, css.slice(0, css.indexOf('*/') + 3) + merged.map(([k, d]) => `[data-s~="${k}"]${NOT_ID}{${d.prop}:${d.val}}`).join('\n') + '\n');
 for (const [file, out] of changed) writeFileSync(file, out);
-console.log(JSON.stringify({converted, partial, skipped, rules: rules.size, files: changed.map(([f]) => f)}));
+console.log(JSON.stringify({converted, runtime, rules: rules.size, files: changed.map(([f]) => f)}));

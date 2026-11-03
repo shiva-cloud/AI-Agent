@@ -7,8 +7,11 @@ import { seeds } from './knowledge.js';
 import { configureEnglishDatabase } from './migrations.js';
 import { assertEnglishRecord, assertEnglishText } from './language.js';
 import { configureIngestion, ingestionStore } from './ingestion.js';
-import {configureGapWorkflow,gapWorkflow} from './gap-workflow.js';
-import {realtimeKbStore} from './realtime-kb-ingestor.js';
+import { configureGapWorkflow, gapWorkflow } from './gap-workflow.js';
+import { realtimeKbStore } from './realtime-kb-ingestor.js';
+import { appendAudit, verifyAuditChain } from './audit-chain.js';
+export { appendAudit, verifyAuditChain };
+
 export function openStore(path='data/settlement.sqlite') {
   if(path!==':memory:') mkdirSync(dirname(path),{recursive:true});
   const db=new DatabaseSync(path);
@@ -103,17 +106,20 @@ export function openStore(path='data/settlement.sqlite') {
       else delete next.reviewMethod;
       db.exec('BEGIN');
       try {
-        const lastAudit = db.prepare('SELECT hash FROM audits ORDER BY id DESC LIMIT 1').get();
-        const prevHash = lastAudit?.hash || '0000000000000000000000000000000000000000000000000000000000000000';
-        const auditPayload = `${prevHash}|${id}|${decision}|${reviewer}|${next.reviewedAt}|${row.body}|${JSON.stringify(next)}`;
-        const hash = createHash('sha256').update(auditPayload).digest('hex');
-
         db.prepare('UPDATE records SET body=? WHERE id=?').run(JSON.stringify(next),id);
         try {
           db.prepare('DELETE FROM records_fts WHERE id=?').run(id);
           db.prepare('INSERT INTO records_fts(id, title, summary, quote, topic) VALUES (?,?,?,?,?)').run(id, next.title||'', next.summary||'', next.quote||'', next.topic||'');
         } catch {}
-        db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at,prev_hash,hash) VALUES (?,?,?,?,?,?,?,?)').run(id,row.body,JSON.stringify(next),reviewer,note,next.reviewedAt,prevHash,hash);
+        appendAudit(db, {
+          recordId: id,
+          previous: row.body,
+          next: JSON.stringify(next),
+          reviewer,
+          note,
+          at: next.reviewedAt,
+          action: decision
+        });
         db.exec('COMMIT');
       } catch(e) {db.exec('ROLLBACK');throw e;}
       return next;
@@ -129,6 +135,7 @@ export function openStore(path='data/settlement.sqlite') {
           FROM records_fts f
           JOIN records r ON r.id = f.id
           WHERE records_fts MATCH ?
+          ORDER BY f.rank
           LIMIT ?
         `).all(terms, limit);
         return rows.map(r => JSON.parse(r.body));
@@ -137,19 +144,7 @@ export function openStore(path='data/settlement.sqlite') {
       }
     },
     verifyAuditChainIntegrity() {
-      const audits = db.prepare('SELECT * FROM audits ORDER BY id ASC').all();
-      let expectedPrevHash = '0000000000000000000000000000000000000000000000000000000000000000';
-      for (const a of audits) {
-        if (a.prev_hash && a.prev_hash !== expectedPrevHash) {
-          return { intact: false, error: `Audit chain broken at audit #${a.id}: expected prev_hash ${expectedPrevHash}, got ${a.prev_hash}` };
-        }
-        if (a.hash) {
-          
-          // update expected
-          expectedPrevHash = a.hash;
-        }
-      }
-      return { intact: true, auditedCount: audits.length };
+      return verifyAuditChain(db);
     },
     latencyHistogram() {
       const rows = db.prepare(`
@@ -224,16 +219,16 @@ export function openStore(path='data/settlement.sqlite') {
           );
         } catch {}
 
-        const lastAudit = db.prepare('SELECT hash FROM audits ORDER BY id DESC LIMIT 1').get();
-        const prevHash = lastAudit?.hash || '0000000000000000000000000000000000000000000000000000000000000000';
         const at = new Date().toISOString();
-        const auditPayload = `${prevHash}|${recordId}|rollback|system-rollback|${at}|${audit.next}|${audit.previous}`;
-        const hash = createHash('sha256').update(auditPayload).digest('hex');
-
-        db.prepare(`
-          INSERT INTO audits(record_id, previous, next, reviewer, note, at, prev_hash, hash)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `).run(recordId, audit.next, audit.previous, 'system-rollback', `Rolled back to audit #${auditId}`, at, prevHash, hash);
+        appendAudit(db, {
+          recordId,
+          previous: audit.next,
+          next: audit.previous,
+          reviewer: 'system-rollback',
+          note: `Rolled back to audit #${auditId}`,
+          at,
+          action: 'rollback'
+        });
 
         db.exec('COMMIT');
       } catch (e) {

@@ -17,7 +17,7 @@
  *     are legally ineffective (no opt-out from Canadian medicare).
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const EXCESSIVE_DEMAND_CONSTANTS = Object.freeze({
   ANNUAL_COST_THRESHOLD_CAD: 26364.0,
@@ -71,7 +71,7 @@ export function evaluateExcessiveDemandMitigation(params = {}) {
     receivedProceduralFairnessLetter = true,
     pflReceivedDate = '2026-10-01',
     applicantName = 'Medical Applicant',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const stream = boundedText(immigrationStream, 'economic_express_entry', 50).toLowerCase();
   const condition = boundedText(diagnosedCondition, 'Medical Condition', 100);
@@ -85,7 +85,7 @@ export function evaluateExcessiveDemandMitigation(params = {}) {
 
   const hasPfl = Boolean(receivedProceduralFairnessLetter);
   const pflDate = pflReceivedDate ? safeIsoDate(pflReceivedDate, '2026-10-01') : null;
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
   const safeApplicant = boundedText(applicantName, 'Applicant', 100);
 
   const statutoryNotes = [];

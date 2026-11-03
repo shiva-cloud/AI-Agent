@@ -11,13 +11,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-function safeIsoDate(d) {
-  if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim())) {
-    const parsed = new Date(d.trim());
-    if (!Number.isNaN(parsed.getTime())) return d.trim();
-  }
-  return new Date().toISOString().slice(0, 10);
-}
+import { safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_STUDENT_WORK_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Immigration and Refugee Protection Regulations, SOR/2002-227, ss. 186(v), 200(3)(e); IRCC Fall 2024 Policy',
@@ -51,7 +45,7 @@ export function evaluateFederalStudentOffCampusWork(params = {}) {
     hasValidSocialInsuranceNumber = true,
     programLengthMonths = 24,
     studentName = 'Student',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeStudentName = boundedText(studentName, 120) || 'Student';
   const safeAssessmentDate = safeIsoDate(assessmentDate);

@@ -805,3 +805,17 @@ html, body {
     max-width: 100%;
   }
 }
+
+/* Formerly inline style attributes, which the CSP (style-src 'self') ignores. */
+.explorer-hidden { display: none; }
+.summary-title-split { justify-content: space-between; width: 100%; padding-right: 8px; }
+.summary-label { display: flex; align-items: center; gap: 8px; }
+.latency-chip { font-size: 11px; color: var(--text-faint); font-family: ui-monospace, monospace; }
+.empty-state { text-align: center; padding: 40px 16px; color: var(--text-faint); }
+.empty-state-icon { font-size: 28px; margin-bottom: 8px; }
+.empty-state-title { font-weight: 700; color: #ffffff; }
+.empty-state-hint { font-size: 12px; margin-top: 4px; }
+.q-badge-row { display: flex; align-items: center; gap: 6px; }
+.claims-unavailable { font-size: 12px; color: var(--text-muted); font-style: italic; background: rgba(11, 15, 25, 0.7); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); }
+.sources-empty { font-size: 12px; color: var(--text-faint); font-style: italic; }
+.analysis-line { margin-top: 4px; }

@@ -18,6 +18,7 @@ try {
   // Controlled promises deliberately ignore cancellation to exercise the generation guard too.
   await page.evaluate(() => {
     window.__requests = [];
+    window.__originalFetch = window.fetch;
     window.fetch = (url, options) => new Promise((resolve, reject) => window.__requests.push({url, signal: options.signal, resolve, reject}));
   });
   const open = () => page.evaluate(() => window.triggerToolModal({id: 'lmia-readiness'}));
@@ -57,6 +58,24 @@ try {
   assert.equal(await preview.locator('img,script').count(), 0);
   assert.ok((await preview.locator('body').innerText()).includes(payload));
   report.checks.push('generated print preview escapes submitted HTML');
+  await page.evaluate(() => {window.fetch = window.__originalFetch; window.triggerToolModal({id: 'form-autopopulate'});});
+  await submit();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results').textContent.includes('DRAFT WORKSHEET'));
+  assert.match(await results.innerText(), /not an official form/);
+  assert.match(await results.innerText(), /Blank worksheet fields: 12/);
+  assert.doesNotMatch(await results.innerText(), /Sharma|FORM READY/);
+  assert.equal(await results.getByRole('button', {name: 'View & Print Worksheet'}).count(), 1);
+  report.checks.push('real worksheet API and modal display draft status and blank field count');
+  const unicode = autoPopulateForm({fieldOverrides: {importerName: 'शिव शर्मा', electronics: 'हिंदी जानकारी'}});
+  await page.route('**/v1/tools/form-autopopulate?*', route => route.fulfill({status: 200, contentType: 'application/json', body: JSON.stringify(unicode)}));
+  await submit();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results').textContent.includes('Save as PDF'));
+  assert.equal(await results.locator('a[download]').count(), 0);
+  assert.ok((await results.innerText()).includes('शिव शर्मा'));
+  assert.equal(await results.getByRole('button', {name: 'View & Print Worksheet'}).count(), 1);
+  await preview.setContent(unicode.printReadyHtml);
+  await preview.screenshot({path: 'artifacts/pdf-qa/unicode-preview.png', fullPage: true});
+  report.checks.push('Unicode preserved in print preview; corrupt direct download withheld with explanation');
   assert.deepEqual(report.errors, []);
   report.status = 'passed';
 } catch (error) {

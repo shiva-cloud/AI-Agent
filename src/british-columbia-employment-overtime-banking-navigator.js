@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_OVERTIME_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, RSBC 1996, c. 113, ss. 35, 40, 42',
@@ -42,7 +42,7 @@ export function evaluateBcOvertimeBanking(params = {}) {
   const {
     employeeName = 'Employee',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     regularHourlyWageCad = 30,
     dailyHoursWorkedOver8 = 2,
     dailyHoursWorkedOver12 = 0,
@@ -57,7 +57,7 @@ export function evaluateBcOvertimeBanking(params = {}) {
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const wage = Number.isFinite(Number(regularHourlyWageCad))
     ? Math.max(0, Math.min(10000, Number(regularHourlyWageCad)))

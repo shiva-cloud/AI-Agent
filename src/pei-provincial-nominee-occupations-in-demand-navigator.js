@@ -8,7 +8,7 @@
  * - Immigration and Refugee Protection Regulations (IRPR, SOR/2002-227, s. 87)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const PEI_ELIGIBLE_TARGET_NOCS = Object.freeze([
   {
@@ -95,11 +95,11 @@ export function evaluatePeiOccupationsInDemand(params = {}) {
     familySize = 1,
     intendsToResideInPei = true,
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
 
   const safeCandidateName = boundedText(candidateName, 'Candidate', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const normalizedNoc = boundedText(nocCode, '', 20).trim();
   const matchedNoc = PEI_ELIGIBLE_TARGET_NOCS.find(item => item.noc === normalizedNoc);

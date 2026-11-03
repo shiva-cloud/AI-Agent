@@ -12,7 +12,7 @@
  *   - Section 45.4: Prescribed hazardous work and environments for youth under 16 and 19
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_LIGHT_WORK_ACTIVITIES = Object.freeze([
   'CLERICAL_ADMINISTRATIVE',
@@ -41,7 +41,7 @@ export function evaluateBcChildYouthEmployment(params = {}) {
   const {
     childName = 'Child Worker',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     childAge = 13,
     proposedOccupationActivity = 'RETAIL_CASHIER_OR_STOCKING',
     hasParentalConsentInWriting = true,
@@ -54,7 +54,7 @@ export function evaluateBcChildYouthEmployment(params = {}) {
 
   const cleanChildName = boundedText(childName, 'Child Worker', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const age = Number.isFinite(Number(childAge))
     ? Math.max(0, Math.min(100, Math.floor(Number(childAge))))

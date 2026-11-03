@@ -17,6 +17,7 @@ import {
 import { compareCities } from '../src/city-comparison.js';
 import { createApp } from '../src/server.js';
 import { openStore } from '../src/store.js';
+import { todayIso } from '../src/text-input.js';
 
 test('Multi-Country Gazette Crawlers: parses IRCC, ESDC, US Federal Register, UK Home Office & Australia DHA gazettes', () => {
   // 1. IRCC Ministerial Instructions (Rec 101)
@@ -140,7 +141,7 @@ test('Official Forms Auto-Population Engine: auto-populates statutory forms and 
 
 test('City Comparison Differential Engine: compares Canadian landing hubs across rent, taxes, healthcare, and transit', () => {
   const comparison = compareCities(['Toronto', 'Calgary'], { annualSalary: 90000, householdSize: 2 });
-  assert.equal(comparison.asOf, '2026-10-31');
+  assert.equal(comparison.asOf, todayIso());
   assert.equal(comparison.comparison.length, 2);
 
   const toronto = comparison.comparison.find(c => c.city === 'Toronto');

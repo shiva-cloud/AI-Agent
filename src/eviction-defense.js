@@ -4,15 +4,7 @@
 // enforces mandatory statutory compensation rules (RTA s. 48.1 - void if not paid on or before termination date),
 // corporate landlord prohibitions (s. 48(5)), and calculates bad-faith damages up to $35,000 (s. 57(3)).
 // Pure ES module with zero npm dependencies.
-import { boundedText } from './text-input.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const EVICTION_FORM_RULES = {
   N12: {
@@ -69,11 +61,11 @@ export function auditEvictionNotice(params = {}) {
     coercedOrMisrepresented = false,
     tenantName = 'Tenant',
     landlordName = 'Landlord',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeTenantName = boundedText(tenantName, 'Tenant', 120);
   const safeLandlordName = boundedText(landlordName, 'Landlord', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const normForm = boundedText(noticeFormType, 'N12', 20).toUpperCase();
   const formRule = EVICTION_FORM_RULES[normForm] || EVICTION_FORM_RULES.N12;
   const rent = Math.max(0, Math.min(100000, Number(monthlyRentCad) || 2200));

@@ -10,7 +10,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_STRATA_CRF_CONSTANTS = Object.freeze({
   DEPRECIATION_REPORT_CYCLE_YEARS: 5, // s. 94(2)
@@ -52,11 +52,11 @@ export function evaluateBcStrataDepreciationReport(params = {}) {
     depreciationReportAttachedToFormB = true,
     strataPlanNumber = 'VR1234',
     strataCorporationName = 'The Owners, Strata Plan VR1234',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const cleanPlanNumber = boundedText(strataPlanNumber, 'VR1234', 30);
   const cleanCorpName = boundedText(strataCorporationName, 'The Owners, Strata Plan VR1234', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const lots = Math.max(1, Math.min(100000, Number.isFinite(Number(strataLotsCount)) ? Math.floor(Number(strataLotsCount)) : 24));
   const yearsSinceReport = Math.max(0, Math.min(100, Number.isFinite(Number(yearsSinceLastDepreciationReport)) ? Number(yearsSinceLastDepreciationReport) : 6));
   const opBudget = Math.max(0, Math.min(100000000, Number.isFinite(Number(annualOperatingBudgetCad)) ? Number(annualOperatingBudgetCad) : 100000));

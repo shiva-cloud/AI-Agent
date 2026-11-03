@@ -31,7 +31,7 @@
  *   to full common law notice.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SEVERANCE_CONSTANTS = Object.freeze({
   MAX_ESA_STATUTORY_NOTICE_WEEKS: 8,
@@ -55,7 +55,7 @@ export const SEVERANCE_CONSTANTS = Object.freeze({
  * @param {boolean} [options.hasSignedTerminationClause=true] - Contract includes written termination clause
  * @param {boolean} [options.terminationClauseViolatesEsa=true] - Clause attempts to contract out of ESA or breaches Waksdale
  * @param {string} [options.employeeName='Employee'] - Employee name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive severance, statutory notice, and common law diagnostic
  */
 export function evaluateStatutorySeveranceNotice(options = {}) {
@@ -72,7 +72,7 @@ export function evaluateStatutorySeveranceNotice(options = {}) {
   const hasClause = options.hasSignedTerminationClause !== false;
   const clauseViolatesEsa = options.terminationClauseViolatesEsa !== false;
   const empName = boundedText(options.employeeName, 'Employee', 100);
-  const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(options.assessmentDate, todayIso());
 
   const weeklyWageCad = Number((salary / 52.0).toFixed(2));
   const statutoryProtections = [];

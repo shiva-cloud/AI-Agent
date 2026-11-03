@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { appSource } from './app-source.js';
 
 // csp-styles.js touches the DOM at import time; give it the minimum it needs.
-globalThis.document={documentElement:{nodeType:1,hasAttribute:()=>false,querySelectorAll:()=>[]}};
+globalThis.document={documentElement:{nodeType:1,matches:()=>false,querySelectorAll:()=>[]}};
 globalThis.MutationObserver=class{observe(){}};
 const {declarations}=await import('../public/csp-styles.js');
 

@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_RTB_EXPEDITED_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Residential Tenancy Act, SBC 2002, c. 78, ss. 33, 54, 56, 56.1; RTB Rule 10',
@@ -47,12 +47,12 @@ export function evaluateBcRtbDisputeTrack(params = {}) {
     readyToServeEvidenceWithinOneDay = true,
     landlordName = 'Landlord',
     rentalAddress = 'Rental Property',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const cleanTenantName = boundedText(tenantName, 'Tenant', 100);
   const cleanLandlord = boundedText(landlordName, 'Landlord');
   const cleanRentalAddress = boundedText(rentalAddress, 'Rental Property');
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const category = boundedText(disputeCategory, 'TENANT_UNLAWFUL_LOCKOUT_ORDER_OF_POSSESSION', 60).toUpperCase();
 
   const statutoryViolations = [];

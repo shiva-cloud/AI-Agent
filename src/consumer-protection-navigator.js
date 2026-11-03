@@ -12,7 +12,7 @@
  * - Alberta Consumer Protection Act, R.S.A. 2000, c. C-26.3 (Direct sales contract cancellation rules)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CONSUMER_PROTECTION_CONSTANTS = Object.freeze({
   STANDARD_COOLING_OFF_DAYS: 10,
@@ -47,9 +47,9 @@ export function evaluateConsumerContract(params = {}) {
     missingMandatoryDisclosures = false,
     consumerName = 'Consumer',
     supplierName = 'Eco-Comfort Home Services Inc.',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeContractDate = safeIsoDate(contractDate, '2026-10-25');
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const cType = boundedText(contractType, 'water_heater_rental', 50).toLowerCase();

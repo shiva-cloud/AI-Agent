@@ -35,7 +35,67 @@ export const MULTI_COUNTRY_GAZETTE_CONSTANTS = {
   // The Core Skills Income Threshold replaced TSMIT; the old key is kept for callers.
   get AU_TSMIT_SALARY_FLOOR_AUD() { return auCsit(); },
   get AU_CORE_SKILLS_INCOME_THRESHOLD_AUD() { return auCsit(); },
-  AU_CONDITION_8607_CONSECUTIVE_DAYS_LIMIT: 180
+  AU_CONDITION_8607_CONSECUTIVE_DAYS_LIMIT: 180,
+
+  // Germany (DE) - Mindestlohngesetz, AufenthG, BGB
+  DE_MINIMUM_WAGE_HOURLY_EUR: 12.82,
+  DE_EU_BLUE_CARD_GENERAL_ANNUAL_EUR: 45300,
+  DE_EU_BLUE_CARD_SHORTAGE_ANNUAL_EUR: 41041,
+  DE_MIETPREISBREMSE_MAX_MARKET_SURCHARGE_PERCENT: 10.0,
+  DE_MAX_RENTAL_DEPOSIT_MONTHS: 3,
+
+  // United Arab Emirates (UAE) - MOHRE, ICP, RERA Decree 43
+  UAE_GOLDEN_VISA_MONTHLY_SALARY_AED: 30000,
+  UAE_GOLDEN_VISA_PROPERTY_INVESTMENT_AED: 2000000,
+  UAE_RERA_RENT_INCREASE_TIERS: Object.freeze([
+    { minBelowMarketPercent: 11, maxBelowMarketPercent: 20, maxIncreasePercent: 5 },
+    { minBelowMarketPercent: 21, maxBelowMarketPercent: 30, maxIncreasePercent: 10 },
+    { minBelowMarketPercent: 31, maxBelowMarketPercent: 40, maxIncreasePercent: 15 },
+    { minBelowMarketPercent: 41, maxBelowMarketPercent: Infinity, maxIncreasePercent: 20 }
+  ]),
+
+  // New Zealand (NZ) - Minimum Wage Act, AEWV, Residential Tenancies Act
+  NZ_ADULT_MINIMUM_WAGE_HOURLY_NZD: 23.15,
+  NZ_AEWV_MEDIAN_WAGE_HOURLY_NZD: 31.61,
+  NZ_MAX_TENANCY_BOND_WEEKS: 4,
+
+  // France (FR) - Code du travail, Loi ALUR, Passeport Talent
+  FR_SMIC_HOURLY_EUR: 11.65,
+  FR_SMIC_MONTHLY_GROSS_EUR: 1766.92,
+  FR_PASSEPORT_TALENT_SALARY_FLOOR_EUR: 42406.08,
+  FR_MAX_SECURITY_DEPOSIT_UNFURNISHED_MONTHS: 1,
+  FR_MAX_SECURITY_DEPOSIT_FURNISHED_MONTHS: 2,
+
+  // Ireland (IE) - National Minimum Wage Act, DETE CSEP, RTB RPZ
+  IE_NATIONAL_MINIMUM_WAGE_HOURLY_EUR: 12.70,
+  IE_CSEP_MINIMUM_SALARY_EUR: 38000,
+  IE_RPZ_MAX_ANNUAL_RENT_INCREASE_PERCENT: 2.0,
+
+  // Netherlands (NL) - Wet minimumloon, WWS, IND Kennismigrant
+  NL_STATUTORY_MINIMUM_WAGE_HOURLY_EUR: 13.27,
+  NL_30_PERCENT_RULING_ANNUAL_TAXABLE_EUR: 46107,
+  NL_RENT_LIBERALIZATION_THRESHOLD_EUR: 879.66,
+
+  // Singapore (SG) - MOM Employment of Foreign Manpower Act, IMDA
+  SG_EP_QUALIFYING_SALARY_MONTHLY_SGD: 5000,
+  SG_SPASS_QUALIFYING_SALARY_MONTHLY_SGD: 3150,
+  SG_MAX_PREPAID_SIM_PER_SUBSCRIBER: 3,
+
+  // Spain (ES) - Real Decreto 145/2024 (SMI), LAU, IRPF Beckham Law
+  ES_SMI_MONTHLY_EUR_14_PAYMENTS: 1134,
+  ES_SMI_MONTHLY_EUR_12_PAYMENTS: 1323,
+  ES_BECKHAM_LAW_FLAT_TAX_RATE_PERCENT: 24.0,
+  ES_LAU_MAX_RESIDENTIAL_DEPOSIT_MONTHS: 1,
+
+  // Sweden (SE) - Utlänningslagen, Migrationsverket, Hyreslagen
+  SE_WORK_PERMIT_MINIMUM_MONTHLY_SEK: 28480,
+  SE_EU_BLUE_CARD_MINIMUM_MONTHLY_SEK: 59850,
+  SE_MAX_SUBLET_SURCHARGE_FURNISHED_PERCENT: 15.0,
+
+  // United States (US) - FLSA, California AB 1482, New York HSTPA
+  US_FEDERAL_MINIMUM_WAGE_HOURLY_USD: 7.25,
+  US_CALIFORNIA_AB1482_MAX_RENT_INCREASE_PERCENT: 10.0,
+  US_NEW_YORK_HSTPA_MAX_SECURITY_DEPOSIT_MONTHS: 1
 };
 
 /**
@@ -312,6 +372,87 @@ export const CORRIDOR_REGISTRY = {
     medicalExamRequired: true, // Blood test & chest X-ray on arrival
     biometricsValidityYears: 3,
     driversLicenseExchange: 'Golden Visa holders and specific professional categories eligible for direct exchange.'
+  },
+  'IN_AU': {
+    origin: 'India',
+    destination: 'Australia',
+    primaryEducationAssessor: 'VETASSESS / Australian Computer Society (ACS) / Engineers Australia',
+    policeClearanceValidityMonths: 12,
+    medicalExamRequired: true,
+    biometricsValidityYears: 10,
+    driversLicenseExchange: 'State-based: Conversion with Service NSW / VicRoads / QLD TMR; recognized experience waives waiting periods.'
+  },
+  'IN_DE': {
+    origin: 'India',
+    destination: 'Germany',
+    primaryEducationAssessor: 'Central Office for Foreign Education (ZAB) / Anabin Database',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: false,
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Direct driving permitted for 6 months from Anmeldung; theoretical and practical test required thereafter.'
+  },
+  'IN_NZ': {
+    origin: 'India',
+    destination: 'New Zealand',
+    primaryEducationAssessor: 'New Zealand Qualifications Authority (NZQA)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: true,
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Drive for up to 12 months on valid Indian licence with English translation; conversion via NZTA thereafter.'
+  },
+  'IN_IE': {
+    origin: 'India',
+    destination: 'Ireland',
+    primaryEducationAssessor: 'Quality and Qualifications Ireland (QQI / NARIC Ireland)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: false,
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Drive up to 12 months as visitor; permanent residents must complete NDLS theory and reduced Essential Driver Training.'
+  },
+  'IN_SG': {
+    origin: 'India',
+    destination: 'Singapore',
+    primaryEducationAssessor: 'MOM-approved verification agencies (DataFlow / Cisive / Sterling RISQ)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: true,
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Convert to Singapore licence at Traffic Police headquarters within 12 months by passing Basic Theory Test (BTT).'
+  },
+  'IN_FR': {
+    origin: 'India',
+    destination: 'France',
+    primaryEducationAssessor: 'ENIC-NARIC France (Centre international d études pédagogiques)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: true, // OFII medical screening
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Drive on translated licence for 1 year with student/VLS-TS status; conversion via ANTS for eligible long-stay permits.'
+  },
+  'IN_NL': {
+    origin: 'India',
+    destination: 'Netherlands',
+    primaryEducationAssessor: 'Nuffic (Dutch organisation for internationalisation in education)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: true, // TB test within 3 months for specific origin countries
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'RDW licence exchange available if qualified for the 30% tax ruling; otherwise CBR theory and driving test required.'
+  },
+  'IN_ES': {
+    origin: 'India',
+    destination: 'Spain',
+    primaryEducationAssessor: 'Ministerio de Universidades (Homologación y Convalidación)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: true,
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Drive for 6 months after obtaining residence (TIE); theoretical and practical driving test via DGT required.'
+  },
+  'IN_SE': {
+    origin: 'India',
+    destination: 'Sweden',
+    primaryEducationAssessor: 'Swedish Council for Higher Education (UHR)',
+    policeClearanceValidityMonths: 6,
+    medicalExamRequired: false,
+    biometricsValidityYears: 5,
+    driversLicenseExchange: 'Drive on valid foreign licence for up to 1 year; Swedish driving licence requires Trafikverket risk training and tests.'
   }
 };
 

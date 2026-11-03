@@ -1,3 +1,4 @@
+import { todayIso } from './text-input.js';
 /**
  * Northstar Ontario & BC Tenancy Tribunal Defense Navigator
  * Implements statutory standards for:
@@ -174,7 +175,7 @@ export function evaluateOntarioT1RefundClaim({
   unlawfulChargeType = 'illegal_rent_increase', // 'illegal_rent_increase', 'key_deposit_overcharge', 'application_fee', 'damage_deposit'
   amountPaidCad = 1800,
   paymentDate = '2025-06-01',
-  assessmentDate = '2026-04-15'
+  assessmentDate = todayIso()
 }) {
   const paymentTime = new Date(paymentDate).getTime();
   const assessmentTime = new Date(assessmentDate).getTime();

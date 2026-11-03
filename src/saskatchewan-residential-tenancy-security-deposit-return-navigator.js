@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SASKATCHEWAN_DEPOSIT_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'The Residential Tenancies Act, 2006, SS 2006, c. R-22.0001, ss. 13-15',
@@ -48,12 +48,12 @@ export function evaluateSaskatchewanSecurityDepositReturn({
   landlordName = 'Landlord',
   rentalAddress = 'Rental Property',
   tenantName = 'Tenant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanLandlord = boundedText(landlordName, 'Landlord');
   const cleanRentalAddress = boundedText(rentalAddress, 'Rental Property');
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const rent = Number.isFinite(Number(monthlyRentCad)) ? Math.max(0, Number(monthlyRentCad)) : 0;
   const depositPaid = Number.isFinite(Number(securityDepositPaidCad)) ? Math.max(0, Number(securityDepositPaidCad)) : 0;
   const daysElapsed = Number.isFinite(Number(businessDaysSinceTenancyEnded)) ? Math.max(0, Math.floor(Number(businessDaysSinceTenancyEnded))) : 0;

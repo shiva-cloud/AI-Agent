@@ -31,6 +31,7 @@ export async function rekeyBackup(sourceDirectory, outputRoot, oldKey, newKey) {
   decrypt.setAAD(aad); decrypt.setAuthTag(Buffer.from(manifest.tag, 'hex'));
   const encrypt = createCipheriv('aes-256-gcm', newKey, iv); encrypt.setAAD(aad);
   let complete = false;
+  let primaryError = null;
   try {
     await pipeline(createReadStream(input), hashStream(originalHash), decrypt, encrypt, hashStream(outputHash), createWriteStream(partial, { flags: 'wx', mode: 0o600 }));
     if (originalHash.digest('hex') !== manifest.sha256) throw new Error('Backup checksum mismatch');
@@ -43,9 +44,20 @@ export async function rekeyBackup(sourceDirectory, outputRoot, oldKey, newKey) {
     writeFileSync(join(root, 'manifest.json'), JSON.stringify(rotated, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
     complete = true;
     return { directory: root, kind: manifest.kind, status: 'rekeyed', scope: 'Ciphertext authenticated and re-encrypted. Run an isolated restore drill before retiring the old key.' };
+  } catch (err) {
+    primaryError = err;
+    throw err;
   } finally {
     if (!complete) for (const file of [partial, target, join(root, 'manifest.json')]) {
-      try { unlinkSync(file); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+      try { unlinkSync(file); } catch (error) {
+        if (error.code !== 'ENOENT') {
+          if (primaryError) {
+            primaryError.cause = error;
+          } else {
+            throw error;
+          }
+        }
+      }
     }
   }
 }

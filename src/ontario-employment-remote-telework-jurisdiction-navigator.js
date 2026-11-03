@@ -14,7 +14,7 @@
  *   - Raza v. Canadian Broadcasting Corporation, 2020 ONSC 6445
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ON_DISCONNECTING_POLICY_MIN_EMPLOYEES = 25;
 export const ON_BILL_79_EFFECTIVE_DATE = '2023-10-26';
@@ -37,12 +37,12 @@ export function evaluateOntarioRemoteWorkJurisdiction(params = {}) {
     totalInOfficeEmployeesTerminated = 0,
     employeeTenureMonths = 36,
     weeklySalaryCad = 1500,
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = params;
 
   const cleanEmployee = boundedText(employeeName, 'Employee', 100);
   const cleanEmployer = boundedText(employerName, 'Employer', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeContractSignedDate = safeIsoDate(contractSignedDate, '2023-01-15');
 
   const physicalLoc = boundedText(employeePhysicalWorkLocation, 'ONTARIO', 50).toUpperCase();

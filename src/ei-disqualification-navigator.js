@@ -14,7 +14,7 @@
  *   - Canada (AG) v. Landry, [1993] 2 F.C. 172 (F.C.A.) (Subjective justification vs objective lack of reasonable alternatives)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const EI_CONSTANTS = Object.freeze({
   MAX_INSURABLE_EARNINGS_ANNUAL_CAD: 68100.0,
@@ -99,7 +99,7 @@ export function evaluateEiDisqualificationAndAllocation(input = {}) {
     insurableHoursAccumulated = 720,
     applicantName = 'EI Claimant',
     employerName = 'Employer Inc.',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeInput;
   const sepType = boundedText(separationType, 'voluntary_quit', 50).toLowerCase();
   const justCauseKey = justCauseReason ? boundedText(justCauseReason, '', 60).toLowerCase() : null;
@@ -118,7 +118,7 @@ export function evaluateEiDisqualificationAndAllocation(input = {}) {
 
   const safeApplicant = boundedText(applicantName, 'EI Claimant', 100);
   const safeEmployer = boundedText(employerName, 'Employer Inc.', 150);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const statutoryNotes = [];
   const riskWarnings = [];

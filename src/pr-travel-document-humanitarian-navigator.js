@@ -49,7 +49,7 @@ export const PRTD_HC_CONSTANTS = Object.freeze({
  * @param {boolean} [options.hasMinorCanadianChildrenAffected=true] - Child under 18 affected by PR loss
  * @param {boolean} [options.hasCanadianCitizenSpouseInCanada=false] - Spouse is in Canada
  * @param {string} [options.applicantName='PR Applicant Abroad'] - Name of applicant
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive PRTD H&C evaluation and IAD appeal audit
  */
 export function evaluatePrtdHumanitarian(options = {}) {

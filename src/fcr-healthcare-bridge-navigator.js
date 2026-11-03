@@ -6,7 +6,7 @@
  * 3. International Medical Graduate (IMG) Practice Ready Assessment (PRA-BC, CEPD, AIMG)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FCR_BRIDGING_CONSTANTS = {
   WINDMILL_MICROLENDING_MAX_LOAN_CAD: 15000,
@@ -24,7 +24,7 @@ export function evaluateFcrMicroLoans(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     immigrationStatus = 'permanent_resident', // 'permanent_resident', 'protected_person', 'provincial_nominee', 'work_permit', 'visitor'
     targetProfession = 'nurse',
     currentCreditScore = 640,
@@ -32,7 +32,7 @@ export function evaluateFcrMicroLoans(params = {}) {
   } = safeParams;
 
   const cleanCandidateName = boundedText(candidateName, 'Candidate', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanScore = Number.isFinite(Number(currentCreditScore)) ? Math.min(900, Math.max(300, Math.floor(Number(currentCreditScore)))) : 640;
   const cleanFunding = Number.isFinite(Number(fundingRequiredCad)) ? Math.max(0, Math.min(1000000, Number(fundingRequiredCad))) : 12000;
   const cleanStatus = boundedText(immigrationStatus, 'permanent_resident', 50).toLowerCase();
@@ -82,14 +82,14 @@ export function evaluateIenSpepEligibility(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     hasNnasAdvisoryReport = true,
     cnoRegistrationNumber = 'valid',
     outstandingRequirements = ['evidence_of_practice', 'language_proficiency']
   } = safeParams;
 
   const cleanCandidateName = boundedText(candidateName, 'Candidate', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const isNnasComplete = Boolean(hasNnasAdvisoryReport);
   const cleanCnoReg = boundedText(cnoRegistrationNumber, 'valid', 50);
   const reqList = Array.isArray(outstandingRequirements)
@@ -126,7 +126,7 @@ export function evaluateImgPracticeReadyAssessment(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     medicalDegreeOrigin = 'international',
     completedResidencyOutsideCanada = true,
     residencyDurationYears = 3,
@@ -137,7 +137,7 @@ export function evaluateImgPracticeReadyAssessment(params = {}) {
   } = safeParams;
 
   const cleanCandidateName = boundedText(candidateName, 'Candidate', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanProvince = boundedText(targetProvince, 'BC', 10).toUpperCase();
   const cleanOrigin = boundedText(medicalDegreeOrigin, 'international', 50);
   const resYears = Math.max(0, Math.min(50, Number.isFinite(Number(residencyDurationYears)) ? Number(residencyDurationYears) : 3));

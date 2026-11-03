@@ -1,0 +1,85 @@
+import {createRequire} from 'node:module';
+import {writeFileSync, readFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {createApp} from '../src/server.js';
+import {openStore} from '../src/store.js';
+const require = createRequire(process.env.PLAYWRIGHT_PACKAGE || 'C:/Users/shiva/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
+const {chromium} = require('playwright');
+const store = openStore(':memory:'); const server = createApp(store, undefined, {});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const browser = await chromium.launch({headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const report = {checks: [], errors: []};
+try {
+  const page = await browser.newPage(); page.on('pageerror', error => report.errors.push(error.message));
+  await page.goto(`http://127.0.0.1:${server.address().port}`, {waitUntil: 'networkidle'});
+  await page.locator('#help-toggle').focus();
+  await page.evaluate(() => window.openSettlementWizard());
+  const modal = page.locator('#settlement-wizard-modal');
+  await page.evaluate(() => {const city = document.querySelector('#wizard-city'); const option = document.createElement('option'); option.value = 'London'; option.textContent = 'London'; city.add(option); city.value = 'London';});
+  await modal.locator('[data-next="2"]').click();
+  assert.equal(await page.locator('#wizard-city').getAttribute('aria-invalid'), 'true');
+  assert.equal(await page.locator('#wizard-city').getAttribute('aria-describedby'), 'wizard-profile-error');
+  await page.locator('#wizard-city').selectOption('Toronto');
+  await modal.locator('[data-next="2"]').click();
+  assert.equal(await page.locator('#wizard-city').getAttribute('aria-invalid'), null);
+  await modal.locator('[data-prev="1"]').click();
+  assert.equal(await modal.locator('[data-step="1"] h3').evaluate(node => node === document.activeElement), true);
+  assert.equal(await page.locator('.sidebar').evaluate(node => node.inert), true);
+  for (const key of ['?', '/', 'Control+k']) await page.keyboard.press(key);
+  await page.locator('#wizard-city').selectOption('');
+  assert.equal(await modal.locator('[data-step="1"] h3').evaluate(node => node === document.activeElement), true);
+  for (let step = 2; step <= 4; step++) {
+    await modal.locator(`[data-next="${step}"]`).focus(); await page.keyboard.press('Enter');
+    assert.equal(await modal.locator(`.wizard-step-pane[data-step="${step}"] h3`).evaluate(node => node === document.activeElement), true);
+    assert.equal(await modal.locator(`[aria-current=step]`).getAttribute('data-step'), String(step));
+  }
+  assert.equal(await page.locator('#wizard-arrival-date').inputValue(), '');
+  await page.locator('#btn-wizard-generate').click();
+  assert.equal(await page.locator('#wizard-results').isHidden(), true);
+  assert.equal(await page.locator('#wizard-arrival-date').evaluate(node => node === document.activeElement), true);
+  await page.evaluate(() => document.querySelector('#settlement-wizard-form').dispatchEvent(new Event('submit', {bubbles: true, cancelable: true})));
+  assert.match(await modal.getByRole('alert').innerText(), /valid arrival date/);
+  await page.locator('#wizard-arrival-date').fill('2027-02-15');
+  await page.locator('#btn-wizard-generate').click();
+  assert.equal(await page.locator('#wizard-results').evaluate(node => node === document.activeElement), true);
+  assert.match(await page.locator('#wizard-results').innerText(), /City not specified/);
+  report.checks.push('step headings/current state, background shortcuts, blank-date rejection and result focus');
+  await page.locator('#btn-wizard-restart').focus(); await page.keyboard.press('Tab');
+  assert.equal(await page.locator('#wizard-close-btn').evaluate(node => node === document.activeElement), true);
+  await page.keyboard.press('Shift+Tab');
+  assert.equal(await page.locator('#btn-wizard-restart').evaluate(node => node === document.activeElement), true);
+  await page.keyboard.press('Enter');
+  assert.equal(await modal.locator('[data-step="1"] h3').evaluate(node => node === document.activeElement), true);
+  await page.keyboard.press('Escape');
+  assert.equal(await modal.isHidden(), true);
+  assert.equal(await page.locator('.sidebar').evaluate(node => node.inert), false);
+  assert.equal(await page.locator('#help-toggle').evaluate(node => node === document.activeElement), true);
+  report.checks.push('results Tab loop, restart, Escape, inert restoration and trigger focus');
+  await page.evaluate(() => window.openSettlementWizard());
+  const destination = await page.locator('#wizard-country option').evaluateAll(options => options.map(option => option.value).find(value => !['Canada', 'United States', 'United Kingdom', 'Australia', 'Germany', ''].includes(value)));
+  assert.ok(destination);
+  await page.locator('#wizard-country').selectOption(destination);
+  for (let step = 2; step <= 4; step++) {
+    if (step === 4) await page.locator('#wizard-family-size').selectOption('5');
+    await modal.locator(`[data-next="${step}"]`).click();
+  }
+  await page.locator('#wizard-arrival-date').fill('2027-02-15');
+  await page.locator('#btn-wizard-generate').click();
+  const resultText = await page.locator('#wizard-results').innerText();
+  assert.match(resultText, /Not determined by this wizard/);
+  assert.match(resultText, /No route-matched tool/);
+  assert.equal(await modal.locator('.blueprint-rec-item').count(), 0);
+  assert.doesNotMatch(resultText, /AED|Series-9|T1135|20,635/);
+  const downloading = page.waitForEvent('download');
+  await page.locator('#btn-export-blueprint').click();
+  const download = await downloading;
+  const exported = readFileSync(await download.path(), 'utf8');
+  assert.ok(exported.includes(destination));
+  assert.match(exported, /Household Size: 5\+/);
+  assert.match(exported, /Not determined by this wizard/);
+  assert.match(exported, /NOT LEGAL DEADLINES/);
+  assert.doesNotMatch(exported, /AED|Series-9|T1135|Day 180|Required Threshold/);
+  report.checks.push('unsupported profile has no fallback rules/tools; downloaded plan shares uncertainty and neutral checklist');
+  assert.deepEqual(report.errors, []); report.status = 'passed';
+} catch (error) {report.status = 'failed'; report.failure = error.stack; process.exitCode = 1;}
+finally {writeFileSync('artifacts/WIZARD_ACCESSIBILITY_2026-11-03.json', JSON.stringify(report, null, 2)); console.log(JSON.stringify(report)); await browser.close(); await new Promise(resolve => server.close(resolve)); store.db.close();}

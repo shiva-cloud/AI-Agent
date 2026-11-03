@@ -5,7 +5,7 @@
 // and Criminal Code of Canada s. 184 (one-party audio consent) and s. 279.01 (labour exploitation).
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const VWOWP_REGULATION = 'IRPR s. 207.1 (SOR/2002-227)';
 export const VWOWP_FEE_EXEMPTION_CODE = 'A50'; // Exemption from $155 work permit + $100 open work permit fee
@@ -30,10 +30,10 @@ export function evaluateVulnerableWorkerProtection({
   evidenceTypesHeld = [], // 'text_messages_whatsapp', 'audio_recordings', 'pay_stubs_or_contracts', 'witness_statements', 'police_report', 'medical_report'
   workProvince = 'ON',
   workerName = 'Vulnerable Worker',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeWorkerName = boundedText(workerName, 'Vulnerable Worker', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const normPermit = boundedText(currentPermitType, 'closed_employer_specific_work_permit', 60).toLowerCase();
   const grounds = Array.isArray(abuseGrounds) ? abuseGrounds.map(g => boundedText(g, '', 50).toLowerCase()).filter(Boolean) : [];
   const evidence = Array.isArray(evidenceTypesHeld) ? evidenceTypesHeld.map(e => boundedText(e, '', 50).toLowerCase()).filter(Boolean) : [];

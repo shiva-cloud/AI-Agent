@@ -27,7 +27,7 @@
  *   for at least 1 year, and a close relative (parent, child, sibling, aunt/uncle, niece/nephew, first cousin).
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const MPNP_CONSTANTS = Object.freeze({
   MIN_MANITOBA_WORK_MONTHS_LOCAL_GRAD: 6,
@@ -58,7 +58,7 @@ export const MPNP_CONSTANTS = Object.freeze({
  * @param {boolean} [options.hasPastStudyInAnotherProvince=false] - Studied in another Canadian province
  * @param {boolean} [options.hasPastWorkInAnotherProvince=false] - Worked in another Canadian province
  * @param {string} [options.candidateName='MPNP Candidate'] - Candidate name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive MPNP EOI calculation and eligibility diagnostic
  */
 export function evaluateManitobaPnpSkilledWorker(options = {}) {
@@ -76,7 +76,7 @@ export function evaluateManitobaPnpSkilledWorker(options = {}) {
   const pastOopStudy = Boolean(safeOptions.hasPastStudyInAnotherProvince);
   const pastOopWork = Boolean(safeOptions.hasPastWorkInAnotherProvince);
   const candidate = boundedText(safeOptions.candidateName, 'MPNP Candidate', 100);
-  const assessDate = safeIsoDate(safeOptions.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(safeOptions.assessmentDate, todayIso());
 
   const statutoryProtections = [];
   const riskWarnings = [];

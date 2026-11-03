@@ -8,7 +8,7 @@
  * - Canadian Language Benchmarks (Niveaux de compétence linguistique canadiens - NCLC)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FCIP_PARTICIPATING_COMMUNITIES = Object.freeze([
   { community: 'Sudbury', province: 'ON', designatedOrganization: 'Réseau de développement économique et d’employabilité (RDÉE Ontario)' },
@@ -43,7 +43,7 @@ export function evaluateFrancophoneCommunityPilot(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     communityName = 'Sudbury',
     hasCommunityRecommendationLetter = true,
     targetNocTeer = 2,
@@ -63,7 +63,7 @@ export function evaluateFrancophoneCommunityPilot(params = {}) {
   } = safeParams;
 
   const cleanCandidateName = boundedText(candidateName, 'Candidate', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanCommName = boundedText(communityName, 'Sudbury', 80);
   const normalizedComm = cleanCommName.trim().toLowerCase();
   const matchedCommunity = FCIP_PARTICIPATING_COMMUNITIES.find(

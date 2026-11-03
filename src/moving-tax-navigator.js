@@ -2,7 +2,7 @@
 // Canadian Newcomer Moving Expenses Deduction & CRA Form T1-M Relocation Engine.
 // Governed under Income Tax Act (ITA) s. 62, s. 63 & CRA Income Tax Folio S1-F3-C4.
 // Pure ES module with zero npm dependencies.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const MOVING_TAX_CONSTANTS = {
   STATUTES: {
@@ -91,7 +91,7 @@ export function assessMovingExpenses(params = {}) {
   const safeIncome = Math.max(0, Math.min(1000000000, Number(canadianIncomeEarnedInYearCad) || 0));
 
   const safeArrivalDate = safeIsoDate(arrivalDateStr, '2026-08-01');
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   // 1. Eligibility Tests under ITA s. 62 & Folio S1-F3-C4
   const meetsDistanceRule = safeDistance >= MOVING_TAX_CONSTANTS.MINIMUM_DISTANCE_KM;

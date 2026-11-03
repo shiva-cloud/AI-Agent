@@ -19,7 +19,7 @@
  *   - s. 209 (Wage-loss benefits: 90% of net average earnings)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SAFETY_COMPENSATION_CONSTANTS = Object.freeze({
   ONTARIO_WSIB_LOE_PERCENT_NET: 85.0,
@@ -70,11 +70,11 @@ export function evaluateWorkplaceSafetyAndRefusal({
   immigrationStatusThreatened = false,
   workerName = 'Worker',
   employerName = 'Employer Inc.',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const isInjury = Boolean(isWorkplaceInjury);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
   const iDate = safeIsoDate(injuryDate, '2026-08-01');
   const reportedToBoss = Boolean(accidentReportedToEmployer);
   const bossFiled = Boolean(employerFiledInjuryReport);

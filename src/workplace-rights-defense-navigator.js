@@ -8,7 +8,7 @@
  * 5. WSIB / WorkSafeBC Workplace Injury 6-Month Statutory Claim Deadline (WSIA s. 22)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const WORKPLACE_RIGHTS_CONSTANTS = {
   CONSTRUCTIVE_DISMISSAL_SALARY_CUT_THRESHOLD_PERCENT: 10.0, // 10% or greater triggers presumptive breach
@@ -28,10 +28,10 @@ export function auditConstructiveDismissal({
   weeksElapsedSinceEmployerChange = 2,
   lodgedFormalWrittenProtest = true,
   employeeName = 'Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeEmployeeName = boundedText(employeeName, 'Employee', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeWageCut = Math.max(0, Math.min(100, Number(unilateralWageReductionPercent) || 0));
   const safeWeeks = Math.max(0, Math.min(5200, Math.floor(Number(weeksElapsedSinceEmployerChange) || 0)));
 
@@ -88,10 +88,10 @@ export function auditCanadianExperienceBarriers({
   employerDemandedCanadianExperience = true,
   hasBonaFideOccupationalRequirement = false,
   applicantName = 'Applicant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 }) {
   const safeApplicant = boundedText(applicantName, 'Applicant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeType = boundedText(type, 'employment_hiring', 40);
   const safeProfession = regulatedProfessionName ? boundedText(regulatedProfessionName, '', 120) : null;
 
@@ -133,10 +133,10 @@ export function auditOhsaWorkRefusalAndReprisal({
   ministryOfLabourInspectorCalled = false,
   employerDisciplinedOrFiredWorker = false,
   workerName = 'Worker',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 }) {
   const safeWorkerName = boundedText(workerName, 'Worker', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeReason = boundedText(physicalDangerReason, 'unsafe conditions', 250);
   const stage = !reportedToSupervisor ? 'PRE_REFUSAL' : (!employerCompletedStage1Investigation ? 'STAGE_1_INVESTIGATION' : 'STAGE_2_MOL_INSPECTION');
   const isReprisalIllegal = Boolean(employerDisciplinedOrFiredWorker);
@@ -167,14 +167,14 @@ export function auditOhsaWorkRefusalAndReprisal({
  */
 export function auditWsibInjuryClaimDeadline({
   dateOfAccident = '2026-06-01',
-  assessmentDate = '2026-10-31',
+  assessmentDate = todayIso(),
   hasReportedToEmployer = true,
   form6SubmittedToWsib = false,
   workerName = 'Worker'
 }) {
   const safeWorkerName = boundedText(workerName, 'Worker', 120);
   const safeAccidentDate = safeIsoDate(dateOfAccident, '2026-06-01');
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const accidentTime = new Date(`${safeAccidentDate}T00:00:00Z`).getTime();
   const currentTime = new Date(`${safeAssessmentDate}T00:00:00Z`).getTime();

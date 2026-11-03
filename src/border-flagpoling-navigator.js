@@ -10,7 +10,7 @@
  * Pure ES module with zero npm runtime dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CBSA_PORTS = {
   rainbow_bridge: {
@@ -93,10 +93,10 @@ export function evaluateFlagpolingFeasibility({
   hasValidUsVisa = false,
   hasPriorRefusals = false,
   applicantName = 'Applicant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanApplicant = boundedText(applicantName, 'Applicant', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const safePermit = boundedText(permitCategory, 'pgwp', 50).toLowerCase();
   const rawCountry = boundedText(countryOfCitizenship, 'IN', 10).toUpperCase();
   const safeStatus = boundedText(currentStatusInCanada, 'maintained_status', 50).toLowerCase();

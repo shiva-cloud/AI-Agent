@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_ABANDONED_GOODS_CONSTANTS = Object.freeze({
   STATUTORY_VALUATION_THRESHOLD_CAD: 2000, // Reg s. 5(1)
@@ -44,12 +44,12 @@ export function evaluateAlbertaAbandonedGoods({
   auctionProceedsRealizedCad = 0,
   tenantName = 'Tenant',
   landlordName = 'Landlord',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanActor = boundedText(actorRole, 'TENANT', 30);
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const value = Number.isFinite(Number(estimatedMarketValueCad)) ? Math.max(0, Math.min(10000000, Number(estimatedMarketValueCad))) : 2500;
   const daysElapsed = Number.isFinite(Number(daysSinceLandlordTookPossession)) ? Math.max(0, Math.min(3650, Math.floor(Number(daysSinceLandlordTookPossession)))) : 15;
   const storageCosts = Number.isFinite(Number(accruedStorageAndMovingCostsCad)) ? Math.max(0, Math.min(100000, Number(accruedStorageAndMovingCostsCad))) : 200;

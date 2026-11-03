@@ -14,7 +14,7 @@
  *   - Vavilov v. Canada (Citizenship and Immigration), 2019 SCC 65
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CITIZENSHIP_REVOCATION_NOTICE_RESPONSE_WINDOW_DAYS = 30;
 
@@ -22,9 +22,9 @@ export function evaluateCitizenshipRevocationDefense(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Citizen',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     noticeOfIntentDate = '2026-10-01',
-    currentDate = '2026-10-25',
+    currentDate = todayIso(),
     allegationType = 'FALSE_REPRESENTATION', // 'RESIDENCE_CALCULATION', 'CRIMINAL_RECORD_FAILURE_TO_DISCLOSE', 'IDENTITY_FRAUD'
     yearsAsCanadianCitizen = 8,
     yearsResidingInCanada = 12,
@@ -35,7 +35,7 @@ export function evaluateCitizenshipRevocationDefense(params = {}) {
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Citizen', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanNoticeDate = safeIsoDate(noticeOfIntentDate, '2026-10-01');
   const cleanCurrentDate = safeIsoDate(currentDate, cleanAssessmentDate);
   const cleanAllegation = boundedText(allegationType, 'FALSE_REPRESENTATION', 60);

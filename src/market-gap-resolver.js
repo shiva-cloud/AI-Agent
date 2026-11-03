@@ -17,9 +17,12 @@ function normalizeText(text) {
 export function createMarketGapBatch({ items, first, last, scenarios }) {
   const itemById = new Map();
   const itemByNormalizedQuestion = new Map();
+  const normalizedItems = [];
   for (const item of items) {
     itemById.set(item.id, item);
-    itemByNormalizedQuestion.set(normalizeText(item.question), item);
+    const norm = normalizeText(item.question);
+    itemByNormalizedQuestion.set(norm, item);
+    normalizedItems.push({ item, norm });
   }
   const inRange = id => id >= first && id <= last;
 
@@ -48,10 +51,9 @@ export function createMarketGapBatch({ items, first, last, scenarios }) {
     const exact = itemByNormalizedQuestion.get(cleanQ);
     if (exact) return exact;
 
-    // 4. Substring match with bounded length
+    // 4. Substring match with bounded length (using precomputed normalized strings)
     if (cleanQ.length >= 35) {
-      for (const item of items) {
-        const norm = normalizeText(item.question);
+      for (const { item, norm } of normalizedItems) {
         if (norm.includes(cleanQ) || cleanQ.includes(norm)) return item;
       }
     }

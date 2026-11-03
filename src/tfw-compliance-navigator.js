@@ -16,7 +16,7 @@
  *   - Low-Wage & Agricultural housing standards and maximum allowable deductions
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const TFW_COMPLIANCE_CONSTANTS = Object.freeze({
   LMIA_GOVERNMENT_FEE_CAD: 1000.0,
@@ -60,7 +60,7 @@ export function evaluateTfwEmployerCompliance({
   weeksWorked = 16,
   workerName = 'Temporary Foreign Worker',
   employerName = 'Farm & Logistics Ltd.',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const streamKey = boundedText(stream, 30).toLowerCase() || 'low_wage';
   const streamConfig = TFW_STREAMS[streamKey] || TFW_STREAMS.low_wage;

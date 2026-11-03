@@ -1,11 +1,13 @@
 // Northstar Port-of-Entry Offline Service Worker & Emergency SOS Kit (Rec 174)
-const CACHE_NAME = 'northstar-v39-offline-poe';
+const CACHE_NAME = 'northstar-v48-offline-poe';
 const PRECACHE_URLS = [
+  '/app/wizard-plan.js',
   '/',
   '/offline.html',
   '/offline.css',
   '/styles.css',
   '/tool-modal.css',
+  '/inline-styles.css',
   '/explorer.html',
   '/explorer.css',
   '/explorer.js',

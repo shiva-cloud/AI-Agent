@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_CONSTRUCTIVE_DISMISSAL_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Code, RSA 2000, c. E-9, ss. 55-58; Farber v. Royal Trust Co. [1997] 1 SCR 846',
@@ -45,12 +45,12 @@ export function evaluateAlbertaConstructiveDismissal({
   employerName = 'Employer',
   jobTitle = 'Employee',
   employeeName = 'Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanEmployer = boundedText(employerName, 'Employer');
   const cleanJobTitle = boundedText(jobTitle, 'Employee');
   const cleanEmployee = boundedText(employeeName, 'Employee');
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const prevSalary = Number.isFinite(Number(previousAnnualSalaryCad))
     ? Math.max(0, Math.min(10_000_000, Number(previousAnnualSalaryCad)))
     : 0;

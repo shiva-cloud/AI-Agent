@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_MATERNITY_PARENTAL_CONSTANTS = Object.freeze({
   MIN_SERVICE_DAYS_REQUIRED: 90, // s. 45
@@ -47,11 +47,11 @@ export function evaluateAlbertaMaternityParentalLeave({
   employerRefusesReinstatement = false,
   employerDisciplinedOrDismissedDueToLeave = false,
   employeeName = 'Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanLeaveType = boundedText(leaveType, 'COMBINED_MATERNITY_PARENTAL', 50);
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const daysEmployed = Number.isFinite(Number(consecutiveDaysOfEmployment))
     ? Math.max(0, Math.min(36500, Math.floor(Number(consecutiveDaysOfEmployment))))
     : 0;

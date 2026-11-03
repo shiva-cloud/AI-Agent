@@ -6,15 +6,7 @@
 // and CBSA Customs Tariff Item 9807.00.00 (duty-free personal pet settler exemption).
 // Pure ES module with zero npm dependencies.
 
-import { boundedText } from './text-input.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CFIA_FIRST_ANIMAL_INSPECTION_FEE_CAD = 30; // CBSA border inspection fee
 export const CFIA_ADDITIONAL_ANIMAL_INSPECTION_FEE_CAD = 5;
@@ -52,10 +44,10 @@ export function evaluatePetImportation({
   titerResultIuPerMl = 0.0,
   isPersonalPetOwnedByImmigrant = true,
   petName = 'Pet',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safePetName = boundedText(petName, 'Pet', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const normType = boundedText(animalType, 'dog', 50).toLowerCase().trim();
   const normOrigin = boundedText(countryOfOrigin, 'US', 10).toUpperCase().trim();

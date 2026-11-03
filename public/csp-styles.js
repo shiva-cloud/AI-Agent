@@ -1,15 +1,17 @@
-// Applies `style="…"` attributes that the page CSP (style-src 'self') blocks.
+// Applies `data-style="…"` (and any leftover `style="…"`) declarations, which the
+// page CSP (style-src 'self') does not allow as inline style attributes.
 //
-// index.html and the tool views' HTML templates carry hundreds of inline
-// style attributes. Browsers keep the attribute text but ignore it under this
-// CSP, which flattened those layouts. Styles set through the CSSOM are not
-// subject to that rule, so this module copies each blocked declaration onto
-// element.style, once per element, as it appears in the document.
+// Static declarations from index.html and the app templates now live in
+// inline-styles.css (scripts/convert-inline-styles.js). What remains are values
+// computed in templates and display:none that scripts later clear; templates
+// write them as data-style so the browser never parses (and reports) a blocked
+// style attribute. Styles set through the CSSOM are not subject to the CSP, so
+// this module copies each declaration onto element.style, once per element, as
+// it appears in the document.
 //
 // Only plain values are copied. Anything that can load or execute something
 // (url(), image-set(), expression(), @import, CSS escapes) is dropped, so an
 // injected attribute cannot use this path to fetch resources or leak data.
-// The long-term fix is moving these declarations into styles.css classes.
 
 const UNSAFE_VALUE = /url\s*\(|image-set\s*\(|image\s*\(|expression\s*\(|javascript:|@import|\\|[<>]/i;
 const PROPERTY = /^-?[a-z][a-z-]*$/;
@@ -42,16 +44,19 @@ const applied = new WeakSet();
 function apply(el) {
   if (applied.has(el)) return;
   applied.add(el);
-  const text = el.getAttribute('style');
-  // A non-empty CSSOM means the browser already honoured the attribute.
+  const text = el.getAttribute('data-style') ?? el.getAttribute('style');
+  // A non-empty CSSOM means the browser already honoured the attribute, or a
+  // script styled the element first; either way the attribute is not applied.
   if (!text || el.style.length) return;
   for (const [name, value, priority] of declarations(text)) el.style.setProperty(name, value, priority);
 }
 
+const SELECTOR = '[data-style],[style]';
+
 function scan(root) {
   if (root.nodeType !== 1) return;
-  if (root.hasAttribute('style')) apply(root);
-  root.querySelectorAll('[style]').forEach(apply);
+  if (root.matches(SELECTOR)) apply(root);
+  root.querySelectorAll(SELECTOR).forEach(apply);
 }
 
 scan(document.documentElement);

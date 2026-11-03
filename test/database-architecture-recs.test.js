@@ -38,6 +38,31 @@ test('Rec 98: Cryptographic Blockchain-Style Audit Ledger builds an unbroken has
   }
 });
 
+test('Audit chain integrity detects payload and linkage tampering', () => {
+  const store = openStore(':memory:');
+  try {
+    store.review('toronto-library', 'reject', 'Alice Senior Editor', 'Verified community service change note.');
+    store.review('toronto-library', 'rollback', 'Bob Lead Reviewer', 'Temporarily reset to pending review.');
+
+    // 1. Unmodified chain verifies intact
+    assert.equal(store.verifyAuditChainIntegrity().intact, true);
+
+    // 2. Tampering with content triggers SHA-256 mismatch detection
+    store.db.prepare("UPDATE audits SET reviewer='Unauthorized Attacker' WHERE id=1").run();
+    const tamperedContent = store.verifyAuditChainIntegrity();
+    assert.equal(tamperedContent.intact, false);
+    assert.ok(tamperedContent.error.includes('SHA-256 payload digest mismatch'));
+
+    // Revert reviewer and tamper with linkage
+    store.db.prepare("UPDATE audits SET reviewer='Alice Senior Editor', prev_hash='bad-hash' WHERE id=2").run();
+    const tamperedLink = store.verifyAuditChainIntegrity();
+    assert.equal(tamperedLink.intact, false);
+    assert.ok(tamperedLink.error.includes('Audit chain broken at audit #2'));
+  } finally {
+    store.db.close();
+  }
+});
+
 test('Rec 99: Synthetic Regulatory Data Generator produces valid structured records', () => {
   const records = generateSyntheticRecords(100);
   assert.equal(records.length, 100);

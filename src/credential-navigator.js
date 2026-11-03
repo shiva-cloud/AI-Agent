@@ -4,15 +4,7 @@
 // Ontario Bill 27 (Working for Workers Act, 2021) "Canadian Experience" Ban,
 // and BC International Credentials Recognition Act (2023).
 // Pure ES module with zero npm dependencies.
-import { boundedText } from './text-input.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ECA_ORGANIZATIONS = {
   wes: {
@@ -414,10 +406,10 @@ export function evaluateCredentialPathway(params = {}) {
     originCountry = 'India',
     currentDegree = 'Bachelors',
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeCandidateName = boundedText(candidateName, 'Candidate', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const profKey = boundedText(profession, 'engineering', 50).toLowerCase();
   const provCode = boundedText(targetProvince, 'ON', 10).toUpperCase();
   const validProv = ['ON', 'BC', 'AB'].includes(provCode) ? provCode : 'ON';

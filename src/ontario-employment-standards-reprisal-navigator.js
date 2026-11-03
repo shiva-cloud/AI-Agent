@@ -2,7 +2,7 @@
 // Ontario ESA Section 74 Reprisal Defense & Reverse Burden of Proof Engine
 // Statutory Basis: Ontario Employment Standards Act, 2000 (ESA), S.O. 2000, c. 41, ss. 74, 104, 111
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ESA_REPRISAL_RULES = {
   STATUTE: 'Employment Standards Act, 2000, S.O. 2000, c. 41',
@@ -60,11 +60,11 @@ export function evaluateEsaReprisal(input = {}) {
     monthlyLostWageCad = 4000,
     monthsElapsedSinceAction = 1,
     employeeName = 'Worker',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeInput;
 
   const cleanEmployeeName = boundedText(employeeName, 'Worker', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanDays = Number.isFinite(Number(daysBetweenActivityAndAction)) ? Math.max(0, Math.min(36500, Math.floor(Number(daysBetweenActivityAndAction)))) : 14;
   const cleanMonthlyLostWage = Number.isFinite(Number(monthlyLostWageCad)) ? Math.max(0, Math.min(10000000, Number(monthlyLostWageCad))) : 4000;
   const cleanMonthsElapsed = Number.isFinite(Number(monthsElapsedSinceAction)) ? Math.max(0, Math.min(1200, Math.floor(Number(monthsElapsedSinceAction)))) : 1;

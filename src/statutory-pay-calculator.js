@@ -12,7 +12,7 @@
  * - Alberta Employment Standards Code, RSA 2000, c. E-9 (ss. 14, 21-33)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const STATUTORY_PAY_CONSTANTS = Object.freeze({
   ONTARIO_OVERTIME_WEEKLY_HOURS: 44,
@@ -48,12 +48,12 @@ export function auditStatutoryPayAndWages({
   priorFourWeeksRegularWagesCad = null,
   employeeName = 'Employee',
   employerName = 'Employer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const safeEmployee = boundedText(employeeName, 'Employee', 120);
   const safeEmployer = boundedText(employerName, 'Employer', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const hourlyRate = Number.isFinite(Number(grossHourlyWageCad)) ? Math.max(0, Math.min(100000, Number(grossHourlyWageCad))) : 0;
   const totalHours = Number.isFinite(Number(hoursWorkedInPayPeriod)) ? Math.max(0, Math.min(1000, Number(hoursWorkedInPayPeriod))) : 0;

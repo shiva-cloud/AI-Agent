@@ -2,7 +2,7 @@
 // Child Schooling age-to-grade placement and ISPA immunization compliance engine
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ISPA_MANDATORY_VACCINES = [
   { id: 'dtp', name: 'Diphtheria, Tetanus, Pertussis & Polio (DTaP-IPV)', doses: '4-5 doses (primary series + age 4-6 booster)', mandate: 'Mandatory under ISPA s.3' },
@@ -20,10 +20,10 @@ export function calculateSchoolPlacement({
   currentYear = 2026,
   status = 'work_permit',
   lang = 'non_english',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeChild = boundedText(childName, 'Child', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeBirth = Math.max(1900, Math.min(2100, Math.floor(Number(birthYear) || 2020)));
   const safeCurrent = Math.max(1900, Math.min(2100, Math.floor(Number(currentYear) || 2026)));
   const age = Math.max(0, safeCurrent - safeBirth);
@@ -77,10 +77,10 @@ export function calculateSchoolPlacement({
 export function auditIspaCompliance({
   childName = 'Child',
   completedVaccines = [],
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeChild = boundedText(childName, 'Child', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeVaccineList = Array.isArray(completedVaccines) ? completedVaccines.slice(0, 50) : [];
   const completedSet = new Set(safeVaccineList.map(v => String(v).toLowerCase().trim()));
   const missing = [];

@@ -20,13 +20,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-function safeIsoDate(d) {
-  if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim())) {
-    const parsed = new Date(d.trim());
-    if (!Number.isNaN(parsed.getTime())) return d.trim();
-  }
-  return new Date().toISOString().slice(0, 10);
-}
+import { safeIsoDate, todayIso } from './text-input.js';
 
 export const FRANCOPHONE_MOBILITY_CONSTANTS = Object.freeze({
   MIN_NCLC_LEVEL: 5,
@@ -70,7 +64,7 @@ export const CANADIAN_PROVINCES_OUTSIDE_QUEBEC = Object.freeze({
  * @param {boolean} [options.employerPaidComplianceFee=true] - Employer paid $230 Portal fee
  * @param {string} [options.applicantName='Applicant'] - Worker name
  * @param {string} [options.employerName='Canadian Employer Inc.'] - Employer legal name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive C16 eligibility diagnosis
  */
 export function evaluateFrancophoneMobility(options = {}) {

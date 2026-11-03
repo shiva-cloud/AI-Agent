@@ -1,5 +1,5 @@
 import {searchMarketGapBatch3,getMarketGapBatch3Stats,resolveMarketGapBatch3Item} from '../src/market-gap-batch3-resolver.js';
-import {publicMarketGapItem,publicMarketGapPage} from '../src/market-gap-catalog.js';
+import {publicMarketGapItem,publicMarketGapPage,publicGlobalSettlementItem,publicGlobalSettlementPage} from '../src/market-gap-catalog.js';
 import {searchGlobalSettlement,getGlobalSettlementStats,resolveGlobalSettlementItem} from '../src/global-settlement-resolver.js';
 function schema(value){
  if(value===null)return {type:['string','null']};
@@ -10,7 +10,7 @@ function schema(value){
 export function addCatalogPaths(paths){
  for(const [base,search,stats,item] of [
   ['/v1/market-gap/batch3',params=>publicMarketGapPage(searchMarketGapBatch3(params)),getMarketGapBatch3Stats,()=>publicMarketGapItem(resolveMarketGapBatch3Item(84001))],
-  ['/v1/global-settlement',searchGlobalSettlement,getGlobalSettlementStats,()=>resolveGlobalSettlementItem('GMS-Q00001')]
+  ['/v1/global-settlement',params=>publicGlobalSettlementPage(searchGlobalSettlement(params)),getGlobalSettlementStats,()=>publicGlobalSettlementItem(resolveGlobalSettlementItem('GMS-Q00001'))]
  ])for(const [suffix,example] of [['',search({limit:1})],['/stats',stats()],['/{id}',{item:item()}]]){
   const path=base+suffix;
   const errorSchema={type:'object',properties:{error:{type:'string'},code:{type:'string'}},required:['error','code']};

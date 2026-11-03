@@ -5,7 +5,7 @@
 // s. 134 (Minimum Necessary Income / MNI), and IRCC Super Visa Ministerial Instructions ($100k insurance).
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SUPER_VISA_MIN_INSURANCE_CAD = 100000;
 export const SUPER_VISA_MIN_INSURANCE_DAYS = 365;
@@ -57,11 +57,11 @@ export function evaluateSuperVisaAndFamilySponsorship({
     hasPreExistingCoverage: true,
     isRefundableIfDenied: true
   },
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeSponsor = boundedText(sponsorName, 'Sponsor', 100);
   const safeApplicant = boundedText(applicantName, 'Parent', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const normPathway = boundedText(pathway, 'super_visa', 50).toLowerCase();
   const normStatus = boundedText(sponsorStatus, 'permanent_resident', 50).toLowerCase();
   const normCoSignerRel = boundedText(coSignerRelationship, 'spouse_or_common_law', 50).toLowerCase();

@@ -15,7 +15,7 @@
  *   - Absence of statutory rent control in Canadian commercial tenancies
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const COMMERCIAL_LEASE_CONSTANTS = Object.freeze({
   ONTARIO_CTA_DEFAULT_REENTRY_DAYS: 15,
@@ -60,7 +60,7 @@ export function evaluateCommercialLease(params = {}) {
     tenantBusinessName = 'Newcomer Cafe & Bakery Ltd.',
     landlordName = 'Commercial Property Holdings Inc.',
     premisesAddress = '450 Queen St W, Unit 102, Toronto, ON',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const baseRent = Number.isFinite(Number(baseRentMonthlyCad)) ? Math.max(0, Math.min(10000000, Number(baseRentMonthlyCad))) : 0;
@@ -79,7 +79,7 @@ export function evaluateCommercialLease(params = {}) {
   const bizName = boundedText(tenantBusinessName, 'Commercial Tenant', 120);
   const lName = boundedText(landlordName, 'Commercial Landlord', 120);
   const address = boundedText(premisesAddress, 'Commercial Unit', 150);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   // Financial calculations
   const grossMonthlyRentCad = baseRent + addlRent;

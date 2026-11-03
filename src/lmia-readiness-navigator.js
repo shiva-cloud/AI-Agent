@@ -1,16 +1,8 @@
 // src/lmia-readiness-navigator.js
 // Statutory LMIA Exemption, Wage Stream Classification & ESDC Compliance Auditor
 // Based on IRPR s. 200, 203, 204, and ESDC Temporary Foreign Worker Program guidelines.
-import { boundedText } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 import { factValue } from './kb-facts.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
 
 export const PROVINCIAL_MEDIAN_WAGES_2025_2026 = {
   AB: 29.50,
@@ -52,14 +44,14 @@ export function evaluateLmiaReadiness(params = {}) {
     cmaUnemploymentOver6Percent = false, // ESDC refusal-to-process rule for low-wage
     currentTfwProportionPercent = 8, // share of the work location's workforce in low-wage LMIA positions
     isConstructionOrHealthcare = false, // these sectors keep a 20% cap
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeEmployerName = boundedText(employerName, 'Canadian Tech Corp', 120);
   const safeProvince = boundedText(province, 'ON', 10).toUpperCase();
   const safeNocCode = boundedText(nocCode, '21231', 20);
   const safeExemptionCode = boundedText(exemptionCode, 'C16', 20);
   const safeCitizenship = boundedText(applicantCitizenship, 'FR', 10).toUpperCase();
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const offeredWage = Math.max(0, Math.min(10000, Number(offeredHourlyWageCad) || 35.00));
   const teer = Math.max(0, Math.min(5, Math.floor(Number(teerCategory) || 0)));
   const frenchNclc = Math.max(0, Math.min(12, Math.floor(Number(frenchProficiencyNclc) || 0)));

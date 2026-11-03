@@ -10,7 +10,7 @@
  * - Quebec Code of Civil Procedure, CQLR c. C-25.01 ($15,000 limit)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SMALL_CLAIMS_CONSTANTS = Object.freeze({
   ONTARIO_SMALL_CLAIMS_MAX_CAD: 35000,
@@ -37,7 +37,7 @@ export function evaluateSmallClaimsDispute({
   plaintiffName = 'Claimant',
   hasSentDemandLetter = false,
   prejudgmentInterestRatePercent = 4.0,
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const rawPrincipal = Math.max(0, Math.min(10000000, Number.isFinite(Number(claimAmountCad)) ? Number(claimAmountCad) : 0));
@@ -49,7 +49,7 @@ export function evaluateSmallClaimsDispute({
   const defType = boundedText(defendantType, 'business', 50).toLowerCase();
 
   const pjiRate = Math.max(0, Math.min(25, Number.isFinite(Number(prejudgmentInterestRatePercent)) ? Number(prejudgmentInterestRatePercent) : SMALL_CLAIMS_CONSTANTS.DEFAULT_PREJUDGMENT_INTEREST_RATE));
-  const assessStr = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessStr = safeIsoDate(assessmentDate, todayIso());
   const incidentStr = safeIsoDate(dateCauseOfActionArose, '2025-10-01');
 
   // 1. Jurisdictional Threshold Audit

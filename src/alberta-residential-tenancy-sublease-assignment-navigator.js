@@ -9,7 +9,7 @@
  * - Residential Tenancy Dispute Resolution Service (RTDRS) Rules of Practice and Procedure
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_LANDLORD_RESPONSE_WINDOW_DAYS = 14;
 
@@ -24,14 +24,14 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
   const {
     transactionType = 'ASSIGNMENT', // 'ASSIGNMENT' or 'SUBLEASE'
     requestDeliveredDate = '2026-10-01',
-    currentDate = '2026-10-20',
+    currentDate = todayIso(),
     landlordResponseStatus = 'NO_RESPONSE', // 'CONSENTED', 'REFUSED_WITH_REASONS', 'REFUSED_WITHOUT_REASONS', 'NO_RESPONSE'
     refusalReasonCategory = '', // from REASONABLE_REFUSAL_GROUNDS or arbitrary
     refusalReasonExplanation = '',
     feeChargedForConsentCad = 0,
     tenantName = 'Tenant',
     landlordName = 'Landlord',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = params;
 
   const cleanTransactionType = boundedText(transactionType, 'ASSIGNMENT', 30);
@@ -39,7 +39,7 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
   const cleanRefusalExplanation = boundedText(refusalReasonExplanation, '', 200);
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const isValidIso = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim()) && !Number.isNaN(Date.parse(d.trim()));
   const hasValidReq = isValidIso(requestDeliveredDate);
   const hasValidCurr = isValidIso(currentDate);

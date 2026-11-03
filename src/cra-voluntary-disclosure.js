@@ -8,7 +8,7 @@
  * - Form T1135 (Foreign Income Verification Statement)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CRA_VDP_CONSTANTS = Object.freeze({
   T1135_REPORTING_THRESHOLD_CAD: 100000,
@@ -39,10 +39,10 @@ export function evaluateVoluntaryDisclosure(params = {}) {
     unreportedDomesticIncomeCad = 0,
     assessmentYear = 2026,
     taxpayerName = 'Taxpayer',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeTaxpayerName = boundedText(taxpayerName, 'Taxpayer', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const lYear = Math.max(1980, Math.min(2035, Number(landingYear) || 2022));
   const aYear = Math.max(2020, Math.min(2040, Number(assessmentYear) || 2026));
   const foreignCost = Math.max(0, Math.min(1000000000, Number(maxForeignCostAmountCad) || 0));

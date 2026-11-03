@@ -2,6 +2,33 @@
 // 1-Click Interactive Statutory Navigator Modal Overlay
 
 (function () {
+  // Print documents stored in closure, avoiding global window pollution.
+  let latestPrintHtml = '';
+  let latestFormPrintHtml = '';
+  const PRINT_SOURCES = { tool: () => latestPrintHtml, form: () => latestFormPrintHtml };
+  document.addEventListener('click', e => {
+    const button = e.target.closest?.('[data-print-latest]');
+    const source = button && PRINT_SOURCES[button.dataset.printLatest];
+    if (!source) return;
+    const w = window.open('', '_blank');
+    if (!w) return;
+    w.document.write(source());
+    w.document.close();
+    w.print();
+  });
+
+  // Names the inputs this result was computed without (the API's assumedInputs).
+  function showAssumptionNote(container, data) {
+    if (!Array.isArray(data?.assumedInputs) || !data.assumedInputs.length) return;
+    const note = document.createElement('div');
+    note.className = 'assumption-note';
+    note.setAttribute('role', 'note');
+    const strong = document.createElement('strong');
+    strong.textContent = 'Based partly on default values. ';
+    note.append(strong, document.createTextNode(`${data.assumptionNotice || ''} Not provided: ${data.assumedInputs.join(', ')}.`));
+    container.prepend(note);
+  }
+
   const TOOL_FORMS = {
     'study-permit-cap-pal': {
       title: 'Study Permit Cap & Provincial Attestation Letter (PAL)',
@@ -589,7 +616,8 @@
         </div>
         <div class="tool-modal-body">
           <form id="tool-modal-form" class="tool-modal-form"></form>
-          <div id="tool-modal-results" class="tool-modal-results" hidden></div>
+          <p id="tool-modal-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+          <div id="tool-modal-results" class="tool-modal-results" role="region" aria-label="Tool results" tabindex="-1" hidden></div>
         </div>
       </div>
     `;
@@ -607,8 +635,8 @@
         const controls=[...modalOverlay.querySelectorAll('button,input,select,textarea,a[href],[tabindex="0"]')].filter(node=>!node.disabled&&node.getClientRects().length);
         if(!controls.length)return;
         const first=controls[0],last=controls[controls.length-1];
-        if(e.shiftKey&&(document.activeElement===first||!modalOverlay.contains(document.activeElement))){e.preventDefault();last.focus();}
-        else if(!e.shiftKey&&(document.activeElement===last||!modalOverlay.contains(document.activeElement))){e.preventDefault();first.focus();}
+        if(e.shiftKey&&(document.activeElement===first||!controls.includes(document.activeElement))){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&(document.activeElement===last||!controls.includes(document.activeElement))){e.preventDefault();first.focus();}
       }
     });
     return modalOverlay;
@@ -617,6 +645,7 @@
   let previousActiveElement = null;
   let modalGeneration = 0;
   let activeRequest = null;
+  let backgroundState = [];
 
   function cancelRequest() {
     modalGeneration += 1;
@@ -627,6 +656,8 @@
   function closeModal() {
     cancelRequest();
     if (modalOverlay) modalOverlay.hidden = true;
+    for (const [node, wasInert] of backgroundState) node.inert = wasInert;
+    backgroundState = [];
     if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
       previousActiveElement.focus();
     }
@@ -635,11 +666,14 @@
   window.triggerToolModal = function (tool) {
     cancelRequest();
     const generation = modalGeneration;
-    previousActiveElement = document.activeElement;
+    if (!modalOverlay || modalOverlay.hidden) previousActiveElement = document.activeElement;
     const overlay = ensureModalDom();
     const titleEl = overlay.querySelector('#tool-modal-title');
     const formEl = overlay.querySelector('#tool-modal-form');
     const resultsEl = overlay.querySelector('#tool-modal-results');
+    const statusEl = overlay.querySelector('#tool-modal-status');
+    statusEl.textContent = '';
+    formEl.setAttribute('aria-busy', 'false');
 
     resultsEl.hidden = true;
     resultsEl.innerHTML = '';
@@ -701,6 +735,9 @@
       const isCurrent = () => generation === modalGeneration && activeRequest === request;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Auditing Official Rules...';
+      formEl.setAttribute('aria-busy', 'true');
+      statusEl.textContent = 'Evaluating your inputs. Please wait.';
+      resultsEl.hidden = true;
 
       const formData = new FormData(formEl);
       const queryParams = new URLSearchParams();
@@ -718,16 +755,23 @@
 
         resultsEl.hidden = false;
         resultsEl.innerHTML = renderResultHtml(tool.id, data);
+        showAssumptionNote(resultsEl, data);
+        statusEl.textContent = 'Results ready.';
+        resultsEl.focus();
       } catch (err) {
         if (!isCurrent()) return;
         resultsEl.hidden = false;
         const message=document.createElement('div');
         message.className='tool-modal-error';
+        message.setAttribute('role', 'alert');
         message.textContent=`Error evaluating rules: ${err.message}`;
         resultsEl.replaceChildren(message);
+        statusEl.textContent = '';
+        resultsEl.focus();
       } finally {
         if (isCurrent()) {
           activeRequest = null;
+          formEl.setAttribute('aria-busy', 'false');
           submitBtn.disabled = false;
           submitBtn.textContent = 'Re-Evaluate ↺';
         }
@@ -735,6 +779,10 @@
     };
 
     overlay.hidden = false;
+    if (!backgroundState.length) {
+      backgroundState = [...document.body.children].filter(node => node !== overlay).map(node => [node, node.inert]);
+      for (const [node] of backgroundState) node.inert = true;
+    }
     const firstInput = formEl.querySelector('input, select, textarea, button');
     if (firstInput && typeof firstInput.focus === 'function') {
       firstInput.focus();
@@ -977,7 +1025,7 @@
       }
       if (data.icsContent) {
         const encodedIcs = encodeURIComponent(data.icsContent);
-        out += html`<div style="margin-top:10px;"><a class="tool-modal-btn-primary" style="display:inline-block;text-decoration:none;padding:8px 14px;border-radius:6px;" href="data:text/calendar;charset=utf-8,${encodedIcs}" download="settlement-timeline.ics">📅 Download .ics Calendar File</a></div>`;
+        out += html`<div data-s="margin-top-10px"><a class="tool-modal-btn-primary" data-s="display-inline-block text-decoration-none padding-8px-14px border-radius-6px" href="data:text/calendar;charset=utf-8,${encodedIcs}" download="settlement-timeline.ics">📅 Download .ics Calendar File</a></div>`;
       }
     }
     if (data.documentType && data.formalNoticeText) {
@@ -992,8 +1040,8 @@
         out += '</ul>';
       }
       if (data.printReadyHtml) {
-        window._latestPrintHtml = data.printReadyHtml;
-        out += html`<div style="margin-top:12px;"><button type="button" class="tool-modal-btn-primary" onclick="const w=window.open('','_blank');w.document.write(window._latestPrintHtml);w.document.close();w.print();">🖨️ View &amp; Print Formal Legal Notice</button></div>`;
+        latestPrintHtml = data.printReadyHtml;
+        out += html`<div data-s="margin-top-12px"><button type="button" class="tool-modal-btn-primary" data-print-latest="tool">🖨️ View &amp; Print Formal Legal Notice</button></div>`;
       }
     }
     if (data.digitalDeviceSearchPolicy || (data.country && data.authority && data.guidanceChecklist)) {
@@ -1119,35 +1167,37 @@
           out += html`<p class="modal-compliant-text">💡 ${data.differential.salesTaxAdvantage} has zero provincial sales tax (5% GST only), reducing consumer expenses.</p>`;
         }
       }
-      out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px;">';
+      out += '<div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-220 gap-10px margin-top-10px">';
       for (const c of data.comparison) {
-        out += html`<div style="background:rgba(0,0,0,0.03);padding:10px;border-radius:6px;border:1px solid #ddd;">
-          <h5 style="margin:0 0 6px 0;">${c.city} (${c.provinceCode})</h5>
-          <div style="font-size:12px;">Median Rent: <strong>${c.projectedMonthlyRent.toLocaleString()} CAD/mo</strong></div>
-          <div style="font-size:12px;">Transit Pass: <strong>${c.transitMonthlyPass.toFixed(2)} CAD/mo</strong></div>
-          <div style="font-size:12px;">Healthcare: <strong>${c.healthcareWaitPeriod}</strong></div>
-          <div style="font-size:12px;">Sales Tax: <strong>${c.salesTax}</strong></div>
+        out += html`<div data-s="background-rgba-0-0-0-0_03 padding-10px border-radius-6px border-1px-solid-ddd">
+          <h5 data-s="margin-0-0-6px-0">${c.city} (${c.provinceCode})</h5>
+          <div data-s="font-size-12px">Median Rent: <strong>${c.projectedMonthlyRent.toLocaleString()} CAD/mo</strong></div>
+          <div data-s="font-size-12px">Transit Pass: <strong>${c.transitMonthlyPass.toFixed(2)} CAD/mo</strong></div>
+          <div data-s="font-size-12px">Healthcare: <strong>${c.healthcareWaitPeriod}</strong></div>
+          <div data-s="font-size-12px">Sales Tax: <strong>${c.salesTax}</strong></div>
         </div>`;
       }
       out += '</div>';
     }
 
-    if (data.formType && data.populatedFields && data.pdfBase64) {
+    if (data.formType && data.populatedFields && data.printReadyHtml) {
       out += html`<div class="modal-badge badge-warn">DRAFT WORKSHEET: ${data.formNumber}</div>`;
       out += '<p>This worksheet is not an official form and is not ready for submission. Complete and review the current official form separately.</p>';
+      if (Array.isArray(data.missingFields)) out += html`<p>Blank worksheet fields: ${data.missingFields.length}</p>`;
+      if (data.pdfNotice) out += html`<p>${data.pdfNotice}</p>`;
       out += html`<p><strong>${data.title}</strong> (${data.organization})</p>`;
       out += html`<small class="modal-statute-note">📜 Statutory Authority: ${data.statuteBasis}</small>`;
-      out += '<h5 style="margin-top:12px;">Worksheet Fields:</h5><ul style="font-size:12px;">';
+      out += '<h5 data-s="margin-top-12px">Worksheet Fields:</h5><ul data-s="font-size-12px">';
       for (const pf of data.populatedFields.slice(0, 5)) {
         out += html`<li><strong>${pf.label}:</strong> ${pf.val}</li>`;
       }
       out += '</ul>';
       if (data.printReadyHtml) {
-        window._latestFormPrintHtml = data.printReadyHtml;
-        out += html`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-          <button type="button" class="tool-modal-btn-primary" onclick="const w=window.open('','_blank');if(w){w.document.write(window._latestFormPrintHtml);w.document.close();w.print();}">🖨️ View &amp; Print Worksheet</button>
-          <a class="tool-modal-btn-primary" style="display:inline-block;text-decoration:none;padding:8px 14px;border-radius:6px;background:#059669;color:#fff;" href="data:application/pdf;base64,${data.pdfBase64}" download="${data.formType}.pdf">📄 Download Vector PDF-1.4</a>
-        </div>`;
+        latestFormPrintHtml = data.printReadyHtml;
+        out += html`<div data-s="margin-top-14px display-flex gap-10px flex-wrap-wrap">
+          <button type="button" class="tool-modal-btn-primary" data-print-latest="form">🖨️ View &amp; Print Worksheet</button>`;
+        if (data.pdfBase64) out += html`<a class="tool-modal-btn-primary" href="data:application/pdf;base64,${data.pdfBase64}" download="${data.formType}.pdf">📄 Download PDF</a>`;
+        out += '</div>';
       }
     }
 

@@ -2,7 +2,7 @@
 // British Columbia Speculation and Vacancy Tax (SVT) Notice of Objection & Ministerial Appeal Engine
 // Statutory Basis: Speculation and Vacancy Tax Act, SBC 2018, c. 46, Part 9 (ss. 94–105)
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_SVT_APPEAL_RULES = {
   STATUTE: 'Speculation and Vacancy Tax Act, SBC 2018, c. 46',
@@ -50,7 +50,7 @@ export function auditBcSvtNoticeOfObjection(input = {}) {
   } = safeInput;
 
   const safeNoticeDate = safeIsoDate(assessmentNoticeDate, '2026-10-31');
-  const safeCurrentDate = safeIsoDate(currentDate, '2026-10-31');
+  const safeCurrentDate = safeIsoDate(currentDate, todayIso());
   const safeOwnerName = boundedText(ownerName, 'Property Owner', 100);
   const safePropertyRollNumber = boundedText(propertyRollNumber, 'ROLL-0000-0000', 50);
   const safeObjectionGround = boundedText(objectionGround, 'arm_length_tenancy_occupied', 60);

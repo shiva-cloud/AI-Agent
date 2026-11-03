@@ -16,6 +16,7 @@ import { evaluateSuperVisaAndFamilySponsorship } from '../src/super-visa-sponsor
 import { evaluateTaxShield } from '../src/tax-shield-optimizer.js';
 import { evaluateYukonCriticalImpactWorker } from '../src/yukon-nominee-critical-impact-worker-navigator.js';
 import { evaluateRealEstateAssignment, generateAssignmentStatement } from '../src/real-estate-assignment-navigator.js';
+import { todayIso } from '../src/text-input.js';
 
 test('Batch 21 Recommendations (Sweep 28: Recs 381–395)', async (t) => {
   await t.test('Rec 381: auditOntarioThaLicensing audits licensing status, joint liability, and bounds inputs', () => {
@@ -37,7 +38,7 @@ test('Batch 21 Recommendations (Sweep 28: Recs 381–395)', async (t) => {
     assert.equal(unlic.workerName, 'John Doe <script>alert(1)</script>');
     assert.equal(unlic.agencyName, 'Staffing Express Inc.');
     assert.equal(unlic.clientName, 'Ontario Logistics Hub');
-    assert.equal(unlic.assessmentDate, '2026-10-31');
+    assert.equal(unlic.assessmentDate, todayIso());
     assert.equal(unlic.penaltyAudit.isJointAndSeveralWageLiabilityApplicable, true);
     assert.equal(unlic.penaltyAudit.unpaidWagesOwedCad, 3200);
     assert.equal(unlic.penaltyAudit.illegalFeesCollectedCad, 1500);
@@ -98,7 +99,7 @@ test('Batch 21 Recommendations (Sweep 28: Recs 381–395)', async (t) => {
 
     assert.equal(res.tenantName, 'David Ben-Ami');
     assert.equal(res.landlordName, 'Metro Highrise Condos');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.isHumanRightsBreachDetected, true);
     assert.equal(res.legalVerdict, 'ACTIONABLE_CREED_DISCRIMINATION_HRTO');
     assert.ok(res.legalProtections.some(p => p.precedent.includes('Amselem')));

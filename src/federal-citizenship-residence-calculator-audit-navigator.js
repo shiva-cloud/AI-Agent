@@ -7,7 +7,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CITIZENSHIP_PRESENCE_REQUIREMENTS = Object.freeze({
   STATUTORY_PRESENCE_DAYS_REQUIRED: 1095, // 3 out of 5 years
@@ -38,7 +38,7 @@ export function auditCitizenshipPhysicalPresence(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     applicationTargetDate = '2026-10-31',
     daysPresentAsPermanentResident = 0,
     daysPresentAsTemporaryResident = 0,
@@ -50,7 +50,7 @@ export function auditCitizenshipPhysicalPresence(params = {}) {
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const sanitizedTargetDate = safeIsoDate(applicationTargetDate, '');
   const validTargetDate = Boolean(sanitizedTargetDate);
   const effectiveDate = validTargetDate ? sanitizedTargetDate : cleanAssessmentDate;

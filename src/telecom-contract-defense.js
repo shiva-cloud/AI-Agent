@@ -4,7 +4,7 @@
 // Telecom Regulatory Policy CRTC 2019-269 (The Internet Code), and CCTS Procedural Standards.
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const TELECOM_CONSTANTS = {
   STATUTES: {
@@ -48,13 +48,13 @@ export function assessTelecomDispute({
   refusedTrialCancellation = false,
   deviceInOriginalCondition = true,
   customerName = 'Account Holder',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeCustomerName = boundedText(customerName, 'Account Holder', 120);
   const safeProviderName = boundedText(providerName, 'Rogers', 60);
   const safeServiceType = boundedText(serviceType, 'mobile', 40);
   const safeContractType = boundedText(contractType, 'postpaid_device_financing', 50);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeDaysSinceStart = Math.max(0, Math.min(3650, parseInt(daysSinceContractStart, 10) || 0));
   const safeMonths = Math.max(1, Math.min(120, parseInt(monthsIntoContract, 10) || 1));
   const safeDisputedTotal = Math.max(0, Math.min(1000000, Number(disputedChargesTotalCad) || 0));

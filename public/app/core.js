@@ -33,7 +33,7 @@ export function updateCityDropdown(countryVal, selectEl, labelEl) {
   selectEl.innerHTML = '';
   const opt0 = document.createElement('option');
   opt0.value = '';
-  opt0.textContent = countryVal ? 'Choose city (Optional / All)' : 'Choose city (Optional)';
+  opt0.textContent = countryVal ? 'Choose province, state or city (Optional / All)' : 'Choose province or city (Optional)';
   selectEl.appendChild(opt0);
   for (const c of list) {
     const opt = document.createElement('option');
@@ -51,15 +51,15 @@ export function updateCityDropdown(countryVal, selectEl, labelEl) {
     const labelSpan = labelEl.querySelector('span') || labelEl;
     if (labelSpan) {
       if (!countryVal || countryVal === 'Canada' || countryVal === 'CA') {
-        labelSpan.textContent = 'CANADIAN CITY';
+        labelSpan.textContent = 'CANADIAN PROVINCE / CITY';
       } else if (countryVal === 'United States') {
-        labelSpan.textContent = 'US CITY';
+        labelSpan.textContent = 'US STATE / CITY';
       } else if (countryVal === 'United Kingdom') {
-        labelSpan.textContent = 'UK CITY';
+        labelSpan.textContent = 'UK REGION / CITY';
       } else if (countryVal === 'Australia') {
-        labelSpan.textContent = 'AUSTRALIAN CITY';
+        labelSpan.textContent = 'AUSTRALIAN STATE / CITY';
       } else if (countryVal === 'Germany') {
-        labelSpan.textContent = 'GERMAN CITY';
+        labelSpan.textContent = 'GERMAN STATE / CITY';
       } else if (countryVal === 'United Arab Emirates') {
         labelSpan.textContent = 'UAE EMIRATE / CITY';
       } else {
@@ -741,3 +741,14 @@ export function togglePinnedTool(id) {
 }
 
 export const viewToolControllers = {};
+
+// Names the inputs a tool result was computed without (the API's assumedInputs),
+// so a default-based result is not mistaken for one about the reader's own facts.
+export function appendAssumptionNote(data, container) {
+  if (!container || !Array.isArray(data?.assumedInputs) || !data.assumedInputs.length) return;
+  container.querySelector(':scope > .assumption-note')?.remove();
+  const note = el('div', undefined, 'assumption-note');
+  note.setAttribute('role', 'note');
+  note.append(el('strong', 'Based partly on default values. '), document.createTextNode(`${data.assumptionNotice || ''} Not provided: ${data.assumedInputs.join(', ')}.`));
+  container.prepend(note);
+}

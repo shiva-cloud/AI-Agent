@@ -1,4 +1,4 @@
-﻿import {publicEvidence} from './public-evidence.js';
+import {publicEvidence} from './public-evidence.js';
 import { createPublicEvidenceSnapshot } from './evidence-revision.js';
 import { assertFiniteInput } from './finite-input.js';
 import { createStreamLogger } from './stream-logger.js';
@@ -10,11 +10,13 @@ import { readFile } from 'node:fs/promises';
 import { appModuleFiles } from './app-modules.js';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { brotliCompress, gzip } from 'node:zlib';
+import { brotliCompress, gzip, constants as zlibConstants } from 'node:zlib';
 import { promisify } from 'node:util';
 import { handleToolGet, handleToolPost } from './routes/tools.js';
 import { handleAdminGet, handleAdminPost } from './routes/admin.js';
-const compressBrotli=promisify(brotliCompress),compressGzip=promisify(gzip);
+const rawBrotli = promisify(brotliCompress);
+const compressBrotli = (buf) => rawBrotli(buf, { params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 5 } });
+const compressGzip = promisify(gzip);
 import { answer, parse, retrieve, coverage, coverageDetail, deconstructNarrative, resolveNarrativeCrisis, detectLegalMyth, cleanEmotionalFluff, normalizeSlangAndTypos } from './engine.js';
 import { handleCatalogRoute } from './routes/catalog.js';
 import { topics, topicLabels, cities, agencies } from './knowledge.js';
@@ -61,7 +63,7 @@ import { getAirportPhrases, getAirportCategories, getAirportPhraseById } from '.
 import { getAvailableSpeechProfiles } from './audio-speech-helper.js';
 import { generateBilingualView } from './bilingual-view-helper.js';
 
-import { normalizeTypedNumber, normalizeToolInput, applyFormAliases, TOOL_OUTPUT_GARBAGE, TOOL_INPUT_ERROR } from './tool-input.js';
+import { normalizeTypedNumber, normalizeToolInput, applyFormAliases, TOOL_OUTPUT_GARBAGE, TOOL_INPUT_ERROR, ASSUMPTION_NOTICE, trackQuery, trackBody } from './tool-input.js';
 // Static routes for public/app/*.js, fixed at startup like the rest of the file list.
 const APP_MODULE_ROUTES=Object.fromEntries(appModuleFiles().map(file=>['/'+file,file]));
 export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN, aiOptions=aiRouterOptions(),options={}) {
@@ -91,14 +93,24 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
  // No question text, IP or identifier is retained; this is demand signal for
  // editors, not user data. It resets when the server restarts.
  const encodedAssets=new Map();
+ const setEncodedAsset=(key,promise)=>{
+  if(encodedAssets.size>=256){
+   const oldest=encodedAssets.keys().next().value;
+   encodedAssets.delete(oldest);
+  }
+  encodedAssets.set(key,promise);
+ };
  const noIntentMetrics={total:0,days:new Map()};
  const server=http.createServer(async(req,res)=>{
   observability.begin(req,res);
   const headers={'Content-Type':'application/json; charset=utf-8','X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Cache-Control':'no-store','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",'Permissions-Policy':'camera=(), microphone=(), geolocation=(), payment=(), usb=()','Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Resource-Policy':'same-origin'};
   const isToolRequest=String(req.url||'').startsWith('/v1/tools/');
+  // Tool inputs read but not supplied; a successful result names them (see trackQuery/trackBody).
+  const assumedInputs=new Set();
   let account=null,entitlement=null;
   const send=(code,body)=>{
    if(isToolRequest&&code<300){headers['X-Assessment-Type']='preliminary-unreviewed';headers['X-Source-Review']='required';}
+   if(isToolRequest&&code<300&&assumedInputs.size&&body&&typeof body==='object'&&!Array.isArray(body))body={...body,assumedInputs:[...assumedInputs].sort(),assumptionNotice:ASSUMPTION_NOTICE};
    let text=JSON.stringify(responseBody(code,body));
    // A tool that rendered a wrong-typed value into its text answers 400 instead of showing garbage.
    if(isToolRequest&&code<300&&TOOL_OUTPUT_GARBAGE.test(text)){code=400;text=JSON.stringify(responseBody(400,TOOL_INPUT_ERROR));}
@@ -224,7 +236,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
     if(path==='/health') return send(200,{status:'ok',mode:'research-pilot'});
     const catalog=handleCatalogRoute(req.method,path,url.searchParams);
     if(catalog)return send(catalog.status,catalog.body);
-    if(handleToolGet({path,url,send}))return;
+    if(handleToolGet({path,url:trackQuery(url,assumedInputs),send}))return;
     if(path==='/v1/kb/citations') {
       const text = url.searchParams.get('text') || 'Under IRPA s. 182 and RTA s. 120, statutory compliance is required.';
       const format = url.searchParams.get('format') || 'markdown';
@@ -437,7 +449,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
       return send(200, { profiles: getAvailableSpeechProfiles() });
     }
 
-    const files={'/':'index.html','/offline.html':'offline.html','/offline.css':'offline.css','/app.js':'app.js','/editorial.js':'editorial.js','/admin-permissions.js':'admin-permissions.js','/gap-work.js':'gap-work.js','/clarification.js':'clarification.js','/errors.js':'errors.js','/answer-view.js':'answer-view.js','/styles.css':'styles.css','/favicon.svg':'favicon.svg','/manifest.json':'manifest.json','/sw.js':'sw.js','/immigration-workspace.js':'immigration-workspace.js','/immigration-workspace-ui.js':'immigration-workspace-ui.js','/app-lifecycle.js':'app-lifecycle.js','/csp-styles.js':'csp-styles.js','/plan-access.js':'plan-access.js','/manage':'manage.html','/manage.js':'manage.js','/manage.css':'manage.css','/tool-modal.js':'tool-modal.js','/tool-modal.css':'tool-modal.css','/explorer.html':'explorer.html','/explorer.css':'explorer.css','/explorer.js':'explorer.js',...APP_MODULE_ROUTES};
+    const files={'/':'index.html','/offline.html':'offline.html','/offline.css':'offline.css','/app.js':'app.js','/editorial.js':'editorial.js','/admin-permissions.js':'admin-permissions.js','/gap-work.js':'gap-work.js','/clarification.js':'clarification.js','/errors.js':'errors.js','/answer-view.js':'answer-view.js','/styles.css':'styles.css','/favicon.svg':'favicon.svg','/manifest.json':'manifest.json','/sw.js':'sw.js','/immigration-workspace.js':'immigration-workspace.js','/immigration-workspace-ui.js':'immigration-workspace-ui.js','/app-lifecycle.js':'app-lifecycle.js','/csp-styles.js':'csp-styles.js','/plan-access.js':'plan-access.js','/manage':'manage.html','/manage.js':'manage.js','/manage.css':'manage.css','/tool-modal.js':'tool-modal.js','/tool-modal.css':'tool-modal.css','/inline-styles.css':'inline-styles.css','/explorer.html':'explorer.html','/explorer.css':'explorer.css','/explorer.js':'explorer.js',...APP_MODULE_ROUTES};
     if(Object.hasOwn(files,path)) {
      headers['Content-Type']=path.endsWith('.js')?'text/javascript; charset=utf-8':path.endsWith('.css')?'text/css; charset=utf-8':path.endsWith('.svg')?'image/svg+xml':path.endsWith('.json')?'application/manifest+json; charset=utf-8':'text/html; charset=utf-8';
      let body=await readFile(new URL('../public/' + files[path],import.meta.url));
@@ -450,12 +462,12 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
        if (acceptEncoding.includes('br')) {
          headers['Content-Encoding'] = 'br';
          const key=etag+':br';
-         if(!encodedAssets.has(key)){if(encodedAssets.size>=64)encodedAssets.clear();encodedAssets.set(key,compressBrotli(body));}
+         if(!encodedAssets.has(key)){setEncodedAsset(key,compressBrotli(body));}
          try{body=await encodedAssets.get(key);}catch(error){encodedAssets.delete(key);throw error;}
        } else if (acceptEncoding.includes('gzip')) {
          headers['Content-Encoding'] = 'gzip';
          const key=etag+':gzip';
-         if(!encodedAssets.has(key)){if(encodedAssets.size>=64)encodedAssets.clear();encodedAssets.set(key,compressGzip(body));}
+         if(!encodedAssets.has(key)){setEncodedAsset(key,compressGzip(body));}
          try{body=await encodedAssets.get(key);}catch(error){encodedAssets.delete(key);throw error;}
        }
      }
@@ -576,7 +588,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
         }))
       });
     }
-    if(handleToolPost({input,path,send}))return;
+    if(handleToolPost({input:trackBody(input,assumedInputs),path,send}))return;
     if(path==='/v1/realtime/subscriptions') {
       if(input.action==='cancel')return send(200,{cancelled:subscriptionManager.cancel(input.subscriptionId)});
       return send(200, subscriptionManager.subscribe(input));

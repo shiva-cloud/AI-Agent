@@ -8,7 +8,7 @@
  * - Immigration and Refugee Protection Regulations (IRPR, SOR/2002-227, s. 87)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SINP_ELIGIBLE_TECH_NOCS = Object.freeze([
   { noc: '20012', title: 'Computer and information systems managers', teer: 0, requiresApegs: false },
@@ -42,7 +42,7 @@ export function evaluateSinpTechTalent(params = {}) {
     hasApegsLicensureOrEligibilityLetter = false,
     intendsToResideInSaskatchewan = true,
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = params;
 
   const safeCandidateName = boundedText(candidateName, 120) || 'Candidate';

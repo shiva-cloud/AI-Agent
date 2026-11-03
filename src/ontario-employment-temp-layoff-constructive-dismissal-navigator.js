@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ONTARIO_LAYOFF_CONSTANTS = Object.freeze({
   STANDARD_LAYOFF_MAX_WEEKS: 13, // In any 20 consecutive weeks
@@ -34,7 +34,7 @@ export const ONTARIO_LAYOFF_CONSTANTS = Object.freeze({
  * @param {boolean} [params.employerOntarioPayrollOver2_5Million=true] - Employer Ontario payroll >= $2.5 million
  * @param {string} [params.employeeName='Employee']
  * @param {string} [params.employerName='Employer']
- * @param {string} [params.assessmentDate='2026-10-31']
+ * @param {string} [params.assessmentDate=todayIso()]
  * @returns {Object} Comprehensive layoff audit, deemed termination status, and financial entitlements
  */
 export function auditOntarioTemporaryLayoff({
@@ -47,9 +47,9 @@ export function auditOntarioTemporaryLayoff({
   employerOntarioPayrollOver2_5Million = true,
   employeeName = 'Employee',
   employerName = 'Employer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanEmployee = boundedText(employeeName, 'Employee', 100);
   const cleanEmployer = boundedText(employerName, 'Employer', 120);
 

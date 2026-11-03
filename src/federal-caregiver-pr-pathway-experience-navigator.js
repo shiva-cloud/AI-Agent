@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_CAREGIVER_CONSTANTS = Object.freeze({
   PROGRAM_NAME: 'Caregiver Permanent Residence Pathway (HCCPP / HSWP)',
@@ -41,7 +41,7 @@ export function evaluateFederalCaregiverPrPathway(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     caregiverName = 'Caregiver',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     nocCode = '44100',
     completedCanadianExperienceMonths = 12,
     averageWeeklyHours = 35,
@@ -56,7 +56,7 @@ export function evaluateFederalCaregiverPrPathway(params = {}) {
     careRecipientCategory = 'Child or Elderly Care'
   } = safeParams;
   const cleanCaregiverName = boundedText(caregiverName, 'Caregiver', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanEmployer = boundedText(employerName, 'Private Household Employer');
   const cleanCategory = boundedText(careRecipientCategory, 'Child or Elderly Care');
   const noc = boundedText(nocCode, '44100', 20);

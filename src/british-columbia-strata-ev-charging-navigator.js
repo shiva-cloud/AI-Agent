@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_STRATA_EV_RULES = Object.freeze({
   STATUTORY_DECISION_DEADLINE_MONTHS: 3,
@@ -29,7 +29,7 @@ export function evaluateBcStrataEvCharging(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     requestDate = '2026-08-01',
-    currentDate = '2026-10-31', // or 'tenant'
+    currentDate = todayIso(), // or 'tenant'
     strataLotCount = 48,
     strataRegion = 'metro_vancouver', // or 'fraser_valley', 'capital_regional_district', 'other_bc'
     hasStrataCouncilResponded = false,
@@ -43,7 +43,7 @@ export function evaluateBcStrataEvCharging(params = {}) {
   const cleanStrataPlan = boundedText(strataPlanNumber, 'LMS-1234');
   const cleanOwnerName = boundedText(ownerName, 'Strata Owner');
   const cleanRequestDate = safeIsoDate(requestDate, '2026-08-01');
-  const cleanCurrentDate = safeIsoDate(currentDate, '2026-10-31');
+  const cleanCurrentDate = safeIsoDate(currentDate, todayIso());
   const sanitizedLotCount = Number.isFinite(Number(strataLotCount)) ? Math.max(1, Math.min(10000, Math.floor(Number(strataLotCount)))) : 48;
   const reqTime = Date.parse(cleanRequestDate);
   const curTime = Date.parse(cleanCurrentDate);

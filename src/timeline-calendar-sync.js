@@ -2,7 +2,7 @@
 // Statutory Timeline & Calendar Sync Engine.
 // Computes statutory milestones and generates RFC 5545 iCalendar (.ics) files for Google Calendar, Apple Calendar, and Outlook.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function generateIcsCalendar(events) {
   const lines = [
@@ -18,7 +18,7 @@ export function generateIcsCalendar(events) {
   const pad = n => String(n).padStart(2, '0');
   const formatIcsDate = d => {
     const rawDt = new Date(d);
-    const dt = !Number.isNaN(rawDt.getTime()) ? rawDt : new Date('2026-10-31T00:00:00Z');
+    const dt = !Number.isNaN(rawDt.getTime()) ? rawDt : new Date(`${todayIso()}T00:00:00Z`);
     return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth() + 1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}${pad(dt.getUTCSeconds())}Z`;
   };
 
@@ -57,7 +57,7 @@ export function evaluateStatutoryTimeline(input = {}) {
   const anchorDateStr = safeIsoDate(input.anchorDate, '2026-10-31');
   const anchorDate = new Date(anchorDateStr);
   const applicantName = boundedText(input.applicantName, 'Newcomer', 100);
-  const assessmentDate = safeIsoDate(input.assessmentDate, '2026-10-31');
+  const assessmentDate = safeIsoDate(input.assessmentDate, todayIso());
 
   const events = [];
 

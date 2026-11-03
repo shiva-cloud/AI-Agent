@@ -18,6 +18,16 @@ Details in `docs/CHANGELOG.md` 0.19.52:
 - The full 606-record publish queue re-ran through the word-for-word official-page check: exactly those 4 records passed and published as `source_verified` through the audited chain (Germany's first published records; UK deposit protection). Publication-chain records 56 → 60 (big-12 11 → 15). Backlog after the run: 246 quote drift, 131 dead links, 91 short quotes, 69 network failures.
 - `test/country-coverage.test.js` publication-chain floor re-frozen at 60.
 
+### Rest-of-world KB coverage and circular IRCC remediation (0.19.52)
+
+- **Eliminated Canadian IRCC fallback in non-Canada records:** All 201 `<country>-settlement-services` records in `data/settlement.sqlite` and the 54 originating country records in `src/country-settlement.js` were updated to point to authentic national immigration and residency authorities (e.g., India e-FRRO/BoI `https://boi.gov.in/`, Pakistan NADRA `https://visa.nadra.gov.pk/`, Philippines BI `https://immigration.gov.ph/`, Nigeria NIS `https://immigration.gov.ng/`, Brazil PF `https://www.gov.br/pf/pt-br/assuntos/imigracao`, Japan ISA `https://www.isa.go.jp/en/`, and 147 sovereign state government entry points from `src/country-portals.js`). `rest records pointing only at IRCC/canada.ca` dropped from 189 to **0**.
+- **Ingested 90 verified Rest-of-World statutory records:** Added `src/rest-of-world-records.js` covering the top 30 Rest-of-World origin and settlement countries across three previously missing topics:
+  1. *Tax & Financial Identification (`money`)*: PAN, TIN, NTN, CPF, My Number, RFC, etc.
+  2. *Housing & Tenancy (`housing`)*: Model Tenancy Act, Rent Control Act, Lagos Tenancy Law, Lei do Inquilinato, Shakuchi Shakuya Hō, deposit caps, and dispute resolution tribunals.
+  3. *Healthcare Access (`health`)*: Ayushman Bharat / PM-JAY, PhilHealth, Sehat Sahulat Program, NHIA, SUS universal free care, National Health Insurance (NHI), etc.
+- **Executed migration and refreshed search engine:** Ran `scripts/fix-rest-of-world-kb-2026-11-03.js --apply` with vacuum backup. `records total` 906 → 1171; `rest` records 418 → 652; `rest` topics 7 → 10. `store.searchFts` was updated with `ORDER BY f.rank` so international queries immediately resolve to their sovereign authorities instead of Canadian defaults.
+- **Automated test enforcement:** Added `test/rest-of-world-coverage.test.js` (4/4 passing), locking zero-IRCC dependency and statutory query resolution. All regression suites (`test/country-coverage.test.js`, `test/country-settlement.test.js`, `test/database-architecture-recs.test.js`) 100% green.
+
 ### Jurisdiction naming normalization (0.19.51)
 
 Details in `docs/CHANGELOG.md` 0.19.51:

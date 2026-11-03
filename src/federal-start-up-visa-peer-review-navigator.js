@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_SUV_CONSTANTS = Object.freeze({
   PROGRAM_NAME: 'Start-Up Business Class (SUV)',
@@ -40,7 +40,7 @@ export function evaluateFederalSuvPeerReview(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     founderName = 'Founder',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     designatedEntityType = 'BUSINESS_INCUBATOR',
     securedInvestmentAmountCad = 0,
     hasOfficialLetterOfSupport = true,
@@ -54,7 +54,7 @@ export function evaluateFederalSuvPeerReview(params = {}) {
     designatedEntityName = 'Designated Entity'
   } = safeParams;
   const cleanFounder = boundedText(founderName, 'Founder', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanVenture = boundedText(ventureName, 'Start-Up Venture');
   const cleanEntity = boundedText(designatedEntityName, 'Designated Entity');
   const entityType = String(designatedEntityType || '').trim().toUpperCase();

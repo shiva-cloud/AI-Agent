@@ -5523,6 +5523,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5570,6 +5573,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5609,6 +5615,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5656,6 +5665,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5695,6 +5707,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5742,6 +5757,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5781,6 +5799,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5828,6 +5849,9 @@ export interface operations {
                     "application/json": {
                         action?: string;
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5872,6 +5896,9 @@ export interface operations {
                         date?: string;
                         formalNoticeText?: string;
                         printReadyHtml?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5937,6 +5964,9 @@ export interface operations {
                         date?: string;
                         formalNoticeText?: string;
                         printReadyHtml?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -5984,6 +6014,9 @@ export interface operations {
                         emergencyAssistance?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6043,6 +6076,9 @@ export interface operations {
                         emergencyAssistance?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6093,6 +6129,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6156,6 +6195,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6205,6 +6247,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6268,6 +6313,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6317,6 +6365,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6380,6 +6431,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6425,6 +6479,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6482,6 +6539,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6526,6 +6586,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6583,6 +6646,9 @@ export interface operations {
                             [key: string]: unknown;
                         };
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6633,6 +6699,9 @@ export interface operations {
                             [key: string]: unknown;
                         }[];
                         statutorySummary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6696,6 +6765,9 @@ export interface operations {
                             [key: string]: unknown;
                         }[];
                         statutorySummary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6774,6 +6846,9 @@ export interface operations {
                         }[];
                         documentationChecklist: string[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -6868,6 +6943,9 @@ export interface operations {
                         }[];
                         documentationChecklist: string[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -6922,6 +7000,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -6991,6 +7072,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7037,6 +7121,9 @@ export interface operations {
                         }[];
                         icsContent?: string;
                         summary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7093,6 +7180,9 @@ export interface operations {
                         }[];
                         icsContent?: string;
                         summary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7141,6 +7231,9 @@ export interface operations {
                         }[];
                         comparativeSummary?: string;
                         generatedAt?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7203,6 +7296,9 @@ export interface operations {
                         }[];
                         comparativeSummary?: string;
                         generatedAt?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7244,6 +7340,9 @@ export interface operations {
                         eligible?: boolean;
                         verdict?: string;
                         statutoryLegalBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7302,6 +7401,9 @@ export interface operations {
                         eligible?: boolean;
                         verdict?: string;
                         statutoryLegalBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7353,6 +7455,9 @@ export interface operations {
                         };
                         totalFirstYearFinancialShieldCad?: number;
                         wealthActionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7420,6 +7525,9 @@ export interface operations {
                         };
                         totalFirstYearFinancialShieldCad?: number;
                         wealthActionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -7489,6 +7597,9 @@ export interface operations {
                             salesTaxAdvantage: string | null;
                         } | null;
                         benchmarkNote: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7566,6 +7677,9 @@ export interface operations {
                             salesTaxAdvantage: string | null;
                         } | null;
                         benchmarkNote: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7625,6 +7739,9 @@ export interface operations {
                                 city: string;
                             }[];
                         }[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7694,6 +7811,9 @@ export interface operations {
                                 city: string;
                             }[];
                         }[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7764,6 +7884,9 @@ export interface operations {
                         runwayMonths: number;
                         runwaySafetyAssessment: string;
                         bridgeHealthNotice: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7846,6 +7969,9 @@ export interface operations {
                         runwayMonths: number;
                         runwaySafetyAssessment: string;
                         bridgeHealthNotice: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7905,6 +8031,9 @@ export interface operations {
                         acceptedProofOfResidence: string[];
                         chcAdvisory: string;
                         statutoryGuidance: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -7978,6 +8107,9 @@ export interface operations {
                         acceptedProofOfResidence: string[];
                         chcAdvisory: string;
                         statutoryGuidance: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8023,6 +8155,9 @@ export interface operations {
                         feeEstimate: number;
                         roadTestRequired: boolean;
                         waitPeriodSkipped: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8079,6 +8214,9 @@ export interface operations {
                         feeEstimate: number;
                         roadTestRequired: boolean;
                         waitPeriodSkipped: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8131,6 +8269,9 @@ export interface operations {
                             label: string;
                             cls: string;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8195,6 +8336,9 @@ export interface operations {
                             label: string;
                             cls: string;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8259,6 +8403,9 @@ export interface operations {
                             mandatory: boolean;
                             reason: string;
                         }[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8337,6 +8484,9 @@ export interface operations {
                             mandatory: boolean;
                             reason: string;
                         }[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8403,6 +8553,9 @@ export interface operations {
                         }[];
                         strategicNotes: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8482,6 +8635,9 @@ export interface operations {
                         }[];
                         strategicNotes: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8559,6 +8715,9 @@ export interface operations {
                         estimatedTotalCostCad: number;
                         statutoryWarnings: string[];
                         authority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8647,6 +8806,9 @@ export interface operations {
                         estimatedTotalCostCad: number;
                         statutoryWarnings: string[];
                         authority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8731,6 +8893,9 @@ export interface operations {
                         voidClauseCount: number;
                         officialDisputeNotice: string;
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8830,6 +8995,9 @@ export interface operations {
                         voidClauseCount: number;
                         officialDisputeNotice: string;
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8899,6 +9067,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         authority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -8981,6 +9152,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         authority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9094,6 +9268,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9222,6 +9399,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9302,6 +9482,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9400,6 +9583,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9480,6 +9666,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         authority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9572,6 +9761,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         authority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9659,6 +9851,9 @@ export interface operations {
                         statutoryChecklist: string[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9761,6 +9956,9 @@ export interface operations {
                         statutoryChecklist: string[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9832,6 +10030,9 @@ export interface operations {
                         officialDisputeNotice: string;
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9922,6 +10123,9 @@ export interface operations {
                         officialDisputeNotice: string;
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -9998,6 +10202,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10092,6 +10299,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10165,6 +10375,9 @@ export interface operations {
                         individualizedMitigationPlanDraft: string;
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10257,6 +10470,9 @@ export interface operations {
                         individualizedMitigationPlanDraft: string;
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10323,6 +10539,9 @@ export interface operations {
                         officialDemandLetter: string;
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10411,6 +10630,9 @@ export interface operations {
                         officialDemandLetter: string;
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10482,6 +10704,9 @@ export interface operations {
                         provincialRegistrationRoadmap: string[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10571,6 +10796,9 @@ export interface operations {
                         provincialRegistrationRoadmap: string[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10628,6 +10856,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10703,6 +10934,9 @@ export interface operations {
                         };
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10768,6 +11002,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10847,6 +11084,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -10928,6 +11168,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11031,6 +11274,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11096,6 +11342,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11181,6 +11430,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11247,6 +11499,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11327,6 +11582,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11435,6 +11693,9 @@ export interface operations {
                             description: string;
                         }[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11558,6 +11819,9 @@ export interface operations {
                             description: string;
                         }[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11649,6 +11913,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11756,6 +12023,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -11889,6 +12159,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12052,6 +12325,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12146,6 +12422,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12258,6 +12537,9 @@ export interface operations {
                         }[];
                         statutoryAdvisories: string[];
                         statutoryAuthority: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12351,6 +12633,9 @@ export interface operations {
                             message: string;
                         }[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12470,6 +12755,9 @@ export interface operations {
                             message: string;
                         }[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12551,6 +12839,9 @@ export interface operations {
                         statutoryWarnings: string[];
                         applicationChecklist: string[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12649,6 +12940,9 @@ export interface operations {
                         statutoryWarnings: string[];
                         applicationChecklist: string[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12714,6 +13008,9 @@ export interface operations {
                             formN9TerminationNotice: string | null;
                         };
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12796,6 +13093,9 @@ export interface operations {
                             formN9TerminationNotice: string | null;
                         };
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12858,6 +13158,9 @@ export interface operations {
                             action: string;
                         };
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -12938,6 +13241,9 @@ export interface operations {
                             action: string;
                         };
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13014,6 +13320,9 @@ export interface operations {
                         }[];
                         documentationChecklist: string[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13115,6 +13424,9 @@ export interface operations {
                         }[];
                         documentationChecklist: string[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13185,6 +13497,9 @@ export interface operations {
                             deliveryPartner: string;
                         }[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13270,6 +13585,9 @@ export interface operations {
                             deliveryPartner: string;
                         }[];
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13328,6 +13646,9 @@ export interface operations {
                         }[];
                         formalDisputeNotice: string;
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13410,6 +13731,9 @@ export interface operations {
                         }[];
                         formalDisputeNotice: string;
                         statutoryAdvisories: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13483,6 +13807,9 @@ export interface operations {
                         requiredDocuments: string[];
                         borderInterviewPrep: string[];
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13574,6 +13901,9 @@ export interface operations {
                         requiredDocuments: string[];
                         borderInterviewPrep: string[];
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13658,6 +13988,9 @@ export interface operations {
                         };
                         officialTenantDisputeNotice: string;
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13761,6 +14094,9 @@ export interface operations {
                         };
                         officialTenantDisputeNotice: string;
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13843,6 +14179,9 @@ export interface operations {
                         };
                         officialFormalDemandLetter: string;
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -13941,6 +14280,9 @@ export interface operations {
                         };
                         officialFormalDemandLetter: string;
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14013,6 +14355,9 @@ export interface operations {
                         };
                         strategicRecommendations: string[];
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14105,6 +14450,9 @@ export interface operations {
                         };
                         strategicRecommendations: string[];
                         statutoryReferences: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14178,6 +14526,9 @@ export interface operations {
                         };
                         statutoryCitations: string[];
                         officialGuidance: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14268,6 +14619,9 @@ export interface operations {
                         };
                         statutoryCitations: string[];
                         officialGuidance: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14340,6 +14694,9 @@ export interface operations {
                         };
                         statutoryCitations: string[];
                         actionPlan: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14437,6 +14794,9 @@ export interface operations {
                         };
                         statutoryCitations: string[];
                         actionPlan: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14506,6 +14866,9 @@ export interface operations {
                         };
                         statutoryCitations: string[];
                         proceduralSteps: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14592,6 +14955,9 @@ export interface operations {
                         };
                         statutoryCitations: string[];
                         proceduralSteps: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14677,6 +15043,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14778,6 +15147,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14861,6 +15233,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -14962,6 +15337,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15032,6 +15410,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15121,6 +15502,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15201,6 +15585,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15303,6 +15690,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15378,6 +15768,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15471,6 +15864,9 @@ export interface operations {
                         }[];
                         warnings: string[];
                         statutoryCitations: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15546,6 +15942,9 @@ export interface operations {
                             description: string;
                         }[];
                         noticeOfDisrepairDocument: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15641,6 +16040,9 @@ export interface operations {
                             description: string;
                         }[];
                         noticeOfDisrepairDocument: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15717,6 +16119,9 @@ export interface operations {
                             courtRemedy: string;
                         };
                         commercialDemandLetter: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15817,6 +16222,9 @@ export interface operations {
                             courtRemedy: string;
                         };
                         commercialDemandLetter: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15884,6 +16292,9 @@ export interface operations {
                         complianceVerdict: string;
                         overallComplianceScore: number;
                         standardCompliantLetterTemplate: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -15982,6 +16393,9 @@ export interface operations {
                         complianceVerdict: string;
                         overallComplianceScore: number;
                         standardCompliantLetterTemplate: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -16035,6 +16449,9 @@ export interface operations {
                             message: string;
                         }[];
                         demandLetter: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -16108,6 +16525,9 @@ export interface operations {
                             message: string;
                         }[];
                         demandLetter: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     };
                 };
             };
@@ -16160,6 +16580,9 @@ export interface operations {
                         warnings?: string[];
                         recommendations?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16238,6 +16661,9 @@ export interface operations {
                         warnings?: string[];
                         recommendations?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16296,6 +16722,9 @@ export interface operations {
                         };
                         recommendations?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16378,6 +16807,9 @@ export interface operations {
                         };
                         recommendations?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16431,6 +16863,9 @@ export interface operations {
                         recommendations?: string[];
                         statutoryReferences?: string[];
                         formalRefusalNotice?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16506,6 +16941,9 @@ export interface operations {
                         recommendations?: string[];
                         statutoryReferences?: string[];
                         formalRefusalNotice?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16566,6 +17004,9 @@ export interface operations {
                         violations?: string[];
                         recommendations?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16647,6 +17088,9 @@ export interface operations {
                         violations?: string[];
                         recommendations?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16701,6 +17145,9 @@ export interface operations {
                         };
                         immediateNextSteps?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16772,6 +17219,9 @@ export interface operations {
                         };
                         immediateNextSteps?: string[];
                         statutoryReferences?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16827,6 +17277,9 @@ export interface operations {
                         };
                         taxNotes?: string[];
                         riskWarnings?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16907,6 +17360,9 @@ export interface operations {
                         };
                         taxNotes?: string[];
                         riskWarnings?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -16960,6 +17416,9 @@ export interface operations {
                         };
                         statutoryNotes?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17031,6 +17490,9 @@ export interface operations {
                         };
                         statutoryNotes?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17085,6 +17547,9 @@ export interface operations {
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
                         documentChecklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17153,6 +17618,9 @@ export interface operations {
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
                         documentChecklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17206,6 +17674,9 @@ export interface operations {
                         deficienciesIdentified?: string[];
                         statutoryProtections?: string[];
                         formalRescissionNotice?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17279,6 +17750,9 @@ export interface operations {
                         deficienciesIdentified?: string[];
                         statutoryProtections?: string[];
                         formalRescissionNotice?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17330,6 +17804,9 @@ export interface operations {
                         statutoryBasis?: string;
                         documentChecklist?: string[];
                         strategicAdvice?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17400,6 +17877,9 @@ export interface operations {
                         statutoryBasis?: string;
                         documentChecklist?: string[];
                         strategicAdvice?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17458,6 +17938,9 @@ export interface operations {
                         defenseArguments?: string[];
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17537,6 +18020,9 @@ export interface operations {
                         defenseArguments?: string[];
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17586,6 +18072,9 @@ export interface operations {
                         deficiencies?: string[];
                         roadmapSteps?: string[];
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17661,6 +18150,9 @@ export interface operations {
                         deficiencies?: string[];
                         roadmapSteps?: string[];
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17713,6 +18205,9 @@ export interface operations {
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17790,6 +18285,9 @@ export interface operations {
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17839,6 +18337,9 @@ export interface operations {
                         riskWarnings?: string[];
                         actionPlan?: string[];
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17906,6 +18407,9 @@ export interface operations {
                         riskWarnings?: string[];
                         actionPlan?: string[];
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -17961,6 +18465,9 @@ export interface operations {
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
                         requiredDocuments?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18035,6 +18542,9 @@ export interface operations {
                         statutoryNotes?: string[];
                         riskWarnings?: string[];
                         requiredDocuments?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18090,6 +18600,9 @@ export interface operations {
                         riskWarnings?: string[];
                         requiredSteps?: string[];
                         statutoryNotes?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18165,6 +18678,9 @@ export interface operations {
                         riskWarnings?: string[];
                         requiredSteps?: string[];
                         statutoryNotes?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18223,6 +18739,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18302,6 +18821,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18359,6 +18881,9 @@ export interface operations {
                         riskWarnings?: string[];
                         requiredSteps?: string[];
                         statutoryNotes?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18439,6 +18964,9 @@ export interface operations {
                         riskWarnings?: string[];
                         requiredSteps?: string[];
                         statutoryNotes?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18492,6 +19020,9 @@ export interface operations {
                         compliancePoints?: string[];
                         statutoryNotes?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18564,6 +19095,9 @@ export interface operations {
                         compliancePoints?: string[];
                         statutoryNotes?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18614,6 +19148,9 @@ export interface operations {
                         riskWarnings?: string[];
                         actionPlan?: string[];
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18683,6 +19220,9 @@ export interface operations {
                         riskWarnings?: string[];
                         actionPlan?: string[];
                         statutoryBasis?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18736,6 +19276,9 @@ export interface operations {
                         riskWarnings?: string[];
                         requiredDocuments?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18809,6 +19352,9 @@ export interface operations {
                         riskWarnings?: string[];
                         requiredDocuments?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18862,6 +19408,9 @@ export interface operations {
                         }[];
                         statutoryProtections?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18934,6 +19483,9 @@ export interface operations {
                         }[];
                         statutoryProtections?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -18986,6 +19538,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19054,6 +19609,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19108,6 +19666,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19183,6 +19744,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19234,6 +19798,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19303,6 +19870,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19352,6 +19922,9 @@ export interface operations {
                         statutoryLegalBasis?: string;
                         explanation?: string;
                         documentationChecklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19414,6 +19987,9 @@ export interface operations {
                         statutoryLegalBasis?: string;
                         explanation?: string;
                         documentationChecklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19461,6 +20037,9 @@ export interface operations {
                         dualIntentStatus?: string;
                         mitigationActionPlan?: string[];
                         recommendedDocuments?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19530,6 +20109,9 @@ export interface operations {
                         dualIntentStatus?: string;
                         mitigationActionPlan?: string[];
                         recommendedDocuments?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19579,6 +20161,9 @@ export interface operations {
                         statutoryAuthority?: string;
                         auditVerdict?: string;
                         documentationChecklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19647,6 +20232,9 @@ export interface operations {
                         statutoryAuthority?: string;
                         auditVerdict?: string;
                         documentationChecklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19692,6 +20280,9 @@ export interface operations {
                         };
                         statutoryAuthority?: string;
                         checklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19750,6 +20341,9 @@ export interface operations {
                         };
                         statutoryAuthority?: string;
                         checklist?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19809,6 +20403,9 @@ export interface operations {
                         violationsAndBars?: string[];
                         statutoryProtections?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19887,6 +20484,9 @@ export interface operations {
                         violationsAndBars?: string[];
                         statutoryProtections?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -19940,6 +20540,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20011,6 +20614,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20062,6 +20668,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20130,6 +20739,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20186,6 +20798,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20259,6 +20874,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20309,6 +20927,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20380,6 +21001,9 @@ export interface operations {
                         statutoryProtections?: string[];
                         riskWarnings?: string[];
                         actionPlan?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20420,6 +21044,9 @@ export interface operations {
                         pathwaySummary?: string;
                         eligiblePrograms?: string[];
                         recommendations?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20474,6 +21101,9 @@ export interface operations {
                         pathwaySummary?: string;
                         eligiblePrograms?: string[];
                         recommendations?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20515,6 +21145,9 @@ export interface operations {
                         remedies?: {
                             [key: string]: unknown;
                         }[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20568,6 +21201,9 @@ export interface operations {
                         remedies?: {
                             [key: string]: unknown;
                         }[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20609,6 +21245,9 @@ export interface operations {
                         eligibilityStatus?: string;
                         deficiencies?: string[];
                         compliancePoints?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20668,6 +21307,9 @@ export interface operations {
                         eligibilityStatus?: string;
                         deficiencies?: string[];
                         compliancePoints?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20709,6 +21351,9 @@ export interface operations {
                         isReverseBurdenTriggered?: boolean;
                         isWithinLimitationPeriod?: boolean;
                         findings?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20767,6 +21412,9 @@ export interface operations {
                         isReverseBurdenTriggered?: boolean;
                         isWithinLimitationPeriod?: boolean;
                         findings?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20808,6 +21456,9 @@ export interface operations {
                         daysElapsed?: number;
                         daysRemaining?: number;
                         objectionStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20865,6 +21516,9 @@ export interface operations {
                         daysElapsed?: number;
                         daysRemaining?: number;
                         objectionStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20909,6 +21563,9 @@ export interface operations {
                         categoryAudit?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -20970,6 +21627,9 @@ export interface operations {
                         categoryAudit?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21010,6 +21670,9 @@ export interface operations {
                         isCodeCompliant?: boolean;
                         isRegisteredOnCalgaryRegistry?: boolean;
                         registryReadinessStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21071,6 +21734,9 @@ export interface operations {
                         isCodeCompliant?: boolean;
                         isRegisteredOnCalgaryRegistry?: boolean;
                         registryReadinessStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21112,6 +21778,9 @@ export interface operations {
                         isEsaLayoffPermissible?: boolean;
                         hasExceededEsaThreshold?: boolean;
                         isCommonLawConstructiveDismissal?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21173,6 +21842,9 @@ export interface operations {
                         isEsaLayoffPermissible?: boolean;
                         hasExceededEsaThreshold?: boolean;
                         isCommonLawConstructiveDismissal?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21214,6 +21886,9 @@ export interface operations {
                         eligibilityStatus?: string;
                         deficiencies?: string[];
                         compliancePoints?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21278,6 +21953,9 @@ export interface operations {
                         eligibilityStatus?: string;
                         deficiencies?: string[];
                         compliancePoints?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21320,6 +21998,9 @@ export interface operations {
                         principalFrenchOral?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21382,6 +22063,9 @@ export interface operations {
                         principalFrenchOral?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21422,6 +22106,9 @@ export interface operations {
                         legalVerdict?: string;
                         isWithinObjectionWindow?: boolean;
                         civilViolations?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21481,6 +22168,9 @@ export interface operations {
                         legalVerdict?: string;
                         isWithinObjectionWindow?: boolean;
                         civilViolations?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21523,6 +22213,9 @@ export interface operations {
                         prPathwayPermitHolderClass?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21583,6 +22276,9 @@ export interface operations {
                         prPathwayPermitHolderClass?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21621,6 +22317,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         summary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21678,6 +22377,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         summary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21716,6 +22418,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21765,6 +22470,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21803,6 +22511,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         summary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21851,6 +22562,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         summary?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21889,6 +22603,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         isEligible?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21937,6 +22654,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         isEligible?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -21977,6 +22697,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityStatus?: string;
                         isTradeNoc?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22041,6 +22764,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityStatus?: string;
                         isTradeNoc?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22081,6 +22807,9 @@ export interface operations {
                         legalVerdict?: string;
                         isPastThreeMonthDeadline?: boolean;
                         isUnreasonableRefusal?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22141,6 +22870,9 @@ export interface operations {
                         legalVerdict?: string;
                         isPastThreeMonthDeadline?: boolean;
                         isUnreasonableRefusal?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22181,6 +22913,9 @@ export interface operations {
                         legalVerdict?: string;
                         statutoryViolations?: string[];
                         canadianExperienceProhibitionCompliant?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22239,6 +22974,9 @@ export interface operations {
                         legalVerdict?: string;
                         statutoryViolations?: string[];
                         canadianExperienceProhibitionCompliant?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22279,6 +23017,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityStatus?: string;
                         isCommunityPilotEndorsed?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22341,6 +23082,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityStatus?: string;
                         isCommunityPilotEndorsed?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22381,6 +23125,9 @@ export interface operations {
                         legalVerdict?: string;
                         statusCategory?: string;
                         canLegallyWorkForNewEmployer?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22441,6 +23188,9 @@ export interface operations {
                         legalVerdict?: string;
                         statusCategory?: string;
                         canLegallyWorkForNewEmployer?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22481,6 +23231,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22540,6 +23293,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22580,6 +23336,9 @@ export interface operations {
                         isSection64GroupTermination?: boolean;
                         complianceStatus?: string;
                         affectedEmployeesCount?: number;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22640,6 +23399,9 @@ export interface operations {
                         isSection64GroupTermination?: boolean;
                         complianceStatus?: string;
                         affectedEmployeesCount?: number;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22680,6 +23442,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         designatedEntityType?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22744,6 +23509,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         designatedEntityType?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22786,6 +23554,9 @@ export interface operations {
                         rightsAssessment?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22843,6 +23614,9 @@ export interface operations {
                         rightsAssessment?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22885,6 +23659,9 @@ export interface operations {
                         pointsSummary?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22950,6 +23727,9 @@ export interface operations {
                         pointsSummary?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -22990,6 +23770,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         program?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23051,6 +23834,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         program?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23093,6 +23879,9 @@ export interface operations {
                         hoursAudit?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23150,6 +23939,9 @@ export interface operations {
                         hoursAudit?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23189,6 +23981,9 @@ export interface operations {
                     "application/json": {
                         isRtaCovered?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23245,6 +24040,9 @@ export interface operations {
                     "application/json": {
                         isRtaCovered?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23285,6 +24083,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23345,6 +24146,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23385,6 +24189,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23448,6 +24255,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23490,6 +24300,9 @@ export interface operations {
                         proceduralAudit?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23551,6 +24364,9 @@ export interface operations {
                         proceduralAudit?: {
                             [key: string]: unknown;
                         };
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23590,6 +24406,9 @@ export interface operations {
                     "application/json": {
                         isRtaCovered?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23645,6 +24464,9 @@ export interface operations {
                     "application/json": {
                         isRtaCovered?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23685,6 +24507,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23745,6 +24570,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23784,6 +24612,9 @@ export interface operations {
                     "application/json": {
                         isExemptFromIrpaCessation?: boolean;
                         cessationRiskLevel?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23841,6 +24672,9 @@ export interface operations {
                     "application/json": {
                         isExemptFromIrpaCessation?: boolean;
                         cessationRiskLevel?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23880,6 +24714,9 @@ export interface operations {
                     "application/json": {
                         hasOntarioEsaJurisdiction?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23939,6 +24776,9 @@ export interface operations {
                     "application/json": {
                         hasOntarioEsaJurisdiction?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -23977,6 +24817,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         comparedCities?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24025,6 +24868,9 @@ export interface operations {
                 content: {
                     "application/json": {
                         comparedCities?: string[];
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24062,10 +24908,24 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        formType?: string;
-                        fields?: {
-                            [key: string]: unknown;
-                        };
+                        formType: string;
+                        /** @enum {string} */
+                        documentStatus: "draft_worksheet";
+                        /** @enum {boolean} */
+                        submissionReady: false;
+                        missingFields: string[];
+                        populatedFields: {
+                            id: string;
+                            label: string;
+                            val: string;
+                        }[];
+                        pdfSupported?: boolean;
+                        pdfNotice?: string | null;
+                        pdfBase64?: string | null;
+                        printReadyHtml?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24097,10 +24957,12 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    formType: string;
+                    /** @enum {string} */
+                    formType?: "cbsa_bsf186" | "cbsa_e677" | "fincen_105" | "ltb_t1" | "ltb_t2" | "cra_rc151";
                     fieldOverrides?: {
-                        [key: string]: unknown;
+                        [key: string]: string | number;
                     };
+                    declarantDate?: string;
                 } & {
                     [key: string]: unknown;
                 };
@@ -24114,10 +24976,24 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        formType?: string;
-                        fields?: {
-                            [key: string]: unknown;
-                        };
+                        formType: string;
+                        /** @enum {string} */
+                        documentStatus: "draft_worksheet";
+                        /** @enum {boolean} */
+                        submissionReady: false;
+                        missingFields: string[];
+                        populatedFields: {
+                            id: string;
+                            label: string;
+                            val: string;
+                        }[];
+                        pdfSupported?: boolean;
+                        pdfNotice?: string | null;
+                        pdfBase64?: string | null;
+                        printReadyHtml?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24248,6 +25124,9 @@ export interface operations {
                     "application/json": {
                         isEligibleForLeave?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24305,6 +25184,9 @@ export interface operations {
                     "application/json": {
                         isEligibleForLeave?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24344,6 +25226,9 @@ export interface operations {
                     "application/json": {
                         transactionType?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24397,6 +25282,9 @@ export interface operations {
                     "application/json": {
                         transactionType?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24437,6 +25325,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24500,6 +25391,9 @@ export interface operations {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
                         stream?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24539,6 +25433,9 @@ export interface operations {
                     "application/json": {
                         isCompliant?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24593,6 +25490,9 @@ export interface operations {
                     "application/json": {
                         isCompliant?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24632,6 +25532,9 @@ export interface operations {
                     "application/json": {
                         isHumanRightsBreachDetected?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24686,6 +25589,9 @@ export interface operations {
                     "application/json": {
                         isHumanRightsBreachDetected?: boolean;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24725,6 +25631,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24778,6 +25687,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24818,6 +25730,9 @@ export interface operations {
                         isEligible?: boolean;
                         totalScore?: number;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24880,6 +25795,9 @@ export interface operations {
                         isEligible?: boolean;
                         totalScore?: number;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24919,6 +25837,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -24973,6 +25894,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25012,6 +25936,9 @@ export interface operations {
                     "application/json": {
                         areFinesLegallyEnforceable?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25067,6 +25994,9 @@ export interface operations {
                     "application/json": {
                         areFinesLegallyEnforceable?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25106,6 +26036,9 @@ export interface operations {
                     "application/json": {
                         isLicensingLawful?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25160,6 +26093,9 @@ export interface operations {
                     "application/json": {
                         isLicensingLawful?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25199,6 +26135,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25253,6 +26192,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25292,6 +26234,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25344,6 +26289,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25383,6 +26331,9 @@ export interface operations {
                     "application/json": {
                         isAbove2000Threshold?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25438,6 +26389,9 @@ export interface operations {
                     "application/json": {
                         isAbove2000Threshold?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25477,6 +26431,9 @@ export interface operations {
                     "application/json": {
                         totalUnlawfulDeductionsCad?: number;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25533,6 +26490,9 @@ export interface operations {
                     "application/json": {
                         totalUnlawfulDeductionsCad?: number;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25572,6 +26532,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         statusClassification?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25624,6 +26587,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         statusClassification?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25663,6 +26629,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25719,6 +26688,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25758,6 +26730,9 @@ export interface operations {
                     "application/json": {
                         isDeemedTerminatedUnderEsa?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25811,6 +26786,9 @@ export interface operations {
                     "application/json": {
                         isDeemedTerminatedUnderEsa?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25851,6 +26829,9 @@ export interface operations {
                         isEligible?: boolean;
                         strengthScoreOutOf100?: number;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25907,6 +26888,9 @@ export interface operations {
                         isEligible?: boolean;
                         strengthScoreOutOf100?: number;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25946,6 +26930,9 @@ export interface operations {
                     "application/json": {
                         isJustCauseEstablished?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -25998,6 +26985,9 @@ export interface operations {
                     "application/json": {
                         isJustCauseEstablished?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26037,6 +27027,9 @@ export interface operations {
                     "application/json": {
                         isExemptFromGuideline?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26090,6 +27083,9 @@ export interface operations {
                     "application/json": {
                         isExemptFromGuideline?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26129,6 +27125,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26183,6 +27182,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26222,6 +27224,9 @@ export interface operations {
                     "application/json": {
                         isBadFaithPenaltyPayable?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26277,6 +27282,9 @@ export interface operations {
                     "application/json": {
                         isBadFaithPenaltyPayable?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26316,6 +27324,9 @@ export interface operations {
                     "application/json": {
                         isEligibleForSeverance?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26369,6 +27380,9 @@ export interface operations {
                     "application/json": {
                         isEligibleForSeverance?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26408,6 +27422,9 @@ export interface operations {
                     "application/json": {
                         isEntryPermitted?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26462,6 +27479,9 @@ export interface operations {
                     "application/json": {
                         isEntryPermitted?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26501,6 +27521,9 @@ export interface operations {
                     "application/json": {
                         isDualIntentStatutorilyProtected?: boolean;
                         riskTier?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26555,6 +27578,9 @@ export interface operations {
                     "application/json": {
                         isDualIntentStatutorilyProtected?: boolean;
                         riskTier?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26594,6 +27620,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26649,6 +27678,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26688,6 +27720,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26743,6 +27778,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26782,6 +27820,9 @@ export interface operations {
                     "application/json": {
                         hasBreach?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26838,6 +27879,9 @@ export interface operations {
                     "application/json": {
                         hasBreach?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26877,6 +27921,9 @@ export interface operations {
                     "application/json": {
                         meets90DayThreshold?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26933,6 +27980,9 @@ export interface operations {
                     "application/json": {
                         meets90DayThreshold?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -26972,6 +28022,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27025,6 +28078,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27064,6 +28120,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27117,6 +28176,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27156,6 +28218,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27210,6 +28275,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27249,6 +28317,9 @@ export interface operations {
                     "application/json": {
                         isEligibleForHolidayPay?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27305,6 +28376,9 @@ export interface operations {
                     "application/json": {
                         isEligibleForHolidayPay?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27344,6 +28418,9 @@ export interface operations {
                     "application/json": {
                         isMandatoryReportStrata?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27397,6 +28474,9 @@ export interface operations {
                     "application/json": {
                         isMandatoryReportStrata?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27436,6 +28516,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27490,6 +28573,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27529,6 +28615,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27582,6 +28671,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27621,6 +28713,9 @@ export interface operations {
                     "application/json": {
                         isDoublePenaltyMandatory?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27676,6 +28771,9 @@ export interface operations {
                     "application/json": {
                         isDoublePenaltyMandatory?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27715,6 +28813,9 @@ export interface operations {
                     "application/json": {
                         isConstructiveDismissal?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27767,6 +28868,9 @@ export interface operations {
                     "application/json": {
                         isConstructiveDismissal?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27806,6 +28910,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27861,6 +28968,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27900,6 +29010,9 @@ export interface operations {
                     "application/json": {
                         landlordForfeitedRightToClaim?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27955,6 +29068,9 @@ export interface operations {
                     "application/json": {
                         landlordForfeitedRightToClaim?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -27994,6 +29110,9 @@ export interface operations {
                     "application/json": {
                         isUnlawfulEntry?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28050,6 +29169,9 @@ export interface operations {
                     "application/json": {
                         isUnlawfulEntry?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28089,6 +29211,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28145,6 +29270,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28184,6 +29312,9 @@ export interface operations {
                     "application/json": {
                         isValidNotice?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28237,6 +29368,9 @@ export interface operations {
                     "application/json": {
                         isValidNotice?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28276,6 +29410,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28329,6 +29466,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28368,6 +29508,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28422,6 +29565,9 @@ export interface operations {
                     "application/json": {
                         complianceStatus?: string;
                         legalVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28461,6 +29607,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28517,6 +29666,9 @@ export interface operations {
                     "application/json": {
                         isEligible?: boolean;
                         eligibilityVerdict?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28556,6 +29708,9 @@ export interface operations {
                     "application/json": {
                         isQualified?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28612,6 +29767,9 @@ export interface operations {
                     "application/json": {
                         isQualified?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28651,6 +29809,9 @@ export interface operations {
                     "application/json": {
                         qualifiesForExpeditedTrack?: boolean;
                         hearingTrack?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28703,6 +29864,9 @@ export interface operations {
                     "application/json": {
                         qualifiesForExpeditedTrack?: boolean;
                         hearingTrack?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28742,6 +29906,9 @@ export interface operations {
                     "application/json": {
                         isCompliant?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28797,6 +29964,9 @@ export interface operations {
                     "application/json": {
                         isCompliant?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28836,6 +30006,9 @@ export interface operations {
                     "application/json": {
                         isCompliant?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -28889,6 +30062,9 @@ export interface operations {
                     "application/json": {
                         isCompliant?: boolean;
                         complianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -31848,6 +33024,9 @@ export interface operations {
                         notes?: string[];
                         message?: string;
                         source?: Record<string, never>;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -31910,6 +33089,9 @@ export interface operations {
                         notes?: string[];
                         message?: string;
                         source?: Record<string, never>;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -31957,6 +33139,9 @@ export interface operations {
                         verdict?: string;
                         rules?: string[];
                         source?: Record<string, never>;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -32016,6 +33201,9 @@ export interface operations {
                         verdict?: string;
                         rules?: string[];
                         source?: Record<string, never>;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
                     } & {
                         [key: string]: unknown;
                     };
@@ -34239,11 +35427,9 @@ export interface operations {
                             country: string;
                             topic: string;
                             question: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
-                            authority: string;
-                            url: string;
+                            reviewStatus: string;
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         })[];
@@ -34405,11 +35591,9 @@ export interface operations {
                             country: string;
                             topic: string;
                             question: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
-                            authority: string;
-                            url: string;
+                            reviewStatus: string;
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         };

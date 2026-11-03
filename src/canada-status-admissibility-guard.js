@@ -7,7 +7,7 @@
  * 4. Criminal Inadmissibility & Rehabilitation - IRPA s. 36 & s. 24 (10-yr deemed vs individual rehab vs TRP)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ADMISSIBILITY_CONSTANTS = {
   RESTORATION_DEADLINE_DAYS: 90,
@@ -25,7 +25,7 @@ export function evaluateRestorationOfStatus(params = {}) {
   const {
     applicantName = 'Applicant',
     statusExpiredDate = '2026-03-01',
-    assessmentDate = '2026-04-15',
+    assessmentDate = todayIso(),
     visaType = 'worker', // 'worker', 'student', 'visitor'
     remainedInCanada = true,
     compliedWithOtherConditions = true
@@ -33,7 +33,7 @@ export function evaluateRestorationOfStatus(params = {}) {
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
   const cleanVisaType = boundedText(visaType, 'worker', 30);
   const safeExpiredStr = safeIsoDate(statusExpiredDate, '2026-03-01');
-  const safeAssessmentStr = safeIsoDate(assessmentDate, '2026-04-15');
+  const safeAssessmentStr = safeIsoDate(assessmentDate, todayIso());
 
   const expiredTime = new Date(safeExpiredStr + 'T00:00:00Z').getTime();
   const currentTime = new Date(safeAssessmentStr + 'T00:00:00Z').getTime();

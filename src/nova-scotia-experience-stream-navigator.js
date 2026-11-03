@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const NSNP_EXPERIENCE_RULES = Object.freeze({
   MIN_AGE: 21,
@@ -65,12 +65,12 @@ export function evaluateNovaScotiaExperienceStream(params = {}) {
     hasCpsnsLicensureOrAssessment = false,
     isSelfEmployed = false,
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeCandidateName = boundedText(candidateName, 'Candidate', 120);
   const safeStream = boundedText(stream, 'nova_scotia_experience_express_entry', 80);
   const safeNocCode = boundedText(nocCode, '21231', 20);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const sanitizedAge = Math.max(16, Math.min(120, Math.floor(Number(candidateAge) || 29)));
   const sanitizedTeer = Math.max(0, Math.min(5, Math.floor(Number(teerLevel) || 1)));

@@ -23,6 +23,7 @@ import { evaluateOntarioHousingCreedAccommodation } from '../src/ontario-human-r
 import { evaluatePeiOccupationsInDemand } from '../src/pei-provincial-nominee-occupations-in-demand-navigator.js';
 import { evaluatePetImportation } from '../src/pet-importation.js';
 import { evaluatePrCardRenewalUrgent } from '../src/pr-card-renewal-urgent-navigator.js';
+import { todayIso } from '../src/text-input.js';
 
 describe('Batch 16 Recommendations (Sweep 23: Recs 306–320)', () => {
   // Rec 306: NBPNP Skilled Worker Stream
@@ -67,7 +68,7 @@ describe('Batch 16 Recommendations (Sweep 23: Recs 306–320)', () => {
     assert.equal(res.stream, 'physician_stream');
     assert.equal(res.isEligible, true);
     assert.equal(res.candidateName, 'Dr. Smith');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.jurisdiction, 'NS');
   });
 

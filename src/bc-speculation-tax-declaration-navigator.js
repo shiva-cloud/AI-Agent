@@ -27,7 +27,7 @@
  *   2.0% tax rate, plus statutory interest and collection enforcement.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_SVT_CONSTANTS = Object.freeze({
   ANNUAL_DECLARATION_DEADLINE_MONTH_DAY: '03-31',
@@ -74,7 +74,7 @@ export const BC_SVT_TAXABLE_REGIONS = Object.freeze([
  * @param {boolean} [options.hasActiveBuildingPermits=false] - For renovation exemption under s. 40
  * @param {string} [options.ownerName='Property Owner'] - Name of registered owner
  * @param {string} [options.calendarTaxYear='2025'] - Tax year being declared
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive BC Speculation & Vacancy Tax diagnostic
  */
 export function evaluateBcSpeculationTaxDeclaration(options = {}) {
@@ -98,7 +98,7 @@ export function evaluateBcSpeculationTaxDeclaration(options = {}) {
   const activePermits = Boolean(options.hasActiveBuildingPermits);
   const owner = boundedText(options.ownerName, 'Property Owner', 100);
   const taxYear = boundedText(options.calendarTaxYear, '2025', 10);
-  const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(options.assessmentDate, todayIso());
 
   // 1. Audit Geographic Scope
   const isTaxableRegion = BC_SVT_TAXABLE_REGIONS.some(

@@ -1,9 +1,9 @@
 import {ValidationError} from './api-errors.js';
 
 export const globalDestinations = [
-    ['United States', /\b(?:united states|usa|u\.s(?:\.a)?\.?|america|new york|los angeles|chicago|san francisco|seattle|boston|austin|california|florida|uscis|h[- ]?1b|cap[- ]gap|form i[- ]94|i[- ]765|245\(k\)|fincen(?:\s+form\s+105)?|\bssn\b|\bsocial security number\b|\bgreen card\b|\bf[- ]?1(?:\s+student|\s+visa)?\b|\bopt\b|\bstem opt\b|\beb[- ]?[1235]\b|\bn[- ]?400\b|\bflsa\b)(?![\p{L}\p{N}_]|\.[\p{L}\p{N}_])/iu],
-    ['United Kingdom', /\b(?:united kingdom|uk|u\.k\.?|great britain|britain|england|northern ireland|belfast|manchester|birmingham|edinburgh|glasgow|nhs|hmrc|dwp|skilled worker visa|indefinite leave to remain|\bilr\b|share code|right to rent|section 21|form 6a|\bnin\b|\bnational insurance number\b|\bgraduate route\b|\bmees\b|\bofcom\b|council tax|gp surgery)(?![\p{L}\p{N}_]|\.[\p{L}\p{N}_])/iu],
-    ['Australia', /\b(?:australia|australian|sydney|melbourne|brisbane|perth|adelaide|nsw|ncat|vcat|qcat|fair work|centrelink|subclass (?:189|190|482|500|485|188)|vevo|skillselect|tfn|superannuation|austrac|condition 8607|residential tenancies authority|rta bond)\b/iu],
+    ['United States', /\b(?:united states|usa|u\.s(?:\.a)?\.?|america|new york|los angeles|chicago|san francisco|seattle|boston|austin|california|florida|texas|illinois|washington state|uscis|h[- ]?1b|cap[- ]gap|form i[- ]94|i[- ]765|245\(k\)|fincen(?:\s+form\s+105)?|\bssn\b|\bsocial security number\b|\bgreen card\b|\bf[- ]?1(?:\s+student|\s+visa)?\b|\bopt\b|\bstem opt\b|\beb[- ]?[1235]\b|\bn[- ]?400\b|\bflsa\b)(?![\p{L}\p{N}_]|\.[\p{L}\p{N}_])/iu],
+    ['United Kingdom', /\b(?:united kingdom|uk|u\.k\.?|great britain|britain|england|(?<!new south\s+)wales|northern ireland|belfast|manchester|birmingham|edinburgh|glasgow|nhs|hmrc|dwp|skilled worker visa|indefinite leave to remain|\bilr\b|share code|right to rent|section 21|form 6a|\bnin\b|\bnational insurance number\b|\bgraduate route\b|\bmees\b|\bofcom\b|council tax|gp surgery)(?![\p{L}\p{N}_]|\.[\p{L}\p{N}_])/iu],
+    ['Australia', /\b(?:australia|australian|sydney|melbourne|brisbane|perth|adelaide|nsw|new south wales|victoria|queensland|western australia|south australia|ncat|vcat|qcat|fair work|centrelink|subclass (?:189|190|482|500|485|188)|vevo|skillselect|tfn|superannuation|austrac|condition 8607|residential tenancies authority|rta bond)\b/iu],
     ['Germany', /\b(?:germany|german|deutschland|blaue karte|eu blue card|chancenkarte|opportunity card|anmeldung|bürgeramt|steuer[- ]id|schufa|mietkaution|mietpreisbremse|rundfunkbeitrag|deutschlandticket|berlin|munich|frankfurt|hamburg|cologne|dusseldorf|stuttgart|§\s*16b|§\s*20|niederlassungserlaubnis|zoll|übersiedlungsgut|uebersiedlungsgut)\b/iu],
     ['United Arab Emirates', /\b(?:united arab emirates|uae|u\.a\.e\.?|dubai|abu dhabi|sharjah|ajman|ras al khaimah|fujairah|umm al quwain|mohre|mohap|emirates id|golden visa|green visa|ejari|rera|decree 43|wages protection system)(?![\p{L}\p{N}_]|\.[\p{L}\p{N}_])/iu],
     ['New Zealand', /\b(?:new zealand|kiwi|nz|aewv|accredited employer work visa|smc|skilled migrant category|ird number|tenancy tribunal|auckland|wellington|christchurch|hamilton|pswv|green list|plunket|at hop)\b/iu],
@@ -17,9 +17,9 @@ export const globalDestinations = [
   ];
 
 export const explicitCountryPatterns = [
-  ['United States', /\b(?:united states|usa|u\.s(?:\.a)?\.?|america|new york|los angeles|chicago|san francisco|seattle|boston|austin|california|florida)\b/iu],
-  ['United Kingdom', /\b(?:united kingdom|uk|u\.k\.?|great britain|britain|england|scotland|wales|northern ireland|belfast|manchester|birmingham|edinburgh|glasgow)\b/iu],
-  ['Australia', /\b(?:australia|australian|sydney|melbourne|brisbane|perth|adelaide|nsw)\b/iu],
+  ['United States', /\b(?:united states|usa|u\.s(?:\.a)?\.?|america|new york|los angeles|chicago|san francisco|seattle|boston|austin|california|florida|texas|illinois|washington state)\b/iu],
+  ['United Kingdom', /\b(?:united kingdom|uk|u\.k\.?|great britain|britain|england|scotland|(?<!new south\s+)wales|northern ireland|belfast|manchester|birmingham|edinburgh|glasgow)\b/iu],
+  ['Australia', /\b(?:australia|australian|sydney|melbourne|brisbane|perth|adelaide|nsw|new south wales|victoria|queensland|western australia|south australia)\b/iu],
   ['Germany', /\b(?:germany|deutschland|berlin|munich|frankfurt|hamburg|cologne|dusseldorf|stuttgart)\b/iu],
   ['United Arab Emirates', /\b(?:united arab emirates|uae|u\.a\.e\.?|dubai|abu dhabi|sharjah|ajman|ras al khaimah|fujairah|umm al quwain)\b/iu],
   ['New Zealand', /\b(?:new zealand|nz|auckland|wellington|christchurch|hamilton)\b/iu],
@@ -52,17 +52,85 @@ export const destinationCities = Object.freeze({
   'European Union': Object.freeze(['Brussels', 'Strasbourg', 'Frankfurt', 'Amsterdam', 'Berlin', 'Paris', 'Madrid', 'Rome', 'Vienna'])
 });
 
+export const destinationRegions = Object.freeze({
+  'CA': Object.freeze(['ON', 'BC', 'AB', 'QC', 'MB', 'SK', 'NS', 'NB', 'PE', 'NL', 'YT', 'NT', 'NU']),
+  'Canada': Object.freeze(['ON', 'BC', 'AB', 'QC', 'MB', 'SK', 'NS', 'NB', 'PE', 'NL', 'YT', 'NT', 'NU']),
+  'United States': Object.freeze(['California', 'New York', 'Texas', 'Florida', 'Washington State', 'Illinois', 'Massachusetts']),
+  'Australia': Object.freeze(['New South Wales', 'Victoria', 'Queensland', 'Western Australia', 'South Australia']),
+  'Germany': Object.freeze(['Berlin', 'Bavaria', 'North Rhine-Westphalia', 'Hesse', 'Hamburg', 'Baden-Württemberg']),
+  'United Arab Emirates': Object.freeze(['Dubai', 'Abu Dhabi', 'Sharjah']),
+  'United Kingdom': Object.freeze(['England', 'Scotland', 'Wales', 'Northern Ireland']),
+  'New Zealand': Object.freeze(['Auckland', 'Wellington', 'Canterbury']),
+  'France': Object.freeze(['Île-de-France', 'Auvergne-Rhône-Alpes', 'Provence-Alpes-Côte d\'Azur']),
+  'Spain': Object.freeze(['Catalonia', 'Community of Madrid', 'Andalusia', 'Valencian Community']),
+  'India': Object.freeze(['Punjab', 'Maharashtra', 'Delhi NCR', 'Gujarat'])
+});
+
+export const cityToRegion = Object.freeze({
+  // Australia
+  'Sydney': 'New South Wales',
+  'Melbourne': 'Victoria',
+  'Brisbane': 'Queensland',
+  'Perth': 'Western Australia',
+  'Adelaide': 'South Australia',
+  // United States
+  'Los Angeles': 'California',
+  'San Francisco': 'California',
+  'San Jose': 'California',
+  'New York': 'New York',
+  'New York City': 'New York',
+  'Austin': 'Texas',
+  'Chicago': 'Illinois',
+  'Seattle': 'Washington State',
+  'Boston': 'Massachusetts',
+  'Miami': 'Florida',
+  // United Kingdom
+  'London': 'England',
+  'Manchester': 'England',
+  'Birmingham': 'England',
+  'Edinburgh': 'Scotland',
+  'Glasgow': 'Scotland',
+  'Cardiff': 'Wales',
+  'Belfast': 'Northern Ireland',
+  // Germany
+  'Munich': 'Bavaria',
+  'Cologne': 'North Rhine-Westphalia',
+  'Dusseldorf': 'North Rhine-Westphalia',
+  'Frankfurt': 'Hesse',
+  'Berlin': 'Berlin',
+  // UAE
+  'Dubai': 'Dubai',
+  'Abu Dhabi': 'Abu Dhabi',
+  'Sharjah': 'Sharjah',
+  // Spain
+  'Barcelona': 'Catalonia',
+  'Madrid': 'Community of Madrid',
+  'Seville': 'Andalusia',
+  'Valencia': 'Valencian Community',
+  // New Zealand
+  'Auckland': 'Auckland',
+  'Wellington': 'Wellington',
+  'Christchurch': 'Canterbury',
+  // France
+  'Paris': 'Île-de-France',
+  'Lyon': 'Auvergne-Rhône-Alpes',
+  'Marseille': 'Provence-Alpes-Côte d\'Azur'
+});
+
 export const allSupportedCities = new Set(Object.values(destinationCities).flat());
 
 export function isValidCityForCountry(city, country) {
   if (!city || typeof city !== 'string') return true;
   const safeCity = city.trim();
   if (!safeCity) return true;
+  const caRegions = ['ON', 'BC', 'AB', 'QC', 'MB', 'SK', 'NS', 'NB', 'PE', 'NL', 'YT', 'NT', 'NU',
+    'Ontario', 'British Columbia', 'Alberta', 'Quebec', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'New Brunswick', 'Prince Edward Island', 'Newfoundland and Labrador', 'Yukon', 'Northwest Territories', 'Nunavut'];
   if (!country || country === 'CA') {
-    return destinationCities['CA'].includes(safeCity);
+    return destinationCities['CA'].includes(safeCity) || caRegions.includes(safeCity);
   }
-  const countryList = destinationCities[country];
-  return countryList ? countryList.includes(safeCity) : allSupportedCities.has(safeCity);
+  const countryList = destinationCities[country] || [];
+  const regionList = destinationRegions[country] || [];
+  return countryList.includes(safeCity) || regionList.includes(safeCity) || allSupportedCities.has(safeCity);
 }
 
 export function resolveInputCountry(value) {

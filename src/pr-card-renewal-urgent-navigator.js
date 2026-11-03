@@ -28,7 +28,7 @@
  *     in a private vehicle with Confirmation of Permanent Residence (COPR) or expired card (IRPA s. 31(2)).
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const PR_CARD_CONSTANTS = Object.freeze({
   RESIDENCY_OBLIGATION_DAYS_REQUIRED: 730,
@@ -55,7 +55,7 @@ export const PR_CARD_CONSTANTS = Object.freeze({
  * @param {boolean} [options.isCurrentlyInsideCanada=true] - True if inside Canada, false if currently abroad
  * @param {boolean} [options.hasHandwrittenPrApplication=false] - Legacy paper vs electronic PR Portal
  * @param {string} [options.applicantName='PR Applicant'] - Applicant name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive PR card renewal diagnostic
  */
 export function evaluatePrCardRenewalUrgent(options = {}) {
@@ -75,7 +75,7 @@ export function evaluatePrCardRenewalUrgent(options = {}) {
   const supportingProof = Boolean(options.hasSupportingUrgentProof);
   const insideCanada = options.isCurrentlyInsideCanada !== false;
   const applicant = boundedText(options.applicantName, 'PR Applicant', 120);
-  const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(options.assessmentDate, todayIso());
 
   // 1. Calculate Statutory Physical Presence & Credit Days
   const totalCreditedDays = Math.min(

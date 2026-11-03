@@ -14,7 +14,7 @@
  * - Alberta Franchises Act, R.S.A. 2000, c. F-23
  */
 
-import { boundedText } from './text-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const FRANCHISE_ACT_CONSTANTS = Object.freeze({
   MANDATORY_FDD_DAYS: 14,
@@ -69,7 +69,7 @@ export function evaluateFranchiseDisclosure(params = {}) {
     cumulativeOperatingLossesCad = 55000,
     franchiseeName = 'Franchisee Inc.',
     franchisorName = 'National Franchise Systems Ltd.',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const act = PROVINCIAL_FRANCHISE_ACTS[prov] || PROVINCIAL_FRANCHISE_ACTS.ON;

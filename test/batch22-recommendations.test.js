@@ -22,6 +22,7 @@ import { evaluatePlatformWorkerRights } from '../src/digital-platform-worker-nav
 import { evaluateEiDisqualificationAndAllocation } from '../src/ei-disqualification-navigator.js';
 import { evaluateEstatePlanProfile } from '../src/estate-planning-navigator.js';
 import { evaluateExcessiveDemandMitigation } from '../src/excessive-demand-mitigation-navigator.js';
+import { todayIso } from '../src/text-input.js';
 
 test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
   await t.test('Rec 396: evaluateBcSpeculationTaxDeclaration sanitizes dates and audits satellite family exclusion', () => {
@@ -38,7 +39,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     });
 
     assert.equal(res.ownerName, 'Jane Doe');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.isTaxableRegion, true);
     assert.equal(res.isExemptFromSvt, false);
     assert.equal(res.applicableTaxRatePercent, 2.0);
@@ -75,7 +76,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     assert.equal(res.residentName, 'Alice Smith');
     assert.equal(res.strataPlanNumber, 'LMS 4567');
     assert.equal(res.unitNumber, '402');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.isBylawEnforceable, false);
     assert.equal(res.unlawfulFineRefundCad, 600);
     assert.ok(res.violations.some(v => v.includes('Void residential rental restriction')));
@@ -110,7 +111,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
 
     assert.equal(techRes.candidateName, 'Dev Engineer');
     assert.equal(techRes.employerName, 'BC Cloud Solutions Ltd.');
-    assert.equal(techRes.assessmentDate, '2026-10-31');
+    assert.equal(techRes.assessmentDate, todayIso());
     assert.equal(techRes.isNocInTechList, true);
     assert.equal(techRes.isEligible, true);
     assert.equal(techRes.eligibilityVerdict, 'ELIGIBLE_FOR_BC_PNP_TECH_DRAW');
@@ -170,7 +171,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
 
     assert.equal(res.strataPlanNumber, 'EPS 8888');
     assert.equal(res.strataCorporationName, 'The Owners, Strata Plan EPS 8888');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.isMandatoryReportStrata, true);
     assert.equal(res.complianceStatus, 'STATUTORY_STRATA_GOVERNANCE_BREACH');
     assert.equal(res.crfContributionAudit.crfContributionDeficitCad, 6000);
@@ -198,7 +199,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     assert.equal(res.hostName, 'Host Bob');
     assert.equal(res.strataPlanNumber, 'VR 1001');
     assert.equal(res.unitNumber, '505');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.isShortTermRental, true);
     assert.equal(res.isSubjectToProvincialPrincipalResidenceRule, true);
     assert.equal(res.totalAssessedFinesCad, 3000);
@@ -223,7 +224,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
 
     assert.equal(res.beneficiaryName, 'Leo Brown');
     assert.equal(res.parentName, 'Sarah Brown');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.dtcStatus.isDtcPrerequisiteSatisfied, true);
     assert.equal(res.childDisabilityBenefit.isEligible, true);
     assert.equal(res.childDisabilityBenefit.annualBenefitCad, 3173.0);
@@ -241,7 +242,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     });
 
     assert.equal(vysaRes.youthName, 'Youth Alex');
-    assert.equal(vysaRes.assessmentDate, '2026-10-31');
+    assert.equal(vysaRes.assessmentDate, todayIso());
     assert.equal(vysaRes.isVysaEligible, true);
     assert.ok(vysaRes.statutoryProtections.some(p => p.includes('INDEPENDENT YOUTH CONSENT')));
     assert.ok(vysaRes.statutoryProtections.some(p => p.includes('LEGAL REPRESENTATION')));
@@ -271,7 +272,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     });
 
     assert.equal(res.applicantName, 'Parent Maria');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.subsidyCalculation.annualParentalContributionCad, 0);
     assert.equal(res.subsidyCalculation.actualMonthlyParentPaymentWithSubsidyCad, 0);
     assert.ok(res.compliancePoints.some(p => p.includes('100% full fee subsidy')));
@@ -340,7 +341,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     });
 
     assert.equal(res.clientName, 'Cross-Border Dan');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.craAudit.t1135Required, true);
     assert.equal(res.craAudit.t1135Tier, 'simplified_part_a');
     assert.equal(res.irsAudit.fbarFinCen114Required, true);
@@ -374,7 +375,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
     });
 
     assert.equal(onRes.workerName, 'Courier Sam');
-    assert.equal(onRes.assessmentDate, '2026-10-31');
+    assert.equal(onRes.assessmentDate, todayIso());
     assert.equal(onRes.wageAudit.hasWageTheft, true);
     assert.equal(onRes.wageAudit.wageShortfallCad, 188.0);
     assert.equal(onRes.restitutionSummary.totalOwedCad, 288.0);
@@ -408,7 +409,7 @@ test('Batch 22 Recommendations (Sweep 29: Recs 396–410)', async (t) => {
 
     assert.equal(perfRes.applicantName, 'Worker Emma');
     assert.equal(perfRes.employerName, 'Acme Corp');
-    assert.equal(perfRes.assessmentDate, '2026-10-31');
+    assert.equal(perfRes.assessmentDate, todayIso());
     assert.equal(perfRes.regularBenefits.isDisqualifiedFromRegularBenefits, false);
     assert.equal(perfRes.misconductAudit.misconductAuditResult, 'incompetence_not_misconduct');
     assert.equal(perfRes.specialBenefitsOverride.specialBenefitsAvailable, true);

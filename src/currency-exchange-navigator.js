@@ -8,15 +8,7 @@
 // - CIRO / IIROC Rule 3200 & Rule 3800 (Inter-listed securities & T+1 Settlement Cycle standard)
 // - Bank Act (S.C. 1991, c. 46: KYC & Cross-Border Retail Banking).
 // Pure ES module with zero npm runtime dependencies.
-import { boundedText } from './text-input.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FINTRAC_STATUTORY_CONSTANTS = {
   LCTR_THRESHOLD_CAD: 10000, // Large Cash Transaction Report threshold (physical currency)
@@ -66,10 +58,10 @@ export function evaluateCurrencyExchange(params = {}) {
     brokeragePlatform = 'questrade', // 'nbdb', 'disnat', 'questrade', 'td_direct', 'rbc_direct', 'bmo_investorline', 'cibc_investors_edge', 'none'
     hasCrossBorderAccount = false,
     clientName = 'Client',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeClientName = boundedText(clientName, 'Client', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const normAmount = Math.max(1, Math.min(1000000000, Number(amount) || 10000));
   const normFrom = boundedText(fromCurrency, 'USD', 10).toUpperCase();
   const normTo = boundedText(toCurrency, 'CAD', 10).toUpperCase();

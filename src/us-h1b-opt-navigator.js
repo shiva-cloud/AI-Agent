@@ -2,7 +2,7 @@
 // Statutory US Immigration Navigator: H-1B 60-Day Grace Period, F-1 Cap-Gap & 245(k)
 // Grounded in 8 CFR § 214.1(l)(2), 8 CFR § 214.2(f)(5)(vi), and INA § 245(k).
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function evaluateUsH1bOptStatus({
   visaStatus = 'h1b', // 'h1b', 'f1_opt', 'f1_stem_opt'
@@ -15,11 +15,11 @@ export function evaluateUsH1bOptStatus({
   unauthorizedWorkDaysAccrued = 0,
   hasPendingGreenCardI485 = false,
   applicantName = 'US Visa Holder',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeApplicant = boundedText(applicantName, 'US Visa Holder', 120);
   const safeVisaStatus = boundedText(visaStatus, 'h1b', 30);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeUnauthorizedDays = Math.max(0, Math.min(36500, Math.floor(Number(unauthorizedWorkDaysAccrued) || 0)));
   const currentDate = new Date(`${safeAssessmentDate}T00:00:00Z`);
 

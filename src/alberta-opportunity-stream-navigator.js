@@ -27,7 +27,7 @@
  *   and food service occupations with at least 6 months of continuous employment with an approved Alberta operator.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const AAIP_AOS_CONSTANTS = Object.freeze({
   MIN_ALBERTA_EXPERIENCE_MONTHS_STANDARD: 12,
@@ -64,7 +64,7 @@ export const AAIP_INELIGIBLE_NOC_CODES = Object.freeze([
  * @param {string} [options.sector='general'] - 'general', 'tourism_hospitality', 'tech', 'healthcare'
  * @param {boolean} [options.isGraduatedFromAlbertaDli=true] - Completed credential at approved Alberta post-secondary institution
  * @param {string} [options.candidateName='AAIP Candidate'] - Name of applicant
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive AAIP AOS & THS diagnostic
  */
 export function evaluateAlbertaOpportunityStream(options = {}) {
@@ -87,7 +87,7 @@ export function evaluateAlbertaOpportunityStream(options = {}) {
   const sector = typeof options.sector === 'string' ? options.sector.trim().toLowerCase() : 'general';
   const abGrad = options.isGraduatedFromAlbertaDli !== false;
   const candidate = boundedText(options.candidateName, 'AAIP Candidate', 100);
-  const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(options.assessmentDate, todayIso());
 
   const violationsAndBars = [];
   const statutoryProtections = [];

@@ -167,3 +167,32 @@ export function applyFormAliases(path,input){
 // Text that must never reach a user: values of the wrong type rendered into prose.
 export const TOOL_OUTPUT_GARBAGE=/\[object Object\]|\bNaN\b|\bInfinity\b|Invalid Date/;
 export const TOOL_INPUT_ERROR={error:'Some fields have the wrong type or format. Check the values (numbers without letters, dates as YYYY-MM-DD) and try again.',code:'invalid_field_value'};
+
+// Inputs a tool read but the caller left out. The tool then used a built-in default
+// (or skipped the input), so the response lists them instead of presenting the
+// result as if every value had come from the caller.
+export const ASSUMPTION_NOTICE = 'Some inputs were not provided. The tool used its built-in default values for them, so this result may not describe your situation. Add your own values and run it again.';
+const PROBED_KEYS = new Set(['then', 'toJSON', 'constructor', 'valueOf', 'toString', 'length', '__proto__', 'prototype', 'inspect', 'nodeType', 'asymmetricMatch', '$$typeof']);
+const absent = value => value === undefined || value === null || (typeof value === 'string' && value.trim() === '');
+
+// A real URLSearchParams (iteration, Object.fromEntries and has() keep working);
+// only get() also records keys that came back absent.
+class TrackedSearchParams extends URLSearchParams {
+  #missing;
+  constructor(init, missing) { super(init); this.#missing = missing; }
+  get(key) { const value = super.get(key); if (absent(value)) this.#missing.add(key); return value; }
+}
+
+export function trackQuery(url, missing) {
+  return { searchParams: new TrackedSearchParams(url.searchParams, missing) };
+}
+
+export function trackBody(input, missing) {
+  return new Proxy(input, {
+    get(target, key, receiver) {
+      const value = Reflect.get(target, key, receiver);
+      if (typeof key === 'string' && !PROBED_KEYS.has(key) && absent(value)) missing.add(key);
+      return value;
+    }
+  });
+}

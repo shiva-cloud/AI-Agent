@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_HOLIDAY_CONSTANTS = Object.freeze({
   MIN_WORK_DAYS_IN_PAST_12_MONTHS: 30, // s. 26(1)(a)
@@ -59,11 +59,11 @@ export function evaluateAlbertaGeneralHolidayPay({
   futureDayOffWithPayProvided = false,
   holidayPayActuallyPaidCad = 0,
   employeeName = 'Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanHolidayName = boundedText(holidayName, 'CANADA_DAY', 60);
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const daysWorked = Number.isFinite(Number(workDaysInPast12Months))
     ? Math.max(0, Math.min(365, Math.floor(Number(workDaysInPast12Months))))
     : 0;

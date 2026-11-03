@@ -21,7 +21,7 @@
  * - Work Permit Support: Provincial endorsement letter authorizes 2-year C18 work permit.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const AIP_CONSTANTS = Object.freeze({
   ATLANTIC_PROVINCES: Object.freeze(['NB', 'NS', 'PE', 'NL']),
@@ -69,7 +69,7 @@ export const ATLANTIC_PROVINCE_NAMES = Object.freeze({
  * @param {number} [options.settlementFundsCad=5000] - Available funds
  * @param {boolean} [options.isCurrentlyWorkingInCanadaOnValidPermit=false] - Fund exemption
  * @param {string} [options.candidateName='Candidate'] - Candidate name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive AIP diagnostic
  */
 export function evaluateAtlanticImmigrationEligibility(options = {}) {
@@ -88,7 +88,7 @@ export function evaluateAtlanticImmigrationEligibility(options = {}) {
   const funds = Number.isFinite(Number(options.settlementFundsCad)) ? Math.max(0, Math.min(1000000000, Number(options.settlementFundsCad))) : 5000.0;
   const workingInCanada = Boolean(options.isCurrentlyWorkingInCanadaOnValidPermit);
   const candidateName = boundedText(options.candidateName, 'Candidate', 100);
-  const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(options.assessmentDate, todayIso());
 
   const compliancePoints = [];
   const deficiencies = [];

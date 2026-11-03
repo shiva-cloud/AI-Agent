@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_PERIODIC_TENANCY_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Residential Tenancies Act, RSA 2000, c. R-171, ss. 5-12',
@@ -50,13 +50,13 @@ export function evaluateAlbertaPeriodicTenancyNotice({
   rentalAddress = 'Rental Property',
   purchaserName = 'Purchaser',
   tenantName = 'Tenant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanLandlord = boundedText(landlordName, 'Landlord');
   const cleanRentalAddress = boundedText(rentalAddress, 'Rental Property');
   const cleanPurchaser = boundedText(purchaserName, 'Purchaser');
   const cleanTenant = boundedText(tenantName, 'Tenant');
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const party = String(partyGivingNotice || 'LANDLORD').trim().toUpperCase();
   const tType = String(tenancyType || 'MONTH_TO_MONTH').trim().toUpperCase();
   const monthsNotice = Number.isFinite(Number(fullTenancyMonthsNoticeGiven)) ? Math.max(0, Math.floor(Number(fullTenancyMonthsNoticeGiven))) : 0;

@@ -13,7 +13,7 @@
  * - Trespass to Property Act, R.S.O. 1990, c. T.21
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const RTA_UNAUTHORIZED_OCCUPANT_LIMITATION_DAYS = 60;
 
@@ -22,7 +22,7 @@ export function evaluateOntarioRoommateAndOccupantRights(params = {}) {
   const {
     tenantName = 'Tenant',
     occupantName = 'Occupant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     sharesKitchenOrBathWithOwnerOrFamily = false,
     isNamedOnTenancyAgreement = false,
     tenantHasVacatedPermanently = false,
@@ -36,7 +36,7 @@ export function evaluateOntarioRoommateAndOccupantRights(params = {}) {
 
   const cleanTenantName = boundedText(tenantName, 'Tenant', 100);
   const cleanOccupantName = boundedText(occupantName, 'Occupant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const daysDiscovered = Number.isFinite(Number(daysSinceLandlordDiscoveredOccupancy)) ? Math.max(0, Math.min(3650, Math.floor(Number(daysSinceLandlordDiscoveredOccupancy)))) : 0;
   const guestFee = Number.isFinite(Number(guestFeeAmountMonthlyCad)) ? Math.max(0, Math.min(10000, Number(guestFeeAmountMonthlyCad))) : 0;
 

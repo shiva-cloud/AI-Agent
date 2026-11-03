@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText } from './text-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const TFW_TRANSITION_RULES = Object.freeze({
   RESTORATION_PERIOD_DAYS: 90,
@@ -28,7 +28,7 @@ export function evaluateForeignWorkerPermitTransition(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     currentWorkPermitExpiryDate = '2026-11-30',
-    currentDate = '2026-10-31',
+    currentDate = todayIso(),
     hasSubmittedNewWorkPermitApplication = true,
     hasPositiveLmiaOrExemption = true,
     hasRequestedPublicPolicyInterimAuthorization = true,

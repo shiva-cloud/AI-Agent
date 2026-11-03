@@ -15,7 +15,7 @@
  *   - Note: Student and Foreign Worker NRST rebates were repealed on March 29, 2022; ONLY the PR rebate is available.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SPECULATION_TAX_CONSTANTS = Object.freeze({
   BC_SVT_CANADIAN_RATE_PERCENT: 0.5,
@@ -63,10 +63,10 @@ export function evaluateSpeculationTaxAndRebates({
   isConventionRefugee = false,
   ownerName = 'Property Owner',
   propertyAddress = '100 Marine Dr, Vancouver, BC',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const prov = boundedText(province, 'BC', 10).toUpperCase();
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const assessedValue = Math.max(1, Math.min(1000000000, Number(propertyAssessedValueCad) || 1));
   const purchasePrice = Math.max(1, Math.min(1000000000, Number(purchasePriceCad) || assessedValue));
   const isCdn = Boolean(isCanadianCitizenOrPr);

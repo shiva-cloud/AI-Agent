@@ -15,3 +15,20 @@ export function publicMarketGapItem(item) {
 export function publicMarketGapPage(page) {
   return { ...page, items: page.items.map(publicMarketGapItem) };
 }
+
+// The global settlement catalog (GMS-Q00001-GMS-Q20000) is generated the same way:
+// every rule is one sentence template per country, the authority and link are chosen
+// by country rather than by question (US photo ID is not a USCIS matter), and part of
+// each citation is an invented label. The API publishes the question fields only.
+export const GLOBAL_SETTLEMENT_WITHHELD_FIELDS = Object.freeze(['statutoryRule', 'citation', 'verdict', 'authority', 'url']);
+export const GLOBAL_SETTLEMENT_NOTICE = 'Unreviewed research catalog. Legal rule, citation, verdict, authority and link are withheld until the entry is reviewed.';
+
+export function publicGlobalSettlementItem(item) {
+  if (!item) return item;
+  const { id, numericId, tier, category, country, topic, question } = item;
+  return { id, numericId, tier, category, country, topic, question, reviewStatus: 'unreviewed_template', withheld: [...GLOBAL_SETTLEMENT_WITHHELD_FIELDS], notice: GLOBAL_SETTLEMENT_NOTICE };
+}
+
+export function publicGlobalSettlementPage(page) {
+  return { ...page, items: page.items.map(publicGlobalSettlementItem) };
+}

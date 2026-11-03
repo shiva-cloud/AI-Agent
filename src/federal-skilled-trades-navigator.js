@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FSTP_STATUTORY_RULES = Object.freeze({
   MIN_YEARS_EXPERIENCE: 2,
@@ -59,7 +59,7 @@ export function evaluateFederalSkilledTradesProgram(params = {}) {
     clbWriting = 4,
     hasActiveExpressEntryProfile = true,
     candidateName = 'Tradesperson',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeNoc = boundedText(nocCode, '72410', 20);
   const sanitizedYears = Number.isFinite(Number(yearsOfTradesExperience)) ? Math.max(0, Math.min(50, Number(yearsOfTradesExperience))) : 3;
@@ -79,7 +79,7 @@ export function evaluateFederalSkilledTradesProgram(params = {}) {
   
   
   const name = boundedText(candidateName, 'Tradesperson', 100);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const deficiencies = [];
   const compliancePoints = [];

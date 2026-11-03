@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_C10_CONSTANTS = Object.freeze({
   EXEMPTION_CODE: 'C10',
@@ -38,7 +38,7 @@ export function evaluateFederalC10SignificantBenefit(params = {}) {
   const {
     applicantName = 'Applicant',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     benefitCategory = 'ECONOMIC',
     createsDirectJobsForCanadiansOrPrs = true,
     projectedCanadianJobsCreatedCount = 3,
@@ -52,7 +52,7 @@ export function evaluateFederalC10SignificantBenefit(params = {}) {
 
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanBenefitCategory = boundedText(benefitCategory, 'ECONOMIC', 40).toUpperCase();
   const lettersCount = Math.max(0, Math.min(100, Number.isFinite(Number(independentExpertTestimonialLettersCount)) ? Math.round(Number(independentExpertTestimonialLettersCount)) : 0));
   const jobsCreated = Math.max(0, Math.min(100000, Number.isFinite(Number(projectedCanadianJobsCreatedCount)) ? Math.round(Number(projectedCanadianJobsCreatedCount)) : 0));

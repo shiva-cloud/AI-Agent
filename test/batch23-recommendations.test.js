@@ -16,6 +16,7 @@ import { evaluateAlbertaTenancySubleaseAssignment } from '../src/alberta-residen
 import { evaluateAlbertaSecurityDeposit } from '../src/alberta-tenancy-security-deposit-navigator.js';
 import { evaluateBankingAndCreditStrategy } from '../src/banking-navigator.js';
 import { evaluateFlagpolingFeasibility } from '../src/border-flagpoling-navigator.js';
+import { todayIso } from '../src/text-input.js';
 
 test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
   await t.test('Rec 411: auditAlbertaCommercialDistress sanitizes date, clamps values, and audits mutual exclusivity', () => {
@@ -30,7 +31,7 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.tenantBusinessName, 'Calgary Tech Hub Inc.');
     assert.equal(res.jurisdiction, 'AB');
     assert.equal(res.rentArrearsClaimedCad, 25000);
@@ -62,7 +63,7 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'bad-date'
     });
 
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.employeeName, 'Alice Smith');
     assert.equal(res.employerName, 'North Corp');
     assert.equal(res.percentageReduction, 20);
@@ -144,7 +145,7 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.employeeName, 'Mark Vance');
     assert.equal(res.jurisdiction, 'ALBERTA');
     assert.equal(res.bankingAudit.isExpiredPast6Months, true);
@@ -215,7 +216,7 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.employeeName, 'Young Worker');
     assert.equal(res.isCompliant, false);
     assert.ok(res.statutoryViolations.some(v => v.rule === 'MISSING_WRITTEN_PARENTAL_CONSENT'));
@@ -261,7 +262,7 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.tenantName, 'Tenant One');
     assert.equal(res.landlordName, 'Landlord Two');
     assert.equal(res.isEntryPermitted, false);
@@ -338,7 +339,7 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.tenantName, 'Alberta Tenant');
     assert.equal(res.landlordName, 'Landlord Corp');
     assert.equal(res.depositAudit.isDepositOvercharged, true);
@@ -360,8 +361,8 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(res.asOf, '2026-10-31');
-    assert.equal(res.assessmentDate, '2026-10-31');
+    assert.equal(res.asOf, todayIso());
+    assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.clientName, 'Newcomer Student');
     assert.equal(res.packagesComparison.length, 5);
     assert.ok(res.bankActStatutoryRights.statute.includes('Section 627.17'));
@@ -379,8 +380,8 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       assessmentDate: 'invalid-date'
     });
 
-    assert.equal(pgwpRes.asOf, '2026-10-31');
-    assert.equal(pgwpRes.assessmentDate, '2026-10-31');
+    assert.equal(pgwpRes.asOf, todayIso());
+    assert.equal(pgwpRes.assessmentDate, todayIso());
     assert.equal(pgwpRes.applicantName, 'PGWP Candidate');
     assert.equal(pgwpRes.determination, 'STRICTLY_BARRED');
     assert.equal(pgwpRes.pgwpBorderBanApplied, true);

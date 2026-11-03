@@ -195,6 +195,7 @@ import { autoPopulateForm } from '../official-forms.js';
 import { convertLanguageScores } from '../language-score-clb.js';
 import { evaluateProofOfFunds } from '../proof-of-funds.js';
 
+import { todayIso } from '../text-input.js';
 export function handleToolGet(ctx) {
   const { path, url } = ctx;
   const send = (code, body) => { ctx.send(code, body); return true; };
@@ -1150,7 +1151,7 @@ export function handleToolGet(ctx) {
       const plaintiffName = url.searchParams.get('plaintiffName') || 'Claimant';
       const hasSentDemandLetter = url.searchParams.get('sentDemand') === 'true';
       const prejudgmentInterestRatePercent = url.searchParams.get('pjiRate') ? Number(url.searchParams.get('pjiRate')) : 4.0;
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
 
       return send(200, evaluateSmallClaimsDispute({
         province,
@@ -1226,7 +1227,7 @@ export function handleToolGet(ctx) {
       const missingMandatoryDisclosures = url.searchParams.get('missingDisclosures') === 'true';
       const consumerName = url.searchParams.get('consumerName') || 'Consumer';
       const supplierName = url.searchParams.get('supplierName') || 'Eco-Comfort Home Services Inc.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
 
       return send(200, evaluateConsumerContract({
         province,
@@ -1459,7 +1460,7 @@ export function handleToolGet(ctx) {
       const clbLevel = url.searchParams.get('clb') ? Number(url.searchParams.get('clb')) : 6;
       const testDate = url.searchParams.get('testDate') || '2025-06-01';
       const completionDate = url.searchParams.get('completionDate') || '2026-08-01';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       const isDliEligible = url.searchParams.get('dliEligible') !== 'false';
       const isPublicOrLicensingCurriculum = url.searchParams.get('publicOrLicensing') !== 'false';
       const heldPreviousPgwp = url.searchParams.get('prevPgwp') === 'true';
@@ -1541,7 +1542,7 @@ export function handleToolGet(ctx) {
       const immigrationStatusThreatened = url.searchParams.get('statusThreat') === 'true';
       const workerName = url.searchParams.get('worker') || 'Worker';
       const employerName = url.searchParams.get('employer') || 'Employer Inc.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateWorkplaceSafetyAndRefusal({
         province,
         isWorkplaceInjury,
@@ -1574,7 +1575,7 @@ export function handleToolGet(ctx) {
       const weeksWorked = url.searchParams.get('weeks') ? Number(url.searchParams.get('weeks')) : 16;
       const workerName = url.searchParams.get('worker') || 'Temporary Foreign Worker';
       const employerName = url.searchParams.get('employer') || 'Farm & Logistics Ltd.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateTfwEmployerCompliance({
         stream,
         lmiaStipulatedHourlyWageCad,
@@ -1602,7 +1603,7 @@ export function handleToolGet(ctx) {
       const hasFullTimeEmployerJobLetter6Months = url.searchParams.get('hasJobLetter') !== 'false';
       const isRefugeeClaimantWithIfhpCertificate = url.searchParams.get('isRefugee') === 'true';
       const applicantName = url.searchParams.get('applicant') || 'Newcomer';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateHealthcarePortabilityAndIfhp({
         targetProvince,
         originType,
@@ -1667,7 +1668,7 @@ export function handleToolGet(ctx) {
       const sponsorshipYearsRemaining = url.searchParams.get('sponsorRemaining') ? Number(url.searchParams.get('sponsorRemaining')) : 0;
       const annualNetWorldIncomeCad = url.searchParams.get('income') ? Number(url.searchParams.get('income')) : 18000;
       const applicantName = url.searchParams.get('applicant') || 'Senior Newcomer';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateOasGisEligibility({
         ageYears,
         yearsResidedInCanadaAfter18,
@@ -1689,7 +1690,7 @@ export function handleToolGet(ctx) {
       const convictionCount = url.searchParams.get('count') ? Number(url.searchParams.get('count')) : 1;
       const urgentTravelRequired = url.searchParams.get('urgent') === 'true';
       const applicantName = url.searchParams.get('applicant') || 'Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateCriminalInadmissibilityAndRehab({
         offenseType,
         sentenceCompletionDate,
@@ -1713,7 +1714,7 @@ export function handleToolGet(ctx) {
       const cumulativeOperatingLossesCad = url.searchParams.get('losses') ? Number(url.searchParams.get('losses')) : 55000;
       const franchiseeName = url.searchParams.get('franchisee') || 'Franchisee';
       const franchisorName = url.searchParams.get('franchisor') || 'Franchisor';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateFranchiseDisclosure({
         province,
         agreementSignedDate,
@@ -1742,7 +1743,7 @@ export function handleToolGet(ctx) {
       const hasJointFinancialEvidence = url.searchParams.get('jointEvidence') !== 'false';
       const applicantName = url.searchParams.get('applicant') || 'Spouse Applicant';
       const principalName = url.searchParams.get('principal') || 'Principal Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateSowpEligibility({
         sponsorType,
         studentProgramLevel,
@@ -1772,7 +1773,7 @@ export function handleToolGet(ctx) {
       const insurableHoursAccumulated = url.searchParams.get('hours') ? Number(url.searchParams.get('hours')) : 720;
       const applicantName = url.searchParams.get('applicant') || 'EI Claimant';
       const employerName = url.searchParams.get('employer') || 'Employer Inc.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateEiDisqualificationAndAllocation({
         separationType,
         justCauseReason,
@@ -1809,7 +1810,7 @@ export function handleToolGet(ctx) {
       const jobsCreatedCount = url.searchParams.get('jobs') ? Number(url.searchParams.get('jobs')) : 1;
       const hasCompletedCommunityExploratoryVisit = url.searchParams.get('visit') !== 'false';
       const applicantName = url.searchParams.get('applicant') || 'AAIP Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateRuralRenewalEligibility({
         streamType,
         selectedCommunity,
@@ -1883,7 +1884,7 @@ export function handleToolGet(ctx) {
       const adoptionLegallyFinalizedAbroad = url.searchParams.get('finalized') !== 'false';
       const preAdoptionTiesSevered = url.searchParams.get('severed') !== 'false';
       const youthName = url.searchParams.get('youth') || 'Youth';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateChildWelfareAndGuardianship({
         pathway,
         youthAgeYears,
@@ -1910,7 +1911,7 @@ export function handleToolGet(ctx) {
       const receivedProceduralFairnessLetter = url.searchParams.get('pfl') === 'true';
       const pflReceivedDate = url.searchParams.get('pflDate') || null;
       const applicantName = url.searchParams.get('applicant') || 'Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateExcessiveDemandMitigation({
         immigrationStream,
         diagnosedCondition,
@@ -1939,7 +1940,7 @@ export function handleToolGet(ctx) {
       const employerPaidComplianceFee = url.searchParams.get('feePaid') !== 'false';
       const applicantName = url.searchParams.get('applicant') || 'Applicant';
       const employerName = url.searchParams.get('employer') || 'Canadian Employer Inc.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateFrancophoneMobility({
         province,
         frenchTestType,
@@ -1970,7 +1971,7 @@ export function handleToolGet(ctx) {
       const providedWrittenReason = url.searchParams.get('writtenReason') === 'true';
       const foreignArbitrationClauseInvoked = url.searchParams.get('foreignArbitration') === 'true';
       const workerName = url.searchParams.get('worker') || 'Worker';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluatePlatformWorkerRights({
         province,
         platformName,
@@ -2004,7 +2005,7 @@ export function handleToolGet(ctx) {
       const settlementFundsCad = url.searchParams.get('funds') ? Number(url.searchParams.get('funds')) : 5000;
       const isCurrentlyWorkingInCanadaOnValidPermit = url.searchParams.get('workingInCanada') === 'true';
       const candidateName = url.searchParams.get('candidate') || 'Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateAtlanticImmigrationEligibility({
         province,
         stream,
@@ -2033,7 +2034,7 @@ export function handleToolGet(ctx) {
       const parentActivityType = url.searchParams.get('activity') || 'both_working';
       const immigrationStatus = url.searchParams.get('status') || 'permanent_resident';
       const applicantName = url.searchParams.get('applicant') || 'Parent';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateChildCareSubsidy({
         province,
         municipality,
@@ -2058,7 +2059,7 @@ export function handleToolGet(ctx) {
       const strataPlanNumber = url.searchParams.get('strataPlan') || 'EPS 1234';
       const unitNumber = url.searchParams.get('unit') || '304';
       const ownerOrTenantName = url.searchParams.get('name') || 'Strata Resident';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateBcStrataBylawDefense({
         disputeType,
         isLongTermRental,
@@ -2086,7 +2087,7 @@ export function handleToolGet(ctx) {
       const hasSupportingUrgentProof = url.searchParams.get('supportingProof') === 'true';
       const isCurrentlyInsideCanada = url.searchParams.get('insideCanada') !== 'false';
       const applicantName = url.searchParams.get('name') || 'PR Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluatePrCardRenewalUrgent({
         daysInCanadaLast5Years,
         daysAbroadAccompanyingCitizenSpouse,
@@ -2114,7 +2115,7 @@ export function handleToolGet(ctx) {
       const hasProvincialNominationStreamFit = url.searchParams.get('pnpFit') === 'true';
       const isApplyingDualIntent = url.searchParams.get('dualIntent') !== 'false';
       const workerName = url.searchParams.get('name') || 'Temporary Foreign Worker';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateForeignWorkerTransition({
         wagePerHour,
         provincialMedianWage,
@@ -2139,7 +2140,7 @@ export function handleToolGet(ctx) {
       const unclaimedPastYears = url.searchParams.get('pastYears') ? Number(url.searchParams.get('pastYears')) : 0;
       const childName = url.searchParams.get('childName') || 'Eligible Child';
       const parentName = url.searchParams.get('parentName') || 'Parent / Legal Guardian';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateChildDisabilityBenefit({
         childAgeYears,
         hasApprovedDtcT2201,
@@ -2166,7 +2167,7 @@ export function handleToolGet(ctx) {
       const tenantName = url.searchParams.get('tenant') || 'Alberta Tenant';
       const landlordName = url.searchParams.get('landlord') || 'Landlord / Property Manager';
       const rentalUnitAddress = url.searchParams.get('unit') || '102-10405 Jasper Ave, Edmonton, AB';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateAlbertaSecurityDeposit({
         monthlyRentCad,
         securityDepositPaidCad,
@@ -2195,7 +2196,7 @@ export function handleToolGet(ctx) {
       const hasPassedNclex = url.searchParams.get('passedNclex') === 'true';
       const interestedInSpepSupervisedPractice = url.searchParams.get('spep') !== 'false';
       const nurseName = url.searchParams.get('name') || 'IEN Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateInternationallyTrainedNurse({
         countryOfEducation,
         nursingDesignation,
@@ -2222,7 +2223,7 @@ export function handleToolGet(ctx) {
       const sector = url.searchParams.get('sector') || 'general';
       const isGraduatedFromAlbertaDli = url.searchParams.get('abGrad') !== 'false';
       const candidateName = url.searchParams.get('name') || 'AAIP Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateAlbertaOpportunityStream({
         workPermitType,
         albertaWorkExperienceMonths,
@@ -2249,7 +2250,7 @@ export function handleToolGet(ctx) {
       const hasActiveBuildingPermits = url.searchParams.get('permits') === 'true';
       const ownerName = url.searchParams.get('owner') || 'Property Owner';
       const calendarTaxYear = url.searchParams.get('taxYear') || '2025';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateBcSpeculationTaxDeclaration({
         propertyRegion,
         assessedPropertyValueCad,
@@ -2274,7 +2275,7 @@ export function handleToolGet(ctx) {
       const hasMinorCanadianChildrenAffected = url.searchParams.get('hasBioc') === 'true';
       const hasCanadianCitizenSpouseInCanada = url.searchParams.get('spouseInCanada') === 'true';
       const applicantName = url.searchParams.get('name') || 'PR Applicant Abroad';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluatePrtdHumanitarian({
         daysPhysicallyInCanadaLast5Years,
         reasonForAbsenceCategory,
@@ -2298,7 +2299,7 @@ export function handleToolGet(ctx) {
       const hasSignedTerminationClause = url.searchParams.get('hasClause') !== 'false';
       const terminationClauseViolatesEsa = url.searchParams.get('clauseViolatesEsa') !== 'false';
       const employeeName = url.searchParams.get('name') || 'Employee';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateStatutorySeveranceNotice({
         yearsOfService,
         employeeAgeYears,
@@ -2326,7 +2327,7 @@ export function handleToolGet(ctx) {
       const hasPastStudyInAnotherProvince = url.searchParams.get('pastStudy') === 'true';
       const hasPastWorkInAnotherProvince = url.searchParams.get('pastWork') === 'true';
       const candidateName = url.searchParams.get('name') || 'MPNP Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateManitobaPnpSkilledWorker({
         monthsWorkedInManitoba,
         isOutOfProvinceGraduate,
@@ -2355,7 +2356,7 @@ export function handleToolGet(ctx) {
       const teerLevel = url.searchParams.get('teer') ? Number(url.searchParams.get('teer')) : 5;
       const isValidWorkPermitHeld = url.searchParams.get('validPermit') !== 'false';
       const applicantName = url.searchParams.get('name') || 'Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateSinpHardToFillSkills({
         nocCode,
         workExperienceMonthsInSaskatchewan,
@@ -2380,7 +2381,7 @@ export function handleToolGet(ctx) {
       const monthlyLostWageCad = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 4000;
       const monthsElapsedSinceAction = url.searchParams.get('monthsElapsed') ? Number(url.searchParams.get('monthsElapsed')) : 1;
       const employeeName = url.searchParams.get('name') || 'Worker';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateEsaReprisal({
         protectedActivity,
         adverseAction,
@@ -2403,7 +2404,7 @@ export function handleToolGet(ctx) {
       const isStayOfCollectionRequested = url.searchParams.get('stayRequested') !== 'false';
       const propertyRollNumber = url.searchParams.get('rollNumber') || 'ROLL-0000-0000';
       const ownerName = url.searchParams.get('name') || 'Property Owner';
-      const currentDate = url.searchParams.get('currentDate') || '2026-10-31';
+      const currentDate = url.searchParams.get('currentDate') || todayIso();
       return send(200, auditBcSvtNoticeOfObjection({
         assessmentNoticeDate,
         assessedAmountCad,
@@ -2454,7 +2455,7 @@ export function handleToolGet(ctx) {
       const isRegisteredOnCalgaryRegistry = url.searchParams.get('registered') === 'true';
       const propertyAddress = url.searchParams.get('address') || '123 Centre St, Calgary, AB';
       const ownerName = url.searchParams.get('name') || 'Property Owner';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, auditCalgarySecondarySuite({
         suiteType,
         hasInterconnectedSmokeAlarms,
@@ -2485,7 +2486,7 @@ export function handleToolGet(ctx) {
       const hasSubstantialUnilateralDutyChange = url.searchParams.get('dutyChange') === 'true';
       const employeeImmigrationStatus = url.searchParams.get('status') || 'permanent_resident';
       const employeeName = url.searchParams.get('name') || 'Employee';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateEsaConstructiveDismissalLayoff({
         yearsOfService,
         employeeAge,
@@ -2518,7 +2519,7 @@ export function handleToolGet(ctx) {
       const hasCpsnsLicensureOrAssessment = url.searchParams.get('cpsns') === 'true';
       const isSelfEmployed = url.searchParams.get('selfEmployed') === 'true';
       const candidateName = url.searchParams.get('name') || 'Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateNovaScotiaExperienceStream({
         stream,
         candidateAge,
@@ -2551,7 +2552,7 @@ export function handleToolGet(ctx) {
       const isSelfEmployed = url.searchParams.get('selfEmployed') === 'true';
       const isSeasonalAgriculturalWorker = url.searchParams.get('seasonal') === 'true';
       const applicantName = url.searchParams.get('name') || 'Demandeur';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateQuebecPeqTemporaryWorker({
         monthsWorkedInQuebec,
         weeklyHoursWorked,
@@ -2580,7 +2581,7 @@ export function handleToolGet(ctx) {
       const thirdPartyLeasedEquipmentIncluded = url.searchParams.get('thirdParty') === 'true';
       const landlordThreatensImmediateSaleWithin5Days = url.searchParams.get('prematureSale') === 'true';
       const tenantBusinessName = url.searchParams.get('businessName') || 'Commercial Tenant Ltd.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, auditAlbertaCommercialDistress({
         rentArrearsClaimedCad,
         goodsEstimatedValueCad,
@@ -2607,7 +2608,7 @@ export function handleToolGet(ctx) {
       const applicantLocation = url.searchParams.get('location') || 'outside_canada';
       const hasCanadianCitizenFamilyAffected = url.searchParams.get('citizenFamily') !== 'false';
       const applicantName = url.searchParams.get('name') || 'Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateTrpCompellingBalance({
         inadmissibilityType,
         yearsElapsedSinceSentenceOrTrigger,
@@ -2639,7 +2640,7 @@ export function handleToolGet(ctx) {
       const currentlyAuthorizedToWorkInCanada = url.searchParams.get('workAuth') !== 'false';
       const settlementFundsCad = url.searchParams.get('funds') ? Number(url.searchParams.get('funds')) : 18000;
       const candidateName = url.searchParams.get('name') || 'Tradesperson';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateFederalSkilledTradesProgram({
         nocCode,
         yearsOfTradesExperience,
@@ -2662,7 +2663,7 @@ export function handleToolGet(ctx) {
     }
     if(path==='/v1/tools/bc-strata-ev-charging') {
       const requestDate = url.searchParams.get('requestDate') || '2026-08-01';
-      const currentDate = url.searchParams.get('currentDate') || '2026-10-31';
+      const currentDate = url.searchParams.get('currentDate') || todayIso();
       const stallType = url.searchParams.get('stallType') || 'limited_common_property';
       const applicantStatus = url.searchParams.get('status') || 'owner';
       const strataLotCount = url.searchParams.get('lots') ? Number(url.searchParams.get('lots')) : 48;
@@ -2701,7 +2702,7 @@ export function handleToolGet(ctx) {
       const employerTotalHeadcount = url.searchParams.get('headcount') ? Number(url.searchParams.get('headcount')) : 25;
       const hasCompletedPayEquityAudit = url.searchParams.get('payEquity') !== 'false';
       const employerName = url.searchParams.get('employer') || 'Ontario Employer Corp.';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, auditOntarioPayTransparencyAndPosting({
         isPubliclyAdvertisedJobPosting,
         includesExpectedCompensationOrRange,
@@ -2731,7 +2732,7 @@ export function handleToolGet(ctx) {
       const targetCommunity = url.searchParams.get('community') || 'whitehorse';
       const isApplyingForCommunityPilot = url.searchParams.get('communityPilot') === 'true';
       const candidateName = url.searchParams.get('name') || 'Nominee Candidate';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateYukonCriticalImpactWorker({
         targetNocTeer,
         nocCode,
@@ -2752,7 +2753,7 @@ export function handleToolGet(ctx) {
     }
     if(path==='/v1/tools/tfw-employer-transition') {
       const currentWorkPermitExpiryDate = url.searchParams.get('expiry') || '2026-11-30';
-      const currentDate = url.searchParams.get('currentDate') || '2026-10-31';
+      const currentDate = url.searchParams.get('currentDate') || todayIso();
       const hasSubmittedNewWorkPermitApplication = url.searchParams.get('submitted') !== 'false';
       const applicationSubmissionDate = url.searchParams.get('submissionDate') || '2026-10-15';
       const hasPositiveLmiaOrExemption = url.searchParams.get('lmia') !== 'false';
@@ -3084,7 +3085,7 @@ export function handleToolGet(ctx) {
     }
     if(path==='/v1/tools/citizenship-revocation') {
       const noticeOfIntentDate = url.searchParams.get('noticeDate') || '2026-10-01';
-      const currentDate = url.searchParams.get('currentDate') || '2026-10-25';
+      const currentDate = url.searchParams.get('currentDate') || todayIso();
       const allegationType = url.searchParams.get('allegationType') || 'FALSE_REPRESENTATION';
       const allegationContext = url.searchParams.get('context') || 'RESIDENCE_CALCULATION';
       const yearsAsCanadianCitizen = url.searchParams.get('citizenYears') ? Number(url.searchParams.get('citizenYears')) : 8;
@@ -3247,7 +3248,7 @@ export function handleToolGet(ctx) {
     if(path==='/v1/tools/alberta-tenancy-sublease') {
       const transactionType = url.searchParams.get('type') || 'ASSIGNMENT';
       const requestDeliveredDate = url.searchParams.get('requestDate') || '2026-10-01';
-      const currentDate = url.searchParams.get('currentDate') || '2026-10-20';
+      const currentDate = url.searchParams.get('currentDate') || todayIso();
       const landlordResponseStatus = url.searchParams.get('responseStatus') || 'NO_RESPONSE';
       const refusalReasonCategory = url.searchParams.get('refusalCategory') || '';
       const refusalReasonExplanation = url.searchParams.get('explanation') || '';
@@ -4281,7 +4282,7 @@ export function handleToolGet(ctx) {
       const fieldOfStudyCategory = url.searchParams.get('field') || 'stem_science_tech_eng_math';
       const cipCode = url.searchParams.get('cip') || '11.0701';
       const applicantName = url.searchParams.get('applicant') || 'Student Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateStudyPermitCapAndPal({
         studyLevel,
         province,
@@ -4312,7 +4313,7 @@ export function handleToolGet(ctx) {
       const hasPreviousVisaRefusal = url.searchParams.get('refusal') === 'true';
       const isDualIntentPrPending = url.searchParams.get('dualIntent') === 'true';
       const hostInCanadaRelationship = url.searchParams.get('host') || 'family_sibling';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateVisitorVisaTies({
         applicantName,
         countryOfResidence,
@@ -4343,7 +4344,7 @@ export function handleToolGet(ctx) {
       const applicantCitizenship = url.searchParams.get('citizenship') || 'FR';
       const cmaUnemploymentOver6Percent = url.searchParams.get('unemploymentHigh') === 'true';
       const currentTfwProportionPercent = url.searchParams.get('tfwProportion') ? Number(url.searchParams.get('tfwProportion')) : 12;
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateLmiaReadiness({
         employerName,
         province,
@@ -4365,7 +4366,7 @@ export function handleToolGet(ctx) {
       const studyPermitHasWorkCondition = url.searchParams.get('studyWork') !== 'false';
       const workPermitMinDurationMonths = url.searchParams.get('permitMonths') ? Number(url.searchParams.get('permitMonths')) : 12;
       const residencyDocumentsReady = url.searchParams.get('leaseReady') !== 'false';
-      const assessmentDate = url.searchParams.get('assessmentDate') || '2026-10-31';
+      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateGovernmentEnrollment({
         statusInCanada,
         province,
@@ -4661,7 +4662,7 @@ export function handleToolGet(ctx) {
         return send(200, evaluateCriminalInadmissibility({ offenseClassification: serious ? 'serious_criminality' : 'non_serious_summary', yearsSinceSentenceCompleted: years }));
       }
       const expiredDate = url.searchParams.get('expiredDate') || '2026-03-01';
-      return send(200, evaluateRestorationOfStatus({ statusExpiredDate: expiredDate }));
+      return send(200, evaluateRestorationOfStatus({ statusExpiredDate: expiredDate, assessmentDate: url.searchParams.get('assessmentDate') || undefined }));
     }
     if(path==='/v1/tools/esa-wage-theft') {
       const action = url.searchParams.get('action') || 'overtime';
@@ -4750,7 +4751,7 @@ export function handleToolGet(ctx) {
     }
     if(path==='/v1/tools/form-autopopulate') {
       const formType = url.searchParams.get('formType') ?? url.searchParams.get('type') ?? 'cbsa_bsf186';
-      const overrides = {};
+      const overrides = Object.create(null);
       for (const [k, v] of url.searchParams.entries()) {
         if (!['formType', 'type', 'declarantDate'].includes(k)) overrides[k] = v;
       }
@@ -5439,7 +5440,8 @@ export function handleToolPost(ctx) {
         }));
       }
       return send(200, evaluateRestorationOfStatus({
-        statusExpiredDate: input.statusExpiredDate ?? (input.expiredDate || '2026-03-01')
+        statusExpiredDate: input.statusExpiredDate ?? (input.expiredDate || '2026-03-01'),
+        assessmentDate: input.assessmentDate
       }));
     }
     if(path==='/v1/tools/esa-wage-theft') {

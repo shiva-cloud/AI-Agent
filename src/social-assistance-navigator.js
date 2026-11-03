@@ -8,7 +8,7 @@
  * - Immigration and Refugee Protection Regulations (IRPR), SOR/2002-227, s. 132, s. 133(1)(j) (Sponsorship Default Bar)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SOCIAL_ASSISTANCE_CONSTANTS = Object.freeze({
   OW_ASSET_LIMIT_SINGLE_CAD: 10000,
@@ -45,10 +45,10 @@ export function evaluateSocialAssistance({
   isSponsoredImmigrant = false,
   sponsorshipYearsRemaining = 0,
   applicantName = 'Applicant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeApplicant = boundedText(applicantName, 'Applicant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const prog = boundedText(program, 'ontario_works', 50).toLowerCase();
   const status = boundedText(immigrationStatus, 'permanent_resident', 50).toLowerCase();
   const fam = boundedText(familyComposition, 'single', 30).toLowerCase();

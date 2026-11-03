@@ -16,7 +16,16 @@ export function boundedText(value, fallback = '', maxLength = 120) {
   return cleaned ? cleaned.slice(0, limit) : defaultVal;
 }
 
-export function safeIsoDate(val, fallback = '2026-10-31') {
+// The calendar date tools assess "as of" when the caller gives none: today in UTC,
+// matching the ISO dates used everywhere else. NORTHSTAR_TODAY (YYYY-MM-DD) pins it
+// for reproducible runs and tests; an invalid value is ignored.
+export function todayIso(now = new Date()) {
+  const pinned = process.env.NORTHSTAR_TODAY;
+  if (typeof pinned === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(pinned) && !Number.isNaN(Date.parse(pinned))) return pinned;
+  return now.toISOString().slice(0, 10);
+}
+
+export function safeIsoDate(val, fallback = todayIso()) {
   if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
     const t = Date.parse(val.trim());
     if (!Number.isNaN(t)) return val.trim();

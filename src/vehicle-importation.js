@@ -7,7 +7,7 @@
 // enforces the US CBP 72-hour ITN / title export filing (19 CFR 192.2), and generates a provincial licensing roadmap.
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const STATUTORY_RIV_FEE_CAD = 335; // base RIV registration fee
 export const FEDERAL_AC_EXCISE_TAX_CAD = 100; // Excise Act 2001
@@ -26,10 +26,10 @@ export function evaluateVehicleImportation({
   estimatedVehicleValueCad = 25000,
   settlerStatus = 'permanent_resident', // 'permanent_resident', 'work_permit', 'study_permit', 'visitor'
   importerName = 'Immigrant Settler',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeImporter = boundedText(importerName, 'Immigrant Settler', 120);
-  const safeDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeDate = safeIsoDate(assessmentDate, todayIso());
   const normOrigin = boundedText(countryOfOrigin, 'US', 20).toUpperCase();
   const safeVehicleType = boundedText(vehicleType, 'passenger_car', 30);
   const safeSettlerStatus = boundedText(settlerStatus, 'permanent_resident', 40);

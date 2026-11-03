@@ -3,7 +3,7 @@
 // healthcare waiting periods, and transit metrics across major Canadian landing hubs.
 
 import { calculatorNumber } from './calculator-input.js';
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CANADIAN_METROS = {
   Toronto: {
@@ -119,7 +119,7 @@ export const CANADIAN_METROS = {
  */
 export function compareCities(cityNames, options = {}) {
   const safeOptions = (options && typeof options === 'object') ? options : {};
-  const safeDate = safeIsoDate(safeOptions.assessmentDate, '2026-10-31');
+  const safeDate = safeIsoDate(safeOptions.assessmentDate, todayIso());
   const validCities = [...new Set((Array.isArray(cityNames) ? cityNames : [cityNames])
     .map(c => c && typeof c === 'string' ? boundedText(c, '', 60) : '')
     .filter(c => Object.hasOwn(CANADIAN_METROS, c)))];

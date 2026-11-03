@@ -1,5 +1,5 @@
 // src/global-settlement-resolver.js
-// Universal Authoritative Statutory Resolver for Global Immigration & Settlement (20,000 Questions)
+// Global immigration & settlement question catalog (20,000 templated, unreviewed entries)
 // Automatically maps all 20,000 questions (GMS-Q00001 to GMS-Q20000) across all 51 categories
 // and 8 jurisdictions. Unreviewed research catalog; citations are not independently verified.
 

@@ -1,5 +1,5 @@
 import { ValidationError } from './api-errors.js';
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 /**
  * Airport & Port-of-Entry (POE) Legal Rights & Emergency Defense Navigator
@@ -58,13 +58,13 @@ export function evaluatePortOfEntryRights(input = {}) {
     isInSecondaryInspection = false,
     hasDigitalDeviceSearchConcern = false,
     facingRefusalRisk = false,
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = input;
 
   const safeTraveler = boundedText(travelerName, 'Traveler', 100);
   const targetCountry = boundedText(country, 'CA', 10).toUpperCase();
   const safeStatus = boundedText(statusCategory, 'work_permit', 50);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const authority = BORDER_AUTHORITIES[targetCountry] || BORDER_AUTHORITIES.CA;
 
   const guidanceSteps = [];

@@ -14,7 +14,7 @@
  *   - Part 8, ss. 117(1)(g), 159-160 (Immigration track adoption when direct citizenship is unavailable)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CHILD_WELFARE_CONSTANTS = Object.freeze({
   VYSA_MIN_AGE_YEARS: 16,
@@ -67,14 +67,14 @@ export function evaluateChildWelfareAndGuardianship(params = {}) {
     adoptionLegallyFinalizedAbroad = true,
     preAdoptionTiesSevered = true,
     youthName = 'Youth',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const path = boundedText(pathway, 'vysa_youth_services', 50).toLowerCase();
   const age = Number.isFinite(Number(youthAgeYears)) ? Math.max(0, Math.min(100, Math.floor(Number(youthAgeYears)))) : 16;
   const safeYouth = boundedText(youthName, 'Youth', 100);
   const safeKinshipRelationship = boundedText(kinshipRelationship, 'aunt_uncle', 50);
   
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const compliancePoints = [];
   const statutoryProtections = [];

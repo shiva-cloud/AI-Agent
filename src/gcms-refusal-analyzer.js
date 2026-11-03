@@ -4,13 +4,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-function safeIsoDate(d) {
-  if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim())) {
-    const parsed = new Date(d.trim());
-    if (!Number.isNaN(parsed.getTime())) return d.trim();
-  }
-  return new Date().toISOString().slice(0, 10);
-}
+import { safeIsoDate, todayIso } from './text-input.js';
 
 export const KNOWN_GCMS_REFUSAL_GROUNDS = {
   R179b_ASSETS_FUNDS: {
@@ -53,7 +47,7 @@ export function analyzeGcmsRefusalNotes(params = {}) {
     applicationType = 'visitor_visa', // 'visitor_visa', 'study_permit', 'work_permit'
     daysSinceRefusal = 14,
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeApplicantName = boundedText(applicantName, 120) || 'Applicant';
   const safeApplicationType = boundedText(applicationType, 60) || 'visitor_visa';

@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_C11_CONSTANTS = Object.freeze({
   EXEMPTION_CODE: 'C11',
@@ -38,7 +38,7 @@ export function evaluateFederalC11EntrepreneurWorkPermit(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Entrepreneur',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     businessOwnershipPercentage = 51,
     hasControllingInterest = true,
     capitalInvestedCad = 150000,
@@ -53,7 +53,7 @@ export function evaluateFederalC11EntrepreneurWorkPermit(params = {}) {
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Entrepreneur', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanEnterprise = boundedText(enterpriseName, 'Canadian Commercial Enterprise');
   const cleanLocation = boundedText(operatingLocation, 'Toronto, Ontario');
   const ownership = Number.isFinite(Number(businessOwnershipPercentage)) ? Math.max(0, Math.min(100, Number(businessOwnershipPercentage))) : 0;

@@ -2,7 +2,7 @@
 // Comprehensive Study-to-PR Pathway & Timeline Optimizer
 // Computes PGWP rights, Canadian Experience Class (CEC) milestones under IRPR s. 87.1,
 // and Provincial Nominee Program (PNP) graduate stream eligibility.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function evaluateStudyToPrPathway({
   studyLevel = 'masters', // 'masters', 'doctoral', 'bachelors_4yr', 'diploma_2yr', 'certificate_1yr'
@@ -13,13 +13,13 @@ export function evaluateStudyToPrPathway({
   hasPriorForeignExperience = true,
   yearsForeignExperience = 2,
   applicantName = 'International Student',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeStudyLevel = boundedText(studyLevel, 'masters', 50).toLowerCase();
   const safeProvince = boundedText(province, 'ON', 10).toUpperCase();
   const safeFieldOfStudy = boundedText(fieldOfStudy, 'stem_tech', 50).toLowerCase();
   const safeApplicantName = boundedText(applicantName, 'International Student', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const clb = Number.isFinite(Number(expectedClbLanguage)) ? Math.min(12, Math.max(0, Math.floor(Number(expectedClbLanguage)))) : 9;
   const teer = Number.isFinite(Number(targetNocTeer)) ? Math.min(5, Math.max(0, Math.floor(Number(targetNocTeer)))) : 1;

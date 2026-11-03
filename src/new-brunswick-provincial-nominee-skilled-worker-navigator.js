@@ -8,7 +8,7 @@
  * - Immigration and Refugee Protection Regulations (IRPR, SOR/2002-227, s. 87)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 import { factTable } from './kb-facts.js';
 
@@ -49,11 +49,11 @@ export function evaluateNbpnpSkilledWorker(params = {}) {
     },
     intendsToResideInNb = true,
     candidateName = 'Candidate',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
 
   const safeCandidateName = boundedText(candidateName, 'Candidate', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const age = Math.max(0, Math.min(120, Math.floor(Number(applicantAge) || 0)));
   const teer = Math.max(0, Math.min(5, Math.floor(Number(targetNocTeer) || 0)));

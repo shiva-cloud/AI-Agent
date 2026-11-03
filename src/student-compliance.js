@@ -5,7 +5,7 @@
 // scheduled break full-time work rights, authorized leave rules (150-day limit),
 // and Post-Graduation Work Permit (PGWP) eligibility risks under IRPA s. 200(3)(e).
 // Pure ES module with zero npm dependencies.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const STATUTORY_OFF_CAMPUS_WEEKLY_HOUR_CAP = 24; // Effective Fall 2024
 export const MAX_AUTHORIZED_LEAVE_DAYS = 150; // IRPR s. 220.1
@@ -31,10 +31,10 @@ export function evaluateStudentWorkCompliance({
   isFieldOfStudyInPriorityShortage = true, // For 2024+ college PGWP rules
   officialLanguageClbScore = 7, // CLB 7 for degree, CLB 5 for college
   studentName = 'International Student',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeStudentName = boundedText(studentName, 'International Student', 120);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
   const normEnrollment = boundedText(enrollmentStatus, 'full_time', 40).toLowerCase().trim();
   const hours = Math.max(0, Math.min(168, Number.isFinite(Number(weeklyHoursWorked)) ? Number(weeklyHoursWorked) : 0));
   const leaveDays = Math.max(0, Math.min(365, Number.isFinite(Number(leaveDurationDays)) ? Number(leaveDurationDays) : 0));

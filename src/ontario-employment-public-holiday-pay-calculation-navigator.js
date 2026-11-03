@@ -11,6 +11,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
+import { todayIso } from './text-input.js';
 export const ONTARIO_PUBLIC_HOLIDAY_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, 2000, S.O. 2000, c. 41, Part X ss. 24-32',
   LOOKBACK_DIVISOR: 20, // s. 24(1)
@@ -57,7 +58,7 @@ export function evaluateOntarioPublicHolidayPay({
   regularHourlyWageCad = 20,
   substituteDayOffAgreed = false,
   holidayPayActuallyPaidCad = 0,
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeHolidayName = boundedText(holidayName, 'FAMILY_DAY', 60);
   const safeAssessmentDate = typeof assessmentDate === 'string' && !Number.isNaN(Date.parse(assessmentDate))

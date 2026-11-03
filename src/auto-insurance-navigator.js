@@ -8,7 +8,7 @@
  * - British Columbia Insurance (Vehicle) Act & ICBC Enhanced Care Model
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const AUTO_INSURANCE_CONSTANTS = Object.freeze({
   ONTARIO_SABS_IRB_STANDARD_WEEKLY_CAP_CAD: 400,
@@ -49,10 +49,10 @@ export function evaluateAutoInsuranceProfile({
   optionalIrbEndorsementWeeklyCad = 400,
   experiencedRefusalOrUnreasonableDelay = false,
   driverName = 'Driver',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeDriverName = boundedText(driverName, 'Driver', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const rawPostal = boundedText(postalCode, 'L6Y 1A1', 20).toUpperCase().replace(/\s+/g, '');
   const fsa = rawPostal.slice(0, 3);

@@ -1,5 +1,7 @@
+import {buildVectorPdf, supportsWorksheetPdf} from './worksheet-pdf.js';
+export {buildVectorPdf, escapePdfText} from './worksheet-pdf.js';
 // src/official-forms.js
-// Official statutory government forms definitions and pure vector PDF 1.4 generator.
+// Draft preparation worksheets and pure vector PDF 1.4 generator.
 // Zero runtime npm dependencies.
 import {ValidationError} from './api-errors.js';
 import {assertCalendarDate} from './evidence-policy.js';
@@ -107,88 +109,7 @@ export const OFFICIAL_FORM_TEMPLATES = {
 };
 
 /**
- * Escapes characters for PDF literal text strings
- */
-export function escapePdfText(str = '') {
-  return String(str)
-    .replace(/\\/g, '\\\\')
-    .replace(/\(/g, '\\(')
-    .replace(/\)/g, '\\)');
-}
-
-/**
- * Builds a vector PDF 1.4 document string for an official statutory form.
- */
-export function buildVectorPdf({
-  org = '',
-  num = '',
-  title = '',
-  statute = '',
-  fields = [],
-  date = ''
-} = {}) {
-  let stream = '';
-
-  // Document Header
-  stream += 'BT\n/F1 10 Tf\n50 780 Td\n(' + escapePdfText(org) + ') Tj\nET\n';
-  stream += 'BT\n/F1 16 Tf\n50 760 Td\n(' + escapePdfText(num + ': ' + title) + ') Tj\nET\n';
-  stream += 'BT\n/F1 9 Tf\n50 742 Td\n(Reference: ' + escapePdfText(statute) + ') Tj\nET\n';
-
-  // Divider Line
-  stream += '50 732 m 545 732 l S\n';
-
-  // Section Heading
-  stream += 'BT\n/F1 11 Tf\n50 715 Td\n(DRAFT WORKSHEET - NOT AN OFFICIAL FORM) Tj\nET\n';
-
-  let y = 690;
-  fields.forEach(f => {
-    stream += 'BT\n/F1 9 Tf\n50 ' + y + ' Td\n(' + escapePdfText(f.label) + ':) Tj\nET\n';
-    stream += 'BT\n/F1 10 Tf\n220 ' + y + ' Td\n(' + escapePdfText(String(f.val || '-')) + ') Tj\nET\n';
-    stream += '220 ' + (y - 2) + ' m 545 ' + (y - 2) + ' l S\n';
-    y -= 22;
-  });
-
-  // Statutory Declaration Box
-  y -= 10;
-  stream += '50 ' + y + ' 495 50 re S\n';
-  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 35) + ' Td\n(DRAFT ONLY: This worksheet is not an official government form.) Tj\nET\n';
-  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 22) + ' Td\n(Review your information and complete the current official form separately.) Tj\nET\n';
-  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 10) + ' Td\n(Reference for review: ' + escapePdfText(statute) + ') Tj\nET\n';
-
-  // Signature Block
-  y -= 45;
-  stream += 'BT\n/F1 9 Tf\n50 ' + y + ' Td\n(Worksheet date: ' + escapePdfText(date) + ') Tj\nET\n';
-
-  const objects = [];
-  objects.push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
-  objects.push('2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
-  objects.push('3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>\nendobj\n');
-  objects.push('4 0 obj\n<< /Length ' + stream.length + ' >>\nstream\n' + stream + '\nendstream\nendobj\n');
-  objects.push('5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n');
-
-  let pdf = '%PDF-1.4\n';
-  const xref = [0];
-  let offset = pdf.length;
-
-  objects.forEach(obj => {
-    xref.push(offset);
-    pdf += obj;
-    offset = pdf.length;
-  });
-
-  const startxref = offset;
-  pdf += 'xref\n0 ' + (objects.length + 1) + '\n';
-  pdf += '0000000000 65535 f \n';
-  for (let i = 1; i <= objects.length; i++) {
-    pdf += String(xref[i]).padStart(10, '0') + ' 00000 n \n';
-  }
-  pdf += 'trailer\n<< /Size ' + (objects.length + 1) + ' /Root 1 0 R >>\nstartxref\n' + startxref + '\n%%EOF';
-
-  return pdf;
-}
-
-/**
- * Auto-populates an official government form template and produces both pure vector PDF 1.4 and print-ready HTML
+ * Escapes plain text for the printable worksheet.
  */
 function escapeHtml(value) {
   const entities = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
@@ -217,14 +138,15 @@ export function autoPopulateForm(options = {}) {
     return { id: f.id, label: f.label, val };
   });
 
-  const pdf = buildVectorPdf({
+  const pdfSupported = supportsWorksheetPdf([tpl.org, tpl.num, tpl.title, tpl.statute, declarantDate, ...populatedFields.flatMap(field => [field.label, field.val])]);
+  const pdf = pdfSupported ? buildVectorPdf({
     org: tpl.org,
     num: tpl.num,
     title: tpl.title,
     statute: tpl.statute,
     fields: populatedFields,
     date: declarantDate
-  });
+  }) : null;
 
   const printReadyHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -237,8 +159,8 @@ export function autoPopulateForm(options = {}) {
     .org { font-size: 13px; font-weight: bold; text-transform: uppercase; color: #444; }
     .title { font-size: 20px; font-weight: bold; margin: 4px 0; }
     .statute { font-size: 12px; color: #666; font-style: italic; }
-    .field-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    .field-table td { padding: 8px 10px; border-bottom: 1px solid #ddd; font-size: 13px; }
+    .field-table { table-layout: fixed; width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .field-table td { overflow-wrap: anywhere; white-space: pre-wrap; padding: 8px 10px; border-bottom: 1px solid #ddd; font-size: 13px; }
     .field-label { width: 40%; font-weight: 600; color: #333; background: #fafafa; }
     .field-val { width: 60%; font-family: monospace; color: #000; font-weight: 500; }
     .decl-box { margin-top: 25px; border: 1px solid #999; padding: 14px; background: #fdfdfd; font-size: 11px; }
@@ -279,8 +201,10 @@ export function autoPopulateForm(options = {}) {
     statuteBasis: tpl.statute,
     fieldCount: populatedFields.length,
     populatedFields,
-    pdfByteSize: pdf.length,
-    pdfBase64: Buffer.from(pdf, 'latin1').toString('base64'),
+    pdfSupported,
+    pdfNotice: pdfSupported ? null : 'Use View & Print Worksheet, then Save as PDF, to preserve non-ASCII text.',
+    pdfByteSize: pdf?.length ?? 0,
+    pdfBase64: pdf === null ? null : Buffer.from(pdf, 'ascii').toString('base64'),
     printReadyHtml
   };
 }

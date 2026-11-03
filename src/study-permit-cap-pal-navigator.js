@@ -1,7 +1,7 @@
 // src/study-permit-cap-pal-navigator.js
 // Statutory Study Permit Cap, Provincial Attestation Letter (PAL), and Financial Adequacy Engine
 // Based on IRCC Ministerial Instructions, IRPR s. 219/220, and 2024-2026 Cap Directives.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const STATUTORY_LIVING_COST_BASE_CAD = 20635; // 75% of LICO benchmark (updated from legacy $10k)
 export const STATUTORY_FIRST_DEPENDENT_CAD = 5055;
@@ -28,12 +28,12 @@ export function evaluateStudyPermitCapAndPal({
   fieldOfStudyCategory = 'stem_science_tech_eng_math',
   cipCode = '11.0701', // Computer Science
   applicantName = 'Student Applicant',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeStudyLevel = boundedText(studyLevel, 'undergraduate_degree', 50).toLowerCase();
   const safeProvince = boundedText(province, 'ON', 10).toUpperCase();
   const safeApplicantName = boundedText(applicantName, 'Student Applicant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeFieldOfStudy = boundedText(fieldOfStudyCategory, 'stem_science_tech_eng_math', 50).toLowerCase();
   const safeCipCode = boundedText(cipCode, '11.0701', 20);
 

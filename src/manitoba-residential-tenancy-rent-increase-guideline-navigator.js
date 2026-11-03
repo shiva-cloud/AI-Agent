@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const MANITOBA_RENT_CONSTANTS = Object.freeze({
   ANNUAL_GUIDELINE_PERCENTAGE: 3.0, // 2024-2025 official guideline
@@ -38,7 +38,7 @@ export function evaluateManitobaRentIncrease(params = {}) {
   const {
     tenantName = 'Tenant',
     landlordName = 'Landlord',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     currentMonthlyRentCad = 1200,
     proposedMonthlyRentCad = 1250,
     noticeMonthsGiven = 3,
@@ -50,7 +50,7 @@ export function evaluateManitobaRentIncrease(params = {}) {
 
   const cleanTenantName = boundedText(tenantName, 'Tenant', 100);
   const cleanLandlordName = boundedText(landlordName, 'Landlord', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const currentRent = Number.isFinite(Number(currentMonthlyRentCad)) ? Math.max(0, Math.min(1000000, Number(currentMonthlyRentCad))) : 1200;
   const proposedRent = Number.isFinite(Number(proposedMonthlyRentCad)) ? Math.max(0, Math.min(1000000, Number(proposedMonthlyRentCad))) : 1250;

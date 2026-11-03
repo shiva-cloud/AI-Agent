@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ONTARIO_SEVERANCE_CONSTANTS = Object.freeze({
   MIN_YEARS_SERVICE_FOR_SEVERANCE: 5, // s. 64(1)(a)
@@ -31,7 +31,7 @@ export const ONTARIO_SEVERANCE_CONSTANTS = Object.freeze({
  * @param {number} [params.statutorySeveranceAlreadyPaidCad=0] - Severance already remitted by employer
  * @param {string} [params.employeeName='Employee']
  * @param {string} [params.employerName='Employer']
- * @param {string} [params.assessmentDate='2026-10-31']
+ * @param {string} [params.assessmentDate=todayIso()]
  * @returns {Object} Comprehensive statutory severance pay audit and entitlements
  */
 export function calculateOntarioStatutorySeverance({
@@ -44,9 +44,9 @@ export function calculateOntarioStatutorySeverance({
   statutorySeveranceAlreadyPaidCad = 0,
   employeeName = 'Employee',
   employerName = 'Employer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanEmployee = boundedText(employeeName, 'Employee', 100);
   const cleanEmployer = boundedText(employerName, 'Employer', 120);
 

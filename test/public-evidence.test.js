@@ -67,3 +67,41 @@ test('the automated source check publishes through the ingestion pipeline', () =
     assert.equal(statusOf(served(store), 'sin-route'), 'approved');
   } finally { store.db.close(); }
 });
+
+test('audit entries from bulk scripts or automated corrections do not publish a record', () => {
+  const store = openStore(':memory:');
+  try {
+    const pending = { ...sinSeed, id: 'pub-scripted', status: 'pending', risk: 'high', checkedAt: today, expiresAt };
+    const record = { ...pending, status: 'approved', reviewMethod: 'editorial_review' };
+    store.db.prepare('INSERT INTO records VALUES (?,?)').run('pub-scripted', JSON.stringify(pending));
+    store.db.exec('DROP TRIGGER IF EXISTS records_editorial_approval_update');
+    store.db.prepare('UPDATE records SET body=? WHERE id=?').run(JSON.stringify(record), 'pub-scripted');
+    const audit = store.db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at) VALUES (?,?,?,?,?,?)');
+    for (const name of ['Settlement Intelligence Lead Auditor', 'Senior Global Regulatory Editorial Board (Batch 3)', 'KB audit 2026-11-01 (automated correction, not editorial review)']) {
+      audit.run('pub-scripted', JSON.stringify(pending), JSON.stringify(record), name, 'Approved authoritative documentation.', new Date().toISOString());
+      assert.equal(statusOf(served(store), 'pub-scripted'), 'pending', name);
+    }
+    // The same entry from an actual editor publishes it.
+    audit.run('pub-scripted', JSON.stringify(pending), JSON.stringify(record), reviewer.reviewer, reviewer.note, new Date().toISOString());
+    assert.equal(statusOf(served(store), 'pub-scripted'), 'approved');
+  } finally { store.db.close(); }
+});
+
+test('arbitrary unknown free-text reviewers fail closed under allowlist gate', () => {
+  const store = openStore(':memory:');
+  try {
+    const pending = { ...sinSeed, id: 'pub-unauthorized', status: 'pending', risk: 'high', checkedAt: today, expiresAt };
+    const record = { ...pending, status: 'approved', reviewMethod: 'editorial_review' };
+    store.db.prepare('INSERT INTO records VALUES (?,?)').run('pub-unauthorized', JSON.stringify(pending));
+    store.db.exec('DROP TRIGGER IF EXISTS records_editorial_approval_update');
+    store.db.prepare('UPDATE records SET body=? WHERE id=?').run(JSON.stringify(record), 'pub-unauthorized');
+    const audit = store.db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at) VALUES (?,?,?,?,?,?)');
+    for (const unknownName of ['Bypass Operator', 'Random Reviewer 123', 'Custom External Reviewer', 'root']) {
+      audit.run('pub-unauthorized', JSON.stringify(pending), JSON.stringify(record), unknownName, 'Unverified approval claim.', new Date().toISOString());
+      assert.equal(statusOf(served(store), 'pub-unauthorized'), 'pending', unknownName);
+    }
+    // Explicit authorized reviewer role format or allowlisted reviewer succeeds
+    audit.run('pub-unauthorized', JSON.stringify(pending), JSON.stringify(record), 'reviewer:staff-lead', 'Verified editorial review.', new Date().toISOString());
+    assert.equal(statusOf(served(store), 'pub-unauthorized'), 'approved');
+  } finally { store.db.close(); }
+});

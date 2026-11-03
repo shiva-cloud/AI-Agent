@@ -17,7 +17,7 @@
  *   - Payday Lending Regulation ($15 per $100 cap)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CREDIT_DEFENSE_CONSTANTS = Object.freeze({
   FEDERAL_CRIMINAL_APR_CAP: 35.0,
@@ -70,7 +70,7 @@ export function evaluateConsumerCreditAgreement(params = {}) {
     daysSinceAgreement = 1,
     borrowerName = 'Consumer',
     lenderName = 'Quick Cash Financial Ltd.',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const type = boundedText(loanType, 'payday_loan', 40).toLowerCase();
@@ -86,7 +86,7 @@ export function evaluateConsumerCreditAgreement(params = {}) {
   // Safe text
   const bName = boundedText(borrowerName, 'Consumer', 120);
   const lName = boundedText(lenderName, 'Quick Cash Financial Ltd.', 120);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   // 1. Fee Cap Audit (Payday Loans Act)
   let maxAllowableFeePer100 = CREDIT_DEFENSE_CONSTANTS.ONTARIO_MAX_FEE_PER_100;

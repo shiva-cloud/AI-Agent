@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_SICK_LEAVE_CONSTANTS = Object.freeze({
   MIN_SERVICE_DAYS_REQUIRED: 90, // s. 49.1(1)
@@ -40,7 +40,7 @@ export function evaluateBcIllnessInjuryLeave(params = {}) {
   const {
     employeeName = 'Employee',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     consecutiveDaysEmployed = 120,
     paidSickDaysTakenThisYear = 0,
     paidSickDaysRequested = 1,
@@ -53,7 +53,7 @@ export function evaluateBcIllnessInjuryLeave(params = {}) {
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const serviceDays = Number.isFinite(Number(consecutiveDaysEmployed))
     ? Math.max(0, Math.min(36500, Math.floor(Number(consecutiveDaysEmployed))))

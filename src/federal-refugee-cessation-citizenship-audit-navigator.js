@@ -14,12 +14,12 @@
  *   - Vavilov v. Canada, 2019 SCC 65
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function evaluateRefugeeCessationRisk(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const applicantName = boundedText(safeParams.applicantName, 'Protected Person', 100);
-  const assessmentDate = safeIsoDate(safeParams.assessmentDate, '2026-10-31');
+  const assessmentDate = safeIsoDate(safeParams.assessmentDate, todayIso());
   const currentStatusInCanada = boundedText(safeParams.currentStatusInCanada, 'PERMANENT_RESIDENT', 50).toUpperCase();
   const hasAcquiredCanadianCitizenship = Boolean(safeParams.hasAcquiredCanadianCitizenship);
   const hasAppliedForOrRenewedNationalPassport = Boolean(safeParams.hasAppliedForOrRenewedNationalPassport);

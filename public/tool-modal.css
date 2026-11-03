@@ -185,3 +185,6 @@
   border-top: 1px dashed var(--line, #e2e8f0);
   padding-top: 0.4rem;
 }
+
+/* Tool results computed partly from built-in defaults (API assumedInputs). */
+.assumption-note { border-left: 4px solid #f59e0b; background: rgba(245, 158, 11, 0.12); padding: 0.6rem 0.8rem; margin: 0 0 0.75rem; border-radius: 6px; font-size: 0.9rem; }

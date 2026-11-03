@@ -19,7 +19,7 @@
  *   are legally unconscionable and void under Heller v. Uber.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const PLATFORM_WORKER_CONSTANTS = Object.freeze({
   ON_MIN_ENGAGED_HOURLY_WAGE_CAD: 17.20,
@@ -46,7 +46,7 @@ export const PLATFORM_WORKER_CONSTANTS = Object.freeze({
  * @param {boolean} [options.providedWrittenReason=false] - Platform provided written reason
  * @param {boolean} [options.foreignArbitrationClauseInvoked=false] - Forced offshore arbitration
  * @param {string} [options.workerName='Worker'] - Worker's name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive gig worker statutory assessment
  */
 export function evaluatePlatformWorkerRights(options = {}) {
@@ -64,7 +64,7 @@ export function evaluatePlatformWorkerRights(options = {}) {
   const writtenReason = Boolean(safeOptions.providedWrittenReason);
   const foreignArbitration = Boolean(safeOptions.foreignArbitrationClauseInvoked);
   const workerName = boundedText(safeOptions.workerName, 'Worker', 100);
-  const assessDate = safeIsoDate(safeOptions.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(safeOptions.assessmentDate, todayIso());
 
   const statutoryRate = prov === 'BC'
     ? PLATFORM_WORKER_CONSTANTS.BC_MIN_ENGAGED_HOURLY_WAGE_CAD

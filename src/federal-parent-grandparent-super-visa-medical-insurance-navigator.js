@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_SUPER_VISA_CONSTANTS = Object.freeze({
   PROGRAM_NAME: 'Parents and Grandparents Super Visa',
@@ -46,7 +46,7 @@ export function evaluateFederalSuperVisaInsuranceLico(params = {}) {
   const {
     applicantName = 'Parent/Grandparent',
     sponsorName = 'Child/Grandchild',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     medicalInsuranceCoverageCad = 100000,
     insurancePolicyValidityDays = 365,
     insuranceFromApprovedProvider = true,
@@ -59,7 +59,7 @@ export function evaluateFederalSuperVisaInsuranceLico(params = {}) {
   } = safeParams;
   const cleanApplicantName = boundedText(applicantName, 'Parent/Grandparent', 100);
   const cleanSponsorName = boundedText(sponsorName, 'Child/Grandchild', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanProvider = boundedText(insuranceProviderName, 'Approved Insurer');
   const cleanPolicy = boundedText(policyNumber, 'SV-INS-001');
   const coverage = Math.max(0, Math.min(10000000, Number.isFinite(Number(medicalInsuranceCoverageCad)) ? Number(medicalInsuranceCoverageCad) : 0));

@@ -15,7 +15,7 @@
  *   - Coverage for refugee claimants, protected persons, and victims of human trafficking via Medavie Blue Cross
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const HEALTHCARE_CONSTANTS = Object.freeze({
   ONTARIO_WAITING_PERIOD_DAYS: 0,
@@ -80,7 +80,7 @@ export function evaluateHealthcarePortabilityAndIfhp(params = {}) {
     hasFullTimeEmployerJobLetter6Months = true,
     isRefugeeClaimantWithIfhpCertificate = false,
     applicantName = 'Newcomer',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const provKey = boundedText(targetProvince, 'ON', 10).toUpperCase();
   const scheme = PROVINCIAL_HEALTHCARE_SCHEMES[provKey] || PROVINCIAL_HEALTHCARE_SCHEMES.ON;
@@ -93,7 +93,7 @@ export function evaluateHealthcarePortabilityAndIfhp(params = {}) {
   const isRefugee = Boolean(isRefugeeClaimantWithIfhpCertificate);
 
   const safeApplicant = boundedText(applicantName, 'Newcomer', 120);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const notes = [];
   const riskWarnings = [];

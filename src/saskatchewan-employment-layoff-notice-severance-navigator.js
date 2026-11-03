@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SASKATCHEWAN_LAYOFF_CONSTANTS = Object.freeze({
   GROUP_TERMINATION_TIER_1_MIN_EMPLOYEES: 10,
@@ -45,7 +45,7 @@ export function evaluateSaskatchewanLayoffNotice({
   ministerNotifiedInWriting = true,
   actualNoticeWeeksGiven = 0,
   employeeName = 'Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeEmployeeName = boundedText(employeeName, 120) || 'Employee';
   const safeAssessmentDate = safeIsoDate(assessmentDate);

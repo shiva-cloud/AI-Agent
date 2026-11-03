@@ -2,7 +2,7 @@
 // Newcomer Tax Shield & Wealth Optimization Navigator.
 // Calculates First Home Savings Account (FHSA), TFSA room, RRSP deduction, Canada Child Benefit (CCB), and GST/HST credit.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const PROVINCIAL_MARGINAL_RATES = {
   ON: { federal: 0.205, provincial: 0.0915, combined: 0.2965 }, // Ontario middle bracket
@@ -13,7 +13,7 @@ export const PROVINCIAL_MARGINAL_RATES = {
 
 export function evaluateTaxShield(input = {}) {
   const taxpayerName = boundedText(input.taxpayerName, 'Taxpayer', 100);
-  const assessmentDate = safeIsoDate(input.assessmentDate, '2026-10-31');
+  const assessmentDate = safeIsoDate(input.assessmentDate, todayIso());
   const annualEmploymentIncomeCad = Math.max(0, Math.min(100000000, Number(input.annualEmploymentIncomeCad) || 75000));
   const province = boundedText(input.province, 'ON', 10).toUpperCase();
   const childrenUnder6 = Math.max(0, Math.min(20, Math.floor(Number(input.childrenUnder6) || 0)));

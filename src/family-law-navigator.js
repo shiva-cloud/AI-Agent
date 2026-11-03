@@ -13,7 +13,7 @@
  * - Immigration and Refugee Protection Act (IRPA), S.C. 2001, c. 27, s. 132 (Sponsorship Undertaking Liability)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FAMILY_LAW_CONSTANTS = Object.freeze({
   ONTARIO_COMMON_LAW_SUPPORT_YEARS_THRESHOLD: 3,
@@ -62,7 +62,7 @@ export function evaluateFamilyLawAndSupport(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     clientName = 'Client',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     province = 'ON',
     maritalStatus = 'married',
     cohabitationYears = 8.0,
@@ -81,7 +81,7 @@ export function evaluateFamilyLawAndSupport(params = {}) {
   } = safeParams;
 
   const cleanClientName = boundedText(clientName, 'Client', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const status = boundedText(maritalStatus, 'married', 30).toLowerCase();
   const parenting = boundedText(parentingArrangement, 'primary_custody', 40).toLowerCase();

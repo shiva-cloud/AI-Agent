@@ -16,7 +16,7 @@
  *   - Canada-United States Convention with Respect to Taxes on Income and on Capital (Treaty Article XVIII for RRSPs/RRIFs)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const CROSS_BORDER_CONSTANTS = Object.freeze({
   CRA_T1135_COST_THRESHOLD_CAD: 100000,
@@ -71,10 +71,10 @@ export function evaluateCrossBorderTaxObligations(params = {}) {
     holdsCanadianMutualFundsOrEtfs = false,
     daysLateT1135 = 0,
     clientName = 'Cross-Border Client',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const isCadResident = Boolean(isCanadianTaxResident);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const year = Math.max(2000, Math.min(2100, Number.isFinite(Number(taxYear)) ? Math.floor(Number(taxYear)) : 2026));
   const isFirstYear = Boolean(isFirstYearCanadianResident);
   const foreignCostCad = Math.max(0, Math.min(1000000000, Number.isFinite(Number(foreignPropertyCostAmountCad)) ? Number(foreignPropertyCostAmountCad) : 125000));
@@ -286,10 +286,10 @@ export function generateCrossBorderMemorandum({
   fbarRequired = false,
   pficExposure = false,
   tfsaWarning = false,
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const name = boundedText(clientName, 'Cross-Border Client', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const year = Number(taxYear) || 2026;
 
   return [

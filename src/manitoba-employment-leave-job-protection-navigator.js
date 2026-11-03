@@ -12,7 +12,7 @@
  * - Employment Standards Regulation, Man. Reg. 6/2007
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const MANITOBA_SERVICE_REQUIREMENTS = Object.freeze({
   MATERNITY_LEAVE_MONTHS: 7,
@@ -33,7 +33,7 @@ export function evaluateManitobaEmploymentLeave(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const cleanEmployeeName = boundedText(safeParams.employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(safeParams.employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(safeParams.assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(safeParams.assessmentDate, todayIso());
   const normalizedType = boundedText(safeParams.leaveType, 'MATERNITY', 50).toUpperCase();
   const monthsService = Number.isFinite(Number(safeParams.monthsOfContinuousService)) ? Math.max(0, Math.min(600, Number(safeParams.monthsOfContinuousService))) : 8;
   const daysService = Number.isFinite(Number(safeParams.daysOfContinuousService)) ? Math.max(0, Math.min(18000, Number(safeParams.daysOfContinuousService))) : 240;

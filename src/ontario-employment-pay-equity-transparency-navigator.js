@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText } from './text-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ON_PAY_TRANSPARENCY_RULES = Object.freeze({
   MANDATORY_SALARY_RANGE_IN_POSTINGS: true,
@@ -36,7 +36,7 @@ export function auditOntarioPayTransparencyAndPosting({
   employerTotalHeadcount = 25,
   hasCompletedPayEquityAudit = true,
   employerName = 'Ontario Employer Corp.',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanEmployerName = boundedText(employerName, 'Ontario Employer Corp.', 120);
   const safeAssessmentDate = typeof assessmentDate === 'string' && !Number.isNaN(Date.parse(assessmentDate))

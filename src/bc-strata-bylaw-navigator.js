@@ -22,7 +22,7 @@
  *   binding orders quashing unlawful bylaws or penalties.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const STRATA_CONSTANTS = Object.freeze({
   STANDARD_BYLAW_FINE_CAP_CAD: 200.0,
@@ -47,7 +47,7 @@ export const STRATA_CONSTANTS = Object.freeze({
  * @param {string} [options.strataPlanNumber='EPS 1234'] - Strata plan number
  * @param {string} [options.unitNumber='304'] - Strata lot / unit number
  * @param {string} [options.ownerOrTenantName='Strata Resident'] - Name of applicant
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive BC Strata bylaw diagnostic
  */
 export function evaluateBcStrataBylawDefense(options = {}) {
@@ -66,7 +66,7 @@ export function evaluateBcStrataBylawDefense(options = {}) {
   const strataPlan = boundedText(options.strataPlanNumber, 'EPS 1234', 50);
   const unitNum = boundedText(options.unitNumber, 'Unit', 20);
   const residentName = boundedText(options.ownerOrTenantName, 'Strata Resident', 100);
-  const assessDate = safeIsoDate(options.assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(options.assessmentDate, todayIso());
 
   const violations = [];
   const statutoryProtections = [];

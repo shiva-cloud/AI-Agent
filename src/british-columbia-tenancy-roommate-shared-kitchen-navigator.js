@@ -13,14 +13,14 @@
  * - Civil Resolution Tribunal Act, SBC 2012, c. 25
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function evaluateBcRoommateAndSharedKitchen(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     tenantName = 'Tenant',
     roommateName = 'Roommate',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     sharesKitchenOrBathroomWithOwner = false,
     isNamedOnTenancyAgreement = false,
     disputeType = 'TENANT_ROOMMATE_DISPUTE', // 'TENANT_ROOMMATE_DISPUTE', 'LANDLORD_RESTRICTING_GUEST', 'CO_TENANT_DISPUTE'
@@ -32,7 +32,7 @@ export function evaluateBcRoommateAndSharedKitchen(params = {}) {
 
   const cleanTenantName = boundedText(tenantName, 'Tenant', 100);
   const cleanRoommateName = boundedText(roommateName, 'Roommate', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanDisputeType = boundedText(disputeType, 'TENANT_ROOMMATE_DISPUTE', 50);
   const guestFee = Number.isFinite(Number(monthlyGuestFeeCad))
     ? Math.max(0, Math.min(100000, Number(monthlyGuestFeeCad)))

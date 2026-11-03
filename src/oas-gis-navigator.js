@@ -14,15 +14,7 @@
  *   - Canada has bilateral social security agreements with 50+ countries permitting combination of credits
  */
 
-import { boundedText } from './text-input.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const OAS_GIS_CONSTANTS = Object.freeze({
   MINIMUM_OAS_AGE: 65,
@@ -64,7 +56,7 @@ export function evaluateOasGisEligibility({
   sponsorshipYearsRemaining = 0,
   annualNetWorldIncomeCad = 18000,
   applicantName = 'Senior Newcomer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const age = Math.max(0, Math.min(130, Math.floor(Number(ageYears) || 0)));
   const yearsCanada = Math.max(0, Math.min(100, Math.floor(Number(yearsResidedInCanadaAfter18) || 0)));
@@ -77,7 +69,7 @@ export function evaluateOasGisEligibility({
   const annualIncome = Math.max(0, Math.min(1000000000, Number(annualNetWorldIncomeCad) || 0));
 
   const safeApplicant = boundedText(applicantName, 'Senior Newcomer', 120);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const statutoryNotes = [];
   const riskWarnings = [];

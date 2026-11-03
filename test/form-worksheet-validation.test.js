@@ -31,15 +31,21 @@ test('worksheet HTTP GET and POST share blank defaults, date and field validatio
   const base = `http://127.0.0.1:${server.address().port}/v1/tools/form-autopopulate`;
   const post = input => fetch(base, {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(input)});
   try {
+    const blank = await post({});
+    assert.equal(blank.status, 200);
+    assert.ok((await blank.json()).populatedFields.every(field => field.val === ''));
     const get = await fetch(`${base}?formType=ltb_t1&tenantName=Test&declarantDate=2026-11-03`);
     const response = await post({formType: 'ltb_t1', tenantName: 'Test', declarantDate: '2026-11-03'});
     assert.equal(get.status, 200); assert.equal(response.status, 200);
-    assert.deepEqual(await get.json(), await response.json());
+    // assumedInputs describes the request (query and body read different keys), not the worksheet.
+    const result = ({ assumedInputs, assumptionNotice, ...rest }) => rest;
+    assert.deepEqual(result(await get.json()), result(await response.json()));
     for (const input of [{formType: ''}, {formType: 'bad'}, {declarantDate: '2026-02-30'}, {unknown: 'x'}]) {
       assert.equal((await fetch(`${base}?${new URLSearchParams(input)}`)).status, 400);
       assert.equal((await post(input)).status, 400);
     }
     assert.equal((await post({formType: null})).status, 400);
+    assert.equal((await fetch(`${base}?__proto__=unexpected`)).status, 400);
     assert.equal((await post({fields: null})).status, 400);
   } finally { await new Promise(resolve => server.close(resolve)); store.db.close(); }
 });

@@ -92,7 +92,7 @@
           <p class="empty-desc">बाईं ओर किसी भी सवाल पर क्लिक करें ताकि उसका सटीक सरकारी जवाब, दावे और स्रोत यहाँ देख सकें।</p>
         </div>
 
-        <div id="detailContent" class="detail-content" style="display: none;">
+        <div id="detailContent" class="detail-content explorer-hidden">
           <!-- Detail Header & Status Badges -->
           <div class="detail-header-card">
             <div class="detail-meta-left">
@@ -122,11 +122,11 @@
           <!-- Section 2: System Verified Response Accordion -->
           <details class="accordion-section" open>
             <summary>
-              <div class="summary-title" style="justify-content: space-between; width: 100%; padding-right: 8px;">
-                <span style="display: flex; align-items: center; gap: 8px;">
+              <div class="summary-title summary-title-split">
+                <span class="summary-label">
                   <span>🏛️</span> <strong>System Verified Response (सरकारी उत्तर)</strong>
                 </span>
-                <span id="detailLatency" style="font-size: 11px; color: var(--text-faint); font-family: ui-monospace, monospace;">32 ms</span>
+                <span id="detailLatency" class="latency-chip">32 ms</span>
               </div>
               <span class="summary-chevron">▶</span>
             </summary>
@@ -134,7 +134,7 @@
               <div id="detailClaimsContainer" class="claims-container">
                 <!-- Claims dynamically rendered by explorer.js -->
               </div>
-              <div id="detailClarificationBox" class="clarification-box" style="display: none;">
+              <div id="detailClarificationBox" class="clarification-box explorer-hidden">
                 <div class="clarification-title">⚠️ Clarification Requested:</div>
                 <p id="detailClarificationText" class="clarification-text"></p>
               </div>

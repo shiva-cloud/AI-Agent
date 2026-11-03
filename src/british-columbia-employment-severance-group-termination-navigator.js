@@ -11,7 +11,7 @@
  * - Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140 (Ont. H.C.) (Common law perspective)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_GROUP_TERMINATION_THRESHOLDS = Object.freeze([
   { minEmployees: 300, maxEmployees: Infinity, requiredNoticeWeeks: 16 },
@@ -40,7 +40,7 @@ export function evaluateBcGroupTerminationNotice(params = {}) {
   const {
     employeeName = 'Employee',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     affectedEmployeesCount = 0,
     twoMonthWindow = true,
     singleLocation = true,
@@ -58,7 +58,7 @@ export function evaluateBcGroupTerminationNotice(params = {}) {
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const count = Number.isFinite(Number(affectedEmployeesCount)) ? Math.max(0, Math.min(100000, Math.floor(Number(affectedEmployeesCount)))) : 0;
   const weeklyWage = Number.isFinite(Number(regularWeeklyWageCad)) ? Math.max(0, Math.min(100000, Number(regularWeeklyWageCad))) : 1200;

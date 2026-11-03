@@ -14,7 +14,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ALBERTA_DISTRESS_RULES = Object.freeze({
   OBJECTION_PERIOD_DAYS: 14,
@@ -39,10 +39,10 @@ export function auditAlbertaCommercialDistress({
   thirdPartyLeasedEquipmentIncluded = false,
   landlordThreatensImmediateSaleWithin5Days = false,
   tenantBusinessName = 'Commercial Tenant Ltd.',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanBusinessName = boundedText(tenantBusinessName, 'Commercial Tenant Ltd.', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const sanitizedArrears = Number.isFinite(Number(rentArrearsClaimedCad))
     ? Math.max(0, Math.min(100_000_000, Number(rentArrearsClaimedCad)))
     : 0;

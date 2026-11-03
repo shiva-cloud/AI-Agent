@@ -18,6 +18,11 @@ test('published API inventory roles match backend authorization policy',()=>{
    const body=operation.requestBody.content['application/json'].schema;
    const alternatives=body.oneOf||[body];
    for(const alternative of alternatives){
+    if(path==='/v1/tools/form-autopopulate') {
+     assert.equal(alternative.required?.length || 0, 0, 'blank preparation worksheets accept omitted fields');
+     assert.ok(alternative.properties?.formType);
+     continue;
+    }
     assert.ok(alternative.required?.length,`${path} needs request requirements in every alternative`);
     for(const field of alternative.required)assert.ok(alternative.properties?.[field]||body.properties?.[field],`${path} missing property ${field}`);
    }

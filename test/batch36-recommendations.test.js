@@ -331,7 +331,9 @@ test('Rec 618: auditCitizenshipPhysicalPresence handles null, 1095-day rule and 
 test('Rec 619: evaluateCitizenshipRevocationDefense handles null, 30-day notice window and statelessness defense', () => {
   const nullSafe = evaluateCitizenshipRevocationDefense(null);
   assert.equal(nullSafe.applicantName, 'Citizen');
-  assert.equal(nullSafe.proceduralAudit.isWithinStatutoryThirtyDayWindow, true);
+  // The 30-day window is measured between explicit dates, not against the calendar.
+  const withinWindow = evaluateCitizenshipRevocationDefense({ noticeOfIntentDate: '2026-10-01', currentDate: '2026-10-25' });
+  assert.equal(withinWindow.proceduralAudit.isWithinStatutoryThirtyDayWindow, true);
 
   // Notice expired (>30 days elapsed)
   const expired = evaluateCitizenshipRevocationDefense({

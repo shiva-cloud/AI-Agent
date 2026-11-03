@@ -17,7 +17,7 @@
  *   - s. 33 (Emergency repairs protocol and statutory deduction rights)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const TENANCY_REPAIR_CONSTANTS = Object.freeze({
   ONTARIO_MIN_TEMP_CELSIUS: 20,
@@ -114,7 +114,7 @@ export function evaluateTenancyRepairs({
   tenantName = 'Tenant',
   landlordName = 'Landlord',
   rentalAddress = '100 King St W, Toronto, ON',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const prov = boundedText(province, 'ON', 10).toUpperCase();
   const rent = Math.max(0, Math.min(100000, Number(monthlyRentCad) || 0));
@@ -129,7 +129,7 @@ export function evaluateTenancyRepairs({
   const tName = boundedText(tenantName, 'Tenant', 120);
   const lName = boundedText(landlordName, 'Landlord', 120);
   const address = boundedText(rentalAddress, 'Rental Property', 200);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   // Audit issues
   const selectedIssues = Array.isArray(issues) && issues.length > 0 ? issues : ['water_leak_mold'];

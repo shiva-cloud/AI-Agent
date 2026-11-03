@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_UNIFORM_DEDUCTION_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, RSBC 1996, c. 113, ss. 21, 25',
@@ -37,7 +37,7 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
   const {
     employeeName = 'Employee',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     requiresSpecialClothingOrUniform = true,
     employerProvidedUniformFreeOfCharge = true,
     employerCleansUniformOrPaysAllowance = true,
@@ -52,7 +52,7 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const uniformFee = Number.isFinite(Number(uniformCostOrDepositChargedCad)) ? Math.max(0, Math.min(50000, Number(uniformCostOrDepositChargedCad))) : 0;
   const shortageFee = Number.isFinite(Number(tillShortageDeductionCad)) ? Math.max(0, Math.min(50000, Number(tillShortageDeductionCad))) : 0;

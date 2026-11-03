@@ -1,7 +1,8 @@
+import {buildWizardPlan, validateWizardProfile} from './wizard-plan.js';
 // View setup: wires forms, buttons and switchers for each view and tool.
 // Split out of public/app.js; app.js imports what it uses from here.
 import { autoRun } from '../plan-access.js';
-import { $, el, escapeHtml, formatIsoDate, generateDisputeLetterText, runCVAudit, updateCityDropdown, viewToolControllers } from './core.js';
+import { $, el, escapeHtml, formatIsoDate, generateDisputeLetterText, runCVAudit, updateCityDropdown, viewToolControllers, appendAssumptionNote } from './core.js';
 import { CUSTOMS_PRESETS, ISPA_VACCINES, SAMPLE_NON_COMPLIANT_CV, TENANCY_JURISDICTIONS, TOOL_SWITCHER_CONFIG } from './data.js';
 import { renderAlbertaOpportunityStreamResults, renderAlbertaSecurityDepositResults, renderBcSpeculationTaxDeclarationResults, renderBorderFlagpolingResults, renderCareersSuite, renderCashflow, renderChildDisabilityBenefitResults, renderDrugSearch, renderFamilyReunificationResults, renderForeignWorkerTransitionResults, renderHealthcareEligibility, renderHealthcareSuite, renderInternationallyTrainedNurseResults, renderIspaAudit, renderManitobaPnpSkilledWorkerResults, renderNewcomerBudget, renderPathway, renderPaycheckSimulator, renderPrCardRenewalResults, renderPrMatrixResults, renderPreFlightAudit, renderPrtdHumanitarianResults, renderSchoolsSuite, renderSeveranceReasonableNoticeResults, renderTaxEngine, renderTaxShieldResults, renderTenancyWizard, renderTimelineCalendarSyncResults } from './renderers.js';
 import { renderAtlanticImmigrationAssessment, renderAutoInsuranceAssessment, renderBankingComparatorAssessment, renderBcStrataBylawAssessment, renderBowpAssessment, renderBusinessStructureAssessment, renderChildCareSubsidyAssessment, renderChildWelfareAssessment, renderChildcareSupportAssessment, renderCitizenshipAssessment, renderCommercialLeaseAssessment, renderConsumerProtectionAssessment, renderCraBenefitsAssessment, renderCraVdpAssessment, renderCredentialLicensureAssessment, renderCriminalRehabAssessment, renderCrossBorderTaxAssessment, renderCurrencyExchangeAssessment, renderCustomsDeclarationAssessment, renderDebtCollectionAssessment, renderDigitalPlatformWorkerAssessment, renderEiDisqualificationAssessment, renderEmploymentReferenceAssessment, renderEstatePlanningAssessment, renderEvictionDefenseAssessment, renderExcessiveDemandAssessment, renderExpressEntryAssessment, renderFamilyLawAssessment, renderFranchiseDisclosureAssessment, renderFrancophoneMobilityAssessment, renderHealthcarePortabilityAssessment, renderHighCostCreditAssessment, renderHomebuyerAssessment, renderHomebuyerTaxAssessment, renderHumanRightsAssessment, renderIdentityHarmonizationAssessment, renderLeaseAssignmentAssessment, renderLeaseGuardAssessment, renderMedicalAdmissibilityAssessment, renderMovingTaxAssessment, renderOasGisAssessment, renderParentalLeaveAssessment, renderPetImportAssessment, renderPgwpAssessment, renderPnpAssessment, renderPrResidencyAssessment, renderRealEstateAssignmentAssessment, renderRentIncreaseAssessment, renderRuralRenewalAssessment, renderSmallClaimsAssessment, renderSocialAssistanceAssessment, renderSowpAssessment, renderSpeculationTaxAssessment, renderStatutoryPayAssessment, renderStudentWorkComplianceAssessment, renderSuperVisaAssessment, renderTelecomAssessment, renderTenancyRepairsAssessment, renderTfwComplianceAssessment, renderVehicleImportAssessment, renderVulnerableWorkerAssessment, renderWorkerClassificationAssessment, renderWorkplaceSafetyAssessment } from './tool-renderers.js';
@@ -45,6 +46,7 @@ export function setupNewcomerBudgetSuite() {
       if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       renderNewcomerBudget(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to calculate budget. Please check inputs and retry.</p></div>';
     }
@@ -425,6 +427,7 @@ export function setupHealthcareEligibility() {
       if (!res.ok) throw new Error('API failed');
       const data = await res.json();
       renderHealthcareEligibility(data, resContainer);
+      appendAssumptionNote(data, resContainer);
     } catch {
       resContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate healthcare eligibility. Please retry.</p></div>';
     }
@@ -528,9 +531,44 @@ export function setupSettlementWizard() {
   if (!modal || !form) return;
 
   let currentStep = 1;
+  let returnFocus = null;
+  let background = [];
+  const arrivalInput = $('#wizard-arrival-date');
+  arrivalInput.value = '';
+  arrivalInput.required = true;
+  const error = el('p', '', 'wizard-error');
+  error.id = 'wizard-profile-error';
+  error.setAttribute('role', 'alert');
+  form.prepend(error);
+  resultsContainer.tabIndex = -1;
+  resultsContainer.setAttribute('role', 'region');
+  resultsContainer.setAttribute('aria-label', 'Settlement plan results');
+  function readProfile() {
+    return {country: $('#wizard-country').value, city: $('#wizard-city').value, status: $('#wizard-status').value, field: $('#wizard-study-field').value, familySize: $('#wizard-family-size').value, children: $('#wizard-has-children').value, arrivalDate: arrivalInput.value};
+  }
+  function validateProfile(step) {
+    form.querySelectorAll('[aria-invalid]').forEach(node => { node.removeAttribute('aria-invalid'); node.removeAttribute('aria-describedby'); });
+    const issue = validateWizardProfile(readProfile(), step);
+    error.textContent = issue?.message || '';
+    if (!issue) return true;
+    setStep(issue.step);
+    const control = $(`#wizard-${issue.field}`);
+    control.setAttribute('aria-invalid', 'true');
+    control.setAttribute('aria-describedby', error.id);
+    control.focus();
+    return false;
+  }
+
+  function closeWizard() {
+    modal.hidden = true;
+    for (const [node, inert] of background) node.inert = inert;
+    background = [];
+    returnFocus?.focus?.();
+  }
 
   function setStep(step) {
     currentStep = step;
+    arrivalInput.disabled = step !== 4;
     panes.forEach(p => {
       const pStep = Number(p.dataset.step);
       p.hidden = pStep !== currentStep;
@@ -539,12 +577,17 @@ export function setupSettlementWizard() {
       const iStep = Number(ind.dataset.step);
       ind.classList.toggle('active', iStep === currentStep);
       ind.classList.toggle('completed', iStep < currentStep);
+      if (iStep === currentStep) ind.setAttribute('aria-current', 'step');
+      else ind.removeAttribute('aria-current');
     });
+    const heading = modal.querySelector(`.wizard-step-pane[data-step="${step}"] h3`);
+    if (heading) { heading.tabIndex = -1; heading.focus(); }
   }
 
   modal.querySelectorAll('.btn-wizard-next').forEach(btn => {
     btn.addEventListener('click', () => {
       const next = Number(btn.dataset.next);
+      if (!validateProfile(currentStep)) return;
       setStep(next);
     });
   });
@@ -557,7 +600,15 @@ export function setupSettlementWizard() {
   });
 
   window.openSettlementWizard = function () {
+    if (!modal.hidden) return;
+    returnFocus = document.activeElement;
     modal.hidden = false;
+    for (let node = modal; node && node !== document.body; node = node.parentElement) {
+      for (const sibling of node.parentElement.children) {
+        if (sibling !== node) { background.push([sibling, sibling.inert]); sibling.inert = true; }
+      }
+    }
+    error.textContent = '';
     form.hidden = false;
     resultsContainer.hidden = true;
     updateCityDropdown($('#wizard-country')?.value || 'Canada', $('#wizard-city'));
@@ -570,119 +621,37 @@ export function setupSettlementWizard() {
   });
   updateCityDropdown($('#wizard-country')?.value || 'Canada', $('#wizard-city'));
 
-  closeBtn?.addEventListener('click', () => {
-    modal.hidden = true;
-  });
+  closeBtn?.addEventListener('click', closeWizard);
 
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.hidden = true;
+    if (e.target === modal) closeWizard();
+  });
+  modal.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { event.preventDefault(); closeWizard(); }
+    if (event.key === 'Tab') {
+      const controls = [...modal.querySelectorAll('button,input,select,[tabindex="0"]')].filter(node => !node.disabled && node.getClientRects().length);
+      const first = controls[0], last = controls.at(-1);
+      if (event.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || !controls.includes(document.activeElement))) { event.preventDefault(); first?.focus(); }
+    }
   });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (!validateProfile(currentStep)) return;
+    if (currentStep !== 4) { setStep(currentStep + 1); return; }
+    const date = arrivalInput.value;
+    error.textContent = '';
 
-    const country = $('#wizard-country')?.value || 'Canada';
-    const city = $('#wizard-city')?.value || 'Toronto';
+    const country = $('#wizard-country').value;
+    const city = $('#wizard-city')?.value || 'City not specified';
     const status = $('#wizard-status')?.value || 'student';
     const field = $('#wizard-study-field')?.value || 'stem';
-    const familySize = Number($('#wizard-family-size')?.value || 1);
+    const familySize = $('#wizard-family-size').value === '5' ? '5+' : $('#wizard-family-size').value;
     const hasChildren = $('#wizard-has-children')?.value === 'yes';
-    const arrivalDate = $('#wizard-arrival-date')?.value || '2025-09-01';
+    const arrivalDate = date;
 
-    let fundsBenchmarkText = '';
-    let statutoryRuleNote = '';
-    if (country === 'Canada') {
-      if (status === 'student') {
-        const baseFunds = familySize === 1 ? 20635 : (20635 + (familySize - 1) * 5500);
-        fundsBenchmarkText = '$' + baseFunds.toLocaleString('en-CA') + ' CAD';
-        statutoryRuleNote = 'IRCC 2024 living expense proof requirement (excluding first-year tuition fees)';
-      } else if (status === 'family_super_visa') {
-        const lico30Base = [35768, 44530, 54746, 66468, 75388][Math.min(familySize - 1, 4)];
-        fundsBenchmarkText = '$' + lico30Base.toLocaleString('en-CA') + ' CAD';
-        statutoryRuleNote = 'IRCC 2024 Super Visa minimum annual income requirement (LICO + 30%)';
-      } else {
-        const licoBase = [27514, 34254, 42112, 51128, 57989][Math.min(familySize - 1, 4)];
-        fundsBenchmarkText = '$' + licoBase.toLocaleString('en-CA') + ' CAD';
-        statutoryRuleNote = 'Statutory low-income cut-off (LICO) settlement benchmark';
-      }
-    } else if (country === 'United States') {
-      const usPoverty = [18825, 25550, 32275, 39000, 45725][Math.min(familySize - 1, 4)];
-      fundsBenchmarkText = '$' + usPoverty.toLocaleString('en-US') + ' USD';
-      statutoryRuleNote = 'USCIS Form I-864 125% Federal Poverty Guidelines sponsorship floor';
-    } else if (country === 'United Kingdom') {
-      fundsBenchmarkText = status === 'worker' ? '£38,700 GBP / yr' : '£12,006 GBP';
-      statutoryRuleNote = status === 'worker' ? 'Home Office HC 590 Skilled Worker standard salary threshold' : 'UKVI 9-month living funds maintenance requirement';
-    } else if (country === 'Australia') {
-      fundsBenchmarkText = status === 'worker' ? '$73,150 AUD / yr' : '$29,710 AUD';
-      statutoryRuleNote = status === 'worker' ? 'DoHA Temporary Skilled Migration Income Threshold (TSMIT)' : 'Subclass 500 financial capacity requirement (July 2024 reform)';
-    } else if (country === 'Germany') {
-      fundsBenchmarkText = '€11,904 EUR';
-      statutoryRuleNote = 'BAMF Sperrkonto (Blocked Account) annual statutory minimum (€992/month)';
-    } else {
-      fundsBenchmarkText = 'AED 15,000 / mo';
-      statutoryRuleNote = 'UAE MOHRE skilled employment and family visa statutory minimum';
-    }
-
-    const recTools = [];
-    if (country === 'Canada') {
-      if (status === 'student') {
-        recTools.push(
-          { id: 'study-permit-cap-pal', title: 'Study Permit Cap & PAL Exemption', desc: 'IRCC 2024-2026 caps & $20,635 funds proof' },
-          { id: 'study-to-pr', title: 'Study-to-PR & PGWP Roadmap', desc: 'PGWP field alignment & CEC work milestone' },
-          { id: 'sin-healthcare', title: 'SIN & Healthcare 14-Day Kit', desc: 'Immediate OHIP / MSP 2-month enrollment rules' },
-          { id: 'ontario-bc-tenancy', title: 'Tenancy Defense & Rent Cap', desc: '2.5% statutory cap & shared kitchen checks' }
-        );
-      } else if (status === 'family_super_visa') {
-        recTools.push(
-          { id: 'family-reunification', title: 'Family Reunification & Super Visa', desc: 'LICO + 30% audit & $100k medical insurance' },
-          { id: 'super-visa-lico', title: 'Super Visa Income Calculator', desc: '20-year undertaking & household LICO threshold' },
-          { id: 'calendar-sync', title: 'Settlement Roadmap & ICS Sync', desc: '180-day milestone schedule & calendar export' },
-          { id: 'legal-notices', title: 'Legal Notice Generator', desc: 'Draft statutory letters and notices' }
-        );
-      } else {
-        recTools.push(
-          { id: 'pr-matrix', title: 'PR Pathway Eligibility Matrix', desc: 'Express Entry CRS, PNP & category draws' },
-          { id: 'tax-shield', title: 'Foreign Asset Tax Shield (T1135)', desc: 'Form T1135 $100k threshold & clean cost base step-up' },
-          { id: 'ontario-bc-tenancy', title: 'Tenancy Defense & Rent Cap', desc: 'Tenant rights, N12 compensation & lease rules' },
-          { id: 'calendar-sync', title: 'Settlement Calendar & ICS Sync', desc: 'OHIP, SIN, tax filing & milestone timeline' }
-        );
-      }
-    } else if (country === 'United States') {
-      recTools.push(
-        { id: 'us-h1b-opt', title: 'US: H-1B 60-Day Grace & OPT Cap-Gap', desc: 'Layoff timeline, 245(k) forgiveness & EAD extension' },
-        { id: 'global-visa-matrix', title: 'Multi-Country Visa Matrix', desc: 'Compare skilled visa options and salary baselines' },
-        { id: 'poe-rights', title: 'Airport Port-of-Entry Rights', desc: 'CBP secondary inspection & device privacy policies' },
-        { id: 'calendar-sync', title: 'Settlement Calendar & ICS Sync', desc: 'Timeline milestones & I-94 tracking' }
-      );
-    } else if (country === 'United Kingdom') {
-      recTools.push(
-        { id: 'uk-skilled-worker', title: 'UK: Skilled Worker £38,700 vs Grandfathered', desc: 'HC 590 audit & 180-day rolling ILR absence' },
-        { id: 'global-visa-matrix', title: 'Multi-Country Visa Matrix', desc: 'Skilled migration comparisons across corridors' },
-        { id: 'poe-rights', title: 'Airport Port-of-Entry Rights', desc: 'UK Border Force inspection & voluntary return rules' },
-        { id: 'calendar-sync', title: 'Settlement Calendar & ICS Sync', desc: 'ILR 180-day countdown & NHS surcharge tracking' }
-      );
-    } else if (country === 'Australia') {
-      recTools.push(
-        { id: 'australia-reforms', title: 'Australia: Subclass 482 Condition 8607', desc: '180-day sponsor transfer & 2% Medicare levy exemption' },
-        { id: 'global-visa-matrix', title: 'Multi-Country Visa Matrix', desc: 'Compare Points Test & state nomination streams' },
-        { id: 'poe-rights', title: 'Airport Port-of-Entry Rights', desc: 'ABF border search powers and device protocols' },
-        { id: 'calendar-sync', title: 'Settlement Calendar & ICS Sync', desc: 'Tax file number & Medicare timeline' }
-      );
-    } else if (country === 'Germany') {
-      recTools.push(
-        { id: 'germany-chancenkarte', title: 'Germany: Chancenkarte & Nebenkosten', desc: '6-point test, 20h work & BGB 556 utility rules' },
-        { id: 'global-visa-matrix', title: 'Multi-Country Visa Matrix', desc: 'EU Blue Card vs Opportunity Card requirements' },
-        { id: 'poe-rights', title: 'Airport Port-of-Entry Rights', desc: 'Schengen border code & entry clearance rules' },
-        { id: 'calendar-sync', title: 'Settlement Calendar & ICS Sync', desc: 'Anmeldung registration & health insurance timeline' }
-      );
-    } else {
-      recTools.push(
-        { id: 'global-expat', title: 'Global Expat: UAE Gratuity & RERA', desc: 'WPS fee deduction ban & 12-month notary eviction' },
-        { id: 'global-visa-matrix', title: 'Multi-Country Visa Matrix', desc: 'UAE Green Visa & Golden Visa eligibility' },
-        { id: 'poe-rights', title: 'Airport Port-of-Entry Rights', desc: 'Immigration clearance & device security' },
-        { id: 'calendar-sync', title: 'Settlement Calendar & ICS Sync', desc: 'Emirates ID & residency visa timeline' }
-      );
-    }
+    const {fundsBenchmarkText, statutoryRuleNote, recTools, toolNotice, milestones} = buildWizardPlan(country, status);
 
     form.hidden = true;
     resultsContainer.hidden = false;
@@ -696,40 +665,35 @@ export function setupSettlementWizard() {
       'Target Arrival Date: ' + arrivalDate,
       '=======================================================',
       '',
-      '1. STATUTORY LIVING & FINANCIAL BENCHMARK',
-      '   Required Threshold: ' + fundsBenchmarkText,
-      '   Statutory Authority: ' + statutoryRuleNote,
+      '1. FINANCIAL REQUIREMENTS TO VERIFY',
+      '   Assessment: ' + fundsBenchmarkText,
+      '   Next step: ' + statutoryRuleNote,
       '',
-      '2. TOP RECOMMENDED TOOLS FOR YOUR JOURNEY',
+      '2. RELATED TOOLS TO EXPLORE', toolNotice,
       ...recTools.map((t, idx) => '   ' + (idx + 1) + '. ' + t.title + ' - ' + t.desc),
       '',
-      '3. CRITICAL 180-DAY SETTLEMENT TIMELINE',
-      '   * Day -30: Customs declaration preparation & pre-flight validity check',
-      '   * Day 1-3: National identity / Series-9 SIN & immediate health coverage setup',
-      '   * Day 7: Newcomer banking package & credit card activation',
-      '   * Day 30: Foreign driver licence exchange credit & auto insurance discount letter',
-      '   * Day 90: Tenancy rights verification & statutory rent cap audit',
-      '   * Day 180: Cross-border tax reporting (T1135) assessment & foreign asset review',
+      '3. PLANNING CHECKLIST (NOT LEGAL DEADLINES)',
+      ...milestones.map(item => '   * ' + item),
       '======================================================='
     ].join('\n');
 
     resultsContainer.innerHTML = `
       <div class="blueprint-card">
         <h4><span>🗺️</span> Destination Profile</h4>
-        <div style="font-size: 13.5px; color: var(--ink);">
-          <strong>${country} (${city})</strong> · Status: <strong>${status.replace(/_/g, ' ').toUpperCase()}</strong> · Household: <strong>${familySize} person(s)</strong>
+        <div data-s="font-size-13_5px color-ink">
+          <strong>${escapeHtml(country)} (${escapeHtml(city)})</strong> · Status: <strong>${escapeHtml(status.replace(/_/g, ' ').toUpperCase())}</strong> · Household: <strong>${familySize} person(s)</strong>
         </div>
       </div>
 
       <div class="blueprint-card">
-        <h4><span>💰</span> Statutory Living / Financial Benchmark</h4>
+        <h4><span>💰</span> Financial Requirements to Verify</h4>
         <div class="blueprint-funds-value">${fundsBenchmarkText}</div>
-        <div style="font-size: 11.5px; color: var(--muted);">${statutoryRuleNote}</div>
+        <div data-s="font-size-11_5px color-muted">${statutoryRuleNote}</div>
       </div>
 
       <div class="blueprint-card">
-        <h4><span>🛠️</span> Tailored Statutory Suite (Click to Launch)</h4>
-        <div class="blueprint-grid">
+        <h4><span>🛠️</span> Related Tools to Explore</h4>
+        <p>${escapeHtml(toolNotice)}</p><div class="blueprint-grid">
           ${recTools.map(t => `
             <div class="blueprint-rec-item" data-tool-id="${t.id}">
               <div class="blueprint-rec-title">⚡ ${t.title}</div>
@@ -740,14 +704,9 @@ export function setupSettlementWizard() {
       </div>
 
       <div class="blueprint-card">
-        <h4><span>🗓️</span> 180-Day Key Settlement Milestones</h4>
+        <h4><span>🗓️</span> Planning Checklist — Not Legal Deadlines</h4>
         <ul class="blueprint-milestones">
-          <li><strong>Day -30 (Pre-Departure):</strong> Customs declaration preparation &amp; passport validity check.</li>
-          <li><strong>Day 1-3:</strong> National identity registration (Series-9 SIN) &amp; health insurance activation.</li>
-          <li><strong>Day 7:</strong> Newcomer banking account &amp; credit card setup.</li>
-          <li><strong>Day 30:</strong> Foreign licence exchange credit &amp; insurance discount letter.</li>
-          <li><strong>Day 90:</strong> Tenancy verification &amp; statutory rent increase cap review.</li>
-          <li><strong>Day 180:</strong> Tax status determination &amp; foreign property reporting evaluation.</li>
+          ${milestones.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>
       </div>
 
@@ -755,15 +714,20 @@ export function setupSettlementWizard() {
         <span>📥</span> Download Settlement Blueprint (.txt)
       </button>
 
-      <button type="button" id="btn-wizard-restart" class="btn-wizard-prev" style="margin-top: 6px; width: 100%;">
+      <button type="button" id="btn-wizard-restart" class="btn-wizard-prev" data-s="margin-top-6px width-100pc">
         ← Plan for Another Profile
       </button>
     `;
 
     resultsContainer.querySelectorAll('.blueprint-rec-item').forEach(item => {
+      item.tabIndex = 0;
+      item.setAttribute('role', 'button');
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); item.click(); }
+      });
       item.addEventListener('click', () => {
         const toolId = item.dataset.toolId;
-        modal.hidden = true;
+        closeWizard();
         if (typeof window.triggerToolModal === 'function') {
           window.triggerToolModal({ id: toolId, title: item.querySelector('.blueprint-rec-title')?.textContent || 'Tool' });
         }
@@ -787,6 +751,7 @@ export function setupSettlementWizard() {
       resultsContainer.hidden = true;
       setStep(1);
     });
+    resultsContainer.focus();
   });
 }
 
@@ -1003,6 +968,7 @@ export function setupPreFlightInspector() {
       if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       renderPreFlightAudit(data, resContainer);
+      appendAssumptionNote(data, resContainer);
     } catch {
       resContainer.innerHTML = '<div class="alert-box error"><p>We could not check your documents. Please try again.</p></div>';
     }
@@ -1160,53 +1126,53 @@ export function setupCityComparatorSuite() {
       if (data.differential) {
         const d = data.differential;
         diffHtml = `
-          <div class="diff-highlight-card" style="background:var(--accent-bg, #f0fdf4);border:1px solid var(--accent-border, #86efac);border-radius:8px;padding:1.25rem;margin-bottom:1.5rem;">
-            <h3 style="margin-top:0;color:var(--accent-text, #166534);">🏆 Cost-of-Living Advantage: ${d.cheaperCity}</h3>
-            <p style="margin:0.5rem 0;">Choosing <strong>${d.cheaperCity}</strong> saves an estimated <strong>$${d.annualEstimatedSavings.toLocaleString()} CAD per year</strong> in essential shelter and transit expenses ($${d.monthlyRentDifference.toLocaleString()}/mo rent difference).</p>
-            ${d.salesTaxAdvantage ? `<p style="margin:0;font-size:0.9rem;color:#15803d;">💡 <strong>Sales Tax Advantage:</strong> ${d.salesTaxAdvantage} has 0% Provincial Sales Tax (PST) — only the 5% Federal GST applies!</p>` : ''}
+          <div class="diff-highlight-card" data-s="background-accent-bg-f0fdf4 border-1px-solid-accent-border-86efac border-radius-8px padding-1_25rem margin-bottom-1_5rem">
+            <h3 data-s="margin-top-0 color-accent-text-166534">🏆 Cost-of-Living Advantage: ${d.cheaperCity}</h3>
+            <p data-s="margin-0_5rem-0">Choosing <strong>${d.cheaperCity}</strong> saves an estimated <strong>$${d.annualEstimatedSavings.toLocaleString()} CAD per year</strong> in essential shelter and transit expenses ($${d.monthlyRentDifference.toLocaleString()}/mo rent difference).</p>
+            ${d.salesTaxAdvantage ? `<p data-s="margin-0 font-size-0_9rem color-15803d">💡 <strong>Sales Tax Advantage:</strong> ${d.salesTaxAdvantage} has 0% Provincial Sales Tax (PST) — only the 5% Federal GST applies!</p>` : ''}
           </div>
         `;
       }
 
       const cardsHtml = data.comparison.map(c => `
-        <div class="metro-card" style="border:1px solid var(--border, #e2e8f0);border-radius:8px;padding:1.25rem;background:var(--card-bg, #ffffff);">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--border, #e2e8f0);padding-bottom:0.75rem;margin-bottom:1rem;">
-            <h2 style="margin:0;font-size:1.35rem;">${c.city} <small style="font-size:0.9rem;color:var(--muted, #64748b);">(${c.provinceCode})</small></h2>
-            <span class="badge" style="background:#e0f2fe;color:#0369a1;padding:0.25rem 0.6rem;border-radius:4px;font-weight:600;font-size:0.85rem;">${c.salesTax}</span>
+        <div class="metro-card" data-s="border-1px-solid-border-e2e8f0 border-radius-8px padding-1_25rem background-card-bg-ffffff">
+          <div data-s="display-flex justify-content-space-between align-items-baseline border-bottom-1px-solid-border-e2e8f0 padding-bottom-0_75rem margin-bottom-1rem">
+            <h2 data-s="margin-0 font-size-1_35rem">${c.city} <small data-s="font-size-0_9rem color-muted-64748b">(${c.provinceCode})</small></h2>
+            <span class="badge" data-s="background-e0f2fe color-0369a1 padding-0_25rem-0_6rem border-radius-4px font-weight-600 font-size-0_85rem">${c.salesTax}</span>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;font-size:0.95rem;">
+          <div data-s="display-grid grid-template-columns-1fr-1fr gap-0_75rem margin-bottom-1rem font-size-0_95rem">
             <div>
-              <small style="color:var(--muted, #64748b);display:block;">Median Rent (CMHC)</small>
-              <strong style="font-size:1.15rem;">$${c.projectedMonthlyRent.toLocaleString()}/mo</strong>
+              <small data-s="color-muted-64748b display-block">Median Rent (CMHC)</small>
+              <strong data-s="font-size-1_15rem">$${c.projectedMonthlyRent.toLocaleString()}/mo</strong>
             </div>
             <div>
-              <small style="color:var(--muted, #64748b);display:block;">Transit Pass</small>
-              <strong style="font-size:1.15rem;">$${c.transitMonthlyPass.toFixed(2)}/mo</strong>
+              <small data-s="color-muted-64748b display-block">Transit Pass</small>
+              <strong data-s="font-size-1_15rem">$${c.transitMonthlyPass.toFixed(2)}/mo</strong>
             </div>
           </div>
 
-          <div style="font-size:0.9rem;margin-bottom:0.75rem;">
+          <div data-s="font-size-0_9rem margin-bottom-0_75rem">
             <strong>Transit System:</strong> ${c.transitSystem}
           </div>
-          <div style="font-size:0.9rem;margin-bottom:0.75rem;">
+          <div data-s="font-size-0_9rem margin-bottom-0_75rem">
             <strong>Healthcare:</strong> ${c.healthcarePlan} — <em>${c.healthcareWaitPeriod}</em>
           </div>
-          <div style="font-size:0.9rem;margin-bottom:0.75rem;">
+          <div data-s="font-size-0_9rem margin-bottom-0_75rem">
             <strong>Winter Climate:</strong> ${c.winterSeverity}
           </div>
 
-          <div style="font-size:0.9rem;margin-bottom:1rem;">
+          <div data-s="font-size-0_9rem margin-bottom-1rem">
             <strong>Key Industries:</strong>
-            <ul style="margin:0.25rem 0 0 1.25rem;padding:0;">
+            <ul data-s="margin-0_25rem-0-0-1_25rem padding-0">
               ${c.primaryJobMarkets.map(m => `<li>${m}</li>`).join('')}
             </ul>
           </div>
 
-          <div style="border-top:1px dashed var(--border, #e2e8f0);padding-top:0.75rem;font-size:0.85rem;">
+          <div data-s="border-top-1px-dashed-border-e2e8f0 padding-top-0_75rem font-size-0_85rem">
             <strong>Settlement Services:</strong>
-            <div style="margin-top:0.35rem;display:flex;flex-direction:column;gap:0.25rem;">
-              ${c.settlementAgencies.map(a => `<a href="${a.url}" target="_blank" rel="noopener noreferrer" style="color:var(--link, #2563eb);text-decoration:none;">↗ ${a.name}</a>`).join('')}
+            <div data-s="margin-top-0_35rem display-flex flex-direction-column gap-0_25rem">
+              ${c.settlementAgencies.map(a => `<a href="${a.url}" target="_blank" rel="noopener noreferrer" data-s="color-link-2563eb text-decoration-none">↗ ${a.name}</a>`).join('')}
             </div>
           </div>
         </div>
@@ -1214,10 +1180,10 @@ export function setupCityComparatorSuite() {
 
       resultsDiv.innerHTML = `
         ${diffHtml}
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1.5rem;">
+        <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-300 gap-1_5rem margin-bottom-1_5rem">
           ${cardsHtml}
         </div>
-        <p style="font-size:0.8rem;color:var(--muted, #64748b);margin-top:1rem;">${data.benchmarkNote}</p>
+        <p data-s="font-size-0_8rem color-muted-64748b margin-top-1rem">${data.benchmarkNote}</p>
       `;
     } catch (e) {
       resultsDiv.innerHTML = `<div class="error-card">Failed to fetch city comparison: ${escapeHtml(e.message)}</div>`;
@@ -1245,30 +1211,30 @@ export function setupMultilingualSuite() {
       const lang = data.language === 'zh' ? 'zh-Hans' : /^[a-z]{2}$/.test(data.language) ? data.language : 'en';
 
       contentDiv.innerHTML = `
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:1rem;">
-          <div class="lang-card" style="border:1px solid #f87171;border-radius:8px;padding:1.25rem;background:var(--card-bg, #fff);">
-            <span class="badge" style="background:#fee2e2;color:#b91c1c;padding:0.2rem 0.5rem;border-radius:4px;font-weight:600;font-size:0.8rem;">🚨 HOUSING / TENANCY</span>
-            <h3 lang="${lang}" style="margin:0.75rem 0 0.5rem 0;">${escapeHtml(labels.lockoutTitle)}</h3>
-            <p lang="${lang}" style="font-size:0.95rem;line-height:1.5;color:var(--text, #1e293b);">${escapeHtml(labels.lockoutCallout)}</p>
-            <div style="margin-top:1rem;padding:0.75rem;background:#f8fafc;border-radius:6px;font-size:0.85rem;border:1px solid #e2e8f0;">
+        <div data-s="display-grid grid-template-columns-repeat-auto-fit-minmax-320 gap-1_5rem margin-top-1rem">
+          <div class="lang-card" data-s="border-1px-solid-f87171 border-radius-8px padding-1_25rem background-card-bg-fff">
+            <span class="badge" data-s="background-fee2e2 color-b91c1c padding-0_2rem-0_5rem border-radius-4px font-weight-600 font-size-0_8rem">🚨 HOUSING / TENANCY</span>
+            <h3 lang="${lang}" data-s="margin-0_75rem-0-0_5rem-0">${escapeHtml(labels.lockoutTitle)}</h3>
+            <p lang="${lang}" data-s="font-size-0_95rem line-height-1_5 color-text-1e293b">${escapeHtml(labels.lockoutCallout)}</p>
+            <div data-s="margin-top-1rem padding-0_75rem background-f8fafc border-radius-6px font-size-0_85rem border-1px-solid-e2e8f0">
               <strong>Emergency Hotline:</strong> Rental Housing Enforcement Unit (RHEU): <code>1-888-772-9277</code>
             </div>
           </div>
 
-          <div class="lang-card" style="border:1px solid #38bdf8;border-radius:8px;padding:1.25rem;background:var(--card-bg, #fff);">
-            <span class="badge" style="background:#e0f2fe;color:#0369a1;padding:0.2rem 0.5rem;border-radius:4px;font-weight:600;font-size:0.8rem;">🏥 HEALTHCARE ACCESS</span>
-            <h3 lang="${lang}" style="margin:0.75rem 0 0.5rem 0;">${escapeHtml(labels.healthcareTitle)}</h3>
-            <p lang="${lang}" style="font-size:0.95rem;line-height:1.5;color:var(--text, #1e293b);">${escapeHtml(labels.healthcareCallout)}</p>
-            <div style="margin-top:1rem;padding:0.75rem;background:#f8fafc;border-radius:6px;font-size:0.85rem;border:1px solid #e2e8f0;">
+          <div class="lang-card" data-s="border-1px-solid-38bdf8 border-radius-8px padding-1_25rem background-card-bg-fff">
+            <span class="badge" data-s="background-e0f2fe color-0369a1 padding-0_2rem-0_5rem border-radius-4px font-weight-600 font-size-0_8rem">🏥 HEALTHCARE ACCESS</span>
+            <h3 lang="${lang}" data-s="margin-0_75rem-0-0_5rem-0">${escapeHtml(labels.healthcareTitle)}</h3>
+            <p lang="${lang}" data-s="font-size-0_95rem line-height-1_5 color-text-1e293b">${escapeHtml(labels.healthcareCallout)}</p>
+            <div data-s="margin-top-1rem padding-0_75rem background-f8fafc border-radius-6px font-size-0_85rem border-1px-solid-e2e8f0">
               <strong>Free Nurse Advice (24/7):</strong> Dial <code>811</code> (Health811 Ontario / HealthLink BC)
             </div>
           </div>
 
-          <div class="lang-card" style="border:1px solid #4ade80;border-radius:8px;padding:1.25rem;background:var(--card-bg, #fff);">
-            <span class="badge" style="background:#dcfce7;color:#15803d;padding:0.2rem 0.5rem;border-radius:4px;font-weight:600;font-size:0.8rem;">🏦 BANKING & FINANCE</span>
-            <h3 lang="${lang}" style="margin:0.75rem 0 0.5rem 0;">${escapeHtml(labels.bankingTitle)}</h3>
-            <p lang="${lang}" style="font-size:0.95rem;line-height:1.5;color:var(--text, #1e293b);">${escapeHtml(labels.bankingCallout)}</p>
-            <div style="margin-top:1rem;padding:0.75rem;background:#f8fafc;border-radius:6px;font-size:0.85rem;border:1px solid #e2e8f0;">
+          <div class="lang-card" data-s="border-1px-solid-4ade80 border-radius-8px padding-1_25rem background-card-bg-fff">
+            <span class="badge" data-s="background-dcfce7 color-15803d padding-0_2rem-0_5rem border-radius-4px font-weight-600 font-size-0_8rem">🏦 BANKING & FINANCE</span>
+            <h3 lang="${lang}" data-s="margin-0_75rem-0-0_5rem-0">${escapeHtml(labels.bankingTitle)}</h3>
+            <p lang="${lang}" data-s="font-size-0_95rem line-height-1_5 color-text-1e293b">${escapeHtml(labels.bankingCallout)}</p>
+            <div data-s="margin-top-1rem padding-0_75rem background-f8fafc border-radius-6px font-size-0_85rem border-1px-solid-e2e8f0">
               <strong>Refusal Escalation:</strong> Financial Consumer Agency of Canada (FCAC): <code>1-866-461-3222</code>
             </div>
           </div>
@@ -1320,6 +1286,7 @@ export function setupCraBenefitsCalculator() {
       if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       renderCraBenefitsAssessment(data, resContainer);
+      appendAssumptionNote(data, resContainer);
     } catch {
       resContainer.innerHTML = '<div class="alert-box error"><p>Failed to calculate CRA newcomer benefits. Please retry.</p></div>';
     }
@@ -1368,6 +1335,7 @@ export function setupLeaseGuard() {
       if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       renderLeaseGuardAssessment(data, resContainer);
+      appendAssumptionNote(data, resContainer);
     } catch {
       resContainer.innerHTML = '<div class="alert-box error"><p>We could not check your lease. Please try again.</p></div>';
     }
@@ -1402,6 +1370,7 @@ export function setupChildcareNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate childcare support');
       const data = await res.json();
       renderChildcareSupportAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to calculate childcare support. Please retry.</p></div>';
     }
@@ -1441,6 +1410,7 @@ export function setupCustomsDeclaration() {
       if (!res.ok) throw new Error('Failed to audit customs declaration');
       const data = await res.json();
       renderCustomsDeclarationAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate customs declaration. Please retry.</p></div>';
     }
@@ -1486,6 +1456,7 @@ export function setupHomebuyerEligibility() {
       if (!res.ok) throw new Error('Failed to evaluate homebuyer eligibility');
       const data = await res.json();
       renderHomebuyerAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate homebuyer eligibility. Please retry.</p></div>';
     }
@@ -1526,6 +1497,7 @@ export function setupBankingComparator() {
       if (!res.ok) throw new Error('Failed to evaluate banking comparator');
       const data = await res.json();
       renderBankingComparatorAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate banking comparator. Please retry.</p></div>';
     }
@@ -1570,6 +1542,7 @@ export function setupCitizenshipCalculator() {
       if (!res.ok) throw new Error('Failed to evaluate citizenship eligibility');
       const data = await res.json();
       renderCitizenshipAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to calculate citizenship eligibility. Please retry.</p></div>';
     }
@@ -1625,6 +1598,7 @@ export function setupEvictionDefense() {
       if (!res.ok) throw new Error('Failed to audit eviction notice');
       const data = await res.json();
       renderEvictionDefenseAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>We could not check your notice. Please try again.</p></div>';
     }
@@ -1671,6 +1645,7 @@ export function setupLeaseAssignment() {
       if (!res.ok) throw new Error('Failed to evaluate lease assignment');
       const data = await res.json();
       renderLeaseAssignmentAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate lease assignment rights. Please retry.</p></div>';
     }
@@ -1720,6 +1695,7 @@ export function setupPrResidencyNavigator() {
       if (!res.ok) throw new Error('Failed to audit PR residency obligation');
       const data = await res.json();
       renderPrResidencyAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>We could not check your residency days. Please try again.</p></div>';
     }
@@ -1780,6 +1756,7 @@ export function setupWorkerClassificationNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate worker classification');
       const data = await res.json();
       renderWorkerClassificationAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate worker classification. Please retry.</p></div>';
     }
@@ -1833,6 +1810,7 @@ export function setupMedicalAdmissibilityNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate medical admissibility');
       const data = await res.json();
       renderMedicalAdmissibilityAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate medical admissibility. Please retry.</p></div>';
     }
@@ -1886,6 +1864,7 @@ export function setupVehicleImportNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate vehicle importation');
       const data = await res.json();
       renderVehicleImportAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate vehicle importation. Please retry.</p></div>';
     }
@@ -1939,6 +1918,7 @@ export function setupStudentWorkCompliance() {
       if (!res.ok) throw new Error('Failed to evaluate student compliance');
       const data = await res.json();
       renderStudentWorkComplianceAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate student compliance. Please retry.</p></div>';
     }
@@ -1995,6 +1975,7 @@ export function setupVulnerableWorkerNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate vulnerable worker protections');
       const data = await res.json();
       renderVulnerableWorkerAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate vulnerable worker protections. Please retry.</p></div>';
     }
@@ -2059,6 +2040,7 @@ export function setupSuperVisaNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate Super Visa sponsorship');
       const data = await res.json();
       renderSuperVisaAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Super Visa sponsorship. Please retry.</p></div>';
     }
@@ -2114,6 +2096,7 @@ export function setupPetImportNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate pet importation');
       const data = await res.json();
       renderPetImportAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate pet importation. Please retry.</p></div>';
     }
@@ -2170,6 +2153,7 @@ export function setupExpressEntry() {
       if (!res.ok) throw new Error('Failed to evaluate Express Entry CRS');
       const data = await res.json();
       renderExpressEntryAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Express Entry CRS. Please retry.</p></div>';
     }
@@ -2219,6 +2203,7 @@ export function setupParentalLeave() {
       if (!res.ok) throw new Error('Failed to audit parental leave');
       const data = await res.json();
       renderParentalLeaveAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate parental leave. Please retry.</p></div>';
     }
@@ -2268,6 +2253,7 @@ export function setupBusinessStructure() {
       if (!res.ok) throw new Error('Failed to evaluate business structure');
       const data = await res.json();
       renderBusinessStructureAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate business structure. Please retry.</p></div>';
     }
@@ -2331,6 +2317,7 @@ export function setupPnpPathway() {
       if (!res.ok) throw new Error('Failed to evaluate PNP pathway');
       const data = await res.json();
       renderPnpAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Provincial Nominee Program pathway. Please retry.</p></div>';
     }
@@ -2382,6 +2369,7 @@ export function setupBowpDiagnostic() {
       if (!res.ok) throw new Error('Failed to evaluate BOWP diagnostic');
       const data = await res.json();
       renderBowpAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Bridging Open Work Permit diagnostic. Please retry.</p></div>';
     }
@@ -2431,6 +2419,7 @@ export function setupCurrencyExchange() {
       if (!res.ok) throw new Error('Failed to audit currency exchange');
       const data = await res.json();
       renderCurrencyExchangeAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate currency exchange. Please retry.</p></div>';
     }
@@ -2488,6 +2477,7 @@ export function setupDebtCollectionDefense() {
       if (!res.ok) throw new Error('Failed to audit debt collection defense');
       const data = await res.json();
       renderDebtCollectionAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate debt collection defense. Please retry.</p></div>';
     }
@@ -2536,6 +2526,7 @@ export function setupIdentityHarmonization() {
       if (!res.ok) throw new Error('Failed to evaluate identity harmonization');
       const data = await res.json();
       renderIdentityHarmonizationAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate identity harmonization. Please retry.</p></div>';
     }
@@ -2598,6 +2589,7 @@ export function setupMovingTaxCalculator() {
       if (!res.ok) throw new Error('Failed to audit moving tax deductions');
       const data = await res.json();
       renderMovingTaxAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate moving tax deductions. Please retry.</p></div>';
     }
@@ -2644,6 +2636,7 @@ export function setupCredentialLicensure() {
       if (!res.ok) throw new Error('Failed to audit credential licensure');
       const data = await res.json();
       renderCredentialLicensureAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate credential licensure. Please retry.</p></div>';
     }
@@ -2701,6 +2694,7 @@ export function setupTelecomContractDefense() {
       if (!res.ok) throw new Error('Failed to audit telecom dispute');
       const data = await res.json();
       renderTelecomAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate telecom dispute. Please retry.</p></div>';
     }
@@ -2750,6 +2744,7 @@ export function setupBorderFlagpoling() {
       if (!res.ok) throw new Error('Failed to audit flagpoling eligibility');
       const data = await res.json();
       renderBorderFlagpolingResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate flagpoling risks. Please retry.</p></div>';
     }
@@ -2803,6 +2798,7 @@ export function setupRentIncreaseDefense() {
       if (!res.ok) throw new Error('Failed to audit rent increase');
       const data = await res.json();
       renderRentIncreaseAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate rent increase. Please retry.</p></div>';
     }
@@ -2867,6 +2863,7 @@ export function setupHumanRightsDefense() {
       if (!res.ok) throw new Error('Failed to audit human rights dispute');
       const data = await res.json();
       renderHumanRightsAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate human rights dispute. Please retry.</p></div>';
     }
@@ -2928,6 +2925,7 @@ export function setupHomebuyerTaxIncentives() {
       if (!res.ok) throw new Error('Failed to evaluate homebuyer tax incentives');
       const data = await res.json();
       renderHomebuyerTaxAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate homebuyer tax incentives. Please retry.</p></div>';
     }
@@ -2979,6 +2977,7 @@ export function setupAutoInsurance() {
       if (!res.ok) throw new Error('Failed to audit auto insurance');
       const data = await res.json();
       renderAutoInsuranceAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate auto insurance profile. Please retry.</p></div>';
     }
@@ -3045,6 +3044,7 @@ export function setupEstatePlanning() {
       if (!res.ok) throw new Error('Failed to audit estate plan');
       const data = await res.json();
       renderEstatePlanningAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate estate plan profile. Please retry.</p></div>';
     }
@@ -3094,6 +3094,7 @@ export function setupSmallClaims() {
       if (!res.ok) throw new Error('Failed to audit small claims dispute');
       const data = await res.json();
       renderSmallClaimsAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate small claims dispute. Please retry.</p></div>';
     }
@@ -3143,6 +3144,7 @@ export function setupCraVdp() {
       if (!res.ok) throw new Error('Failed to audit CRA voluntary disclosure profile');
       const data = await res.json();
       renderCraVdpAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate CRA voluntary disclosure profile. Please retry.</p></div>';
     }
@@ -3195,6 +3197,7 @@ export function setupStatutoryPay() {
       if (!res.ok) throw new Error('Failed to audit statutory pay');
       const data = await res.json();
       renderStatutoryPayAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate statutory pay. Please retry.</p></div>';
     }
@@ -3249,6 +3252,7 @@ export function setupConsumerProtection() {
       if (!res.ok) throw new Error('Failed to audit consumer contract');
       const data = await res.json();
       renderConsumerProtectionAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate consumer contract. Please retry.</p></div>';
     }
@@ -3313,6 +3317,7 @@ export function setupFamilyLaw() {
       if (!res.ok) throw new Error('Failed to audit family law profile');
       const data = await res.json();
       renderFamilyLawAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate family law profile. Please retry.</p></div>';
     }
@@ -3367,6 +3372,7 @@ export function setupSocialAssistance() {
       if (!res.ok) throw new Error('Failed to audit social assistance profile');
       const data = await res.json();
       renderSocialAssistanceAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate social assistance profile. Please retry.</p></div>';
     }
@@ -3430,6 +3436,7 @@ export function setupTenancyRepairs() {
       if (!res.ok) throw new Error('Failed to evaluate tenancy repairs');
       const data = await res.json();
       renderTenancyRepairsAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate tenancy repairs. Please retry.</p></div>';
     }
@@ -3492,6 +3499,7 @@ export function setupCommercialLease() {
       if (!res.ok) throw new Error('Failed to evaluate commercial lease');
       const data = await res.json();
       renderCommercialLeaseAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate commercial lease profile. Please retry.</p></div>';
     }
@@ -3569,6 +3577,7 @@ export function setupEmploymentReference() {
       if (!res.ok) throw new Error('Failed to audit employment reference letter');
       const data = await res.json();
       renderEmploymentReferenceAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate employment reference letter. Please retry.</p></div>';
     }
@@ -3624,6 +3633,7 @@ export function setupHighCostCredit() {
       if (!res.ok) throw new Error('Failed to evaluate credit agreement');
       const data = await res.json();
       renderHighCostCreditAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate credit agreement. Please retry.</p></div>';
     }
@@ -3683,6 +3693,7 @@ export function setupPgwpNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate PGWP eligibility');
       const data = await res.json();
       renderPgwpAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate PGWP eligibility. Please retry.</p></div>';
     }
@@ -3736,6 +3747,7 @@ export function setupTfwCompliance() {
       if (!res.ok) throw new Error('Failed to evaluate TFW compliance');
       const data = await res.json();
       renderTfwComplianceAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate TFW compliance. Please retry.</p></div>';
     }
@@ -3793,6 +3805,7 @@ export function setupCrossBorderTax() {
       if (!res.ok) throw new Error('Failed to evaluate cross-border tax');
       const data = await res.json();
       renderCrossBorderTaxAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate cross-border tax. Please retry.</p></div>';
     }
@@ -3844,6 +3857,7 @@ export function setupWorkplaceSafety() {
       if (!res.ok) throw new Error('Failed to evaluate workplace safety');
       const data = await res.json();
       renderWorkplaceSafetyAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate workplace safety. Please retry.</p></div>';
     }
@@ -3891,6 +3905,7 @@ export function setupHealthcarePortability() {
       if (!res.ok) throw new Error('Failed to evaluate healthcare portability');
       const data = await res.json();
       renderHealthcarePortabilityAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate healthcare portability. Please retry.</p></div>';
     }
@@ -3951,6 +3966,7 @@ export function setupRealEstateAssignment() {
       if (!res.ok) throw new Error('Failed to evaluate real estate assignment');
       const data = await res.json();
       renderRealEstateAssignmentAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate real estate assignment. Please retry.</p></div>';
     }
@@ -3999,6 +4015,7 @@ export function setupOasGis() {
       if (!res.ok) throw new Error('Failed to evaluate OAS/GIS');
       const data = await res.json();
       renderOasGisAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate OAS/GIS. Please retry.</p></div>';
     }
@@ -4054,6 +4071,7 @@ export function setupFranchiseDisclosure() {
       if (!res.ok) throw new Error('Failed to evaluate franchise disclosure');
       const data = await res.json();
       renderFranchiseDisclosureAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate franchise disclosure. Please retry.</p></div>';
     }
@@ -4101,6 +4119,7 @@ export function setupSowpNavigator() {
       if (!res.ok) throw new Error('Failed to evaluate SOWP');
       const data = await res.json();
       renderSowpAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate SOWP eligibility. Please retry.</p></div>';
     }
@@ -4141,6 +4160,7 @@ export function setupCriminalRehab() {
       if (!res.ok) throw new Error('Failed to evaluate criminal rehabilitation');
       const data = await res.json();
       renderCriminalRehabAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate criminal rehabilitation. Please retry.</p></div>';
     }
@@ -4194,6 +4214,7 @@ export function setupEiDisqualification() {
       if (!res.ok) throw new Error('Failed to evaluate EI disqualification');
       const data = await res.json();
       renderEiDisqualificationAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate EI disqualification. Please retry.</p></div>';
     }
@@ -4246,6 +4267,7 @@ export function setupRuralRenewal() {
       if (!res.ok) throw new Error('Failed to evaluate Rural Renewal');
       const data = await res.json();
       renderRuralRenewalAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Rural Renewal. Please retry.</p></div>';
     }
@@ -4303,6 +4325,7 @@ export function setupSpeculationTax() {
       if (!res.ok) throw new Error('Failed to evaluate Speculation Tax');
       const data = await res.json();
       renderSpeculationTaxAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Speculation Tax. Please retry.</p></div>';
     }
@@ -4351,6 +4374,7 @@ export function setupChildWelfare() {
       if (!res.ok) throw new Error('Failed to evaluate Child Welfare');
       const data = await res.json();
       renderChildWelfareAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Child Welfare. Please retry.</p></div>';
     }
@@ -4402,6 +4426,7 @@ export function setupExcessiveDemand() {
       if (!res.ok) throw new Error('Failed to evaluate Excessive Demand');
       const data = await res.json();
       renderExcessiveDemandAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Excessive Demand. Please retry.</p></div>';
     }
@@ -4452,6 +4477,7 @@ export function setupFrancophoneMobility() {
       if (!res.ok) throw new Error('Failed to evaluate Francophone Mobility');
       const data = await res.json();
       renderFrancophoneMobilityAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Francophone Mobility. Please retry.</p></div>';
     }
@@ -4504,6 +4530,7 @@ export function setupDigitalPlatformWorker() {
       if (!res.ok) throw new Error('Failed to evaluate Digital Platform Worker rights');
       const data = await res.json();
       renderDigitalPlatformWorkerAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Digital Platform Worker rights. Please retry.</p></div>';
     }
@@ -4562,6 +4589,7 @@ export function setupAtlanticImmigration() {
       if (!res.ok) throw new Error('Failed to evaluate Atlantic Immigration');
       const data = await res.json();
       renderAtlanticImmigrationAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Atlantic Immigration. Please retry.</p></div>';
     }
@@ -4607,6 +4635,7 @@ export function setupChildCareSubsidy() {
       if (!res.ok) throw new Error('Failed to evaluate Child Care Subsidy');
       const data = await res.json();
       renderChildCareSubsidyAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate Child Care Subsidy. Please retry.</p></div>';
     }
@@ -4657,6 +4686,7 @@ export function setupBcStrataBylaw() {
       if (!res.ok) throw new Error('Failed to evaluate BC Strata Bylaw defense');
       const data = await res.json();
       renderBcStrataBylawAssessment(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch {
       resultsContainer.innerHTML = '<div class="alert-box error"><p>Failed to evaluate BC Strata Bylaw defense. Please retry.</p></div>';
     }
@@ -4689,7 +4719,7 @@ export function setupAlbertaOpportunityStream() {
     const hasPermanentJobOfferInAlberta = document.querySelector('#aos-job-offer')?.checked !== false;
     const isGraduatedFromAlbertaDli = document.querySelector('#aos-ab-grad')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Auditing Alberta Opportunity Stream eligibility...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Auditing Alberta Opportunity Stream eligibility...</div>';
 
     try {
       const res = await fetch('/v1/tools/alberta-opportunity-stream', {
@@ -4711,8 +4741,9 @@ export function setupAlbertaOpportunityStream() {
       });
       const data = await res.json();
       renderAlbertaOpportunityStreamResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing AAIP: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing AAIP: ${err.message}</div>`;
     }
   });
 }
@@ -4735,7 +4766,7 @@ export function setupBcSpeculationTaxDeclaration() {
     const hasArmsLengthTenancyAgreement = document.querySelector('#svt-arms-length')?.checked !== false;
     const hasActiveBuildingPermits = document.querySelector('#svt-active-permits')?.checked === true;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Auditing BC Speculation & Vacancy Tax declaration...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Auditing BC Speculation & Vacancy Tax declaration...</div>';
 
     try {
       const res = await fetch('/v1/tools/bc-speculation-tax-declaration', {
@@ -4756,8 +4787,9 @@ export function setupBcSpeculationTaxDeclaration() {
       });
       const data = await res.json();
       renderBcSpeculationTaxDeclarationResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing SVT: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing SVT: ${err.message}</div>`;
     }
   });
 }
@@ -4779,7 +4811,7 @@ export function setupPrtdHumanitarian() {
     const hasMinorCanadianChildrenAffected = document.querySelector('#prtd-has-bioc')?.checked === true;
     const hasCanadianCitizenSpouseInCanada = document.querySelector('#prtd-spouse-in-canada')?.checked === true;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Evaluating H&C grounds and appeal rights...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Evaluating H&C grounds and appeal rights...</div>';
 
     try {
       const res = await fetch('/v1/tools/prtd-humanitarian', {
@@ -4799,8 +4831,9 @@ export function setupPrtdHumanitarian() {
       });
       const data = await res.json();
       renderPrtdHumanitarianResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing H&C: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing H&C: ${err.message}</div>`;
     }
   });
 }
@@ -4822,7 +4855,7 @@ export function setupSeveranceReasonableNotice() {
     const hasSignedTerminationClause = document.querySelector('#sev-has-clause')?.checked !== false;
     const terminationClauseViolatesEsa = document.querySelector('#sev-clause-violates-esa')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Calculating severance and common law reasonable notice...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Calculating severance and common law reasonable notice...</div>';
 
     try {
       const res = await fetch('/v1/tools/severance-reasonable-notice', {
@@ -4842,8 +4875,9 @@ export function setupSeveranceReasonableNotice() {
       });
       const data = await res.json();
       renderSeveranceReasonableNoticeResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error calculating severance: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating severance: ${err.message}</div>`;
     }
   });
 }
@@ -4869,7 +4903,7 @@ export function setupManitobaPnpSkilledWorker() {
     const hasPastStudyInAnotherProvince = document.querySelector('#mpnp-past-study')?.checked === true;
     const hasPastWorkInAnotherProvince = document.querySelector('#mpnp-past-work')?.checked === true;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Computing MPNP EOI points and eligibility...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Computing MPNP EOI points and eligibility...</div>';
 
     try {
       const res = await fetch('/v1/tools/manitoba-pnp-skilled-worker', {
@@ -4893,8 +4927,9 @@ export function setupManitobaPnpSkilledWorker() {
       });
       const data = await res.json();
       renderManitobaPnpSkilledWorkerResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error computing MPNP: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error computing MPNP: ${err.message}</div>`;
     }
   });
 }
@@ -4916,7 +4951,7 @@ export function setupPrCardRenewal() {
     const hasProofOfTravel = document.querySelector('#pr-proof-travel')?.checked !== false;
     const hasSupportingUrgentProof = document.querySelector('#pr-supporting-proof')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Auditing PR card renewal compliance...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Auditing PR card renewal compliance...</div>';
 
     try {
       const res = await fetch('/v1/tools/pr-card-renewal', {
@@ -4937,8 +4972,9 @@ export function setupPrCardRenewal() {
       });
       const data = await res.json();
       renderPrCardRenewalResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing PR card renewal: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing PR card renewal: ${err.message}</div>`;
     }
   };
 
@@ -4965,7 +5001,7 @@ export function setupForeignWorkerTransition() {
     const hasProvincialNominationStreamFit = document.querySelector('#fwt-pnp-fit')?.checked !== false;
     const isApplyingDualIntent = document.querySelector('#fwt-dual-intent')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Auditing TFW policy and transition pathways...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Auditing TFW policy and transition pathways...</div>';
 
     try {
       const res = await fetch('/v1/tools/foreign-worker-transition', {
@@ -4986,8 +5022,9 @@ export function setupForeignWorkerTransition() {
       });
       const data = await res.json();
       renderForeignWorkerTransitionResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing TFW policy: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing TFW policy: ${err.message}</div>`;
     }
   };
 
@@ -5012,7 +5049,7 @@ export function setupChildDisabilityBenefit() {
     const hasApprovedDtcT2201 = document.querySelector('#cdb-dtc-approved')?.checked !== false;
     const dtcConditionIsProlonged = document.querySelector('#cdb-prolonged')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Calculating Child Disability Benefit & RDSP grants...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Calculating Child Disability Benefit & RDSP grants...</div>';
 
     try {
       const res = await fetch('/v1/tools/child-disability-benefit', {
@@ -5031,8 +5068,9 @@ export function setupChildDisabilityBenefit() {
       });
       const data = await res.json();
       renderChildDisabilityBenefitResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error calculating CDB: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating CDB: ${err.message}</div>`;
     }
   };
 
@@ -5060,7 +5098,7 @@ export function setupAlbertaSecurityDeposit() {
     const landlordConductedMoveOutInspection = document.querySelector('#ab-dep-moveout-inspection')?.checked === true;
     const tenantProvidedForwardingAddress = document.querySelector('#ab-dep-forwarding-address')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Auditing Alberta tenancy security deposit...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Auditing Alberta tenancy security deposit...</div>';
 
     try {
       const res = await fetch('/v1/tools/alberta-security-deposit', {
@@ -5082,8 +5120,9 @@ export function setupAlbertaSecurityDeposit() {
       });
       const data = await res.json();
       renderAlbertaSecurityDepositResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing security deposit: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing security deposit: ${err.message}</div>`;
     }
   };
 
@@ -5110,7 +5149,7 @@ export function setupInternationallyTrainedNurse() {
     const hasPassedNclex = document.querySelector('#ien-passed-nclex')?.checked === true;
     const interestedInSpepSupervisedPractice = document.querySelector('#ien-wants-spep')?.checked !== false;
 
-    resultsContainer.innerHTML = '<div style="padding:1rem;text-align:center;">Auditing IEN registration and fast-track roadmap...</div>';
+    resultsContainer.innerHTML = '<div data-s="padding-1rem text-align-center">Auditing IEN registration and fast-track roadmap...</div>';
 
     try {
       const res = await fetch('/v1/tools/internationally-trained-nurse', {
@@ -5131,8 +5170,9 @@ export function setupInternationallyTrainedNurse() {
       });
       const data = await res.json();
       renderInternationallyTrainedNurseResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing nurse licensure: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing nurse licensure: ${err.message}</div>`;
     }
   };
 
@@ -5175,8 +5215,9 @@ export function setupPrMatrixSimulator() {
       if (!res.ok) throw new Error('Simulation failed');
       const data = await res.json();
       renderPrMatrixResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error running PR matrix simulation: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error running PR matrix simulation: ${err.message}</div>`;
     }
   });
 }
@@ -5220,8 +5261,9 @@ export function setupFamilyReunificationNavigator() {
       if (!res.ok) throw new Error('Audit failed');
       const data = await res.json();
       renderFamilyReunificationResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error auditing family reunification: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing family reunification: ${err.message}</div>`;
     }
   });
 }
@@ -5254,8 +5296,9 @@ export function setupTimelineCalendarSync() {
       if (!res.ok) throw new Error('Failed to generate calendar');
       const data = await res.json();
       renderTimelineCalendarSyncResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error generating calendar sync: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error generating calendar sync: ${err.message}</div>`;
     }
   });
 }
@@ -5294,8 +5337,9 @@ export function setupTaxShieldOptimizer() {
       if (!res.ok) throw new Error('Tax shield optimization failed');
       const data = await res.json();
       renderTaxShieldResults(data, resultsContainer);
+      appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" style="padding:1rem;">Error calculating tax shield: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating tax shield: ${err.message}</div>`;
     }
   });
 }

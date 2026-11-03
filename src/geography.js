@@ -35,16 +35,16 @@ export const places = Object.freeze([
   {id: 'Vancouver/Gastown', type: 'neighbourhood', name: 'Gastown', parent: 'Vancouver', status: 'supported', aliases: ['gastown']},
 
   {id: 'QC', type: 'region', name: 'Quebec', parent: 'CA', status: 'known_unsupported', aliases: ['quebec']},
-  {id: 'AB', type: 'region', name: 'Alberta', parent: 'CA', status: 'known_unsupported', aliases: ['alberta']},
-  {id: 'MB', type: 'region', name: 'Manitoba', parent: 'CA', status: 'known_unsupported', aliases: []},
-  {id: 'NS', type: 'region', name: 'Nova Scotia', parent: 'CA', status: 'known_unsupported', aliases: ['nova scotia']},
-  {id: 'SK', type: 'region', name: 'Saskatchewan', parent: 'CA', status: 'known_unsupported', aliases: ['saskatchewan']},
-  {id: 'NL', type: 'region', name: 'Newfoundland and Labrador', parent: 'CA', status: 'known_unsupported', aliases: ['newfoundland', 'newfoundland and labrador']},
-  {id: 'PE', type: 'region', name: 'Prince Edward Island', parent: 'CA', status: 'known_unsupported', aliases: ['prince edward island', 'pei']},
-  {id: 'NB', type: 'region', name: 'New Brunswick', parent: 'CA', status: 'known_unsupported', aliases: ['new brunswick']},
-  {id: 'YT', type: 'region', name: 'Yukon', parent: 'CA', status: 'known_unsupported', aliases: ['yukon']},
-  {id: 'NT', type: 'region', name: 'Northwest Territories', parent: 'CA', status: 'known_unsupported', aliases: ['northwest territories', 'nwt']},
-  {id: 'NU', type: 'region', name: 'Nunavut', parent: 'CA', status: 'known_unsupported', aliases: ['nunavut']},
+  {id: 'AB', type: 'region', name: 'Alberta', parent: 'CA', status: 'supported', aliases: ['alberta', 'ab(?!\\s*[- ]?\\d)']},
+  {id: 'MB', type: 'region', name: 'Manitoba', parent: 'CA', status: 'supported', aliases: ['manitoba', 'mb']},
+  {id: 'NS', type: 'region', name: 'Nova Scotia', parent: 'CA', status: 'supported', aliases: ['nova scotia', 'ns']},
+  {id: 'SK', type: 'region', name: 'Saskatchewan', parent: 'CA', status: 'supported', aliases: ['saskatchewan', 'sk']},
+  {id: 'NL', type: 'region', name: 'Newfoundland and Labrador', parent: 'CA', status: 'supported', aliases: ['newfoundland and labrador', 'newfoundland', 'nl']},
+  {id: 'PE', type: 'region', name: 'Prince Edward Island', parent: 'CA', status: 'supported', aliases: ['prince edward island', 'pei', 'pe']},
+  {id: 'NB', type: 'region', name: 'New Brunswick', parent: 'CA', status: 'supported', aliases: ['new brunswick', 'nb']},
+  {id: 'YT', type: 'region', name: 'Yukon', parent: 'CA', status: 'supported', aliases: ['yukon', 'yt']},
+  {id: 'NT', type: 'region', name: 'Northwest Territories', parent: 'CA', status: 'supported', aliases: ['northwest territories', 'nwt', 'nt']},
+  {id: 'NU', type: 'region', name: 'Nunavut', parent: 'CA', status: 'supported', aliases: ['nunavut', 'nu']},
   {id: 'Regina', type: 'city', name: 'Regina', parent: 'SK', status: 'known_unsupported', aliases: ['regina']},
   {id: 'St. Johns', type: 'city', name: "St. John's", parent: 'NL', status: 'known_unsupported', aliases: ["st\\. john'?s", "st johns"]},
   {id: 'Charlottetown', type: 'city', name: 'Charlottetown', parent: 'PE', status: 'known_unsupported', aliases: ['charlottetown']},
@@ -315,7 +315,49 @@ export const places = Object.freeze([
   {id: "Cairo", type: "city", name: "Cairo", parent: "Egypt", status: "outside_canada", aliases: ["cairo"]},
   {id: "Riga", type: "city", name: "Riga", parent: "Latvia", status: "outside_canada", aliases: ["riga"]},
   {id: "Belfast", type: "city", name: "Belfast", parent: "United Kingdom", status: "outside_canada", aliases: ["belfast"]},
-  {id: "Adelaide", type: "city", name: "Adelaide", parent: "Australia", status: "outside_canada", aliases: ["adelaide"]}
+  {id: "Adelaide", type: "city", name: "Adelaide", parent: "Australia", status: "outside_canada", aliases: ["adelaide"]},
+
+  // Sub-national states & provinces for global corridors
+  {id: 'California', type: 'region', name: 'California', parent: 'United States', status: 'outside_canada', aliases: ['california']},
+  {id: 'New York State', type: 'region', name: 'New York State', parent: 'United States', status: 'outside_canada', aliases: ['new york state', 'ny state']},
+  {id: 'Texas', type: 'region', name: 'Texas', parent: 'United States', status: 'outside_canada', aliases: ['texas']},
+  {id: 'Florida', type: 'region', name: 'Florida', parent: 'United States', status: 'outside_canada', aliases: ['florida']},
+  {id: 'Washington State', type: 'region', name: 'Washington State', parent: 'United States', status: 'outside_canada', aliases: ['washington state']},
+  {id: 'Illinois', type: 'region', name: 'Illinois', parent: 'United States', status: 'outside_canada', aliases: ['illinois']},
+
+  {id: 'New South Wales', type: 'region', name: 'New South Wales', parent: 'Australia', status: 'outside_canada', aliases: ['new south wales', 'nsw']},
+  {id: 'Victoria', type: 'region', name: 'Victoria', parent: 'Australia', status: 'outside_canada', aliases: ['(?<!(?:lake|queen) )victoria']},
+  {id: 'Queensland', type: 'region', name: 'Queensland', parent: 'Australia', status: 'outside_canada', aliases: ['queensland', 'qld']},
+  {id: 'Western Australia', type: 'region', name: 'Western Australia', parent: 'Australia', status: 'outside_canada', aliases: ['western australia', 'wa']},
+  {id: 'South Australia', type: 'region', name: 'South Australia', parent: 'Australia', status: 'outside_canada', aliases: ['south australia', 'sa']},
+
+  {id: 'Bavaria', type: 'region', name: 'Bavaria', parent: 'Germany', status: 'outside_canada', aliases: ['bavaria', 'bayern']},
+  {id: 'North Rhine-Westphalia', type: 'region', name: 'North Rhine-Westphalia', parent: 'Germany', status: 'outside_canada', aliases: ['north rhine-westphalia', 'nrw', 'nordrhein-westfalen']},
+  {id: 'Baden-Württemberg', type: 'region', name: 'Baden-Württemberg', parent: 'Germany', status: 'outside_canada', aliases: ['baden-württemberg', 'baden-wuerttemberg']},
+
+  {id: 'Dubai Emirate', type: 'region', name: 'Dubai Emirate', parent: 'United Arab Emirates', status: 'outside_canada', aliases: ['dubai emirate', 'emirate of dubai']},
+  {id: 'Abu Dhabi Emirate', type: 'region', name: 'Abu Dhabi Emirate', parent: 'United Arab Emirates', status: 'outside_canada', aliases: ['abu dhabi emirate', 'emirate of abu dhabi']},
+
+  {id: 'England', type: 'region', name: 'England', parent: 'United Kingdom', status: 'outside_canada', aliases: ['england']},
+  {id: 'Scotland', type: 'region', name: 'Scotland', parent: 'United Kingdom', status: 'outside_canada', aliases: ['scotland', 'scottish']},
+  {id: 'Wales', type: 'region', name: 'Wales', parent: 'United Kingdom', status: 'outside_canada', aliases: ['(?<!new south )wales', 'welsh']},
+  {id: 'Northern Ireland', type: 'region', name: 'Northern Ireland', parent: 'United Kingdom', status: 'outside_canada', aliases: ['northern ireland']},
+
+  {id: 'Punjab', type: 'region', name: 'Punjab', parent: 'India', status: 'outside_canada', aliases: ['punjab', 'punjabi']},
+  {id: 'Maharashtra', type: 'region', name: 'Maharashtra', parent: 'India', status: 'outside_canada', aliases: ['maharashtra']},
+  {id: 'Delhi NCR', type: 'region', name: 'Delhi NCR', parent: 'India', status: 'outside_canada', aliases: ['delhi ncr', 'nct of delhi']},
+  {id: 'Gujarat', type: 'region', name: 'Gujarat', parent: 'India', status: 'outside_canada', aliases: ['gujarat', 'gujarati']},
+
+  {id: 'Catalonia', type: 'region', name: 'Catalonia', parent: 'Spain', status: 'outside_canada', aliases: ['catalonia', 'catalunya', 'cataluña']},
+  {id: 'Community of Madrid', type: 'region', name: 'Community of Madrid', parent: 'Spain', status: 'outside_canada', aliases: ['community of madrid', 'comunidad de madrid']},
+  {id: 'Andalusia', type: 'region', name: 'Andalusia', parent: 'Spain', status: 'outside_canada', aliases: ['andalusia', 'andalucía']},
+  {id: 'Valencian Community', type: 'region', name: 'Valencian Community', parent: 'Spain', status: 'outside_canada', aliases: ['valencian community', 'comunitat valenciana']},
+
+  {id: 'Canterbury', type: 'region', name: 'Canterbury', parent: 'New Zealand', status: 'outside_canada', aliases: ['canterbury', 'christchurch region']},
+
+  {id: 'Île-de-France', type: 'region', name: 'Île-de-France', parent: 'France', status: 'outside_canada', aliases: ['île-de-france', 'ile-de-france']},
+  {id: 'Auvergne-Rhône-Alpes', type: 'region', name: 'Auvergne-Rhône-Alpes', parent: 'France', status: 'outside_canada', aliases: ['auvergne-rhône-alpes', 'auvergne-rhone-alpes']},
+  {id: 'Provence-Alpes-Côte d\'Azur', type: 'region', name: 'Provence-Alpes-Côte d\'Azur', parent: 'France', status: 'outside_canada', aliases: ['provence-alpes-côte d\'azur', 'paca']}
 ].map(place => Object.freeze({...place, aliases: Object.freeze([...place.aliases])})));
 
 const byId = new Map(places.map(place => [place.id, place]));
@@ -352,6 +394,17 @@ export function supportedCitiesIn(text) {
 /** Supported regions named in the text by their own aliases (not inferred from a city). */
 export function supportedRegionsIn(text) {
   return findPlaces(text).filter(place => place.status === 'supported' && place.type === 'region').map(place => place.id);
+}
+
+/** All regions named in the text for a given country, or any region if country is omitted. */
+export function findRegionsForCountry(text, country) {
+  const named = findPlaces(text).filter(p => p.type === 'region');
+  if (!country) return named.map(p => p.id);
+  const targetCountry = (country === 'CA' || country === 'Canada') ? 'CA' : country;
+  return named.filter(p => {
+    const c = ancestorOfType(p.id, 'country');
+    return c === country || c === targetCountry;
+  }).map(p => p.id);
 }
 
 /** A reader-facing label such as "Ottawa, Ontario" or "London, United Kingdom". */

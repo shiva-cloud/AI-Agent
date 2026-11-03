@@ -14,7 +14,7 @@
  * - Prohibition on the Purchase of Residential Property by Non-Canadians Act, S.C. 2022, c. 10, s. 235
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ASSIGNMENT_CONSTANTS = Object.freeze({
   ANTI_FLIPPING_HOLDING_DAYS: 365,
@@ -88,10 +88,10 @@ export function evaluateRealEstateAssignment({
   assignorName = 'Assignor',
   assigneeName = 'Assignee',
   propertyAddress = 'Unit 1204 - 55 Mercer St, Toronto, ON',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const prov = boundedText(province, 'ON', 10).toUpperCase();
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const originalPrice = Math.max(1, Math.min(1000000000, Number(originalPurchasePriceCad) || 1));
   const assignPrice = Math.max(originalPrice, Math.min(1000000000, Number(assignmentSalePriceCad) || originalPrice));
   const deposit = Math.max(0, Math.min(1000000000, Number(depositPaidToBuilderCad) || 0));

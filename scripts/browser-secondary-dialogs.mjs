@@ -1,0 +1,82 @@
+import {createRequire} from 'node:module';
+import {writeFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {createApp} from '../src/server.js';
+import {openStore} from '../src/store.js';
+const require = createRequire(process.env.PLAYWRIGHT_PACKAGE || 'C:/Users/shiva/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
+const {chromium} = require('playwright');
+const store = openStore(':memory:'); const server = createApp(store, undefined, {});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const browser = await chromium.launch({headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const report = {checks: [], errors: []};
+try {
+  const page = await browser.newPage({viewport: {width: 1440, height: 1000}});
+  page.on('pageerror', error => report.errors.push(error.message));
+  await page.goto(`http://127.0.0.1:${server.address().port}`, {waitUntil: 'networkidle'});
+  await page.locator('#help-toggle').focus(); await page.keyboard.press('Enter');
+  const help = page.getByRole('dialog', {name: 'Keyboard shortcuts'});
+  assert.equal(await help.isVisible(), true);
+  assert.equal(await page.locator('main').evaluate(node => node.inert), true);
+  for (const key of ['Tab', 'Shift+Tab', 'Control+k']) {
+    await page.keyboard.press(key);
+    assert.equal(await help.getByRole('button', {name: 'Close', exact: true}).evaluate(node => node === document.activeElement), true);
+  }
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('#help-toggle').evaluate(node => node === document.activeElement), true);
+  assert.equal(await page.locator('main').evaluate(node => node.inert), false);
+  report.checks.push('Help isolates background, traps focus, blocks palette shortcut and restores focus');
+  const trigger = page.locator('#nav-tools-directory-btn');
+  await trigger.focus(); await page.keyboard.press('Enter');
+  const modal = page.locator('#cmd-palette-modal');
+  const input = page.locator('#cmd-palette-input');
+  assert.equal(await input.evaluate(node => node === document.activeElement), true);
+  assert.equal(await page.locator('.sidebar').evaluate(node => node.inert), true);
+  const controls = modal.locator('button,input,[tabindex="0"]');
+  await controls.last().focus(); await page.keyboard.press('Tab');
+  assert.equal(await input.evaluate(node => node === document.activeElement), true);
+  await page.keyboard.press('Shift+Tab');
+  assert.equal(await controls.last().evaluate(node => node === document.activeElement), true);
+  await page.keyboard.press('Escape');
+  assert.equal(await trigger.evaluate(node => node === document.activeElement), true);
+  report.checks.push('Directory Tab wrap and Escape from a result restore original trigger');
+  await page.keyboard.press('Enter');
+  const expected = await page.evaluate(async () => {
+    const {COMMAND_DIRECTORY} = await import('/app/command-directory.js');
+    const titles = [...document.querySelectorAll('.cmd-title')].map(node => node.textContent);
+    const index = titles.findIndex((title, index) => {
+      const command = COMMAND_DIRECTORY.find(cmd => cmd.title === title);
+      return command?.toolModal && command.id !== COMMAND_DIRECTORY[index]?.id;
+    });
+    if (index < 0) throw new Error('Fixture needs a grouped tool whose index differs from source order');
+    const command = COMMAND_DIRECTORY.find(cmd => cmd.title === titles[index]);
+    window.__originalToolModal = window.triggerToolModal;
+    window.triggerToolModal = tool => {window.__selectedTool = tool.id;};
+    return {index, id: command.toolModal, title: titles[index]};
+  });
+  for (let i = 0; i < expected.index; i++) await page.keyboard.press('ArrowDown');
+  assert.equal(await modal.locator('.cmd-row.selected .cmd-title').innerText(), expected.title);
+  await page.keyboard.press('Enter');
+  assert.equal(await page.evaluate(() => window.__selectedTool), expected.id);
+  await page.evaluate(() => {window.triggerToolModal = window.__originalToolModal;});
+  report.checks.push('Enter executes the displayed grouped tool, not its source-array index');
+  await trigger.click();
+  await input.fill('no-such-tool-876543');
+  assert.match(await modal.getByRole('status').innerText(), /No matching/);
+  await page.keyboard.press('Enter'); assert.equal(await modal.isVisible(), true);
+  await input.fill('Form Preparation Worksheets');
+  const pin = modal.locator('.cmd-pin-btn').first();
+  await pin.focus(); await page.keyboard.press('Enter');
+  assert.equal(await modal.locator('.cmd-pin-btn').first().evaluate(node => node === document.activeElement), true);
+  assert.equal(await page.locator('#cmd-palette-categories').getAttribute('role'), 'group');
+  assert.equal(await page.locator('#cmd-palette-categories button[aria-pressed=true]').count(), 1);
+  const action = modal.locator('.cmd-info[role=button]').first();
+  await action.focus(); await page.keyboard.press('Space');
+  assert.equal(await modal.isVisible(), false);
+  assert.equal(await page.locator('.tool-modal-overlay').isVisible(), true);
+  await page.keyboard.press('Escape');
+  assert.equal(await trigger.evaluate(node => node === document.activeElement), true);
+  assert.equal(await page.locator('main').evaluate(node => node.inert), false);
+  report.checks.push('empty search is announced; result Space activation transfers safely into tool dialog');
+  assert.deepEqual(report.errors, []); report.status = 'passed';
+} catch (error) {report.status = 'failed'; report.failure = error.stack; process.exitCode = 1;}
+finally {writeFileSync('artifacts/SECONDARY_DIALOGS_2026-11-03.json', JSON.stringify(report, null, 2)); console.log(JSON.stringify(report)); await browser.close(); await new Promise(resolve => server.close(resolve)); store.db.close();}

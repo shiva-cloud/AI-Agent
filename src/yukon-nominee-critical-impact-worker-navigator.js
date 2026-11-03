@@ -11,7 +11,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const YUKON_CRITICAL_IMPACT_RULES = Object.freeze({
   MIN_WORK_EXPERIENCE_MONTHS: 6,
@@ -49,13 +49,13 @@ export function evaluateYukonCriticalImpactWorker({
   targetCommunity = 'whitehorse',
   isApplyingForCommunityPilot = false,
   candidateName = 'Nominee Candidate',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeCandidate = boundedText(candidateName, 'Nominee Candidate', 100);
   
   
   
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
 
   const sanitizedTeer = Math.max(0, Math.min(5, Number(targetNocTeer) || 4));
   const sanitizedMonths = Math.max(0, Math.min(600, Number(monthsOfRelatedExperience) || 0));

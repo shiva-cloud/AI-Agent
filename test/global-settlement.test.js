@@ -129,6 +129,11 @@ test('HTTP REST API endpoints for Global Settlement', async () => {
     const singleData = await singleRes.json();
     assert.equal(singleData.item.id, 'GMS-Q00001');
     assert.equal(singleData.item.category, 'Identity & SIN');
+    // Templated legal text is withheld from the public catalog.
+    assert.equal(singleData.item.statutoryRule, undefined);
+    assert.equal(singleData.item.authority, undefined);
+    assert.deepEqual(singleData.item.withheld, ['statutoryRule', 'citation', 'verdict', 'authority', 'url']);
+    assert.ok(searchData.items.every(i => i.citation === undefined && i.reviewStatus === 'unreviewed_template'));
 
     // 4. Single question by numeric ID
     const singleNumRes = await fetch(`${baseUrl}/v1/global-settlement/20000`);

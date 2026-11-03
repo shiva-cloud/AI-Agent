@@ -15,7 +15,7 @@
  * - Criminal Records Act (CRA), R.S.C. 1985, c. C-47 (Parole Board of Canada record suspensions)
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const REHAB_CONSTANTS = Object.freeze({
   DEEMED_REHAB_YEARS_REQUIRED: 10,
@@ -82,7 +82,7 @@ export function evaluateCriminalInadmissibilityAndRehab(params = {}) {
     convictionCount = 1,
     urgentTravelRequired = false,
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const offKey = boundedText(offenseType, 'impaired_driving_dui', 60).toLowerCase();
   const matchedOffense = OFFENSE_EQUIVALENCY_TAXONOMY[offKey] || OFFENSE_EQUIVALENCY_TAXONOMY.impaired_driving_dui;
@@ -90,7 +90,7 @@ export function evaluateCriminalInadmissibilityAndRehab(params = {}) {
   const country = boundedText(foreignCountry, 'US', 50).toUpperCase();
   const count = Number.isFinite(Number(convictionCount)) ? Math.max(1, Math.min(50, Math.floor(Number(convictionCount)))) : 1;
   const urgent = Boolean(urgentTravelRequired);
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
 
   const safeApplicant = boundedText(applicantName, 'Applicant', 100);
 

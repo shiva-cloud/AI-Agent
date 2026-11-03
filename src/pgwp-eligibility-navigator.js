@@ -18,7 +18,7 @@
  *     6. One-time-in-a-lifetime restriction.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const PGWP_CONSTANTS = Object.freeze({
   POLICY_OVERHAUL_DATE: '2024-11-01',
@@ -122,7 +122,7 @@ export function evaluatePgwpEligibility({
   clbLevel = 6,
   testDate = '2025-06-01',
   completionDate = '2026-08-01',
-  assessmentDate = '2026-10-31',
+  assessmentDate = todayIso(),
   isDliEligible = true,
   isPublicOrLicensingCurriculum = true,
   heldPreviousPgwp = false,
@@ -141,7 +141,7 @@ export function evaluatePgwpEligibility({
   const clb = Math.max(0, Math.min(12, Number(clbLevel) || 0));
   const tDate = safeIsoDate(testDate, '2025-06-01');
   const compDate = safeIsoDate(completionDate, '2026-08-01');
-  const assessDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const assessDate = safeIsoDate(assessmentDate, todayIso());
   const dliEligible = Boolean(isDliEligible);
   const publicOrLicensing = Boolean(isPublicOrLicensingCurriculum);
   const prevPgwp = Boolean(heldPreviousPgwp);

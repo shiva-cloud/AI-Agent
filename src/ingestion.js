@@ -4,6 +4,7 @@ import { assertEnglishData, assertEnglishRecord, assertEnglishText } from './lan
 import { cities, topics } from './knowledge.js';
 import { assessChange } from './changes.js';
 import {recordHousingSubject} from './housing.js';
+import { appendAudit } from './audit-chain.js';
 
 const hash=text=>createHash('sha256').update(text).digest('hex');
 const canonical=value=>JSON.stringify(value && typeof value==='object' ? (Array.isArray(value)?value.map(v=>JSON.parse(canonical(v))):Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))]))) : value);
@@ -126,7 +127,7 @@ export function ingestionStore(db) {
             const {reviewMethod:_withdrawn,...rest}=r;
             const next=JSON.stringify({...rest,status:'pending',reviewedAt:at});
             db.prepare('UPDATE records SET body=? WHERE id=?').run(next,r.id);
-            db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at) VALUES (?,?,?,?,?,?)').run(r.id,row.body,next,input.reviewer,note,at);
+            appendAudit(db, { recordId: r.id, previous: row.body, next, reviewer: input.reviewer, note, at, action: 'reject' });
             withdrawn.push(r.id);
           }
         }
@@ -180,7 +181,7 @@ export function ingestionStore(db) {
           if((previous===null?null:hash(previous))!==c.base_hash) throw new ValidationError('Published record changed; import a fresh candidate before approval',409);
           const next=JSON.stringify({...record,status:'approved',reviewedAt:at,reviewMethod,sourceId:s.id,snapshotId:snap.id});
           db.prepare('INSERT INTO records VALUES (?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body').run(c.record_id,next);
-          db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at) VALUES (?,?,?,?,?,?)').run(c.record_id,previous ?? c.body,next,input.reviewer,input.note,at);
+          appendAudit(db, { recordId: c.record_id, previous: previous ?? c.body, next, reviewer: input.reviewer, note: input.note, at, action: input.decision });
           publicationId=Number(db.prepare('INSERT INTO publications(record_id,candidate_id,snapshot_id,body,at) VALUES (?,?,?,?,?)').run(c.record_id,c.id,c.snapshot_id,next,at).lastInsertRowid);
         }
         db.prepare('UPDATE candidates SET status=? WHERE id=?').run(input.decision==='approve'?'approved':'rejected',id);
@@ -213,7 +214,7 @@ export function ingestionStore(db) {
         const at=new Date().toISOString(),next=JSON.stringify({...record,reviewedAt:at});
         const event=db.prepare('INSERT INTO restorations(record_id,target_publication_id,previous,next,reviewer,note,request_key,request_hash,at) VALUES (?,?,?,?,?,?,?,?,?)').run(id,version.id,previous,next,input.reviewer,input.note,input.requestKey,requestHash,at);
         db.prepare('UPDATE records SET body=? WHERE id=?').run(next,id);
-        db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at) VALUES (?,?,?,?,?,?)').run(id,previous,next,input.reviewer,`Restore publication ${version.id}: ${input.note}`,at);
+        appendAudit(db, { recordId: id, previous, next, reviewer: input.reviewer, note: `Restore publication ${version.id}: ${input.note}`, at, action: 'approve' });
         return {restorationId:Number(event.lastInsertRowid),recordId:id,publicationId:version.id,replayed:false};
       });
     }

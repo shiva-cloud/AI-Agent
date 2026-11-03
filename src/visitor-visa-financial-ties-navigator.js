@@ -2,7 +2,7 @@
 // Statutory TRV Ties & Dual Intent Risk Evaluator
 // Based on Immigration and Refugee Protection Act (IRPA) s. 179(b) and s. 22(2).
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export function evaluateVisitorVisaTies({
   applicantName = 'Visitor Applicant',
@@ -19,12 +19,12 @@ export function evaluateVisitorVisaTies({
   hasPreviousVisaRefusal = false,
   isDualIntentPrPending = false,
   hostInCanadaRelationship = 'family_sibling', // 'none_tourist', 'family_sibling', 'friend', 'business_conference'
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const safeApplicant = boundedText(applicantName, 'Visitor Applicant', 120);
   const safeCountry = boundedText(countryOfResidence, 'IN', 10);
   const safeHostRel = boundedText(hostInCanadaRelationship, 'family_sibling', 40);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeStayDays = Math.max(1, Math.min(365, Math.floor(Number(plannedStayDays) || 1)));
   const safeLiquidFunds = Math.max(0, Math.min(100000000, Number(liquidFundsCad) || 0));
   const safeJobTenure = Math.max(0, Math.min(60, Number(yearsAtCurrentJob) || 0));

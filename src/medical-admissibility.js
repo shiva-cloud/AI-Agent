@@ -8,15 +8,7 @@
 // and generates an Individualized Mitigation Plan (IMP) under Hilewitz v. Canada (2005 SCC 57)
 // for Procedural Fairness Letter (PFL) response within the mandatory 90-day window.
 // Pure ES module with zero npm dependencies.
-import {boundedText} from './text-input.js';
-
-function safeIsoDate(val, fallback = '2026-10-31') {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const d = new Date(val.trim() + 'T00:00:00Z');
-    if (!Number.isNaN(d.getTime())) return val.trim();
-  }
-  return fallback;
-}
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const ANNUAL_EXCESSIVE_DEMAND_THRESHOLD_CAD = 26304; // 3x Canadian per-capita average
 export const FIVE_YEAR_EXCESSIVE_DEMAND_THRESHOLD_CAD = 131520; // 26,304 * 5
@@ -44,10 +36,10 @@ export function evaluateMedicalAdmissibility(params = {}) {
     receivedProceduralFairnessLetter = false,
     pflDateReceived = null,
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const safeApplicantName = boundedText(applicantName, 'Applicant', 120);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const condName = boundedText(conditionName, 'Chronic Condition', 120);
   const normStream = boundedText(immigrationStream, 'express_entry', 50).toLowerCase();
   const isFamilyOrRefugeeExempt = EXEMPT_IMMIGRATION_CATEGORIES.includes(normStream);

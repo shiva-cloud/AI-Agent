@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const BC_DEPOSIT_PENALTY_CONSTANTS = Object.freeze({
   STATUTORY_RETURN_TIMELINE_DAYS: 15, // s. 38(1)
@@ -50,13 +50,13 @@ export function evaluateBcSecurityDepositDoublePenalty(params = {}) {
     landlordName = 'Landlord',
     rentalAddress = 'Rental Property',
     forwardingAddress = 'Forwarding Address',
-    assessmentDate = '2026-10-31'
+    assessmentDate = todayIso()
   } = safeParams;
   const cleanTenantName = boundedText(tenantName, 'Tenant', 100);
   const cleanLandlord = boundedText(landlordName, 'Landlord');
   const cleanRentalAddress = boundedText(rentalAddress, 'Rental Property');
   const cleanForwardingAddress = boundedText(forwardingAddress, 'Forwarding Address');
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const secDeposit = Number.isFinite(Number(securityDepositPaidCad)) ? Math.max(0, Math.min(100000, Number(securityDepositPaidCad))) : 1000;
   const petDeposit = Number.isFinite(Number(petDepositPaidCad)) ? Math.max(0, Math.min(100000, Number(petDepositPaidCad))) : 0;
   const daysElapsed = Number.isFinite(Number(daysSinceForwardingAddressReceived)) ? Math.max(0, Math.min(3650, Math.floor(Number(daysSinceForwardingAddressReceived)))) : 25;

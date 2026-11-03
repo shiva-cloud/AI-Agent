@@ -1,10 +1,10 @@
 // Temporal Query Awareness for Statutory Revisions & Transitional Provisions (Rec 8)
 // Identifies time-bounded expressions ("effective 2026", "new rules starting next month", "prior to 2024")
 // and adjusts statutory retrieval to prioritize future/recent statutory updates or grandfathered historical regimes.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
-export function parseTemporalContext(question, referenceDate = '2026-10-31') {
-  const safeAssessmentDate = safeIsoDate(referenceDate, '2026-10-31');
+export function parseTemporalContext(question, referenceDate = todayIso()) {
+  const safeAssessmentDate = safeIsoDate(referenceDate, todayIso());
   if (!question || typeof question !== 'string') {
     return {
       hasTemporalQuery: false,
@@ -36,7 +36,7 @@ export function parseTemporalContext(question, referenceDate = '2026-10-31') {
   };
 }
 
-export function rankByTemporalRelevance(records, temporalContext, referenceDate = '2026-10-31') {
+export function rankByTemporalRelevance(records, temporalContext, referenceDate = todayIso()) {
   if (!records || !Array.isArray(records)) return [];
   if (!temporalContext || !temporalContext.hasTemporalQuery) return records;
 

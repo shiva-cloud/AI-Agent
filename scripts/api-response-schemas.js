@@ -2679,8 +2679,10 @@ export function addResponseSchemas(paths) {
   response('/v1/tools/federal-student-off-campus-work', 'post', '200', { type: 'object', properties: { isCompliant: { type: 'boolean' }, complianceStatus: text }, additionalProperties: true });
   response('/v1/tools/city-comparison', 'get', '200', { type: 'object', properties: { comparedCities: array(text) }, additionalProperties: true });
   response('/v1/tools/city-comparison', 'post', '200', { type: 'object', properties: { comparedCities: array(text) }, additionalProperties: true });
-  response('/v1/tools/form-autopopulate', 'get', '200', { type: 'object', properties: { formType: text, fields: { type: 'object', additionalProperties: true } }, additionalProperties: true });
-  response('/v1/tools/form-autopopulate', 'post', '200', { type: 'object', properties: { formType: text, fields: { type: 'object', additionalProperties: true } }, additionalProperties: true });
+  for (const method of ['get', 'post']) response('/v1/tools/form-autopopulate', method, '200', {
+    type: 'object', required: ['formType', 'documentStatus', 'submissionReady', 'missingFields', 'populatedFields'],
+    properties: {formType: text, documentStatus: {type: 'string', enum: ['draft_worksheet']}, submissionReady: {type: 'boolean', enum: [false]}, missingFields: array(text), populatedFields: array({type: 'object', required: ['id', 'label', 'val'], properties: {id: text, label: text, val: text}}), pdfSupported: {type: 'boolean'}, pdfNotice: {type: ['string', 'null']}, pdfBase64: {type: ['string', 'null']}, printReadyHtml: text}, additionalProperties: true
+  });
   response('/v1/realtime/gazettes', 'get', '200', { type: 'object', properties: { gazettes: array({ type: 'object', additionalProperties: true }) }, additionalProperties: true });
   response('/v1/realtime/gazettes', 'post', '200', { type: 'object', properties: { gazettes: array({ type: 'object', additionalProperties: true }) }, additionalProperties: true });
   response('/v1/meta/sri', 'get', '200', { type: 'object', properties: { sri: { type: 'object', additionalProperties: true } }, additionalProperties: true });

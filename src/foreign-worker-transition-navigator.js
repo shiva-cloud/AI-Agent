@@ -25,13 +25,7 @@
 
 import { boundedText } from './utils/sanitizer.js';
 
-function safeIsoDate(d) {
-  if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim())) {
-    const parsed = new Date(d.trim());
-    if (!Number.isNaN(parsed.getTime())) return d.trim();
-  }
-  return new Date().toISOString().slice(0, 10);
-}
+import { safeIsoDate, todayIso } from './text-input.js';
 
 export const TFW_TRANSITION_CONSTANTS = Object.freeze({
   LOW_WAGE_CMA_UNEMPLOYMENT_FREEZE_RATE: 6.0,
@@ -57,7 +51,7 @@ export const TFW_TRANSITION_CONSTANTS = Object.freeze({
  * @param {boolean} [options.hasProvincialNominationStreamFit=false] - Meets criteria for PNP job-offer stream
  * @param {boolean} [options.isApplyingDualIntent=true] - Preparing PR application concurrently
  * @param {string} [options.workerName='Temporary Foreign Worker'] - Worker name
- * @param {string} [options.assessmentDate='2026-10-31'] - Date of assessment
+ * @param {string} [options.assessmentDate=todayIso()] - Date of assessment
  * @returns {Object} Comprehensive foreign worker transition diagnostic
  */
 export function evaluateForeignWorkerTransition(options = {}) {

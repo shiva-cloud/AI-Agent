@@ -13,7 +13,7 @@
  * Invariants: Pure ES module, 0 npm dependencies, strict statutory accuracy, fail-safe defaults.
  */
 
-import { boundedText } from './text-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ESA_LAYOFF_RULES = Object.freeze({
   STANDARD_LAYOFF_MAX_WEEKS: 13,
@@ -92,7 +92,7 @@ export function evaluateEsaConstructiveDismissalLayoff({
   hasSubstantialUnilateralDutyChange = false,
   employeeImmigrationStatus = 'permanent_resident',
   employeeName = 'Employee',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 120);
   const cleanImmigrationStatus = boundedText(employeeImmigrationStatus, 'permanent_resident', 50);

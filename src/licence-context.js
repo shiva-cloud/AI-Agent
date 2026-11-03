@@ -31,14 +31,40 @@ const countries=[
  // deliberately written as regex fragments for ambiguous names.
  ...countryPortals.map(({country,aliases})=>[country,aliases.join('|')])
 ];
+
+const licencePatterns = countries.map(([country, aliases]) => ({
+ country,
+ fastCheck: new RegExp(`\\b(?:${aliases})\\b`, 'iu'),
+ patterns: [
+  new RegExp(`\\b(${aliases})(?:[ -]issued)?\\s+(?:driving\\s+|driver'?s?\\s+)?licen[cs]e\\b`, 'giu'),
+  new RegExp(`\\blicen[cs]e\\s+(?:(?:was\\s+)?issued\\s+(?:in|from|by)|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu')
+ ]
+}));
+
+const originPatterns = countries.map(([country, aliases]) => ({
+ country,
+ fastCheck: new RegExp(`\\b(?:${aliases})\\b`, 'iu'),
+ patterns: [
+  new RegExp(`\\b(?:from|moving from|immigrating from|arriving from|newcomer from|newcomers from|relocating from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(${aliases})\\s+(?:newcomer|immigrant|settler|community|newcomers|immigrants|citizen|citizens|national|nationals)\\b`, 'giu'),
+  new RegExp(`\\b(?:worked in|work in|working in|worked|work experience in|job in|jobs in|employed in|experience in)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:worked|work|working|employed|experience|internship|job|jobs)(?:\\s+[a-z0-9'-]+){0,6}\\s+(?:in|at|for)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:lived in|living in|lives in|resided in|stayed in|spent in|time in|visited|traveled to|travelled to|born in|studied in|study in|educated in|degree from|degree in|graduated in|diploma from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:lived|living|lives|resided|stayed|spent|time|visited|traveled|travelled|born|studied|study|educated|graduated)(?:\\s+[a-z0-9'-]+){0,6}\\s+(?:in|at|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:degrees?|diplomas?|universit(?:y|ies)|colleges?|institutes?|schools?)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:custody|children|daughter|son|parents?|mother|father|spouse|family)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:conviction|convictions|charge|charges|arrest|arrests|dui|tickets?|traffic|offen[cs]e|offenses?)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
+  new RegExp(`\\b(?:in|from|and in)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+){0,3}(${aliases})(?=(?:\\s+(?:for\\s+\\d+|since|while|before|prior to|until|during|through|across|on an?|as an?|with|after|when|paying|to|but)|\\s*[,.?!()]))`, 'giu'),
+  new RegExp(`\\b(${aliases})(?:'s)?\\s+(?:police\\s+(?:clearance|certificate)s?|pcc|acro|nbi|ciid|fbi|degree|diploma|passport|education|school|licen[cs]e)\\b`, 'giu'),
+  new RegExp(`\\b(?:police clearance|police certificate|pcc|extract|apostille|nbi|psk|fbi|acro|ciid|transcripts?)\\s+(?:from|for|in)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu')
+ ]
+}));
+
 export function licenceContext(question) {
  if (typeof question !== 'string') return {licenceCountry: null, licenceCountryAmbiguous: false, destinationText: ''};
  const found=new Set(),spans=[];
- for(const [country,aliases] of countries) {
-  const patterns=[
-   new RegExp(`\\b(${aliases})(?:[ -]issued)?\\s+(?:driving\\s+|driver'?s?\\s+)?licen[cs]e\\b`,'giu'),
-   new RegExp(`\\blicen[cs]e\\s+(?:(?:was\\s+)?issued\\s+(?:in|from|by)|from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu')
-  ];
+ for(const {country, fastCheck, patterns} of licencePatterns) {
+  if (!fastCheck.test(question)) continue;
   for(const pattern of patterns)for(const match of question.matchAll(pattern)) {
    const offset=match[0].toLowerCase().indexOf(match[1].toLowerCase());
    found.add(country);spans.push([match.index+offset,match.index+offset+match[1].length]);
@@ -51,21 +77,8 @@ export function licenceContext(question) {
 export function originCountryContext(question) {
  if (typeof question !== 'string') return {originCountry: null, destinationText: ''};
  const found=new Set(), spans=[];
- for(const [country,aliases] of countries) {
-  const patterns=[
-   new RegExp(`\\b(?:from|moving from|immigrating from|arriving from|newcomer from|newcomers from|relocating from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(${aliases})\\s+(?:newcomer|immigrant|settler|community|newcomers|immigrants|citizen|citizens|national|nationals)\\b`,'giu'),
-   new RegExp(`\\b(?:worked in|work in|working in|worked|work experience in|job in|jobs in|employed in|experience in)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:worked|work|working|employed|experience|internship|job|jobs)(?:\\s+[a-z0-9'-]+){0,6}\\s+(?:in|at|for)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:lived in|living in|lives in|resided in|stayed in|spent in|time in|visited|traveled to|travelled to|born in|studied in|study in|educated in|degree from|degree in|graduated in|diploma from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:lived|living|lives|resided|stayed|spent|time|visited|traveled|travelled|born|studied|study|educated|graduated)(?:\\s+[a-z0-9'-]+){0,6}\\s+(?:in|at|from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:degrees?|diplomas?|universit(?:y|ies)|colleges?|institutes?|schools?)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:custody|children|daughter|son|parents?|mother|father|spouse|family)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:conviction|convictions|charge|charges|arrest|arrests|dui|tickets?|traffic|offen[cs]e|offenses?)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`,'giu'),
-   new RegExp(`\\b(?:in|from|and in)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+){0,3}(${aliases})(?=(?:\\s+(?:for\\s+\\d+|since|while|before|prior to|until|during|through|across|on an?|as an?|with|after|when|paying|to|but)|\\s*[,.?!()]))`,'giu'),
-   new RegExp(`\\b(${aliases})(?:'s)?\\s+(?:police\\s+(?:clearance|certificate)s?|pcc|acro|nbi|ciid|fbi|degree|diploma|passport|education|school|licen[cs]e)\\b`,'giu'),
-   new RegExp(`\\b(?:police clearance|police certificate|pcc|extract|apostille|nbi|psk|fbi|acro|ciid|transcripts?)\\s+(?:from|for|in)\\s+(?:the\\s+)?(${aliases})\\b`,'giu')
-  ];
+ for(const {country, fastCheck, patterns} of originPatterns) {
+  if (!fastCheck.test(question)) continue;
   for(const pattern of patterns) {
    for(const match of question.matchAll(pattern)) {
     found.add(country);

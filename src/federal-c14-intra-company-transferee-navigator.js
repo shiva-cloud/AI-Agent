@@ -8,7 +8,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_ICT_CONSTANTS = Object.freeze({
   MIN_CONTINUOUS_FOREIGN_EMPLOYMENT_MONTHS: 12, // 1 continuous year in preceding 3 years
@@ -41,7 +41,7 @@ export function evaluateFederalIntraCompanyTransferee(params = {}) {
   const {
     transfereeName = 'Transferee',
     employerName = 'Employer',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     qualifyingCorporateRelationship = 'SUBSIDIARY',
     transfereeRole = 'EXECUTIVE_OR_SENIOR_MANAGER',
     continuousForeignEmploymentMonths = 24,
@@ -53,7 +53,7 @@ export function evaluateFederalIntraCompanyTransferee(params = {}) {
   } = safeParams;
   const cleanTransfereeName = boundedText(transfereeName, 'Transferee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const cleanRole = boundedText(transfereeRole, 'EXECUTIVE_OR_SENIOR_MANAGER', 40).toUpperCase();
   const cleanRelationship = boundedText(qualifyingCorporateRelationship, 'SUBSIDIARY', 40).toUpperCase();
   const foreignExpMonths = Math.max(0, Math.min(360, Number.isFinite(Number(continuousForeignEmploymentMonths)) ? Number(continuousForeignEmploymentMonths) : 0));

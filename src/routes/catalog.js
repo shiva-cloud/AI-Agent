@@ -8,7 +8,7 @@ import { resolveMarketGapBatch1Item, searchMarketGapBatch1, getMarketGapBatch1St
 import { resolveMarketGapBatch2Item, searchMarketGapBatch2, getMarketGapBatch2Stats } from '../market-gap-batch2-resolver.js';
 import { resolveMarketGapBatch3Item, searchMarketGapBatch3, getMarketGapBatch3Stats } from '../market-gap-batch3-resolver.js';
 import { resolveGlobalSettlementItem, searchGlobalSettlement, getGlobalSettlementStats } from '../global-settlement-resolver.js';
-import { publicMarketGapItem, publicMarketGapPage } from '../market-gap-catalog.js';
+import { publicMarketGapItem, publicMarketGapPage, publicGlobalSettlementItem, publicGlobalSettlementPage } from '../market-gap-catalog.js';
 
 const ok = body => ({ status: 200, body });
 const page = params => ({
@@ -51,12 +51,12 @@ export function handleCatalogRoute(method, path, params) {
 
   if (path === '/v1/global-settlement/stats') return ok(getGlobalSettlementStats());
   if (path === '/v1/global-settlement') {
-    return ok(searchGlobalSettlement({ query: params.get('q') || '', country: params.get('country') || null, category: params.get('category') || null, tier: params.get('tier') || null, ...page(params) }));
+    return ok(publicGlobalSettlementPage(searchGlobalSettlement({ query: params.get('q') || '', country: params.get('country') || null, category: params.get('category') || null, tier: params.get('tier') || null, ...page(params) })));
   }
   const gms = path.match(/^\/v1\/global-settlement\/(GMS-Q\d+|\d+)$/i);
   if (gms) {
     const item = resolveGlobalSettlementItem(gms[1]);
-    return item ? ok({ item }) : { status: 404, body: { error: `Question not found in Global Settlement (GMS-Q00001 - GMS-Q20000): ${gms[1]}`, code: 'global_settlement_question_not_found' } };
+    return item ? ok({ item: publicGlobalSettlementItem(item) }) : { status: 404, body: { error: `Question not found in Global Settlement (GMS-Q00001 - GMS-Q20000): ${gms[1]}`, code: 'global_settlement_question_not_found' } };
   }
   return null;
 }

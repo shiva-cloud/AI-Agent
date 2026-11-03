@@ -9,7 +9,7 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const FEDERAL_BOWP_CONSTANTS = Object.freeze({
   EXEMPTION_CODE: 'A75',
@@ -44,7 +44,7 @@ export function evaluateFederalBridgingOpenWorkPermit(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const {
     applicantName = 'Applicant',
-    assessmentDate = '2026-10-31',
+    assessmentDate = todayIso(),
     isCurrentlyInCanada = true,
     hasValidWorkAuthorization = true,
     daysUntilCurrentPermitExpires = 60,
@@ -55,7 +55,7 @@ export function evaluateFederalBridgingOpenWorkPermit(params = {}) {
   } = safeParams;
 
   const cleanApplicantName = boundedText(applicantName, 'Applicant', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const daysExpiry = Number.isFinite(Number(daysUntilCurrentPermitExpires)) ? Math.max(-3650, Math.min(36500, Math.round(Number(daysUntilCurrentPermitExpires)))) : 60;
   const stream = boundedText(prApplicationStream, 'EXPRESS_ENTRY_CEC', 60).toUpperCase();
 

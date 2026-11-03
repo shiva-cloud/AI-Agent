@@ -10,7 +10,7 @@
  * - IRCC Ministerial Instructions: Temporary Intake Pause through end of 2026
  */
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const SELF_EMPLOYED_PASS_MARK_POINTS = 35;
 export const SELF_EMPLOYED_MAX_POINTS = 100;
@@ -23,7 +23,7 @@ export const ELIGIBLE_ACTIVITIES = Object.freeze({
 export function evaluateSelfEmployedProgram(params = {}) {
   const safeParams = (params && typeof params === 'object') ? params : {};
   const applicantName = boundedText(safeParams.applicantName, 'Self-Employed Applicant', 100);
-  const assessmentDate = safeIsoDate(safeParams.assessmentDate, '2026-10-31');
+  const assessmentDate = safeIsoDate(safeParams.assessmentDate, todayIso());
   const activityType = boundedText(safeParams.activityType, 'CULTURAL_ACTIVITIES', 50).toUpperCase();
   const selfExp = Number.isFinite(Number(safeParams.yearsOfSelfEmployedExperience)) ? Math.max(0, Math.min(50, Number(safeParams.yearsOfSelfEmployedExperience))) : 3;
   const worldExp = Number.isFinite(Number(safeParams.yearsOfWorldClassParticipation)) ? Math.max(0, Math.min(50, Number(safeParams.yearsOfWorldClassParticipation))) : 0;

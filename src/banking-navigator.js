@@ -4,7 +4,7 @@
 // Bank Act s. 627.17, analyzes Equifax/TransUnion dual-bureau mechanics, and computes 12-month credit trajectory.
 // Pure ES module with zero npm dependencies.
 
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const NEWCOMER_BANK_PACKAGES = {
   scotiabank: {
@@ -104,10 +104,10 @@ export function evaluateBankingAndCreditStrategy({
   hasPostpaidPhonePlan = true,
   immigrationCategory = 'pr',
   clientName = 'Newcomer',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
   const cleanClient = boundedText(clientName, 'Newcomer', 120);
-  const cleanDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const cleanDate = safeIsoDate(assessmentDate, todayIso());
   const normBank = boundedText(selectedBank, 'all', 50).toLowerCase();
   const spend = Number.isFinite(Number(monthlySpendingCad)) ? Math.min(50000, Math.max(50, Number(monthlySpendingCad))) : 600;
   const target = Number.isFinite(Number(targetCreditScore)) ? Math.min(850, Math.max(300, Math.floor(Number(targetCreditScore)))) : 720;

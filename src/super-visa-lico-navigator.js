@@ -1,7 +1,7 @@
 // src/super-visa-lico-navigator.js
 // Super Visa & Parents/Grandparents Sponsorship (PGP) Statutory Income & Insurance Navigator
 // Grounded in IRPR s. 133, IRPA s. 12(1), and official IRCC Low Income Cut-Off (LICO) + 30% benchmarks.
-import { boundedText, safeIsoDate } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso } from './text-input.js';
 
 export const LICO_PLUS_30_TABLE_2024 = {
   1: 35768,
@@ -35,9 +35,9 @@ export function evaluateSuperVisaAndPgp({
   insuranceCoversRepatriation = true,
   applicationType = 'super_visa', // 'super_visa' or 'pgp_permanent'
   hostName = 'Canadian Host Child',
-  assessmentDate = '2026-10-31'
+  assessmentDate = todayIso()
 } = {}) {
-  const safeAssessmentDate = safeIsoDate(assessmentDate, '2026-10-31');
+  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
   const safeHostName = boundedText(hostName, 'Canadian Host Child', 120);
   const safeAppType = boundedText(applicationType, 'super_visa', 40).toLowerCase();
 
