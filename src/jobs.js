@@ -93,7 +93,7 @@ export function openJobQueue(path,{clock=Date.now,readOnly=false}={}) {
           readyJobs:ready.count,oldestReadyAgeMs:ready.oldest===null?null:now-ready.oldest,
           expiredLeases:expired,dueSchedules:schedules.count,oldestScheduleLagMs:schedules.oldest===null?null:now-schedules.oldest,
           thresholds:{queueAgeMs,scheduleLagMs},alerts};
-      }catch(error){try{db.exec('ROLLBACK');}catch{}throw error;}
+      }catch(error){try{db.exec('ROLLBACK');}catch(rbErr){console.warn('[jobs:rollback]', rbErr.message);}throw error;}
     },
     list({after='',limit=100}={}) {
       if(typeof after!=='string'||(after&&!/^[a-f0-9-]{36}$/.test(after))||!integer(limit,1,100))throw new ValidationError('Invalid queue page');

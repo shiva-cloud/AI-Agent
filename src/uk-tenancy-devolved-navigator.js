@@ -72,7 +72,6 @@ export function auditUkDevolvedTenancy({
       violations.push(`SCOTLAND DEPOSIT EXCEEDED: Under the Housing (Scotland) Act 2006, deposits are strictly capped at 2 months rent (£${maxAllowedDeposit} GBP). Landlord charged £${safeDeposit} GBP.`);
     }
 
-    const minRequiredNotice = safeTenure <= 6 ? 28 : 84;
     // Certain grounds allow 28 days even after 6 months (rent arrears, breach)
     const isGroundRequiring84Days = ['landlord_intends_to_sell', 'landlord_family_move_in', 'refurbishment'].includes(evictionGround);
     if (safeTenure > 6 && isGroundRequiring84Days && safeNoticeDays < 84) {

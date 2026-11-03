@@ -23,7 +23,14 @@ async function runSupervisor(queue,{signal,maxRestarts=3,restartDelayMs=1000,onR
     catch(error){
       if(signal.aborted)return {restarts,status:'stopped'};
       if(restarts>=maxRestarts)throw new Error('Worker restart budget exhausted');
-      restarts++;try{Promise.resolve(onRestart({event:'worker_restart',attempt:restarts})).catch(()=>{});}catch{}
+      restarts++;
+      try {
+        Promise.resolve(onRestart({event:'worker_restart',attempt:restarts})).catch(err => {
+          console.warn('[worker-service:onRestart]', err.message);
+        });
+      } catch (err) {
+        console.warn('[worker-service:onRestart_sync]', err.message);
+      }
       const {setTimeout:delay}=await import('node:timers/promises');
       try{await delay(restartDelayMs,undefined,{signal});}catch{if(!signal.aborted)throw error;}
     }

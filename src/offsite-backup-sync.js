@@ -87,7 +87,9 @@ export function pruneOldBackups(dir, maxRetain) {
       try {
         unlinkSync(file.path);
         prunedCount++;
-      } catch {}
+      } catch (err) {
+        if (err.code !== 'ENOENT') console.warn('[offsite-backup:prune]', file.path, err.message);
+      }
     }
   }
 

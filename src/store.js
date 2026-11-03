@@ -36,8 +36,20 @@ export function openStore(path='data/settlement.sqlite') {
    CREATE INDEX IF NOT EXISTS idx_gaps_topic ON gaps(topic);
    CREATE INDEX IF NOT EXISTS idx_gaps_trace_id ON gaps(trace_id);`);
 
-  try { db.exec('ALTER TABLE audits ADD COLUMN prev_hash TEXT;'); } catch {}
-  try { db.exec('ALTER TABLE audits ADD COLUMN hash TEXT;'); } catch {}
+  try {
+    db.exec('ALTER TABLE audits ADD COLUMN prev_hash TEXT;');
+  } catch (err) {
+    if (!err.message?.includes('duplicate column')) {
+      console.warn('[store:migration:prev_hash]', err.message);
+    }
+  }
+  try {
+    db.exec('ALTER TABLE audits ADD COLUMN hash TEXT;');
+  } catch (err) {
+    if (!err.message?.includes('duplicate column')) {
+      console.warn('[store:migration:hash]', err.message);
+    }
+  }
 
   try {
     db.exec(`CREATE VIRTUAL TABLE IF NOT EXISTS records_fts USING fts5(
@@ -48,7 +60,9 @@ export function openStore(path='data/settlement.sqlite') {
       topic,
       tokenize='porter unicode61'
     );`);
-  } catch {}
+  } catch (err) {
+    console.warn('[store:fts5_init]', err.message);
+  }
 
   try {
     configureEnglishDatabase(db);
@@ -266,7 +280,11 @@ export function openStore(path='data/settlement.sqlite') {
       if (vacuum) {
         db.exec('VACUUM;');
       } else {
-        try { db.exec('PRAGMA incremental_vacuum(50);'); } catch {}
+        try {
+          db.exec('PRAGMA incremental_vacuum(50);');
+        } catch (err) {
+          console.warn('[store:incremental_vacuum]', err.message);
+        }
       }
       return { compacted: true, ...purgeResult };
     },

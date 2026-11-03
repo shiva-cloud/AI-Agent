@@ -50,7 +50,11 @@ export function openEvidenceIndex(path, options = {}) {
         const ranked = rankTokenized(safeRecords.map(record => ({ record, words: indexed.get(record.id).tokens.split(' ') })), safeTerms)
           .map(r => ({ ...r, lexicalScore: matchIds.has(r.id) ? r.lexicalScore : 0, retrievalVersion: 'sqlite-fts5-bm25-1' }));
         db.exec('COMMIT'); return ranked;
-      } catch { try { db.exec('ROLLBACK'); } catch {} return fallback(); }
+      } catch (err) {
+        console.warn('[evidence-index:fts_rank_fallback]', err.message);
+        try { db.exec('ROLLBACK'); } catch (rbErr) { console.warn('[evidence-index:rollback]', rbErr.message); }
+        return fallback();
+      }
     }
   };
 }

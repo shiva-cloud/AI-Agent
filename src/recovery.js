@@ -56,7 +56,7 @@ export async function restoreDrill(backupDirectory,outputRoot='recovery-drills')
   const logPath=join(resolve(outputRoot),'drill-log.md');
   const line=`| ${report.completedAt} | ${basename(checked.directory)} | ${report.status} | ${smoke.map(s=>`${s.status}/${s.claimCount} claims`).join(', ')} | ${verification.schemaDigest.slice(0,12)} |`;
   let log='';
-  try {log=readFileSync(logPath,'utf8');} catch {}
+  try { log=readFileSync(logPath,'utf8'); } catch (err) { if (err.code !== 'ENOENT') console.warn('[recovery:drill-log]', err.message); }
   if(!log.includes('| When |')) log='| When | Backup | Outcome | Smoke answers | Schema digest |\n| --- | --- | --- | --- | --- |\n';
   writeFileSync(logPath,log+line+'\n');
   return {directory,...report,logPath};

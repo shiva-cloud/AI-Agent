@@ -2,16 +2,10 @@
 // Each batch supplies its items (src/market-gap/batchN.json), its ID range and the
 // scenario phrases that identify a question when no exact text match exists.
 import { readFileSync } from 'node:fs';
+import { normalizeText } from './text-input.js';
 
 export function loadMarketGapItems(file) {
   return Object.freeze(JSON.parse(readFileSync(new URL(`./market-gap/${file}`, import.meta.url), 'utf8')));
-}
-
-function normalizeText(text) {
-  if (!text || typeof text !== 'string') return '';
-  return text.toLowerCase()
-    .replace(/[\s\p{P}]+/gu, ' ')
-    .trim();
 }
 
 export function createMarketGapBatch({ items, first, last, scenarios }) {

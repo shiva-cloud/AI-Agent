@@ -41,7 +41,7 @@ export function createObservability({logger=()=>{},metricsStore,maxPendingLogs=1
     begin(req,res) {
       const requestId=randomUUID(),start=performance.now();let finished=false;
       const context={stage:'dispatch',failure:'unclassified'};contexts.set(res,context);
-      let category='other';try{category=routeCategory(new URL(req.url,'http://localhost').pathname);}catch{}
+      let category='other';try{category=routeCategory(new URL(req.url,'http://localhost').pathname);}catch(err){console.warn('[observability:route_category]', err.message);}
       res.setHeader('X-Request-ID',requestId);
       const complete=aborted=>{
         if(finished)return;finished=true;

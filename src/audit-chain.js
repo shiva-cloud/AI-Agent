@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 export const GENESIS_HASH = '0000000000000000000000000000000000000000000000000000000000000000';
 
 export const AUDIT_ACTIONS = [
-  'approve', 'approved', 'editorial_review', 'correction', 'correct', 'basis', 'reject', 'template',
+  'approve', 'approved', 'editorial_review', 'correction', 'correct', 'basis', 'reject', 'rejected', 'rollback', 'template',
   'jurisdiction', 'update', 'quote_restore', 'create', 'withdrawn', 'reinstate'
 ];
 
@@ -35,7 +35,7 @@ export function verifyAuditChain(db) {
     if (a.prev_hash && a.prev_hash !== expectedPrevHash && a.prev_hash !== GENESIS_HASH) {
       return {
         intact: false,
-        error: `Audit chain linkage broken at audit #${a.id}: expected prev_hash ${expectedPrevHash}, got ${a.prev_hash}`
+        error: `Audit chain broken at audit #${a.id} (linkage broken): expected prev_hash ${expectedPrevHash}, got ${a.prev_hash}`
       };
     }
 
@@ -54,7 +54,7 @@ export function verifyAuditChain(db) {
       if (!matched) {
         return {
           intact: false,
-          error: `Audit cryptographic tampering detected at audit #${a.id} for record "${a.record_id}": stored hash ${a.hash} does not match computed hash`
+          error: `Audit cryptographic tampering detected at audit #${a.id} for record "${a.record_id}": SHA-256 payload digest mismatch (stored ${a.hash})`
         };
       }
 
