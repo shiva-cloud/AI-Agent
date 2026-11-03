@@ -132,6 +132,18 @@ test('Province-wise and state-wise search resolves correctly without location cl
   assert.equal(qSharjah.region, 'Sharjah');
   assert.equal(qSharjah.country, 'United Arab Emirates');
   assert.equal(qSharjah.ambiguous, false);
+
+  // 7. Spain Autonomous Communities
+  const qCatalonia = parse({ question: 'Tenant rights in Catalonia', country: 'Spain' });
+  assert.equal(qCatalonia.region, 'Catalonia');
+  assert.equal(qCatalonia.country, 'Spain');
+  assert.equal(qCatalonia.ambiguous, false);
+
+  // 8. New Zealand Regions
+  const qCanterbury = parse({ question: 'Rental rules in Canterbury', country: 'New Zealand' });
+  assert.equal(qCanterbury.region, 'Canterbury');
+  assert.equal(qCanterbury.country, 'New Zealand');
+  assert.equal(qCanterbury.ambiguous, false);
 });
 
 test('Dropdown province/state selection sets region and clears city slot', () => {
@@ -149,6 +161,16 @@ test('Dropdown province/state selection sets region and clears city slot', () =>
   assert.equal(p3.region, 'New South Wales');
   assert.equal(p3.city, null);
   assert.equal(p3.ambiguous, false);
+
+  const p4 = parse({ question: 'How do rent rules work?', city: 'Catalonia', country: 'Spain' });
+  assert.equal(p4.region, 'Catalonia');
+  assert.equal(p4.city, null);
+  assert.equal(p4.ambiguous, false);
+
+  const p5 = parse({ question: 'How do rent rules work?', city: 'Canterbury', country: 'New Zealand' });
+  assert.equal(p5.region, 'Canterbury');
+  assert.equal(p5.city, null);
+  assert.equal(p5.ambiguous, false);
 });
 
 test('Database retrieval matches province-level and state-level evidence', () => {
