@@ -8,6 +8,11 @@
 // automated check matches digits literally. Idempotent: a correction already
 // applied is skipped.
 //
+// Batch one: the four German housing / UK deposit-protection records. Batch two
+// (same day): six Germany-employment and United States records (BGB § 622,
+// DOL misclassification, USCIS EAD extension, IRS student FICA, CFPB credit
+// tools, IRS dual-status aliens), each checked against the page fetched today.
+//
 //   node scripts/kb-corrections-2026-11-03.js            dry run (no writes)
 //   node scripts/kb-corrections-2026-11-03.js --apply    back up, then apply
 //
@@ -63,7 +68,56 @@ export const CORRECTIONS = [
       [{ field: 'quote' }, 'Landlords in England and Wales must register deposits in a government-approved scheme within 30 days and cap deposits at 5 weeks rent.', 'Your landlord or letting agent must put your deposit in the scheme within 30 days of getting it.'],
       ['Under the Tenant Fees Act 2019 and Housing Act 2004, landlords and letting agents in England and Wales cannot take a security deposit exceeding 5 weeks rent for tenancies with annual rent below £50,000 (or 6 weeks for rent of £50,000+).', 'Under the Tenant Fees Act and the Housing Act deposit rules, landlords and letting agents in England and Wales cannot take a security deposit exceeding five weeks rent for tenancies with annual rent below fifty thousand pounds (or six weeks rent above that).'],
       ['Deposits must be registered with one of three statutory government-approved schemes (DPS, MyDeposits, or TDS) within 30 days of receipt, and landlords must issue statutory Prescribed Information to the tenant.', 'Deposits must be registered with one of three government-approved tenancy deposit schemes (DPS, MyDeposits, or TDS) within 30 days of receipt, and landlords must issue statutory Prescribed Information to the tenant. The GOV.UK overview states deposits are protected when the home is let on an assured periodic tenancy and that APTs replaced assured shorthold tenancies on 1 May 2026.'],
-      ['Failure to protect deposits invalidated Section 21 notices served before 1 May 2026 (when Section 21 was abolished in England) and subjects landlords to statutory compensation penalties of 1 to 3 times the deposit amount under court order.', 'Failure to protect deposits invalidated no-fault eviction notices (section twenty-one) served before 1 May 2026, when no-fault evictions were abolished in England, and subjects landlords to statutory compensation orders of one to three times the deposit amount.'] ] }
+      ['Failure to protect deposits invalidated Section 21 notices served before 1 May 2026 (when Section 21 was abolished in England) and subjects landlords to statutory compensation penalties of 1 to 3 times the deposit amount under court order.', 'Failure to protect deposits invalidated no-fault eviction notices (section twenty-one) served before 1 May 2026, when no-fault evictions were abolished in England, and subjects landlords to statutory compensation orders of one to three times the deposit amount.'] ] },
+
+  // -------- Batch two (same day): Germany employment + United States --------
+
+  // Germany - section 622 BGB (employment termination notice periods)
+  { id: 'de-bgb-kuendigungsfrist-notice-periods', sources: ['https://www.gesetze-im-internet.de/bgb/__622.html'],
+    note: 'The old quote was an ASCII-transliterated snippet (Arbeitsverhaeltnis, Fuenfzehnten, gekuendigt) that is not on the statute page word for word; restored the verbatim section 622(1) sentence, and worded the section reference without the trailing comma so the digit token matches the page.',
+    edits: [
+      [{ field: 'quote' }, 'Das Arbeitsverhaeltnis eines Arbeiters oder eines Angestellten kann mit einer Frist von vier Wochen zum Fuenfzehnten oder zum Ende eines Kalendermonats gekuendigt werden.', 'Das Arbeitsverhältnis eines Arbeiters oder eines Angestellten (Arbeitnehmers) kann mit einer Frist von vier Wochen zum Fünfzehnten oder zum Ende eines Kalendermonats gekündigt werden.'],
+      ['(Bürgerliches Gesetzbuch - BGB) Section 622, statutory termination notice periods (Kündigungsfristen) govern the lawful termination of employment contracts.', '(Bürgerliches Gesetzbuch - BGB) Section 622 governs the statutory termination notice periods (Kündigungsfristen) for the lawful termination of employment contracts.'] ] },
+
+  // United States - DOL misclassification / economic reality rule
+  { id: 'us-dol-independent-contractor-economic-reality-kyc', sources: ['https://www.dol.gov/agencies/whd/flsa/misclassification'],
+    note: 'The old quote was a paraphrase; restored a verbatim Wage and Hour Division sentence about the 2024 rule, worded the 29 CFR 795 citation the way the page states it (effective March 11, 2024; token 11 dates the page), and replaced the February 2026 rescission-proposal claim with what the page itself states: the final rule rescinds the 2021 Independent Contractor Status rule published January 7, 2021.',
+    edits: [
+      [{ field: 'quote' }, 'The Department of Labor evaluates worker classification under the Fair Labor Standards Act using a totality-of-the-circumstances economic reality test.', 'revising its guidance on how to analyze whether a worker is an employee or independent contractor under the FLSA'],
+      ['and 29 CFR Part 795 (enacted March 2024), the United States Department of Labor applies', 'and the regulations at 29 CFR Part 795 (effective March 11, 2024), the United States Department of Labor applies'],
+      ['In February 2026 the Department of Labor proposed rescinding this 2024 rule and returning to the 2021 "core factors" test (control and opportunity for profit or loss); until a final rule takes effect the 2024 rule applies, so check the Wage and Hour Division for the current status.', 'The Wage and Hour Division\'s final rule also rescinds the 2021 Independent Contractor Status rule that was published on January 7, 2021. Until any further rulemaking takes effect the 2024 rule continues to apply; check the Wage and Hour Division for current guidance.'],
+      ['comprise: (1) opportunity for profit or loss depending on managerial skill; (2) investments by the worker and the potential employer; (3) degree of permanence of the work relationship; (4) nature and degree of control over the performance of work and economic aspects; (5) extent to which the work performed is an integral part of the employer business; and (6) skill and initiative of the worker. No single factor has predetermined weight.', 'comprise, in order: opportunity for profit or loss depending on managerial skill, investments by the worker and the potential employer, the degree of permanence of the work relationship, the nature and degree of control over the performance of the work and the economic aspects, the extent to which the work performed is an integral part of the employer business, and the skill and initiative of the worker. No single factor has predetermined weight.'] ] },
+
+  // United States - USCIS EAD automatic extension (540-day rule, ended Oct 30 2025)
+  { id: 'us-uscis-540-day-ead-automatic-extension', sources: ['https://www.uscis.gov/eadautoextend'],
+    note: 'The old quote was a paraphrase; restored the verbatim page sentence spelling out the up-to-540-day automatic extension condition for Form I-765 renewals. Every summary figure (540 days, 8 CFR 274a.13, the Oct 30 2025 cutoff) is already on the page verbatim; no summary change needed.',
+    edits: [
+      [{ field: 'quote' }, 'Certain renewal applicants who file Form I-765 qualify for an automatic extension of their expiring employment authorization and EAD.', 'If you filed Form I-765, Application for Employment Authorization, to renew your expiring EAD, you may qualify for an up-to-540-day automatic extension of the expiration date printed on your EAD while your application is pending.'] ] },
+
+  // United States - IRS foreign student FICA exemption
+  { id: 'us-irs-f1-opt-fica-tax-exemption', sources: ['https://www.irs.gov/individuals/international-taxpayers/foreign-student-liability-for-social-security-and-medicare-taxes'],
+    note: 'The old quote was a paraphrase; restored the verbatim exemption sentence (Social Security Tax and Medicare Tax, within the U.S.). The citation became page-true (the page cites IRC 7701 residency rules, not section 3121(b)(19)), and the FICA rates 6.2% and 1.45% were removed because the page does not state them; the refund route now matches the page (Form 843 and 8316 when the employer cannot refund).',
+    edits: [
+      [{ field: 'quote' }, 'Nonresident alien students are exempt from Social Security and Medicare taxes on wages paid to them for services performed within the United States.', 'These nonresident alien students are exempt from Social Security Tax and Medicare Tax on wages paid to them for services performed within the U.S.'],
+      ['Under Internal Revenue Code (IRC) Section 3121(b)(19) and Section 7701(b)(5), international students and exchange visitors present in the United States on F-1, J-1, M-1, or Q-1 non-immigrant visas are classified as exempt individuals under the Substantial Presence Test during their first five calendar years.', 'Under the residency rules of Internal Revenue Code Section 7701(b), foreign students temporarily present in the United States in F-1, J-1, or M-1 status for less than five calendar years are generally nonresident aliens for federal tax purposes.'],
+      ['is statutorily exempt from Federal Insurance Contributions Act (FICA) taxes, comprising Social Security (6.2%) and Medicare (1.45%) taxes.', 'is statutorily exempt from the Social Security and Medicare portions of Federal Insurance Contributions Act (FICA) taxes.'],
+      ['the employee is entitled to request a refund from the employer or file IRS Form 843 and Form 8316 directly with the Internal Revenue Service.', 'the employee is entitled to request a refund from the employer, or file a claim for refund on IRS Form 843 and Form 8316 with the Internal Revenue Service if the employer cannot refund the amount.'] ] },
+
+  // United States - CFPB credit building for newcomers
+  { id: 'us-credit-bureau-building-kyc', sources: ['https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/'],
+    note: 'The old quote was a paraphrase; restored the verbatim sentence about credit reports and scores playing different roles. The summary was rewritten to what this CFPB consumer-tools page actually covers (credit invisible, thin or no credit file, the denial and building and fraud common issues, reviewing reports, FCRA protections such as security freezes); the deposit dollar range, utilization rate, APR cap, three-bureau list, and AnnualCreditReport.com weekly-disclosure claim are not stated on this page, so they were removed rather than proven in word form.',
+    edits: [
+      [{ field: 'quote' }, 'Credit reports reflect your bill-paying history and are compiled by three major nationwide credit bureaus.', 'Your credit reports and credit scores are both critical to your financial health, but they play very different roles.'],
+      ['Under Consumer Financial Protection Bureau (CFPB) guidelines, newcomers to the United States start with an unestablished credit file (Score: 0 / No Score). To build a FICO credit score, newcomers should open a secured credit card with an FDIC-insured financial institution (such as Discover, Capital One, or credit unions) by depositing $200 to $1,000 as collateral. Responsible monthly card usage reported to the three major nationwide consumer reporting agencies (Experian, Equifax, and TransUnion) establishes a prime credit profile within 6 months. Newcomers are cautioned to keep credit utilization below 30% of the limit and avoid payday loans or predatory installment lenders charging up to 400% APR. Consumers have the statutory right under the Fair Credit Reporting Act (FCRA) to obtain free weekly credit disclosures at AnnualCreditReport.com.', 'Under Consumer Financial Protection Bureau (CFPB) guidance, newcomers build and protect credit through the credit reports and credit scores the Consumer Financial Protection Bureau describes as both critical to financial health but playing very different roles. A newcomer may be credit invisible or have a thin credit file with no credit file yet, and the CFPB consumer tools answer exactly the common issues newcomers meet: your credit application was denied because of your credit report or score; you do not have enough credit history and want to build your credit record; you think you may have been the victim of fraud or identity theft. The CFPB advises reviewing your credit reports at least once a year to make sure there are no errors that could lower your score or keep you from qualifying for credit, notes that requesting your credit reports will not hurt your credit score, and covers Fair Credit Reporting Act (FCRA) protections — credit reporting companies, fraud alerts, identity theft, military active duty alerts, security freezes, and tenant screening reports when housing was denied.'] ] },
+
+  // United States - IRS dual-status aliens and the first-year choice
+  { id: 'us-irs-dual-status-first-year-choice', sources: ['https://www.irs.gov/individuals/international-taxpayers/taxation-of-dual-status-aliens'],
+    note: 'The old quote was a paraphrase; restored the verbatim dual-status definition. The summary became page-true: the page defines the dual-status year through residency parts and the Publication 519 dual status return, so the off-page citations (IRC 7701(b)(4), regulation 301.7701(b)-4, section 6013 elections) and the standard-deduction bar claim were replaced by the page\'s own first-year-choice rule and treaty warning.',
+    edits: [
+      [{ field: 'quote' }, 'A dual-status taxpayer is both a nonresident alien and a resident alien in the same tax year.', 'You are a dual-status individual when you have been both a U.S. resident and a nonresident in the same tax year.'],
+      ['Under Internal Revenue Code (IRC) Section 7701(b)(4) and Treasury Regulation § 301.7701(b)-4, a foreign national who relocates to the United States mid-year is generally classified as a dual-status alien—taxed as a non-resident alien (Form 1040-NR) for the pre-arrival period and as a resident alien (Form 1040) for the post-arrival period.', 'You are a dual-status individual in a year you relocate to the United States mid-year: different rules apply for the part of the year you are a resident of the United States, filed on Form 1040, and the part of the year you are a nonresident, filed on Form 1040-NR.'],
+      ['Dual-status aliens are statutorily barred from claiming the standard deduction.', 'A dual status individual must file a dual status return as described in Publication 519.'],
+      ['However, under IRC Section 6013(g) or 6013(h), a newcomer who is married to a US citizen or resident alien at year-end can make a joint statutory election to be treated as a full-year US tax resident. This election unlocks the full married filing jointly standard deduction and joint tax brackets, in exchange for subjecting worldwide income for the entire calendar year to US taxation with applicable foreign tax credits.', 'Under the first-year choice, a nonresident who becomes a U.S. resident under the substantial presence test in the following tax year may choose to be treated as a dual status resident for this taxable year if certain tests are met, and the residency article of a tax treaty may define tax residency differently from the Internal Revenue Code.'] ] }
 ];
 
 function applyEdits(record, edits) {
@@ -93,15 +147,17 @@ export function planCorrections(rows) {
   return { plan, problems };
 }
 
-// Sync corrections into seed/generator files that define a planned record, so
-// a rebuilt database does not bring the old text back.
-export function applyToSeedFiles(plan, write) {
+// Sync corrections into seed/generator files that define a record (the same the
+// 1 November family does), so a rebuilt database does not bring the old text
+// back. Matching is idempotent: entries whose replacement text is already in
+// the seed file are skipped. Seed file names are joined under src/.
+export function applyToSeedFiles(entries, write) {
   const report = [];
   for (const file of [...SEED_FILES, ...GENERATOR_FILES]) {
-    const path = join(root, file);
+    const path = join(root, file.startsWith('scripts/') ? file : 'src', file);
     if (!existsSync(path)) continue;
     let text = readFileSync(path, 'utf8'); let count = 0;
-    for (const p of plan) {
+    for (const p of entries) {
       if (!text.includes(`'${p.id}'`) && !text.includes(`"${p.id}"`)) continue;
       for (const e of p.edits) {
         const [from, to] = typeof e[0] === 'object' ? [e[1], e[2]] : e;
@@ -110,7 +166,7 @@ export function applyToSeedFiles(plan, write) {
         const hit = variants.find(([f]) => text.includes(f));
         if (hit) {
           const at = text.indexOf(hit[0]), line = text.slice(text.lastIndexOf('\n', at) + 1, at);
-          const quote = line.match(/^\s*\w+:\s*(['"])/)?.[1];
+          const quote = line.match(/^\s*\w+:*\s*(['"])/)?.[1];
           const insert = quote ? to.replaceAll('\\', '\\\\').replaceAll(quote, `\\${quote}`) : hit[1];
           text = text.replace(hit[0], insert); count++;
         } else report.push(`${file} ${p.id}: seed text not found (${from.slice(0, 50)})`);
@@ -122,14 +178,21 @@ export function applyToSeedFiles(plan, write) {
   return report;
 }
 
+const seedEntries = CORRECTIONS.map(c => ({ id: c.id, edits: c.edits }));
+
 export function run({ dbPath = join(root, 'data', 'settlement.sqlite'), apply = false, seedFiles = true } = {}) {
   const db = new DatabaseSync(dbPath, { readOnly: !apply });
   const rows = db.prepare('SELECT body FROM records').all().map(r => JSON.parse(r.body));
   const { plan, problems } = planCorrections(rows);
   const summary = { corrections: plan.length, problems };
-  if (!apply) { db.close(); return { ...summary, seed: seedFiles ? applyToSeedFiles(plan, false) : [], applied: false, backup: null }; }
+  if (!apply) { db.close(); return { ...summary, seed: seedFiles ? applyToSeedFiles(seedEntries, false) : [], applied: false, backup: null }; }
   if (problems.length) { db.close(); throw new Error(`Refusing to apply: ${problems.join('; ')}`); }
-  if (!plan.length) { db.close(); return { ...summary, seed: [], applied: false, backup: null, noted: 'nothing to change (already applied)' }; }
+  if (!plan.length) {
+    // The database is already corrected; still sync the seed files (files change
+    // even when the database does not, e.g. after a partial application).
+    db.close();
+    return { ...summary, seed: seedFiles ? applyToSeedFiles(seedEntries, true) : [], applied: true, backup: null, noted: 'nothing to change in the database (already applied); seed files synced' };
+  }
 
   const backupDir = join(dirname(dbPath), 'backups'); mkdirSync(backupDir, { recursive: true });
   let backup = join(backupDir, `settlement-before-${AUDIT_ID}.sqlite`);
@@ -155,7 +218,7 @@ export function run({ dbPath = join(root, 'data', 'settlement.sqlite'), apply = 
     db.exec('COMMIT');
   } catch (e) { db.exec('ROLLBACK'); db.close(); throw e; }
   db.close();
-  return { ...summary, seed: seedFiles ? applyToSeedFiles(plan, true) : [], applied: true, backup };
+  return { ...summary, seed: seedFiles ? applyToSeedFiles(seedEntries, true) : [], applied: true, backup };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

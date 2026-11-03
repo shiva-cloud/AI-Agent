@@ -1,6 +1,14 @@
 # Implementation status — 3 November 2026
 
-## Current release: 0.19.52, English-only
+## Current release: 0.19.53, English-only
+
+### Quote-restore batch two (0.19.53)
+
+Details in `docs/CHANGELOG.md` 0.19.53:
+
+- Batch two of `scripts/kb-corrections-2026-11-03.js` corrected six more drifted records against today's pages: BGB § 622, DOL worker-classification, USCIS EAD automatic extension, IRS foreign-student FICA, CFPB credit tools, and IRS dual-status aliens (verbatim quotes; off-page figures removed or written the way the page proves them; the DOL rescission claim brought back to what the page states).
+- The full 602-record publish queue re-ran through the word-for-word official-page check: exactly those 6 records passed and published as `source_verified` through the audited chain. Publication-chain records 60 → 66 (big-12 15 → 21, including 5 US records). Backlog after the run: 241 quote drift, 131 dead links, 91 short quotes, 68 network failures.
+- `test/country-coverage.test.js` publication-chain floor re-frozen at 66.
 
 ### Quote-restoration pilot (0.19.52)
 

@@ -2,6 +2,14 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.53 — Quote-restore batch two: six Germany/US records publish (3 November 2026)
+
+Second slice of phase F2 (quote drift), extending the same-day audited corrections script:
+
+- **Batch two in `scripts/kb-corrections-2026-11-03.js`:** six more drifted records corrected against the pages fetched today — BGB § 622 employment-notice periods (verbatim § 622(1); the ASCII-transliterated snippet replaced), DOL worker-classification (verbatim Wage and Hour Division sentence on the 2024 rule effective March 11, 2024; the unprovable February 2026 rescission-proposal claim replaced by the page's own statement that the final rule rescinds the 2021 Independent Contractor Status rule published January 7, 2021; the six factors re-worded without digit tokens that the page does not contain), USCIS EAD automatic extension (verbatim up-to-540-day sentence; every summary figure was already on the page), IRS foreign-student FICA (verbatim exemption sentence; the citation made page-true at IRC 7701; the 6.2%/1.45% rates removed because the page does not state them), CFPB credit tools (rewritten to what that consumer-tools page covers — credit invisible, thin or no credit file, denial issues, FCRA protections — dropping the deposit dollar range, utilization and APR figures it does not state), and IRS dual-status aliens (verbatim definition; the off-page 7701(b)(4)/301.7701(b)-4/6013 citations and the standard-deduction-bar claim replaced by the page's Publication 519 dual-status-return rule and first-year choice).
+- **Published through the audited chain:** the full 602-record queue re-ran through the word-for-word official-page check (backup first): exactly the 6 corrected records passed and published as `source_verified` (1 Germany employment, 4 United States employment/money, 1 United States money). Publication-chain records: 60 → 66 (big-12 15 → 21). Queue reasons after the run: 241 quote drift (was 246), 131 dead links without archive copies, 91 short quotes, 68 network failures.
+- **Floors re-frozen:** `test/country-coverage.test.js` publication-chain floor 60 → 66; big-12 audited counts unchanged and the big-12 summary-depth floor holds (average stays 841).
+
 ## 0.19.52 — Quote-restoration pilot: 4 records pass the official-page check (3 November 2026)
 
 First slice of phase F2 (quote drift) from the coverage analysis; 3 November corrections:
