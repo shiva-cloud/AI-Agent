@@ -1,7 +1,7 @@
 // Automated Asset Minification & Bundling Tool (Rec 159)
 // Minifies production CSS and JavaScript bundles to optimize network payloads.
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 export function minifyCss(cssContent) {
   return cssContent
@@ -24,12 +24,13 @@ export function minifyJs(jsContent) {
 
 export function bundleAssets({write=false}={}) {
   const cssPath = 'public/styles.css';
-  const jsPath = 'public/app.js';
+  // Main app script plus the modules split out of it into public/app/.
+  const jsPaths = ['public/app.js', ...readdirSync('public/app').filter(name => name.endsWith('.js')).sort().map(name => 'public/app/' + name)];
 
   const rawCss = readFileSync(cssPath, 'utf8');
   const minCss = minifyCss(rawCss);
 
-  const rawJs = readFileSync(jsPath, 'utf8');
+  const rawJs = jsPaths.map(path => readFileSync(path, 'utf8')).join('\n');
   const minJs = minifyJs(rawJs);
 
   return {

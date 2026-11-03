@@ -433,13 +433,13 @@ export function addResponseSchemas(paths) {
   response('/v1/tools/medical-admissibility','post','200',medicalAdmissibilitySchema);
 
   const workerClassificationSchema = object({
-    asOf:text,province:text,jobTitle:text,hourlyRateCad:integer,classificationVerdict:text,isMisclassifiedEmployee:boolean,
+    asOf:text,province:text,jobTitle:text,hourlyRateCad:number,classificationVerdict:text,isMisclassifiedEmployee:boolean,
     hoursSummary:object({
-      weeklyHoursWorked:integer,statutoryOvertimeThreshold:integer,overtimeHoursPerWeek:integer,totalWeeksWorked:integer,totalHoursWorked:integer
+      weeklyHoursWorked:number,statutoryOvertimeThreshold:number,overtimeHoursPerWeek:number,totalWeeksWorked:number,totalHoursWorked:number
     }),
     wageTheftAudit:object({
-      grossPayActuallyReceivedCad:integer,unpaidOvertimeCad:integer,unpaidVacationPayCad:integer,unpaidHolidayPayCad:integer,
-      totalDirectWageTheftCad:integer,employerCppLiabilityCad:integer,employerEiLiabilityCad:integer,totalStatutoryEmployerLiabilityCad:integer
+      grossPayActuallyReceivedCad:number,unpaidOvertimeCad:number,unpaidVacationPayCad:number,unpaidHolidayPayCad:number,
+      totalDirectWageTheftCad:number,employerCppLiabilityCad:number,employerEiLiabilityCad:number,totalStatutoryEmployerLiabilityCad:number
     }),
     commonLawFactors:object({
       employeeIndicators:array(text),contractorIndicators:array(text),governingPrecedent:text

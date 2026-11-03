@@ -14,7 +14,7 @@ test('boundedText cleans, bounds and falls back', () => {
 });
 
 test('tools that echo or scan free text accept hostile input without failing', () => {
-  assert.equal(auditWorkerClassificationAndWageTheft({ jobTitle: { x: 1 } }).jobTitle, 'Contract Specialist');
+  assert.equal(auditWorkerClassificationAndWageTheft({province:"ON",hourlyRateCad:25,averageWeeklyHoursWorked:50,weeksWorkedTotal:52,publicHolidaysWorkedCount:5,employerSetsScheduleAndLocation:true,employerProvidesToolsAndLaptop:true,workerCannotHireSubcontractors:true,workerHasNoRiskOfFinancialLoss:true,workerWorksExclusivelyForEmployer:true,wasVacationPayPaid:false,wasOvertimePayPaid:false, jobTitle: { x: 1 } }).jobTitle, 'Contract Specialist');
   const med = evaluateMedicalAdmissibility({ conditionName: 'A'.repeat(5000) });
   assert.equal(med.conditionName.length, 120);
   assert.ok(med.individualizedMitigationPlanDraft.length < 5000);

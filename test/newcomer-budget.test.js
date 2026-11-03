@@ -26,7 +26,7 @@ test('calculateNewcomerBudget computes accurate runway and upfront deposits for 
   assert.ok(budget.bridgeHealthNotice.includes('immediate'));
 });
 
-test('calculateNewcomerBudget factors in CCB credits for families with children', () => {
+test('calculateNewcomerBudget does not assume CCB entitlement for families with children', () => {
   const familyBudget = calculateNewcomerBudget({
     city: 'Calgary',
     household: 'family_2_children',
@@ -36,9 +36,9 @@ test('calculateNewcomerBudget factors in CCB credits for families with children'
   });
 
   assert.equal(familyBudget.city, 'Calgary');
-  assert.ok(familyBudget.monthlyGovernmentOffsets.canadaChildBenefit > 1000);
-  assert.ok(familyBudget.monthlyGovernmentOffsets.totalMonthlyGovernmentCredits > 1000);
-  // Because Calgary rent is lower and CCB is factored in along with income, net burn rate is low or runway is long
+  assert.equal(familyBudget.monthlyGovernmentOffsets.canadaChildBenefit,0);
+  assert.equal(familyBudget.monthlyGovernmentOffsets.totalMonthlyGovernmentCredits,0);
+  // Because Calgary rent is lower and supplied income is included, net burn rate is low or runway is long
   assert.ok(familyBudget.runwayMonths >= 6);
   assert.equal(familyBudget.runwaySafetyAssessment.startsWith('Optimal'), true);
 });

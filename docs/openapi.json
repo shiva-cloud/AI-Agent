@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Northstar API contract",
-    "version": "0.19.48",
+    "version": "0.19.49",
     "description": "Route/auth inventory, POST fields and structured success-response schemas for all current API operations. Runtime English, semantic, provenance and conditional identity policies remain authoritative. Legacy editorial calls require reviewer/actor fields; individual authentication supplies them. JSON POST bodies are bounded to 12000 bytes. Static assets excluded."
   },
   "paths": {
@@ -6559,23 +6559,25 @@
                 "type": "object",
                 "properties": {
                   "limit": {
-                    "type": "integer",
-                    "minimum": 100,
-                    "maximum": 50000
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 10000000
                   },
                   "spend": {
-                    "type": "integer",
+                    "type": "number",
                     "minimum": 0,
-                    "maximum": 50000
+                    "maximum": 10000000
                   },
                   "strategy": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 50
+                    "enum": [
+                      "full_on_time",
+                      "multiple_payments",
+                      "minimum_only"
+                    ]
                   },
                   "inquiries": {
                     "type": "integer",
-                    "minimum": 1,
+                    "minimum": 0,
                     "maximum": 10
                   }
                 },
@@ -13035,7 +13037,7 @@
                       "type": "string"
                     },
                     "hourlyRateCad": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "classificationVerdict": {
                       "type": "string"
@@ -13047,19 +13049,19 @@
                       "type": "object",
                       "properties": {
                         "weeklyHoursWorked": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "statutoryOvertimeThreshold": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "overtimeHoursPerWeek": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalWeeksWorked": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalHoursWorked": {
-                          "type": "integer"
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -13075,28 +13077,28 @@
                       "type": "object",
                       "properties": {
                         "grossPayActuallyReceivedCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "unpaidOvertimeCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "unpaidVacationPayCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "unpaidHolidayPayCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalDirectWageTheftCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "employerCppLiabilityCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "employerEiLiabilityCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalStatutoryEmployerLiabilityCad": {
-                          "type": "integer"
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -13206,9 +13208,12 @@
                 "type": "object",
                 "properties": {
                   "province": {
-                    "type": "string",
-                    "minLength": 2,
-                    "maxLength": 2
+                    "enum": [
+                      "ON",
+                      "BC",
+                      "AB",
+                      "FED"
+                    ]
                   },
                   "jobTitle": {
                     "type": "string",
@@ -13216,18 +13221,18 @@
                     "maxLength": 100
                   },
                   "hourlyRateCad": {
-                    "type": "integer",
-                    "minimum": 1,
+                    "type": "number",
+                    "minimum": 0,
                     "maximum": 5000
                   },
                   "averageWeeklyHoursWorked": {
-                    "type": "integer",
-                    "minimum": 1,
+                    "type": "number",
+                    "minimum": 0,
                     "maximum": 168
                   },
                   "weeksWorkedTotal": {
-                    "type": "integer",
-                    "minimum": 1,
+                    "type": "number",
+                    "minimum": 0,
                     "maximum": 500
                   },
                   "contractLabelsWorkerAs": {
@@ -13263,7 +13268,18 @@
                   }
                 },
                 "required": [
-                  "province"
+                  "province",
+                  "hourlyRateCad",
+                  "averageWeeklyHoursWorked",
+                  "weeksWorkedTotal",
+                  "publicHolidaysWorkedCount",
+                  "employerSetsScheduleAndLocation",
+                  "employerProvidesToolsAndLaptop",
+                  "workerCannotHireSubcontractors",
+                  "workerHasNoRiskOfFinancialLoss",
+                  "workerWorksExclusivelyForEmployer",
+                  "wasVacationPayPaid",
+                  "wasOvertimePayPaid"
                 ],
                 "additionalProperties": true
               }
@@ -13288,7 +13304,7 @@
                       "type": "string"
                     },
                     "hourlyRateCad": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "classificationVerdict": {
                       "type": "string"
@@ -13300,19 +13316,19 @@
                       "type": "object",
                       "properties": {
                         "weeklyHoursWorked": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "statutoryOvertimeThreshold": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "overtimeHoursPerWeek": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalWeeksWorked": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalHoursWorked": {
-                          "type": "integer"
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -13328,28 +13344,28 @@
                       "type": "object",
                       "properties": {
                         "grossPayActuallyReceivedCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "unpaidOvertimeCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "unpaidVacationPayCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "unpaidHolidayPayCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalDirectWageTheftCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "employerCppLiabilityCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "employerEiLiabilityCad": {
-                          "type": "integer"
+                          "type": "number"
                         },
                         "totalStatutoryEmployerLiabilityCad": {
-                          "type": "integer"
+                          "type": "number"
                         }
                       },
                       "required": [
@@ -64627,13 +64643,19 @@
                           "question": {
                             "type": "string"
                           },
-                          "statutoryRule": {
-                            "type": "string"
+                          "reviewStatus": {
+                            "type": "string",
+                            "enum": [
+                              "unreviewed_template"
+                            ]
                           },
-                          "citation": {
-                            "type": "string"
+                          "withheld": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
-                          "verdict": {
+                          "notice": {
                             "type": "string"
                           }
                         },
@@ -64644,9 +64666,9 @@
                           "topic",
                           "scenarioName",
                           "question",
-                          "statutoryRule",
-                          "citation",
-                          "verdict"
+                          "reviewStatus",
+                          "withheld",
+                          "notice"
                         ],
                         "additionalProperties": true
                       }
@@ -64686,7 +64708,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
       }
     },
     "/v1/market-gap/batch1/{id}": {
@@ -64732,13 +64755,19 @@
                         "question": {
                           "type": "string"
                         },
-                        "statutoryRule": {
-                          "type": "string"
+                        "reviewStatus": {
+                          "type": "string",
+                          "enum": [
+                            "unreviewed_template"
+                          ]
                         },
-                        "citation": {
-                          "type": "string"
+                        "withheld": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         },
-                        "verdict": {
+                        "notice": {
                           "type": "string"
                         }
                       },
@@ -64749,9 +64778,9 @@
                         "topic",
                         "scenarioName",
                         "question",
-                        "statutoryRule",
-                        "citation",
-                        "verdict"
+                        "reviewStatus",
+                        "withheld",
+                        "notice"
                       ],
                       "additionalProperties": true
                     }
@@ -64787,7 +64816,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
       }
     },
     "/v1/market-gap/batch2/stats": {
@@ -64958,13 +64988,19 @@
                           "question": {
                             "type": "string"
                           },
-                          "statutoryRule": {
-                            "type": "string"
+                          "reviewStatus": {
+                            "type": "string",
+                            "enum": [
+                              "unreviewed_template"
+                            ]
                           },
-                          "citation": {
-                            "type": "string"
+                          "withheld": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
-                          "verdict": {
+                          "notice": {
                             "type": "string"
                           }
                         },
@@ -64975,9 +65011,9 @@
                           "topic",
                           "scenarioName",
                           "question",
-                          "statutoryRule",
-                          "citation",
-                          "verdict"
+                          "reviewStatus",
+                          "withheld",
+                          "notice"
                         ],
                         "additionalProperties": true
                       }
@@ -65017,7 +65053,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
       }
     },
     "/v1/market-gap/batch2/{id}": {
@@ -65063,13 +65100,19 @@
                         "question": {
                           "type": "string"
                         },
-                        "statutoryRule": {
-                          "type": "string"
+                        "reviewStatus": {
+                          "type": "string",
+                          "enum": [
+                            "unreviewed_template"
+                          ]
                         },
-                        "citation": {
-                          "type": "string"
+                        "withheld": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         },
-                        "verdict": {
+                        "notice": {
                           "type": "string"
                         }
                       },
@@ -65080,9 +65123,9 @@
                         "topic",
                         "scenarioName",
                         "question",
-                        "statutoryRule",
-                        "citation",
-                        "verdict"
+                        "reviewStatus",
+                        "withheld",
+                        "notice"
                       ],
                       "additionalProperties": true
                     }
@@ -65118,7 +65161,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
       }
     },
     "/v1/market-gap/batch3": {
@@ -65167,13 +65211,16 @@
                           "scenarioName": {
                             "type": "string"
                           },
-                          "statutoryRule": {
+                          "reviewStatus": {
                             "type": "string"
                           },
-                          "citation": {
-                            "type": "string"
+                          "withheld": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
-                          "verdict": {
+                          "notice": {
                             "type": "string"
                           }
                         },
@@ -65184,9 +65231,9 @@
                           "topic",
                           "question",
                           "scenarioName",
-                          "statutoryRule",
-                          "citation",
-                          "verdict"
+                          "reviewStatus",
+                          "withheld",
+                          "notice"
                         ],
                         "additionalProperties": true
                       }
@@ -65438,13 +65485,16 @@
                         "scenarioName": {
                           "type": "string"
                         },
-                        "statutoryRule": {
+                        "reviewStatus": {
                           "type": "string"
                         },
-                        "citation": {
-                          "type": "string"
+                        "withheld": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         },
-                        "verdict": {
+                        "notice": {
                           "type": "string"
                         }
                       },
@@ -65455,9 +65505,9 @@
                         "topic",
                         "question",
                         "scenarioName",
-                        "statutoryRule",
-                        "citation",
-                        "verdict"
+                        "reviewStatus",
+                        "withheld",
+                        "notice"
                       ],
                       "additionalProperties": true
                     }

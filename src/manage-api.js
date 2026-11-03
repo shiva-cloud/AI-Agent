@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';
+import {readFileSync, readdirSync} from 'node:fs';
 import {PlanError} from './accounts.js';
 
 // Administration API for the /manage panel (SaaS mode). Callers must be an active account
@@ -6,10 +6,12 @@ import {PlanError} from './accounts.js';
 // is recorded in the audit log by the accounts module.
 
 let toolIds;
-/** Every /v1/tools/<id> route the server answers, read once from the server source. */
+/** Every /v1/tools/<id> route the server answers, read once from the server and route-module source. */
 function knownTools() {
   if (!toolIds) {
-    const source = readFileSync(new URL('./server.js', import.meta.url), 'utf8');
+    const routes = new URL('./routes/', import.meta.url);
+    const files = [new URL('./server.js', import.meta.url), ...readdirSync(routes).filter(name => name.endsWith('.js')).map(name => new URL(name, routes))];
+    const source = files.map(file => readFileSync(file, 'utf8')).join('\n');
     toolIds = [...new Set([...source.matchAll(/'\/v1\/tools\/([a-z0-9-]+)'/g)].map(m => m[1]))].sort();
   }
   return toolIds;

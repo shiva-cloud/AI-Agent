@@ -1,7 +1,7 @@
 // src/narrative-crisis-resolver.js
 // Statutory Narrative & Social Crisis Resolver
 // Transforms messy, real-world Reddit & Quora newcomer narrative queries into
-// structured, authoritative, zero-hallucination statutory guidance and actionable checklists.
+// structured research hints (unreviewed, not authoritative statutory guidance) and actionable checklists.
 
 import { deconstructNarrative } from './narrative-deconstructor.js';
 

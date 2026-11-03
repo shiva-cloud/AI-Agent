@@ -119,7 +119,9 @@ test('HTTP REST API endpoints for Market Gap Batch 1', async () => {
     assert.equal(itemRes.status, 200);
     const itemData = await itemRes.json();
     assert.equal(itemData.item.id, 80001);
-    assert.ok(itemData.item.citation.includes('IRPR'));
+    assert.equal(itemData.item.citation, undefined);
+    assert.deepEqual(itemData.item.withheld, ['statutoryRule', 'citation', 'verdict']);
+    assert.ok(listData.items.every(i => i.statutoryRule === undefined && i.reviewStatus === 'unreviewed_template'));
 
     // 4. GET /v1/market-gap/batch1/:id (not found)
     const notFoundRes = await fetch(`http://127.0.0.1:${port}/v1/market-gap/batch1/99999`);

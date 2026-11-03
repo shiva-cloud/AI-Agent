@@ -4,7 +4,8 @@ import {spawnSync} from 'node:child_process';
 import {mkdtempSync,realpathSync,rmSync,existsSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve,dirname,basename} from 'node:path';
-import {databasePath} from '../src/runtime-config.js';
+import {fileURLToPath} from 'node:url';
+import {databasePath,assertTestModeAllowed,seedDatabaseFromSnapshot} from '../src/runtime-config.js';
 import {openStore} from '../src/store.js';
 import {verifyDatabase} from '../src/verification.js';
 
@@ -37,4 +38,33 @@ test('operational CLI commands honor DB_PATH without touching a default database
   const resolved=realpathSync(root);assert.equal(dirname(resolved),parent);assert.ok(basename(resolved).startsWith('northstar-config-'));
   rmSync(resolved,{recursive:true,force:true});
  }
+});
+
+test('testing mode runs only on a loopback listener and never in production', () => {
+  assert.doesNotThrow(()=>assertTestModeAllowed({}));
+  assert.doesNotThrow(()=>assertTestModeAllowed({TEST_MODE:'0',HOST:'0.0.0.0'}));
+  for(const HOST of [undefined,'127.0.0.1','::1','localhost'])assert.doesNotThrow(()=>assertTestModeAllowed({TEST_MODE:'1',HOST}));
+  assert.throws(()=>assertTestModeAllowed({TEST_MODE:'1',NODE_ENV:'production'}),/NODE_ENV=production/);
+  for(const HOST of ['0.0.0.0','::','192.168.1.5','example.com'])assert.throws(()=>assertTestModeAllowed({TEST_MODE:'1',HOST}),/loopback HOST/);
+  assert.throws(()=>assertTestModeAllowed({TEST_MODE:'1',PUBLIC_ORIGIN:'https://northstar.example'}),/HTTPS PUBLIC_ORIGIN/);
+  const server=fileURLToPath(new URL('../src/server.js',import.meta.url));
+  const refused=spawnSync(process.execPath,[server],{env:{...process.env,TEST_MODE:'1',NODE_ENV:'',HOST:'0.0.0.0',ACCOUNTS_DB_PATH:':memory:',DB_PATH:':memory:',PORT:'0'},encoding:'utf8',timeout:20000});
+  assert.notEqual(refused.status,0);
+  assert.match(refused.stderr,/loopback HOST/);
+});
+
+test('a release snapshot seeds only an absent database and never overwrites one', () => {
+  const dir=mkdtempSync(join(tmpdir(),'seed-snapshot-'));
+  try {
+    const seed=join(dir,'seed.sqlite'),target=join(dir,'volume','settlement.sqlite');
+    const store=openStore(seed);store.db.close();
+    assert.equal(seedDatabaseFromSnapshot(target,undefined),false);
+    assert.equal(seedDatabaseFromSnapshot(':memory:',seed),false);
+    assert.throws(()=>seedDatabaseFromSnapshot(target,join(dir,'missing.sqlite')),/SEED_DB_PATH does not exist/);
+    assert.equal(seedDatabaseFromSnapshot(target,seed),true);
+    assert.ok(existsSync(target));
+    assert.equal(seedDatabaseFromSnapshot(target,seed),false);
+  } finally {
+    rmSync(dir,{recursive:true,force:true});
+  }
 });

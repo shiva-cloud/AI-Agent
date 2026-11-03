@@ -74,7 +74,6 @@ export function calculateNewcomerBudget({
   // Monthly recurring expenses
   let foodBasket = OFFICIAL_FOOD_BASKET_MONTHLY.single_adult;
   let adultCount = 1;
-  let childrenCount = 0;
 
   if (household === 'couple') {
     foodBasket = OFFICIAL_FOOD_BASKET_MONTHLY.couple;
@@ -82,11 +81,9 @@ export function calculateNewcomerBudget({
   } else if (household === 'family_1_child') {
     foodBasket = OFFICIAL_FOOD_BASKET_MONTHLY.family_3;
     adultCount = 2;
-    childrenCount = 1;
   } else if (household === 'family_2_children') {
     foodBasket = OFFICIAL_FOOD_BASKET_MONTHLY.family_4;
     adultCount = 2;
-    childrenCount = 2;
   }
 
   const monthlyTransit = metro.transitMonthlyPass * adultCount;
@@ -96,14 +93,11 @@ export function calculateNewcomerBudget({
 
   const totalMonthlyExpenses = monthlyRent + foodBasket + monthlyTransit + monthlyUtilities + monthlyMobileLines + monthlyTenantInsurance;
 
-  // Monthly government credits / benefits offsets
-  let monthlyCcbOffset = 0;
-  if (childrenCount > 0) {
-    // Estimating average base entitlement for modest income newcomers
-    monthlyCcbOffset = childrenCount * MAX_MONTHLY_CCB_PER_CHILD.under_6;
-  }
-  const monthlyGstCreditOffset = (adultCount * 38) + (childrenCount * 20);
-  const totalMonthlyGovernmentCredits = Math.round(monthlyCcbOffset + monthlyGstCreditOffset);
+  // Household size alone cannot establish benefit eligibility or payment timing.
+  // Users may include confirmed recurring receipts in monthlyIncomeNet.
+  const monthlyCcbOffset = 0;
+  const monthlyGstCreditOffset = 0;
+  const totalMonthlyGovernmentCredits = 0;
 
   const netMonthlyBurnRate = Math.max(0, totalMonthlyExpenses - totalMonthlyGovernmentCredits - income);
 

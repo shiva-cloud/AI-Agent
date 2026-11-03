@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
+import { appSourceFiles } from './app-source.js';
 import { evaluateDebtCollectionDefense } from '../src/debt-collection-defense.js';
 import { assessMovingExpenses } from '../src/moving-tax-navigator.js';
 import { evaluateOntarioUrgentRepairsT6 } from '../src/ontario-residential-tenancy-urgent-repairs-t6-navigator.js';
@@ -13,8 +14,10 @@ const KB_FILES = new Set(['knowledge.js', 'kyc-records.js', 'global-records.js',
 
 test('UI and tool code make no absolute legal or tax promises', () => {
   const files = [
-    ...['index.html', 'app.js'].map(name => new URL(`../public/${name}`, import.meta.url)),
-    ...readdirSync(new URL('../src/', import.meta.url)).filter(name => name.endsWith('.js') && !KB_FILES.has(name)).map(name => new URL(`../src/${name}`, import.meta.url))
+    new URL('../public/index.html', import.meta.url),
+    ...appSourceFiles(),
+    ...readdirSync(new URL('../src/', import.meta.url)).filter(name => name.endsWith('.js') && !KB_FILES.has(name)).map(name => new URL(`../src/${name}`, import.meta.url)),
+    ...readdirSync(new URL('../src/routes/', import.meta.url)).filter(name => name.endsWith('.js')).map(name => new URL(`../src/routes/${name}`, import.meta.url))
   ];
   const hits = [];
   for (const file of files) {

@@ -8,6 +8,7 @@ import { openStore } from '../src/store.js';
 import { generateSettlementJourney } from '../src/settlement-journey.js';
 import { validateDocument, validateNewcomerDocuments } from '../src/document-validator.js';
 import { ValidationError } from '../src/api-errors.js';
+import { routeSource } from './route-sources.js';
 
 test('tool routes reject suffixes for GET and POST and invalid dates return 400', async () => {
   const store = openStore(':memory:');
@@ -17,7 +18,7 @@ test('tool routes reject suffixes for GET and POST and invalid dates return 400'
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
   try {
-    const source = readFileSync(new URL('../src/server.js', import.meta.url), 'utf8');
+    const source = routeSource();
     const routes = [...new Set([...source.matchAll(/path==='(\/v1\/tools\/[^']+)'/g)].map(m => m[1]))];
     assert.ok(routes.length >= 30);
     for (const route of routes) {
@@ -102,7 +103,7 @@ test('offline installation includes every transitive app module and preserves un
     visited.add(path);
     assert.ok(contents.has(path), `${path} missing from offline cache`);
     const source = readFileSync(new URL('../public' + path, import.meta.url), 'utf8');
-    for (const match of source.matchAll(/import\s+(?:[^;'"\n]*?from\s*)?['"]\.\/([^'"]+)['"]/g)) inspect('/' + match[1]);
+    for (const match of source.matchAll(/import\s+(?:[^;'"\n]*?from\s*)?['"](\.{1,2}\/[^'"]+)['"]/g)) inspect(new URL(match[1], 'https://northstar.test' + path).pathname);
   }
   inspect('/app.js');
   handlers.activate(lifecycleEvent); await pending;

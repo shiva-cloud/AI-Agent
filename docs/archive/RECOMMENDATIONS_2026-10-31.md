@@ -257,7 +257,7 @@ Nine improvements ensuring end-to-end database verification, crawler network pro
 | 162 | Privacy Protection | `src/realtime-subscriptions.js`: enforces HTTPS webhook endpoints, validates bounded query parameters, and scrubs contact details upon cancellation. |
 | 163 | Schema Integrity | `docs/openapi.json`: 481 literal routes verified in `src/server.js` with 0 missing from `spec.paths`. |
 | 164 | Disaster Recovery | `scripts/disaster-recovery-drill.js`: automated DR drill verifies encrypted backup restores in temporary memory without touching production SQLite stores. |
-| 165 | Documentation | Synchronized `docs/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting all 165 platform recommendations. |
+| 165 | Documentation | Synchronized `docs/archive/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting all 165 platform recommendations. |
 
 ## Twelfth sweep: delivery ledger, vocabulary expansion, PII redaction & accessibility focus — 31 October 2026
 
@@ -274,7 +274,7 @@ Ten improvements expanding vocabulary recognition to 53 probes, enforcing zero-P
 | 172 | Network Security | `src/client-address.js`: validated trusted proxy peer normalization and verified rejection of forged `X-Forwarded-For` headers from untrusted clients. |
 | 173 | Accessibility | `public/tool-modal.js`: implemented WCAG 2.1 dialog focus management; captures `previousActiveElement` on open, focuses first form field, and restores focus upon dismissal. |
 | 174 | Frontend Offline | `public/sw.js`: bumped offline Service Worker cache to `northstar-v19-offline-poe` with complete precaching of all stylesheets, modal scripts, and offline fallbacks. |
-| 175 | Documentation | Synchronized `docs/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting all 175 verified platform recommendations. |
+| 175 | Documentation | Synchronized `docs/archive/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting all 175 verified platform recommendations. |
 
 ## Thirteenth sweep: uniform bad-input resilience, coercion guards & audit compaction — 31 October 2026
 
@@ -291,7 +291,7 @@ Ten improvements resolving numeric type coercion, input safety boundaries, and l
 | 182 | Security Tooling | `scripts/audit-cve.js`: automated monthly dependency vulnerability audit verifies 0 critical and 0 high severity vulnerabilities. |
 | 183 | Storage Maintenance | `scripts/compact-audit-logs.js`: rolling audit log compaction cleanly purges old traces and executes vacuum/reclamation without corrupting indexes. |
 | 184 | Test Expansion | `test/batch7-recommendations.test.js`: expanded test suite with 22 dedicated recommendation tests covering Recs 95, 107, 108, 115, 117, 118, 120, 156–184. |
-| 185 | Documentation | Synchronized `docs/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting all 185 verified platform recommendations. |
+| 185 | Documentation | Synchronized `docs/archive/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting all 185 verified platform recommendations. |
 
 ## Fourteenth & fifteenth sweeps: benchmark alignment, header defense, search baselines & multi-country matrix — 31 October 2026
 
@@ -335,7 +335,7 @@ Fifteen improvements reaching 215 total verified recommendations, expanding zero
 | 212 | Tax Treaty & Proration Bounds | `src/tax-treaty-engine.js`: sanitized `entryDateStr` against invalid dates to avoid `NaN` ratios in `calculateProratedBpa`, and sanitized `annualBpa`, `assetsUSD`, and `bankBalanceUSD` with `Number.isFinite()`. |
 | 213 | Foreign Credential Recognition Bounds | `src/fcr-healthcare-bridge-navigator.js`: sanitized `fundingRequiredCad` and bounded `currentCreditScore` to `[300, 900]` with `Number.isFinite()`. |
 | 214 | Commercial Lease, Rural Entrepreneur & Pay Guards | `src/commercial-lease-navigator.js`: sanitized monthly base/additional rent, square footage, lease term, years remaining, days overdue, and disputed TMI with `Number.isFinite()`. Hardened `alberta-alep-rural-entrepreneur-stream-navigator.js` and `statutory-pay-calculator.js`. |
-| 215 | Test Expansion & Documentation | `test/batch9-recommendations.test.js`: added 13 dedicated regression tests covering Recs 201–214. Synchronized `docs/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting 215 verified platform recommendations and 1,668 passing tests. |
+| 215 | Test Expansion & Documentation | `test/batch9-recommendations.test.js`: added 13 dedicated regression tests covering Recs 201–214. Synchronized `docs/archive/RECOMMENDATIONS_2026-10-31.md`, `docs/CHANGELOG.md`, and `docs/STATUS.md` reflecting 215 verified platform recommendations and 1,668 passing tests. |
 
 ### Sweep 17 (Recommendations 216–230)
 | # | Recommendation | Description |

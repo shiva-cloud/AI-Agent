@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { appSource } from './app-source.js';
 
 test('UI/UX Overhaul: Sidebar Navigation Show/Hide State and Badges', () => {
   const html = readFileSync('public/index.html', 'utf8');
@@ -21,7 +22,7 @@ test('UI/UX Overhaul: Sidebar Navigation Show/Hide State and Badges', () => {
 });
 
 test('UI/UX Overhaul: Tool Switcher Configuration Coverage', () => {
-  const app = readFileSync('public/app.js', 'utf8');
+  const app = appSource();
   const html = readFileSync('public/index.html', 'utf8');
 
   // Verify TOOL_SWITCHER_CONFIG covers all multi-tool views

@@ -4572,6 +4572,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country. */
         get: operations["get__v1_market_gap_batch1"];
         put?: never;
         post?: never;
@@ -4588,6 +4589,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country. */
         get: operations["get__v1_market_gap_batch1_id_"];
         put?: never;
         post?: never;
@@ -4620,6 +4622,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country. */
         get: operations["get__v1_market_gap_batch2"];
         put?: never;
         post?: never;
@@ -4636,6 +4639,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country. */
         get: operations["get__v1_market_gap_batch2_id_"];
         put?: never;
         post?: never;
@@ -8158,7 +8162,8 @@ export interface operations {
                 "application/json": {
                     limit: number;
                     spend?: number;
-                    strategy?: string;
+                    /** @enum {unknown} */
+                    strategy?: "full_on_time" | "multiple_payments" | "minimum_only";
                     inquiries?: number;
                 } & {
                     [key: string]: unknown;
@@ -10347,20 +10352,21 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    province: string;
+                    /** @enum {unknown} */
+                    province: "ON" | "BC" | "AB" | "FED";
                     jobTitle?: string;
-                    hourlyRateCad?: number;
-                    averageWeeklyHoursWorked?: number;
-                    weeksWorkedTotal?: number;
+                    hourlyRateCad: number;
+                    averageWeeklyHoursWorked: number;
+                    weeksWorkedTotal: number;
                     contractLabelsWorkerAs?: string;
-                    employerSetsScheduleAndLocation?: boolean;
-                    employerProvidesToolsAndLaptop?: boolean;
-                    workerCannotHireSubcontractors?: boolean;
-                    workerHasNoRiskOfFinancialLoss?: boolean;
-                    workerWorksExclusivelyForEmployer?: boolean;
-                    wasVacationPayPaid?: boolean;
-                    wasOvertimePayPaid?: boolean;
-                    publicHolidaysWorkedCount?: number;
+                    employerSetsScheduleAndLocation: boolean;
+                    employerProvidesToolsAndLaptop: boolean;
+                    workerCannotHireSubcontractors: boolean;
+                    workerHasNoRiskOfFinancialLoss: boolean;
+                    workerWorksExclusivelyForEmployer: boolean;
+                    wasVacationPayPaid: boolean;
+                    wasOvertimePayPaid: boolean;
+                    publicHolidaysWorkedCount: number;
                 } & {
                     [key: string]: unknown;
                 };
@@ -33802,9 +33808,10 @@ export interface operations {
                             topic: string;
                             scenarioName: string;
                             question: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
+                            /** @enum {string} */
+                            reviewStatus: "unreviewed_template";
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         })[];
@@ -33852,9 +33859,10 @@ export interface operations {
                             topic: string;
                             scenarioName: string;
                             question: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
+                            /** @enum {string} */
+                            reviewStatus: "unreviewed_template";
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         };
@@ -33956,9 +33964,10 @@ export interface operations {
                             topic: string;
                             scenarioName: string;
                             question: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
+                            /** @enum {string} */
+                            reviewStatus: "unreviewed_template";
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         })[];
@@ -34006,9 +34015,10 @@ export interface operations {
                             topic: string;
                             scenarioName: string;
                             question: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
+                            /** @enum {string} */
+                            reviewStatus: "unreviewed_template";
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         };
@@ -34057,9 +34067,9 @@ export interface operations {
                             topic: string;
                             question: string;
                             scenarioName: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
+                            reviewStatus: string;
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         })[];
@@ -34177,9 +34187,9 @@ export interface operations {
                             topic: string;
                             question: string;
                             scenarioName: string;
-                            statutoryRule: string;
-                            citation: string;
-                            verdict: string;
+                            reviewStatus: string;
+                            withheld: string[];
+                            notice: string;
                         } & {
                             [key: string]: unknown;
                         };

@@ -91,6 +91,8 @@ export function validateDocument(doc, landingDateStr) {
     if (doc[field] !== undefined && doc[field] !== null) assertCalendarDate(doc[field], field);
   }
   if (landingDateStr !== undefined) assertCalendarDate(landingDateStr, 'Landing date');
+  if(doc.issueDate && doc.expiryDate && doc.issueDate>doc.expiryDate)throw new ValidationError('Document issue date cannot be after expiry date');
+  if(doc.issueDate && landingDateStr && doc.issueDate>landingDateStr)throw new ValidationError('Document issue date cannot be after the planned landing date');
   const policy = (Object.hasOwn(DOCUMENT_TYPE_POLICIES, doc.docType) && DOCUMENT_TYPE_POLICIES[doc.docType]) || {
     label: doc.docType || 'Custom Supporting Document',
     statute: 'General Identity & Immigration Documentation',

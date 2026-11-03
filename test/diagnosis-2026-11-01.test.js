@@ -1,8 +1,9 @@
-// Regression tests for the user-facing errors found in docs/DIAGNOSIS_2026-11-01.md.
+// Regression tests for the user-facing errors found in docs/archive/DIAGNOSIS_2026-11-01.md.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {openStore} from '../src/store.js';
-import {createApp, normalizeTypedNumber, normalizeToolInput, TOOL_OUTPUT_GARBAGE} from '../src/server.js';
+import {createApp} from '../src/server.js';
+import {normalizeTypedNumber,normalizeToolInput,TOOL_OUTPUT_GARBAGE} from '../src/tool-input.js';
 import {detectSuggestedTools} from '../src/answer-composer.js';
 import {evaluateUkSkilledWorkerAndIlr} from '../src/uk-skilled-worker-ilr-navigator.js';
 import {calculateMovingTaxDeduction} from '../src/moving-tax-calculator.js';

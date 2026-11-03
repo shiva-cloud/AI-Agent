@@ -9,6 +9,7 @@
 // Warnings (exit code 0): facts in src/kb-facts.js past their review date,
 // expired or soon-expiring records, seed files out of sync with the database,
 // approved records that were never editorially reviewed.
+import {publicEvidence} from '../src/public-evidence.js';
 import { DatabaseSync } from 'node:sqlite';
 import { existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -50,9 +51,15 @@ export function healthReport({ dbPath = join(root, 'data', 'settlement.sqlite'),
     counts: { seedRecords: seed.length, glossaryTerms: SETTLEMENT_GLOSSARY_500.length, facts: Object.keys(KB_FACTS).length, databaseRecords: null }
   };
   if (existsSync(dbPath)) {
-    const db = new DatabaseSync(dbPath, { readOnly: true });
-    const rows = db.prepare('SELECT body FROM records').all().map(r => JSON.parse(r.body));
-    db.close();
+    const db = new DatabaseSync(dbPath, { readOnly: true, timeout: 3000 });
+    let rows;
+    try {
+      db.exec('BEGIN');
+      rows = db.prepare('SELECT body FROM records').all().map(r => JSON.parse(r.body));
+      const visible=publicEvidence(db,rows);
+      report.withheldApprovedRecords=rows.filter((row,i)=>row.status==='approved'&&visible[i].status!=='approved').map(row=>row.id);
+      db.exec('COMMIT');
+    } finally { db.close(); }
     report.counts.databaseRecords = rows.length;
     report.blocking.databaseRecords = checkRecords(rows.filter(r => r.status !== 'rejected'));
     report.reviewProgress = reviewStatus(rows, loadProgress());
@@ -71,6 +78,8 @@ export function healthReport({ dbPath = join(root, 'data', 'settlement.sqlite'),
   }
   const blockingCount = Object.values(report.blocking).reduce((n, list) => n + list.length, 0);
   report.ok = blockingCount === 0;
+  report.technicalHealth=report.ok?'passed':'failed';
+  report.publicationReadiness={ready:report.ok&&report.counts.databaseRecords!==null&&report.warnings.notEditoriallyReviewed===0&&(report.withheldApprovedRecords||[]).length===0&&report.warnings.factsDue.length===0&&report.warnings.expired.length===0,unreviewedRecords:report.warnings.notEditoriallyReviewed};
   return report;
 }
 
@@ -80,6 +89,7 @@ function printReport(r) {
     if (Array.isArray(list)) for (const item of list.slice(0, show)) console.log(`  - ${typeof item === 'string' ? item : `${item.id || item.key}: ${item.problem || `review by ${item.reviewBy} (${item.source})`}`}`);
   };
   console.log(`Knowledge-base health, ${r.date}`);
+  console.log(`Publication readiness: ${r.publicationReadiness.ready ? 'READY' : 'NOT READY'} (${r.publicationReadiness.unreviewedRecords} records need editorial review)`);
   console.log(`Records: ${r.counts.seedRecords} in seed files, ${r.counts.databaseRecords ?? 'no'} in the database; glossary terms: ${r.counts.glossaryTerms}; tracked facts: ${r.counts.facts}`);
   console.log('\nBlocking (must be fixed):');
   line('  Seed record problems', r.blocking.seedRecords);
@@ -99,8 +109,11 @@ function printReport(r) {
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const report = healthReport();
+  let report;
+  try {report=healthReport();}catch(error){console.error(JSON.stringify({ok:false,technicalHealth:'unavailable',publicationReadiness:{ready:false},code:error.errcode===5||error.errcode===6?'storage_busy':'health_check_failed'}));process.exitCode=1;}
+  if(report){
   if (process.argv.includes('--json')) console.log(JSON.stringify(report, null, 2));
   else printReport(report);
-  process.exitCode = report.ok ? 0 : 1;
+  process.exitCode = (process.argv.includes('--publication-ready')?report.publicationReadiness.ready:report.ok) ? 0 : 1;
+  }
 }

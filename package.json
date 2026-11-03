@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test \"test/*.test.js\"",
-    "lint": "eslint src scripts test",
+    "lint": "eslint src scripts test public",
     "benchmark": "node scripts/benchmark.js",
     "benchmark-http": "node scripts/http-benchmark.js",
     "migrate": "node scripts/migrate.js",
@@ -19,6 +19,7 @@
     "verify-data": "node scripts/verify-data.js",
     "evaluate": "node scripts/evaluate.js",
     "backup": "node scripts/backup.js",
+    "release:db": "node scripts/prepare-release-db.js",
     "verify-backup": "node scripts/verify-backup.js",
     "restore-drill": "node scripts/restore-drill.js",
     "api:export": "node scripts/export-openapi.js",

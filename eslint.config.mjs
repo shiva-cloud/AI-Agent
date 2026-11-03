@@ -1,12 +1,13 @@
+import {readFileSync} from 'node:fs';
+const browserGlobals=JSON.parse(readFileSync(new URL('./eslint.browser-globals.json',import.meta.url),'utf8'));
 // Minimal, dependency-free ESLint setup (flat config for ESLint 10).
 //
 // Scope: correctness-only rules that find real bugs. Deliberately no style
-// rules, so adoption never re-formats the existing codebase. every module in
-// scope already runs under the full test suite, so no-undef stays off — it
-// would only force an enumeration of many globals for a class of error the
-// runtime suite catches immediately.
+// rules, so adoption never re-formats the existing codebase. Browser scripts
+// and backend code both enforce no-undef with explicit globals. Browser
+// automation scripts also get browser globals for code run inside the page.
 //
-// Lint scope: src/, scripts/ (excluding the archived one-off scripts) and test/.
+// Lint scope: src/, public/, scripts/ (excluding archived scripts) and test/.
 // Everything else is data, generated content, assets or docs.
 import { defineConfig, globalIgnores } from 'eslint/config';
 
@@ -39,12 +40,20 @@ const nodeGlobals = {
   navigator: 'readonly',
   location: 'readonly',
   WebSocket: 'readonly',
+  Response: 'readonly',
+  Request: 'readonly',
+  Headers: 'readonly',
+  ReadableStream: 'readonly',
+  Blob: 'readonly',
+  FormData: 'readonly',
+  Event: 'readonly',
+  EventTarget: 'readonly',
 };
 
 export default defineConfig([
+  {files:['public/**/*.js'],languageOptions:{ecmaVersion:'latest',sourceType:'module',globals:browserGlobals},rules:{'no-undef':'error','no-dupe-keys':'error','no-unreachable':'error','no-const-assign':'error','no-import-assign':'error'}},
   globalIgnores([
     'node_modules/',
-    'public/',
     'generated/',
     'artifacts/',
     'scratch/',
@@ -68,6 +77,7 @@ export default defineConfig([
       'no-import-assign': 'error',
       'no-dupe-keys': 'error',
       'no-unsafe-negation': 'error',
+      'no-undef': 'error',
       // Symbol-level findings (unused declarations, imports) stay enforced.
       // Function-argument findings are off by deliberate policy: this codebase
       // documents each navigator's accepted input as destructured option
@@ -79,5 +89,10 @@ export default defineConfig([
         ignoreRestSiblings: true,
       }],
     },
+  },
+  {
+    // Browser automation: callbacks passed to page.evaluate run in the page.
+    files: ['scripts/browser-*.mjs'],
+    languageOptions: { globals: { ...nodeGlobals, ...browserGlobals, scrollTo: 'readonly', innerWidth: 'readonly' } },
   },
 ]);

@@ -15,12 +15,19 @@ function served(store) {
 }
 const statusOf = (rows, id) => rows.find(r => r.id === id)?.status;
 
-test('an editorially reviewed high-risk record publishes without a publication row', () => {
+test('a label alone cannot publish; an actual matching editorial audit can', () => {
   const store = openStore(':memory:');
   try {
     const reviewed = { ...sinSeed, id: 'pub-reviewed', status: 'approved', risk: 'high', reviewMethod: 'editorial_review', checkedAt: today, expiresAt };
     store.db.prepare('INSERT INTO records VALUES (?,?)').run('pub-reviewed', JSON.stringify(reviewed));
+    assert.equal(statusOf(served(store), 'pub-reviewed'), 'pending');
+    store.ingestion.permitSource('seed-sin-route',{tier:'A',...reviewer});
+    const pending={...sinSeed,id:'pub-reviewed',risk:'high',status:'pending',checkedAt:today,expiresAt};
+    const candidate=store.ingestion.ingest({sourceId:'seed-sin-route',requestKey:'editorial-proof-fixture',content:`Official page text. ${sinSeed.quote} More page text.`,record:pending});
+    store.ingestion.decide(candidate.id,{decision:'approve',...reviewer,reviewMethod:'editorial_review'});
     assert.equal(statusOf(served(store), 'pub-reviewed'), 'approved');
+    const record=store.records().find(r=>r.id==='pub-reviewed');
+    assert.equal(publicEvidence(store.db,[{...record,summary:record.summary+' Unreviewed change.'}])[0].status,'pending');
   } finally { store.db.close(); }
 });
 

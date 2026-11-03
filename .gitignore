@@ -13,3 +13,6 @@ data/*.json
 backups/archive-*/
 project-bundle.zip
 release-*.zip
+
+# Release evidence snapshot (npm run release:db) is a build input, not source
+release/

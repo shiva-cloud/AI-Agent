@@ -5,6 +5,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import {  join } from 'node:path';
+import { appModuleFiles } from './app-modules.js';
 
 export function computeFileSri(filePath) {
   if (!existsSync(filePath)) {
@@ -24,7 +25,8 @@ export function generateSriManifest(publicDir) {
     'tool-modal.css',
     'clarification.js',
     'errors.js',
-    'editorial.js'
+    'editorial.js',
+    ...appModuleFiles()
   ];
 
   const manifest = {};

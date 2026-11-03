@@ -59,7 +59,8 @@ test('buildVectorPdf generates structurally valid PDF-1.4 output for CBSA BSF186
   // Verify statutory content inclusion
   assert.ok(pdf.includes('BSF186'));
   assert.ok(pdf.includes('Customs Tariff Heading 98.05'));
-  assert.ok(pdf.includes('STATUTORY DECLARATION'));
+  assert.ok(pdf.includes('DRAFT WORKSHEET - NOT AN OFFICIAL FORM'));
+  assert.ok(!pdf.includes('STATUTORY DECLARATION'));
 });
 
 test('buildVectorPdf generates valid PDF for Ontario LTB T2 with damages details', () => {

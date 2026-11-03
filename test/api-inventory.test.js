@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {routeSource} from './route-sources.js';
 import {canAccess} from '../src/admin-auth.js';
 
 test('published API inventory roles match backend authorization policy',()=>{
@@ -26,6 +27,6 @@ test('published API inventory roles match backend authorization policy',()=>{
   const concrete=path.replace('{id}',path.includes('gap-work')?'a'.repeat(64):'fixture');
   for(const role of ['reader','editor','reviewer','admin'])assert.equal(operation['x-allowed-roles'].includes(role),canAccess({role},method.toUpperCase(),concrete),`${method} ${path} ${role}`);
  }
- const server=readFileSync(new URL('../src/server.js',import.meta.url),'utf8');
+ const server=routeSource();
  for(const match of server.matchAll(/path==='(\/(?:admin|v1)\/[^']+|\/health|\/ready)'/g))assert.ok(spec.paths[match[1]],`Missing literal route ${match[1]}`);
 });

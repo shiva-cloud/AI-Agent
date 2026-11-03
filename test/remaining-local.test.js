@@ -71,7 +71,7 @@ test('every transitive frontend module is served with JavaScript content type',a
  const seen=new Set();async function inspect(path){if(seen.has(path))return;seen.add(path);
   const res=await fetch(`http://127.0.0.1:${server.address().port}/${path}`);assert.equal(res.status,200,path);assert.match(res.headers.get('content-type'),/javascript/,path);
   const source=await res.text();assert.equal(source,readFileSync(new URL('../public/'+path,import.meta.url),'utf8'));
-  for(const match of source.matchAll(/import\s+(?:[^;'"\n]*?from\s*)?['"]\.\/([^'"]+)['"]/g))await inspect(match[1]);
+  for(const match of source.matchAll(/import\s+(?:[^;'"\n]*?from\s*)?['"](\.{1,2}\/[^'"]+)['"]/g))await inspect(new URL(match[1],'http://northstar.test/'+path).pathname.slice(1));
  }
  await inspect('app.js');await inspect('tool-modal.js');assert.ok(seen.has('app-lifecycle.js'));
  const worker=readFileSync(new URL('../public/sw.js',import.meta.url),'utf8');

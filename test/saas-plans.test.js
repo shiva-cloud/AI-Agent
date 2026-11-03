@@ -5,6 +5,7 @@ import { createApp } from '../src/server.js';
 import { openStore } from '../src/store.js';
 import { openAccounts } from '../src/accounts.js';
 import { PLAN_CATALOG, toolTier, featureOf, publicCatalog } from '../src/plans.js';
+import { routeSource } from './route-sources.js';
 
 async function withServer(accounts, fn) {
   const server = createApp(openStore(':memory:'), 'saas-plans-test-token-24chars', {}, { accounts, rateLimits: { v1: { limit: 10000, windowMs: 60000 }, admin: { limit: 100, windowMs: 60000 }, static: { limit: 100, windowMs: 60000 } } });
@@ -14,7 +15,7 @@ async function withServer(accounts, fn) {
 }
 
 test('every classified tool exists as a server route', () => {
-  const server = readFileSync(new URL('../src/server.js', import.meta.url), 'utf8');
+  const server = routeSource();
   const plans = readFileSync(new URL('../src/plans.js', import.meta.url), 'utf8');
   const listed = [...plans.matchAll(/'([a-z0-9]+(?:-[a-z0-9]+)+|ei-benefits|oas-gis)'/g)].map(m => m[1]).filter(id => !/^plans-\d+$/.test(id) && !/^new-plan/.test(id));
   const missing = [...new Set(listed)].filter(id => !server.includes(`/v1/tools/${id}'`));

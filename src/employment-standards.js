@@ -6,6 +6,7 @@
 // Computes cumulative statutory wage theft: unpaid overtime (1.5x), mandatory 4% vacation pay,
 // statutory public holiday pay, and employer CPP/EI liability recoupment.
 // Pure ES module with zero npm dependencies.
+import {validateWorkerFacts} from './worker-facts.js';
 import {boundedText} from './text-input.js';
 
 export const PROVINCIAL_OVERTIME_THRESHOLDS = {
@@ -20,7 +21,7 @@ export const EMPLOYER_CPP_RATE_2026 = 0.0595; // 5.95%
 export const EMPLOYER_EI_RATE_2026 = 0.02296; // 1.4x employee rate (1.64% * 1.4)
 
 export function auditWorkerClassificationAndWageTheft(options = {}) {
-  const safeOptions = (options && typeof options === 'object') ? options : {};
+  const safeOptions=validateWorkerFacts(options,PROVINCIAL_OVERTIME_THRESHOLDS);
   let {
     province = 'ON',
     jobTitle = 'Contract Specialist',
@@ -41,9 +42,9 @@ export function auditWorkerClassificationAndWageTheft(options = {}) {
   jobTitle = boundedText(jobTitle, 'Contract Specialist');
   const normProv = String(province || 'ON').toUpperCase().trim();
   const provRules = PROVINCIAL_OVERTIME_THRESHOLDS[normProv] || PROVINCIAL_OVERTIME_THRESHOLDS.ON;
-  const rate = Math.max(10, Number(hourlyRateCad) || 25);
-  const weeklyHours = Math.max(1, Number(averageWeeklyHoursWorked) || 50);
-  const totalWeeks = Math.max(1, Number(weeksWorkedTotal) || 52);
+  const rate = hourlyRateCad;
+  const weeklyHours = averageWeeklyHoursWorked;
+  const totalWeeks = weeksWorkedTotal;
 
   // 1. Misclassification Audit (Sagaz Industries / ESA s. 5.3)
   const employeeIndicators = [];

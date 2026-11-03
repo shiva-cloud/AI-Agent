@@ -1,5 +1,5 @@
 // Northstar Port-of-Entry Offline Service Worker & Emergency SOS Kit (Rec 174)
-const CACHE_NAME = 'northstar-v34-offline-poe';
+const CACHE_NAME = 'northstar-v39-offline-poe';
 const PRECACHE_URLS = [
   '/',
   '/offline.html',
@@ -10,6 +10,13 @@ const PRECACHE_URLS = [
   '/explorer.css',
   '/explorer.js',
   '/app.js',
+  // Modules split out of app.js (public/app/); app.js cannot load offline without them.
+  '/app/command-directory.js',
+  '/app/core.js',
+  '/app/data.js',
+  '/app/renderers.js',
+  '/app/setup.js',
+  '/app/tool-renderers.js',
   '/app-lifecycle.js',
   '/tool-modal.js',
   '/immigration-workspace.js',

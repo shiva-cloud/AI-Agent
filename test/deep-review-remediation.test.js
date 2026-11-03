@@ -10,6 +10,8 @@ import {createApp} from '../src/server.js';
 import {openAccounts} from '../src/accounts.js';
 import {createTranslationLedger} from '../src/community-translation-ledger.js';
 import {stampAssessmentProvenance,verifyAssessmentProvenance} from '../src/security-guard.js';
+import {routeSourceFiles} from './route-sources.js';
+import {appSource} from './app-source.js';
 import ts from 'typescript';
 
 async function withServer(run){
@@ -41,7 +43,7 @@ test('journey contract preserves date/category/city and returns phase items',asy
  assert.equal(response.status,200);const body=await response.json();
  assert.equal(body.landingDate,'2027-02-15');assert.equal(body.city,'Vancouver');assert.equal(body.categoryKey,'study_permit');
  assert.ok(body.phases.some(p=>p.items.length));
- const app=readFileSync(new URL('../public/app.js',import.meta.url),'utf8');
+ const app=appSource();
  assert.match(app,/settlement-journey\?date=/);assert.match(app,/data\.phases\.flatMap/);
 }));
 test('quota reservations are shared, refundable, idempotent and fixed to their month',()=>{
@@ -100,6 +102,8 @@ test('provenance rejects nested, array and timestamp mutations and requires a se
  }finally{if(previous===undefined)delete process.env.AUDIT_SIGNING_SECRET;else process.env.AUDIT_SIGNING_SECRET=previous;}
 });
 test('route dispatch contains no duplicate literal path in the same block',()=>{
- const text=readFileSync(new URL('../src/server.js',import.meta.url),'utf8');const ast=ts.createSourceFile('server.js',text,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
+ for(const file of routeSourceFiles()){
+ const text=readFileSync(file,'utf8');const ast=ts.createSourceFile(file.pathname,text,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
  function visit(node){if(ts.isBlock(node)){const seen=new Set();for(const s of node.statements){if(!ts.isIfStatement(s))continue;const m=/^path\s*===\s*['"]([^'"]+)['"]$/.exec(s.expression.getText(ast));if(m){assert.ok(!seen.has(m[1]),m[1]);seen.add(m[1]);}}}ts.forEachChild(node,visit);}visit(ast);
+ }
 });

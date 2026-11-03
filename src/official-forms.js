@@ -1,6 +1,8 @@
 // src/official-forms.js
 // Official statutory government forms definitions and pure vector PDF 1.4 generator.
 // Zero runtime npm dependencies.
+import {ValidationError} from './api-errors.js';
+import {assertCalendarDate} from './evidence-policy.js';
 
 export const OFFICIAL_FORM_TEMPLATES = {
   ltb_t1: {
@@ -9,14 +11,14 @@ export const OFFICIAL_FORM_TEMPLATES = {
     title: 'Tenant Application for a Rebate of Money the Landlord Owes',
     statute: 'Residential Tenancies Act, 2006, s. 135',
     fields: [
-      { id: 'tenantName', label: 'Tenant Full Legal Name', default: 'Sharma, Shiva' },
-      { id: 'rentalAddress', label: 'Rental Unit Address', default: '100 City Centre Dr, Unit 1204, Mississauga, ON' },
-      { id: 'landlordName', label: 'Landlord Full Legal Name', default: 'Ontario Premier Properties Inc.' },
-      { id: 'remedyType', label: 'Reason for Application', default: 'Reason 1: Landlord collected an unlawful amount of money (illegal advance rent/deposit)' },
-      { id: 'illegalDepositPaid', label: 'Total Unlawful Amount Paid ($ CAD)', default: '13200.00' },
-      { id: 'lawfulDepositAllowed', label: 'Statutory Permitted Rent Deposit ($ CAD)', default: '2200.00' },
-      { id: 'rebateClaimed', label: 'Total Rebate Claimed from Landlord ($ CAD)', default: '11000.00' },
-      { id: 'tenancyStartDate', label: 'Tenancy Start Date', default: '2026-09-01' }
+      { id: 'tenantName', label: 'Tenant Full Legal Name', default: '' },
+      { id: 'rentalAddress', label: 'Rental Unit Address', default: '' },
+      { id: 'landlordName', label: 'Landlord Full Legal Name', default: '' },
+      { id: 'remedyType', label: 'Reason for Application', default: '' },
+      { id: 'illegalDepositPaid', label: 'Total Unlawful Amount Paid ($ CAD)', default: '' },
+      { id: 'lawfulDepositAllowed', label: 'Statutory Permitted Rent Deposit ($ CAD)', default: '' },
+      { id: 'rebateClaimed', label: 'Total Rebate Claimed from Landlord ($ CAD)', default: '' },
+      { id: 'tenancyStartDate', label: 'Tenancy Start Date', default: '' }
     ]
   },
   ltb_t2: {
@@ -25,14 +27,14 @@ export const OFFICIAL_FORM_TEMPLATES = {
     title: 'Application about Tenant Rights & Substantial Interference',
     statute: 'Residential Tenancies Act, 2006, s. 24, 29, 31',
     fields: [
-      { id: 'tenantName', label: 'Tenant Full Legal Name', default: 'Sharma, Shiva' },
-      { id: 'rentalAddress', label: 'Rental Unit Address', default: '100 City Centre Dr, Unit 1204, Mississauga, ON' },
-      { id: 'landlordName', label: 'Landlord Full Legal Name', default: 'Ontario Premier Properties Inc.' },
-      { id: 'infractionType', label: 'Statutory Breach Claimed', default: 'Reason 2: Illegal lockout / Changed locking system without LTB eviction order' },
-      { id: 'abatementClaimed', label: 'Rent Abatement Claimed ($ CAD)', default: '2200.00' },
-      { id: 'outOfPocketExpenses', label: 'Emergency Expenses (Hotel/Storage/Locks) ($ CAD)', default: '850.00' },
-      { id: 'administrativeFine', label: 'Administrative Fine Requested against Landlord ($ CAD)', default: '5000.00' },
-      { id: 'incidentDate', label: 'Date of Unlawful Interference', default: '2026-10-15' }
+      { id: 'tenantName', label: 'Tenant Full Legal Name', default: '' },
+      { id: 'rentalAddress', label: 'Rental Unit Address', default: '' },
+      { id: 'landlordName', label: 'Landlord Full Legal Name', default: '' },
+      { id: 'infractionType', label: 'Statutory Breach Claimed', default: '' },
+      { id: 'abatementClaimed', label: 'Rent Abatement Claimed ($ CAD)', default: '' },
+      { id: 'outOfPocketExpenses', label: 'Emergency Expenses (Hotel/Storage/Locks) ($ CAD)', default: '' },
+      { id: 'administrativeFine', label: 'Administrative Fine Requested against Landlord ($ CAD)', default: '' },
+      { id: 'incidentDate', label: 'Date of Unlawful Interference', default: '' }
     ]
   },
   cbsa_e677: {
@@ -41,14 +43,14 @@ export const OFFICIAL_FORM_TEMPLATES = {
     title: 'Cross-Border Currency or Monetary Instruments Report - Individual',
     statute: 'PCMLTFA s. 12(1) / Cross-Border Currency Regulations',
     fields: [
-      { id: 'fullName', label: 'Full Legal Name (Surname, Given)', default: 'Sharma, Shiva' },
-      { id: 'dob', label: 'Date of Birth (YYYY-MM-DD)', default: '1995-04-12' },
-      { id: 'citizenship', label: 'Country of Citizenship', default: 'India' },
-      { id: 'permanentAddress', label: 'Permanent Address', default: '42 MG Road, Bangalore 560001, India' },
-      { id: 'canadianAddress', label: 'Destination Address in Canada', default: '100 City Centre Dr, Mississauga, ON L5B 2C9' },
-      { id: 'portOfEntry', label: 'CBSA Port of Entry', default: 'Toronto Pearson International (YYZ - Port 497)' },
-      { id: 'currencyCAD', label: 'Total Canadian Dollar Value Transported', default: '16500.00' },
-      { id: 'sourceOfFunds', label: 'Legitimate Source of Funds', default: 'Personal savings from employment & bank wire liquidation' }
+      { id: 'fullName', label: 'Full Legal Name (Surname, Given)', default: '' },
+      { id: 'dob', label: 'Date of Birth (YYYY-MM-DD)', default: '' },
+      { id: 'citizenship', label: 'Country of Citizenship', default: '' },
+      { id: 'permanentAddress', label: 'Permanent Address', default: '' },
+      { id: 'canadianAddress', label: 'Destination Address in Canada', default: '' },
+      { id: 'portOfEntry', label: 'CBSA Port of Entry', default: '' },
+      { id: 'currencyCAD', label: 'Total Canadian Dollar Value Transported', default: '' },
+      { id: 'sourceOfFunds', label: 'Legitimate Source of Funds', default: '' }
     ]
   },
   fincen_105: {
@@ -57,13 +59,13 @@ export const OFFICIAL_FORM_TEMPLATES = {
     title: 'Report of International Transportation of Currency or Monetary Instruments (CMIR)',
     statute: '31 U.S.C. 5316 / 31 CFR 1010.340',
     fields: [
-      { id: 'fullName', label: 'Full Legal Name', default: 'Sharma, Shiva' },
-      { id: 'usAddress', label: 'Address in the United States', default: '350 5th Ave, New York, NY 10118' },
-      { id: 'foreignAddress', label: 'Permanent Foreign Address', default: '42 MG Road, Bangalore 560001, India' },
-      { id: 'passportNo', label: 'Passport Number', default: 'Z9823412' },
-      { id: 'portOfEntry', label: 'U.S. Customs Port of Entry', default: 'JFK International Airport (New York)' },
-      { id: 'currencyUSD', label: 'Total U.S. Dollar Value Transported', default: '14500.00' },
-      { id: 'carrierType', label: 'Mode of Travel / Carrier', default: 'Commercial Airline Flight AI 101' }
+      { id: 'fullName', label: 'Full Legal Name', default: '' },
+      { id: 'usAddress', label: 'Address in the United States', default: '' },
+      { id: 'foreignAddress', label: 'Permanent Foreign Address', default: '' },
+      { id: 'passportNo', label: 'Passport Number', default: '' },
+      { id: 'portOfEntry', label: 'U.S. Customs Port of Entry', default: '' },
+      { id: 'currencyUSD', label: 'Total U.S. Dollar Value Transported', default: '' },
+      { id: 'carrierType', label: 'Mode of Travel / Carrier', default: '' }
     ]
   },
   cbsa_bsf186: {
@@ -72,18 +74,18 @@ export const OFFICIAL_FORM_TEMPLATES = {
     title: 'Personal Effects Accounting Document (Settler Effects)',
     statute: 'Customs Tariff Heading 98.05 / 98.07; Customs Act s. 32',
     fields: [
-      { id: 'importerName', label: 'Importer Full Legal Name (Surname, Given)', default: 'Sharma, Shiva' },
-      { id: 'originCountry', label: 'Former Country of Domicile / Residence', default: 'India' },
-      { id: 'arrivalDate', label: 'Date of Arrival in Canada (YYYY-MM-DD)', default: '2026-10-30' },
-      { id: 'portOfEntry', label: 'Port of Entry / CBSA Office', default: 'Toronto Pearson International (YYZ - Port 497)' },
-      { id: 'classification', label: 'Tariff Classification & Status', default: 'Settler (Heading 98.05) — Intends to reside > 12 months' },
-      { id: 'docType', label: 'Accounting Form Type', default: 'BSF186 — Goods Accompanying at Landing' },
-      { id: 'electronics', label: 'Personal Electronics & Serial Numbers', default: '1x Apple MacBook Pro 16" (SN: C02G45ABCDEF), 1x iPhone 15 (SN: DX3J9KLMNP), CAD 3,800' },
-      { id: 'jewelry', label: 'Precious Items & Jewelry Description', default: '2x Gold chains (22K, 38g), 1x Wedding band (18K, 6g). Owned > 12 months, CAD 4,200' },
-      { id: 'household', label: 'Used Household Goods & Wearing Apparel', default: '4x Suitcases containing used wearing apparel, textbooks, linens, cookware, CAD 2,500' },
-      { id: 'conveyanceVin', label: 'Motor Vehicle / Conveyance (VIN or N/A)', default: 'N/A — No motor vehicle imported' },
-      { id: 'goodsToFollow', label: 'CBSA BSF186A Attached for Goods to Follow?', default: 'Yes — 8 air-cargo manifest boxes arriving within 6 months' },
-      { id: 'totalDeclaredCAD', label: 'Total Declared Value in CAD', default: '10500.00' }
+      { id: 'importerName', label: 'Importer Full Legal Name (Surname, Given)', default: '' },
+      { id: 'originCountry', label: 'Former Country of Domicile / Residence', default: '' },
+      { id: 'arrivalDate', label: 'Date of Arrival in Canada (YYYY-MM-DD)', default: '' },
+      { id: 'portOfEntry', label: 'Port of Entry / CBSA Office', default: '' },
+      { id: 'classification', label: 'Tariff Classification & Status', default: '' },
+      { id: 'docType', label: 'Accounting Form Type', default: '' },
+      { id: 'electronics', label: 'Personal Electronics & Serial Numbers', default: '' },
+      { id: 'jewelry', label: 'Precious Items & Jewelry Description', default: '' },
+      { id: 'household', label: 'Used Household Goods & Wearing Apparel', default: '' },
+      { id: 'conveyanceVin', label: 'Motor Vehicle / Conveyance (VIN or N/A)', default: '' },
+      { id: 'goodsToFollow', label: 'CBSA BSF186A Attached for Goods to Follow?', default: '' },
+      { id: 'totalDeclaredCAD', label: 'Total Declared Value in CAD', default: '' }
     ]
   },
   cra_rc151: {
@@ -92,14 +94,14 @@ export const OFFICIAL_FORM_TEMPLATES = {
     title: 'GST/HST and Canada Carbon Rebate Application for Individuals Becoming Residents of Canada',
     statute: 'Excise Tax Act s. 122.5 / Greenhouse Gas Pollution Pricing Act',
     fields: [
-      { id: 'fullName', label: 'Full Legal Name', default: 'Sharma, Shiva' },
-      { id: 'entryDate', label: 'Date You Became a Resident of Canada', default: '2026-10-30' },
-      { id: 'sin', label: 'Social Insurance Number (SIN)', default: '987-654-321' },
-      { id: 'maritalStatus', label: 'Marital Status', default: 'Single' },
-      { id: 'currentAddress', label: 'Mailing Address in Canada', default: '100 City Centre Dr, Mississauga, ON L5B 2C9' },
-      { id: 'incomeEntryYearCAD', label: 'World Income in Year of Entry (CAD)', default: '12000.00' },
-      { id: 'incomePriorYearCAD', label: 'World Income in Prior Year (CAD)', default: '35000.00' },
-      { id: 'numberOfDependents', label: 'Number of Dependent Children', default: '0' }
+      { id: 'fullName', label: 'Full Legal Name', default: '' },
+      { id: 'entryDate', label: 'Date You Became a Resident of Canada', default: '' },
+      { id: 'sin', label: 'Social Insurance Number (SIN)', default: '' },
+      { id: 'maritalStatus', label: 'Marital Status', default: '' },
+      { id: 'currentAddress', label: 'Mailing Address in Canada', default: '' },
+      { id: 'incomeEntryYearCAD', label: 'World Income in Year of Entry (CAD)', default: '' },
+      { id: 'incomePriorYearCAD', label: 'World Income in Prior Year (CAD)', default: '' },
+      { id: 'numberOfDependents', label: 'Number of Dependent Children', default: '' }
     ]
   }
 };
@@ -123,20 +125,20 @@ export function buildVectorPdf({
   title = '',
   statute = '',
   fields = [],
-  date = '2026-10-30'
+  date = ''
 } = {}) {
   let stream = '';
 
   // Document Header
   stream += 'BT\n/F1 10 Tf\n50 780 Td\n(' + escapePdfText(org) + ') Tj\nET\n';
   stream += 'BT\n/F1 16 Tf\n50 760 Td\n(' + escapePdfText(num + ': ' + title) + ') Tj\nET\n';
-  stream += 'BT\n/F1 9 Tf\n50 742 Td\n(Statutory Parity: ' + escapePdfText(statute) + ') Tj\nET\n';
+  stream += 'BT\n/F1 9 Tf\n50 742 Td\n(Reference: ' + escapePdfText(statute) + ') Tj\nET\n';
 
   // Divider Line
   stream += '50 732 m 545 732 l S\n';
 
   // Section Heading
-  stream += 'BT\n/F1 11 Tf\n50 715 Td\n(PART 1: PRESCRIBED STATUTORY SUBMISSION DETAILS) Tj\nET\n';
+  stream += 'BT\n/F1 11 Tf\n50 715 Td\n(DRAFT WORKSHEET - NOT AN OFFICIAL FORM) Tj\nET\n';
 
   let y = 690;
   fields.forEach(f => {
@@ -149,13 +151,13 @@ export function buildVectorPdf({
   // Statutory Declaration Box
   y -= 10;
   stream += '50 ' + y + ' 495 50 re S\n';
-  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 35) + ' Td\n(STATUTORY DECLARATION: I declare under penalties of perjury and statutory non-compliance) Tj\nET\n';
-  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 22) + ' Td\n(that the statements made herein are true, correct, and complete to the best of my knowledge.) Tj\nET\n';
-  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 10) + ' Td\n(Prepared under official statutory authority: ' + escapePdfText(statute) + ') Tj\nET\n';
+  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 35) + ' Td\n(DRAFT ONLY: This worksheet is not an official government form.) Tj\nET\n';
+  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 22) + ' Td\n(Review your information and complete the current official form separately.) Tj\nET\n';
+  stream += 'BT\n/F1 8 Tf\n60 ' + (y + 10) + ' Td\n(Reference for review: ' + escapePdfText(statute) + ') Tj\nET\n';
 
   // Signature Block
   y -= 45;
-  stream += 'BT\n/F1 9 Tf\n50 ' + y + ' Td\n(Applicant / Declarant Signature: _______________________________   Date: ' + escapePdfText(date) + ') Tj\nET\n';
+  stream += 'BT\n/F1 9 Tf\n50 ' + y + ' Td\n(Worksheet date: ' + escapePdfText(date) + ') Tj\nET\n';
 
   const objects = [];
   objects.push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
@@ -188,16 +190,30 @@ export function buildVectorPdf({
 /**
  * Auto-populates an official government form template and produces both pure vector PDF 1.4 and print-ready HTML
  */
-export function autoPopulateForm({
+function escapeHtml(value) {
+  const entities = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+  return String(value ?? '').replace(/[&<>"']/g, char => entities[char]);
+}
+
+export function autoPopulateForm(options = {}) {
+  if (!options || typeof options !== 'object' || Array.isArray(options)) throw new ValidationError('Form options must be an object');
+  const {
   formType = 'cbsa_bsf186',
   fieldOverrides = {},
-  declarantDate = '2026-10-31'
-} = {}) {
-  const key = String(formType).toLowerCase();
-  const tpl = OFFICIAL_FORM_TEMPLATES[key] || OFFICIAL_FORM_TEMPLATES.cbsa_bsf186;
+  declarantDate = ''
+  } = options;
+  if (typeof formType !== 'string' || !Object.hasOwn(OFFICIAL_FORM_TEMPLATES, formType.toLowerCase())) throw new ValidationError('Unsupported form type');
+  const key = formType.toLowerCase();
+  const tpl = OFFICIAL_FORM_TEMPLATES[key];
+  if (!fieldOverrides || typeof fieldOverrides !== 'object' || Array.isArray(fieldOverrides)) throw new ValidationError('Form fields must be an object');
+  if (declarantDate !== '') assertCalendarDate(declarantDate, 'Worksheet date');
+  for (const [id, value] of Object.entries(fieldOverrides)) {
+    if (!tpl.fields.some(field => field.id === id)) throw new ValidationError(`Unknown form field: ${id}`);
+    if ((typeof value !== 'string' && typeof value !== 'number') || (typeof value === 'number' && !Number.isFinite(value)) || String(value).length > 2000) throw new ValidationError(`Invalid form field: ${id}`);
+  }
 
   const populatedFields = tpl.fields.map(f => {
-    const val = fieldOverrides[f.id] !== undefined ? String(fieldOverrides[f.id]) : f.default;
+    const val = Object.hasOwn(fieldOverrides, f.id) ? String(fieldOverrides[f.id]) : '';
     return { id: f.id, label: f.label, val };
   });
 
@@ -231,27 +247,31 @@ export function autoPopulateForm({
   </style>
 </head>
 <body>
+  <p><strong>DRAFT WORKSHEET - NOT AN OFFICIAL FORM</strong></p>
   <div class="form-header">
     <div class="org">${tpl.org}</div>
     <div class="title">${tpl.num}: ${tpl.title}</div>
-    <div class="statute">Statutory Parity: ${tpl.statute}</div>
+    <div class="statute">Reference: ${tpl.statute}</div>
   </div>
   <table class="field-table">
     <tbody>
-      ${populatedFields.map(f => `<tr><td class="field-label">${f.label}</td><td class="field-val">${f.val}</td></tr>`).join('')}
+      ${populatedFields.map(f => `<tr><td class="field-label">${escapeHtml(f.label)}</td><td class="field-val">${escapeHtml(f.val)}</td></tr>`).join('')}
     </tbody>
   </table>
   <div class="decl-box">
-    <strong>STATUTORY DECLARATION:</strong> I declare under penalties of perjury and statutory non-compliance that the statements made herein are true, correct, and complete to the best of my knowledge under official authority of <em>${tpl.statute}</em>.
+    <strong>DRAFT WORKSHEET:</strong> This is not an official government form. Review your information and complete the current official form separately.
   </div>
   <div class="sig-row">
-    <div>Applicant Signature: ___________________________</div>
-    <div>Date: ${declarantDate}</div>
+    <div>Draft worksheet - not for submission</div>
+    <div>Date: ${escapeHtml(declarantDate)}</div>
   </div>
 </body>
 </html>`;
 
   return {
+    documentStatus: 'draft_worksheet',
+    submissionReady: false,
+    missingFields: populatedFields.filter(field => !field.val.trim()).map(field => field.id),
     formType: key,
     organization: tpl.org,
     formNumber: tpl.num,

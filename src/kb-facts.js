@@ -61,6 +61,11 @@ export const KB_FACTS = Object.freeze({
     value: 2.1, effectiveFrom: '2026-01-01', checkedAt: '2026-11-01', reviewBy: '2026-12-31',
     source: 'https://www.ontario.ca/page/residential-rent-increases',
     note: 'Ontario rent increase guideline for 2026; the 2027 guideline is announced in the summer before.'
+  },
+  'ca.ontario.generalMinimumWageCad': {
+    value: 17.95, effectiveFrom: '2026-10-01', checkedAt: '2026-11-03', reviewBy: '2027-10-01',
+    source: 'https://www.ontario.ca/document/your-guide-employment-standards-act-0/minimum-wage',
+    note: 'Ontario general minimum wage per hour; indexed to Ontario CPI every 1 October (C$17.60 from 1 October 2025).'
   }
 });
 

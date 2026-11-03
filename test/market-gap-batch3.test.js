@@ -122,6 +122,8 @@ test('HTTP REST API endpoints for Market Gap Batch 3', async () => {
     const singleData = await singleRes.json();
     assert.equal(singleData.item.id, 84001);
     assert.equal(singleData.item.scenarioName, 'new_medical_rule_transitional');
+    assert.equal(singleData.item.verdict, undefined);
+    assert.ok(searchData.items.every(i => i.citation === undefined && i.reviewStatus === 'unreviewed_template'));
 
     // 4. Single question 404
     const notFoundRes = await fetch(`${baseUrl}/v1/market-gap/batch3/99999`);

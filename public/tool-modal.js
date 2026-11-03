@@ -558,10 +558,10 @@
       ]
     },
     'form-autopopulate': {
-      title: 'Official Government Forms Auto-Population & Vector PDF 1.4 Generator',
+      title: 'Form Preparation Worksheet',
       endpoint: '/v1/tools/form-autopopulate',
       fields: [
-        { id: 'formType', label: 'Official Prescribed Form', type: 'select', options: [
+        { id: 'formType', label: 'Form to prepare for', type: 'select', options: [
           { val: 'cbsa_bsf186', text: 'CBSA Form BSF186 (B4) Personal Effects Accounting (Settler)' },
           { val: 'ltb_t1', text: 'Ontario LTB Form T1 (Illegal Rent & Rent Deposit Rebate)' },
           { val: 'ltb_t2', text: 'Ontario LTB Form T2 (Tenant Rights & Illegal Lockout Damages)' },
@@ -582,7 +582,7 @@
     modalOverlay.hidden = true;
 
     modalOverlay.innerHTML = `
-      <div class="tool-modal-dialog" role="dialog" aria-modal="true">
+      <div class="tool-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="tool-modal-title">
         <div class="tool-modal-header">
           <h3 id="tool-modal-title">Interactive Statutory Navigator</h3>
           <button type="button" class="tool-modal-close" id="tool-modal-close-btn" aria-label="Close modal">✕</button>
@@ -603,13 +603,29 @@
     });
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modalOverlay.hidden) closeModal();
+      if(e.key==='Tab'&&!modalOverlay.hidden){
+        const controls=[...modalOverlay.querySelectorAll('button,input,select,textarea,a[href],[tabindex="0"]')].filter(node=>!node.disabled&&node.getClientRects().length);
+        if(!controls.length)return;
+        const first=controls[0],last=controls[controls.length-1];
+        if(e.shiftKey&&(document.activeElement===first||!modalOverlay.contains(document.activeElement))){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&(document.activeElement===last||!modalOverlay.contains(document.activeElement))){e.preventDefault();first.focus();}
+      }
     });
     return modalOverlay;
   }
 
   let previousActiveElement = null;
+  let modalGeneration = 0;
+  let activeRequest = null;
+
+  function cancelRequest() {
+    modalGeneration += 1;
+    activeRequest?.abort();
+    activeRequest = null;
+  }
 
   function closeModal() {
+    cancelRequest();
     if (modalOverlay) modalOverlay.hidden = true;
     if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
       previousActiveElement.focus();
@@ -617,6 +633,8 @@
   }
 
   window.triggerToolModal = function (tool) {
+    cancelRequest();
+    const generation = modalGeneration;
     previousActiveElement = document.activeElement;
     const overlay = ensureModalDom();
     const titleEl = overlay.querySelector('#tool-modal-title');
@@ -677,6 +695,10 @@
 
     formEl.onsubmit = async (e) => {
       e.preventDefault();
+      activeRequest?.abort();
+      const request = new AbortController();
+      activeRequest = request;
+      const isCurrent = () => generation === modalGeneration && activeRequest === request;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Auditing Official Rules...';
 
@@ -688,18 +710,27 @@
 
       try {
         const endpoint = tool.endpoint || `/v1/tools/${tool.id}`;
-        const res = await fetch(`${endpoint}?${queryParams.toString()}`);
+        const res = await fetch(`${endpoint}?${queryParams.toString()}`, {signal: request.signal});
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
+
+        if (!isCurrent()) return;
 
         resultsEl.hidden = false;
         resultsEl.innerHTML = renderResultHtml(tool.id, data);
       } catch (err) {
+        if (!isCurrent()) return;
         resultsEl.hidden = false;
-        resultsEl.innerHTML = `<div class="tool-modal-error">Error evaluating rules: ${err.message}</div>`;
+        const message=document.createElement('div');
+        message.className='tool-modal-error';
+        message.textContent=`Error evaluating rules: ${err.message}`;
+        resultsEl.replaceChildren(message);
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Re-Evaluate ↺';
+        if (isCurrent()) {
+          activeRequest = null;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Re-Evaluate ↺';
+        }
       }
     };
 
@@ -712,379 +743,385 @@
     }
   };
 
+  // Template markup is trusted; every interpolated value is plain text.
+  function html(parts, ...values) {
+    const entities = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+    return parts.reduce((result, part, index) => result + part + (index < values.length ? String(values[index] ?? '').replace(/[&<>"']/g, char => entities[char]) : ''), '');
+  }
+
   function renderResultHtml(toolId, data) {
     let out = '<div class="tool-modal-result-card">';
-    out += `<h4>⚡ Statutory Assessment Result</h4>`;
+    out += html`<h4>⚡ Statutory Assessment Result</h4>`;
 
     if (data.palStatus) {
       const badgeCls = data.isPalRequired ? 'badge-warn' : 'badge-compliant';
-      out += `<div class="modal-badge ${badgeCls}">PAL STATUS: ${data.palStatus}</div>`;
+      out += html`<div class="modal-badge ${badgeCls}">PAL STATUS: ${data.palStatus}</div>`;
     }
     if (data.riskTier) {
       const badgeCls = data.riskTier === 'LOW_RISK' ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${badgeCls}">RISK TIER: ${data.riskTier} (Score ${data.tieScoreOutOf100}/100)</div>`;
+      out += html`<div class="modal-badge ${badgeCls}">RISK TIER: ${data.riskTier} (Score ${data.tieScoreOutOf100}/100)</div>`;
     }
     if (data.wageAnalysis) {
-      out += `<div class="modal-badge badge-neutral">STREAM: ${data.wageAnalysis.stream}</div>`;
+      out += html`<div class="modal-badge badge-neutral">STREAM: ${data.wageAnalysis.stream}</div>`;
     }
     if (data.sinEvaluation) {
-      out += `<p><strong>SIN Status:</strong> ${data.sinEvaluation.guidance}</p>`;
+      out += html`<p><strong>SIN Status:</strong> ${data.sinEvaluation.guidance}</p>`;
     }
     if (data.healthcareEvaluation) {
-      out += `<p><strong>Healthcare:</strong> ${data.healthcareEvaluation.notes}</p>`;
+      out += html`<p><strong>Healthcare:</strong> ${data.healthcareEvaluation.notes}</p>`;
     }
     if (data.financialAudit) {
-      out += `<p><strong>Financial Proof:</strong> $${data.financialAudit.totalStatutoryProofRequiredCad.toLocaleString()} CAD required (Available: $${data.financialAudit.liquidFundsAvailableCad.toLocaleString()} CAD)</p>`;
+      out += html`<p><strong>Financial Proof:</strong> $${data.financialAudit.totalStatutoryProofRequiredCad.toLocaleString()} CAD required (Available: $${data.financialAudit.liquidFundsAvailableCad.toLocaleString()} CAD)</p>`;
     }
     if (data.pgwpEntitlement) {
-      out += `<div class="modal-badge badge-compliant">PGWP DURATION: ${data.pgwpEntitlement.durationMonths} MONTHS</div>`;
-      out += `<p><strong>CEC Requirement:</strong> ${data.prPathways?.federalCecRequirement || '52 weeks / 1,560 hours'}</p>`;
-      out += `<p><strong>Projected CRS Gain:</strong> +${data.prPathways?.projectedCrsGain || 0} Points</p>`;
+      out += html`<div class="modal-badge badge-compliant">PGWP DURATION: ${data.pgwpEntitlement.durationMonths} MONTHS</div>`;
+      out += html`<p><strong>CEC Requirement:</strong> ${data.prPathways?.federalCecRequirement || '52 weeks / 1,560 hours'}</p>`;
+      out += html`<p><strong>Projected CRS Gain:</strong> +${data.prPathways?.projectedCrsGain || 0} Points</p>`;
       if (data.prPathways?.provincialNomineeOptions?.length) {
         out += '<h5>Provincial Nominee Streams:</h5><ul>';
-        for (const p of data.prPathways.provincialNomineeOptions) out += `<li>${p}</li>`;
+        for (const p of data.prPathways.provincialNomineeOptions) out += html`<li>${p}</li>`;
         out += '</ul>';
       }
     }
     if (data.groundsIdentifiedCount !== undefined) {
-      out += `<div class="modal-badge badge-warn">GROUNDS IDENTIFIED: ${data.groundsIdentifiedCount}</div>`;
+      out += html`<div class="modal-badge badge-warn">GROUNDS IDENTIFIED: ${data.groundsIdentifiedCount}</div>`;
       if (data.proceduralRemedy) {
-        out += `<p><strong>Judicial Review Window:</strong> ${data.proceduralRemedy.isWithinFederalCourtWindow ? '✅ Inside Deadline' : '⚠️ Past Standard Deadline'}</p>`;
-        out += `<p><strong>Recommended Action:</strong> ${data.proceduralRemedy.recommendedAction}</p>`;
+        out += html`<p><strong>Judicial Review Window:</strong> ${data.proceduralRemedy.isWithinFederalCourtWindow ? '✅ Inside Deadline' : '⚠️ Past Standard Deadline'}</p>`;
+        out += html`<p><strong>Recommended Action:</strong> ${data.proceduralRemedy.recommendedAction}</p>`;
       }
       if (data.refusalFindings?.length) {
         out += '<h5>Officer Findings & Legal Remedies:</h5><ul>';
-        for (const f of data.refusalFindings) out += `<li><strong>${f.title}:</strong> ${f.remedy}</li>`;
+        for (const f of data.refusalFindings) out += html`<li><strong>${f.title}:</strong> ${f.remedy}</li>`;
         out += '</ul>';
       }
     }
     if (data.eligiblePathwaysCount !== undefined) {
-      out += `<div class="modal-badge badge-compliant">ELIGIBLE ROUTES: ${data.eligiblePathwaysCount} / ${data.totalOptionsEvaluated}</div>`;
+      out += html`<div class="modal-badge badge-compliant">ELIGIBLE ROUTES: ${data.eligiblePathwaysCount} / ${data.totalOptionsEvaluated}</div>`;
       if (data.eligiblePathways?.length) {
         out += '<h5>Qualifying Global Relocation Pathways:</h5><ul>';
         for (const ep of data.eligiblePathways) {
-          out += `<li><strong>[${ep.countryCode}] ${ep.title}:</strong> ${ep.keyNotes} <small>(${ep.statutoryBasis})</small></li>`;
+          out += html`<li><strong>[${ep.countryCode}] ${ep.title}:</strong> ${ep.keyNotes} <small>(${ep.statutoryBasis})</small></li>`;
         }
         out += '</ul>';
       }
       if (data.restrictedPathways?.length) {
         out += '<h5>Restricted Pathways (Missing Requirements):</h5><ul>';
         for (const rp of data.restrictedPathways.slice(0, 4)) {
-          out += `<li><strong>[${rp.countryCode}] ${rp.title}:</strong> ${rp.statutoryConditions[0] || 'Condition not met'}</li>`;
+          out += html`<li><strong>[${rp.countryCode}] ${rp.title}:</strong> ${rp.statutoryConditions[0] || 'Condition not met'}</li>`;
         }
         out += '</ul>';
       }
     }
     if (data.taxOptimization) {
       const eligBadge = data.eligibilityCheck.isEligible ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${eligBadge}">CRA 40-KM TEST: ${data.eligibilityCheck.isEligible ? 'ELIGIBLE' : 'INELIGIBLE'}</div>`;
-      out += `<p>${data.eligibilityCheck.ruleSummary}</p>`;
-      out += `<p><strong>Allowable Deduction:</strong> $${data.taxOptimization.allowableDeductionCurrentYearCad.toLocaleString()} CAD (Est. Tax Savings: $${data.taxOptimization.estimatedTaxRefundSavingsCad.toLocaleString()} CAD)</p>`;
+      out += html`<div class="modal-badge ${eligBadge}">CRA 40-KM TEST: ${data.eligibilityCheck.isEligible ? 'ELIGIBLE' : 'INELIGIBLE'}</div>`;
+      out += html`<p>${data.eligibilityCheck.ruleSummary}</p>`;
+      out += html`<p><strong>Allowable Deduction:</strong> $${data.taxOptimization.allowableDeductionCurrentYearCad.toLocaleString()} CAD (Est. Tax Savings: $${data.taxOptimization.estimatedTaxRefundSavingsCad.toLocaleString()} CAD)</p>`;
       if (data.taxOptimization.carryforwardToFutureYearsCad > 0) {
-        out += `<p><strong>Carryforward:</strong> $${data.taxOptimization.carryforwardToFutureYearsCad.toLocaleString()} CAD deductible against future years.</p>`;
+        out += html`<p><strong>Carryforward:</strong> $${data.taxOptimization.carryforwardToFutureYearsCad.toLocaleString()} CAD deductible against future years.</p>`;
       }
     }
     if (data.statutoryMinimumEntitlement && data.commonLawEntitlement) {
-      out += `<div class="modal-badge badge-warn">ESA STATUTORY FLOOR: ${data.statutoryMinimumEntitlement.totalStatutoryMinimumPayCad.toLocaleString()} CAD</div>`;
-      out += `<div class="modal-badge badge-compliant">COMMON LAW ESTIMATE: ${data.commonLawEntitlement.estimatedNoticePayCad.toLocaleString()} CAD (${data.commonLawEntitlement.estimatedNoticePeriodMonths} Months)</div>`;
-      out += `<p><strong>Potential Severance Gap:</strong> +$${data.commonLawEntitlement.potentialSeveranceGainDeltaCad.toLocaleString()} CAD higher under common law.</p>`;
+      out += html`<div class="modal-badge badge-warn">ESA STATUTORY FLOOR: ${data.statutoryMinimumEntitlement.totalStatutoryMinimumPayCad.toLocaleString()} CAD</div>`;
+      out += html`<div class="modal-badge badge-compliant">COMMON LAW ESTIMATE: ${data.commonLawEntitlement.estimatedNoticePayCad.toLocaleString()} CAD (${data.commonLawEntitlement.estimatedNoticePeriodMonths} Months)</div>`;
+      out += html`<p><strong>Potential Severance Gap:</strong> +$${data.commonLawEntitlement.potentialSeveranceGainDeltaCad.toLocaleString()} CAD higher under common law.</p>`;
       out += '<h5>Severance Signing Traps:</h5><ul>';
       for (const trap of data.severanceReleaseTrapWarnings.slice(0, 3)) {
-        out += `<li>${trap}</li>`;
+        out += html`<li>${trap}</li>`;
       }
       out += '</ul>';
     }
     if (data.h1bGracePeriodAudit) {
       const graceCls = data.h1bGracePeriodAudit.isGracePeriodActive ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${graceCls}">H-1B 60-DAY GRACE: ${data.h1bGracePeriodAudit.isGracePeriodActive ? `${data.h1bGracePeriodAudit.daysRemaining} DAYS REMAINING` : 'EXPIRED'}</div>`;
-      out += `<p><strong>Statutory Deadline:</strong> ${data.h1bGracePeriodAudit.statutoryDeadlineDate}</p>`;
-      out += `<p class="modal-warn-text">${data.h1bGracePeriodAudit.severanceWarning}</p>`;
+      out += html`<div class="modal-badge ${graceCls}">H-1B 60-DAY GRACE: ${data.h1bGracePeriodAudit.isGracePeriodActive ? `${data.h1bGracePeriodAudit.daysRemaining} DAYS REMAINING` : 'EXPIRED'}</div>`;
+      out += html`<p><strong>Statutory Deadline:</strong> ${data.h1bGracePeriodAudit.statutoryDeadlineDate}</p>`;
+      out += html`<p class="modal-warn-text">${data.h1bGracePeriodAudit.severanceWarning}</p>`;
     }
     if (data.capGapAudit) {
       const capCls = data.capGapAudit.isCapGapEligible ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${capCls}">F-1 CAP-GAP: ${data.capGapAudit.isCapGapEligible ? 'ACTIVE THROUGH SEPT 30' : 'INELIGIBLE'}</div>`;
-      out += `<p>${data.capGapAudit.workAuthorizationBridge}</p>`;
+      out += html`<div class="modal-badge ${capCls}">F-1 CAP-GAP: ${data.capGapAudit.isCapGapEligible ? 'ACTIVE THROUGH SEPT 30' : 'INELIGIBLE'}</div>`;
+      out += html`<p>${data.capGapAudit.workAuthorizationBridge}</p>`;
     }
     if (data.salaryCompliance) {
       const salCls = data.salaryCompliance.isSalaryCompliant ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${salCls}">UK SALARY COMPLIANCE: ${data.salaryCompliance.isSalaryCompliant ? 'COMPLIANT' : 'DEFICIT'}</div>`;
-      out += `<p><strong>Category:</strong> ${data.salaryCompliance.thresholdCategory}</p>`;
-      out += `<p>${data.salaryCompliance.statutoryNotes}</p>`;
+      out += html`<div class="modal-badge ${salCls}">UK SALARY COMPLIANCE: ${data.salaryCompliance.isSalaryCompliant ? 'COMPLIANT' : 'DEFICIT'}</div>`;
+      out += html`<p><strong>Category:</strong> ${data.salaryCompliance.thresholdCategory}</p>`;
+      out += html`<p>${data.salaryCompliance.statutoryNotes}</p>`;
     }
     if (data.housingSection21Defense) {
       const s21Cls = data.housingSection21Defense.isSection21NoticeValid ? 'badge-warn' : 'badge-compliant';
-      out += `<div class="modal-badge ${s21Cls}">SECTION 21 EVICTION: ${data.housingSection21Defense.isSection21NoticeValid ? 'VALID' : 'INVALID / VOID'}</div>`;
-      out += `<p>${data.housingSection21Defense.remedyAdvice}</p>`;
+      out += html`<div class="modal-badge ${s21Cls}">SECTION 21 EVICTION: ${data.housingSection21Defense.isSection21NoticeValid ? 'VALID' : 'INVALID / VOID'}</div>`;
+      out += html`<p>${data.housingSection21Defense.remedyAdvice}</p>`;
     }
     if (data.superVisaEvaluation) {
       const svCls = data.superVisaEvaluation.isIncomeSufficient ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${svCls}">SUPER VISA INCOME: ${data.superVisaEvaluation.isIncomeSufficient ? 'SUFFICIENT' : 'INSUFFICIENT'}</div>`;
-      out += `<p><strong>Family Unit Size:</strong> ${data.householdAudit.totalFamilyUnitSize} People (LICO + 30%: $${data.householdAudit.requiredLicoPlus30IncomeCad.toLocaleString()} CAD)</p>`;
-      out += `<p><strong>Stay Entitlement:</strong> ${data.superVisaEvaluation.stayEntitlement}</p>`;
+      out += html`<div class="modal-badge ${svCls}">SUPER VISA INCOME: ${data.superVisaEvaluation.isIncomeSufficient ? 'SUFFICIENT' : 'INSUFFICIENT'}</div>`;
+      out += html`<p><strong>Family Unit Size:</strong> ${data.householdAudit.totalFamilyUnitSize} People (LICO + 30%: $${data.householdAudit.requiredLicoPlus30IncomeCad.toLocaleString()} CAD)</p>`;
+      out += html`<p><strong>Stay Entitlement:</strong> ${data.superVisaEvaluation.stayEntitlement}</p>`;
     }
     if (data.condition8607Audit) {
       const c8607Cls = data.condition8607Audit.isCompliant ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${c8607Cls}">AU CONDITION 8607: ${data.condition8607Audit.consecutiveDaysRemaining} DAYS REMAINING</div>`;
+      out += html`<div class="modal-badge ${c8607Cls}">AU CONDITION 8607: ${data.condition8607Audit.consecutiveDaysRemaining} DAYS REMAINING</div>`;
       if (data.medicareLevyExemption) {
-        out += `<p><strong>Medicare Levy 2% Exemption:</strong> Est. Tax Savings: $${data.medicareLevyExemption.annualPotentialTaxSavingsAud.toLocaleString()} AUD</p>`;
+        out += html`<p><strong>Medicare Levy 2% Exemption:</strong> Est. Tax Savings: $${data.medicareLevyExemption.annualPotentialTaxSavingsAud.toLocaleString()} AUD</p>`;
       }
     }
     if (data.chancenkarteAudit) {
       const deCls = data.chancenkarteAudit.isPointsEligible ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${deCls}">CHANCENKARTE: ${data.chancenkarteAudit.isPointsEligible ? 'ELIGIBLE (6+ PTS)' : 'INSUFFICIENT POINTS'}</div>`;
+      out += html`<div class="modal-badge ${deCls}">CHANCENKARTE: ${data.chancenkarteAudit.isPointsEligible ? 'ELIGIBLE (6+ PTS)' : 'INSUFFICIENT POINTS'}</div>`;
     }
     if (data.nebenkostenTenancyAudit) {
       const nebCls = data.nebenkostenTenancyAudit.isTenantObligatedToPay ? 'badge-warn' : 'badge-compliant';
-      out += `<div class="modal-badge ${nebCls}">NEBENKOSTEN ARREARS: ${data.nebenkostenTenancyAudit.isTenantObligatedToPay ? 'PAYABLE' : 'PRECLUDED (BGB § 556(3))'}</div>`;
-      out += `<p>${data.nebenkostenTenancyAudit.legalRule}</p>`;
+      out += html`<div class="modal-badge ${nebCls}">NEBENKOSTEN ARREARS: ${data.nebenkostenTenancyAudit.isTenantObligatedToPay ? 'PAYABLE' : 'PRECLUDED (BGB § 556(3))'}</div>`;
+      out += html`<p>${data.nebenkostenTenancyAudit.legalRule}</p>`;
     }
     if (data.firstHomeStrategies) {
-      out += `<div class="modal-badge badge-compliant">FIRST HOME STRATEGY: $${(data.firstHomeStrategies.combinedPurchasingPowerCad || 0).toLocaleString()} CAD COMBINED</div>`;
+      out += html`<div class="modal-badge badge-compliant">FIRST HOME STRATEGY: $${(data.firstHomeStrategies.combinedPurchasingPowerCad || 0).toLocaleString()} CAD COMBINED</div>`;
       if (data.firstHomeStrategies.fhsa) {
-        out += `<p><strong>FHSA:</strong> $${(data.firstHomeStrategies.fhsa.actualDeductibleContributionCad || 0).toLocaleString()} CAD deductible (Est. Tax Savings: $${(data.firstHomeStrategies.fhsa.estimatedTaxSavingsCad || 0).toLocaleString()} CAD)</p>`;
+        out += html`<p><strong>FHSA:</strong> $${(data.firstHomeStrategies.fhsa.actualDeductibleContributionCad || 0).toLocaleString()} CAD deductible (Est. Tax Savings: $${(data.firstHomeStrategies.fhsa.estimatedTaxSavingsCad || 0).toLocaleString()} CAD)</p>`;
       }
       if (data.firstHomeStrategies.hbp) {
-        out += `<p><strong>HBP RRSP Withdrawal:</strong> $${(data.firstHomeStrategies.hbp.maxAllowableWithdrawalCad || 0).toLocaleString()} CAD (${data.firstHomeStrategies.hbp.repaymentTerms?.gracePeriodYears}-year grace period)</p>`;
+        out += html`<p><strong>HBP RRSP Withdrawal:</strong> $${(data.firstHomeStrategies.hbp.maxAllowableWithdrawalCad || 0).toLocaleString()} CAD (${data.firstHomeStrategies.hbp.repaymentTerms?.gracePeriodYears}-year grace period)</p>`;
       }
       if (data.taxCompliance?.foreignProp) {
-        out += `<p><strong>Foreign Property Step-Up:</strong> Accrued gains sheltered: $${(data.taxCompliance.foreignProp.landingCostBaseStepUp?.preLandingAccruedGainsShelteredCad || 0).toLocaleString()} CAD</p>`;
+        out += html`<p><strong>Foreign Property Step-Up:</strong> Accrued gains sheltered: $${(data.taxCompliance.foreignProp.landingCostBaseStepUp?.preLandingAccruedGainsShelteredCad || 0).toLocaleString()} CAD</p>`;
       }
     }
     if (data.isRentControlled !== undefined || data.isBadFaithPenaltyApplicable !== undefined) {
       if (data.isRentControlled !== undefined) {
         const rcBadge = data.isIncreaseLawful ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${rcBadge}">RENT INCREASE: ${data.isIncreaseLawful ? 'LAWFUL' : 'UNLAWFUL / VOID'}</div>`;
-        out += `<p><strong>Status:</strong> ${data.isRentControlled ? 'Rent Controlled (2.5% Cap)' : 'Exempt Post-Nov 15, 2018'}</p>`;
+        out += html`<div class="modal-badge ${rcBadge}">RENT INCREASE: ${data.isIncreaseLawful ? 'LAWFUL' : 'UNLAWFUL / VOID'}</div>`;
+        out += html`<p><strong>Status:</strong> ${data.isRentControlled ? 'Rent Controlled (2.5% Cap)' : 'Exempt Post-Nov 15, 2018'}</p>`;
       }
       if (data.isBadFaithPenaltyApplicable !== undefined) {
         const bfBadge = data.isBadFaithPenaltyApplicable ? 'badge-warn' : 'badge-compliant';
-        out += `<div class="modal-badge ${bfBadge}">BC BAD FAITH PENALTY: $${(data.statutoryPenaltyAmountCad || 0).toLocaleString()} CAD (12 Months Rent)</div>`;
+        out += html`<div class="modal-badge ${bfBadge}">BC BAD FAITH PENALTY: $${(data.statutoryPenaltyAmountCad || 0).toLocaleString()} CAD (12 Months Rent)</div>`;
       }
       if (data.remedy) {
-        out += `<p>${data.remedy}</p>`;
+        out += html`<p>${data.remedy}</p>`;
       }
     }
     if (data.accruedGratuityAed !== undefined || data.aewvRedundancyAudit || data.totalScore !== undefined) {
       if (data.accruedGratuityAed !== undefined) {
-        out += `<div class="modal-badge badge-compliant">ACCRUED UAE GRATUITY: ${data.accruedGratuityAed.toLocaleString()} AED</div>`;
+        out += html`<div class="modal-badge badge-compliant">ACCRUED UAE GRATUITY: ${data.accruedGratuityAed.toLocaleString()} AED</div>`;
         if (data.deductionsAudit?.hasUnlawfulDeductions) {
-          out += `<p class="modal-warn-text">⚠️ ${data.deductionsAudit.statutoryShield}</p>`;
+          out += html`<p class="modal-warn-text">⚠️ ${data.deductionsAudit.statutoryShield}</p>`;
         }
       }
       if (data.aewvRedundancyAudit) {
         const aewvCls = data.aewvRedundancyAudit.isCushionActive ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${aewvCls}">NZ 90-DAY CUSHION: ${data.aewvRedundancyAudit.cushionRemainingDays} DAYS REMAINING</div>`;
-        out += `<p>${data.aewvRedundancyAudit.advice}</p>`;
+        out += html`<div class="modal-badge ${aewvCls}">NZ 90-DAY CUSHION: ${data.aewvRedundancyAudit.cushionRemainingDays} DAYS REMAINING</div>`;
+        out += html`<p>${data.aewvRedundancyAudit.advice}</p>`;
       }
       if (data.totalScore !== undefined) {
         const passCls = data.isPassingScore ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${passCls}">SINGAPORE COMPASS: ${data.totalScore} / 40 POINTS (${data.isPassingScore ? 'PASS' : 'FAIL'})</div>`;
+        out += html`<div class="modal-badge ${passCls}">SINGAPORE COMPASS: ${data.totalScore} / 40 POINTS (${data.isPassingScore ? 'PASS' : 'FAIL'})</div>`;
       }
     }
     if (data.statutoryWorkStudyProhibition || data.isFlagpolingPermitted !== undefined || data.inadmissibilityStatus) {
       if (data.isEligibleToApply !== undefined) {
         const restCls = data.isEligibleToApply ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${restCls}">RESTORATION (IRPR s. 182): ${data.isEligibleToApply ? `${data.daysRemainingToApply} DAYS LEFT` : 'INELIGIBLE (> 90 DAYS)'}</div>`;
+        out += html`<div class="modal-badge ${restCls}">RESTORATION (IRPR s. 182): ${data.isEligibleToApply ? `${data.daysRemainingToApply} DAYS LEFT` : 'INELIGIBLE (> 90 DAYS)'}</div>`;
         if (data.statutoryWorkStudyProhibition) {
-          out += `<p class="modal-warn-text">⚠️ ${data.statutoryWorkStudyProhibition.legalRule}</p>`;
+          out += html`<p class="modal-warn-text">⚠️ ${data.statutoryWorkStudyProhibition.legalRule}</p>`;
         }
       }
       if (data.isFlagpolingPermitted !== undefined) {
         const flagCls = data.isFlagpolingPermitted ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${flagCls}">FLAGPOLING: ${data.isFlagpolingPermitted ? 'PERMITTED' : 'PROHIBITED'}</div>`;
-        if (data.warning) out += `<p class="modal-warn-text">⚠️ ${data.warning}</p>`;
+        out += html`<div class="modal-badge ${flagCls}">FLAGPOLING: ${data.isFlagpolingPermitted ? 'PERMITTED' : 'PROHIBITED'}</div>`;
+        if (data.warning) out += html`<p class="modal-warn-text">⚠️ ${data.warning}</p>`;
       }
       if (data.inadmissibilityStatus) {
         const inadCls = data.deemedRehabilitationEligible ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${inadCls}">STATUS: ${data.inadmissibilityStatus}</div>`;
-        out += `<p>${data.statutoryRule || data.actionRequired || ''}</p>`;
+        out += html`<div class="modal-badge ${inadCls}">STATUS: ${data.inadmissibilityStatus}</div>`;
+        out += html`<p>${data.statutoryRule || data.actionRequired || ''}</p>`;
       }
     }
     if (data.topRecommendedCorridor) {
-      out += `<div class="modal-badge badge-compliant">TOP CORRIDOR: ${data.topRecommendedCorridor.countryCode} (Score: ${data.topRecommendedCorridor.score})</div>`;
-      if (data.comparativeSummary) out += `<p>${data.comparativeSummary}</p>`;
+      out += html`<div class="modal-badge badge-compliant">TOP CORRIDOR: ${data.topRecommendedCorridor.countryCode} (Score: ${data.topRecommendedCorridor.score})</div>`;
+      if (data.comparativeSummary) out += html`<p>${data.comparativeSummary}</p>`;
       if (data.evaluations?.length) {
         out += '<h5>Corridor Point Standings:</h5><ul>';
         for (const ev of data.evaluations) {
-          out += `<li><strong>${ev.country}:</strong> ${ev.pointsScore} pts (${ev.verdict}) — <small>${ev.statutoryStream}</small></li>`;
+          out += html`<li><strong>${ev.country}:</strong> ${ev.pointsScore} pts (${ev.verdict}) — <small>${ev.statutoryStream}</small></li>`;
         }
         out += '</ul>';
       }
     }
     if (data.spousalAudit || data.superVisaAudit || data.childAudit) {
       const isElig = data.eligible ? 'badge-compliant' : 'badge-warn';
-      out += `<div class="modal-badge ${isElig}">${data.category?.toUpperCase()}: ${data.eligible ? 'QUALIFIED' : 'RESTRICTED'}</div>`;
-      if (data.verdict) out += `<p>${data.verdict}</p>`;
-      if (data.statutoryLegalBasis) out += `<small class="modal-statute-note">📜 Legal Basis: ${data.statutoryLegalBasis}</small>`;
+      out += html`<div class="modal-badge ${isElig}">${data.category?.toUpperCase()}: ${data.eligible ? 'QUALIFIED' : 'RESTRICTED'}</div>`;
+      if (data.verdict) out += html`<p>${data.verdict}</p>`;
+      if (data.statutoryLegalBasis) out += html`<small class="modal-statute-note">📜 Legal Basis: ${data.statutoryLegalBasis}</small>`;
     }
     if (data.totalFirstYearFinancialShieldCad !== undefined) {
-      out += `<div class="modal-badge badge-compliant">FIRST-YEAR TAX SHIELD: $${data.totalFirstYearFinancialShieldCad.toLocaleString()} CAD</div>`;
-      if (data.fhsaShield) out += `<p><strong>FHSA Tax Savings:</strong> $${(data.fhsaShield.taxSavingsCad || 0).toLocaleString()} CAD (Max Contribution: $${(data.fhsaShield.contributionRoomCad || 0).toLocaleString()} CAD)</p>`;
-      if (data.tfsaShield) out += `<p><strong>TFSA Room:</strong> $${(data.tfsaShield.tfsaRoomCad || 0).toLocaleString()} CAD (${data.tfsaShield.isNonResidentWarning ? '⚠️ Non-Resident Warning' : 'Lawful'})</p>`;
-      if (data.childAndFamilyBenefits) out += `<p><strong>Child & Family Benefits:</strong> $${(data.childAndFamilyBenefits.estimatedAnnualCad || 0).toLocaleString()} CAD / yr</p>`;
+      out += html`<div class="modal-badge badge-compliant">FIRST-YEAR TAX SHIELD: $${data.totalFirstYearFinancialShieldCad.toLocaleString()} CAD</div>`;
+      if (data.fhsaShield) out += html`<p><strong>FHSA Tax Savings:</strong> $${(data.fhsaShield.taxSavingsCad || 0).toLocaleString()} CAD (Max Contribution: $${(data.fhsaShield.contributionRoomCad || 0).toLocaleString()} CAD)</p>`;
+      if (data.tfsaShield) out += html`<p><strong>TFSA Room:</strong> $${(data.tfsaShield.tfsaRoomCad || 0).toLocaleString()} CAD (${data.tfsaShield.isNonResidentWarning ? '⚠️ Non-Resident Warning' : 'Lawful'})</p>`;
+      if (data.childAndFamilyBenefits) out += html`<p><strong>Child & Family Benefits:</strong> $${(data.childAndFamilyBenefits.estimatedAnnualCad || 0).toLocaleString()} CAD / yr</p>`;
       if (data.wealthActionPlan?.length) {
         out += '<h5>Financial Action Plan:</h5><ul>';
-        for (const act of data.wealthActionPlan) out += `<li>${act}</li>`;
+        for (const act of data.wealthActionPlan) out += html`<li>${act}</li>`;
         out += '</ul>';
       }
     }
     if (data.totalEventsGenerated !== undefined) {
-      out += `<div class="modal-badge badge-compliant">GENERATED ${data.totalEventsGenerated} TIMELINE DEADLINES</div>`;
-      if (data.summary) out += `<p>${data.summary}</p>`;
+      out += html`<div class="modal-badge badge-compliant">GENERATED ${data.totalEventsGenerated} TIMELINE DEADLINES</div>`;
+      if (data.summary) out += html`<p>${data.summary}</p>`;
       if (data.events?.length) {
         out += '<h5>Statutory Deadlines:</h5><ul>';
         for (const evt of data.events) {
-          out += `<li><strong>${evt.date}:</strong> ${evt.summary} — <small>${evt.statuteCitation || ''}</small></li>`;
+          out += html`<li><strong>${evt.date}:</strong> ${evt.summary} — <small>${evt.statuteCitation || ''}</small></li>`;
         }
         out += '</ul>';
       }
       if (data.icsContent) {
         const encodedIcs = encodeURIComponent(data.icsContent);
-        out += `<div style="margin-top:10px;"><a class="tool-modal-btn-primary" style="display:inline-block;text-decoration:none;padding:8px 14px;border-radius:6px;" href="data:text/calendar;charset=utf-8,${encodedIcs}" download="settlement-timeline.ics">📅 Download .ics Calendar File</a></div>`;
+        out += html`<div style="margin-top:10px;"><a class="tool-modal-btn-primary" style="display:inline-block;text-decoration:none;padding:8px 14px;border-radius:6px;" href="data:text/calendar;charset=utf-8,${encodedIcs}" download="settlement-timeline.ics">📅 Download .ics Calendar File</a></div>`;
       }
     }
     if (data.documentType && data.formalNoticeText) {
-      out += `<div class="modal-badge badge-compliant">NOTICE READY: ${data.documentType.toUpperCase()}</div>`;
-      out += `<p><strong>${data.title}</strong></p>`;
+      out += html`<div class="modal-badge badge-compliant">NOTICE READY: ${data.documentType.toUpperCase()}</div>`;
+      out += html`<p><strong>${data.title}</strong></p>`;
       if (data.statutoryWarnings?.length) {
-        for (const w of data.statutoryWarnings) out += `<p class="modal-warn-text">⚠️ ${w}</p>`;
+        for (const w of data.statutoryWarnings) out += html`<p class="modal-warn-text">⚠️ ${w}</p>`;
       }
       if (data.remediesDemanded?.length) {
         out += '<h5>Demanded Remedies:</h5><ul>';
-        for (const r of data.remediesDemanded) out += `<li>${r}</li>`;
+        for (const r of data.remediesDemanded) out += html`<li>${r}</li>`;
         out += '</ul>';
       }
       if (data.printReadyHtml) {
         window._latestPrintHtml = data.printReadyHtml;
-        out += `<div style="margin-top:12px;"><button type="button" class="tool-modal-btn-primary" onclick="const w=window.open('','_blank');w.document.write(window._latestPrintHtml);w.document.close();w.print();">🖨️ View &amp; Print Formal Legal Notice</button></div>`;
+        out += html`<div style="margin-top:12px;"><button type="button" class="tool-modal-btn-primary" onclick="const w=window.open('','_blank');w.document.write(window._latestPrintHtml);w.document.close();w.print();">🖨️ View &amp; Print Formal Legal Notice</button></div>`;
       }
     }
     if (data.digitalDeviceSearchPolicy || (data.country && data.authority && data.guidanceChecklist)) {
-      out += `<div class="modal-badge badge-compliant">${data.country} BORDER RIGHTS: ${data.authority}</div>`;
+      out += html`<div class="modal-badge badge-compliant">${data.country} BORDER RIGHTS: ${data.authority}</div>`;
       if (data.criticalWarnings?.length) {
-        for (const cw of data.criticalWarnings) out += `<p class="modal-warn-text">⚠️ ${cw}</p>`;
+        for (const cw of data.criticalWarnings) out += html`<p class="modal-warn-text">⚠️ ${cw}</p>`;
       }
       if (data.guidanceChecklist?.length) {
         out += '<h5>Border Officer Inspection Protocol:</h5><ul>';
-        for (const g of data.guidanceChecklist) out += `<li>${g}</li>`;
+        for (const g of data.guidanceChecklist) out += html`<li>${g}</li>`;
         out += '</ul>';
       }
       if (data.emergencyAssistance?.hotline) {
-        out += `<p><strong>Emergency Assistance Hotline:</strong> ${data.emergencyAssistance.hotline}</p>`;
+        out += html`<p><strong>Emergency Assistance Hotline:</strong> ${data.emergencyAssistance.hotline}</p>`;
       }
     }
     if (data.overtimeRateCad !== undefined || data.statutoryVacationPayCad !== undefined || data.publicHolidayPayCad !== undefined || data.totalSeverancePayCad !== undefined || data.classificationVerdict || data.isEqualPayViolation !== undefined) {
       if (data.overtimeRateCad !== undefined) {
-        out += `<div class="modal-badge badge-compliant">OVERTIME RATE: ${data.overtimeRateCad} CAD/hr (Standard: ${data.standardWeeklyThresholdHours}h)</div>`;
-        out += `<p><strong>Weekly Pay:</strong> Regular: ${data.regularPayCad} CAD (${data.regularHours}h) + Overtime: ${data.overtimePayCad} CAD (${data.overtimeHours}h) = <strong>${data.totalWeeklyPayCad} CAD</strong></p>`;
+        out += html`<div class="modal-badge badge-compliant">OVERTIME RATE: ${data.overtimeRateCad} CAD/hr (Standard: ${data.standardWeeklyThresholdHours}h)</div>`;
+        out += html`<p><strong>Weekly Pay:</strong> Regular: ${data.regularPayCad} CAD (${data.regularHours}h) + Overtime: ${data.overtimePayCad} CAD (${data.overtimeHours}h) = <strong>${data.totalWeeklyPayCad} CAD</strong></p>`;
       }
       if (data.statutoryVacationPayCad !== undefined) {
-        out += `<div class="modal-badge badge-compliant">VACATION PAY: $${data.statutoryVacationPayCad.toLocaleString()} CAD (${data.entitlementWeeks} Weeks / ${data.applicableRatePercent})</div>`;
+        out += html`<div class="modal-badge badge-compliant">VACATION PAY: $${data.statutoryVacationPayCad.toLocaleString()} CAD (${data.entitlementWeeks} Weeks / ${data.applicableRatePercent})</div>`;
         if (data.stepUpDeltaCad > 0 || data.potentialUnderpaymentCad > 0) {
           const delta = data.stepUpDeltaCad || data.potentialUnderpaymentCad;
-          out += `<p class="modal-warn-text">⚠️ Employer 4% Underpayment Discrepancy: $${delta.toLocaleString()} CAD owed under ESA s. 35.1.</p>`;
+          out += html`<p class="modal-warn-text">⚠️ Employer 4% Underpayment Discrepancy: $${delta.toLocaleString()} CAD owed under ESA s. 35.1.</p>`;
         }
       }
       if (data.statutoryHolidayPayCad !== undefined || data.publicHolidayPayCad !== undefined) {
         const holidayAmt = data.statutoryHolidayPayCad !== undefined ? data.statutoryHolidayPayCad : data.publicHolidayPayCad;
-        out += `<div class="modal-badge badge-compliant">PUBLIC HOLIDAY PAY: $${holidayAmt.toLocaleString()} CAD (Divisor: 20)</div>`;
+        out += html`<div class="modal-badge badge-compliant">PUBLIC HOLIDAY PAY: $${holidayAmt.toLocaleString()} CAD (Divisor: 20)</div>`;
       }
       if (data.totalSeverancePayCad !== undefined || data.severancePayCad !== undefined) {
         const sevAmt = data.totalSeverancePayCad !== undefined ? data.totalSeverancePayCad : data.severancePayCad;
         const sevCls = data.qualifiesForSeverance || data.isEligibleForSeverance ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${sevCls}">STATUTORY SEVERANCE: $${sevAmt.toLocaleString()} CAD (${data.severanceWeeks || data.severanceWeeksEntitled || 0} Weeks)</div>`;
+        out += html`<div class="modal-badge ${sevCls}">STATUTORY SEVERANCE: $${sevAmt.toLocaleString()} CAD (${data.severanceWeeks || data.severanceWeeksEntitled || 0} Weeks)</div>`;
       }
       if (data.classificationVerdict) {
         const classCls = data.isMisclassified ? 'badge-warn' : 'badge-compliant';
-        out += `<div class="modal-badge ${classCls}">${data.classificationVerdict}</div>`;
-        out += `<p class="modal-warn-text">${data.reverseBurdenOfProof}</p>`;
+        out += html`<div class="modal-badge ${classCls}">${data.classificationVerdict}</div>`;
+        out += html`<p class="modal-warn-text">${data.reverseBurdenOfProof}</p>`;
       }
       if (data.isEqualPayViolation !== undefined) {
         const epCls = data.isEqualPayViolation ? 'badge-warn' : 'badge-compliant';
-        out += `<div class="modal-badge ${epCls}">EQUAL PAY: ${data.isEqualPayViolation ? 'VIOLATION' : 'COMPLIANT'} (${data.hourlyDisparityCad}/hr gap)</div>`;
-        out += `<p>${data.legalRule}</p>`;
+        out += html`<div class="modal-badge ${epCls}">EQUAL PAY: ${data.isEqualPayViolation ? 'VIOLATION' : 'COMPLIANT'} (${data.hourlyDisparityCad}/hr gap)</div>`;
+        out += html`<p>${data.legalRule}</p>`;
       }
     }
 
     if (data.isConstructiveDismissal !== undefined || data.isPrimaFacieDiscrimination !== undefined || data.reprisalAudit || data.monthsRemainingToClaim !== undefined) {
       if (data.isConstructiveDismissal !== undefined) {
         const cdCls = data.isConstructiveDismissal ? 'badge-warn' : 'badge-compliant';
-        out += `<div class="modal-badge ${cdCls}">CONSTRUCTIVE DISMISSAL: ${data.isConstructiveDismissal ? 'SUBSTANTIAL BREACH' : 'NOT ESTABLISHED'}</div>`;
-        if (data.condonationAudit?.legalWarning) out += `<p class="modal-warn-text">${data.condonationAudit.legalWarning}</p>`;
+        out += html`<div class="modal-badge ${cdCls}">CONSTRUCTIVE DISMISSAL: ${data.isConstructiveDismissal ? 'SUBSTANTIAL BREACH' : 'NOT ESTABLISHED'}</div>`;
+        if (data.condonationAudit?.legalWarning) out += html`<p class="modal-warn-text">${data.condonationAudit.legalWarning}</p>`;
       }
       if (data.isPrimaFacieDiscrimination !== undefined || data.profession) {
         const discCls = (data.isPrimaFacieDiscrimination || data.isViolation) ? 'badge-warn' : 'badge-compliant';
-        out += `<div class="modal-badge ${discCls}">CANADIAN EXPERIENCE: ${discCls === 'badge-warn' ? 'PROHIBITED REQUIREMENT' : 'COMPLIANT'}</div>`;
-        out += `<p>${data.legalStandard || data.legalRule}</p>`;
+        out += html`<div class="modal-badge ${discCls}">CANADIAN EXPERIENCE: ${discCls === 'badge-warn' ? 'PROHIBITED REQUIREMENT' : 'COMPLIANT'}</div>`;
+        out += html`<p>${data.legalStandard || data.legalRule}</p>`;
       }
       if (data.reprisalAudit) {
         const repCls = data.reprisalAudit.hasUnlawfulReprisalOccurred ? 'badge-warn' : 'badge-compliant';
-        out += `<div class="modal-badge ${repCls}">OHSA WORK REFUSAL: ${data.currentStage}</div>`;
+        out += html`<div class="modal-badge ${repCls}">OHSA WORK REFUSAL: ${data.currentStage}</div>`;
         if (data.reprisalAudit.hasUnlawfulReprisalOccurred) {
-          out += `<p class="modal-warn-text">⚠️ ${data.reprisalAudit.legalRule} ${data.reprisalAudit.reverseBurdenOfProof}</p>`;
+          out += html`<p class="modal-warn-text">⚠️ ${data.reprisalAudit.legalRule} ${data.reprisalAudit.reverseBurdenOfProof}</p>`;
         }
       }
       if (data.monthsRemainingToClaim !== undefined) {
         const wsibCls = data.isWithinClaimDeadline ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${wsibCls}">WSIB 6-MONTH LIMITATION: ${data.isWithinClaimDeadline ? `${data.monthsRemainingToClaim} MONTHS LEFT` : 'EXPIRED'}</div>`;
-        out += `<p>${data.actionRequired}</p>`;
+        out += html`<div class="modal-badge ${wsibCls}">WSIB 6-MONTH LIMITATION: ${data.isWithinClaimDeadline ? `${data.monthsRemainingToClaim} MONTHS LEFT` : 'EXPIRED'}</div>`;
+        out += html`<p>${data.actionRequired}</p>`;
       }
     }
 
     if (data.requiredHoursThreshold !== undefined || data.isJustCauseEstablished !== undefined || data.benefitType) {
       if (data.requiredHoursThreshold !== undefined) {
         const eiCls = data.isEligible ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${eiCls}">EI REGULAR: ${data.isEligible ? `QUALIFIED (${data.estimatedWeeklyBenefitCad}/wk)` : 'DISQUALIFIED / INSUFFICIENT HOURS'}</div>`;
-        out += `<p><strong>Hours Accrued:</strong> ${data.insurableHoursAccrued} / ${data.requiredHoursThreshold} hrs required (Regional Rate: ${data.regionalUnemploymentRatePercent}%)</p>`;
+        out += html`<div class="modal-badge ${eiCls}">EI REGULAR: ${data.isEligible ? `QUALIFIED (${data.estimatedWeeklyBenefitCad}/wk)` : 'DISQUALIFIED / INSUFFICIENT HOURS'}</div>`;
+        out += html`<p><strong>Hours Accrued:</strong> ${data.insurableHoursAccrued} / ${data.requiredHoursThreshold} hrs required (Regional Rate: ${data.regionalUnemploymentRatePercent}%)</p>`;
       }
       if (data.isJustCauseEstablished !== undefined) {
         const jcCls = data.isJustCauseEstablished ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${jcCls}">EI JUST CAUSE (s. 29(c)): ${data.isJustCauseEstablished ? 'ESTABLISHED (NOT DISQUALIFIED)' : 'DISQUALIFICATION RISK'}</div>`;
-        out += `<p>${data.statutoryRule}</p>`;
+        out += html`<div class="modal-badge ${jcCls}">EI JUST CAUSE (s. 29(c)): ${data.isJustCauseEstablished ? 'ESTABLISHED (NOT DISQUALIFIED)' : 'DISQUALIFICATION RISK'}</div>`;
+        out += html`<p>${data.statutoryRule}</p>`;
       }
       if (data.benefitType && !data.requiredHoursThreshold) {
-        out += `<div class="modal-badge badge-compliant">${data.benefitType.toUpperCase()}</div>`;
+        out += html`<div class="modal-badge badge-compliant">${data.benefitType.toUpperCase()}</div>`;
         if (data.weeklyRateCad || data.weeklyBenefitRateCad) {
-          out += `<p><strong>Weekly Rate:</strong> ${data.weeklyRateCad || data.weeklyBenefitRateCad} CAD/wk</p>`;
+          out += html`<p><strong>Weekly Rate:</strong> ${data.weeklyRateCad || data.weeklyBenefitRateCad} CAD/wk</p>`;
         }
-        if (data.irrevocabilityWarning) out += `<p class="modal-warn-text">⚠️ ${data.irrevocabilityWarning}</p>`;
+        if (data.irrevocabilityWarning) out += html`<p class="modal-warn-text">⚠️ ${data.irrevocabilityWarning}</p>`;
       }
     }
 
     if (data.availableLoanPrograms || data.isEligibleForSpep !== undefined || data.isEligibleForPra !== undefined) {
       if (data.availableLoanPrograms) {
         const fcrCls = data.isEligibleForFcrLoans ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${fcrCls}">FCR MICRO-LOANS: ${data.isEligibleForFcrLoans ? 'ELIGIBLE (UP TO $15,000 CAD)' : 'INELIGIBLE'}</div>`;
-        out += `<p>${data.guidance}</p>`;
+        out += html`<div class="modal-badge ${fcrCls}">FCR MICRO-LOANS: ${data.isEligibleForFcrLoans ? 'ELIGIBLE (UP TO $15,000 CAD)' : 'INELIGIBLE'}</div>`;
+        out += html`<p>${data.guidance}</p>`;
       }
       if (data.isEligibleForSpep !== undefined) {
         const spepCls = data.isEligibleForSpep ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${spepCls}">CNO SPEP NURSING: ${data.isEligibleForSpep ? 'ELIGIBLE FOR PAID PLACEMENT' : 'INELIGIBLE'}</div>`;
-        out += `<p>${data.nextSteps}</p>`;
+        out += html`<div class="modal-badge ${spepCls}">CNO SPEP NURSING: ${data.isEligibleForSpep ? 'ELIGIBLE FOR PAID PLACEMENT' : 'INELIGIBLE'}</div>`;
+        out += html`<p>${data.nextSteps}</p>`;
       }
       if (data.isEligibleForPra !== undefined) {
         const praCls = data.isEligibleForPra ? 'badge-compliant' : 'badge-warn';
-        out += `<div class="modal-badge ${praCls}">IMG PRA (${data.province}): ${data.isEligibleForPra ? 'ELIGIBLE' : 'PENDING REQUIREMENTS'}</div>`;
-        out += `<p><strong>${data.programName}:</strong> ${data.majorAdvantage}</p>`;
+        out += html`<div class="modal-badge ${praCls}">IMG PRA (${data.province}): ${data.isEligibleForPra ? 'ELIGIBLE' : 'PENDING REQUIREMENTS'}</div>`;
+        out += html`<p><strong>${data.programName}:</strong> ${data.majorAdvantage}</p>`;
       }
     }
 
     if (data.checklist?.length) {
       out += '<h5>Action Checklist:</h5><ul>';
-      for (const item of data.checklist) out += `<li>${item}</li>`;
+      for (const item of data.checklist) out += html`<li>${item}</li>`;
       out += '</ul>';
     }
     if (data.comparison && Array.isArray(data.comparison)) {
-      out += `<div class="modal-badge badge-compliant">CITY COMPARISON AUDIT</div>`;
+      out += html`<div class="modal-badge badge-compliant">CITY COMPARISON AUDIT</div>`;
       if (data.differential) {
-        out += `<p><strong>Cheaper Landing Hub:</strong> ${data.differential.cheaperCity} (Estimated annual fixed outflow savings: <strong>${data.differential.annualEstimatedSavings.toLocaleString()} CAD</strong>)</p>`;
+        out += html`<p><strong>Cheaper Landing Hub:</strong> ${data.differential.cheaperCity} (Estimated annual fixed outflow savings: <strong>${data.differential.annualEstimatedSavings.toLocaleString()} CAD</strong>)</p>`;
         if (data.differential.salesTaxAdvantage) {
-          out += `<p class="modal-compliant-text">💡 ${data.differential.salesTaxAdvantage} has zero provincial sales tax (5% GST only), reducing consumer expenses.</p>`;
+          out += html`<p class="modal-compliant-text">💡 ${data.differential.salesTaxAdvantage} has zero provincial sales tax (5% GST only), reducing consumer expenses.</p>`;
         }
       }
       out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px;">';
       for (const c of data.comparison) {
-        out += `<div style="background:rgba(0,0,0,0.03);padding:10px;border-radius:6px;border:1px solid #ddd;">
+        out += html`<div style="background:rgba(0,0,0,0.03);padding:10px;border-radius:6px;border:1px solid #ddd;">
           <h5 style="margin:0 0 6px 0;">${c.city} (${c.provinceCode})</h5>
           <div style="font-size:12px;">Median Rent: <strong>${c.projectedMonthlyRent.toLocaleString()} CAD/mo</strong></div>
           <div style="font-size:12px;">Transit Pass: <strong>${c.transitMonthlyPass.toFixed(2)} CAD/mo</strong></div>
@@ -1096,18 +1133,19 @@
     }
 
     if (data.formType && data.populatedFields && data.pdfBase64) {
-      out += `<div class="modal-badge badge-compliant">FORM READY: ${data.formNumber}</div>`;
-      out += `<p><strong>${data.title}</strong> (${data.organization})</p>`;
-      out += `<small class="modal-statute-note">📜 Statutory Authority: ${data.statuteBasis}</small>`;
-      out += '<h5 style="margin-top:12px;">Auto-Populated Prescribed Fields:</h5><ul style="font-size:12px;">';
+      out += html`<div class="modal-badge badge-warn">DRAFT WORKSHEET: ${data.formNumber}</div>`;
+      out += '<p>This worksheet is not an official form and is not ready for submission. Complete and review the current official form separately.</p>';
+      out += html`<p><strong>${data.title}</strong> (${data.organization})</p>`;
+      out += html`<small class="modal-statute-note">📜 Statutory Authority: ${data.statuteBasis}</small>`;
+      out += '<h5 style="margin-top:12px;">Worksheet Fields:</h5><ul style="font-size:12px;">';
       for (const pf of data.populatedFields.slice(0, 5)) {
-        out += `<li><strong>${pf.label}:</strong> ${pf.val}</li>`;
+        out += html`<li><strong>${pf.label}:</strong> ${pf.val}</li>`;
       }
       out += '</ul>';
       if (data.printReadyHtml) {
         window._latestFormPrintHtml = data.printReadyHtml;
-        out += `<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-          <button type="button" class="tool-modal-btn-primary" onclick="const w=window.open('','_blank');w.document.write(window._latestFormPrintHtml);w.document.close();w.print();">🖨️ View &amp; Print Official Form</button>
+        out += html`<div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="button" class="tool-modal-btn-primary" onclick="const w=window.open('','_blank');if(w){w.document.write(window._latestFormPrintHtml);w.document.close();w.print();}">🖨️ View &amp; Print Worksheet</button>
           <a class="tool-modal-btn-primary" style="display:inline-block;text-decoration:none;padding:8px 14px;border-radius:6px;background:#059669;color:#fff;" href="data:application/pdf;base64,${data.pdfBase64}" download="${data.formType}.pdf">📄 Download Vector PDF-1.4</a>
         </div>`;
       }
@@ -1117,26 +1155,26 @@
       const isCompliant = (data.complianceStatus && !data.complianceStatus.includes('BREACH') && !data.complianceStatus.includes('VIOLATION') && !data.complianceStatus.includes('DEFECTIVE')) || data.isEligible;
       const badgeCls = isCompliant ? 'badge-compliant' : 'badge-warn';
       const statusTitle = data.complianceStatus || data.eligibilityVerdict || 'STATUTORY ASSESSMENT';
-      out += `<div class="modal-badge ${badgeCls}">${statusTitle.replace(/_/g, ' ')}</div>`;
-      if (data.legalVerdict) out += `<p>${data.legalVerdict}</p>`;
+      out += html`<div class="modal-badge ${badgeCls}">${statusTitle.replace(/_/g, ' ')}</div>`;
+      if (data.legalVerdict) out += html`<p>${data.legalVerdict}</p>`;
       if (data.statutoryViolations && data.statutoryViolations.length > 0) {
         out += '<h5>Statutory Issues:</h5><ul>';
         for (const v of data.statutoryViolations) {
-          out += `<li><strong>${v.rule || v.statute || 'Issue'}:</strong> ${v.finding || v.description || ''}</li>`;
+          out += html`<li><strong>${v.rule || v.statute || 'Issue'}:</strong> ${v.finding || v.description || ''}</li>`;
         }
         out += '</ul>';
       }
       if (data.actionableRemedies && data.actionableRemedies.length > 0) {
         out += '<h5>Actionable Remedies:</h5><ul>';
         for (const r of data.actionableRemedies) {
-          out += `<li><strong>${r.action || 'Remedy'}:</strong> ${r.remedyDescription || r.description || ''}</li>`;
+          out += html`<li><strong>${r.action || 'Remedy'}:</strong> ${r.remedyDescription || r.description || ''}</li>`;
         }
         out += '</ul>';
       }
     }
 
     if (data.statuteBasis || data.statutoryBasis) {
-      out += `<small class="modal-statute-note">📜 Legal Basis: ${data.statuteBasis || data.statutoryBasis}</small>`;
+      out += html`<small class="modal-statute-note">📜 Legal Basis: ${data.statuteBasis || data.statutoryBasis}</small>`;
     }
     out += '</div>';
     return out;

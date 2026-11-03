@@ -76,11 +76,9 @@ test('Rec 591: auditEmploymentReferenceLetter handles null, checks 7 mandatory c
 
 // Rec 592: Employment Standards & Worker Misclassification
 test('Rec 592: auditWorkerClassificationAndWageTheft handles null, evaluates Sagaz criteria and overtime theft', () => {
-  const nullSafe = auditWorkerClassificationAndWageTheft(null);
-  assert.equal(nullSafe.classificationVerdict, 'UNLAWFUL_EMPLOYEE_MISCLASSIFICATION');
-  assert.ok(nullSafe.wageTheftAudit.totalDirectWageTheftCad > 0);
+  assert.throws(()=>auditWorkerClassificationAndWageTheft(null), /required/);
 
-  const bcEmployee = auditWorkerClassificationAndWageTheft({
+  const bcEmployee = auditWorkerClassificationAndWageTheft({publicHolidaysWorkedCount:5,
     province: 'BC',
     hourlyRateCad: 30,
     averageWeeklyHoursWorked: 50,

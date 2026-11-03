@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { appSource } from './app-source.js';
 
-const app = readFileSync(new URL('../public/app.js', import.meta.url), 'utf8');
+const app = appSource();
 const planAccess = readFileSync(new URL('../public/plan-access.js', import.meta.url), 'utf8');
 
 // Tools that show an example result on their own must wait for their view to open.
@@ -14,8 +15,8 @@ test('every automatic tool run goes through autoRun with an anchor element', () 
   lines.forEach((line, i) => {
     if (/^\s+(run\w+|calculate\w*)\(\);\s*$/.test(line) && /^}\s*$/.test(lines[i + 1] ?? '')) {
       let j = i;
-      while (j >= 0 && !/^(?:async\s+)?function\s+\w+/.test(lines[j])) j--;
-      if (/^(?:async\s+)?function\s+(?:setup|init|mount)/.test(lines[j])) direct.push(i + 1);
+      while (j >= 0 && !/^(?:export\s+)?(?:async\s+)?function\s+\w+/.test(lines[j])) j--;
+      if (/^(?:export\s+)?(?:async\s+)?function\s+(?:setup|init|mount)/.test(lines[j])) direct.push(i + 1);
     }
     if (/^\s+autoRun\(\w+\);\s*$/.test(line)) anchorless.push(i + 1);
   });

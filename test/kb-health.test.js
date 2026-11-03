@@ -13,6 +13,7 @@ import { requiredSettlementFunds } from '../src/proof-of-funds.js';
 import { MULTI_COUNTRY_GAZETTE_CONSTANTS } from '../src/multi-country-gazette-crawler.js';
 import { NB_SETTLEMENT_FUNDS_2026 } from '../src/new-brunswick-provincial-nominee-skilled-worker-navigator.js';
 import { SUV_SETTLEMENT_FUNDS_2026 } from '../src/federal-start-up-visa-designated-organization-navigator.js';
+import { ESA_CONSTANTS, calculateOntarioOvertimePay } from '../src/esa-wage-theft-navigator.js';
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -48,6 +49,8 @@ test('tools read changing figures from the registry, so one edit updates all of 
   // so compare by value: one registry edit must still reach every tool.
   assert.deepEqual(NB_SETTLEMENT_FUNDS_2026, funds);
   assert.deepEqual(SUV_SETTLEMENT_FUNDS_2026, funds);
+  assert.equal(ESA_CONSTANTS.ONTARIO_GENERAL_MINIMUM_WAGE_HOURLY, factValue('ca.ontario.generalMinimumWageCad'));
+  assert.equal(calculateOntarioOvertimePay({ hourlyRateCad: 15, weeklyHoursWorked: 40 }).hourlyRateCad, factValue('ca.ontario.generalMinimumWageCad'));
 });
 
 test('quality rules catch filler, retired figures and missing fields', () => {

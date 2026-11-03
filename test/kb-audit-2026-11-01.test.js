@@ -10,6 +10,7 @@ import { technicalImmigrationRecords } from '../src/technical-immigration-record
 import { assertEnglishRecord } from '../src/language.js';
 import { pickSourceSentence, extractPolicyDelta } from '../src/realtime-extractor.js';
 import { REALTIME_SOURCES } from '../src/realtime-registry.js';
+import { appSource } from './app-source.js';
 
 const seedRecords = [...seeds, ...kycRecords, ...globalRecords, ...insiderImmigrationRecords, ...technicalImmigrationRecords];
 
@@ -35,7 +36,7 @@ test('KB audit follow-up: tool modules no longer carry the retired values', () =
     for (const pattern of [/£38,700|\b38700\b/, /\b14,?690\b/, /Bill 175/, /Climate Action Incentive Application/, /\$73,150|\b73150\b/])
       assert.doesNotMatch(text, pattern, `${file} still contains ${pattern}`);
   }
-  assert.doesNotMatch(readFileSync(new URL('../public/app.js', import.meta.url), 'utf8'), /Bill 175/);
+  assert.doesNotMatch(appSource(), /Bill 175/);
 });
 
 test('KB audit: retired values are absent from every seed file', () => {

@@ -46,7 +46,7 @@ describe('Canadian Employment Standards & Worker Misclassification Engine', () =
   });
 
   it('validates a legitimate independent contractor relationship', () => {
-    const res = auditWorkerClassificationAndWageTheft({
+    const res = auditWorkerClassificationAndWageTheft({weeksWorkedTotal:52,publicHolidaysWorkedCount:5,wasVacationPayPaid:false,wasOvertimePayPaid:false,
       province: 'ON',
       jobTitle: 'Independent Software Architect',
       hourlyRateCad: 90,
@@ -65,7 +65,7 @@ describe('Canadian Employment Standards & Worker Misclassification Engine', () =
   });
 
   it('applies British Columbia 40-hour overtime threshold under BC ESA', () => {
-    const res = auditWorkerClassificationAndWageTheft({
+    const res = auditWorkerClassificationAndWageTheft({publicHolidaysWorkedCount:5,employerSetsScheduleAndLocation:true,employerProvidesToolsAndLaptop:true,workerCannotHireSubcontractors:true,workerHasNoRiskOfFinancialLoss:true,workerWorksExclusivelyForEmployer:true,wasVacationPayPaid:false,
       province: 'BC',
       jobTitle: 'Logistics Coordinator',
       hourlyRateCad: 25,
@@ -82,7 +82,7 @@ describe('Canadian Employment Standards & Worker Misclassification Engine', () =
   });
 
   it('recognizes already compliant properly classified employees', () => {
-    const res = auditWorkerClassificationAndWageTheft({
+    const res = auditWorkerClassificationAndWageTheft({hourlyRateCad:25,averageWeeklyHoursWorked:50,weeksWorkedTotal:52,publicHolidaysWorkedCount:5,employerSetsScheduleAndLocation:true,employerProvidesToolsAndLaptop:true,workerCannotHireSubcontractors:true,workerHasNoRiskOfFinancialLoss:true,workerWorksExclusivelyForEmployer:true,
       province: 'ON',
       contractLabelsWorkerAs: 'employee',
       wasVacationPayPaid: true,

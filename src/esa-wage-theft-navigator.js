@@ -10,11 +10,12 @@
  */
 
 import { boundedText, safeIsoDate } from './text-input.js';
+import { factValue } from './kb-facts.js';
 
 export const ESA_CONSTANTS = {
   ONTARIO_OVERTIME_THRESHOLD_WEEKLY_HOURS: 44,
   ONTARIO_OVERTIME_RATE_MULTIPLIER: 1.5,
-  ONTARIO_GENERAL_MINIMUM_WAGE_HOURLY: 17.20, // Effective Oct 1, 2024
+  get ONTARIO_GENERAL_MINIMUM_WAGE_HOURLY() { return factValue('ca.ontario.generalMinimumWageCad'); },
 
   ONTARIO_VACATION_PAY_UNDER_5_YEARS_PERCENT: 0.04, // 4% (2 weeks)
   ONTARIO_VACATION_PAY_5_YEARS_OR_MORE_PERCENT: 0.06, // 6% (3 weeks)

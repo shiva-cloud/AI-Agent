@@ -1,5 +1,5 @@
 // Knowledge-base corrections from the 1 November 2026 KB audit
-// (docs/KB_AUDIT_2026-11-01.md). Each correction replaces exact text that the
+// (docs/archive/KB_AUDIT_2026-11-01.md). Each correction replaces exact text that the
 // audit found to be outdated or wrong, and names the source that confirms the
 // new value. The script is idempotent: a correction already applied is skipped.
 //
@@ -314,6 +314,20 @@ export const CORRECTIONS = [
   { id: 'au-subclass-482-to-186-ens-pathway', sources: ['https://www.bdo.com.au/en-au/insights/migration-services/updated-income-thresholds-for-skilled-visas-what-employers-need-to-know'],
     note: 'The Core Skills Income Threshold was indexed to A$79,499 on 1 July 2026.',
     edits: [['(A$76,515 from 1 July 2025, which replaced TSMIT)', '(A$79,499 from 1 July 2026, indexed each July; it replaced TSMIT)']] },
+
+  // Scheduled review 2026-11-03
+  { id: 'au-austrac-100-point-banking-kyc', sources: ['https://www.austrac.gov.au/industry-and-business/obligations-and-guidance/your-amlctf-program/reporting-us/threshold-transaction-reports', 'https://www.austrac.gov.au/industry-and-business/education-and-resources/publications-and-resources/international-funds-transfer-instructions-iftis-reporting'],
+    note: 'The AUD 10,000 threshold applies to cash (threshold transaction reports); international funds transfer instructions are reported whatever the amount.',
+    edits: [['International electronic wire transfers of AUD $10,000 or more are reported to AUSTRAC for AML compliance.', 'Banks report international funds transfers to AUSTRAC whatever the amount, and report cash transactions (notes and coins) of AUD 10,000 or more as threshold transactions.']] },
+  { id: 'au-home-affairs-vevo-right-to-work-kyc', sources: ['https://www.legislation.gov.au/C2013A00010/asmade/details'],
+    note: 'The 2013 employer sanctions law is the Migration Amendment (Reform of Employer Sanctions) Act 2013 (Act No. 10 of 2013).',
+    edits: [['Under the Migration Amendment (Employer Sanctions) Act 2013,', 'Under the Migration Act 1958 as amended by the Migration Amendment (Reform of Employer Sanctions) Act 2013,']] },
+  { id: 'au-rental-bonds-lodgement-and-refund-kyc', sources: ['https://www.nsw.gov.au/housing-and-construction/renting-a-place-to-live/starting-a-residential-tenancy', 'https://www.consumerprotection.wa.gov.au/lodging-bond'],
+    note: 'Bond lodgement deadlines differ by state: 10 working days in NSW and 14 days in Western Australia.',
+    edits: [['Agents must lodge bond monies electronically within 7 to 10 days', 'Agents must lodge bond monies within the deadline set by each state (for example 10 working days in NSW and 14 days in Western Australia)']] },
+  { id: 'au-ato-tax-file-number-tfn-kyc', sources: ['https://www.ato.gov.au/forms-and-instructions/tfn-application-for-permanent-migrants-and-temporary-visitors'],
+    note: 'The ATO online service for foreign passport holders is called Individual Auto Registration (IAR); visas with no-work conditions cannot use it.',
+    edits: [['apply online through the Individual Auto TFN service using their passport details', 'apply online through the ATO Individual Auto Registration (IAR) service using their passport details (they must be in Australia and hold a visa that allows work or study)']] },
 
   // Australia tenancy
   { id: 'au-sydney-nsw-fair-trading-rental-bonds', sources: ['https://www.nsw.gov.au/housing-and-construction/renting-a-place-to-live/starting-a-residential-tenancy'],

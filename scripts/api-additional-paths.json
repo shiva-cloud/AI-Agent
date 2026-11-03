@@ -447,13 +447,19 @@
                         "question": {
                           "type": "string"
                         },
-                        "statutoryRule": {
-                          "type": "string"
+                        "reviewStatus": {
+                          "type": "string",
+                          "enum": [
+                            "unreviewed_template"
+                          ]
                         },
-                        "citation": {
-                          "type": "string"
+                        "withheld": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         },
-                        "verdict": {
+                        "notice": {
                           "type": "string"
                         }
                       },
@@ -464,9 +470,9 @@
                         "topic",
                         "scenarioName",
                         "question",
-                        "statutoryRule",
-                        "citation",
-                        "verdict"
+                        "reviewStatus",
+                        "withheld",
+                        "notice"
                       ],
                       "additionalProperties": true
                     }
@@ -506,7 +512,8 @@
             }
           }
         }
-      }
+      },
+      "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
     }
   },
   "/v1/market-gap/batch1/{id}": {
@@ -552,13 +559,19 @@
                       "question": {
                         "type": "string"
                       },
-                      "statutoryRule": {
-                        "type": "string"
+                      "reviewStatus": {
+                        "type": "string",
+                        "enum": [
+                          "unreviewed_template"
+                        ]
                       },
-                      "citation": {
-                        "type": "string"
+                      "withheld": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
                       },
-                      "verdict": {
+                      "notice": {
                         "type": "string"
                       }
                     },
@@ -569,9 +582,9 @@
                       "topic",
                       "scenarioName",
                       "question",
-                      "statutoryRule",
-                      "citation",
-                      "verdict"
+                      "reviewStatus",
+                      "withheld",
+                      "notice"
                     ],
                     "additionalProperties": true
                   }
@@ -607,7 +620,8 @@
             }
           }
         }
-      }
+      },
+      "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
     }
   },
   "/v1/market-gap/batch2/stats": {
@@ -778,13 +792,19 @@
                         "question": {
                           "type": "string"
                         },
-                        "statutoryRule": {
-                          "type": "string"
+                        "reviewStatus": {
+                          "type": "string",
+                          "enum": [
+                            "unreviewed_template"
+                          ]
                         },
-                        "citation": {
-                          "type": "string"
+                        "withheld": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
                         },
-                        "verdict": {
+                        "notice": {
                           "type": "string"
                         }
                       },
@@ -795,9 +815,9 @@
                         "topic",
                         "scenarioName",
                         "question",
-                        "statutoryRule",
-                        "citation",
-                        "verdict"
+                        "reviewStatus",
+                        "withheld",
+                        "notice"
                       ],
                       "additionalProperties": true
                     }
@@ -837,7 +857,8 @@
             }
           }
         }
-      }
+      },
+      "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
     }
   },
   "/v1/market-gap/batch2/{id}": {
@@ -883,13 +904,19 @@
                       "question": {
                         "type": "string"
                       },
-                      "statutoryRule": {
-                        "type": "string"
+                      "reviewStatus": {
+                        "type": "string",
+                        "enum": [
+                          "unreviewed_template"
+                        ]
                       },
-                      "citation": {
-                        "type": "string"
+                      "withheld": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
                       },
-                      "verdict": {
+                      "notice": {
                         "type": "string"
                       }
                     },
@@ -900,9 +927,9 @@
                       "topic",
                       "scenarioName",
                       "question",
-                      "statutoryRule",
-                      "citation",
-                      "verdict"
+                      "reviewStatus",
+                      "withheld",
+                      "notice"
                     ],
                     "additionalProperties": true
                   }
@@ -938,7 +965,8 @@
             }
           }
         }
-      }
+      },
+      "description": "Unreviewed research catalog. Legal rule, citation and verdict text is withheld until each entry is reviewed for its own country."
     }
   }
 }

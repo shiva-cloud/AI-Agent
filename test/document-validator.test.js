@@ -7,6 +7,17 @@ import {
   DOCUMENT_TYPE_POLICIES
 } from '../src/document-validator.js';
 
+test('document chronology rejects issue dates after expiry or landing', () => {
+  for (const doc of [
+    {docType: 'passport', issueDate: '2026-10-10', expiryDate: '2026-10-09'},
+    {docType: 'proof_of_funds', issueDate: '2026-11-02'}
+  ]) {
+    assert.throws(() => validateDocument(doc, '2026-11-01'), /issue date cannot be after/);
+    assert.throws(() => validateNewcomerDocuments({documents: [doc], landingDateStr: '2026-11-01'}), /issue date cannot be after/);
+  }
+  assert.equal(validateDocument({docType: 'proof_of_funds', issueDate: '2026-11-01'}, '2026-11-01').status, 'valid');
+});
+
 test('DOCUMENT_TYPE_POLICIES contains core Canadian immigration documents', () => {
   assert.ok(DOCUMENT_TYPE_POLICIES.passport);
   assert.ok(DOCUMENT_TYPE_POLICIES.copr);

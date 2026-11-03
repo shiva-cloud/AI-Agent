@@ -7,7 +7,7 @@ Reviewed: 29 October 2026. Package inspected: 0.19.24. This report supersedes hi
 **Current summary (1 November 2026):** full suite **1,685/1,685 passed** (`artifacts/today-test-results-2026-11-01.txt`, `artifacts/today-test-summary.json`). Zero failures, 100% pass rate across 14 test suites and all pre-flight checks.
 - **Frontend UI/UX Complete Overhaul**: Full Desktop & Mobile navigation toggle with `#sidebar-toggle-btn` (`[ ◀ Hide Menu ]` / `[ ☰ Show Menu ]`), Categorized Accordion with explicit `Show ▼` / `Hide ▲` badges, Multi-Tool Single-Tool Focus Switcher (`[ ◀ Prev ]`, select dropdown, `[ Next ▶ ]`, `[ 👁️ Show All Tools ]`), scoped natural casing checkbox labels, and universal responsive grid bounds.
 - **Workspace Sanitization**: 137 ephemeral scratch scripts purged from `scratch/`, 89 old test dumps deleted from `artifacts/`, and test backup directories sanitized.
-- **System Documentation**: Comprehensive production reference published in `docs/TODAY_SYSTEM_STATUS_2026-11-01.md`.
+- **System Documentation**: Comprehensive production reference published in `docs/archive/TODAY_SYSTEM_STATUS_2026-11-01.md`.
 
 ## Previous backend status — 31 October 2026
 
@@ -16,7 +16,7 @@ Reviewed: 29 October 2026. Package inspected: 0.19.24. This report supersedes hi
 - B2: follow-up context contract context-1, with elliptical follow-ups.
 - B3: geography registry geo-1, with specific place clarifications, neighbourhoods and nearby cities.
 - B10: queue and runtime monitors with webhook delivery, signature verification and persistent alert state.
-- Two recommendation sweeps (docs/RECOMMENDATIONS_2026-10-31.md).
+- Two recommendation sweeps (docs/archive/RECOMMENDATIONS_2026-10-31.md).
 
 **SaaS update (1 November 2026):** plans-2. The Free plan is unlimited, an admin panel is at `/manage`, and testing mode runs with `npm run start:test`. The full suite is 1,668/1,668.
 
@@ -395,7 +395,7 @@ A before/after parse comparison on 505 recorded inputs changed 7 results, each r
 
 ## Recommendations sweep — 31 October 2026
 
-Seventeen smaller improvements were implemented together; see docs/RECOMMENDATIONS_2026-10-31.md. They include escaping five server values in frontend `innerHTML` templates, Toronto/Mississauga/Brampton/Vancouver neighbourhoods and nearby uncovered cities in the geography registry (North and West Vancouver are no longer read as Vancouver), softened CRS feasibility labels with an advisory that its cut-offs are not live, a webhook signature verification helper, more everyday vocabulary (probe set 45/45), and README/config/doc corrections. Parser output changed for one of 505 recorded questions ("Doctor near Scarborough" now resolves to Toronto). Full suite 745/745 (artifacts/backend-recommendations-tests.txt); 96 developer evaluation cases pass.
+Seventeen smaller improvements were implemented together; see docs/archive/RECOMMENDATIONS_2026-10-31.md. They include escaping five server values in frontend `innerHTML` templates, Toronto/Mississauga/Brampton/Vancouver neighbourhoods and nearby uncovered cities in the geography registry (North and West Vancouver are no longer read as Vancouver), softened CRS feasibility labels with an advisory that its cut-offs are not live, a webhook signature verification helper, more everyday vocabulary (probe set 45/45), and README/config/doc corrections. Parser output changed for one of 505 recorded questions ("Doctor near Scarborough" now resolves to Toronto). Full suite 745/745 (artifacts/backend-recommendations-tests.txt); 96 developer evaluation cases pass.
 
 ## Parser regression from parallel destination work — 31 October 2026
 

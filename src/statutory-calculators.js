@@ -4,6 +4,7 @@
 // Tenancy Evidence Vault (#tenancy), and Document Expiry Watchdog (#binder).
 
 import { ValidationError } from './api-errors.js';
+import {calculatorNumber} from './calculator-input.js';
 import { assertCalendarDate } from './evidence-policy.js';
 
 export const RECIPROCAL_DRIVING_COUNTRIES = new Set([
@@ -53,12 +54,15 @@ export const JURISDICTION_RECIPROCAL = {
 };
 
 /**
- * Simulates a newcomer's 9-month credit trajectory based on Equifax/TransUnion scoring models.
+ * Illustrative nine-month credit scenario using local heuristics, not a bureau scoring model.
  */
-export function calculateCreditTrajectory({ limit = 2000, spend = 450, strategy = 'full_on_time', inquiries = 1 } = {}) {
-  const safeLimit = Math.max(100, Number(limit) || 2000);
-  const safeSpend = Math.max(0, Number(spend) || 0);
-  const safeInquiries = Math.min(10, Math.max(1, Number(inquiries) || 1));
+export function calculateCreditTrajectory(input = {}) {
+  if(!input||typeof input!=='object'||Array.isArray(input))throw new ValidationError('Credit scenario must be an object');
+  const {limit=2000,spend=450,strategy='full_on_time',inquiries=1}=input;
+  const safeLimit=calculatorNumber(limit,'Credit limit',{min:1,max:10000000});
+  const safeSpend=calculatorNumber(spend,'Spending',{max:10000000});
+  const safeInquiries=calculatorNumber(inquiries,'Inquiries',{max:10,integer:true});
+  if(!['full_on_time','multiple_payments','minimum_only'].includes(strategy))throw new ValidationError('Unsupported payment strategy');
 
   const utilRatio = Math.min(100, Math.round((safeSpend / safeLimit) * 100));
   let utilGrade = 'Optimal (< 30%)';
@@ -81,7 +85,7 @@ export function calculateCreditTrajectory({ limit = 2000, spend = 450, strategy 
     monthlyPointsDelta = Math.min(4, monthlyPointsDelta - 8);
   }
 
-  const inquiryPenalty = safeInquiries >= 4 ? -35 : (safeInquiries === 2 ? -8 : (safeInquiries === 3 ? -18 : -2));
+  const inquiryPenalty = safeInquiries === 0 ? 0 : safeInquiries >= 4 ? -35 : (safeInquiries === 2 ? -8 : (safeInquiries === 3 ? -18 : -2));
   const baseScore = 580;
   const m1Score = Math.max(500, Math.min(850, baseScore + inquiryPenalty + Math.round(monthlyPointsDelta * 0.5)));
   const m3Score = Math.max(500, Math.min(850, m1Score + (monthlyPointsDelta * 2)));

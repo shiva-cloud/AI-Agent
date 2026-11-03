@@ -1,6 +1,7 @@
 // Express Entry proof of settlement funds (Federal Skilled Worker and Federal Skilled Trades).
 // Amounts are 50% of the low-income cut-off and were updated by IRCC effective 7 July 2025.
 // Reference copy; IRCC updates them every year, so confirm on the official page.
+import {ValidationError} from './api-errors.js';
 import { factValue, KB_FACTS } from './kb-facts.js';
 
 export const POF_SOURCE = {
@@ -12,15 +13,23 @@ export const POF_SOURCE = {
 
 // Index = family size (1..7); each additional family member adds the increment.
 // The table lives in src/kb-facts.js so every tool uses the same figures.
+function count(value=1){
+ if(!['number','string'].includes(typeof value)||String(value).trim()===''||!Number.isInteger(Number(value))||Number(value)<1||Number(value)>30)throw new ValidationError('Family size must be an integer from 1 to 30');
+ return Number(value);
+}
 export function requiredSettlementFunds(familySize) {
   const funds=factValue('ca.expressEntry.settlementFundsCad');
-  const size = Number.isFinite(Number(familySize)) ? Math.min(30, Math.max(1, Math.floor(Number(familySize)))) : 1;
+  const size = count(familySize);
   return size <= 7 ? funds[size] : funds[7] + (size - 7) * funds.additionalPerPerson;
 }
 
 export function evaluateProofOfFunds(input = {}) {
-  const program = ['fsw', 'fst', 'cec'].includes(input.program) ? input.program : 'fsw';
-  const familySize = Number.isFinite(Number(input.familySize)) ? Math.min(30, Math.max(1, Math.floor(Number(input.familySize)))) : 1;
+  if(!input||typeof input!=='object'||Array.isArray(input))throw new ValidationError('Expected a proof-of-funds object');
+  const program=input.program===undefined?'fsw':input.program;
+  if(!['fsw','fst','cec'].includes(program))throw new ValidationError('Unsupported program');
+  if(input.availableFundsCad!==undefined&&(!['number','string'].includes(typeof input.availableFundsCad)||String(input.availableFundsCad).trim()===''||!Number.isFinite(Number(input.availableFundsCad))||Number(input.availableFundsCad)<0))throw new ValidationError('Available funds must be a finite nonnegative amount');
+  if(input.hasValidJobOfferAndWorkAuthorization!==undefined&&![true,false,'true','false'].includes(input.hasValidJobOfferAndWorkAuthorization))throw new ValidationError('Job offer confirmation must be boolean');
+  const familySize = count(input.familySize);
   const available = Number.isFinite(Number(input.availableFundsCad)) ? Math.max(0, Number(input.availableFundsCad)) : 0;
   const jobOffer = input.hasValidJobOfferAndWorkAuthorization === true || input.hasValidJobOfferAndWorkAuthorization === 'true';
   const required = requiredSettlementFunds(familySize);

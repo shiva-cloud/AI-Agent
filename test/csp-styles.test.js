@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import { appSource } from './app-source.js';
 
 // csp-styles.js touches the DOM at import time; give it the minimum it needs.
 globalThis.document={documentElement:{nodeType:1,hasAttribute:()=>false,querySelectorAll:()=>[]}};
@@ -20,7 +20,7 @@ test('values that can load or run something are dropped',()=>{
 });
 
 test('app.js defines escapeHtml for its HTML templates and guards storage reads',()=>{
- const source=readFileSync(new URL('../public/app.js',import.meta.url),'utf8');
+ const source=appSource();
  assert.match(source,/function escapeHtml\(/);
  assert.match(source,/function readStored\(/);
  assert.doesNotMatch(source,/JSON\.parse\(localStorage\.getItem/);

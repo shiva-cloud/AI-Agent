@@ -74,13 +74,10 @@ test('Rec 205: Citizenship Presence Guard — Resilient to malformed dates and n
 });
 
 test('Rec 206: Proof of Funds Family Sizing Guard — Protects against negative or non-finite inputs', () => {
-  assert.equal(requiredSettlementFunds('invalid'), 15263);
-  assert.equal(requiredSettlementFunds(-5), 15263);
-  const evaluation = evaluateProofOfFunds({ familySize: 'bad', availableFundsCad: 'invalid' });
-  assert.equal(evaluation.familySize, 1);
-  assert.equal(evaluation.availableFundsCad, 0);
-  assert.equal(evaluation.requiredCad, 15263);
-  assert.equal(evaluation.meetsRequirement, false);
+  for(const value of ['invalid',-5,0,1.5,Infinity,null])assert.throws(()=>requiredSettlementFunds(value));
+  assert.throws(()=>evaluateProofOfFunds({familySize:'bad',availableFundsCad:'invalid'}));
+  assert.throws(()=>evaluateProofOfFunds({program:'invalid',familySize:1}));
+  assert.equal(evaluateProofOfFunds({familySize:1,availableFundsCad:0}).meetsRequirement,false);
 });
 
 test('Rec 207: Crawler Content-Type Guard — Returns structured unsupported_binary on PDF response', async () => {
