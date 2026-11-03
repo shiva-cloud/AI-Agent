@@ -14,6 +14,26 @@ const MONTHS = {
   july: '07', august: '08', september: '09', october: '10', november: '11', december: '12'
 };
 
+// Knowledge-base jurisdictions use full country names outside the Canada code
+// layer (CA-federal, provinces, and city names stay code/name-based by
+// convention). Monitor channels store ISO-2 country codes, and passing them
+// straight through used to create records with jurisdictions like US/GB/AU/DE;
+// the delta records were fixed 2026-11-03 by
+// scripts/jurisdiction-normalize-2026-11-03.js, and this map keeps new records
+// on the convention from the start.
+const COUNTRY_JURISDICTIONS = {
+  CA: 'CA',
+  US: 'United States',
+  GB: 'United Kingdom',
+  AU: 'Australia',
+  AE: 'United Arab Emirates',
+  DE: 'Germany'
+};
+
+function countryJurisdiction(source) {
+  return source.city || source.region || COUNTRY_JURISDICTIONS[source.country] || source.country || 'CA';
+}
+
 export function extractDatesFromText(text) {
   if (typeof text !== 'string') return [];
   const results = [];
@@ -77,7 +97,7 @@ export function extractPolicyDelta({ source, content, delta, simulatedInput = nu
     assertEnglishText(headline, 'Headline');
     assertEnglishText(summary, 'Summary');
 
-    const jurisdiction = source.city || source.region || source.country || 'CA';
+    const jurisdiction = countryJurisdiction(source);
     const recordId = `${source.id}-${createHash('sha256').update(content + todayStr).digest('hex').slice(0, 8)}`;
 
     const candidateRecord = {
@@ -142,7 +162,7 @@ export function extractPolicyDelta({ source, content, delta, simulatedInput = nu
     ? `${source.name} changed its ${subject} page. The page now says: "${quote}" This is an automated change notice. Effective date has not been verified, so check the official page before relying on it.`
     : `${source.name} changed its ${subject} page, but no readable statement could be extracted. This automated change notice needs editorial review before use.`;
 
-  const jurisdiction = source.city || source.region || source.country || 'CA';
+  const jurisdiction = countryJurisdiction(source);
   const recordId = `${source.id}-${createHash('sha256').update(content + todayStr).digest('hex').slice(0, 8)}`;
 
   const candidateRecord = {

@@ -276,7 +276,7 @@ export const gapRecords = [
   {
     id: 'canada-to-germany-skilled-relocation-chancenkarte-and-blue-card',
     topic: 'employment',
-    jurisdiction: 'DE',
+    jurisdiction: 'Germany',
     title: 'Canada to Germany Relocation: Opportunity Card (Chancenkarte § 20a AufenthG), EU Blue Card, and CRA departure tax',
     url: 'https://www.make-it-in-germany.com/en/visa-residence/types/opportunity-card',
     quote: 'Skilled professionals relocating from Canada to Germany utilize the Opportunity Card points grid or EU Blue Card employment tracks.',

@@ -4,7 +4,7 @@
 // navigator and tool-form parallelism, IRCC dependence, language contract.
 // Does not write anything; safe to run against a live database.
 //   node scripts/country-coverage-report.js [--db path] [--json]
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';

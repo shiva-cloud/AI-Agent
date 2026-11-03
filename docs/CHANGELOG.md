@@ -2,6 +2,15 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.51 — Jurisdiction naming normalization (3 November 2026)
+
+A naming-field fix for the naming split the coverage analysis surfaced; no quote or summary content changed:
+
+- **Naming split fixed:** 5 evidence records carried ISO-2 country codes as `jurisdiction` (US/GB/AU/DE — for example `us-uscis-alerts-662aacbd`), because the real-time monitor channels store country codes and the extractor copied them into records; four of the five are rejected crawler change-notices, one is an approved employment record. `scripts/jurisdiction-normalize-2026-11-03.js` rewrites the field to the full country names the corrections-script way: dry run by default, `--apply` copies the database to `data/backups/` first, appends one hash-chained audit row per record labelled "automated correction, not editorial review", refreshes the full-text index, and syncs the `canada-to-germany` seed in `scripts/inject-real-world-and-gap-records.js` so a rebuilt database does not bring the code back. Coverage effect: big-12 records 276 → 281 (Australia 39→40, United States 38→39, United Kingdom 36→37, Germany 31→33), rest-of-world 423 → 418 over 212 jurisdictions.
+- **Root cause fixed:** `src/realtime-extractor.js` maps channel country codes to the convention's full names in both extraction branches (the Canada layer keeps its `CA`/province/city code convention, which the coverage groups are keyed on). `test/realtime-city-pipeline.test.js` covers the mapping (DE→Germany, GB→United Kingdom, CA stays `CA`) and the city/region precedence still wins.
+- **Floors re-frozen to the same truth** in `test/country-coverage.test.js`: big-12 country floors, rest 418 with 212 distinct jurisdictions, big-12 summary depth ≥ 830 (the moved records are mostly short change-notice summaries), publication-chain floor raised to 56 (the 3 November automated publish run, 45 → 56). Lint warning cleaned (unused import in `scripts/country-coverage-report.js`).
+- **Provenance gate honest:** the new corrections-family script writes self-labelled non-editorial audit rows that `publicEvidence` ignores through its non-editorial reviewer pattern, so no publication side effect is possible (each moved record's publication status is unchanged); the provenance test's allow-list needs the same per-script admission the 1 November corrections script has — one additive entry left for the test's owning session to land.
+
 ## 0.19.50 — Country coverage instrumentation (3 November 2026)
 
 Documentation and tooling for the per-country coverage question; no content or evidence behavior changed:

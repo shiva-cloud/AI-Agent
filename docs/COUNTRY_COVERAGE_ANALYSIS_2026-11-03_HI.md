@@ -17,6 +17,8 @@
 | बड़े 12 | Australia 39, US 38, UK 36, Germany 31, UAE 26, NZ 23, France 16, Ireland 15, Netherlands 14, Singapore 13, Spain 13, Sweden 12 | **276** | 12–39 | 8–13 (AU/UK/UAE 13/13) |
 | बाक़ी बाकी देश | 216 जेयुरिस्डिक्शन | **423** | **औसत ≈2.0** | **2/13** (driving + community) |
 
+> **उसी दिन का नाम-सुधार (3 नवंबर, इसी विश्लेषण से निकला फिक्स):** ऊपर की गणनाओं में real-time-monitor चैनलों से आए 5 रिकॉर्ड ISO-2 कोड jurisdiction लेकर `rest` में गिने थे (US 1, GB 1, AU 1, DE 2 — जैसे `us-uscis-alerts-662aacbd`)। `scripts/jurisdiction-normalize-2026-11-03.js` ने audited correction-chain से उन्हें पूरे नाम दिए, और `src/realtime-extractor.js` में जड़ ठीक हुई (नए records पूरे नाम से बनेंगे; कनाडा-परत का कोड चलन बरक़रार)। नतीजा: बड़े-12 276→281 (Australia 40, US 39, UK 37, Germany 33), rest 423→418 (212 जेयुरिस्डिक्शन)। `npm run coverage:report` और `test/country-coverage.test.js` मौजूदा सत्य को दर्शाते हैं; ऊपर की तालिका आज की माप का ऐतिहासिक snapshot है।
+
 नमूना (बाक़ी-150 का "बिल्ड"): `japan-mpd-licence` (driving, Tokyo पुलिस पेज) + `japan-settlement-services` (community, URL = **IRCC का जेनेरिक "free newcomer services" पेज**)। यही पैटर्न Brazil, Mexico, Kenya, Nepal, Nigeria, Poland, Vietnam… हर जगह दोहराया गया है — यानी उन स्वयं देशों की सरकारों से लिखा हुआ सेटलमेंट-कॉन्टेंट प्रायः **शून्य** है।
 
 ## 3. कनाडा का "पूरा बिल्ड" — मापदंड क्या बना

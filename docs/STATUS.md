@@ -1,6 +1,14 @@
 # Implementation status — 3 November 2026
 
-## Current release: 0.19.50, English-only
+## Current release: 0.19.51, English-only
+
+### Jurisdiction naming normalization (0.19.51)
+
+Details in `docs/CHANGELOG.md` 0.19.51:
+
+- 5 records that carried ISO-2 country codes as `jurisdiction` (US/GB/AU/DE; four rejected crawler change-notices and one approved employment record) were normalized to full country names through the audited corrections chain — `scripts/jurisdiction-normalize-2026-11-03.js` (dry run default; `--apply` with database backup; hash-chained "automated correction, not editorial review" audits; full-text index refreshed; generator seed synced). Big-12 records 276 → 281 (Australia 40, United States 39, United Kingdom 37, Germany 33); rest-of-world 423 → 418 over 212 jurisdictions.
+- Root cause fixed in `src/realtime-extractor.js`: new records map channel country codes to full names and keep the Canada code-layer convention (`CA`/provinces/cities); covered in `test/realtime-city-pipeline.test.js`.
+- Floors re-frozen in `test/country-coverage.test.js`: per-country big-12 floors, rest 418/212, big-12 summary depth ≥ 830, publication-chain floor 56.
 
 ### Country coverage instrumentation (0.19.50)
 

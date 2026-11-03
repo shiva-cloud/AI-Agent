@@ -157,6 +157,52 @@ test('Realtime Extractor: extracts dates and constructs compliant evidence recor
   assert.equal(extracted.liveAlert.status, 'active');
 });
 
+test('Realtime Extractor: national channels map country codes to full jurisdiction names', () => {
+  const bmf = REALTIME_SOURCES.find(s => s.id === 'de-bamf-chancenkarte-updates');
+  const extracted = extractPolicyDelta({
+    source: bmf,
+    content: 'BAMF publishes an update about the Chancenkarte points grid.',
+    delta: { changed: true },
+    simulatedInput: {
+      headline: 'BAMF Chancenkarte guidance update',
+      summary: 'BAMF updated the guidance for the Chancenkarte points grid.',
+      quote: 'BAMF updated the guidance for the Chancenkarte points grid.',
+      risk: 'high'
+    }
+  });
+  assert.equal(extracted.candidateRecord.jurisdiction, 'Germany', 'the DE code becomes the full country name');
+  assert.equal(extracted.candidateRecord.status, 'pending', 'high-risk channel record stays pending');
+
+  const ukSource = REALTIME_SOURCES.find(s => s.id === 'uk-home-office-updates');
+  const ukExtracted = extractPolicyDelta({
+    source: ukSource,
+    content: 'UK Visas and Immigration publishes operational policy notices.',
+    delta: { changed: true },
+    simulatedInput: {
+      headline: 'UK Visas and Immigration policy notice',
+      summary: 'UK Visas and Immigration published an operational policy notice.',
+      quote: 'UK Visas and Immigration published an operational policy notice.',
+      risk: 'high'
+    }
+  });
+  assert.equal(ukExtracted.candidateRecord.jurisdiction, 'United Kingdom', 'the GB code becomes the full country name');
+
+  // The Canada layer keeps its code convention.
+  const caSource = REALTIME_SOURCES.find(s => s.country === 'CA' && !s.city && !s.region);
+  const caExtracted = extractPolicyDelta({
+    source: caSource,
+    content: 'IRCC publishes an update on the portal.',
+    delta: { changed: true },
+    simulatedInput: {
+      headline: 'IRCC program update',
+      summary: 'IRCC published a program update on the portal.',
+      quote: 'IRCC published a program update on the portal.',
+      risk: 'low'
+    }
+  });
+  assert.equal(caExtracted.candidateRecord.jurisdiction, 'CA', 'Canada-layer records keep the CA code');
+});
+
 test('Dual-Track KB Ingestion: stores live alerts and auto-publishes low-risk records', async () => {
   const db = createTestDb();
   const cache = createAnswerCache({ maxEntries: 16 });

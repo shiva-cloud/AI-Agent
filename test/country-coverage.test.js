@@ -11,7 +11,7 @@ import { countryPortals } from '../src/country-portals.js';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const BIG_TWELVE = {
-  Australia: 39, 'United States': 38, 'United Kingdom': 36, Germany: 31,
+  Australia: 40, 'United States': 39, 'United Kingdom': 37, Germany: 33,
   'United Arab Emirates': 26, 'New Zealand': 23, France: 16, Ireland: 15,
   Netherlands: 14, Singapore: 13, Spain: 13, Sweden: 12
 };
@@ -19,7 +19,10 @@ const CITIES = ['Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'O
 
 // Lower bounds only: less is a regression to investigate, more is welcome.
 // These freeze the coverage the 3 November 2026 analysis documented so that
-// removals below the current build fail loudly instead of silently.
+// removals below the current build fail loudly instead of silently. The
+// per-country and rest-of-world figures were re-frozen after the jurisdiction
+// naming normalization moved 5 records out of "rest" into the big-12 country
+// counts (scripts/jurisdiction-normalize-2026-11-03.js).
 
 test('every corridor defines a complete country contract', () => {
   const codes = listSupportedCorridorCodes();
@@ -107,12 +110,12 @@ test('evidence database coverage floors hold when the database is present', (t) 
     assert.ok(recs.filter(r => r.jurisdiction === country).length >= floor, `${country} floor ${floor}`);
   }
   const rest = recs.filter(r => group(r) === 'rest');
-  assert.ok(rest.length >= 423, 'rest-of-world floor');
-  assert.ok(new Set(rest.map(r => r.jurisdiction)).size >= 216, 'rest-of-world country floor');
+  assert.ok(rest.length >= 418, 'rest-of-world floor');
+  assert.ok(new Set(rest.map(r => r.jurisdiction)).size >= 212, 'rest-of-world country floor');
 
   const avgLen = (list) => list.reduce((a, r) => a + (r.summary || '').length, 0) / Math.max(list.length, 1);
   assert.ok(avgLen(recs.filter(r => group(r) === 'CA-federal')) >= 850, 'Canada federal summary depth');
-  assert.ok(avgLen(recs.filter(r => group(r) === 'BIG-12')) >= 840, 'big-12 summary depth');
+  assert.ok(avgLen(recs.filter(r => group(r) === 'BIG-12')) >= 830, 'big-12 summary depth');
   assert.ok(avgLen(rest) >= 480, 'rest-of-world summary depth');
 
   for (const r of recs) {
@@ -126,5 +129,5 @@ test('evidence database coverage floors hold when the database is present', (t) 
   }
 
   assert.ok(auditedIds.size >= 864, 'editorial audit trail floor');
-  assert.ok(publishedIds.size >= 45, 'publication-chain floor');
+  assert.ok(publishedIds.size >= 56, 'publication-chain floor');
 });
