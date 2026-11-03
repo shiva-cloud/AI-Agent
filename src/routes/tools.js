@@ -183,6 +183,10 @@ import { evaluateUsH1bOptStatus } from '../us-h1b-opt-navigator.js';
 import { evaluateUkSkilledWorkerAndIlr } from '../uk-skilled-worker-ilr-navigator.js';
 import { evaluateSuperVisaAndPgp } from '../super-visa-lico-navigator.js';
 import { evaluateAustraliaReforms, evaluateGermanyChancenkarteAndTenancy } from '../australia-germany-global-navigator.js';
+import { auditAustralianTenancy } from '../australia-tenancy-tribunal-navigator.js';
+import { auditUsStateTenancy } from '../us-state-tenancy-navigator.js';
+import { auditUkDevolvedTenancy } from '../uk-tenancy-devolved-navigator.js';
+import { auditUaeTenancy } from '../uae-tenancy-dispute-navigator.js';
 import { evaluateNewcomerWealthPlan } from '../cra-newcomer-wealth-navigator.js';
 import { auditBcTenancyNotice, evaluateOntarioSharedKitchenBathroomJurisdiction, auditOntarioFormN12Notice, evaluateOntarioT1RefundClaim, auditOntarioRentIncrease } from '../ontario-bc-tenancy-navigator.js';
 import { evaluateUaeGratuityAndWps, auditDubaiReraEvictionNotice, evaluateNewZealandAewvAndTenancy, evaluateIrelandCsepAndRpz, evaluateSingaporeCompassPass } from '../global-expat-navigator.js';
@@ -4759,6 +4763,72 @@ export function handleToolGet(ctx) {
     }
     if(path==='/v1/tools/language-score-clb')return send(200,convertLanguageScores(Object.fromEntries(url.searchParams)));
     if(path==='/v1/tools/proof-of-funds')return send(200,evaluateProofOfFunds(Object.fromEntries(url.searchParams)));
+    if(path==='/v1/tools/australia-tenancy') {
+      const state = url.searchParams.get('state') || 'NSW';
+      const weeklyRentAud = url.searchParams.get('weeklyRent') ? Number(url.searchParams.get('weeklyRent')) : 650;
+      const bondPaidAud = url.searchParams.get('bondPaid') ? Number(url.searchParams.get('bondPaid')) : 2600;
+      const rentIncreasePercent = url.searchParams.get('rentIncreasePercent') ? Number(url.searchParams.get('rentIncreasePercent')) : 0;
+      const monthsSinceLastRentIncrease = url.searchParams.get('monthsSinceLastIncrease') ? Number(url.searchParams.get('monthsSinceLastIncrease')) : 12;
+      const noticeGivenDays = url.searchParams.get('noticeGivenDays') ? Number(url.searchParams.get('noticeGivenDays')) : 60;
+      return send(200, auditAustralianTenancy({
+        state,
+        weeklyRentAud,
+        bondPaidAud,
+        rentIncreasePercent,
+        monthsSinceLastRentIncrease,
+        noticeGivenDays
+      }));
+    }
+    if(path==='/v1/tools/us-state-tenancy') {
+      const state = url.searchParams.get('state') || 'CA';
+      const monthlyRentUsd = url.searchParams.get('monthlyRent') ? Number(url.searchParams.get('monthlyRent')) : 2500;
+      const securityDepositPaidUsd = url.searchParams.get('securityDeposit') ? Number(url.searchParams.get('securityDeposit')) : 2500;
+      const rentIncreasePercent = url.searchParams.get('rentIncreasePercent') ? Number(url.searchParams.get('rentIncreasePercent')) : 0;
+      const tenancyDurationMonths = url.searchParams.get('tenancyMonths') ? Number(url.searchParams.get('tenancyMonths')) : 14;
+      const daysSinceMoveOut = url.searchParams.get('daysSinceMoveOut') ? Number(url.searchParams.get('daysSinceMoveOut')) : 0;
+      return send(200, auditUsStateTenancy({
+        state,
+        monthlyRentUsd,
+        securityDepositPaidUsd,
+        rentIncreasePercent,
+        tenancyDurationMonths,
+        daysSinceMoveOut
+      }));
+    }
+    if(path==='/v1/tools/uk-devolved-tenancy') {
+      const nation = url.searchParams.get('nation') || 'Scotland';
+      const monthlyRentGbp = url.searchParams.get('monthlyRent') ? Number(url.searchParams.get('monthlyRent')) : 1000;
+      const depositPaidGbp = url.searchParams.get('depositPaid') ? Number(url.searchParams.get('depositPaid')) : 1000;
+      const tenureDurationMonths = url.searchParams.get('tenureMonths') ? Number(url.searchParams.get('tenureMonths')) : 12;
+      const noticeGivenDays = url.searchParams.get('noticeGivenDays') ? Number(url.searchParams.get('noticeGivenDays')) : 28;
+      const evictionGround = url.searchParams.get('evictionGround') || 'landlord_intends_to_sell';
+      return send(200, auditUkDevolvedTenancy({
+        nation,
+        monthlyRentGbp,
+        depositPaidGbp,
+        tenureDurationMonths,
+        noticeGivenDays,
+        evictionGround
+      }));
+    }
+    if(path==='/v1/tools/uae-tenancy-dispute') {
+      const emirate = url.searchParams.get('emirate') || 'Dubai';
+      const currentAnnualRentAed = url.searchParams.get('currentRent') ? Number(url.searchParams.get('currentRent')) : 80000;
+      const averageMarketRentAed = url.searchParams.get('marketRent') ? Number(url.searchParams.get('marketRent')) : 100000;
+      const proposedAnnualRentAed = url.searchParams.get('proposedRent') ? Number(url.searchParams.get('proposedRent')) : 88000;
+      const noticeDaysPriorToRenewal = url.searchParams.get('noticeDays') ? Number(url.searchParams.get('noticeDays')) : 90;
+      const evictionNoticeGiven = url.searchParams.get('evictionNotice') === 'true';
+      const evictionServedViaNotary = url.searchParams.get('notaryServed') !== 'false';
+      return send(200, auditUaeTenancy({
+        emirate,
+        currentAnnualRentAed,
+        averageMarketRentAed,
+        proposedAnnualRentAed,
+        noticeDaysPriorToRenewal,
+        evictionNoticeGiven,
+        evictionServedViaNotary
+      }));
+    }
   return false;
 }
 
