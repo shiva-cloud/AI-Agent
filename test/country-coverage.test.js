@@ -161,3 +161,41 @@ test('countryCoverage engine function produces structured global coverage matrix
   assert.equal(matrix.restOfWorld.totalRecords, 1);
   assert.equal(matrix.restOfWorld.distinctCountriesCount, 1);
 });
+
+test('countryCoverage against real evidence database verifies subnational parity across Big-12', (t) => {
+  const dbPath = join(root, 'data', 'settlement.sqlite');
+  if (!existsSync(dbPath)) {
+    t.skip('evidence database not present on this machine');
+    return;
+  }
+  const db = new DatabaseSync(dbPath, { readOnly: true });
+  t.after(() => db.close());
+  const parse = (b) => { try { return JSON.parse(b); } catch { return null; } };
+  const recs = db.prepare('SELECT id, body FROM records').all().map(r => ({ id: r.id, ...parse(r.body) })).filter(Boolean);
+  const matrix = countryCoverage(recs);
+  assert.equal(matrix.big12.length, 12);
+  for (const c of matrix.big12) {
+    assert.ok(c.nationalRecords >= 10, `${c.country} national records floor`);
+    assert.ok(c.topicsCovered >= 13, `${c.country} topics parity`);
+    assert.equal(c.status, 'complete_parity');
+  }
+  const au = matrix.big12.find(c => c.country === 'Australia');
+  assert.ok(au.subnationalRecords >= 20, 'Australia subnational floor');
+  assert.ok(au.subnationalRegions.includes('New South Wales') || au.subnationalRegions.includes('Sydney'));
+
+  const us = matrix.big12.find(c => c.country === 'United States');
+  assert.ok(us.subnationalRecords >= 40, 'US subnational floor');
+  assert.ok(us.subnationalRegions.includes('California') && us.subnationalRegions.includes('New York'));
+
+  const uk = matrix.big12.find(c => c.country === 'United Kingdom');
+  assert.ok(uk.subnationalRecords >= 15, 'UK subnational floor');
+  assert.ok(uk.subnationalRegions.includes('Scotland') && uk.subnationalRegions.includes('Wales'));
+
+  const de = matrix.big12.find(c => c.country === 'Germany');
+  assert.ok(de.subnationalRecords >= 5, 'Germany subnational floor');
+  assert.ok(de.subnationalRegions.includes('Berlin') && de.subnationalRegions.includes('Bavaria'));
+
+  const ae = matrix.big12.find(c => c.country === 'United Arab Emirates');
+  assert.ok(ae.subnationalRecords >= 10, 'UAE subnational floor');
+  assert.ok(ae.subnationalRegions.includes('Dubai') && ae.subnationalRegions.includes('Abu Dhabi'));
+});

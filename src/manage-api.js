@@ -10,7 +10,12 @@ let toolIds;
 function knownTools() {
   if (!toolIds) {
     const routes = new URL('./routes/', import.meta.url);
-    const files = [new URL('./server.js', import.meta.url), ...readdirSync(routes).filter(name => name.endsWith('.js')).map(name => new URL(name, routes))];
+    const files = [
+      new URL('./server.js', import.meta.url),
+      ...readdirSync(routes, { recursive: true })
+        .filter(name => name.endsWith('.js'))
+        .map(name => new URL(name.replace(/\\/g, '/'), routes))
+    ];
     const source = files.map(file => readFileSync(file, 'utf8')).join('\n');
     toolIds = [...new Set([...source.matchAll(/'\/v1\/tools\/([a-z0-9-]+)'/g)].map(m => m[1]))].sort();
   }

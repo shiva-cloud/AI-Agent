@@ -582,6 +582,21 @@ export function coverageDetail(city,records,now=new Date()) {
   })};
 }
 
+export const destinationSubnationalMap = {
+  'Australia': ['New South Wales', 'NSW', 'Victoria', 'VIC', 'Queensland', 'QLD', 'Western Australia', 'WA', 'South Australia', 'Tasmania', 'ACT', 'Northern Territory', 'Sydney', 'Melbourne', 'Brisbane', 'Perth'],
+  'United States': ['California', 'New York', 'Texas', 'TX', 'Florida', 'FL', 'Washington', 'Illinois', 'IL', 'New York City', 'Austin', 'Los Angeles', 'San Francisco', 'Chicago', 'Seattle', 'Miami'],
+  'United Kingdom': ['Scotland', 'Wales', 'Northern Ireland', 'London', 'Edinburgh', 'Cardiff', 'Belfast', 'Manchester', 'Birmingham'],
+  'Germany': ['Berlin', 'Bavaria', 'Bayern', 'NRW', 'North Rhine-Westphalia', 'Munich', 'Frankfurt', 'Hamburg'],
+  'United Arab Emirates': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain'],
+  'Spain': ['Catalonia', 'Madrid', 'Andalusia', 'Barcelona', 'Valencia'],
+  'Netherlands': ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht'],
+  'New Zealand': ['Auckland', 'Wellington', 'Christchurch'],
+  'France': ['Paris', 'Lyon', 'Marseille'],
+  'Ireland': ['Dublin', 'Cork', 'Galway'],
+  'Singapore': ['Singapore City', 'Central Region'],
+  'Sweden': ['Stockholm', 'Gothenburg', 'Malmo']
+};
+
 export function countryCoverage(records, now=new Date()) {
   const date = now.toISOString().slice(0, 10);
   const big12Countries = [
@@ -592,7 +607,7 @@ export function countryCoverage(records, now=new Date()) {
 
   const big12 = big12Countries.map(country => {
     const countryRecs = records.filter(r => r.jurisdiction === country || (r.country && r.country === country));
-    const subnationalRecs = records.filter(r => r.destinationCountry === country && r.jurisdiction && r.jurisdiction !== country);
+    const subnationalRecs = records.filter(r => (r.destinationCountry === country && r.jurisdiction !== country) || (r.jurisdiction !== country && destinationSubnationalMap[country]?.includes(r.jurisdiction)));
     const allRecs = [...countryRecs, ...subnationalRecs];
     const coveredTopics = [...new Set(allRecs.map(r => r.topic))];
     const subnationalRegions = [...new Set(subnationalRecs.map(r => r.jurisdiction))].sort();
@@ -609,8 +624,9 @@ export function countryCoverage(records, now=new Date()) {
     };
   });
 
+  const allSubnationalRegions = Object.values(destinationSubnationalMap).flat();
   const canadianJurisdictions = ['CA', 'ON', 'BC', 'AB', 'QC', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE', 'NT', 'NU', 'YT', 'Toronto', 'Mississauga', 'Brampton', 'Vancouver', 'Calgary', 'Ottawa', 'Montreal'];
-  const restRecs = records.filter(r => !big12Countries.includes(r.jurisdiction) && !big12Countries.includes(r.destinationCountry) && !canadianJurisdictions.includes(r.jurisdiction));
+  const restRecs = records.filter(r => !big12Countries.includes(r.jurisdiction) && !big12Countries.includes(r.destinationCountry) && !allSubnationalRegions.includes(r.jurisdiction) && !canadianJurisdictions.includes(r.jurisdiction));
   const restDistinctCountries = [...new Set(restRecs.map(r => r.jurisdiction))];
 
   return {
