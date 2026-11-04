@@ -133,7 +133,13 @@ test('evidence database coverage floors hold when the database is present', (t) 
   }
 
   assert.ok(auditedIds.size >= 864, 'editorial audit trail floor');
-  assert.ok(publishedIds.size >= 66, 'publication-chain floor');
+  // Refrozen 4 November 2026: the dead-link repair batch relocated
+  // de-mietrecht-kaution-schufa-housing-kyc (bmj.de -> bmjv.de) and
+  // ie-rtb-rpz-2-percent-rent-cap (rtb.ie restructured /renting/ tree) and both
+  // passed the official-page check (68 distinct published records; the same
+  // morning run also re-verified the already-published eviction and
+  // uk-london-nhs-gp-registration after their bodies changed).
+  assert.ok(publishedIds.size >= 68, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

@@ -80,3 +80,16 @@ node scripts/kb-verify-publish.js --apply
 ```
 
 Floors: `test/country-coverage.test.js` — बटन यह है कि published काउंट केवल बढ़ना चाहिए (आज 56); तिथियाँ counters `npm run coverage:report` में।
+
+## 8. 4 नवंबर 2026 की प्रगति — डेड-लिंक बैच-1 (0.19.54)
+
+दो रिकॉर्ड, जिनके आधिकारिक पृष्ठ बिना Archive-कॉपी के मर चुके थे, उनके प्राधिकारियों के नए पृष्ठों पर स्थानांतरित होकर प्रकाशित:
+
+- `de-mietrecht-kaution-schufa-housing-kyc`: bmj.de → **bmjv.de** (मंत्रालय का नया डोमेन), Mietrecht अब `DE/themen/kaufen_reisen_wohnen/` पर। Quote अब पृष्ठ का शब्दशः जर्मन वाक्य (§ 551 (1) BGB जमा-सीमा); summary केवल वही जो पृष्ठ कहता है (किश्त-अधिकार, 10%-मिटप्राइसब्रेम्से आंकड़ा, आवेदन-दस्तावेज़ सूची पृष्ठ पर नहीं — हटा दिए गए)।
+- `ie-rtb-rpz-2-percent-rent-cap`: rtb.ie का पूरा वृक्ष समतल `/renting/` में समा गया; रेंट-कैप की असल `renting/setting-and-reviewing-private-rents/` पर। Quote शब्दशः "Rent can only be increased once per year by 2% or the rate of inflation, whichever is lower."; title+summary पृष्ठ के 1-मार्च-2026 राष्ट्रीय तंत्र (CPI, HICP नहीं) पर पुनर्लिखित।
+- **पहला URL-बदलाव वाला बैच** — इसलिए पहली बार source-registration भी: store की audited API से (raw SQL नहीं — provenance-gate वर्जित करता है): bmjv.de `registerSource` (tier A, पुराने bmj.de की तरह), rtb.ie `permitSource` (tier A, बाकी rtb.ie स्रोतों की तरह); दोनों `source_policy_reviews` पंक्तियों के साथ।
+- Publish-queue (813 रिकॉर्ड) का शब्दशः पृष्ठ-जांच रन (backup पहले): 2 स्थानांतरित रिकॉर्ड `source_verified` प्रकाशित; साथ में 2 पहले से प्रकाशित रिकॉर्ड (`eviction`, `uk-london-nhs-gp-registration`) — जिनके bodies उसी दिन के feature-commit में बदले थे — पुनः सत्यापित-पुनः प्रकाशित (70 publication rows, 68 अलग रिकॉर्ड)। शृंखला: 66 → 68।
+- Run के बाद बैकलॉग: 339 quote-drift, 192 डेड-लिंक (Archive-कॉपी रहित), 93 शॉर्ट-quotes, 86 network-त्रुटियाँ। (कतार 602 → 813 बढ़ी — उसी दिन ~315 नए रिकॉर्ड जुड़े।)
+- Idempotency/अध्यारोहण: रिकॉर्ड की end-state अब `scripts/kb-rewrites.js` में भी है (4-नवंबर supersession) — 1-नवंबर contract-test हर replay-क्रम में हरी रहती है; floors 66 → 68 पुनः जमा।
+- बचाव-प्रतिलिपियाँ: `settlement-before-kb-audit-2026-11-04.sqlite` (+2 timestamped), `settlement-before-verify-publish-*.sqlite`।
+- स्थगित (कारण सहित): IND पृष्ठ JS-shell (1,409 वर्ण; नया route मिला: `ind.nl/en/residence-permits/work/residence-permit-for-orientation-year`); rijksoverheid SPA-shells/404; Försäkringskassan नेटवर्क-अनुपलब्ध; Irish statute-book पर pre-amendment पाठ। आगे के उम्मीदवार: RTB `/renting/rights-responsibilities/security-deposits/` (deposits रिकॉर्ड), wetten.overheid.nl BWBR0048028 (nl-borg रिकॉर्ड), quote-drift बैच-3 (339), शॉर्ट-quotes (93)।

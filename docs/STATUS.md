@@ -1,6 +1,15 @@
-# Implementation status — 3 November 2026
+# Implementation status — 4 November 2026
 
-## Current release: 0.19.53, English-only
+## Current release: 0.19.54, English-only
+
+### Dead-link repair batch one (0.19.54)
+
+Details in `docs/CHANGELOG.md` 0.19.54:
+
+- `scripts/kb-corrections-2026-11-04.js` (audited corrections family, dry run default, `--apply` with backup) relocated two records whose official pages died with no archive copy: `de-mietrecht-kaution-schufa-housing-kyc` to the bmjv.de Mietrecht overview (verbatim § 551 (1) BGB deposit-cap sentence) and `ie-rtb-rpz-2-percent-rent-cap` to the rtb.ie setting-and-reviewing-private-rents page (verbatim 2%-or-inflation sentence; national system from 1 March 2026, CPI).
+- First URL-changing batch: the new official pages were registered/reviewed as sources through the store's audited registration API (both tier A, `source_policy_reviews` rows written) — no raw-SQL policy writes.
+- The 813-record publish queue re-ran through the word-for-word official-page check: the 2 relocated records published as `source_verified`; 2 already-published records re-verified the same morning (70 publication rows, 68 distinct records). Publication-chain records 66 → 68. Backlog after the run: 339 quote drift, 192 dead links, 93 short quotes, 86 network failures.
+- `test/country-coverage.test.js` publication-chain floor re-frozen at 68; the record end state is also a `scripts/kb-rewrites.js` row so the 1 November contract test stays green.
 
 ### Quote-restore batch two (0.19.53)
 
