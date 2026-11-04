@@ -93,3 +93,10 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - Idempotency/अध्यारोहण: रिकॉर्ड की end-state अब `scripts/kb-rewrites.js` में भी है (4-नवंबर supersession) — 1-नवंबर contract-test हर replay-क्रम में हरी रहती है; floors 66 → 68 पुनः जमा।
 - बचाव-प्रतिलिपियाँ: `settlement-before-kb-audit-2026-11-04.sqlite` (+2 timestamped), `settlement-before-verify-publish-*.sqlite`।
 - स्थगित (कारण सहित): IND पृष्ठ JS-shell (1,409 वर्ण; नया route मिला: `ind.nl/en/residence-permits/work/residence-permit-for-orientation-year`); rijksoverheid SPA-shells/404; Försäkringskassan नेटवर्क-अनुपलब्ध; Irish statute-book पर pre-amendment पाठ। आगे के उम्मीदवार: RTB `/renting/rights-responsibilities/security-deposits/` (deposits रिकॉर्ड), wetten.overheid.nl BWBR0048028 (nl-borg रिकॉर्ड), quote-drift बैच-3 (339), शॉर्ट-quotes (93)।
+
+### बैच-2 — उसी दिन, 0.19.55
+
+- RTB deposits रिकॉर्ड भी स्थानांतरित: `ie-rtb-security-deposit-and-rpz-protection-kyc` — पुराना `ending-a-tenancy/disputes/security-deposits` उसी पुनर्संरचना में मरा; नई जगह `rtb.ie/renting/rights-responsibilities/security-deposits/`। Quote शब्दशः: "A landlord cannot ask for a deposit that is more than one month's rent." — summary पृष्ठ-सत्य (जमा क्या ढकती है, एक-महीना सीमा, हस्ताक्षरित-दिनांकित रसीद, वापसी का नियम); advance-rent सीमा, दो-महीने-कुल गणित, 2021-Act उद्धरण, District-Court दावे पृष्ठ पर नहीं — हटे। नए पृष्ठ की source-registration audited-API से (tier A, बाकी rtb.ie की तरह)।
+- Publish-queue (809) पुनः चला: ठीक 1 रिकॉर्ड `source_verified` प्रकाशित — शृंखला 68 → **69** (71 rows / 69 distinct)। बैकलॉग: 341 quote-drift, 191 डेड-लिंक, 92 शॉर्ट-quotes, 88 network।
+- nl-borg रिकॉर्ड (wetten.overheid.nl BW art. 7:261b) का सटीक URL-अनुमान विफल (4843-वर्ण त्रुटि-शैल ×5 प्रयास) — स्थगित; वह रिकॉर्ड पहले से प्रकाशित है, सक्रिय-प्रतिगमन नहीं। Floors 68 → 69 पुनः जमा; version 0.19.55।
+- सुरक्षा-सुधार: origin URL से plaintext GitHub-token हटाया (`git remote set-url`); उजागर token का revoke उपयोगकर्ता को करना है। सारे 33+ कमिट GitHub (`shiva-cloud/AI-Agent`) पर push हो चुके।

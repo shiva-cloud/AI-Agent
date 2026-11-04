@@ -2,6 +2,14 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.55 — Dead-link repair batch two: RTB security-deposit record relocated and published (4 November 2026)
+
+Second slice of the dead-link phase, same day, same audited script:
+
+- **Relocation correction:** `ie-rtb-security-deposit-and-rpz-protection-kyc` — the old `rtb.ie/ending-a-tenancy/disputes/security-deposits` page died in the same site restructuring as the morning's rent-cap record; the deposit substance lives on `rtb.ie/renting/rights-responsibilities/security-deposits/`. The quote is the page's verbatim "A landlord cannot ask for a deposit that is more than one month's rent."; the summary now states only what the page states (what a deposit covers — rent arrears, bills owing, damage beyond normal wear and tear —, the one-month cap, the documented signed-dated-receipt expectation, and the return rule). The advance-rent cap, the two-months-total arithmetic, the Residential Tenancies (No. 2) Act 2021 citation and the District-Court enforcement claim are not on the simplified page and were removed. The new page was registered as a tier-A source through the store's audited registration API (the tier every other rtb.ie source holds).
+- **Published through the audited chain:** the 809-record queue re-ran through the word-for-word official-page check (backup first): exactly the 1 relocated record published as `source_verified`. Publication-chain records: 68 → 69 (71 publication rows over 69 distinct records). Queue reasons after the run: 341 quote drift, 191 dead links without archive copies, 92 short quotes, 88 network failures.
+- **Floors re-frozen:** `test/country-coverage.test.js` publication-chain floor 68 → 69.
+
 ## 0.19.54 — Dead-link repair batch one: two records relocated to their authorities' new pages and published (4 November 2026)
 
 First slice of the dead-link phase; 4 November corrections:

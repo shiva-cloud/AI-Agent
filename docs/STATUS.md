@@ -1,6 +1,14 @@
 # Implementation status — 4 November 2026
 
-## Current release: 0.19.54, English-only
+## Current release: 0.19.55, English-only
+
+### Dead-link repair batch two (0.19.55)
+
+Details in `docs/CHANGELOG.md` 0.19.55:
+
+- `ie-rtb-security-deposit-and-rpz-protection-kyc` relocated from the dead `ending-a-tenancy/disputes/security-deposits` page to `rtb.ie/renting/rights-responsibilities/security-deposits/` (verbatim one-month-cap sentence; summary restated on the page; advance-rent, two-months-total, 2021-Act and District-Court claims removed as off-page); new page registered as a tier-A source through the audited API.
+- The 809-record queue re-ran: exactly the 1 relocated record published as `source_verified`. Publication-chain records 68 → 69. Backlog after the run: 341 quote drift, 191 dead links, 92 short quotes, 88 network failures.
+- `test/country-coverage.test.js` publication-chain floor re-frozen at 69.
 
 ### Dead-link repair batch one (0.19.54)
 

@@ -57,7 +57,15 @@ export const CORRECTIONS = [
     edits: [
       [{ field: 'title' }, 'Residential Tenancies Board: Rent Pressure Zone (RPZ) 2% statutory rent cap adhering to property (Residential Tenancies Act 2004)', 'Residential Tenancies Board: 2% statutory rent cap for private tenancies from 1 March 2026, Rent Pressure Zone review deferral'],
       ['Under the Irish Residential Tenancies Act 2004 (as amended, Sections 19 through 24B), residential rental properties (in Rent Pressure Zones, which have covered the whole country since 20 June 2025) are subject to a strict statutory rent increase cap of 2% per annum or the Harmonised Index of Consumer Prices (HICP) inflation rate, whichever is lower.', 'Under the national system of rent control that the Residential Tenancies Board applies to all private tenancies from 1 March 2026, rent can only be increased once per year by 2% or the rate of inflation, whichever is lower, with the rate of inflation measured by the Consumer Price Index (CPI). In areas that became a Rent Pressure Zone (RPZ) in the last 2 years, the rent cannot be reviewed until 24 months after the date the rent was last set or reviewed for the tenancy.'],
-      ['that rule is in the same page, not only the tenancy agreement.', 'the page lists those cases in full.'] ] }
+      ['that rule is in the same page, not only the tenancy agreement.', 'the page lists those cases in full.'] ] },
+
+  // Ireland - RTB security-deposits page (rtb.ie restructured to a flat /renting/ tree)
+  { id: 'ie-rtb-security-deposit-and-rpz-protection-kyc', sources: ['https://rtb.ie/renting/rights-responsibilities/security-deposits/'],
+    note: 'The old rtb.ie/ending-a-tenancy/disputes/security-deposits page died in the site restructuring (all tenant-facing pages moved under rtb.ie/renting/); the deposit substance lives on the new rights-responsibilities/security-deposits page. The old quote and summary described the advance-rent cap, the two-months total, the Residential Tenancies (No. 2) Act 2021 citation and District Court enforcement of RTB orders, none of which the simplified page states; the page proves the one-month deposit cap and the return rule, so quote and summary now state what the page states.',
+    edits: [
+      [{ field: 'url' }, 'https://www.rtb.ie/ending-a-tenancy/disputes/security-deposits', 'https://rtb.ie/renting/rights-responsibilities/security-deposits/'],
+      [{ field: 'quote' }, 'Under Irish law, landlords cannot request a deposit exceeding one month rent and advance rent is strictly capped at one month.', 'A landlord cannot ask for a deposit that is more than one month\'s rent.'],
+      ['Under the Residential Tenancies (No. 2) Act 2021, landlords in Ireland cannot lawfully demand an upfront deposit exceeding one month rent, nor can they demand advance rent payment exceeding one month. Tenants therefore cannot be required to pay more than two months rent in total upon signing a lease (one month deposit plus one month initial rent). Landlords must return the deposit promptly at the end of the tenancy unless there is proven rent arrears, unpaid utility charges, or damage beyond normal wear and tear. If a landlord unlawfully withholds a deposit, tenants can lodge a formal dispute application with the RTB, which issues legally binding dispute orders enforceable through the District Court.', 'The Residential Tenancies Board security deposits page states that a security deposit is a sum of money paid by a tenant to a landlord before the tenancy begins - financial protection for the landlord to cover rent arrears, bills owing or damage beyond normal wear and tear at the end of the tenancy. A landlord cannot ask for a deposit that is more than one month\'s rent; the agreed amount should be documented, and both the tenant and landlord should get a signed and dated receipt. The deposit must be returned at the end of the tenancy unless deductions are necessary. This record does not adjudicate RTB dispute hearings.'] ] }
 ];
 
 function applyEdits(record, edits) {
@@ -134,7 +142,11 @@ export const SOURCE_REGISTRATIONS = [
   { id: 'seed-ie-rtb-rpz-2-percent-rent-cap', op: 'permit', tier: 'A',
     url: 'https://rtb.ie/renting/setting-and-reviewing-private-rents/', owner: 'rtb.ie',
     reviewer: REVIEWER,
-    note: 'Policy review for relocating record ie-rtb-rpz-2-percent-rent-cap: rtb.ie restructured all tenant-facing pages under /renting/ and the rent-cap substance lives on the new setting-and-reviewing-private-rents page. Same statutory board as the other registered rtb.ie sources (tier A); the page was fetched and checked during the automated correction. Automated correction, not an editorial content review.' }
+    note: 'Policy review for relocating record ie-rtb-rpz-2-percent-rent-cap: rtb.ie restructured all tenant-facing pages under /renting/ and the rent-cap substance lives on the new setting-and-reviewing-private-rents page. Same statutory board as the other registered rtb.ie sources (tier A); the page was fetched and checked during the automated correction. Automated correction, not an editorial content review.' },
+  { id: 'source-ie-rtb-security-deposit-and-rpz-protection-kyc', op: 'register', tier: 'A',
+    url: 'https://rtb.ie/renting/rights-responsibilities/security-deposits/', owner: 'rtb.ie',
+    reviewer: REVIEWER,
+    note: 'Registered for relocating record ie-rtb-security-deposit-and-rpz-protection-kyc: rtb.ie restructured all tenant-facing pages under /renting/ and the deposit substance lives on the new rights-responsibilities/security-deposits page. Same statutory board as the other registered rtb.ie sources (tier A); the page was fetched and checked during the automated correction. Automated correction, not an editorial content review.' }
 ];
 
 // Read-only: what the source registrations would do right now.

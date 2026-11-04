@@ -138,8 +138,10 @@ test('evidence database coverage floors hold when the database is present', (t) 
   // ie-rtb-rpz-2-percent-rent-cap (rtb.ie restructured /renting/ tree) and both
   // passed the official-page check (68 distinct published records; the same
   // morning run also re-verified the already-published eviction and
-  // uk-london-nhs-gp-registration after their bodies changed).
-  assert.ok(publishedIds.size >= 68, 'publication-chain floor');
+  // uk-london-nhs-gp-registration after their bodies changed). The second
+  // dead-link pass relocated ie-rtb-security-deposit-and-rpz-protection-kyc to
+  // the rtb.ie security-deposits page and it verified on its own run (69).
+  assert.ok(publishedIds.size >= 69, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {
