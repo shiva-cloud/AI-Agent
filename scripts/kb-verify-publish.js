@@ -9,6 +9,8 @@
 //   node scripts/kb-verify-publish.js                     check only, no writes
 //   node scripts/kb-verify-publish.js --apply             back up, then publish
 //   node scripts/kb-verify-publish.js --apply --db <path> use another database
+//   node scripts/kb-verify-publish.js --queue-only        rank the queue and list
+//       blockers without fetching any page or writing anything
 //   --topic health   --limit 50                           narrow a run
 //
 // The report is written to data/kb-verify-publish-report.json.
@@ -42,10 +44,24 @@ async function fetchAll(urls, { concurrency = 4, fetchImpl } = {}) {
   return pages;
 }
 
-export async function verifyAndPublish(store, { apply = false, topic = null, limit = Infinity, fetchImpl, now = new Date() } = {}) {
+export async function verifyAndPublish(store, { apply = false, topic = null, limit = Infinity, fetchImpl, now = new Date(), queueOnly = false, onPublished = null } = {}) {
   const today = now.toISOString().slice(0, 10);
   const queue = publishQueue(store.db, store.records(), store.ingestion.sources(), store.ingestion.candidates(), now);
   const rows = queue.rows.filter(r => r.state === 'ready' && (!topic || r.topic === topic)).slice(0, limit);
+  // --queue-only: rank the queue and list blockers without touching the
+  // network. Fetches stay limited to apply/check runs that actually verify.
+  if (queueOnly) {
+    const byTopic = {}, byState = {};
+    const results = rows.map(r => {
+      const t = byTopic[r.topic] ??= { checked: 0, passed: 0, published: 0, ready: 0, awaiting_approval: 0, blocked: 0 };
+      t.checked++; t[r.state]++;
+      byState[r.state] = (byState[r.state] || 0) + 1;
+      return { id: r.id, topic: r.topic, jurisdiction: r.jurisdiction, url: r.url, state: r.state,
+        blockers: r.blockers, ok: false, viaArchive: false, reason: 'queue_only', detail: null, published: false };
+    });
+    return { date: today, applied: false, queueOnly: true, withheldBefore: queue.total, checked: results.length,
+      passed: 0, published: 0, byTopic, byReason: { queue_only: results.length }, byState, results };
+  }
   const pages = await fetchAll(new Set(rows.map(r => r.url)), { fetchImpl });
   // Pages that are gone or block the fetch get one honest second chance: the
   // Internet Archive copy of the same official URL, when a snapshot exists.
@@ -79,6 +95,7 @@ export async function verifyAndPublish(store, { apply = false, topic = null, lim
             note: `Automated check on ${today}: the quote appears word for word on ${viaArchive ? 'the archived copy of the official page (web.archive.org)' : 'the official page'}, and every figure in the summary appears in the saved excerpt with matching currency/percent markers. This does not verify claim meaning. Not an editor's review.` });
         }
         result.published = true;
+        if (onPublished) onPublished(result);
       } catch (e) { result.ok = false; result.reason = 'import_refused'; result.detail = e.message; }
     }
     results.push(result);
@@ -96,20 +113,30 @@ export async function verifyAndPublish(store, { apply = false, topic = null, lim
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const args = process.argv.slice(2), opt = name => { const i = args.indexOf(name); return i === -1 ? null : args[i + 1]; };
   const apply = args.includes('--apply');
+  const queueOnly = args.includes('--queue-only');
   const dbPath = opt('--db') || process.env.DB_PATH || join(root, 'data', 'settlement.sqlite');
   if (!existsSync(dbPath)) { console.error(`Database not found: ${dbPath}`); process.exit(1); }
   const store = openStore(dbPath);
-  const backupFile = apply ? backup(store.db, dbPath) : null;
-  const report = await verifyAndPublish(store, { apply, topic: opt('--topic'), limit: Number(opt('--limit')) || Infinity });
-  report.backup = backupFile;
-  store.db.close();
-  // Published records need no further daily fact-check; record them as verified.
-  if (apply && dbPath === join(root, 'data', 'settlement.sqlite')) {
-    const ids = report.results.filter(r => r.published).map(r => r.id);
-    if (ids.length) saveProgress(markRecords(loadProgress(), ids, 'verified', 'Published after the automated official-page check.', report.date));
-  }
+  // The pre-publish backup. queue-only is a read-only listing; no backup then.
+  const backupFile = apply && !queueOnly ? backup(store.db, dbPath) : null;
   const out = opt('--report') || join(root, 'data', 'kb-verify-publish-report.json');
-  writeFileSync(out, JSON.stringify(report, null, 2));
-  const {  ...summary } = report;
-  console.log(JSON.stringify(summary, null, 2));
+  try {
+    const report = await verifyAndPublish(store, { apply: apply && !queueOnly, topic: opt('--topic'), limit: Number(opt('--limit')) || Infinity,
+      queueOnly, onPublished: r => console.log(`published: ${r.id}`) });
+    report.backup = backupFile;
+    // The report lands on disk before anything else can fail after a
+    // publishing run: a lost report cost a manual chain probe once already.
+    writeFileSync(out, JSON.stringify(report, null, 2));
+    const { results, ...summary } = report;
+    console.log(JSON.stringify(summary, null, 2));
+    // Published records need no further daily fact-check; record them as
+    // verified. A progress-file failure must not look like a lost publish.
+    if (apply && !queueOnly && dbPath === join(root, 'data', 'settlement.sqlite')) {
+      const ids = report.results.filter(r => r.published).map(r => r.id);
+      if (ids.length) {
+        try { saveProgress(markRecords(loadProgress(), ids, 'verified', 'Published after the automated official-page check.', report.date)); }
+        catch (e) { console.error(`Published ${ids.length} record(s) but could not update the fact-check progress file: ${e.message}`); }
+      }
+    }
+  } finally { store.db.close(); }
 }

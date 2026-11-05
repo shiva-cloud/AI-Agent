@@ -89,3 +89,25 @@ test('no archive snapshot at all reports the archive failure honestly', async ()
     assert.equal(result.reason, 'archive_http_404');
   } finally { store.db.close(); }
 });
+
+test('queue-only mode ranks the queue without fetching or publishing', async () => {
+  const store = await seededStore(fixture());
+  try {
+    const report = await verifyAndPublish(store, { queueOnly: true, now: NOW,
+      fetchImpl: async () => { throw new Error('queue-only must not fetch'); } });
+    assert.equal(report.queueOnly, true);
+    assert.equal(report.applied, false);
+    assert.equal(report.checked, 1);
+    assert.equal(report.published, 0);
+    assert.equal(report.results[0].id, 'archive-fallback-fixture');
+    assert.equal(report.results[0].state, 'ready');
+    assert.equal(report.results[0].reason, 'queue_only');
+    assert.equal(report.byTopic.transit.ready, 1);
+    // Nothing was written: the record stays an approved-but-unpublished row
+    // and no publication exists for it.
+    assert.equal(store.db.prepare('SELECT COUNT(*) n FROM publications').get().n, 0);
+    const stored = store.records().find(r => r.id === 'archive-fallback-fixture');
+    assert.equal(stored.status, 'approved');
+    assert.equal(stored.snapshotId, undefined);
+  } finally { store.db.close(); }
+});

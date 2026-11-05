@@ -2,6 +2,16 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.67 — Tooling hardening: publish-report survives crashes, a queue-only mode, and a 2 GB backup prune (5 November 2026)
+
+Operational fixes from the full-project audit, no knowledge-base content changed:
+
+- **`scripts/kb-verify-publish.js`** — the publish report now lands on disk immediately after the verification loop, before the fact-check progress update; the progress update is wrapped so its failure is reported as such instead of looking like a lost publish; the database closes in a `finally`. This closes the failure mode that cost a manual chain probe during batch twelve (the run wrote its full publication chain, then died before writing the report, leaving a 0-byte log). Each publication also prints `published: <id>` as it happens, and the console summary no longer includes the bulky `results` array.
+- **`--queue-only` mode** — `node scripts/kb-verify-publish.js --queue-only` ranks the ready queue and lists blockers without fetching any page or writing anything (the check-only mode always fetched every queue URL — hundreds of network requests — even though nothing was published). New library option `queueOnly` and callback `onPublished`; existing report shape unchanged (existing archive-fallback tests pass, plus a new test asserting queue-only does no fetch, no publish and no snapshot).
+- **`scripts/prune-backups.js`** (`npm run prune-backups`) — prunes database backups with a dry-run default, `--apply`, a keep-N-per-prefix retention (default 3) and a JSON manifest recording every deletion. Backups cited by the release notes are pinned and never deleted. First applied run: 21 backups, 2,028 MB freed from `data/backups/` (manifest `backups/prune-manifest-1793918024393.json`); the pre-publish and pre-apply backups cited in the 0.19.66 notes are retained. Subdirectories under `backups/` (encrypted/offsite test snapshots, manual archives) are out of scope by design.
+- **Repository hygiene** — release 0.19.56–0.19.66 was committed as one release-boundary commit (`321c04e`) and pushed, ending a stretch where eleven releases existed only in the working tree; `git gc` packed 2,364 loose objects. Front-end scripts needed no change: both are `type="module"`, which browsers already defer — the audit's defer suggestion was withdrawn.
+
+
 ## 0.19.66 — Short-quote batch twelve: eight more records restated from their live pages and published (5 November 2026)
 
 Fourth slice of the short-quote batch, same audited script pattern, entries appended to the day's script `scripts/kb-corrections-2026-11-05.js`. This slice takes the pool's remaining fetchable records — the four Home Affairs script-rendered visa pages, the MOM student work-exemption page, and the KBA, FRSC and LTO driving portals; the three make-it-in-germany pages (Radware browser-check on every fetch), the INZ operations-manual root (content-free index) and the thirty country-portal placeholders remain for later work:

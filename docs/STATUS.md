@@ -1,6 +1,15 @@
 # Implementation status — 5 November 2026
 
-## Current release: 0.19.66, English-only
+## Current release: 0.19.67, English-only
+
+### Tooling hardening (0.19.67)
+
+Details in `docs/CHANGELOG.md` 0.19.67:
+
+- `scripts/kb-verify-publish.js` hardened after the batch-twelve publish incident: the report is written before the fact-check progress update (a progress-file failure can no longer look like a lost publish), the database closes in a `finally`, each publication prints as it happens, and the console summary drops the bulky results array.
+- New `--queue-only` mode ranks the ready queue and lists blockers without any network fetch or write (the check-only mode always fetched every queue URL). Library options `queueOnly` and `onPublished`; existing report shape unchanged, new test asserts no fetch/no publish/no snapshot.
+- New `scripts/prune-backups.js` (`npm run prune-backups`): dry-run default, `--apply`, keep-3-per-prefix retention, JSON manifest, release-notes-cited backups pinned. First run freed 2,028 MB from `data/backups/`.
+- Repository hygiene: releases 0.19.56–0.19.66 committed as one release-boundary commit (`321c04e`) and pushed — eleven releases had existed only in the working tree; `git gc` packed 2,364 loose objects. The audit's front-end defer suggestion was withdrawn: both scripts are `type="module"`, already deferred.
 
 ### Short-quote batch twelve (0.19.66)
 
