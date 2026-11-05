@@ -7,7 +7,7 @@ import {publicEvidence} from '../src/public-evidence.js';
 import {cleanExcerpt} from '../public/editorial.js';
 
 const queueOf=store=>publishQueue(store.db,store.records(),store.ingestion.sources(),store.ingestion.candidates());
-const reviewer={reviewer:'Test Editor',note:'Checked against the official page for this test.'};
+const reviewer={reviewer:'editorial-board',note:'Checked against the official page for this test.'};
 const today=new Date().toISOString().slice(0,10);
 // Recreates legacy rows that seed scripts approved without an editor, before the
 // approval trigger existed; the trigger is dropped on this in-memory copy only.
@@ -32,10 +32,31 @@ test('publish queue lists withheld high-risk records, health first, with a clean
  const ranks=q.rows.map(r=>PUBLISH_TOPIC_ORDER.indexOf(r.topic));
  assert.deepEqual(ranks,[...ranks].sort((a,b)=>a-b),'rows are ordered by topic priority');
  for(const row of q.rows){
+  assert.ok(row.withholdingReasons.length>0);
+  assert.equal(row.nextActions.length,row.withholdingReasons.length);
+  assert.ok(row.nextActions.every(action=>typeof action==='string'&&action.length>10));
+  assert.equal(row.owner,null);
   for(const key of ['sourceId','snapshotId','reviewedAt','reviewMethod'])assert.ok(!(key in row.draft),`${row.id} draft keeps ${key}`);
   assert.equal(row.draft.status,'pending');
  }
  assert.equal(publishDraft({id:'x',status:'approved',reviewMethod:'editorial_review',checkedAt:'2020-01-01'},'2026-11-01').checkedAt,'2026-11-01');
+});
+
+test('a pending candidate cannot hide a suspended-source blocker',()=>{
+ const store=openStore(':memory:');
+ try {
+  bulkApprove(store);
+  const row=queueOf(store).rows.find(r=>r.sourceId);
+  store.ingestion.permitSource(row.sourceId,{tier:'A',...reviewer});
+  const candidate=store.ingestion.ingest({sourceId:row.sourceId,requestKey:'suspended-queue-fixture',content:row.quote,record:row.draft});
+  const previouslyLoadedRecords=store.records();
+  store.ingestion.suspendSource(row.sourceId,reviewer);
+  const blocked=publishQueue(store.db,previouslyLoadedRecords,store.ingestion.sources(),store.ingestion.candidates()).rows.find(r=>r.id===row.id);
+  assert.equal(blocked.state,'blocked');
+  assert.ok(blocked.pendingCandidates.includes(candidate.id));
+  assert.ok(blocked.withholdingReasons.includes('source_suspended'));
+  assert.ok(blocked.blockers.includes('The source is suspended.'));
+ }finally{store.db.close();}
 });
 
 test('an editor import plus a reviewer approval publishes a withheld record',()=>{

@@ -9,7 +9,7 @@ import {permissions} from './admin-permissions.js';
 import './csp-styles.js';
 import {mountPlanAccess, autoRun} from './plan-access.js';
 import { COMMAND_DIRECTORY } from './app/command-directory.js';
-import { $, analyzeDocumentText, answerReport, buildChangesPanel, coverageFilter, coverageTileClass, detectUserLanguage, el, formatIsoDate, freshnessChip, gapCount, generateICSContent, generateVectorPDF, getBinderStorageKey, getPinnedToolIds, getRecentToolIds, link, loadBinderChecked, normalizeToCanonicalEnglish, readStored, relDate, resetAskButton, retrievalPanel, saveBinderChecked, saveRecentTool, spinner, titleFor, togglePinnedTool, updateBinderProgress, updateCityDropdown, updateFormPreview, viewToolControllers } from './app/core.js';
+import { $, analyzeDocumentText, answerReport, buildChangesPanel, coverageFilter, coverageTileClass, detectUserLanguage, el, escapeHtml, formatIsoDate, freshnessChip, gapCount, generateICSContent, generateVectorPDF, getBinderStorageKey, getPinnedToolIds, getRecentToolIds, link, loadBinderChecked, normalizeToCanonicalEnglish, readStored, relDate, resetAskButton, retrievalPanel, saveBinderChecked, saveRecentTool, spinner, titleFor, togglePinnedTool, updateBinderProgress, updateCityDropdown, updateFormPreview, viewToolControllers } from './app/core.js';
 import { AI_STATUS_META, BINDER_DOCUMENTS, BINDER_DOCUMENTS_BY_COUNTRY, CITIES, COMMAND_CATEGORIES, EXAMPLES, EXAMPLES_PER_ROW, INSIDER_INTEL_ITEMS, PERSONA_DIRECTORY, PHASE_NAMES, SHORTCUTS, SIZE_LABELS, SIZE_ORDER, THEME_LABELS, THEME_ORDER, TOOL_SWITCHER_CONFIG, VIEW_ORDER } from './app/data.js';
 import { renderAirportKit, renderBankMatcher, renderCareersSuite, renderCashflow, renderHealthcareSuite, renderMultilingualSynthesisCard, renderPathway, renderPaycheckSimulator, renderPreflightBanner, renderTaxEngine, renderTenancyWizard } from './app/renderers.js';
 import { initViewToolSwitchers, setupAlbertaOpportunityStream, setupAlbertaSecurityDeposit, setupAtlanticImmigration, setupAutoInsurance, setupBankingComparator, setupBcSpeculationTaxDeclaration, setupBcStrataBylaw, setupBinderExpiryWatchdog, setupBorderFlagpoling, setupBowpDiagnostic, setupBusinessStructure, setupCareersSuite, setupCashflowPlanner, setupChildCareSubsidy, setupChildDisabilityBenefit, setupChildWelfare, setupChildcareNavigator, setupCitizenshipCalculator, setupCityComparatorSuite, setupCommercialLease, setupConsumerProtection, setupCraBenefitsCalculator, setupCraVdp, setupCredentialLicensure, setupCriminalRehab, setupCrossBorderTax, setupCurrencyExchange, setupCustomsDeclaration, setupCvJdMatcher, setupDebtCollectionDefense, setupDigitalPlatformWorker, setupEiDisqualification, setupEmploymentReference, setupEstatePlanning, setupEvictionDefense, setupExcessiveDemand, setupExpressEntry, setupFamilyLaw, setupFamilyReunificationNavigator, setupForeignWorkerTransition, setupFranchiseDisclosure, setupFrancophoneMobility, setupHealthcarePortability, setupHealthcareSuite, setupHighCostCredit, setupHomebuyerEligibility, setupHomebuyerTaxIncentives, setupHumanRightsDefense, setupIdentityHarmonization, setupInternationallyTrainedNurse, setupLayoffCalculator, setupLeaseAssignment, setupLeaseGuard, setupManitobaPnpSkilledWorker, setupMedicalAdmissibilityNavigator, setupMovingTaxCalculator, setupMultilingualSuite, setupNewcomerBudgetSuite, setupOasGis, setupParentalLeave, setupPathwayComparator, setupPaycheckSimulator, setupPetImportNavigator, setupPgwpNavigator, setupPnpPathway, setupPrCardRenewal, setupPrMatrixSimulator, setupPrResidencyNavigator, setupPreFlightInspector, setupPrtdHumanitarian, setupQuickActionFab, setupRealEstateAssignment, setupRentIncreaseDefense, setupRuralRenewal, setupSchoolsSuite, setupSettlementWizard, setupSeveranceReasonableNotice, setupSmallClaims, setupSocialAssistance, setupSosSuite, setupSowpNavigator, setupSpeculationTax, setupStatutoryPay, setupStudentWorkCompliance, setupSuperVisaNavigator, setupTaxEngine, setupTaxShieldOptimizer, setupTelecomContractDefense, setupTenancyEvidenceVault, setupTenancyRepairs, setupTenancyWizard, setupTfwCompliance, setupTimelineCalendarSync, setupVehicleImportNavigator, setupVulnerableWorkerNavigator, setupWorkerClassificationNavigator, setupWorkplaceSafety } from './app/setup.js';
@@ -3475,7 +3475,8 @@ export async function setAppLocale(locale) {
       if (btn) {
         const iconMatch = btn.textContent.match(/^[^\w\s]+\s*&nbsp;\s*/);
         const iconPrefix = iconMatch ? iconMatch[0] : '';
-        btn.innerHTML = `${iconPrefix}${label}`;
+        btn.textContent = '';
+        btn.append(iconPrefix, label);
       }
     }
   } catch (err) {
@@ -3522,7 +3523,7 @@ async function renderAirportPhrasebook() {
 
       const qBox = document.createElement('div');
       qBox.className = 'phrase-officer-q';
-      qBox.innerHTML = `<span class="phrase-officer-badge">Border Officer Asks:</span> ${p.officer_question_en}`;
+      qBox.innerHTML = `<span class="phrase-officer-badge">Border Officer Asks:</span> ${escapeHtml(p.officer_question_en)}`;
 
       const replyBox = document.createElement('div');
       replyBox.className = 'phrase-reply-box';
@@ -3546,7 +3547,7 @@ async function renderAirportPhrasebook() {
 
       const dosBox = document.createElement('div');
       dosBox.className = 'phrase-dos-donts';
-      dosBox.innerHTML = `<strong>⚠️ Officer Advice:</strong> ${p.critical_dos_and_donts}`;
+      dosBox.innerHTML = `<strong>⚠️ Officer Advice:</strong> ${escapeHtml(p.critical_dos_and_donts)}`;
 
       // Quick speech listen button for phrase
       const speakBtn = document.createElement('button');

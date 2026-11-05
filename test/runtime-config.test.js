@@ -21,8 +21,13 @@ test('operational CLI commands honor DB_PATH without touching a default database
  const run=(name,args=[],envPath=file)=>spawnSync(process.execPath,[resolve('scripts',name+'.js'),...args],{cwd:root,env:{...process.env,DB_PATH:envPath},encoding:'utf8'});
  try {
   const store=openStore(file);store.db.close();const before=verifyDatabase(file);
+  let policyStatus=0;
   for(const name of ['verify-data','migrate-dry-run','policy-lint','migrate']) {
-   const result=run(name);assert.equal(result.status,0,result.stderr);assert.ok(JSON.parse(result.stdout));
+   const result=run(name),report=JSON.parse(result.stdout);
+   // This is a DB-path contract test, not a claim that time-sensitive seed
+   // evidence never expires. Policy lint must retain its expired-data exit code.
+   if(name==='policy-lint')policyStatus=report.warnings.some(w=>w.code==='evidence_expired')?1:0;
+   assert.equal(result.status,name==='policy-lint'?policyStatus:0,`${name}: ${result.stderr}`);assert.ok(report);
   }
   assert.equal(verifyDatabase(file).dataDigest,before.dataDigest);
   assert.equal(verifyDatabase(file).schemaDigest,before.schemaDigest);
@@ -31,7 +36,7 @@ test('operational CLI commands honor DB_PATH without touching a default database
   assert.equal(run('verify-backup',[saved.directory]).status,0);
   assert.equal(run('restore-drill',[saved.directory]).status,0);
   assert.equal(run('verify-data',[file],join(root,'absent.sqlite')).status,0);
-  for(const name of ['migrate','policy-lint','migrate-dry-run'])assert.equal(run(name,[file],join(root,'absent.sqlite')).status,0);
+  for(const name of ['migrate','policy-lint','migrate-dry-run'])assert.equal(run(name,[file],join(root,'absent.sqlite')).status,name==='policy-lint'?policyStatus:0);
   const missing=join(root,'absent.sqlite');assert.notEqual(run('policy-lint',[],missing).status,0);assert.equal(existsSync(missing),false);
   assert.equal(existsSync(join(root,'data')),false);
  }finally {

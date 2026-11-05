@@ -4743,7 +4743,7 @@ export function setupAlbertaOpportunityStream() {
       renderAlbertaOpportunityStreamResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing AAIP: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing AAIP: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -4789,7 +4789,7 @@ export function setupBcSpeculationTaxDeclaration() {
       renderBcSpeculationTaxDeclarationResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing SVT: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing SVT: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -4833,7 +4833,7 @@ export function setupPrtdHumanitarian() {
       renderPrtdHumanitarianResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing H&C: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing H&C: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -4877,7 +4877,7 @@ export function setupSeveranceReasonableNotice() {
       renderSeveranceReasonableNoticeResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating severance: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating severance: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -4929,7 +4929,7 @@ export function setupManitobaPnpSkilledWorker() {
       renderManitobaPnpSkilledWorkerResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error computing MPNP: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error computing MPNP: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -4974,7 +4974,7 @@ export function setupPrCardRenewal() {
       renderPrCardRenewalResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing PR card renewal: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing PR card renewal: ${escapeHtml(err.message)}</div>`;
     }
   };
 
@@ -4991,7 +4991,11 @@ export function setupForeignWorkerTransition() {
 
   const runAudit = async () => {
     const wagePerHour = Number(document.querySelector('#fwt-wage')?.value) || 22.0;
-    const provincialMedianWage = Number(document.querySelector('#fwt-median-wage')?.value) || 28.39;
+    const provincialMedianWage = Number(document.querySelector('#fwt-median-wage')?.value);
+    if (!Number.isFinite(provincialMedianWage) || provincialMedianWage <= 0) {
+      resultsContainer.textContent = 'Enter the current verified provincial median wage before calculating.';
+      return;
+    }
     const employerLocationCma = document.querySelector('#fwt-cma')?.value || 'Toronto';
     const cmaUnemploymentRate = Number(document.querySelector('#fwt-unemployment-rate')?.value) || 6.8;
     const sector = document.querySelector('#fwt-sector')?.value || 'general';
@@ -5024,7 +5028,7 @@ export function setupForeignWorkerTransition() {
       renderForeignWorkerTransitionResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing TFW policy: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing TFW policy: ${escapeHtml(err.message)}</div>`;
     }
   };
 
@@ -5070,7 +5074,7 @@ export function setupChildDisabilityBenefit() {
       renderChildDisabilityBenefitResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating CDB: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating CDB: ${escapeHtml(err.message)}</div>`;
     }
   };
 
@@ -5122,7 +5126,7 @@ export function setupAlbertaSecurityDeposit() {
       renderAlbertaSecurityDepositResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing security deposit: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing security deposit: ${escapeHtml(err.message)}</div>`;
     }
   };
 
@@ -5172,7 +5176,7 @@ export function setupInternationallyTrainedNurse() {
       renderInternationallyTrainedNurseResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing nurse licensure: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing nurse licensure: ${escapeHtml(err.message)}</div>`;
     }
   };
 
@@ -5217,7 +5221,7 @@ export function setupPrMatrixSimulator() {
       renderPrMatrixResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error running PR matrix simulation: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error running PR matrix simulation: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -5263,7 +5267,7 @@ export function setupFamilyReunificationNavigator() {
       renderFamilyReunificationResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing family reunification: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error auditing family reunification: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -5298,7 +5302,7 @@ export function setupTimelineCalendarSync() {
       renderTimelineCalendarSyncResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error generating calendar sync: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error generating calendar sync: ${escapeHtml(err.message)}</div>`;
     }
   });
 }
@@ -5339,7 +5343,7 @@ export function setupTaxShieldOptimizer() {
       renderTaxShieldResults(data, resultsContainer);
       appendAssumptionNote(data, resultsContainer);
     } catch (err) {
-      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating tax shield: ${err.message}</div>`;
+      resultsContainer.innerHTML = `<div class="result-warning" data-s="padding-1rem">Error calculating tax shield: ${escapeHtml(err.message)}</div>`;
     }
   });
 }

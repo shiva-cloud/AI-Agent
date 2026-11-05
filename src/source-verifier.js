@@ -1,8 +1,10 @@
 // Automated source check for withheld high-risk records. A record passes only
 // when its official page, fetched now, contains the record's quote word for
-// word and every figure in its summary. Passing records are published with
+// word and the archived excerpt contains every figure in its summary. This is
+// a mechanical evidence check, not semantic verification. Passing records are published with
 // reviewMethod 'source_verified', which the site labels as an automated check,
 // never as an editor's review.
+import { missingFigureClaims } from './source-figures.js';
 
 const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', rsquo: "'", lsquo: "'", rdquo: '"', ldquo: '"', ndash: '–', mdash: '—', hellip: '…', eacute: 'é', egrave: 'è', agrave: 'à', ccedil: 'ç', ocirc: 'ô', uuml: 'ü', ouml: 'ö', auml: 'ä', szlig: 'ß', copy: '©', reg: '®', trade: '™', middot: '·', bull: '•', pound: '£', euro: '€', shy: '' };
 
@@ -28,15 +30,9 @@ export function htmlToText(html) {
     .split('\n').map(normalizeText).filter(Boolean).join('\n');
 }
 
-// Figures a summary can state: money, percentages, plain numbers, years.
-const FIGURE = /(?:[$£€]\s?)?\d[\d,]*(?:\.\d+)?\s?%?/g;
-const figureKey = f => f.replace(/[$£€\s,]/g, '').replace(/\.0+$/, '');
-
 /** Figures in the summary that the page does not contain. */
 export function missingFigures(summary, pageText) {
-  const page = new Set((pageText.match(FIGURE) || []).map(figureKey));
-  return [...new Set((summary.match(FIGURE) || []).map(f => f.trim()))]
-    .filter(f => { const k = figureKey(f); return k && !page.has(k) && !page.has(k.replace(/%$/, '')); });
+  return missingFigureClaims(summary, pageText);
 }
 
 /** A window of page text around the quote, at most `size` characters, that contains it exactly. */
@@ -70,15 +66,17 @@ export function verifyAgainstPage(record, pageText) {
     excerpt = normalizeText(excerpt.split(' ').filter(w => !ENGLISH_ONLY.test(w)).join(' '));
     if (!excerpt.includes(quote)) return { ok: false, reason: 'quote_not_on_page' };
   }
-  const missing = missingFigures(record.summary || '', normalizeText(pageText));
+  // Publication must be reproducible from the evidence we actually archive.
+  const missing = missingFigures(record.summary || '', excerpt);
   if (missing.length) return { ok: false, reason: 'summary_figure_not_on_page', detail: missing.join(', ') };
   // `quote` is the record's quote with typographic quotes made plain, as stored in the excerpt.
   return { ok: true, excerpt, quote };
 }
 
 /** Fetch an official page as text. Never throws; returns null text on failure. */
-export async function fetchPageText(url, { fetchImpl = fetch, timeoutMs = 20000 } = {}) {
+export async function fetchPageText(url, { fetchImpl = fetch, timeoutMs = 20000, maxBytes = 2 * 1024 * 1024 } = {}) {
   try {
+    if (!Number.isSafeInteger(maxBytes) || maxBytes < 1) return { text: null, error: 'invalid_size_limit' };
     const res = await fetchImpl(url, {
       redirect: 'follow',
       signal: AbortSignal.timeout(timeoutMs),
@@ -87,7 +85,30 @@ export async function fetchPageText(url, { fetchImpl = fetch, timeoutMs = 20000 
     if (!res.ok) return { text: null, error: `http_${res.status}` };
     const type = res.headers.get('content-type') || '';
     if (!/html|text\/plain/i.test(type)) return { text: null, error: 'not_html' };
-    return { text: htmlToText(await res.text()), error: null };
+    if (Number(res.headers.get('content-length')) > maxBytes) {
+      await res.body?.cancel();
+      return { text: null, error: 'response_too_large' };
+    }
+    if (!res.body) return { text: null, error: 'empty_body' };
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let bytes = 0, body = '';
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        bytes += value.byteLength;
+        if (bytes > maxBytes) {
+          await reader.cancel();
+          return { text: null, error: 'response_too_large' };
+        }
+        body += decoder.decode(value, { stream: true });
+      }
+      body += decoder.decode();
+    } finally {
+      reader.releaseLock();
+    }
+    return { text: htmlToText(body), error: null };
   } catch (e) {
     return { text: null, error: e?.name === 'TimeoutError' ? 'timeout' : 'network_error' };
   }

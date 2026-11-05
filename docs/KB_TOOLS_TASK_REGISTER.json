@@ -1,0 +1,555 @@
+{
+  "updatedOn": "2026-11-06",
+  "authority": "Current status register for the 40 IDs from the 2026-11-04 KB/tools audit. Other historical task lists are not added or deduplicated by assumption.",
+  "notes": [
+    "Original findings and counts describe the dated audit baseline, not current live KB counts.",
+    "Implemented means the targeted fix is implemented, not that all project/domain correctness is proven.",
+    "Null owner means unassigned. Suggested roles are not assignments.",
+    "Historical 51+ and current 25+ requests are not separate verified task counts. Update this register when acceptance or evidence changes."
+  ],
+  "counts": {
+    "implemented": 8,
+    "partial": 12,
+    "pending": 20
+  },
+  "remainingCount": 32,
+  "tasks": [
+    {
+      "id": "K01",
+      "priority": "P0",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "`source-verifier.js` में summary के आंकड़े पूरे page में मिलना पर्याप्त है; sentence meaning/condition/negation match नहीं होता। Quote match summary entailment सिद्ध नहीं करता।",
+      "acceptance": "Claim-to-evidence mapping और independent high-risk review; unrelated number/negation/exception fixtures reject हों।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Claim-to-evidence mapping और independent high-risk review; unrelated number/negation/exception fixtures reject हों।"
+    },
+    {
+      "id": "K02",
+      "priority": "P0",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "`missingFigures('Fee is $30','The waiting period is 30 days.')` returns `[]`: unit/context mismatch पकड़ा नहीं गया।",
+      "acceptance": "Currency, units, percentages, ranges और source sentence को साथ match करें।",
+      "progress": "Currency, common duration/rate/range checks implemented; semantic entailment and other units remain. Added distance/mass/area unit checks and spelling aliases.",
+      "evidence": [
+        "test/source-figure-dimensions.test.js",
+        "artifacts/PENDING_33_2026-11-06_units.txt"
+      ],
+      "remaining": "Currency, common duration/rate/range checks implemented; semantic entailment and other units remain."
+    },
+    {
+      "id": "K03",
+      "priority": "P1",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "वही checker figures को whole page में ढूँढता है; archived excerpt केवल quote के आसपास ~2,400 chars है। Summary का अन्य evidence archive से बाहर हो सकता है।",
+      "acceptance": "हर approved claim का supporting excerpt archive करें; replay verification केवल archived evidence से सफल हो।",
+      "progress": "Archived excerpt-only verification and read-time replay enforced.",
+      "evidence": [
+        "test/publication-chain-integrity.test.js"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    },
+    {
+      "id": "K04",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "`public-evidence.js` की production reviewer allowlist में Fixture Editor/Test Editor/test-admin और automated identities हैं। नाम allowlist और role-shaped strings identity का पर्याप्त प्रमाण नहीं।",
+      "acceptance": "Test identities को test fixtures तक सीमित करें; authenticated immutable actor provenance का migration व compatibility plan बनाएँ।",
+      "progress": "Authenticated actor provenance and fixture-name removal implemented; historical identity migration remains.",
+      "evidence": [
+        "test/authenticated-approval.test.js"
+      ],
+      "remaining": "Authenticated actor provenance and fixture-name removal implemented; historical identity migration remains."
+    },
+    {
+      "id": "K05",
+      "priority": "P1",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "`source_verified` publication lookup record/snapshot IDs पर join करता है; read-time gate full snapshot hash, candidate/publication body और decision identity consistency नहीं जाँचता। Ingest पर कुछ guards मौजूद हैं।",
+      "acceptance": "Corrupt/restored database scenarios पर end-to-end chain verifier और fail-closed publication test।",
+      "progress": "Snapshot, candidate, audit and restored-publication chain checks implemented.",
+      "evidence": [
+        "test/publication-chain-integrity.test.js"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    },
+    {
+      "id": "K06",
+      "priority": "P1",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "`fetchPageText()` response को `res.text()` से पूरा पढ़ता है, verifier में explicit response-byte cap नहीं दिखता।",
+      "acceptance": "Streaming size limit, oversized-response cancellation और redirect/security contract जाँचें।",
+      "progress": "Streaming 2 MiB cap and cancellation implemented; broader redirect/security review remains outside this fix.",
+      "evidence": [
+        "test/kb-tools-audit-regressions.test.js"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    },
+    {
+      "id": "K07",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "808 stored-approved लेकिन withheld records का per-record कारण और owner",
+      "acceptance": "Public gate count verified; हर record को approved audit/chain/risk reason के साथ queue करें; blind bulk approval न हो।",
+      "progress": "Shared read-gate reasons and read-only queue implemented; assignment and record reviews remain.",
+      "evidence": [
+        "test/publication-backlog-report.test.js",
+        "artifacts/PENDING_33_2026-11-06_publication.json"
+      ],
+      "remaining": "Shared read-gate reasons and read-only queue implemented; assignment and record reviews remain."
+    },
+    {
+      "id": "K08",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "394 editorial-warning records की independent review",
+      "acceptance": "`kb-health` metric; factual verification, reviewer note और correct publication method चाहिए।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "`kb-health` metric; factual verification, reviewer note और correct publication method चाहिए।"
+    },
+    {
+      "id": "K09",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "262 scheduled-review records और 12 needs-human cases",
+      "acceptance": "Tracker measured; source review/semantic review का outcome अलग दर्ज करें।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Tracker measured; source review/semantic review का outcome अलग दर्ज करें।"
+    },
+    {
+      "id": "K10",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "261 sources की access/authority review",
+      "acceptance": "Unreviewed sources count; documented permission और source authority, केवल URL official दिखना पर्याप्त नहीं।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Unreviewed sources count; documented permission और source authority, केवल URL official दिखना पर्याप्त नहीं।"
+    },
+    {
+      "id": "K11",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "69 chain-backed records बनाम 378 gate-approved records की provenance reconciliation",
+      "acceptance": "Legacy editorial audit path अलग है; missing chain को automatically fraudulent न कहें। Record-level classification/migration चाहिए।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Legacy editorial audit path अलग है; missing chain को automatically fraudulent न कहें। Record-level classification/migration चाहिए।"
+    },
+    {
+      "id": "K12",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "Country/topic coverage depth",
+      "acceptance": "178 thin jurisdictions; priority destinations के services, eligibility, exceptions, costs, contacts और city/province scope matrix बनाएँ।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [
+        "artifacts/PENDING_33_2026-11-06_coverage.json"
+      ],
+      "remaining": "178 thin jurisdictions; priority destinations के services, eligibility, exceptions, costs, contacts और city/province scope matrix बनाएँ।"
+    },
+    {
+      "id": "K13",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "Official-page drift और inaccessible URLs की refreshed failure inventory",
+      "acceptance": "पिछली VERIFY_BACKLOG report dated snapshot है; current reason counts नए controlled run से निकालें। इस audit में live fetch नहीं हुआ।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "पिछली VERIFY_BACKLOG report dated snapshot है; current reason counts नए controlled run से निकालें। इस audit में live fetch नहीं हुआ।"
+    },
+    {
+      "id": "K14",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "Independent held-out factual/entailment evaluation",
+      "acceptance": "Existing passing developer tests gold-standard labels नहीं। Unseen questions, citations, abstention और jurisdiction के reviewer-approved cases चाहिए।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Existing passing developer tests gold-standard labels नहीं। Unseen questions, citations, abstention और jurisdiction के reviewer-approved cases चाहिए।"
+    },
+    {
+      "id": "K15",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "Glossary translations का semantic/domain review",
+      "acceptance": "Completeness/filler checks पास; 500×6 definitions की accuracy प्रमाणित नहीं। Native/domain review sample और corrections।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Completeness/filler checks पास; 500×6 definitions की accuracy प्रमाणित नहीं। Native/domain review sample और corrections।"
+    },
+    {
+      "id": "K16",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "Rule/fact registry coverage",
+      "acceptance": "11 registry facts बनाम बहुत से engines में scattered constants; facts-to-consumers inventory और version/effective-date linkage।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "11 registry facts बनाम बहुत से engines में scattered constants; facts-to-consumers inventory और version/effective-date linkage।"
+    },
+    {
+      "id": "K17",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "knowledge-reviewer",
+      "originalFinding": "Research-seed lifecycle",
+      "acceptance": "20 seeds remain; user presentation और answer eligibility सभी paths पर verified/publication status स्पष्ट रखें।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "20 seeds remain; user presentation और answer eligibility सभी paths पर verified/publication status स्पष्ट रखें।"
+    },
+    {
+      "id": "T01",
+      "priority": "P0",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "`study-permit-cap-pal-navigator.js`: `{}` पर invented tuition 22,000/funds 45,000 और `COMPLIANT`।",
+      "acceptance": "Missing facts पर calculation रोकें या explicitly illustrative result दें; वास्तविक compliance verdict न दें।",
+      "progress": "Missing study finances no longer produce fabricated compliance.",
+      "evidence": [
+        "test/kb-tools-audit-regressions.test.js"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    },
+    {
+      "id": "T02",
+      "priority": "P0",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "इसी tool में tuition/funds=`'bad'` पर भी वही `COMPLIANT` result।",
+      "acceptance": "Invalid inputs 400/ValidationError; fabricated fallback financial success बंद।",
+      "progress": "Malformed study financial inputs rejected.",
+      "evidence": [
+        "test/kb-tools-audit-regressions.test.js"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    },
+    {
+      "id": "T03",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "`{province:'INVALID',studyLevel:'unknown'}` भी calculation करता है।",
+      "acceptance": "Province/study-level/CIP/field enums और unsupported coverage validation।",
+      "progress": "Study-cap enums validated; wider tool geography/category coverage remains.",
+      "evidence": [
+        "test/kb-tools-audit-regressions.test.js"
+      ],
+      "remaining": "Study-cap enums validated; wider tool geography/category coverage remains."
+    },
+    {
+      "id": "T04",
+      "priority": "P1",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "`text-input.js::safeIsoDate('2026-02-30')` वही impossible date लौटाता है; `todayIso` pin भी Date.parse-only check करता है।",
+      "acceptance": "Calendar round-trip validation; सभी importing tools पर regression matrix।",
+      "progress": "Calendar round-trip checks implemented; complete tool-specific temporal coverage remains T12.",
+      "evidence": [
+        "test/kb-tools-audit-regressions.test.js"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    },
+    {
+      "id": "T05",
+      "priority": "P1",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "दो study engines असंगत: `study-permit-cap-pal-navigator.js` additional dependent 4,155/travel 1,500; `study-permit-pal-navigator.js` additional dependent 3,821/travel 2,000।",
+      "acceptance": "Routes/usage trace करें; policy differences explain या canonical versioned rule source बनाएँ।",
+      "progress": "Both study engines now use one dated household living-cost table, the same explicitly non-statutory travel planning estimate, and shared public-DLI graduate PAL logic. Quebec and unreviewed dates abstain for financial calculation.",
+      "evidence": [
+        "src/study-financial-policy.js",
+        "src/study-graduate-pal-policy.js",
+        "test/study-financial-policy.test.js"
+      ],
+      "remaining": "Broader PGWP, other PAL exemptions and policy-date coverage remain T06/T12; this closes the conflicting study financial calculations."
+    },
+    {
+      "id": "T06",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "दोनों study modules में 20,635 तथा 2024/2025 policy references hardcoded हैं। Assessment date today होने से rule current नहीं बन जाता।",
+      "acceptance": "Effective-date/version/source evidence जोड़ें; current official verification के बाद date-aware tables। इस audit ने कोई replacement legal amount निर्धारित नहीं किया।",
+      "progress": "Reviewed IRCC financial-support and graduate public-DLI PAL pages on 2026-11-06. Replaced active 20635 arithmetic with effective-date table; unknown dates and Quebec financial requirements abstain.",
+      "evidence": [
+        "src/study-financial-policy.js",
+        "src/study-graduate-pal-policy.js",
+        "test/study-financial-policy.test.js"
+      ],
+      "remaining": "Other PAL exemptions, PGWP field/CIP/language/date rules and work-hour legal statements still need source review. No blanket legal approval."
+    },
+    {
+      "id": "T07",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "`public/tool-modal.js` में static wage medians, “Immediate OHIP”, £38,700/£29,000 labels अभी हैं।",
+      "acceptance": "Domain verification के साथ UI labels और backend version match; eligibility/coverage assumptions हटें।",
+      "progress": "Removed stale wage, OHIP immediacy, UK salary and student-funds claims across tool modal, command directory, cards and static data. Median-wage form now requires supplied positive value.",
+      "evidence": [
+        "public/tool-modal.js",
+        "public/app/command-directory.js",
+        "public/app/data.js",
+        "public/app/renderers.js",
+        "public/app/setup.js"
+      ],
+      "remaining": "Underlying UK/LMIA/health tool policy constants and results require independent source verification."
+    },
+    {
+      "id": "T08",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "`tool-input.js` alias conversions invalid bool को false/true और invalid numeric को undefined बना सकते हैं; कई downstream engines फिर defaults लेते हैं।",
+      "acceptance": "Missing/invalid/false/zero को अलग रखें; GET/POST/direct negative matrices।",
+      "progress": "Registered HTTP aliases and canonical numeric/boolean fields validated and normalized; CSV/unregistered fields and direct evaluators remain. CSV/list aliases now reject nested/non-string or oversized entries and canonical CSV normalizes to arrays.",
+      "evidence": [
+        "test/tool-alias-validation.test.js",
+        "artifacts/PENDING_33_2026-11-06_aliases.txt"
+      ],
+      "remaining": "Registered HTTP aliases and canonical numeric/boolean fields validated and normalized; CSV/unregistered fields and direct evaluators remain."
+    },
+    {
+      "id": "T09",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "`boundedText()` malformed/non-string categorical input को fallback में बदलता है। Free-text sanitation और enum validation एक चीज नहीं।",
+      "acceptance": "Decision-driving fields strict enum/type validators से गुजरें; helper का import-by-import review।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Decision-driving fields strict enum/type validators से गुजरें; helper का import-by-import review।"
+    },
+    {
+      "id": "T10",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "हर financial/legal tool की rule provenance",
+      "acceptance": "KB publication gate tool constants को automatically gate नहीं करता। Tool→rule version→source→reviewer map चाहिए।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "KB publication gate tool constants को automatically gate नहीं करता। Tool→rule version→source→reviewer map चाहिए।"
+    },
+    {
+      "id": "T11",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "सभी tool inputs का strict boundary audit",
+      "acceptance": "कुछ engines पर improvements हैं; study probe साबित करता है कि consistency बाकी है। Null/empty/NaN/negative/extreme/fraction/forged enum matrix हर route पर।",
+      "progress": "Study-cap and visitor bounds/missing input safety implemented; other evaluators remain. Legacy study engine rejects invalid booleans, institutions, dates, dependent counts and missing tuition no longer invents a total.",
+      "evidence": [
+        "test/visitor-input-validation.test.js",
+        "test/study-financial-policy.test.js"
+      ],
+      "remaining": "Study-cap and visitor bounds/missing input safety implemented; other evaluators remain."
+    },
+    {
+      "id": "T12",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Effective-date scenarios",
+      "acceptance": "Arrival/application/assessment dates और law-change dates अलग हों; old/new boundaries, leap years और sunset rules tests।",
+      "progress": "Visitor and shared calendar validation implemented; effective-policy date boundaries remain.",
+      "evidence": [
+        "test/visitor-input-validation.test.js"
+      ],
+      "remaining": "Visitor and shared calendar validation implemented; effective-policy date boundaries remain."
+    },
+    {
+      "id": "T13",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "GET/POST/UI semantic parity",
+      "acceptance": "Existing form-contract tests useful हैं; shared wrong default से parity pass हो सकती है। Independent expected outputs और failure behavior चाहिए।",
+      "progress": "Selected GET/POST/UI parity verified; comprehensive independent tool matrix remains.",
+      "evidence": [
+        "test/tool-form-aliases.test.js",
+        "scripts/browser-visitor-input-validation.mjs"
+      ],
+      "remaining": "Selected GET/POST/UI parity verified; comprehensive independent tool matrix remains."
+    },
+    {
+      "id": "T14",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Geography isolation",
+      "acceptance": "Non-Canada navigators का file count 18; global generic tools को हर country की complete coverage न मानें। Unsupported country/province पर explicit gap।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Non-Canada navigators का file count 18; global generic tools को हर country की complete coverage न मानें। Unsupported country/province पर explicit gap।"
+    },
+    {
+      "id": "T15",
+      "priority": "P1",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Tool result wording/compliance assurance",
+      "acceptance": "`COMPLIANT`, eligibility और statutory labels की input completeness व legal basis के साथ review; illustrative outputs स्पष्ट हों।",
+      "progress": "Visitor missing-input output and unvalidated-score wording corrected; other tool verdicts and factual review remain.",
+      "evidence": [
+        "test/visitor-input-validation.test.js",
+        "scripts/browser-visitor-input-validation.mjs"
+      ],
+      "remaining": "Visitor missing-input output and unvalidated-score wording corrected; other tool verdicts and factual review remain."
+    },
+    {
+      "id": "T16",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Wizard route-specific computation",
+      "acceptance": "`wizard-plan.js` अभी financial result “Not determined”; यह safe limitation है, completed personalized calculator नहीं।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "`wizard-plan.js` अभी financial result “Not determined”; यह safe limitation है, completed personalized calculator नहीं।"
+    },
+    {
+      "id": "T17",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Wizard→tool profile transfer",
+      "acceptance": "Auto-transfer लागू नहीं; notice मौजूद। Selected destination/date/household को केवल compatible verified fields में map करें, review screen दें।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Auto-transfer लागू नहीं; notice मौजूद। Selected destination/date/household को केवल compatible verified fields में map करें, review screen दें।"
+    },
+    {
+      "id": "T18",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Direct Unicode PDFs",
+      "acceptance": "`official-forms.js` non-ASCII के लिए null direct PDF और browser-print fallback देता है। Embedded fonts/shaping और multiple-language export tests बाकी।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "`official-forms.js` non-ASCII के लिए null direct PDF और browser-print fallback देता है। Embedded fonts/shaping और multiple-language export tests बाकी।"
+    },
+    {
+      "id": "T19",
+      "priority": "P1",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Worksheet official-form fidelity",
+      "acceptance": "Generated worksheets official forms के replacements नहीं। Current form fields, completeness और actual filing workflow की independent review बाकी।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Generated worksheets official forms के replacements नहीं। Current form fields, completeness और actual filing workflow की independent review बाकी।"
+    },
+    {
+      "id": "T20",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Accessibility release coverage",
+      "acceptance": "Help, directory, wizard, tool modal और 21 navigation views पर checks हुए हैं; हर form error, contrast, zoom, NVDA/JAWS/VoiceOver manually verify नहीं हुए।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Help, directory, wizard, tool modal और 21 navigation views पर checks हुए हैं; हर form error, contrast, zoom, NVDA/JAWS/VoiceOver manually verify नहीं हुए।"
+    },
+    {
+      "id": "T21",
+      "priority": "P2",
+      "status": "pending",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Offline upgrade/cross-browser matrix",
+      "acceptance": "Fresh offline/navigation checks pass; old-cache upgrade, interrupted install, mixed assets, Safari/Firefox/mobile combinations अधूरे।",
+      "progress": "No closure evidence recorded in this audit continuation; acceptance remains open.",
+      "evidence": [],
+      "remaining": "Fresh offline/navigation checks pass; old-cache upgrade, interrupted install, mixed assets, Safari/Firefox/mobile combinations अधूरे।"
+    },
+    {
+      "id": "T22",
+      "priority": "P2",
+      "status": "partial",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Representative tool load/performance",
+      "acceptance": "Test pass production concurrency/provider/load guarantee नहीं। Large corpus और representative tool requests के tail latency/failure soak चाहिए।",
+      "progress": "Ran 100 local tool POST requests at concurrency 8 across five families, zero failures; latency distribution saved.",
+      "evidence": [
+        "scripts/tool-load-benchmark.js",
+        "artifacts/PENDING_33_2026-11-06_tool_load.json"
+      ],
+      "remaining": "Production-sized corpus, realistic provider/network delays, longer soak and deployment environment remain untested."
+    },
+    {
+      "id": "T23",
+      "priority": "P1",
+      "status": "implemented",
+      "owner": null,
+      "suggestedOwnerRole": "engineering",
+      "originalFinding": "Single current task register",
+      "acceptance": "Historical CURRENT_PENDING_TASKS/NON_KB docs पुरानी baseline रखते हैं; completed tasks फिर pending गिने जा सकते हैं। IDs, owner, evidence, status और acceptance वाला register चाहिए।",
+      "progress": "This register consolidates all 40 original audit IDs with status, owner, evidence and acceptance.",
+      "evidence": [
+        "docs/KB_TOOLS_PENDING_AUDIT_2026-11-04_HI.md"
+      ],
+      "remaining": "Original targeted fix implemented; linked wider limitations remain separate open items."
+    }
+  ]
+}

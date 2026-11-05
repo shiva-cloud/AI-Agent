@@ -282,7 +282,10 @@ test('Rec 658: Authoritative Regulatory Records & Insider Settlement Dataset', (
   const ukRtr = insiderImmigrationRecords.find(r => r.id === 'uk-home-office-right-to-rent-statutory-excuse');
   assert.ok(ukRtr);
   assert.equal(ukRtr.jurisdiction, 'United Kingdom');
-  assert.ok(ukRtr.quote.includes('Landlord Checking Service'));
+  // The Landlord Checking Service / statutory-excuse quote was an off-page
+  // claim (the GOV.UK documents-check page does not state it) and was replaced
+  // with the page's verbatim Commonwealth-citizen sentence (kb-audit-2026-11-05).
+  assert.ok(ukRtr.quote.includes('Check with the Home Office if the tenant is a Commonwealth citizen'));
 
   const deMiet = insiderImmigrationRecords.find(r => r.id === 'de-bgb-mietpreisbremse-prior-rent-disclosure');
   assert.ok(deMiet);

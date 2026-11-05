@@ -6,13 +6,24 @@
   let latestPrintHtml = '';
   let latestFormPrintHtml = '';
   const PRINT_SOURCES = { tool: () => latestPrintHtml, form: () => latestFormPrintHtml };
+  // The print HTML comes from the server; generators escape user fields, and this
+  // strips scripts, event handlers and javascript: URLs again before rendering,
+  // so a generator that forgets to escape cannot inject active content.
+  function sanitizePrintHtml(value) {
+    if (typeof value !== 'string') return '';
+    return value
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '')
+      .replace(/<script\b[^>]*\/?\s*>/gi, '')
+      .replace(/\son[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+      .replace(/\b(href|src)\s*=\s*(["']?)\s*javascript:[^"'>\s]*\2/gi, '$1="#"');
+  }
   document.addEventListener('click', e => {
     const button = e.target.closest?.('[data-print-latest]');
     const source = button && PRINT_SOURCES[button.dataset.printLatest];
     if (!source) return;
     const w = window.open('', '_blank');
     if (!w) return;
-    w.document.write(source());
+    w.document.write(sanitizePrintHtml(source()));
     w.document.close();
     w.print();
   });
@@ -34,8 +45,8 @@
       title: 'Study Permit Cap & Provincial Attestation Letter (PAL)',
       fields: [
         { id: 'studyLevel', label: 'Study Level', type: 'select', options: [
-          { val: 'masters', text: 'Master’s Degree (PAL Exempt)' },
-          { val: 'doctoral', text: 'Doctoral / PhD (PAL Exempt)' },
+          { val: 'masters', text: 'Master’s Degree' },
+          { val: 'doctoral', text: 'Doctoral / PhD' },
           { val: 'undergraduate_degree', text: 'Undergraduate University Degree' },
           { val: 'college_diploma', text: 'College Diploma (Subject to Field Alignment)' },
           { val: 'k12_primary_secondary', text: 'K-12 Primary / Secondary (PAL Exempt)' }
@@ -45,8 +56,13 @@
           { val: 'BC', text: 'British Columbia (BC)' },
           { val: 'AB', text: 'Alberta (AB)' }
         ]},
-        { id: 'tuition', label: 'First Year Tuition ($ CAD)', type: 'number', default: 22000 },
-        { id: 'funds', label: 'Liquid Savings Available ($ CAD)', type: 'number', default: 45000 },
+        { id: 'applicationDate', label: 'Application Date (blank uses assessment date)', type: 'date', default: '' },
+        { id: 'isPublicDli', label: 'Public Designated Learning Institution?', type: 'select', options: [
+          { val: '', text: 'Select if applying for a master’s or doctorate' },
+          { val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }
+        ] },
+        { id: 'tuition', label: 'First Year Tuition ($ CAD)', type: 'number', default: '' },
+        { id: 'funds', label: 'Liquid Savings Available ($ CAD)', type: 'number', default: '' },
         { id: 'field', label: 'College Field of Study (if applicable)', type: 'select', options: [
           { val: 'stem_science_tech_eng_math', text: 'STEM (Science, Tech, Engineering, Math)' },
           { val: 'healthcare', text: 'Healthcare & Nursing' },
@@ -59,27 +75,38 @@
     'visitor-visa-financial-ties': {
       title: 'Visitor Visa Financial & Domestic Ties Evaluator (IRPA s. 179(b))',
       fields: [
-        { id: 'days', label: 'Planned Stay Duration (Days)', type: 'number', default: 21 },
-        { id: 'funds', label: 'Liquid Savings ($ CAD)', type: 'number', default: 12000 },
-        { id: 'income', label: 'Monthly Income ($ CAD)', type: 'number', default: 2500 },
-        { id: 'tenure', label: 'Years at Current Employment', type: 'number', default: 3.5 },
+        { id: 'days', label: 'Planned Stay Duration (Days)', type: 'number', default: '' },
+        { id: 'funds', label: 'Liquid Savings ($ CAD)', type: 'number', default: '' },
+        { id: 'income', label: 'Monthly Income ($ CAD)', type: 'number', default: '' },
+        { id: 'tenure', label: 'Years at Current Employment', type: 'number', default: '' },
         { id: 'leaveLetter', label: 'Approved Leave Letter on Letterhead?', type: 'select', options: [
+          { val: '', text: 'Select an answer' },
           { val: 'true', text: 'Yes (Confirmed with Return Date)' },
           { val: 'false', text: 'No (Pending or Unemployed)' }
         ]},
         { id: 'property', label: 'Own Immovable Property in Home Country?', type: 'select', options: [
+          { val: '', text: 'Select an answer' },
           { val: 'true', text: 'Yes (Registered Title / Deed)' },
           { val: 'false', text: 'No' }
-        ]}
+        ]},
+        ...[
+          ['familyHome', 'Immediate Family Remaining at Home?'],
+          ['familyTraveling', 'All Immediate Family Traveling Together?'],
+          ['g7Travel', 'Prior Compliant Travel to G7 Countries?'],
+          ['refusal', 'Previous Visa Refusal?'],
+          ['dualIntent', 'Permanent Residence Application Pending?']
+        ].map(([id, label]) => ({ id, label, type: 'select', options: [
+          { val: '', text: 'Select an answer' }, { val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }
+        ] }))
       ]
     },
     'lmia-readiness': {
       title: 'LMIA Exemption & Prevailing Wage Stream Auditor',
       fields: [
         { id: 'province', label: 'Target Province', type: 'select', options: [
-          { val: 'ON', text: 'Ontario (Median $28.39/hr)' },
-          { val: 'BC', text: 'British Columbia (Median $28.85/hr)' },
-          { val: 'AB', text: 'Alberta (Median $29.50/hr)' }
+          { val: 'ON', text: 'Ontario' },
+          { val: 'BC', text: 'British Columbia' },
+          { val: 'AB', text: 'Alberta' }
         ]},
         { id: 'wage', label: 'Offered Hourly Wage ($ CAD)', type: 'number', default: 35.00 },
         { id: 'isExempt', label: 'Claiming LMIA Exemption?', type: 'select', options: [
@@ -99,7 +126,7 @@
           { val: 'visitor', text: 'Visitor / Tourist' }
         ]},
         { id: 'province', label: 'Province of Residence', type: 'select', options: [
-          { val: 'ON', text: 'Ontario (Immediate OHIP)' },
+          { val: 'ON', text: 'Ontario — check OHIP eligibility' },
           { val: 'BC', text: 'British Columbia (MSP 2-Month Wait)' },
           { val: 'AB', text: 'Alberta (Immediate AHCIP)' }
         ]}
@@ -228,13 +255,13 @@
       ]
     },
     'uk-skilled-worker': {
-      title: 'UK Skilled Worker £38,700 vs Grandfathered £29,000 & ILR Absence',
+      title: 'UK Skilled Worker & ILR Absence',
       fields: [
         { id: 'salary', label: 'Annual Offered Salary (£ GBP)', type: 'number', default: 35000 },
         { id: 'soc', label: 'Occupation SOC Code', type: 'text', default: '2136' },
         { id: 'preApril2024', label: 'Held Skilled Worker Visa Prior to April 4, 2024?', type: 'select', options: [
-          { val: 'true', text: 'Yes (Grandfathered £29,000 Threshold Applies)' },
-          { val: 'false', text: 'No (Standard £38,700 Threshold Applies)' }
+          { val: 'true', text: 'Yes — assess transitional rules' },
+          { val: 'false', text: 'No — assess current rules' }
         ]},
         { id: 'newEntrant', label: 'New Entrant (Under 26 or Recent UK Graduate)?', type: 'select', options: [
           { val: 'false', text: 'No' },
@@ -875,10 +902,15 @@
     out += html`<h4>⚡ Statutory Assessment Result</h4>`;
 
     if (data.palStatus) {
-      const badgeCls = data.isPalRequired ? 'badge-warn' : 'badge-compliant';
+      const badgeCls = data.isPalRequired === null ? 'badge-neutral' : data.isPalRequired ? 'badge-warn' : 'badge-compliant';
       out += html`<div class="modal-badge ${badgeCls}">PAL STATUS: ${data.palStatus}</div>`;
     }
-    if (data.riskTier) {
+    if (data.riskTier === 'NOT_DETERMINED') {
+      out += '<div class="modal-badge badge-neutral">Not determined — complete the trip, financial and ties fields.</div>';
+    } else if (data.assessmentBasis === 'UNVALIDATED_HEURISTIC') {
+      out += html`<div class="modal-badge badge-neutral">Planning score: ${data.tieScoreOutOf100}/100 — unvalidated heuristic</div>`;
+      out += html`<p>${data.assessmentNotice}</p>`;
+    } else if (data.riskTier) {
       const badgeCls = data.riskTier === 'LOW_RISK' ? 'badge-compliant' : 'badge-warn';
       out += html`<div class="modal-badge ${badgeCls}">RISK TIER: ${data.riskTier} (Score ${data.tieScoreOutOf100}/100)</div>`;
     }
@@ -892,7 +924,12 @@
       out += html`<p><strong>Healthcare:</strong> ${data.healthcareEvaluation.notes}</p>`;
     }
     if (data.financialAudit) {
-      out += html`<p><strong>Financial Proof:</strong> $${data.financialAudit.totalStatutoryProofRequiredCad.toLocaleString()} CAD required (Available: $${data.financialAudit.liquidFundsAvailableCad.toLocaleString()} CAD)</p>`;
+      if (data.financialAudit.status === 'NOT_DETERMINED') {
+        out += html`<p><strong>Financial Proof:</strong> Not determined. ${data.financialAudit.policy?.reason || 'Enter tuition and available funds to calculate.'}</p>`;
+      } else {
+        out += html`<p><strong>Financial Planning Total:</strong> $${data.financialAudit.totalStatutoryProofRequiredCad.toLocaleString()} CAD (Available: $${data.financialAudit.liquidFundsAvailableCad.toLocaleString()} CAD)</p>`;
+        out += html`<p>${data.financialAudit.policy?.travelEstimateBasis || ''}</p>`;
+      }
     }
     if (data.pgwpEntitlement) {
       out += html`<div class="modal-badge badge-compliant">PGWP DURATION: ${data.pgwpEntitlement.durationMonths} MONTHS</div>`;

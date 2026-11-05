@@ -1778,7 +1778,7 @@ export const BANK_PACKAGES = {
       perks: [
         'No monthly fee for 2 full years on CIBC Smart Account for Newcomers (save $406.80)',
         'CIBC Dividend Visa or Aventura Visa with up to $2,000 credit limit without credit score',
-        'International Student GIC Program for pre-arrival proof of funds ($20,635 CAD compliance)',
+        'International Student GIC Program; check current proof-of-funds requirements and other accepted evidence',
         '0% transfer fee on Global Money Transfers to over 120 destination countries'
       ],
       cite: 'CIBC Newcomer Advantage & IRCC Student Direct Stream'
@@ -2439,9 +2439,9 @@ export const INSIDER_INTEL_ITEMS = [
     category: 'international',
     country: 'United Kingdom',
     badge: 'HC 590',
-    title: 'UK Skilled Worker £29k Grandfathered Salary',
-    myth: 'Myth: "All existing Skilled Worker visa holders must now earn £38,700 to extend their visa in the UK."',
-    statute: 'Reality: Statement of Changes HC 590 strictly grandfathers workers who held visas before April 4, 2024 at a reduced £29,000 baseline threshold for extensions and ILR until 2030.',
+    title: 'UK Skilled Worker Transitional Salary Rules',
+    myth: 'Question: Which current salary rules apply to an existing Skilled Worker visa holder?',
+    statute: 'Check the current official guidance for the application date, occupation, sponsorship history and applicable transitional conditions before relying on a salary threshold.',
     q: 'What is the grandfathered salary threshold for pre-April 2024 Skilled Worker visa holders in the United Kingdom?'
   },
   {

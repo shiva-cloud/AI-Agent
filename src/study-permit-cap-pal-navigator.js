@@ -1,11 +1,14 @@
+import { studyFinancialPolicy } from './study-financial-policy.js';
+import { graduatePalRequirement, GRADUATE_PAL_SOURCE } from './study-graduate-pal-policy.js';
 // src/study-permit-cap-pal-navigator.js
 // Statutory Study Permit Cap, Provincial Attestation Letter (PAL), and Financial Adequacy Engine
 // Based on IRCC Ministerial Instructions, IRPR s. 219/220, and 2024-2026 Cap Directives.
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso, isIsoCalendarDate } from './text-input.js';
+import { ToolInputError } from './api-errors.js';
 
-export const STATUTORY_LIVING_COST_BASE_CAD = 20635; // 75% of LICO benchmark (updated from legacy $10k)
-export const STATUTORY_FIRST_DEPENDENT_CAD = 5055;
-export const STATUTORY_ADDITIONAL_DEPENDENT_CAD = 4155;
+export const STATUTORY_LIVING_COST_BASE_CAD = 23448; // 75% of LICO benchmark (updated from legacy $10k)
+export const STATUTORY_FIRST_DEPENDENT_CAD = 5744;
+export const STATUTORY_ADDITIONAL_DEPENDENT_CAD = 6696;
 export const STATUTORY_TRAVEL_ESTIMATE_CAD = 1500;
 
 export const CIP_PRIORITY_FIELDS = [
@@ -19,17 +22,38 @@ export const CIP_PRIORITY_FIELDS = [
 export function evaluateStudyPermitCapAndPal({
   studyLevel = 'undergraduate_degree', // 'masters', 'doctoral', 'undergraduate_degree', 'college_diploma', 'k12_primary_secondary', 'exchange_visiting'
   province = 'ON',
-  tuitionFeeFirstYearCad = 22000,
-  liquidFundsAvailableCad = 45000,
+  tuitionFeeFirstYearCad,
+  liquidFundsAvailableCad,
   familyMembersAccompanying = 0,
   isInCanadaApplication = false,
   isExtensionOfStudyPermit = false,
   isFamilyOfWorkOrStudyHolder = false,
+  isPublicDli,
   fieldOfStudyCategory = 'stem_science_tech_eng_math',
   cipCode = '11.0701', // Computer Science
   applicantName = 'Student Applicant',
-  assessmentDate = todayIso()
+  assessmentDate = todayIso(),
+  applicationDate = assessmentDate
 } = {}) {
+  const boolean = (value, field) => {
+    if (value === true || value === 'true') return true;
+    if (value === false || value === 'false') return false;
+    throw new ToolInputError(`${field} must be true or false.`);
+  };
+  isInCanadaApplication = boolean(isInCanadaApplication, 'In-Canada application');
+  isExtensionOfStudyPermit = boolean(isExtensionOfStudyPermit, 'Study permit extension');
+  isFamilyOfWorkOrStudyHolder = boolean(isFamilyOfWorkOrStudyHolder, 'Family exemption');
+  if (!isIsoCalendarDate(assessmentDate)) throw new ToolInputError('Assessment date must be a valid YYYY-MM-DD calendar date.');
+  if (typeof fieldOfStudyCategory !== 'string' || ![...CIP_PRIORITY_FIELDS, 'business_general'].includes(fieldOfStudyCategory.trim().toLowerCase())) {
+    throw new ToolInputError('Choose a supported field of study category.');
+  }
+  if (typeof cipCode !== 'string' || !/^\d{2}\.\d{4}$/.test(cipCode)) throw new ToolInputError('CIP code must use the format NN.NNNN.');
+  if (typeof studyLevel !== 'string' || !['masters', 'doctoral', 'undergraduate_degree', 'college_diploma', 'k12_primary_secondary', 'exchange_visiting'].includes(studyLevel.trim().toLowerCase())) {
+    throw new ToolInputError('Choose a supported study level.');
+  }
+  if (typeof province !== 'string' || !['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'].includes(province.trim().toUpperCase())) {
+    throw new ToolInputError('Choose a Canadian province or territory.');
+  }
   const safeStudyLevel = boundedText(studyLevel, 'undergraduate_degree', 50).toLowerCase();
   const safeProvince = boundedText(province, 'ON', 10).toUpperCase();
   const safeApplicantName = boundedText(applicantName, 'Student Applicant', 120);
@@ -45,8 +69,8 @@ export function evaluateStudyPermitCapAndPal({
     isPalRequired = false;
     palExemptReasons.push('K-12 Minor Children: Primary and secondary school students are statutorily exempt from the PAL requirement under Ministerial Instructions.');
   } else if (safeStudyLevel === 'masters' || safeStudyLevel === 'doctoral') {
-    isPalRequired = false;
-    palExemptReasons.push('Post-Graduate Degree Exception: Master’s and Doctoral (PhD) degree candidates are exempt from provincial cap attestation letters under 2024 IRCC allocations.');
+    isPalRequired = graduatePalRequirement(applicationDate, isPublicDli);
+    palExemptReasons.push(isPalRequired === null ? 'Confirm public DLI status and a reviewed application date to assess the graduate PAL exception.' : isPalRequired ? 'The public-DLI graduate exception does not apply; other exemptions require separate review.' : 'Degree-granting master’s and doctoral programs at public DLIs are exempt from PAL/TAL from January 1, 2026.');
   } else if (isExtensionOfStudyPermit) {
     isPalRequired = false;
     palExemptReasons.push('In-Canada Study Permit Extension: Existing study permit holders extending their stay do not require a new PAL.');
@@ -61,21 +85,24 @@ export function evaluateStudyPermitCapAndPal({
   }
 
   // 2. Financial Sufficiency Calculation (IRPR s. 220)
-  const tuition = Number.isFinite(Number(tuitionFeeFirstYearCad)) ? Math.max(0, Math.min(1000000, Number(tuitionFeeFirstYearCad))) : 22000;
-  const funds = Number.isFinite(Number(liquidFundsAvailableCad)) ? Math.max(0, Math.min(100000000, Number(liquidFundsAvailableCad))) : 45000;
-  const familyCount = Number.isFinite(Number(familyMembersAccompanying)) ? Math.min(20, Math.max(0, Math.floor(Number(familyMembersAccompanying)))) : 0;
-
-  let requiredLivingFundsCad = STATUTORY_LIVING_COST_BASE_CAD;
-  if (familyCount > 0) {
-    requiredLivingFundsCad += STATUTORY_FIRST_DEPENDENT_CAD;
-    if (familyCount > 1) {
-      requiredLivingFundsCad += (familyCount - 1) * STATUTORY_ADDITIONAL_DEPENDENT_CAD;
+  function amount(value, field, max, optional = false) {
+    if (optional && (value === undefined || value === null || value === '')) return null;
+    if (!['number', 'string'].includes(typeof value) || String(value).trim() === '' ||
+        !Number.isFinite(Number(value)) || Number(value) < 0 || Number(value) > max) {
+      throw new ToolInputError(`${field} must be a number between 0 and ${max}.`);
     }
+    return Number(value);
   }
-
-  const totalStatutoryProofRequiredCad = tuition + requiredLivingFundsCad + STATUTORY_TRAVEL_ESTIMATE_CAD;
-  const financialBufferCad = funds - totalStatutoryProofRequiredCad;
-  const isFinanciallySufficient = financialBufferCad >= 0;
+  const tuition = amount(tuitionFeeFirstYearCad, 'Tuition', 1000000, true);
+  const funds = amount(liquidFundsAvailableCad, 'Available funds', 100000000, true);
+  const familyCount = amount(familyMembersAccompanying, 'Accompanying family members', 20);
+  if (!Number.isInteger(familyCount)) throw new ToolInputError('Accompanying family members must be a whole number.');
+  const financialPolicy = studyFinancialPolicy({ applicationDate, province: safeProvince, dependents: familyCount });
+  const financialInputsComplete = tuition !== null && funds !== null && financialPolicy.status === 'AVAILABLE';
+  const requiredLivingFundsCad = financialPolicy.livingCostsCad;
+  const totalStatutoryProofRequiredCad = tuition === null || financialPolicy.status !== 'AVAILABLE' ? null : tuition + requiredLivingFundsCad + financialPolicy.travelEstimateCad;
+  const financialBufferCad = financialInputsComplete ? funds - totalStatutoryProofRequiredCad : null;
+  const isFinanciallySufficient = financialInputsComplete ? financialBufferCad >= 0 : null;
 
   // 3. Post-Graduation Work Permit (PGWP) Pathway Compliance
   let pgwpEligibilityStatus = 'eligible';
@@ -107,12 +134,15 @@ export function evaluateStudyPermitCapAndPal({
 
   // 4. Recommendation & Checklist
   const checklist = [];
-  if (isPalRequired) {
+  if (isPalRequired === null) {
+    checklist.push('PAL requirement is not determined. Confirm institution type and application date.');
+  } else if (isPalRequired) {
     checklist.push(`Obtain Provincial Attestation Letter (PAL) from ${safeProvince} Designated Learning Institution (DLI) Registrar.`);
   } else {
     checklist.push(`Include formal letter of explanation quoting PAL exemption statutory clause (${palExemptReasons[0] || 'Exempt category'}).`);
   }
-  checklist.push(`Provide proof of liquid funds: Minimum $${totalStatutoryProofRequiredCad.toLocaleString('en-CA')} CAD (tuition $${tuition.toLocaleString('en-CA')} + living $${requiredLivingFundsCad.toLocaleString('en-CA')} + travel).`);
+  if (financialInputsComplete) checklist.push(`Provide proof of liquid funds: Planning total ${totalStatutoryProofRequiredCad.toLocaleString('en-CA')} CAD (tuition $${tuition.toLocaleString('en-CA')} + living $${requiredLivingFundsCad.toLocaleString('en-CA')} + travel).`);
+  else checklist.push('Enter your first-year tuition and available liquid funds to calculate financial sufficiency.');
   checklist.push('Secure official DLI Letter of Acceptance (LOA) with verified DLI number and designated enrollment dates.');
   checklist.push('Submit upfront Immigration Medical Exam (IME) if residing in designated medical country for >6 months.');
 
@@ -122,17 +152,19 @@ export function evaluateStudyPermitCapAndPal({
     studyLevel: safeStudyLevel,
     province: safeProvince,
     isPalRequired,
-    palStatus: isPalRequired ? 'PAL_MANDATORY' : 'PAL_EXEMPT',
+    palStatus: isPalRequired === null ? 'NOT_DETERMINED' : isPalRequired ? 'PAL_MANDATORY' : 'PAL_EXEMPT',
+    graduatePalSource: GRADUATE_PAL_SOURCE,
     palExemptReasons,
     financialAudit: {
       tuitionFeeFirstYearCad: tuition,
       requiredLivingFundsCad,
-      travelAllowanceCad: STATUTORY_TRAVEL_ESTIMATE_CAD,
+      travelAllowanceCad: financialPolicy.travelEstimateCad,
+      policy: financialPolicy,
       totalStatutoryProofRequiredCad,
       liquidFundsAvailableCad: funds,
       financialBufferCad,
       isFinanciallySufficient,
-      status: isFinanciallySufficient ? 'COMPLIANT' : 'DEFICIT_RISK'
+      status: !financialInputsComplete ? 'NOT_DETERMINED' : isFinanciallySufficient ? 'COMPLIANT' : 'DEFICIT_RISK'
     },
     pgwpPathway: {
       status: pgwpEligibilityStatus,

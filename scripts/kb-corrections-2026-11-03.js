@@ -154,7 +154,7 @@ export function planCorrections(rows) {
 export function applyToSeedFiles(entries, write) {
   const report = [];
   for (const file of [...SEED_FILES, ...GENERATOR_FILES]) {
-    const path = join(root, file.startsWith('scripts/') ? file : 'src', file);
+    const path = file.startsWith('scripts/') ? join(root, file) : join(root, 'src', file);
     if (!existsSync(path)) continue;
     let text = readFileSync(path, 'utf8'); let count = 0;
     for (const p of entries) {

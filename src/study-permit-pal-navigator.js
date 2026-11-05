@@ -1,5 +1,8 @@
+import { studyFinancialPolicy } from './study-financial-policy.js';
+import { graduatePalRequirement, GRADUATE_PAL_SOURCE } from './study-graduate-pal-policy.js';
 import { ValidationError } from './api-errors.js';
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorNumber } from './calculator-input.js';
+import { boundedText, safeIsoDate, todayIso, isIsoCalendarDate } from './text-input.js';
 
 /**
  * Canadian Study Permit, Provincial Attestation Letter (PAL) & PGWP 2024/2025 Navigator
@@ -37,33 +40,45 @@ export const PRIORITY_FIELDS_OF_STUDY = Object.freeze([
 ]);
 
 export const STATUTORY_CONSTANTS = Object.freeze({
-  BASE_COST_OF_LIVING_SINGLE: 20635, // 75% of LICO single applicant standard
-  COST_OF_LIVING_FIRST_DEPENDENT: 5055,
-  COST_OF_LIVING_ADDITIONAL_DEPENDENT: 3821,
-  ESTIMATED_TRAVEL_ALLOWANCE: 2000,
+  BASE_COST_OF_LIVING_SINGLE: 23448, // 75% of LICO single applicant standard
+  COST_OF_LIVING_FIRST_DEPENDENT: 5744,
+  COST_OF_LIVING_ADDITIONAL_DEPENDENT: 6696,
+  ESTIMATED_TRAVEL_ALLOWANCE: 1500,
   OFF_CAMPUS_WEEKLY_HOURS_LIMIT: 24, // Permanent cap as of fall 2024 under IRPR s. 186(v)
   PGWP_CLB_UNIVERSITY_MINIMUM: 7,
   PGWP_CLB_COLLEGE_MINIMUM: 5
 });
 
 export function auditStudyPermitAndPal(input = {}) {
-  if (!input || typeof input !== 'object') {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
     throw new ValidationError('Input must be a valid object');
   }
 
-  const {
+  let {
     programLevel,
     institutionType = INSTITUTION_TYPES.PUBLIC_UNIVERSITY,
     fieldOfStudy = 'general',
     isExtensionWithinCanada = false,
     inStudySession = true,
     languageScoreClb = 7,
-    firstYearTuition = 18000,
+    firstYearTuition,
     accompanyingDependents = 0,
     targetProvince = 'ON',
     applicantName = 'Student Applicant',
-    assessmentDate = todayIso()
+    assessmentDate = todayIso(),
+    applicationDate = assessmentDate
   } = input;
+
+  const boolean = (value, field) => {
+    if (value === true || value === 'true') return true;
+    if (value === false || value === 'false') return false;
+    throw new ValidationError(`${field} must be true or false`);
+  };
+  isExtensionWithinCanada = boolean(isExtensionWithinCanada, 'Extension within Canada');
+  inStudySession = boolean(inStudySession, 'In study session');
+  if (!isIsoCalendarDate(assessmentDate)) throw new ValidationError('Invalid assessment date');
+  if (!Object.values(INSTITUTION_TYPES).includes(institutionType)) throw new ValidationError('Invalid institution type');
+  languageScoreClb = calculatorNumber(languageScoreClb, 'Language score', { min: 0, max: 12, integer: true });
 
   if (!programLevel || !Object.values(PROGRAM_LEVELS).includes(programLevel)) {
     throw new ValidationError(`Invalid programLevel. Must be one of: ${Object.values(PROGRAM_LEVELS).join(', ')}`);
@@ -89,8 +104,8 @@ export function auditStudyPermitAndPal(input = {}) {
     palExemptionReason = 'Exempt from PAL: Short-term visiting or exchange students studying at a DLI for 6 months or less.';
   } else if (programLevel === PROGRAM_LEVELS.MASTERS_DEGREE || programLevel === PROGRAM_LEVELS.DOCTORAL_PHD) {
     // Note: In 2024 Master/PhD were fully exempt; in 2025 they are integrated into federal caps with reserved allocations
-    isPalRequired = true;
-    palExemptionReason = 'Subject to graduate study allocation: Master and PhD applicants require provincial allocation/PAL pursuant to 2025 federal cap revisions.';
+    isPalRequired = graduatePalRequirement(applicationDate, input.institutionType === undefined ? undefined : [INSTITUTION_TYPES.PUBLIC_UNIVERSITY, INSTITUTION_TYPES.PUBLIC_COLLEGE].includes(institutionType));
+    palExemptionReason = isPalRequired === null ? 'Graduate PAL requirements need review for this application date.' : isPalRequired ? 'The public-DLI graduate exception does not apply; other exemptions require separate review.' : 'Degree-granting master’s and doctoral programs at public DLIs are exempt from PAL/TAL from January 1, 2026.';
   } else {
     isPalRequired = true;
     palExemptionReason = 'Mandatory PAL required from provincial authority (e.g. Ontario PAL, BC PAL) prior to study permit submission.';
@@ -141,18 +156,13 @@ export function auditStudyPermitAndPal(input = {}) {
     : `During scheduled academic breaks (e.g. summer break, winter holidays), students holding full-time enrollment before and after the break may work unlimited hours full-time.`;
 
   // 4. Financial Sufficiency Calculation (IRPR s. 220)
-  const tuition = Math.max(0, Math.min(1000000, Number(firstYearTuition) || 0));
-  const numDependents = Math.max(0, Math.min(20, Math.floor(Number(accompanyingDependents) || 0)));
+  const tuition = firstYearTuition === undefined ? null : calculatorNumber(firstYearTuition, 'Tuition', { min: 0, max: 1000000 });
+  const numDependents = calculatorNumber(accompanyingDependents, 'Dependents', { min: 0, max: 20, integer: true });
   
-  let livingExpenses = STATUTORY_CONSTANTS.BASE_COST_OF_LIVING_SINGLE;
-  if (numDependents === 1) {
-    livingExpenses += STATUTORY_CONSTANTS.COST_OF_LIVING_FIRST_DEPENDENT;
-  } else if (numDependents > 1) {
-    livingExpenses += STATUTORY_CONSTANTS.COST_OF_LIVING_FIRST_DEPENDENT + ((numDependents - 1) * STATUTORY_CONSTANTS.COST_OF_LIVING_ADDITIONAL_DEPENDENT);
-  }
-
-  const travelExpenses = STATUTORY_CONSTANTS.ESTIMATED_TRAVEL_ALLOWANCE * (1 + numDependents);
-  const totalFinancialProofRequired = tuition + livingExpenses + travelExpenses;
+  const financialPolicy = studyFinancialPolicy({ applicationDate, province: safeProvince, dependents: numDependents });
+  const livingExpenses = financialPolicy.livingCostsCad;
+  const travelExpenses = financialPolicy.travelEstimateCad;
+  const totalFinancialProofRequired = financialPolicy.status === 'AVAILABLE' && tuition !== null ? tuition + livingExpenses + travelExpenses : null;
 
   return {
     applicantName: safeApplicantName,
@@ -162,6 +172,7 @@ export function auditStudyPermitAndPal(input = {}) {
     institutionType,
     fieldOfStudy: safeFieldOfStudy,
     palAssessment: {
+      graduateSource: GRADUATE_PAL_SOURCE,
       isPalRequired,
       reason: palExemptionReason,
       governingSection: isExtensionWithinCanada ? 'IRPR s. 217' : 'IRPR s. 211.1'
@@ -181,11 +192,13 @@ export function auditStudyPermitAndPal(input = {}) {
       legalWarning: workHoursGuidance
     },
     financialProof: {
+      status: totalFinancialProofRequired === null ? 'NOT_DETERMINED' : 'PLANNING_ESTIMATE',
       firstYearTuition: tuition,
       costOfLivingRequired: livingExpenses,
       estimatedTravel: travelExpenses,
       totalProofRequiredCad: totalFinancialProofRequired,
-      statutoryStandard: 'IRPR s. 220 (75% LICO Indexed Financial Threshold)'
+      policy: financialPolicy,
+      statutoryStandard: 'Reviewed living-cost table plus tuition and a non-statutory travel estimate'
     },
     statutoryCitations: [
       'Immigration and Refugee Protection Act (IRPA) s. 10.2 (National Study Permit Cap)',

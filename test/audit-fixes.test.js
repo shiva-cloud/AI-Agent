@@ -60,7 +60,7 @@ test('migration rehearsal captures WAL and upgrades legacy copies without modify
     const result=await dryRunMigration(file);
     assert.equal(result.report.recordsBefore,seeds.length+1);
     assert.equal(result.report.migrationsBefore.length,0);
-    assert.equal(result.report.migrationsAfter.length,6);
+    assert.equal(result.report.migrationsAfter.length,7);
     assert.equal(result.report.integrityCheck,'ok');
     assert.deepEqual(store.records(),before);
     assert.equal(store.db.prepare("SELECT count(*) AS n FROM sqlite_master WHERE name='schema_migrations'").get().n,0);

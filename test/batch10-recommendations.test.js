@@ -138,9 +138,9 @@ test('Rec 227: Study Permit Cap PAL — Eliminates string concatenation bug and 
   });
   assert.equal(typeof result.financialAudit.totalStatutoryProofRequiredCad, 'number');
   assert.equal(result.financialAudit.tuitionFeeFirstYearCad, 20000);
-  assert.equal(result.financialAudit.totalStatutoryProofRequiredCad, 51345);
+  assert.equal(result.financialAudit.totalStatutoryProofRequiredCad, 60388);
   assert.equal(result.financialAudit.liquidFundsAvailableCad, 50000);
-  assert.equal(result.financialAudit.financialBufferCad, -1345);
+  assert.equal(result.financialAudit.financialBufferCad, -10388);
   assert.equal(result.financialAudit.status, 'DEFICIT_RISK');
 });
 

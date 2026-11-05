@@ -118,12 +118,12 @@ export const globalRecords = [
   // ═════════════════════════════════════════════════════════════════════════════
   createGlobalRecord({
     id: 'uk-home-office-skilled-worker-visa-kyc',
-    title: 'Home Office: Points-Based Skilled Worker Visa, Certificate of Sponsorship, and ILR settlement',
+    title: 'Skilled Worker visa: eligibility, sponsorship and how long you can stay (GOV.UK)',
     topic: 'employment',
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/skilled-worker-visa',
-    quote: 'A Skilled Worker visa allows you to stay in the UK to do an eligible job with an approved employer.',
-    summary: 'Under the United Kingdom Points-Based Immigration System, foreign professionals enter the UK through the Skilled Worker visa route. Applicants must score 70 mandatory points based on: (1) A valid Certificate of Sponsorship (CoS) from a Home Office licensed sponsor; (2) An eligible job at RQF Level 6 (graduate level) for most new applications since 22 July 2025 matching an approved Standard Occupational Classification (SOC) code; (3) Meeting minimum general salary thresholds (£41,700 since 22 July 2025, or the occupation-specific going rate if higher); (4) English language proficiency at CEFR B2 for new applicants from 8 January 2026 (B1 for people already on the route). Skilled Worker status has provided a 5-year pathway to Indefinite Leave to Remain (ILR - permanent settlement), provided the applicant has lived continuously in the UK with absences not exceeding 180 days in any 12-month rolling period. The government has proposed longer settlement periods, so check GOV.UK before planning. Spouses and dependent children under 18 can accompany main visa holders. This record does not grant visas or issue sponsorship certificates.'
+    quote: 'A Skilled Worker visa allows you to come to or stay in the UK to do an eligible job with an approved employer.',
+    summary: 'A Skilled Worker visa allows you to come to or stay in the UK to do an eligible job with an approved employer - the visa has replaced the Tier 2 (General) work visa and also allows you to work in UK waters. To qualify, you must work for a UK employer that\'s been approved by the Home Office, have a \'certificate of sponsorship\' (CoS) from your employer with information about the role you\'ve been offered in the UK, do a job that\'s on the list of eligible occupations, and be paid a minimum salary - how much depends on the type of work you do and the date you got your CoS. You must have a confirmed job offer before you apply, and be able to speak, read, write and understand English. Your visa can last for up to 5 years before you need to extend it, you can apply to extend it as many times as you like as long as you still meet the eligibility requirements, and after five years you may be able to apply to settle permanently in the UK (\'indefinite leave to remain\'). This record does not grant visas.'
   }),
 
   createGlobalRecord({
@@ -158,23 +158,23 @@ export const globalRecords = [
 
   createGlobalRecord({
     id: 'uk-tenancy-deposit-scheme-tds-kyc',
-    title: 'GOV.UK: Tenancy Deposit Scheme (TDS) protections and Tenant Fees Act 2019 rights',
+    title: 'GOV.UK: Tenancy deposit protection - TDP schemes, the 30-day protection rule, and getting your deposit back',
     topic: 'housing',
     housingSubject: 'agreement',
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/tenancy-deposit-protection',
-    quote: 'Landlords must put your deposit in a government-approved tenancy deposit scheme within 30 days.',
-    summary: 'Under the Housing Act 2004, residential tenancy deposits in England and Wales must be registered by the landlord with an authorized government-backed tenancy deposit protection scheme (Deposit Protection Service DPS, MyDeposits, or Tenancy Deposit Scheme TDS) within 30 days of receipt. Under the Tenant Fees Act 2019, security deposits are capped at a maximum of 5 weeks rent for tenancies with annual rent under £50,000. All administrative, referencing, inventory check, and contract fees charged by landlords or letting agents are illegal prohibited fees. Holding deposits to reserve a property are strictly capped at 1 week rent and must be refunded if the tenancy is not finalized. Landlords cannot evict tenants without a county court possession order. In England, Section 21 no-fault notices were abolished from 1 May 2026 (Renters\' Rights Act 2025), so possession now needs a Section 8 ground. This record does not arbitrate deposit claims.'
+    quote: 'Your landlord must return your deposit within 10 days of you both agreeing how much you\'ll get back.',
+    summary: 'The GOV.UK tenancy deposit protection overview states that a landlord must put a deposit in a government-approved tenancy deposit scheme (TDP) if the home is rented on an assured periodic tenancy (APT), and that APTs replaced assured shorthold tenancies on 1 May 2026. In England and Wales the deposit can be registered with the Deposit Protection Service, MyDeposits (including deposits that were held by Capita), or the Tenancy Deposit Scheme, and the landlord or letting agent must put the deposit in the scheme within 30 days of getting it. At the end of the tenancy the landlord must return the deposit within 10 days of the landlord and tenant both agreeing how much will be returned; Scotland and Northern Ireland run separate TDP schemes. This record does not arbitrate deposit claims.'
   }),
 
   createGlobalRecord({
     id: 'uk-home-office-right-to-work-share-code-kyc',
-    title: 'Home Office: Right to Work verification, digital Share Codes, and employer statutory excuses',
+    title: 'Prove your right to work to an employer: share codes, documents and passports (GOV.UK)',
     topic: 'employment',
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/prove-right-to-work',
-    quote: 'You can generate a share code online to prove your right to work in the UK to employers.',
-    summary: 'Under Section 15 of the Immigration, Asylum and Nationality Act 2006, all UK employers have a statutory duty to conduct Right to Work checks before hiring any employee. Migrants with an eVisa or EU Settlement Scheme status (biometric residence permits have been replaced by eVisas) prove their eligibility by accessing the Home Office digital verification service and generating a 9-character alphanumeric Share Code. Employers enter the share code along with the candidate’s date of birth into the Home Office employer portal to obtain official confirmation of working hours, permit expiry, and job restrictions. Obtaining a statutory excuse protects employers from civil penalties up to £45,000. Employers cannot discriminate against job applicants by demanding British passports or physical documents where a valid digital share code is presented. This record does not verify individual share codes.'
+    quote: 'You\'ll need to prove your right to work in the UK to your employer before you start working for them. How you do this depends on your nationality and what kind of permission you have to work in the UK.',
+    summary: 'This GOV.UK page explains proving your right to work in the UK to your employer before you start working for them - how you do this depends on your nationality and what kind of permission you have to work in the UK. If you\'re a British or Irish citizen, you can prove your right to work with a British passport, an Irish passport or passport card - these can be current or expired - and if you do not have a passport or passport card, you may be able to use an online identity service provider (IDSP) to prove your right to work; ask your employer if they offer this. If you\'re not a British or Irish citizen, you can prove your right to work with a share code - you can get a share code online - or your eligible immigration documents; you can choose which option you use, and your employer cannot reject your application because you gave them an eligible immigration document instead of a share code. People with the right of abode in the UK (British citizens and some Commonwealth citizens) can use a certificate of entitlement to prove their right to work. This record does not verify individual right-to-work documents.'
   }),
 
   createGlobalRecord({
@@ -321,7 +321,7 @@ export const globalRecords = [
     jurisdiction: 'Germany',
     url: 'https://www.bafin.de/EN/Verbraucher/Finanzwissen/Bank/Basiskonto/basiskonto_node_en.html',
     quote: 'Under the Payment Accounts Act, every consumer residing lawfully in the EU has the right to a basic account.',
-    summary: 'Under the Payment Accounts Act (Zahlungskontengesetz - ZKG) and Money Laundering Act (Geldwäschegesetz - GwG), BaFin regulates German banking KYC procedures. All retail banks in Germany (such as Deutsche Bank, Commerzbank, Sparkasse, and online banks like N26) must provide a basic payment account (Basiskonto) with core checking and payment capabilities to any consumer lawfully resident in the EU, regardless of credit history or income. To open an account, applicants verify identity using PostIdent at a Deutsche Post branch or VideoIdent online with: (1) Valid foreign passport; (2) Official German registration certificate (Meldebestätigung). International students must open a federally regulated blocked account (Sperrkonto) deposited with at least €11,904 annually to prove financial resources for visa issuance. This record does not open bank accounts.'
+    summary: 'Under the Payment Accounts Act (Zahlungskontengesetz - ZKG) and Money Laundering Act (Geldwäschegesetz - GwG), BaFin regulates German banking KYC procedures. All retail banks in Germany (such as Deutsche Bank, Commerzbank, Sparkasse, and online banks like N26) must provide a basic payment account (Basiskonto) with core checking and payment capabilities to any consumer lawfully resident in the EU, regardless of credit history or income. To open an account, applicants verify identity using PostIdent at a Deutsche Post branch or VideoIdent online with: (1) Valid foreign passport; (2) Official German registration certificate (Meldebestätigung). International students usually prove their funds for the student visa with a blocked account (Sperrkonto) holding at least €11,904 for one year (€992 per month, 2026); other accepted proofs include a formal obligation letter (Verpflichtungserklärung), a bank guarantee or a recognised scholarship. This record does not open bank accounts.'
   }),
 
   createGlobalRecord({
@@ -330,9 +330,9 @@ export const globalRecords = [
     topic: 'housing',
     housingSubject: 'agreement',
     jurisdiction: 'Germany',
-    url: 'https://www.bmj.de/DE/themen/bauen_wohnen/mietrecht/mietrecht_node.html',
-    quote: 'The tenancy deposit cannot exceed three times the monthly basic rent excluding utilities.',
-    summary: 'Under Section 551 of the German Civil Code (Bürgerliches Gesetzbuch - BGB), residential tenancy security deposits (Mietkaution) are strictly capped at a maximum of three times the net cold rent (Nettokaltmiete, excluding heating and utility charges). Tenants have the statutory legal right to pay the Kaution in three equal monthly installments starting on the move-in date. Under the Mietpreisbremse (rent ceiling regulation in tight housing markets), new lease rents cannot exceed 10% above the local comparative rent index (Mietspiegel). When applying for apartments, landlords commonly require a SCHUFA Bonitätsauskunft (credit solvency report), proof of income (last 3 payslips), and a rent debt-free certificate (Mietschuldenfreiheitsbescheinigung). Landlords cannot terminate leases or evict tenants without statutory just cause and a court bailiff order. This record does not adjudicate tenancy disputes.'
+    url: 'https://www.bmjv.de/DE/themen/kaufen_reisen_wohnen/mietrecht/mietrecht_node.html',
+    quote: 'Die Höhe der Mietsicherheit darf – unabhängig von ihrer Form – höchstens das Dreifache der auf einen Monat entfallenden Grundmiete betragen ( § 551 Absatz 1 BGB ).',
+    summary: 'The Federal Ministry of Justice (BMJV) Mietrecht overview states that the height of the Mietsicherheit - whatever its form, a rent deposit account, a guarantee, or the handover of a bank savings book - may not exceed the threefold of the basic rent attributable to one month (Section 551 (1) BGB). The same overview further covers the permissible rent at lease start, the Mietpreisbremse, notices of termination and their prerequisites; what landlords ask for in an individual apartment application, such as a SCHUFA Bonitätsauskunft and proof of income, is beyond the ministry page. This record does not adjudicate tenancy disputes.'
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -522,9 +522,9 @@ export const globalRecords = [
     topic: 'housing',
     jurisdiction: 'Ireland',
     housingSubject: 'deposit',
-    url: 'https://www.rtb.ie/ending-a-tenancy/disputes/security-deposits',
-    quote: 'Under Irish law, landlords cannot request a deposit exceeding one month rent and advance rent is strictly capped at one month.',
-    summary: 'Under the Residential Tenancies (No. 2) Act 2021, landlords in Ireland cannot lawfully demand an upfront deposit exceeding one month rent, nor can they demand advance rent payment exceeding one month. Tenants therefore cannot be required to pay more than two months rent in total upon signing a lease (one month deposit plus one month initial rent). Landlords must return the deposit promptly at the end of the tenancy unless there is proven rent arrears, unpaid utility charges, or damage beyond normal wear and tear. If a landlord unlawfully withholds a deposit, tenants can lodge a formal dispute application with the RTB, which issues legally binding dispute orders enforceable through the District Court.'
+    url: 'https://rtb.ie/renting/rights-responsibilities/security-deposits/',
+    quote: 'A landlord cannot ask for a deposit that is more than one month\'s rent.',
+    summary: 'The Residential Tenancies Board security deposits page states that a security deposit is a sum of money paid by a tenant to a landlord before the tenancy begins - financial protection for the landlord to cover rent arrears, bills owing or damage beyond normal wear and tear at the end of the tenancy. A landlord cannot ask for a deposit that is more than one month\'s rent; the agreed amount should be documented, and both the tenant and landlord should get a signed and dated receipt. The deposit must be returned at the end of the tenancy unless deductions are necessary. This record does not adjudicate RTB dispute hearings.'
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -712,8 +712,8 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "UK Government: Minimum Energy Efficiency Standards (MEES) EPC Rating E in Private Rented Sector",
   "url": "https://www.gov.uk/guidance/domestic-private-rented-property-minimum-energy-efficiency-standard-landlord-guidance",
-  "quote": "Under MEES regulations, it is unlawful for a landlord to let domestic private rented property with an EPC rating below E without a registered exemption.",
-  "summary": "Under the Energy Efficiency (Private Rented Property) (England and Wales) Regulations 2015, private landlords are legally prohibited from granting a new tenancy or continuing to let a domestic property that has an Energy Performance Certificate (EPC) rating of F or G, unless an official statutory exemption is registered on the PRS Exemptions Register. Landlords must invest up to £3,500 including VAT in energy efficiency improvements (such as insulation or heating upgrades) before claiming a high-cost exemption. Local authorities enforce MEES compliance through financial penalty notices of up to £5,000 per property for persistent non-compliance. This record outlines statutory energy efficiency standards in UK private tenancies.",
+  "quote": "Since 1 April 2020, landlords can no longer let or continue to let properties covered by the MEES Regulations if they have an EPC rating below E, unless they have a valid exemption in place.",
+  "summary": "The GOV.UK landlord guidance for domestic private rented property explains how to comply with the Minimum Level of Energy Efficiency standard (EPC band E) under the MEES Regulations. Since 1 April 2020, landlords can no longer let or continue to let properties covered by the MEES Regulations if they have an EPC rating below E, unless they have a valid exemption in place. If you are currently planning to let a property with an EPC rating of F or G, you need to improve the property\'s rating to E, or register an exemption, before you enter into a new tenancy; if you are currently letting a property with an EPC rating of F or G and haven\'t already taken action, you must improve the property\'s rating to E immediately, or register an exemption. The cost cap: a landlord is not currently required to spend more than £3,500 (including VAT) on energy efficiency improvements; if the property cannot be improved to EPC E for £3,500 or less, all improvements that can be made up to that amount should be made and an all-improvements-made exemption registered on the PRS Exemptions Register. The MEES Regulations are enforced by local authorities. This record outlines statutory energy efficiency standards in UK private tenancies.",
   "risk": "high",
   "language": "en",
   "status": "approved",

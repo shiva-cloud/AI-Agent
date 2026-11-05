@@ -102,7 +102,7 @@ export function openStore(path='data/settlement.sqlite') {
         db.exec('COMMIT');
       } catch(error) {db.exec('ROLLBACK');throw error;}
     },
-    review(id,decision,reviewer,note) {
+    review(id,decision,reviewer,note,authenticatedActor) {
       if(!['approve','reject','rollback'].includes(decision) || typeof reviewer!=='string' || reviewer.trim().length<2 || reviewer.length>100 || typeof note!=='string' || note.trim().length<10 || note.length>1000) throw new ValidationError('Valid decision, reviewer and review note (10–1000 characters) required');
       assertEnglishText(reviewer,'Reviewer name');
       assertEnglishText(note,'Review note');
@@ -133,7 +133,8 @@ export function openStore(path='data/settlement.sqlite') {
           reviewer,
           note,
           at: next.reviewedAt,
-          action: decision
+          action: decision,
+          authenticatedActor
         });
         db.exec('COMMIT');
       } catch(e) {db.exec('ROLLBACK');throw e;}

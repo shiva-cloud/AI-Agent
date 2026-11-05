@@ -21,15 +21,18 @@ export function boundedText(value, fallback = '', maxLength = 120) {
 // for reproducible runs and tests; an invalid value is ignored.
 export function todayIso(now = new Date()) {
   const pinned = process.env.NORTHSTAR_TODAY;
-  if (typeof pinned === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(pinned) && !Number.isNaN(Date.parse(pinned))) return pinned;
+  if (isIsoCalendarDate(pinned)) return pinned;
   return now.toISOString().slice(0, 10);
 }
 
+export function isIsoCalendarDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const time = Date.parse(value);
+  return Number.isFinite(time) && new Date(time).toISOString().slice(0, 10) === value;
+}
+
 export function safeIsoDate(val, fallback = todayIso()) {
-  if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val.trim())) {
-    const t = Date.parse(val.trim());
-    if (!Number.isNaN(t)) return val.trim();
-  }
+  if (typeof val === 'string' && isIsoCalendarDate(val.trim())) return val.trim();
   return fallback;
 }
 

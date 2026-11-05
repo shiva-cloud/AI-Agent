@@ -86,6 +86,7 @@ if (existsSync(dbPath)) {
 }
 
 const line = (label, value) => console.log(label.padEnd(46) + value);
+if (!asJson) {
 console.log('=== Country coverage KPI report (read-only) ===');
 line('navigator files total', String(report.navigatorFiles.total));
 line('navigator files Canada province-domains', String(report.navigatorFiles.canadaProvince));
@@ -102,5 +103,6 @@ if (report.db) {
   line('languages', Object.entries(report.languages).map(([k, n]) => `${k}=${n}`).join(' '));
 } else {
   console.log('(evidence database not present; source-tree metrics only — run against a seeded database for record KPIs)');
+}
 }
 if (asJson) console.log(JSON.stringify(report, null, 2));

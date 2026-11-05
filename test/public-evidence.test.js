@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { openStore } from '../src/store.js';
 import { seeds } from '../src/knowledge.js';
-import { publicEvidence } from '../src/public-evidence.js';
+import { publicEvidence, isEditorialReviewer } from '../src/public-evidence.js';
 
 const sinSeed = seeds.find(r => r.id === 'sin-route');
-const reviewer = { reviewer: 'Fixture Editor', note: 'Synthetic fixture review for the publication gate only.' };
+const reviewer = { reviewer: 'editorial-board', note: 'Synthetic fixture review for the publication gate only.' };
 const today = new Date().toISOString().slice(0, 10);
 const expiresAt = new Date(Date.now() + 86400000 * 7).toISOString().slice(0, 10);
 
@@ -52,6 +52,7 @@ test('a source_verified claim without an archived publication stays withheld', (
 });
 
 test('the automated source check publishes through the ingestion pipeline', () => {
+  const fixtureQuote = 'Applicants must submit their supporting documents with the completed application.';
   const store = openStore(':memory:');
   try {
     store.db.exec('DROP TRIGGER IF EXISTS records_editorial_approval_update');
@@ -61,8 +62,8 @@ test('the automated source check publishes through the ingestion pipeline', () =
     store.ingestion.permitSource('seed-sin-route', { tier: 'A', ...reviewer });
     const candidate = store.ingestion.ingest({
       sourceId: 'seed-sin-route', requestKey: 'pub-sv-sin-route-1',
-      content: `Official page text. ${sinSeed.quote} More page text.`,
-      record: { ...sinSeed, status: 'pending', risk: 'high', checkedAt: today, expiresAt } });
+      content: `Official page text. ${fixtureQuote} More page text.`,
+      record: { ...sinSeed, quote: fixtureQuote, status: 'pending', risk: 'high', checkedAt: today, expiresAt } });
     store.ingestion.decide(candidate.id, { decision: 'approve', ...reviewer, reviewMethod: 'source_verified' });
     assert.equal(statusOf(served(store), 'sin-route'), 'approved');
   } finally { store.db.close(); }
@@ -100,8 +101,37 @@ test('arbitrary unknown free-text reviewers fail closed under allowlist gate', (
       audit.run('pub-unauthorized', JSON.stringify(pending), JSON.stringify(record), unknownName, 'Unverified approval claim.', new Date().toISOString());
       assert.equal(statusOf(served(store), 'pub-unauthorized'), 'pending', unknownName);
     }
-    // Explicit authorized reviewer role format or allowlisted reviewer succeeds
+    // A role-shaped string is not authenticated identity. An explicit trusted
+    // caller allowlist is required for this legacy custom-reviewer path.
     audit.run('pub-unauthorized', JSON.stringify(pending), JSON.stringify(record), 'reviewer:staff-lead', 'Verified editorial review.', new Date().toISOString());
-    assert.equal(statusOf(served(store), 'pub-unauthorized'), 'approved');
+    assert.equal(statusOf(served(store), 'pub-unauthorized'), 'pending');
+    assert.equal(statusOf(publicEvidence(store.db, store.records(), { allowedReviewers: new Set(['reviewer:staff-lead']) }), 'pub-unauthorized'), 'approved');
+  } finally { store.db.close(); }
+});
+
+test('test names, role-shaped strings and automated actors are not editorial reviewers', () => {
+  const previous = process.env.NODE_ENV;
+  try {
+    for (const env of ['production', 'test']) {
+      process.env.NODE_ENV = env;
+      for (const name of ['Fixture Editor', 'Test Editor', 'test-reviewer', 'test-admin', 'reviewer:staff-lead',
+        'admin:invented', 'fixture-anything', 'automated-source-check', 'Automated source check (session)']) {
+        assert.equal(isEditorialReviewer(name), false, `${env}: ${name}`);
+      }
+    }
+    assert.equal(isEditorialReviewer('automated-source-check', new Set(['automated-source-check'])), false);
+  } finally {
+    if (previous === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = previous;
+  }
+});
+
+test('automated identity cannot confer an editorial label even with a matching audit', () => {
+  const store = openStore(':memory:');
+  try {
+    const record = { ...sinSeed, id: 'automated-editorial-claim', status: 'approved', risk: 'high', reviewMethod: 'editorial_review' };
+    store.db.prepare('INSERT INTO audits(record_id,previous,next,reviewer,note,at) VALUES (?,?,?,?,?,?)')
+      .run(record.id, JSON.stringify(record), JSON.stringify(record), 'automated-source-check', 'Synthetic automated editorial label test.', new Date().toISOString());
+    assert.equal(publicEvidence(store.db, [record])[0].status, 'pending');
   } finally { store.db.close(); }
 });

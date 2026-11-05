@@ -330,6 +330,8 @@ test('Batch 19 Recommendations (Sweep 26: Recs 351–365)', async (t) => {
   await t.test('Rec 361: evaluateVisitorVisaTies scores financial sufficiency, employer leave, family anchors, and IRPA s. 22(2) dual intent', () => {
     const res = evaluateVisitorVisaTies({
       applicantName: 'Fatima Zahra',
+      monthlyIncomeCad: 2500,
+      hasPreviousVisaRefusal: false,
       countryOfResidence: 'MA',
       plannedStayDays: 20,
       liquidFundsCad: 15000,
@@ -347,7 +349,8 @@ test('Batch 19 Recommendations (Sweep 26: Recs 351–365)', async (t) => {
     assert.equal(res.countryOfResidence, 'MA');
     assert.equal(res.assessmentDate, '2026-10-31');
     assert.equal(res.riskTier, 'LOW_RISK');
-    assert.equal(res.approvalProbability, 'High');
+    assert.equal(res.approvalProbability, null);
+    assert.equal(res.assessmentBasis, 'UNVALIDATED_HEURISTIC');
     assert.ok(res.tieScoreOutOf100 >= 80);
     assert.ok(res.positiveFactors.some(f => f.includes('Dual Intent Recognised')));
   });

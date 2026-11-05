@@ -53,10 +53,22 @@ export function queryTerms(question) {
   for (const [pattern, synset] of SETTLEMENT_SYNSETS) {
     if (pattern.test(question)) terms.push(...synset);
   }
+  // Official maintained-status guidance describes travel as leaving Canada,
+  // re-entry and resuming work/study. Scope these synonyms to both concepts;
+  // expanding every PGWP or employment-leave question would dilute relevance.
+  if (/\b(?:maintained|implied) status\b/i.test(question) &&
+      /\b(?:travel|outside|leav(?:e|ing)|re[- ]?entr(?:y|ies)|re[- ]?enter|return)\b/i.test(question)) {
+    terms.push('leave','leaves','leaving','re','entry','return','resume');
+  }
   return [...new Set(terms)];
 }
+// Records are immutable snapshot objects (the same references are served until
+// the evidence version changes), so tokenizing each one once per object keeps
+// the lexical fallback O(corpus) cheap on every request.
+const recordTokens=new WeakMap();
+const tokensOf=record=>{let words=recordTokens.get(record);if(words===undefined){words=tokenize(`${record.title} ${record.summary} ${record.quote} ${record.topic}`);recordTokens.set(record,words);}return words;};
 export function rankLexically(records,terms=[]) {
-  return rankTokenized(records.map(record=>({record,words:tokenize(`${record.title} ${record.summary} ${record.quote} ${record.topic}`)})),terms);
+  return rankTokenized(records.map(record=>({record,words:tokensOf(record)})),terms);
 }
 export function getTermWeight(term) {
   if (!term || typeof term !== 'string') return 1.0;

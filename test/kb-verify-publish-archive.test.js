@@ -1,17 +1,17 @@
-﻿import test from 'node:test';
+import test from 'node:test';
 import assert from 'node:assert/strict';
 import { openStore } from '../src/store.js';
 import { publicEvidence } from '../src/public-evidence.js';
 import { verifyAndPublish } from '../scripts/kb-verify-publish.js';
 
-const REVIEWER = { reviewer: 'Fixture Editor', note: 'Synthetic fixture for the archive fallback path only.' };
+const REVIEWER = { reviewer: 'editorial-board', note: 'Synthetic fixture for the archive fallback path only.' };
 const NOW = new Date('2026-11-01T10:00:00Z');
 const URL = 'https://example-gov.example/presto-card';
 const QUOTE = 'The PRESTO card costs two dollars and includes the first ride when bought at a station.';
 const PAGE = `<html><body><h1>PRESTO</h1><p>${QUOTE}</p><p>A standard card costs $2 at any station kiosk.</p></body></html>`;
 
 function makeResponse(status, contentType, body) {
-  return { ok: status < 400, status, headers: { get: k => String(k).toLowerCase() === 'content-type' ? contentType : null }, text: async () => body };
+  return new Response(body, { status, headers: { 'content-type': contentType } });
 }
 
 function fixture(overrides = {}) {

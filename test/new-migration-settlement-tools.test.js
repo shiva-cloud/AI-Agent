@@ -13,12 +13,13 @@ import { openStore } from '../src/store.js';
 test('Study Permit Cap & PAL: validates PAL exemption for Master’s and financial sufficiency', () => {
   const masters = evaluateStudyPermitCapAndPal({
     studyLevel: 'masters',
+    isPublicDli: true,
     tuitionFeeFirstYearCad: 25000,
     liquidFundsAvailableCad: 50000
   });
   assert.equal(masters.isPalRequired, false);
   assert.equal(masters.palStatus, 'PAL_EXEMPT');
-  assert.ok(masters.palExemptReasons[0].includes('Post-Graduate Degree Exception'));
+  assert.ok(masters.palExemptReasons[0].includes('public DLIs'));
   assert.equal(masters.pgwpPathway.status, 'eligible');
   assert.equal(masters.pgwpPathway.requiredLanguageClb, 7);
 
@@ -30,9 +31,9 @@ test('Study Permit Cap & PAL: validates PAL exemption for Master’s and financi
   });
   assert.equal(underTier.isPalRequired, true);
   assert.equal(underTier.palStatus, 'PAL_MANDATORY');
-  assert.equal(underTier.financialAudit.isFinanciallySufficient, true);
-  assert.equal(underTier.financialAudit.requiredLivingFundsCad, 20635);
-  assert.equal(underTier.financialAudit.totalStatutoryProofRequiredCad, 22000 + 20635 + 1500);
+  assert.equal(underTier.financialAudit.isFinanciallySufficient, false);
+  assert.equal(underTier.financialAudit.requiredLivingFundsCad, 23448);
+  assert.equal(underTier.financialAudit.totalStatutoryProofRequiredCad, 22000 + 23448 + 1500);
 
   const collegeNonPriority = evaluateStudyPermitCapAndPal({
     studyLevel: 'college_diploma',
@@ -51,6 +52,7 @@ test('Study Permit Cap & PAL: validates PAL exemption for Master’s and financi
 test('Visitor Visa Financial Ties (s. 179(b)): evaluates risk tiers and dual intent', () => {
   const strongApplicant = evaluateVisitorVisaTies({
     applicantName: 'Strong Ties Traveler',
+    monthlyIncomeCad: 2500,
     plannedStayDays: 14,
     liquidFundsCad: 15000,
     hasApprovedJobLeaveLetter: true,
@@ -68,6 +70,10 @@ test('Visitor Visa Financial Ties (s. 179(b)): evaluates risk tiers and dual int
 
   const highRiskApplicant = evaluateVisitorVisaTies({
     applicantName: 'Risk Profile',
+    monthlyIncomeCad: 0,
+    yearsAtCurrentJob: 0,
+    hasImmediateFamilyRemainingHome: false,
+    isDualIntentPrPending: false,
     plannedStayDays: 60,
     liquidFundsCad: 2000,
     hasApprovedJobLeaveLetter: false,
@@ -138,6 +144,7 @@ test('Government Enrollment: audits SIN eligibility, OHIP/MSP waiting periods & 
 test('Study-to-PR Pathway: computes PGWP, CEC 52-week milestone, and PNP eligibility', () => {
   const masterPlan = evaluateStudyToPrPathway({
     studyLevel: 'masters',
+    isPublicDli: true,
     province: 'ON',
     fieldOfStudy: 'stem_tech',
     expectedClbLanguage: 9
@@ -210,7 +217,7 @@ test('HTTP API: verifies GET and POST contracts for 4 new navigators', async () 
 
   try {
     // 1. Study Permit PAL
-    const resGetPal = await fetch(`${baseUrl}/v1/tools/study-permit-cap-pal?studyLevel=masters`);
+    const resGetPal = await fetch(`${baseUrl}/v1/tools/study-permit-cap-pal?studyLevel=masters&isPublicDli=true`);
     assert.equal(resGetPal.status, 200);
     const bodyGetPal = await resGetPal.json();
     assert.equal(bodyGetPal.isPalRequired, false);
@@ -298,7 +305,10 @@ test('HTTP API: verifies GET and POST contracts for 4 new navigators', async () 
     assert.ok(bodyGetSub.subscriptions.some(s => s.subscriber_name === 'Test Student'));
 
     // 8. Prometheus Metrics (/v1/metrics)
-    const resMetrics = await fetch(`${baseUrl}/v1/metrics`);
+    const unauthenticatedMetrics = await fetch(`${baseUrl}/v1/metrics`);
+    assert.equal(unauthenticatedMetrics.status, 401);
+    await unauthenticatedMetrics.arrayBuffer();
+    const resMetrics = await fetch(`${baseUrl}/v1/metrics`, { headers: adminAuthHeader });
     assert.equal(resMetrics.status, 200);
     const bodyMetrics = await resMetrics.json();
     assert.ok(typeof bodyMetrics.prometheus === 'string');

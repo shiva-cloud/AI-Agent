@@ -38,7 +38,7 @@ test('Study Permit & PAL Navigator — University Bachelor degree holder with CL
   assert.equal(result.offCampusWork.weeklyHoursLimit, 24);
   assert.equal(result.financialProof.firstYearTuition, 25000);
   assert.equal(result.financialProof.costOfLivingRequired, STATUTORY_CONSTANTS.BASE_COST_OF_LIVING_SINGLE);
-  assert.equal(result.financialProof.totalProofRequiredCad, 25000 + 20635 + 2000);
+  assert.equal(result.financialProof.totalProofRequiredCad, 25000 + 23448 + 1500);
 });
 
 test('Study Permit & PAL Navigator — College Diploma outside priority fields is barred from PGWP under Nov 2024 rules', () => {
@@ -85,10 +85,10 @@ test('Study Permit & PAL Navigator — Enforces 24-hour in-study work limit and 
 
   assert.equal(inSession.offCampusWork.currentAllowedHours, 24);
   assert.ok(inSession.offCampusWork.legalWarning.includes('Exceeding 24 hours'));
-  // Living expenses: single (20635) + first dep (5055) + second dep (3821) = 29511
-  assert.equal(inSession.financialProof.costOfLivingRequired, 20635 + 5055 + 3821);
-  assert.equal(inSession.financialProof.estimatedTravel, 2000 * 3);
-  assert.equal(inSession.financialProof.totalProofRequiredCad, 15000 + 29511 + 6000);
+  // Living expenses: single (23448) + first dep (5055) + second dep (3821) = 29511
+  assert.equal(inSession.financialProof.costOfLivingRequired, 35888);
+  assert.equal(inSession.financialProof.estimatedTravel, 1500 * 3);
+  assert.equal(inSession.financialProof.totalProofRequiredCad, 15000 + 35888 + 4500);
 
   const onBreak = auditStudyPermitAndPal({
     programLevel: PROGRAM_LEVELS.MASTERS_DEGREE,

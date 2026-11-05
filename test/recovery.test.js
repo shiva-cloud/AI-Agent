@@ -8,9 +8,34 @@ import {verifyDatabase} from '../src/verification.js';
 import {createBackup,verifyBackup,restoreDrill} from '../src/recovery.js';
 import {seeds} from '../src/knowledge.js';
 import {answer} from '../src/engine.js';
+import {publicEvidence} from '../src/public-evidence.js';
 
 function workspace(){const root=mkdtempSync(join(tmpdir(),'northstar-recovery-'));return {root,file:join(root,'source.sqlite'),backups:join(root,'backups'),drills:join(root,'drills')};}
 function cleanup(root){const rel=relative(resolve(tmpdir()),resolve(root));assert.ok(!isAbsolute(rel) && !rel.startsWith('..') && rel.startsWith('northstar-recovery-'));rmSync(root,{recursive:true,force:true});}
+
+test('authenticated authorization survives backup/restore and corrupt bindings fail verification',async()=>{
+ const w=workspace(),store=openStore(w.file);
+ let restored;
+ try {
+  const actor={id:'recovery-reviewer',role:'reviewer',mode:'individual'};
+  const note='Synthetic authenticated recovery fixture review.';
+  const seed=seeds.find(r=>r.id==='sin-route');
+  const record={...seed,id:'recovery-auth-fixture',risk:'high',status:'pending',quote:'Applicants must submit their supporting documents with the completed application.',checkedAt:new Date().toISOString().slice(0,10),expiresAt:'2099-01-01'};
+  store.ingestion.permitSource('seed-sin-route',{reviewer:'editorial-board',note,tier:'A'});
+  const candidate=store.ingestion.ingest({sourceId:'seed-sin-route',requestKey:'recovery-auth-import',content:record.quote,record});
+  store.ingestion.decide(candidate.id,{decision:'approve',reviewer:actor.id,note,reviewMethod:'source_verified'},actor);
+  const before=verifyDatabase(w.file);
+  assert.equal(before.counts.audit_authorizations,1);
+  const saved=await createBackup(w.file,w.backups);
+  assert.equal((await verifyBackup(saved.directory)).verification.dataDigest,before.dataDigest);
+  const report=await restoreDrill(saved.directory,w.drills);
+  restored=openStore(report.restoredDatabase);
+  assert.equal(publicEvidence(restored.db,restored.records()).find(r=>r.id===record.id).status,'approved');
+  store.db.exec('DROP TRIGGER audit_authorizations_immutable_update');
+  store.db.exec("UPDATE audit_authorizations SET payload_hash='corrupt'");
+  assert.throws(()=>verifyDatabase(w.file),/Audit authorization integrity mismatch/);
+ }finally{restored?.db.close();store.db.close();cleanup(w.root);}
+});
 test('online backup includes committed WAL writes and preserves schema and logical state',async()=>{
  const w=workspace(),store=openStore(w.file);try{
   store.review('sin-route','reject','Test reviewer','Evidence withdrawn for backup test.');

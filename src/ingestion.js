@@ -25,6 +25,7 @@ export function configureIngestion(db) {
   transaction(db,()=>{
     db.exec(`
       CREATE TABLE IF NOT EXISTS sources(id TEXT PRIMARY KEY,url TEXT NOT NULL UNIQUE,owner TEXT NOT NULL,tier TEXT NOT NULL CHECK(tier IN ('A','B','C','D','unclassified')),language TEXT NOT NULL CHECK(language='en'),policy TEXT NOT NULL CHECK(policy IN ('unreviewed','manual_permitted')),reviewer TEXT NOT NULL,note TEXT NOT NULL);
+      CREATE TABLE IF NOT EXISTS audit_authorizations(audit_id INTEGER PRIMARY KEY REFERENCES audits(id),actor_id TEXT NOT NULL,role TEXT NOT NULL CHECK(role IN ('admin','reviewer')),mode TEXT NOT NULL CHECK(mode='individual'),payload_hash TEXT NOT NULL,at TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS snapshots(id TEXT PRIMARY KEY,source_id TEXT NOT NULL REFERENCES sources(id),content TEXT NOT NULL,content_hash TEXT NOT NULL,imported_at TEXT NOT NULL,kind TEXT NOT NULL CHECK(kind='manual_excerpt'),UNIQUE(source_id,content_hash));
       CREATE TABLE IF NOT EXISTS candidates(id TEXT PRIMARY KEY,record_id TEXT NOT NULL,snapshot_id TEXT NOT NULL REFERENCES snapshots(id),body TEXT NOT NULL,base_hash TEXT,status TEXT NOT NULL CHECK(status IN ('pending','approved','rejected')),request_key TEXT NOT NULL UNIQUE,request_hash TEXT NOT NULL,created_at TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS candidate_decisions(id INTEGER PRIMARY KEY,candidate_id TEXT NOT NULL REFERENCES candidates(id),decision TEXT NOT NULL CHECK(decision IN ('approve','reject')),reviewer TEXT NOT NULL,note TEXT NOT NULL,at TEXT NOT NULL);
@@ -48,7 +49,7 @@ export function configureIngestion(db) {
       change_events:'(NEW.baseline_body IS NULL OR english_record(NEW.baseline_body)=1) AND english_json(NEW.report)=1 AND english_text(NEW.at)=1'
     };
     for(const [table,check] of Object.entries(checks)) for(const op of ['INSERT','UPDATE']) db.exec(`CREATE TRIGGER IF NOT EXISTS ${table}_english_${op.toLowerCase()} BEFORE ${op} ON ${table} WHEN NOT (${check}) BEGIN SELECT RAISE(ABORT,'English-only database policy violation'); END;`);
-    for(const table of ['snapshots','publications','candidate_decisions','source_policy_reviews','restorations','change_events']) for(const op of ['UPDATE','DELETE']) db.exec(`CREATE TRIGGER IF NOT EXISTS ${table}_immutable_${op.toLowerCase()} BEFORE ${op} ON ${table} BEGIN SELECT RAISE(ABORT,'Immutable evidence history'); END;`);
+    for(const table of ['snapshots','publications','candidate_decisions','source_policy_reviews','restorations','change_events','audit_authorizations']) for(const op of ['UPDATE','DELETE']) db.exec(`CREATE TRIGGER IF NOT EXISTS ${table}_immutable_${op.toLowerCase()} BEFORE ${op} ON ${table} BEGIN SELECT RAISE(ABORT,'Immutable evidence history'); END;`);
     db.exec(`CREATE TRIGGER IF NOT EXISTS candidate_payload_immutable BEFORE UPDATE ON candidates
       WHEN NEW.id IS NOT OLD.id OR NEW.record_id IS NOT OLD.record_id OR NEW.snapshot_id IS NOT OLD.snapshot_id OR NEW.body IS NOT OLD.body OR NEW.base_hash IS NOT OLD.base_hash OR NEW.request_key IS NOT OLD.request_key OR NEW.request_hash IS NOT OLD.request_hash OR NEW.created_at IS NOT OLD.created_at
       BEGIN SELECT RAISE(ABORT,'Immutable candidate payload'); END;`);
@@ -59,6 +60,7 @@ export function configureIngestion(db) {
     db.prepare('INSERT OR IGNORE INTO schema_migrations VALUES (3,?,?)').run('Audited evidence version restoration',new Date().toISOString());
     db.prepare('INSERT OR IGNORE INTO schema_migrations VALUES (4,?,?)').run('Source suspension and publication withdrawal',new Date().toISOString());
     db.prepare('INSERT OR IGNORE INTO schema_migrations VALUES (5,?,?)').run('Immutable import comparisons and source impact hints',new Date().toISOString());
+    db.prepare('INSERT OR IGNORE INTO schema_migrations VALUES (7,?,?)').run('Authenticated reviewer audit authorization events',new Date().toISOString());
   });
 }
 
@@ -161,7 +163,7 @@ export function ingestionStore(db) {
     },
     candidates:()=>db.prepare('SELECT c.*,s.content,s.content_hash,s.source_id,e.report AS change_report FROM candidates c JOIN snapshots s ON s.id=c.snapshot_id LEFT JOIN change_events e ON e.candidate_id=c.id ORDER BY c.created_at DESC').all().map(c=>({...c,record:JSON.parse(c.body),changeReport:c.change_report?JSON.parse(c.change_report):null})),
     changes:()=>db.prepare('SELECT e.*,c.record_id,c.status,c.snapshot_id FROM change_events e JOIN candidates c ON c.id=e.candidate_id ORDER BY e.at DESC,e.candidate_id').all().map(e=>({...e,report:JSON.parse(e.report),baselineRecord:e.baseline_body?JSON.parse(e.baseline_body):null})),
-    decide(id,input) {
+    decide(id,input,authenticatedActor) {
       reviewInput(input);if(!['approve','reject'].includes(input.decision)) throw new ValidationError('Choose approve or reject');
       // 'source_verified' marks a publication made by the automated official-page
       // check (scripts/kb-verify-publish.js); users see it labelled as automated.
@@ -181,7 +183,7 @@ export function ingestionStore(db) {
           if((previous===null?null:hash(previous))!==c.base_hash) throw new ValidationError('Published record changed; import a fresh candidate before approval',409);
           const next=JSON.stringify({...record,status:'approved',reviewedAt:at,reviewMethod,sourceId:s.id,snapshotId:snap.id});
           db.prepare('INSERT INTO records VALUES (?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body').run(c.record_id,next);
-          appendAudit(db, { recordId: c.record_id, previous: previous ?? c.body, next, reviewer: input.reviewer, note: input.note, at, action: input.decision });
+          appendAudit(db, { recordId: c.record_id, previous: previous ?? c.body, next, reviewer: input.reviewer, note: input.note, at, action: input.decision, authenticatedActor });
           publicationId=Number(db.prepare('INSERT INTO publications(record_id,candidate_id,snapshot_id,body,at) VALUES (?,?,?,?,?)').run(c.record_id,c.id,c.snapshot_id,next,at).lastInsertRowid);
         }
         db.prepare('UPDATE candidates SET status=? WHERE id=?').run(input.decision==='approve'?'approved':'rejected',id);
@@ -194,7 +196,7 @@ export function ingestionStore(db) {
       const body=current(id);if(body===null) throw new ValidationError('Unknown evidence record',404);
       return {currentRecord:JSON.parse(body),currentHash:hash(body),restorations:db.prepare('SELECT id,target_publication_id,reviewer,note,at FROM restorations WHERE record_id=? ORDER BY id DESC').all(id)};
     },
-    restore(id,input) {
+    restore(id,input,authenticatedActor) {
       identity(id);identity(input.requestKey);reviewInput(input);
       if(!Number.isSafeInteger(input.publicationId) || input.publicationId<1 || typeof input.expectedHash!=='string' || !/^[a-f0-9]{64}$/.test(input.expectedHash)) throw new ValidationError('A publication ID and current record hash are required');
       const requestHash=hash(canonical({...input,recordId:id}));
@@ -214,7 +216,7 @@ export function ingestionStore(db) {
         const at=new Date().toISOString(),next=JSON.stringify({...record,reviewedAt:at});
         const event=db.prepare('INSERT INTO restorations(record_id,target_publication_id,previous,next,reviewer,note,request_key,request_hash,at) VALUES (?,?,?,?,?,?,?,?,?)').run(id,version.id,previous,next,input.reviewer,input.note,input.requestKey,requestHash,at);
         db.prepare('UPDATE records SET body=? WHERE id=?').run(next,id);
-        appendAudit(db, { recordId: id, previous, next, reviewer: input.reviewer, note: `Restore publication ${version.id}: ${input.note}`, at, action: 'approve' });
+        appendAudit(db, { recordId: id, previous, next, reviewer: input.reviewer, note: `Restore publication ${version.id}: ${input.note}`, at, action: 'approve', authenticatedActor });
         return {restorationId:Number(event.lastInsertRowid),recordId:id,publicationId:version.id,replayed:false};
       });
     }

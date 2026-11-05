@@ -1,0 +1,43 @@
+import { createRequire } from 'node:module';
+import { writeFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+import { createApp } from '../src/server.js';
+import { openStore } from '../src/store.js';
+const require = createRequire(process.env.PLAYWRIGHT_PACKAGE || 'C:/Users/shiva/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json');
+const { chromium } = require('playwright');
+const store = openStore(':memory:');
+const server = createApp(store);
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+const errors = [];
+try {
+  const page = await browser.newPage();
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(`http://127.0.0.1:${server.address().port}`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => window.triggerToolModal({ id: 'study-permit-cap-pal' }));
+  assert.equal(await page.locator('[name="tuition"]').inputValue(), '');
+  assert.equal(await page.locator('[name="funds"]').inputValue(), '');
+  await page.locator('#tool-modal-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results')?.textContent.includes('Not determined'));
+  await page.locator('[name="tuition"]').fill('0');
+  await page.locator('[name="funds"]').fill('0');
+  await page.locator('#tool-modal-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results')?.textContent.includes('Available: $0'));
+  await page.locator('[name="isPublicDli"]').selectOption('true');
+  await page.locator('[name="applicationDate"]').fill('2026-08-31');
+  await page.locator('#tool-modal-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results')?.textContent.includes('24,395'));
+  await page.locator('[name="isPublicDli"]').selectOption('false');
+  await page.locator('#tool-modal-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results')?.textContent.includes('PAL_MANDATORY'));
+  await page.locator('[name="applicationDate"]').fill('2027-01-01');
+  await page.locator('#tool-modal-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#tool-modal-results')?.textContent.includes('No reviewed financial policy'));
+  assert.deepEqual(errors, []);
+  writeFileSync('artifacts/STUDY_POLICY_2026-11-06_browser.json', JSON.stringify({ passed: true, checks: ['blank financial fields', 'missing values render not determined', 'zero funds render without null errors', 'application date selects prior table', 'private DLI is not granted graduate exemption', 'future unreviewed date abstains'], errors }, null, 2));
+  console.log('Study financial input and result browser checks passed.');
+} finally {
+  await browser.close();
+  await new Promise(resolve => server.close(resolve));
+  store.db.close();
+}

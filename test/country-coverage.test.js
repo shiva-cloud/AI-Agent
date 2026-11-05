@@ -126,22 +126,80 @@ test('evidence database coverage floors hold when the database is present', (t) 
     assert.equal(r.language, 'en', `${r.id} uses the English-only contract`);
     assert.ok((r.quote || '').length > 5, `${r.id} carries a quote`);
     assert.ok((r.reviewBasis || '').length > 5, `${r.id} states its review basis`);
-    assert.ok(['approved', 'rejected', 'research_seed'].includes(r.status), `${r.id} status is a known value`);
+    assert.ok(['approved', 'pending', 'rejected', 'research_seed'].includes(r.status), `${r.id} status is a known value`);
     assert.ok(['low', 'high'].includes(r.risk), `${r.id} risk is a known value`);
     assert.ok(ISO_DATE.test(r.checkedAt || ''), `${r.id} checkedAt is an ISO date`);
     assert.ok(ISO_DATE.test(r.expiresAt || ''), `${r.id} expiresAt is an ISO date`);
   }
 
   assert.ok(auditedIds.size >= 864, 'editorial audit trail floor');
-  // Refrozen 4 November 2026: the dead-link repair batch relocated
-  // de-mietrecht-kaution-schufa-housing-kyc (bmj.de -> bmjv.de) and
-  // ie-rtb-rpz-2-percent-rent-cap (rtb.ie restructured /renting/ tree) and both
-  // passed the official-page check (68 distinct published records; the same
-  // morning run also re-verified the already-published eviction and
-  // uk-london-nhs-gp-registration after their bodies changed). The second
-  // dead-link pass relocated ie-rtb-security-deposit-and-rpz-protection-kyc to
-  // the rtb.ie security-deposits page and it verified on its own run (69).
-  assert.ok(publishedIds.size >= 69, 'publication-chain floor');
+  // Refrozen 4 November 2026: the dead-link repair batches relocated
+  // de-mietrecht-kaution-schufa-housing-kyc (bmj.de -> bmjv.de),
+  // ie-rtb-rpz-2-percent-rent-cap (rtb.ie restructured /renting/ tree) and
+  // ie-rtb-security-deposit-and-rpz-protection-kyc (same restructure), and the
+  // quote-drift batch restored verbatim quotes for ontario-rent-increase-guideline,
+  // uk-tenancy-deposit-scheme-tds-kyc and uk-private-rented-epc-mees-regulations-kyc,
+  // and the quote-drift/short-quote batch four restored five more: BGB section 551
+  // deposit installments, IRCC work-off-campus 186(v), IRCC Express Entry overview,
+  // IRCC ECA for Express Entry, and Ontario improper-rent-increase disputes.
+  // Refrozen 5 November 2026: the quote-drift/short-quote batch five restored
+  // five more from their live pages: IRCC maintained status (the R183(5)
+  // extension rule), IRCC dual intent (subsection A22(2)), the IRCC CRS
+  // criteria grid (with the November 3, 2026 job-offer changes), GOV.UK
+  // right-to-rent document checks, and ESDC employer compliance.
+  // The quote-drift/short-quote batch six restored six more, all IRCC pages:
+  // maintained-status travel (re-entry/R190), the police-certificate overview
+  // (heading quote), working off campus (24-hour rule), how to get a police
+  // certificate, Express Entry police certificates, and about-the-PGWP.
+  // The batch seven restored six more from their live pages: the Federal
+  // Skilled Worker work-experience minimums (1,560 hours), CEC qualifying
+  // work experience (R87.1(3)(b) exclusion), the Service Canada SIN
+  // application page (working while a SIN is expired), the Ontario ESA
+  // severance pay guide, GOV.UK's Graduate visa (18 months / 2 years split),
+  // and IRCC's what-is-work guidance. The batch eight restored twelve more
+  // from their live pages: the GOV.UK Innovator Founder visa, ILR for
+  // Skilled Worker visas, the 3C-and-3D-leave and continuous-residence
+  // publications, the Graduate visa page again (a different block), the
+  // Scale-up Worker visa, the IRCC implied-status page again (a different
+  // block), the CEC qualifying-work-experience page again (a different
+  // block), the Skilled Worker visa and right-to-work KYC pages, the
+  // Ontario professions page and the ESA payment-of-wages guide (106
+  // distinct published records).
+  // Refrozen 5 November 2026: the summary-figure batch nine repaired nineteen
+  // records whose figures the page check could not verify inside the evidence
+  // window around the quote (CMHC stat-block re-anchoring for the Vancouver
+  // and Toronto records, off-window or off-page figures dropped elsewhere)
+  // and republished them - eighteen of the nineteen had been published in
+  // earlier rounds and drifted off the check when their pages changed (107
+  // distinct published records; only the Ontario post-2018 exemption record
+  // is new to the chain).
+  // Refrozen again the same day: the short-quote batch ten repaired eleven
+  // records whose quotes were page headings or fragments (with one relocation
+  // from the Section 18b to the Section 18c Einzelnorm of gesetze-im-internet)
+  // and republished them - all eleven are new to the publication chain (118
+  // distinct published records).
+  // Refrozen a third time the same day: slice two of the short-quote batch
+  // repaired fourteen more heading-quote records - the USCIS OPT, EB-1/2/3,
+  // EB-5, L-1A and CSPA pages, the MOM EP and S Pass eligibility pages, the
+  // IND highly-skilled-migrant and start-up pages, the INZ AEWV, Straight to
+  // Residence and post-study work pages, and the CRA folio and newcomers
+  // pages - and republished them - all fourteen are new to the publication
+  // chain (132 distinct published records).
+  // Refrozen a fourth time the same day: short-quote batch eleven repaired
+  // sixteen more heading-quote records - the FCAC bank-account page, the ATO
+  // DASP page, IRS Publication 519, the HMRC RDR3 landing page, the IRAS tax
+  // residency page, the UAE FTA corporate-tax hub, the ICBC, Ontario, DVLA,
+  // USA.gov, Sarathi and BSN driving/sin pages, the CCTS telecom page and the
+  // Ontario-childcare, TDSB and VSB registration pages - and republished
+  // them - all sixteen are new to the publication chain (148 distinct
+  // published records).
+  // Refrozen a fifth time the next day: short-quote batch twelve repaired
+  // eight more heading-quote records - the four Home Affairs script-rendered
+  // visa pages (bridging visa B, subclass 188, 186 and 485), the MOM work-pass
+  // exemption page, and the KBA, FRSC and LTO driving portals - and
+  // republished them - all eight are new to the publication chain (156
+  // distinct published records).
+  assert.ok(publishedIds.size >= 156, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

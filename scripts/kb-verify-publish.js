@@ -1,7 +1,7 @@
 // Publishes withheld high-risk records after an automated check of their
 // official pages (src/source-verifier.js). For each record in the publish queue
 // it fetches the official page, and only if the quote is on the page word for
-// word and every figure in the summary is on the page too, it archives an
+// word and every figure in the summary is in the saved excerpt too, it archives an
 // excerpt and publishes the record with reviewMethod 'source_verified'.
 // Answers label these "Checked against the official page · automated".
 // Records that fail stay withheld; the report says why.
@@ -76,7 +76,7 @@ export async function verifyAndPublish(store, { apply = false, topic = null, lim
         const candidate = store.ingestion.ingest({ sourceId: row.sourceId, requestKey: `verify-${row.id}-${today.replaceAll('-', '')}`.slice(0, 80), content: check.excerpt, record });
         if (candidate.status === 'pending') {
           store.ingestion.decide(candidate.id, { decision: 'approve', reviewer: REVIEWER, reviewMethod: 'source_verified',
-            note: `Automated check on ${today}: the quote appears word for word on ${viaArchive ? 'the archived copy of the official page (web.archive.org)' : 'the official page'}, and every figure in the summary appears on the page. Not an editor's review.` });
+            note: `Automated check on ${today}: the quote appears word for word on ${viaArchive ? 'the archived copy of the official page (web.archive.org)' : 'the official page'}, and every figure in the summary appears in the saved excerpt with matching currency/percent markers. This does not verify claim meaning. Not an editor's review.` });
         }
         result.published = true;
       } catch (e) { result.ok = false; result.reason = 'import_refused'; result.detail = e.message; }

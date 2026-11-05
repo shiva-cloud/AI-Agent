@@ -2,33 +2,76 @@
 // Statutory TRV Ties & Dual Intent Risk Evaluator
 // Based on Immigration and Refugee Protection Act (IRPA) s. 179(b) and s. 22(2).
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { boundedText, safeIsoDate, todayIso, isIsoCalendarDate } from './text-input.js';
+import { ToolInputError } from './api-errors.js';
+
+function visitorNumber(value, name, min, max, integer = false) {
+  if (value === undefined) return undefined;
+  if ((typeof value !== 'number' && typeof value !== 'string') ||
+      (typeof value === 'string' && !/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(value.trim()))) {
+    throw new ToolInputError(`${name} must be a decimal number.`);
+  }
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < min || number > max || (integer && !Number.isInteger(number))) {
+    throw new ToolInputError(`${name} must be ${integer ? 'a whole number' : 'a number'} between ${min} and ${max}.`);
+  }
+  return number;
+}
+
+function visitorBoolean(value, name) {
+  if (value === undefined) return undefined;
+  if (value === true || value === 'true') return true;
+  if (value === false || value === 'false') return false;
+  throw new ToolInputError(`${name} must be true or false.`);
+}
 
 export function evaluateVisitorVisaTies({
   applicantName = 'Visitor Applicant',
   countryOfResidence = 'IN',
-  plannedStayDays = 21,
-  liquidFundsCad = 12000,
-  hasApprovedJobLeaveLetter = true,
-  yearsAtCurrentJob = 3.5,
-  monthlyIncomeCad = 2500,
-  ownsRealEstateProperty = true,
-  hasImmediateFamilyRemainingHome = true, // Spouse or minor children staying behind
-  allImmediateFamilyTravelingTogether = false,
-  hasPriorCompliantTravelG7 = true, // Previous travel to US, UK, Schengen, AU, NZ, CA
-  hasPreviousVisaRefusal = false,
-  isDualIntentPrPending = false,
+  plannedStayDays,
+  liquidFundsCad,
+  hasApprovedJobLeaveLetter,
+  yearsAtCurrentJob,
+  monthlyIncomeCad,
+  ownsRealEstateProperty,
+  hasImmediateFamilyRemainingHome, // Spouse or minor children staying behind
+  allImmediateFamilyTravelingTogether,
+  hasPriorCompliantTravelG7, // Previous travel to US, UK, Schengen, AU, NZ, CA
+  hasPreviousVisaRefusal,
+  isDualIntentPrPending,
   hostInCanadaRelationship = 'family_sibling', // 'none_tourist', 'family_sibling', 'friend', 'business_conference'
   assessmentDate = todayIso()
 } = {}) {
+  hasApprovedJobLeaveLetter = visitorBoolean(hasApprovedJobLeaveLetter, 'Approved leave letter');
+  ownsRealEstateProperty = visitorBoolean(ownsRealEstateProperty, 'Property ownership');
+  hasImmediateFamilyRemainingHome = visitorBoolean(hasImmediateFamilyRemainingHome, 'Family remaining at home');
+  allImmediateFamilyTravelingTogether = visitorBoolean(allImmediateFamilyTravelingTogether, 'Family traveling together');
+  hasPriorCompliantTravelG7 = visitorBoolean(hasPriorCompliantTravelG7, 'Prior compliant travel');
+  hasPreviousVisaRefusal = visitorBoolean(hasPreviousVisaRefusal, 'Previous visa refusal');
+  isDualIntentPrPending = visitorBoolean(isDualIntentPrPending, 'Pending permanent residence application');
+  if (!isIsoCalendarDate(assessmentDate)) throw new ToolInputError('Assessment date must be a valid YYYY-MM-DD calendar date.');
   const safeApplicant = boundedText(applicantName, 'Visitor Applicant', 120);
   const safeCountry = boundedText(countryOfResidence, 'IN', 10);
   const safeHostRel = boundedText(hostInCanadaRelationship, 'family_sibling', 40);
   const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
-  const safeStayDays = Math.max(1, Math.min(365, Math.floor(Number(plannedStayDays) || 1)));
-  const safeLiquidFunds = Math.max(0, Math.min(100000000, Number(liquidFundsCad) || 0));
-  const safeJobTenure = Math.max(0, Math.min(60, Number(yearsAtCurrentJob) || 0));
-  const safeMonthlyIncome = Math.max(0, Math.min(1000000, Number(monthlyIncomeCad) || 0));
+  const safeStayDays = visitorNumber(plannedStayDays, 'Stay days', 1, 365, true);
+  const safeLiquidFunds = visitorNumber(liquidFundsCad, 'Liquid funds', 0, 100000000);
+  const safeJobTenure = visitorNumber(yearsAtCurrentJob, 'Job tenure', 0, 60);
+  const safeMonthlyIncome = visitorNumber(monthlyIncomeCad, 'Monthly income', 0, 1000000);
+
+  const supplied = { plannedStayDays, liquidFundsCad, hasApprovedJobLeaveLetter, yearsAtCurrentJob, monthlyIncomeCad, ownsRealEstateProperty, hasImmediateFamilyRemainingHome, allImmediateFamilyTravelingTogether, hasPriorCompliantTravelG7, hasPreviousVisaRefusal, isDualIntentPrPending };
+  const missingInputs = Object.keys(supplied).filter(key => supplied[key] === undefined);
+  if (missingInputs.length) {
+    return {
+      assessmentDate: safeAssessmentDate, applicantName: safeApplicant, countryOfResidence: safeCountry,
+      hostInCanadaRelationship: safeHostRel, plannedStayDays: safeStayDays ?? null,
+      riskTier: 'NOT_DETERMINED', tieScoreOutOf100: null, approvalProbability: null, missingInputs,
+      financialMetrics: { liquidFundsCad: safeLiquidFunds ?? null, estimatedCostCad: null, fundsSurplusCad: null },
+      positiveFactors: [], riskFactors: [],
+      mitigationRecommendations: ['Provide the missing trip, financial and ties information before running the assessment.'],
+      statutoryCitations: []
+    };
+  }
 
   let score = 0;
   const positiveFactors = [];
@@ -112,15 +155,13 @@ export function evaluateVisitorVisaTies({
     mitigationRecommendations.push('Explicitly cite IRPA s. 22(2) in the cover letter acknowledging dual intent and affirming commitment to depart pending PR decision.');
   }
 
-  // Overall Risk Rating
+  // Internal heuristic grouping; these weights are not a calibrated prediction
+  // of an officer's decision or a probability of visa approval.
   let tier = 'LOW_RISK';
-  let approvalProbability = 'High';
   if (score < 45) {
     tier = 'HIGH_RISK';
-    approvalProbability = 'Low / Needs Strengthening';
   } else if (score < 70) {
     tier = 'MODERATE_RISK';
-    approvalProbability = 'Moderate';
   }
 
   return {
@@ -131,7 +172,9 @@ export function evaluateVisitorVisaTies({
     plannedStayDays: safeStayDays,
     tieScoreOutOf100: Math.max(0, Math.min(100, score)),
     riskTier: tier,
-    approvalProbability,
+    approvalProbability: null,
+    assessmentBasis: 'UNVALIDATED_HEURISTIC',
+    assessmentNotice: 'This score is an unvalidated planning heuristic, not a visa approval probability or an eligibility decision. The financial estimate is a planning assumption, not an official minimum.',
     financialMetrics: {
       liquidFundsCad: safeLiquidFunds,
       estimatedCostCad,

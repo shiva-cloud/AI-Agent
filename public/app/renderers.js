@@ -184,9 +184,9 @@ export function renderPathway() {
   ukHdr.append(el('h3', '🇬🇧 UK · Skilled Worker Visa', 'pathway-country'));
   ukHdr.append(el('span', 'Sponsorship Required', 'pathway-status-badge pathway-warn'));
   ukCard.append(ukHdr);
-  ukCard.append(el('div', '£38,700 Threshold', 'pathway-score'));
-  ukCard.append(el('p', 'UK points-based immigration requires 70 points: 20 pts for Job Offer by licensed sponsor, 20 pts for RQF level 3+ skill, 10 pts for English B1+, and 20 pts for meeting the £38,700 general salary threshold (or Immigration Salary List).', 'pathway-desc'));
-  ukCard.append(el('div', `Criteria Met: English (${lang !== 'clb5' ? 'B2/C1' : 'B1'}) + Skilled Education verified. Next step: Secure Certificate of Sponsorship (CoS).`, 'pathway-breakdown'));
+  ukCard.append(el('div', 'Check current salary rules', 'pathway-score'));
+  ukCard.append(el('p', 'Salary, occupation and sponsorship requirements depend on the current rules and the applicant’s circumstances. Verify official requirements before making an application.', 'pathway-desc'));
+  ukCard.append(el('div', 'Eligibility not determined. Confirm accepted language evidence, occupation, salary and sponsorship requirements.', 'pathway-breakdown'));
   container.append(ukCard);
 
   // 4. Germany Chancenkarte (Opportunity Card)

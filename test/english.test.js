@@ -64,7 +64,7 @@ test('legacy data and audit snapshots migrate without losing approval or provena
   const audit=store.db.prepare('SELECT * FROM audits').get();
   for(const key of ['previous','next']){const r=JSON.parse(audit[key]);assertEnglishRecord(r);assert.equal(r.summary,old.en);assert.ok(!('hi' in r));}
   assert.equal(audit.note,'Original English review note');store.db.close();
-  store=openStore(file);try{assert.equal(store.db.prepare('SELECT count(*) AS n FROM schema_migrations').get().n,6);assert.equal(store.summary().audits.length,1);}finally{store.db.close();}
+  store=openStore(file);try{assert.equal(store.db.prepare('SELECT count(*) AS n FROM schema_migrations').get().n,7);assert.equal(store.summary().audits.length,1);}finally{store.db.close();}
   assert.ok(!readFileSync(file).includes(Buffer.from(nonEnglish)));
  } finally {rmSync(dir,{recursive:true,force:true});}
 });

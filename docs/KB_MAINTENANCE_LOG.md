@@ -13,6 +13,35 @@ How the schedule works: docs/KB_MAINTENANCE.md, section "Automatic schedule".
 
 ## 2026-11-03: daily fact-check
 
+Second batch of the day.
+
+- **Checked:** 20 records (BC, CBSA, CRA, FCAC, Ontario and Germany). **Verified:** 6. **Corrected:** 8. **Need a person:** 6.
+- **Verified:** bc-rtb-dispute-resolution, cra-cost-base-step-up-landing-fmv, cra-t1135-personal-use-property-exemption, de-buergeramt-anmeldung-steuer-id-kyc, de-mietrecht-kaution-schufa-housing-kyc, de-rundfunkbeitrag-single-household-exemption (EUR 18.36 is still the fee; the KEF proposal of EUR 18.64 from 2027 has not been adopted).
+- **Corrections** (in `scripts/kb-corrections-2026-11-01.js` under `// Scheduled review 2026-11-03`, applied with a backup and an audit row per record; no `src/kb-facts.js` fact was affected):
+  - canada-pnp-intent-to-reside-charter-s6: "IRPA Section 87(2) and IRPR Section 87" (also in the title) → "section 87 of the Immigration and Refugee Protection Regulations (IRPR)" (https://laws-lois.justice.gc.ca/eng/regulations/SOR-2002-227/section-87.html)
+  - cbsa-poe-currency-declaration-e677: "penalties ranging from $250 to $5,000" → "penalties ranging from 5% to 50% of the seized funds"; "travelers must carry verifiable proof of funds" → "should keep" (https://www.cbsa-asfc.gc.ca/travel-voyage/ttd-vdd-eng.html)
+  - cra-fhsa-newcomer-immediate-eligibility: "room begins accruing as soon as the individual attains 18 … and becomes a Canadian tax resident" → room starts only in the year the first FHSA is opened (first-time home buyers); "100% tax-deductible … entirely tax-free" → "generally deductible … not taxed" (https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/contributing-your-fhsa.html)
+  - cra-tfsa-non-resident-contribution-penalty: "s.207.02 … 1% per month on the highest excess contribution amount" → non-resident contributions taxed at 1% per month under s.207.03 until fully withdrawn or residency resumes (excess tax s.207.02 is separate); "RC243 with an application for taxpayer relief under ITA section 220(3.1)" → RC243 and Schedule B by June 30, and a CRA waiver request if it was a reasonable error (https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/owing-tax/non-resident.html)
+  - de-aufenthg-chancenkarte-secondary-work-rights: "EU Blue Card … under Section 18a/18b" → "EU Blue Card (Section 18g) or skilled worker residence title (Section 18a/18b)" (https://www.gesetze-im-internet.de/aufenthg_2004/__18g.html)
+  - de-bafin-banking-kyc-girokonto: "International students must open … Sperrkonto … €11,904" → students usually use a Sperrkonto of at least €11,904 (€992 a month, 2026), and other proofs such as a Verpflichtungserklärung, a bank guarantee or a scholarship are also accepted (https://www.auswaertiges-amt.de/de/service/fragenkatalog-node/08-finanzierung/606220)
+  - fcac-secured-credit-card-kyc: "charging 30% to 47% APR" → "since 1 January 2025 the legal maximum for most consumer loans is 35% APR" (https://laws-lois.justice.gc.ca/eng/acts/c-46/section-347.html)
+  - fintrac-banking-kyc-bank-act: the "primary/secondary document" list (which included lease agreements and foreign credit cards) → the FCAC rule: two listed documents (name and address; name and date of birth), or one document plus confirmation by a person in good standing (https://www.canada.ca/en/financial-consumer-agency/services/banking/opening-bank-account.html)
+- **Need a person:**
+  - bc-msp-services-card-kyc-enrollment: the wait period (rest of the month plus two months) and the 6-month permit rule are confirmed. Check on Health Insurance BC whether the wait is now waived for any newcomer group (one search result mentions permanent residents and CUAET arrivals) and check the exact enrolment ID list. The gov.bc.ca page would not load.
+  - cbsa-digital-device-search-limits: the record URL returns 404; the current page is https://www.cbsa-asfc.gc.ca/travel-voyage/edd-ean-eng.html. The statement that courts accept Customs Act s.99(1)(a) for devices needs checking against R v Canfield (Alberta Court of Appeal, 2020).
+  - cbsa-expired-pr-card-land-border-entry: the record URL returns 404. IRCC confirms that a PR without a valid card can return by land in a private vehicle. Check whether a COPR is accepted, and soften "absolute right" and "cannot refuse entry".
+  - cra-my-account-interac-sign-in-partner-kyc: the record URL returns 404 and the process it describes is wrong. CRA says registration needs a filed return and a notice of assessment (BC and Alberta residents can use a provincial partner), and a Sign-in Partner is only a login. The security code arrives by mail within 10 business days. The summary needs rewriting from https://www.canada.ca/en/revenue-agency/services/e-services/cra-login-services/register-cra-sign-in-services.html.
+  - de-schulpflicht-school-registration-kyc: compulsory schooling comes from each state's school law, not the Basic Law, and its length differs by state. "Aged 6 to 18" needs state-by-state wording.
+  - drivetest-kyc-document-authentication: the record URL has moved (drivetest.ca/licences/exchanges-foreign-licences/foreign-licence-experience-credits/). Ontario accepts MTO-recognized translators or an embassy or consulate letter, not only ATIO/STIBC. The extract examples (Parivahan, DVLA, LTO) are unconfirmed. Ontario also changed experience credits on 1 July 2026.
+- **Note:** cbsa-asfc.gc.ca, drivetest.ca and gov.bc.ca pages partly failed to load (404, 403 or dropped connection); those checks used search results from official domains. Review totals also changed between runs (total 589 → 393, checked 94 → 110 before this batch), most likely because of another session; this run did not change the queue's scope.
+- **Review progress:** `{"total":393,"checked":130,"remaining":263,"verified":79,"corrected":39,"needs-human":12}`
+- **Tests:** `npm test`: 2361 passed, 0 failed.
+
+सारांश: आज दूसरी बार 20 रिकॉर्ड जाँचे गए। 6 सही थे, 8 में गलत जानकारी ठीक की गई (जैसे ब्याज की अधिकतम दर अब 35%, FHSA की सीमा खाता खोलने से शुरू होती है, CBSA जुर्माना 5% से 50%)।
+6 रिकॉर्ड (BC MSP, CBSA के दो पेज, CRA My Account, जर्मनी स्कूल नियम, DriveTest) आपको खुद देखने हैं। सभी टेस्ट पास हैं।
+
+## 2026-11-03: daily fact-check
+
 - **Checked:** 20 records (UAE and Australia). **Verified:** 10. **Corrected:** 4. **Need a person:** 6.
 - **Corrections** (in `scripts/kb-corrections-2026-11-01.js` under `// Scheduled review 2026-11-03`, applied with a backup and an audit row per record; no `src/kb-facts.js` fact was affected):
   - au-austrac-100-point-banking-kyc: "International electronic wire transfers of AUD $10,000 or more are reported to AUSTRAC" → banks report international transfers whatever the amount, and cash (notes and coins) of AUD 10,000 or more as threshold transactions (https://www.austrac.gov.au/industry-and-business/obligations-and-guidance/your-amlctf-program/reporting-us/threshold-transaction-reports)

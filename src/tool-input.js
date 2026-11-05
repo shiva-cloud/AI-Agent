@@ -1,3 +1,5 @@
+import { ToolInputError } from './api-errors.js';
+
 // Tool input contract: friendly form values -> canonical tool parameters.
 // Extracted from src/server.js so the parity contract sits in its own module.
 // Tool safety nets (diagnosis 2026-11-01). People type money as "$75,000" or
@@ -168,17 +170,67 @@ const TOOL_FORM_ALIASES={
     evictionNotice:[['evictionNoticeGiven'],'boolTrue'],notaryServed:[['evictionServedViaNotary'],'notFalse']
   }
 };
+// Validate before route-specific coercion can turn malformed values into defaults.
+// Empty controls retain the existing missing-input contract; supplied typed values
+// must be finite decimal numbers or explicit booleans. Canonical POST names use
+// the same rules as their form aliases.
+export function validateToolAliasInput(path, input) {
+  const aliases = TOOL_FORM_ALIASES[path];
+  if (!aliases || path === '/v1/tools/study-permit-cap-pal') return;
+  const types = new Map();
+  for (const [alias, spec] of Object.entries(aliases)) {
+    if (!Array.isArray(spec) || !['number', 'boolTrue', 'notFalse', 'csv'].includes(spec[1])) continue;
+    for (const name of [alias, ...(Array.isArray(spec[0]) ? spec[0] : [spec[0]])]) types.set(name, spec[1]);
+  }
+  const entries = input instanceof URLSearchParams ? input.entries() : Object.entries(input);
+  for (const [name, value] of entries) {
+    const type = types.get(name);
+    if (!type || value === undefined || value === '') continue;
+    if (type === 'csv') {
+      const items = typeof value === 'string' ? value.split(',') : value;
+      if (!Array.isArray(items) || items.length > 100 || items.some(item => typeof item !== 'string' || item.length > 200)) {
+        throw new ToolInputError(`Invalid value for ${name}: expected a comma-separated string or up to 100 short strings.`);
+      }
+      continue;
+    }
+    const valid = type === 'number'
+      ? ((typeof value === 'number' && Number.isFinite(value)) ||
+         (typeof value === 'string' && /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(value.trim()) && Number.isFinite(Number(value))))
+      : value === true || value === false || value === 'true' || value === 'false';
+    if (!valid) throw new ToolInputError(`Invalid value for ${name}: expected ${type === 'number' ? 'a finite number' : 'true or false'}.`);
+  }
+}
+
 export function applyFormAliases(path,input){
   const aliases=TOOL_FORM_ALIASES[path];
   if(!aliases||!input||typeof input!=='object'||Array.isArray(input))return input;
+  if (path === '/v1/tools/study-permit-cap-pal') {
+    for (const name of ['applicationDate', 'isPublicDli']) if (input[name] === '') delete input[name];
+  }
+  validateToolAliasInput(path, input);
+  // Canonical JSON keys must have the same types as mapped form keys. In
+  // particular, the string "false" is truthy in evaluators using boolean guards.
+  if (path !== '/v1/tools/study-permit-cap-pal') {
+    for (const spec of Object.values(aliases)) {
+      if (!Array.isArray(spec) || !['number', 'boolTrue', 'notFalse', 'csv'].includes(spec[1])) continue;
+      for (const name of (Array.isArray(spec[0]) ? spec[0] : [spec[0]])) {
+        if (input[name] === '') delete input[name];
+        else if (input[name] !== undefined) input[name] = ALIAS_TRANSFORMS[spec[1]](input[name]);
+      }
+    }
+  }
   for(const [formKey,spec] of Object.entries(aliases)){
     if(!(formKey in input))continue;
     const value=input[formKey];
-    if(value===undefined||value===null||value==='')continue;
+    const strictStudy=path==='/v1/tools/study-permit-cap-pal';
+    if(value===undefined||(!strictStudy&&(value===null||value==='')))continue;
     const specList=Array.isArray(spec)?spec:[spec,'plain'];
     const names=Array.isArray(specList[0])?specList[0]:[specList[0]];
     const transform=ALIAS_TRANSFORMS[specList[1]]||ALIAS_TRANSFORMS.plain;
-    const mapped=transform(value);
+    const converted=transform(value);
+    // Preserve raw study values for strict evaluator validation. Coercion here
+    // would turn true/[] into 1/0 or discard invalid strings as missing fields.
+    const mapped=strictStudy ? value : converted;
     if(mapped===undefined)continue;
     for(const name of names)if(input[name]===undefined)input[name]=mapped;
   }

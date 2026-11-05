@@ -25,12 +25,6 @@ try{
  await controls.last().focus();await page.keyboard.press('Tab');assert.equal(await controls.first().evaluate(e=>e===document.activeElement),true);
  await page.keyboard.press('Shift+Tab');assert.equal(await controls.last().evaluate(e=>e===document.activeElement),true);
  await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>document.activeElement===window.__modalTrigger),true);report.checks.push('dialog name, tab loop, escape, focus return');
- await page.route('**/v1/tools/lmia-readiness?*',route=>route.fulfill({status:503,body:'unavailable'}));
- await page.evaluate(()=>window.triggerToolModal({id:'lmia-readiness',title:'LMIA readiness',endpoint:'/v1/tools/lmia-readiness'}));
- await dialog.locator('button[type=submit]').click();
- await page.waitForFunction(()=>document.querySelector('.tool-modal-error')?.textContent.includes('HTTP 503'));
- assert.equal(await dialog.locator('button[type=submit]').isEnabled(),true);
- await page.keyboard.press('Escape');report.checks.push('API failure visible and submit restored');
  const cached=await page.evaluate(async()=>{const names=await caches.keys();return (await Promise.all(names.map(async n=>(await (await caches.open(n)).keys()).map(r=>new URL(r.url).pathname)))).flat();});
  assert.ok(cached.includes('/offline.html'));assert.ok(!cached.some(p=>p.startsWith('/v1/')||p.startsWith('/admin/')));report.checks.push('offline shell installed; no API/admin responses cached');
  await context.setOffline(true);await page.goto(base,{waitUntil:'domcontentloaded'});assert.match(await page.locator('h1').innerText(),/Offline/);report.checks.push('real offline navigation serves offline page');

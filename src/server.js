@@ -9,7 +9,7 @@ import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { appModuleFiles } from './app-modules.js';
 import { fileURLToPath } from 'node:url';
-import { createHash } from 'node:crypto';
+import { createHash, timingSafeEqual } from 'node:crypto';
 import { brotliCompress, gzip, constants as zlibConstants } from 'node:zlib';
 import { promisify } from 'node:util';
 import { handleToolGet, handleToolPost } from './routes/tools.js';
@@ -63,7 +63,7 @@ import { getAirportPhrases, getAirportCategories, getAirportPhraseById } from '.
 import { getAvailableSpeechProfiles } from './audio-speech-helper.js';
 import { generateBilingualView } from './bilingual-view-helper.js';
 
-import { normalizeTypedNumber, normalizeToolInput, applyFormAliases, TOOL_OUTPUT_GARBAGE, TOOL_INPUT_ERROR, ASSUMPTION_NOTICE, trackQuery, trackBody } from './tool-input.js';
+import { normalizeTypedNumber, normalizeToolInput, applyFormAliases, validateToolAliasInput, TOOL_OUTPUT_GARBAGE, TOOL_INPUT_ERROR, ASSUMPTION_NOTICE, trackQuery, trackBody } from './tool-input.js';
 // Static routes for public/app/*.js, fixed at startup like the rest of the file list.
 const APP_MODULE_ROUTES=Object.fromEntries(appModuleFiles().map(file=>['/'+file,file]));
 export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN, aiOptions=aiRouterOptions(),options={}) {
@@ -77,7 +77,22 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
  const allowedOrigin=publicOrigin(options.publicOrigin);
  const clientAddress=createClientAddress(options.trustedProxyIps);
  if(options.actorsFile&&options.actors!==undefined)throw new Error('Choose one individual identity configuration source');
- const auth=options.actorsFile?createFileAdminAuth(options.actorsFile):createAdminAuth({actors:options.actors,legacyToken:adminToken});
+  const auth=options.actorsFile?createFileAdminAuth(options.actorsFile):createAdminAuth({actors:options.actors,legacyToken:adminToken});
+  // Prometheus metrics are operational data, not public content. When a
+  // dedicated METRICS_TOKEN is configured only that bearer may scrape; otherwise
+  // any valid admin actor may, and with admin fully disabled (loopback dev
+  // default) the endpoints stay open.
+  const metricsToken=typeof options.metricsToken==='string'&&options.metricsToken.length>=24?options.metricsToken:null;
+  const metricsAuthorized=req=>{
+    if(metricsToken){
+      const header=req.headers.authorization;
+      if(typeof header!=='string'||!header.startsWith('Bearer '))return false;
+      const given=Buffer.from(header.slice(7)),expected=Buffer.from(metricsToken);
+      return given.length===expected.length&&timingSafeEqual(given,expected);
+    }
+    if(auth.mode!=='disabled')return Boolean(auth.authenticate(req.headers.authorization));
+    return true;
+  };
  const verifiedAnswer=createVerifiedAnswer({...aiOptions,searchIndex:options.searchIndex,cacheEntries:options.answerCacheEntries??0});
  let draining=false;
  // Route families get separate rate-limit buckets, so answering questions is
@@ -133,6 +148,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
    // Rebuild rather than set(), so a repeated key (?a=1&a=2) keeps every value.
    if(isToolRequest){const entries=[...url.searchParams];url.search='';for(const [k,v] of entries)url.searchParams.append(k,String(normalizeTypedNumber(v)));}
    if(req.headers.origin && req.headers.origin!==(allowedOrigin||`http://${req.headers.host}`)) return send(403,{error:'Cross-origin requests are not allowed'});
+   if(isToolRequest && req.method==='GET')validateToolAliasInput(path,url.searchParams);
    if(req.method==='GET' && path==='/ready') {
      if(draining)return send(503,{status:'not_ready',reason:'draining'});
      try {checkStorageReadiness(store.db);}
@@ -377,9 +393,11 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
       return res.end(xml);
     }
     if(path==='/v1/metrics') {
+      if(!metricsAuthorized(req))return send(401,{error:'Metrics authorization required',code:'metrics_unauthorized'});
       return send(200, { prometheus: formatPrometheusMetrics(observability.snapshot()) });
     }
     if(path==='/metrics') {
+      if(!metricsAuthorized(req))return send(401,{error:'Metrics authorization required',code:'metrics_unauthorized'});
       res.writeHead(200, { ...headers, 'Content-Type': 'text/plain; version=0.0.4; charset=utf-8' });
       return res.end(formatPrometheusMetrics(observability.snapshot()));
     }
@@ -697,8 +715,10 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
    const quotaKey=Buffer.from(process.env.RATE_LIMIT_KEY,'hex');
    try {quotaStore=openSharedRateLimits(process.env.RATE_LIMIT_DB_PATH,{key:quotaKey});}finally{quotaKey.fill(0);}
  }
- const answerCacheEntries=Number(process.env.ANSWER_CACHE_ENTRIES??0);
- if(!Number.isInteger(answerCacheEntries)||answerCacheEntries<0||answerCacheEntries>1000)throw new Error('ANSWER_CACHE_ENTRIES must be 0-1000');
+  const answerCacheEntries=Number(process.env.ANSWER_CACHE_ENTRIES??0);
+  if(!Number.isInteger(answerCacheEntries)||answerCacheEntries<0||answerCacheEntries>1000)throw new Error('ANSWER_CACHE_ENTRIES must be 0-1000');
+  const metricsToken=process.env.METRICS_TOKEN;
+  if(metricsToken!==undefined&&(typeof metricsToken!=='string'||metricsToken.length<24))throw new Error('METRICS_TOKEN must be at least 24 characters when set');
  createAdminAuth({actors,legacyToken:process.env.ADMIN_TOKEN});
  let jobQueue;
  if(process.env.ADMIN_JOB_DB_PATH) {
@@ -745,7 +765,7 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
  const byCode={};for(const w of policyReport.warnings)byCode[w.code]=(byCode[w.code]||0)+1;
  console.log('policy-lint:',Object.keys(byCode).length?JSON.stringify(byCode):'no warnings');
  const runtimeLogger=createStreamLogger(process.stderr);
- const server=createApp(store,process.env.ADMIN_TOKEN,aiRouterOptions(),{actors,actorsFile,searchIndex,jobQueue,accounts,mailer,testMode,trustedProxyIps,metricsStore,quotaStore,answerCacheEntries,publicOrigin:origin,logger:event=>runtimeLogger.log(event)});
+  const server=createApp(store,process.env.ADMIN_TOKEN,aiRouterOptions(),{actors,actorsFile,searchIndex,jobQueue,accounts,mailer,testMode,trustedProxyIps,metricsStore,quotaStore,answerCacheEntries,metricsToken,publicOrigin:origin,logger:event=>runtimeLogger.log(event)});
  const shutdown=createShutdown(server,{cleanup:()=>{clearInterval(timer);accounts?.close();quotaStore?.close();metricsStore?.close();jobQueue?.close();searchIndex?.close();store.db.close();}});
  const onSignal=()=>{shutdown().catch(()=>{console.error('Shutdown failed');process.exitCode=1;});};
  process.on('SIGINT',onSignal);process.on('SIGTERM',onSignal);

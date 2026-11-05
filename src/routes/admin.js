@@ -42,6 +42,8 @@ export function handleAdminGet(ctx) {
 
 export function handleAdminPost(ctx) {
   const { actor, input, options, path, store, translations } = ctx;
+  // This context is supplied after server authentication, never from JSON input.
+  const authenticatedActor = actor?.mode === 'individual' ? actor : undefined;
   const send = (code, body) => { ctx.send(code, body); return true; };
     if(path==='/admin/job-schedules') {
       if(!options.jobQueue)return send(503,{error:'Job management is not configured',code:'queue_unavailable'});
@@ -62,14 +64,14 @@ export function handleAdminPost(ctx) {
     if(path==='/admin/sources') return send(201,store.ingestion.registerSource(input));
     if(path==='/admin/ingestion/run') {const result=store.ingestion.ingest(input);return send(result.replayed?200:201,result);}
     const restore=path.match(/^\/admin\/records\/([a-z0-9-]+)\/restore$/);
-    if(restore) return send(200,store.ingestion.restore(restore[1],input));
+    if(restore) return send(200,store.ingestion.restore(restore[1],input,authenticatedActor));
     const policy=path.match(/^\/admin\/sources\/([a-z0-9-]+)\/policy$/);
     if(policy) return send(200,store.ingestion.permitSource(policy[1],input));
     const suspension=path.match(/^\/admin\/sources\/([a-z0-9-]+)\/suspend$/);
     if(suspension) return send(200,store.ingestion.suspendSource(suspension[1],input));
     const candidate=path.match(/^\/admin\/candidates\/([a-z0-9-]+)\/decision$/);
-    if(candidate) return send(200,store.ingestion.decide(candidate[1],input));
+    if(candidate) return send(200,store.ingestion.decide(candidate[1],input,authenticatedActor));
     const review=path.match(/^\/admin\/reviews\/([a-z0-9-]+)\/decision$/);
-    if(review) return send(200,store.review(review[1],input.decision,input.reviewer,input.note));
+    if(review) return send(200,store.review(review[1],input.decision,input.reviewer,input.note,authenticatedActor));
   return false;
 }

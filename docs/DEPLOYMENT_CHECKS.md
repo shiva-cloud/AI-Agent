@@ -29,7 +29,9 @@ KB research, content updates, live fetching/parsing, approval and KB schema expa
 
 ## Trusted proxy client addresses — 29 October 2026
 
-The standalone server optionally reads TRUSTED_PROXY_IPS as a JSON array of at most 32 explicit IPv4/IPv6 addresses. Default is no trusted proxies. Invalid values fail startup before opening the working database. CIDRs, hostnames, ports, wildcard trust and zone identifiers are rejected. Embedded apps pass trustedProxyIps to createApp.
+The standalone server optionally reads TRUSTED_PROXY_IPS as a JSON array of at most 32 explicit IPv4/IPv6 addresses. Default is no trusted proxies. Invalid values fail startup before opening the working database. CIDRs, hostnames, ports, wildcard trust and zone identifiers are rejected. Embedded apps pass trustedProxyIps to createApp. Behind a proxy, deploy with the exact proxy IPs configured (for example `TRUSTED_PROXY_IPS='["10.0.0.5"]'`); without this every client shares the socket peer's bucket and one busy source can throttle everyone else into 429s.
+
+Prometheus metrics are no longer public: `/metrics` and `/v1/metrics` require a bearer. Set `METRICS_TOKEN` to a secret of at least 24 characters (pass `metricsToken` to `createApp()` when embedding) and give that value to your scraper; without it any valid admin actor may scrape, and when admin is disabled (loopback development default) the endpoints stay open. Tests cover both behaviors in `test/security-headers-and-guards.test.js`.
 
 Only a trusted immediate socket peer can supply X-Forwarded-For. The resolver walks right-to-left through trusted hops and stops at the first untrusted address. It normalizes IPv6 and IPv4-mapped addresses. Invalid chains, over 16 addresses, or headers over 2,048 characters fall back to the socket peer. Forwarded and X-Real-IP are ignored. This affects quotas only: it does not grant roles or change the explicit PUBLIC_ORIGIN policy. Configure a trusted proxy to overwrite incoming forwarding headers or append its actual observed client address, and restrict direct backend access. Never add an untrusted intermediary to the trusted list.
 

@@ -220,7 +220,7 @@ export const COMMAND_DIRECTORY = [
     "id": "cmd-study-permit-cap-pal",
     "toolModal": "study-permit-cap-pal",
     "title": "Study Permit Cap & PAL Exemption Checker",
-    "desc": "IRCC 2024-2026 caps, PAL exemption rules, and $20,635 living funds proof",
+    "desc": "Study permit planning, public-DLI graduate PAL rules, and date-aware living funds",
     "icon": "🎓",
     "keywords": [
       "pal",
@@ -232,7 +232,7 @@ export const COMMAND_DIRECTORY = [
       "funds",
       "tuition",
       "living",
-      "20635",
+      "financial support",
       "वीजा",
       "पीआर",
       "नागरिकता",
@@ -479,7 +479,7 @@ export const COMMAND_DIRECTORY = [
   {
     "id": "cmd-uk-skilled-worker",
     "toolModal": "uk-skilled-worker",
-    "title": "UK: Skilled Worker £38,700 vs Grandfathered & ILR Absence",
+    "title": "UK: Skilled Worker Salary Rules & ILR Absence",
     "desc": "Statement of Changes HC 590 salary audit, 180-day rolling ILR absence, and Section 21 eviction defense",
     "icon": "🇬🇧",
     "keywords": [

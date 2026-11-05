@@ -276,6 +276,7 @@ test('Rec 495: evaluateStudyPermitCapAndPal calculates PAL mandates, exemptions,
 
   const masters = evaluateStudyPermitCapAndPal({
     studyLevel: 'masters',
+    isPublicDli: true,
     isExtensionOfStudyPermit: true
   });
   assert.equal(masters.isPalRequired, false);
@@ -312,6 +313,7 @@ test('Rec 496: auditStudyPermitAndPal enforces Nov 1 2024 priority field alignme
 test('Rec 497: evaluateStudyToPrPathway calculates 3-year Master PGWP, CEC 1560h milestone, and CRS gains', () => {
   const mastersPath = evaluateStudyToPrPathway({
     studyLevel: 'masters',
+    isPublicDli: true,
     province: 'ON',
     fieldOfStudy: 'stem_tech',
     expectedClbLanguage: 9,

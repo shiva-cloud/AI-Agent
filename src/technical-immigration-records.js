@@ -78,21 +78,21 @@ export const technicalImmigrationRecords = [
   }),
   createRecord({
     id: 'ircc-work-experience-rules',
-    title: 'IRCC: Work experience requirements for Express Entry',
+    title: 'IRCC: Federal Skilled Worker Program - the skilled work experience minimum requirements',
     topic: 'employment',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/eligibility/federal-skilled-workers.html',
-    quote: 'Your skilled work experience must be paid work in NOC TEER 0, 1, 2, or 3.',
-    summary: 'For the Federal Skilled Worker (FSW) program, candidates must have at least 1 continuous year of full-time (or equal part-time, minimum 1,560 hours at 30 hours per week) paid skilled work experience in NOC TEER 0, 1, 2, or 3 within the last 10 years; unpaid work and work while studying full-time do not qualify for FSW or Canadian Experience Class (CEC). CEC requires at least 1 year of skilled Canadian work experience on valid authorization within the last 3 years, which does not need to be continuous. Employer reference letters must state job title, start and end dates, weekly hours, salary, and list duties matching the NOC lead statement. Self-employed work in Canada is excluded from CEC but can qualify for FSW. This record does not determine occupation code classification or individual work history.'
+    quote: 'be at least 1 year of continuous work or 1,560 hours total (30 hours per week)',
+    summary: 'IRCC\'s Federal Skilled Worker Program eligibility page states that a candidate\'s skilled work experience must be in one of the TEER categories 0, 1, 2, or 3, where TEER stands for training, education, experience and responsibilities; have the same NOC as the job the candidate wants to use for the immigration application (the primary occupation), which may not be the most recent work experience; show that the candidate performed the actions in the lead statement of the NOC job description and most of the main duties listed; have been obtained within the last 10 years, in Canada or abroad; be paid work (the candidate must have been paid wages or earned commission, and volunteer work and unpaid internships don\'t count); and be at least 1 year of continuous work or 1,560 hours total (30 hours per week). The page adds that the 1,560 hour requirement can be met in a few different ways, for example full time at 1 job: up to 30 hours/week for 12 months equals 1 year full time (1,560 hours). This record does not determine occupation classification or assess work histories.'
   }),
   createRecord({
     id: 'ircc-pgwp-maintained-status',
-    title: 'IRCC: Post-graduation work permit (PGWP) and maintained status',
+    title: 'IRCC: About the post-graduation work permit (PGWP) - eligibility, validity length, and the language-requirement change',
     topic: 'employment',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html',
-    quote: 'A post-graduation work permit (PGWP) gives you open work status after completing an eligible Canadian program.',
-    summary: 'Post-graduation work permits (PGWP) are open work permits issued once per lifetime for graduates of designated learning institutions; under current policy, graduates of master degree programs of at least 8 months are eligible for a 3-year PGWP. Temporary residents who apply to extend their work permit before their current status expires may continue working under the same conditions while awaiting a decision under maintained status pursuant to Immigration and Refugee Protection Regulations section 186(u). Candidates with an active Express Entry permanent residence application and valid work permit nearing expiry can apply for a Bridging Open Work Permit (BOWP) upon receiving an Acknowledgment of Receipt (AOR). This record does not issue study or work permits.'
+    quote: 'The post-graduation work permit (PGWP) allows students who have graduated from eligible designated learning institutions (DLIs) to gain valuable Canadian work experience.',
+    summary: 'IRCC\'s about-the-PGWP page states that the post-graduation work permit (PGWP) allows students who have graduated from eligible designated learning institutions (DLIs) to gain valuable Canadian work experience, and that graduating from a DLI doesn\'t automatically make a graduate eligible for a PGWP - the DLI list shows which schools have eligible programs. As of November 1, 2024, the eligibility requirements changed: most PGWP applicants now need to give proof of language results when they apply, and applicants who submitted a PGWP application before November 1, 2024, or are flight school graduates, are exempt from the new requirements. The length of a PGWP depends on the level and duration of the study program, as well as the expiry date of the passport, whichever comes first. For master\'s degree programs, as of February 15, 2024, applicants can apply for a 3-year PGWP even if the master\'s program was less than 2 years, as long as the program was at least 8 months (or 900 hours for Quebec programs) and all other eligibility requirements are met; this doesn\'t apply to certificate or diploma programs. For all other programs of at least 8 months (or 900 hours for Quebec credentials) but less than 2 years, the PGWP may be valid for up to the same length as the study program. This record does not issue study or work permits.'
   }),
   createRecord({
     id: 'ircc-settlement-funds-pof',
@@ -107,12 +107,12 @@ export const technicalImmigrationRecords = [
   // ── 3. POLICE CERTIFICATES & MEDICAL ADMISSIBILITY ───────────────────────────
   createRecord({
     id: 'ircc-police-certificates-pcc',
-    title: 'IRCC: Police certificates for immigration and citizenship',
+    title: 'Express Entry: police certificates for the permanent-residence application',
     topic: 'employment',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/apply-permanent-residence/police-certificates.html',
-    quote: 'You must get a police certificate from each country or territory where you have spent 6 or more months in a row since age 18.',
-    summary: 'IRCC requires applicants and family members aged 18 and older to submit police clearance certificates (PCC) for any country where they have lived for 6 or more consecutive months since turning 18. Official certificates must be obtained from designated national authorities: India requires a Passport Seva Kendra (PSK) PCC via BLS International; United Kingdom requires an ACRO Police Certificate; United States requires an FBI Identity History Summary (IdHS) via fingerprinting; Philippines requires an NBI Clearance with biometric fingerprinting; Nigeria requires a CIID Police Character Certificate. Minor traffic fines do not cause criminal inadmissibility, but single DUI offences constitute serious criminality requiring formal Criminal Rehabilitation. Residency obligations require permanent residents to be physically present in Canada for at least 730 days in every 5-year window, or accompany a Canadian citizen spouse abroad. This record does not issue certificates or waive inadmissibility.'
+    quote: 'You don\'t need to give us police certificates for any period of time before you were 18 years old or for time spent in Canada.',
+    summary: 'The Express Entry police certificates page states that applicants must include police certificates when they apply for permanent residence. The online system asks for a police certificate for the applicant and their family members who are 18 years or older, and for every country the applicant (or a family member) stayed in during the last 10 years for 6 months in a row or longer. No police certificates are needed for any period of time before the applicant was 18 years old or for time spent in Canada. After the application is submitted, an officer may ask for additional police certificates from any time in the applicant\'s life since they were 18 years old. The page\'s examples include an 8-month stay before age 18, which the system does not ask about, and it links guidance on getting the certificates needed and on what to do if a certificate can\'t be obtained in time. This record does not issue certificates or waive inadmissibility.'
   }),
   createRecord({
     id: 'ircc-medical-excessive-demand',
@@ -132,8 +132,8 @@ export const technicalImmigrationRecords = [
     housingSubject: 'agreement',
     jurisdiction: 'ON',
     url: 'https://www.ontario.ca/page/residential-rent-increases',
-    quote: 'The rent increase guideline is the maximum amount a landlord can increase a tenant rent during a year without approval from the LTB.',
-    summary: 'Under Ontario Residential Tenancies Act (RTA), annual rent increases for residential rental units first occupied for residential purposes on or before November 15, 2018 are capped by the Ontario rent increase guideline (2.5% in 2024 and 2025, 2.1% in 2026), requiring at least 90 days advance written notice on official Form N1. Rental units in buildings or additions first occupied for residential purposes after November 15, 2018 are exempt from rent control caps, allowing landlords to increase rent by any amount with 90 days written notice on Form N2. Fixed-term leases automatically convert to month-to-month tenancies with statutory security of tenure without requiring a new lease agreement. This record does not establish individual rent amounts or resolve tenancy disputes.'
+    quote: 'The guideline is the maximum a landlord can increase most tenants\' rent during a year without the approval of the Landlord and Tenant Board.',
+    summary: 'Ontario\'s Residential rent increases page states that in most cases the rent for a residential unit can be increased if at least 12 months have passed since the last rent increase or the date the tenancy began, and that the landlord must give the tenant written notice of a rent increase in the proper form at least 90 days before it takes effect; the proper forms for this notice are available from the Landlord and Tenant Board. If the landlord has not provided the proper notice, or you believe the rent has been raised by an improper amount, you can dispute it at the Landlord and Tenant Board within 12 months after the amount was first charged. The rent increase guideline for 2027 is 1.9% - the maximum a landlord can increase most tenants\' rent during a year without the approval of the Landlord and Tenant Board. It applies to most private residential rental units covered by the Residential Tenancies Act, 2006, including rented houses, apartments, basement apartments and condos, care homes, mobile homes and land lease communities. New buildings, additions to existing buildings and most new basement apartments that are occupied for the first time for residential purposes after November 15, 2018 are exempt from rent control. This record does not establish individual rent amounts or resolve tenancy disputes.'
   }),
   createRecord({
     id: 'ontario-ltb-n12-compensation',
@@ -170,12 +170,12 @@ export const technicalImmigrationRecords = [
   // ── 6. FOREIGN POLICE CLEARANCE CERTIFICATES (USA, PHILIPPINES, NIGERIA) ────
   createRecord({
     id: 'ircc-foreign-pcc-usa-philippines-nigeria',
-    title: 'IRCC: How to obtain police certificates from USA, Philippines, and Nigeria',
+    title: 'IRCC: How to get a police certificate - the general process and country instructions',
     topic: 'employment',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/application/medical-police/police-certificates/how.html',
-    quote: 'Find out how and where to get a police certificate for living in the United States, Philippines, or Nigeria.',
-    summary: 'IRCC requires police certificates for immigration from countries where an applicant lived for 6 consecutive months or longer since age 18. For the United States, applicants must obtain an FBI Identity History Summary (IdHS) clearance by submitting fingerprints on form FD-1164 directly to the FBI electronically or through an FBI-approved channeler. For the Philippines, applicants must submit an NBI Clearance issued by the National Bureau of Investigation with biometric fingerprinting on NBI Fingerprint Form No. 5. For Nigeria, applicants must obtain a Police Character Certificate issued by the Nigeria Police Force Criminal Intelligence and Investigations Department (CIID) in Alagbon, Lagos. If a country refuses or cannot issue a police certificate, an applicant must submit proof of refusal along with an official explanation letter showing all reasonable efforts. This record does not issue police clearance certificates.'
+    quote: 'In most cases, you must contact the local police or government to ask for a certificate.',
+    summary: 'IRCC\'s how-to-get-a-police-certificate page states that in most cases applicants must contact the local police or government to ask for a certificate. Applicants may have to provide information or documents like photographs, fingerprints, and the addresses where they lived in the country or territory with the dates they lived there, and pay a fee. If the certificate is in a language other than English or French, the original police certificate must be sent along with a translation from a certified translator. The page notes that fingerprints given for a police certificate are not the same as giving biometrics (fingerprints and photo) for an application. Country-by-country instructions - how and where to get the certificate from different countries and territories - are reached through the page\'s country and territory selector. This record does not issue police clearance certificates.'
   }),
 
   // ── 7. PERMANENT RESIDENT RESIDENCY OBLIGATION & PRTD ───────────────────────
@@ -192,12 +192,12 @@ export const technicalImmigrationRecords = [
   // ── 8. ONTARIO PROFESSIONAL LICENSING (PEBC, OCT, PEO) ───────────────────────
   createRecord({
     id: 'ontario-professional-licensing-pebc-oct-peo',
-    title: 'Ontario: Professional licensing and credential evaluation for PEBC, OCT, and PEO',
+    title: 'Work in your profession or trade: regulated professions, protected titles and Global Experience Ontario (Ontario.ca)',
     topic: 'employment',
     jurisdiction: 'ON',
     url: 'https://www.ontario.ca/page/work-your-profession-or-trade',
-    quote: 'Regulatory colleges evaluate international credentials for licensed professions in Ontario.',
-    summary: 'Internationally educated professionals in Ontario must be licensed by their designated regulatory body before practicing in a regulated occupation. For pharmacy, the Pharmacy Examining Board of Canada (PEBC) evaluates international pharmacy degrees through Document Evaluation and the PEBC Evaluating Examination before graduates apply to the Ontario College of Pharmacists. For teaching, internationally educated teachers must apply to the Ontario College of Teachers (OCT) for evaluation of post-secondary degrees, initial teacher education, language proficiency, and good standing to obtain an OCT certificate. For professional engineering, Professional Engineers Ontario (PEO) evaluates engineering academic qualifications; under Ontario Fair Access to Regulated Professions Act, PEO has eliminated the requirement for Canadian work experience, utilizing competency-based assessment (CBA). This record does not issue professional licences.'
+    quote: 'Global Experience Ontario ( GEO ) provides information and referrals to help internationally trained individuals learn how to become licensed or certified to work in a non-health regulated profession or skilled trade in Ontario.',
+    summary: 'Ontario\'s official guide to working in your profession or trade explains that if a profession or trade is regulated, to work or use a protected title you will likely need to have a licence or certificate and be registered with the proper regulatory body. A protected title is a professional title that can only be used by those who receive the designation from the regulatory body, and not all professions and trades are regulated. Global Experience Ontario ( GEO ) provides information and referrals to help internationally trained individuals learn how to become licensed or certified to work in a non-health regulated profession or skilled trade in Ontario: contact GEO if you\'re an internationally trained immigrant in a non-health regulated profession or skilled trade, before or after you arrive in Ontario; service providers who work with internationally trained immigrants can also seek information from GEO. This record does not issue licences or certificates.'
   }),
 
   // ── 9. ONTARIO RENTAL HEATING & REPAIRS STANDARDS ────────────────────────────

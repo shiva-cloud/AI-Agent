@@ -1,6 +1,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { createHash } from 'node:crypto';
 import { assertEnglishRecord, assertEnglishData } from './language.js';
+import { authorizationDigest } from './audit-chain.js';
 
 export const dataTables=['records','audits','traces','gaps','feedback','schema_migrations','sources','snapshots','candidates','candidate_decisions','publications','source_policy_reviews','restorations','suspended_sources','change_events','gap_work_items','gap_work_events','archived_stale_records','live_updates','crawl_snapshots','cron_crawl_logs','realtime_subscriptions','realtime_deliveries'];
 export function verifyDatabase(path) {
@@ -10,14 +11,20 @@ export function verifyDatabase(path) {
     if(db.prepare('PRAGMA integrity_check').all().some(r=>r.integrity_check!=='ok')) throw new Error('SQLite integrity check failed');
     if(db.prepare('PRAGMA foreign_key_check').all().length) throw new Error('Evidence reference integrity check failed');
     const counts={},digest=createHash('sha256');
-    for(const table of [...dataTables,...['realtime_evidence_snapshots','crawl_permissions','crawl_permission_audit','community_translation_ledger','translation_endorsements','translation_events','evidence_revision'].filter(t=>!dataTables.includes(t))]) {
+    for(const table of [...dataTables,...['audit_authorizations','realtime_evidence_snapshots','crawl_permissions','crawl_permission_audit','community_translation_ledger','translation_endorsements','translation_events','evidence_revision'].filter(t=>!dataTables.includes(t))]) {
       if(!db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?").get(table)) {
         if(table.startsWith('gap_work_')&&db.prepare('SELECT 1 FROM schema_migrations WHERE version=6').get())throw new Error('Gap workflow migration is incomplete');
+        if(table==='audit_authorizations'&&db.prepare('SELECT 1 FROM schema_migrations WHERE version=7').get())throw new Error('Audit authorization migration is incomplete');
         continue;
       }
       counts[table]=0;digest.update(`${table}\n`);
       for(const row of db.prepare(`SELECT * FROM ${table} ORDER BY rowid`).iterate()) {
         counts[table]++;
+        if(table==='audit_authorizations') {
+          const audit=db.prepare('SELECT * FROM audits WHERE id=?').get(row.audit_id);
+          if(!audit || row.actor_id!==audit.reviewer || row.mode!=='individual' || !['admin','reviewer'].includes(row.role) ||
+            row.at!==audit.at || row.payload_hash!==authorizationDigest(audit)) throw new Error('Audit authorization integrity mismatch');
+        }
         if(table==='community_translation_ledger') {
           // Translation text is intentionally multilingual; include every field in
           // the recovery digest without applying the English evidence restriction.

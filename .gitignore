@@ -1,4 +1,5 @@
-data/*.sqlite*
+# The working evidence database, backups and any local dumps stay out of Git.
+data/
 .env
 node_modules/
 artifacts/
@@ -8,8 +9,6 @@ scratch/
 *.log
 .env.*
 !.env.example
-data/*.secret
-data/*.json
 backups/archive-*/
 project-bundle.zip
 release-*.zip

@@ -1715,18 +1715,18 @@ export function handleImmigrationGet(ctx) {
     }
 
     if(path==='/v1/tools/study-permit-cap-pal') {
-      const studyLevel = url.searchParams.get('studyLevel') || 'undergraduate_degree';
-      const province = url.searchParams.get('province') || 'ON';
-      const tuitionFeeFirstYearCad = url.searchParams.get('tuition') ? Number(url.searchParams.get('tuition')) : 22000;
-      const liquidFundsAvailableCad = url.searchParams.get('funds') ? Number(url.searchParams.get('funds')) : 45000;
-      const familyMembersAccompanying = url.searchParams.get('dependents') ? Number(url.searchParams.get('dependents')) : 0;
-      const isInCanadaApplication = url.searchParams.get('inland') === 'true';
-      const isExtensionOfStudyPermit = url.searchParams.get('extension') === 'true';
-      const isFamilyOfWorkOrStudyHolder = url.searchParams.get('familyExempt') === 'true';
-      const fieldOfStudyCategory = url.searchParams.get('field') || 'stem_science_tech_eng_math';
-      const cipCode = url.searchParams.get('cip') || '11.0701';
+      const studyLevel = url.searchParams.get('studyLevel') ?? undefined;
+      const province = url.searchParams.get('province') ?? undefined;
+      const tuitionFeeFirstYearCad = url.searchParams.get('tuition');
+      const liquidFundsAvailableCad = url.searchParams.get('funds');
+      const familyMembersAccompanying = url.searchParams.get('dependents') ?? undefined;
+      const isInCanadaApplication = url.searchParams.get('inland') ?? undefined;
+      const isExtensionOfStudyPermit = url.searchParams.get('extension') ?? undefined;
+      const isFamilyOfWorkOrStudyHolder = url.searchParams.get('familyExempt') ?? undefined;
+      const fieldOfStudyCategory = url.searchParams.get('field') ?? undefined;
+      const cipCode = url.searchParams.get('cip') ?? undefined;
       const applicantName = url.searchParams.get('applicant') || 'Student Applicant';
-      const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
+      const assessmentDate = url.searchParams.get('assessmentDate') ?? undefined;
       return send(200, evaluateStudyPermitCapAndPal({
         studyLevel,
         province,
@@ -1739,24 +1739,26 @@ export function handleImmigrationGet(ctx) {
         fieldOfStudyCategory,
         cipCode,
         applicantName,
-        assessmentDate
+        assessmentDate,
+        isPublicDli: url.searchParams.get('isPublicDli') || undefined,
+        applicationDate: url.searchParams.get('applicationDate') || undefined
       }));
     }
 
     if(path==='/v1/tools/visitor-visa-financial-ties') {
       const applicantName = url.searchParams.get('applicant') || 'Visitor Applicant';
       const countryOfResidence = url.searchParams.get('country') || 'IN';
-      const plannedStayDays = url.searchParams.get('days') ? Number(url.searchParams.get('days')) : 21;
-      const liquidFundsCad = url.searchParams.get('funds') ? Number(url.searchParams.get('funds')) : 12000;
-      const hasApprovedJobLeaveLetter = url.searchParams.get('leaveLetter') !== 'false';
-      const yearsAtCurrentJob = url.searchParams.get('tenure') ? Number(url.searchParams.get('tenure')) : 3.5;
-      const monthlyIncomeCad = url.searchParams.get('income') ? Number(url.searchParams.get('income')) : 2500;
-      const ownsRealEstateProperty = url.searchParams.get('property') !== 'false';
-      const hasImmediateFamilyRemainingHome = url.searchParams.get('familyHome') !== 'false';
-      const allImmediateFamilyTravelingTogether = url.searchParams.get('familyTraveling') === 'true';
-      const hasPriorCompliantTravelG7 = url.searchParams.get('g7Travel') !== 'false';
-      const hasPreviousVisaRefusal = url.searchParams.get('refusal') === 'true';
-      const isDualIntentPrPending = url.searchParams.get('dualIntent') === 'true';
+      const plannedStayDays = url.searchParams.get('days') || undefined;
+      const liquidFundsCad = url.searchParams.get('funds') || undefined;
+      const hasApprovedJobLeaveLetter = url.searchParams.get('leaveLetter') || undefined;
+      const yearsAtCurrentJob = url.searchParams.get('tenure') || undefined;
+      const monthlyIncomeCad = url.searchParams.get('income') || undefined;
+      const ownsRealEstateProperty = url.searchParams.get('property') || undefined;
+      const hasImmediateFamilyRemainingHome = url.searchParams.get('familyHome') || undefined;
+      const allImmediateFamilyTravelingTogether = url.searchParams.get('familyTraveling') || undefined;
+      const hasPriorCompliantTravelG7 = url.searchParams.get('g7Travel') || undefined;
+      const hasPreviousVisaRefusal = url.searchParams.get('refusal') || undefined;
+      const isDualIntentPrPending = url.searchParams.get('dualIntent') || undefined;
       const hostInCanadaRelationship = url.searchParams.get('host') || 'family_sibling';
       const assessmentDate = url.searchParams.get('assessmentDate') || todayIso();
       return send(200, evaluateVisitorVisaTies({

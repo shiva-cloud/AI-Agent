@@ -4,7 +4,11 @@ import {mkdirSync} from 'node:fs';
 import {dirname} from 'node:path';
 import {assertEnglishRecord} from './language.js';
 import {tokenize,rankLexically,rankTokenized} from './search.js';
-const hash=record=>createHash('sha256').update(JSON.stringify(record)).digest('hex');
+// Records are immutable snapshot objects: evidence-revision.js reuses the same
+// object references until the evidence version changes, so caching each hash
+// per object avoids re-hashing the whole corpus on every ranked request.
+const hashCache=new WeakMap();
+const hash=record=>{let value=hashCache.get(record);if(value===undefined){value=createHash('sha256').update(JSON.stringify(record)).digest('hex');hashCache.set(record,value);}return value;};
 export function openEvidenceIndex(path, options = {}) {
   const safeOptions = (options && typeof options === 'object') ? options : {};
   const readOnly = Boolean(safeOptions.readOnly);
