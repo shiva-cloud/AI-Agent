@@ -204,11 +204,11 @@ test('evidence database coverage floors hold when the database is present', (t) 
   // the three make-it-in-germany records relocated to their AufenthG statute
   // texts, plus eleven country-portal records re-quoted from stable verbatim
   // page sentences (171 distinct published records).
-  // Refrozen a ninth time the same day: archive-fallback batch sixteen
-  // published Cyprus through the Internet Archive copy of its 403-blocked
-  // page (viaArchive) and re-pointed Armenia's citation to the /en/en page
-  // that carries its quote (184 distinct published records).
-  assert.ok(publishedIds.size >= 184, 'publication-chain floor');
+  // Refrozen a tenth time the same day: community-slice batch seventeen
+  // replaced three pilot paraphrase quotes with verbatim page sentences -
+  // the IRB NDP index, Legal Aid Ontario, and Amsterdam's first-registration
+  // page via its archived copy (187 distinct published records).
+  assert.ok(publishedIds.size >= 187, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

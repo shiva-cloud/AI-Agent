@@ -316,3 +316,16 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - Chain **183 → 184 distinct** (204 rows)। Script `scripts/kb-corrections-2026-11-06-c.js`, idempotent re-run 0/0/0, gate-sims 2/2, सभी backups on disk।
 - बचे **140 portals** — संरचना: 11 × 403 (1 published, 7 archive-blocked इस run, 3 no-usable-English), ~50 network/timeout hosts (fallback trigger ही नहीं होता — live fetch का 404/403 आना ज़रूरी), ~18 thin-shell (deep-probe पूरा), non-English-homepage समूह।
 - Floors 183 → **184** refrozen (नौवीं freeze); version 0.19.72।
+
+### बैच-17 - community slice: 3 pilot-paraphrase quotes ठीक, 1 viaArchive, 0.19.73
+
+- Portals से बाहर पहला slice: **15 queue-ready community records का scoped dry verification** — असली blockers का नक्शा बना:
+  - **7 quote-drift** (page जीवित, quote पर नहीं), **6 dead-URL** (canada.ca IRCC pages 404, archive में भी snapshot नहीं → relocation काम), **1 snapshot re-quote** (Amsterdam — Cyprus वाला रास्ता), **1 UA-refusal** (HTTP 406, Auckland Council)।
+- 7 में से **4 में summary के figures अब pages पर ही नहीं** — असली content-change; quote-only repair ईमानदारी से नहीं हो सकता, force नहीं किया (editorial summary review या relocation चाहिए)।
+- **3 published** (तीनों पुराने quotes pilot की paraphrases थे जो pages पर कभी थे ही नहीं):
+  - IRB NDP index → "NDPs include Responses to Information Requests (RIRs) published by the IRB on its website." (dated Jurisprudential candidates reject)
+  - Legal Aid Ontario → "Apply for Legal Aid If you qualify and have a legal issue we cover, we will pay for a lawyer to help you." (dated closure-notice reject)
+  - Amsterdam → "Visit a City Office within 5 days of your arrival." — live page unreachable, **archive copy से viaArchive publish**, citation अपरिवर्तित।
+- Chain **184 → 187 distinct** (207 rows)। Script `scripts/kb-corrections-2026-11-06-d.js` (SOURCE_REGISTRATIONS खाली; seed walk ने 1 generator file update किया, `node --check` साफ़), idempotent re-run 0/0/0। हर candidate पूरे gate (verbatim + summary-figure check) से गुज़रा।
+- **Scoped-measure pattern सस्ता और काम करता है:** 15 नापे → 3 publish → बाकी community का repair-map दिख गया। housing (148), employment (92), health (51) अगले।
+- Floors 184 → **187** refrozen (दसवीं freeze); version 0.19.73।

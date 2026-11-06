@@ -317,7 +317,7 @@ export const gapRecords = [
     jurisdiction: 'ON',
     title: 'Legal Aid & Justice Access: Legal Aid Ontario (LAO) certificates, community legal clinics, and human rights legal support',
     url: 'https://www.legalaid.on.ca/',
-    quote: 'Legal Aid Ontario and community legal clinics deliver free legal counsel for tenancy disputes, wage theft, and immigration hearings.',
+    quote: 'Apply for Legal Aid If you qualify and have a legal issue we cover, we will pay for a lawyer to help you.',
     summary: 'Low-income newcomers, refugees, and temporary residents in Ontario have access to free legal services through Legal Aid Ontario (LAO) and a network of provincial Community Legal Clinics. LAO provides legal aid certificates covering attorney representation for refugee hearings, serious criminal charges, and domestic violence family law matters subject to income eligibility testing. In addition, local community legal clinics (including Mississauga Community Legal Services, North Peel & Dufferin Community Legal Services, and South Asian Legal Clinic of Ontario - SALCO) provide free legal representation for residential tenancy evictions, Ministry of Labour wage theft claims, and Ontario Works appeals regardless of the applicant formal immigration status.',
     risk: 'high',
     language: 'en',

@@ -1,6 +1,15 @@
 # Implementation status — 6 November 2026
 
-## Current release: 0.19.72, English-only
+## Current release: 0.19.73, English-only
+
+### Community slice batch seventeen (0.19.73)
+
+Details in `docs/CHANGELOG.md` 0.19.73:
+
+- A scoped dry verification of 15 queue-ready community records produced the first real repair map for the non-portal buckets: 7 quote-drifts (live pages, drifted quotes), 6 dead URLs with no archive snapshot (relocations needed), 1 snapshot re-quote (Amsterdam, the Cyprus path), 1 user-agent refusal (HTTP 406).
+- Three published: the IRB NDP index ("NDPs include Responses to Information Requests (RIRs) published by the IRB on its website."), Legal Aid Ontario's verbatim core-service statement, and Amsterdam's "Visit a City Office within 5 days of your arrival." via the archived copy of its unreachable page. All three old quotes were pilot paraphrases the cited pages never carried.
+- Four of the seven live quote-drifts have summaries whose figures the pages no longer state — genuine content changes, left untouched rather than forced; they need editorial summary revision or relocation.
+- Chain 184 → **187** distinct records (207 publication rows). `scripts/kb-corrections-2026-11-06-d.js` re-runs idempotent (0/0/0); the seed walk updated the generator file defining one of the records (passes `node --check`).
 
 ### Archive-fallback batch sixteen (0.19.72)
 

@@ -2,6 +2,20 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.73 — Community slice batch seventeen: three pilot paraphrase quotes replaced with verbatim page sentences, one through the archive copy (6 November 2026)
+
+First slice beyond the portals: a scoped dry verification of fifteen queue-ready community records measured what actually blocks them. The bucket is the same two repair classes the portals showed, plus one new one: **7 quote-drift** failures where the page is alive but the quote is not on it, **6 dead URLs** whose archive fallback also finds no snapshot (IRCC reorganized canada.ca pages — relocation work, not quote repair), **1 archived page** whose old quote is not on its snapshot either (Amsterdam — the Cyprus path), and **1 host that refuses the fetcher's user agent** (HTTP 406, Auckland Council).
+
+Of the seven live quote-drift failures, four carry summaries whose figures the current pages no longer state the same way — genuine content changes that a quote-only repair cannot fix honestly; they were left untouched rather than forced, and need either a summary revision under editorial review or a relocation. The three repairable ones published:
+
+- **`canada-asylum-country-condition-reports-vs-testimony`** — the old quote was a pilot paraphrase of hearing standards the IRB NDP index page never carried; the new quote is the page's verbatim description of the package itself ("NDPs include Responses to Information Requests (RIRs) published by the IRB on its website."). Dated Jurisprudential-Guide candidates were rejected as unstable.
+- **`ontario-newcomer-legal-aid-and-community-legal-clinics`** — old quote was a paraphrase naming tenancy disputes, wage theft and immigration hearings; the new quote is the page's verbatim core-service statement ("Apply for Legal Aid If you qualify and have a legal issue we cover, we will pay for a lawyer to help you."). The page's dated office-closure notice was rejected.
+- **`nl-amsterdam-brp-bsn-registration`** — old quote was a paraphrase of the registration rule; the live page is not reachable for the fetcher, and the Internet Archive capture of the same URL carries the verbatim requirement ("Visit a City Office within 5 days of your arrival.") — published viaArchive, citation unchanged.
+
+Three corrected, three published — all three new to the publication chain (publications 207 rows / **187** distinct). `scripts/kb-corrections-2026-11-06-d.js` follows the audited pattern (dry-run default, `--apply` with a backup, hash-chained audit rows labelled as automated correction, seed walk, source-ops plan) with an empty `SOURCE_REGISTRATIONS`; the seed walk updated the one generator file that defines one of these records, and that file passes `node --check`. The script re-runs idempotent (0 corrections, 0 source ops, 0 problems). Every candidate was run through the full publication gate — verbatim-on-page plus the summary-figure check — before apply; the publish run re-verified 3/3.
+
+The scoped-measure pattern works and is cheap: 15 records measured in one dry run, 3 published, and the rest of the community bucket now has a visible repair map (4 figure-drifts needing editorial summary review, 6 relocations, the rest of the 42 to sample next). The housing (148), employment (92) and health (51) queues await the same treatment.
+
 ## 0.19.72 — Archive-fallback batch sixteen: Cyprus published through the Internet Archive copy of its blocked page; Armenia re-cited to the page its bot check does not guard (6 November 2026)
 
 Third slice of the country-portal placeholder cleanup, and the first use of the publication pipeline's built-in archive fallback for these records. The fallback already existed: when a record's live page answers HTTP 404 or 403, `scripts/kb-verify-publish.js` re-checks the quote against `https://web.archive.org/web/2026/<url>` — the Internet Archive copy of the same official URL — and records that the archived copy was the evidence. Of the 141 portals still unpublished, exactly 11 are blocked with HTTP 403, the one failure class that triggers the fallback:
