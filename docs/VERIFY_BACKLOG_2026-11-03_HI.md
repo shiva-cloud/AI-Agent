@@ -345,3 +345,14 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - **पर सभी full publication gate से fail — कारण हर जगह वही: summary के figures pages पर नहीं।** IRCC record "2026 limits" कहता है, नया notice 2027 की तारीख़ें देता है (record factually outdated); NSW summary "Photo Card Act 2005" कहता है, page वह वर्ष नहीं बताता; Thames Water के 26 quote-only candidates पर figures missing।
 - **निष्कर्ष:** relocation bucket **editorial-bound** है — नया URL + नया quote अकेला काफ़ी नहीं; summary को नए page के अनुसार revise करना पड़ेगा (editorial review), उसके बाद ही relocation+publish संभव। 0 records force नहीं किए।
 - इस दौर में कोई DB write नहीं (सिर्फ़ probes); कोई release नहीं।
+
+### माप-only दौर - driving bucket का sample (0.19.73 के बाद, कोई release नहीं)
+
+- Archive.org अभी भी हमारे fetcher को 403 कर रहा है (Bahamas snapshot retry fail) — portal के 7 archive-blocked records अभी रुके हैं।
+- Driving (174) में ~140 portals हैं; असली driving records ~34। पहले 18 का dry measure: **4 live quote-drift, 4 archive-से-स्नैपशॉट-नहीं, 3 snapshot-पर-quote-नहीं, 3 snapshot में quote है पर summary के figures नहीं, 2 network_error, 1 × archive-403, 1 null।**
+- सभी 7 repairable-दिखने वालों का full-gate probe (canada-national, ca-on-reciprocal, mto, us-ca-dmv live; fsra, ca-mb-mpi, au-melbourne-vicroads snapshot): **0/7 pass — सब figure/content-drift।**
+- **अंतिम निष्कर्ष:** पूरा non-portal queue (community, driving, और संभवतः housing/employment/health भी) अब **figure/content-drift-प्रधान** है। सस्ते automated repairs (placeholder portals, unchanged pages की paraphrase quotes) batches 14-17 में निकाल लिए गए — chain 171 → 187 (+16)। बचा काम तीन रास्तों का है:
+  1. **Editorial summary revision** (figure-drifts + relocations — user की सहमति से),
+  2. **Environment recovery** (archive.org unblock → 7 portals; Armenia bot-check खुलने पर 1),
+  3. **बाकी topics का measure** (housing/employment/health — उम्मीद है वही संरचना)।
+- इस दौर में कोई DB write नहीं; कोई release नहीं।
