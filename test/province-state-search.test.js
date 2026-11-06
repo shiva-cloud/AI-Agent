@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { snapshotTest } from './helpers/snapshot-test.js';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { join, dirname } from 'node:path';
@@ -173,7 +174,7 @@ test('Dropdown province/state selection sets region and clears city slot', () =>
   assert.equal(p5.ambiguous, false);
 });
 
-test('Database retrieval matches province-level and state-level evidence', () => {
+snapshotTest('Database retrieval matches province-level and state-level evidence', () => {
   const db = new DatabaseSync(dbPath, { readOnly: true });
   const parseJson = (b) => { try { return JSON.parse(b); } catch { return null; } };
   const recs = db.prepare('SELECT id, body FROM records').all().map(r => ({ id: r.id, ...parseJson(r.body) })).filter(Boolean);

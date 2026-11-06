@@ -1,5 +1,8 @@
 import test from 'node:test';
+import { snapshotTest } from './helpers/snapshot-test.js';
 import assert from 'node:assert/strict';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { DatabaseSync } from 'node:sqlite';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -44,7 +47,7 @@ test('all 90 restOfWorldRecords pass English policy and cover tax, tenancy, and 
   }
 });
 
-test('evidence database: zero non-Canada records point to IRCC and all key topics exist', () => {
+snapshotTest('evidence database: zero non-Canada records point to IRCC and all key topics exist', () => {
   const db = new DatabaseSync(dbPath, { readOnly: true });
   try {
     const parse = b => JSON.parse(b);
@@ -67,8 +70,8 @@ test('evidence database: zero non-Canada records point to IRCC and all key topic
   }
 });
 
-test('store searchFts accurately resolves Rest-of-World questions to national authorities', () => {
-  const store = openStore(dbPath);
+function checkNationalAuthoritySearch(path) {
+  const store = openStore(path);
   try {
     const testCases = [
       { q: 'India PAN tax', expectedId: 'india-income-tax-pan' },
@@ -98,4 +101,23 @@ test('store searchFts accurately resolves Rest-of-World questions to national au
   } finally {
     store.db.close();
   }
+}
+
+snapshotTest('store searchFts accurately resolves Rest-of-World questions to national authorities', () => {
+  checkNationalAuthoritySearch(dbPath);
+});
+
+test('searchFts ranks national authorities in a disposable regional fixture', t => {
+  const directory = mkdtempSync(join(tmpdir(), 'authority-search-'));
+  t.after(() => rmSync(directory, { recursive: true, force: true }));
+  const path = join(directory, 'search.sqlite');
+  const db = new DatabaseSync(path);
+  try {
+    db.exec('CREATE TABLE records(id TEXT PRIMARY KEY, body TEXT NOT NULL)');
+    const insert = db.prepare('INSERT INTO records VALUES (?, ?)');
+    for (const record of restOfWorldRecords) insert.run(record.id, JSON.stringify(record));
+  } finally {
+    db.close();
+  }
+  checkNationalAuthoritySearch(path);
 });

@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { snapshotTest } from './helpers/snapshot-test.js';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -81,7 +82,7 @@ test('market-gap catalog batches keep their researched question floor (served wi
   assert.equal(allIds.size, batches.reduce((a, b) => a + b.length, 0), 'query ids unique across batches');
 });
 
-test('evidence database coverage floors hold when the database is present', (t) => {
+snapshotTest('evidence database coverage floors hold when the database is present', (t) => {
   const dbPath = join(root, 'data', 'settlement.sqlite');
   if (!existsSync(dbPath)) {
     // The evidence database is a local artifact, not a git file; fresh CI runs
@@ -238,7 +239,7 @@ test('countryCoverage engine function produces structured global coverage matrix
   assert.equal(matrix.restOfWorld.distinctCountriesCount, 1);
 });
 
-test('countryCoverage against real evidence database verifies subnational parity across Big-12', (t) => {
+snapshotTest('countryCoverage against real evidence database verifies subnational parity across Big-12', (t) => {
   const dbPath = join(root, 'data', 'settlement.sqlite');
   if (!existsSync(dbPath)) {
     t.skip('evidence database not present on this machine');

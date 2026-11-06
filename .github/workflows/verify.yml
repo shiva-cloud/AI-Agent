@@ -12,6 +12,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Check for reviewed evidence snapshot before tests create a seed database
+        shell: pwsh
+        run: |
+          if (!(Test-Path -LiteralPath 'data/settlement.sqlite' -PathType Leaf)) {
+            'REVIEWED_SNAPSHOT_UNAVAILABLE=1' >> $env:GITHUB_ENV
+            '::notice::Five reviewed-snapshot checks require data/settlement.sqlite. All code and fixture tests will run.'
+          }
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
