@@ -6,7 +6,8 @@ import { assertEnglishText, assertEnglishRecord } from './language.js';
 import { cities, topics } from './knowledge.js';
 import { queryTerms, rankLexically, tokenize } from './search.js';
 import {detectUrgentHelp} from './urgent-help.js';
-import {loadSubjectTags,subjectShadow} from './subject-tags.js';
+import {loadSubjectTags,ROUTED_TOPICS,subjectShadow,subjectsOfRecord} from './subject-tags.js';
+import {questionSubjects} from './subject-vocabulary.js';
 import {describesLifeInCountry,namedReferenceCountry,recordFitsSubject,referenceCoverageNotice} from './reference-countries.js';
 import {housingQuestionSubjects,recordHousingSubject} from './housing.js';
 import {licenceContext, originCountryContext} from './licence-context.js';
@@ -481,6 +482,7 @@ function referenceScope(input, parsed, records, now, searchIndex) {
 }
 export function answer(input,records,now=new Date(),searchIndex,options={}) {
   const safeOptions = (options && typeof options === 'object') ? options : {};
+  const subjectRouting = safeOptions.subjectRouting || {topics: ROUTED_TOPICS, tags: subjectTags};
   const safeRecords = Array.isArray(records) ? records : [];
   const safeNow = (now instanceof Date && !isNaN(now.getTime())) ? now : new Date();
   const started=performance.now();
@@ -586,8 +588,12 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
     const bestForTopic=topic=>Math.max(0,...candidates.filter(r=>r.topic===topic&&fitsQuestion(r)).map(r=>r.score));
     for(const topic of [...searchIntents].sort((a,b)=>bestForTopic(b)-bestForTopic(a))) {
       // Broad topic matches must not masquerade as answers to unrelated legal subquestions.
-      const relevant=candidates.filter(r=>r.topic===topic&&fitsQuestion(r));
-      const usable=relevant.filter(r=>r.available&&(!highRiskTopics.has(r.topic)||r.score>=bestScore*MIN_RELATIVE_SCORE));
+      // In a switched-on topic a recognised subject decides outright. Only a confirmed tag
+      // can answer; a withheld record's suggestion may only explain why nothing is served.
+      const askedSubjects=subjectRouting.topics.has(topic)?questionSubjects(input?.question,[topic]):[];
+      const onAskedSubject=r=>subjectsOfRecord(r,subjectRouting.tags,{includeProposed:!r.available}).some(subject=>askedSubjects.includes(subject));
+      const relevant=candidates.filter(r=>r.topic===topic&&(askedSubjects.length?onAskedSubject(r):fitsQuestion(r)));
+      const usable=relevant.filter(r=>r.available&&(askedSubjects.length>0||!highRiskTopics.has(r.topic)||r.score>=bestScore*MIN_RELATIVE_SCORE));
       const conflicts=new Set(usable.filter(r=>usable.some(s=>s.id!==r.id && s.topic===r.topic && s.jurisdiction===r.jurisdiction && s.claimKey && s.claimKey===r.claimKey && s.summary!==r.summary)).map(r=>r.id));
       if(conflicts.size) result.gaps.push({topic,reason:'conflicting_evidence'});
       else for(const r of usable.slice(0,2)) {

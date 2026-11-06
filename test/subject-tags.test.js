@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {answer} from '../src/engine.js';
 import {seeds} from '../src/knowledge.js';
 import {SUBJECTS, SUBJECT_IDS, questionSubjects, proposeRecordSubjects} from '../src/subject-vocabulary.js';
-import {loadSubjectTags, recordTextHash, subjectShadow, subjectsOfRecord, validateSubjectTags} from '../src/subject-tags.js';
+import {loadSubjectTags, recordTextHash, ROUTED_TOPICS, subjectShadow, subjectsOfRecord, validateSubjectTags} from '../src/subject-tags.js';
 import {publicEvidence} from '../src/public-evidence.js';
 import {openStore} from '../src/store.js';
 import {topics} from '../src/knowledge.js';
@@ -117,6 +117,44 @@ test('shadow routing reports its decision without changing anything', () => {
   assert.equal(run([{...rent, available: true}]).decision, 'no_tagged_record');
   const unknown = subjectShadow({question: 'Tell me something nice', parsed, candidates: [], claims, tags});
   assert.deepEqual([unknown.decision, unknown.changed], ['existing_rules', false]);
+});
+
+test('no topic is switched on yet', () => {
+  assert.equal(ROUTED_TOPICS.size, 0);
+});
+
+test('a switched-on topic answers only from a confirmed tag on the asked subject', () => {
+  const sublet = record('sublet', 'housing', 'Sublet consent rules for a tenant in Ontario.');
+  const rent = record('rent', 'housing', 'Can a tenant sublet? The rent guideline for an Ontario tenant, sublet aside.');
+  const tags = new Map([tagged(sublet, ['sublet']), tagged(rent, ['rent-increase'])]);
+  const question = {question: 'Can I sublet my apartment in Ontario?'};
+  const on = {subjectRouting: {topics: new Set(['housing']), tags}};
+  assert.deepEqual(answer(question, [sublet, rent], NOW, undefined, on).claims.map(c => c.evidenceId), ['sublet']);
+  const off = answer(question, [sublet, rent], NOW);
+  assert.ok(off.claims.some(c => c.evidenceId === 'rent'), 'with the switch off the existing rules still run');
+});
+
+test('a suggestion or a stale tag never answers, and a withheld match explains the gap', () => {
+  const sublet = record('sublet', 'housing', 'Sublet consent rules for a tenant in Ontario.');
+  const question = {question: 'Can I sublet my apartment in Ontario?'};
+  const route = tags => ({subjectRouting: {topics: new Set(['housing']), tags}});
+  const suggested = answer(question, [sublet], NOW, undefined, route(new Map([tagged(sublet, ['sublet'], 'proposed', 'rule')])));
+  assert.deepEqual(suggested.claims, []);
+  assert.ok(suggested.gaps.some(gap => gap.reason === 'missing_evidence'));
+  const stale = answer(question, [{...sublet, summary: 'Sublet rules were rewritten for a tenant in Ontario.'}], NOW, undefined, route(new Map([tagged(sublet, ['sublet'])])));
+  assert.deepEqual(stale.claims, []);
+  const withheld = {...sublet, status: 'pending'};
+  const held = answer(question, [withheld], NOW, undefined, route(new Map([tagged(sublet, ['sublet'], 'proposed', 'rule')])));
+  assert.deepEqual(held.claims, []);
+  assert.ok(held.gaps.some(gap => gap.reason === 'awaiting_human_review'));
+  const reviewedNone = answer(question, [sublet], NOW, undefined, route(new Map([tagged(sublet, [])])));
+  assert.deepEqual(reviewedNone.claims, [], 'a reviewer said this record fits no subject');
+});
+
+test('a question with no recognised subject keeps the existing rules in a switched-on topic', () => {
+  const rec = record('landlord', 'housing', 'Landlord duties toward an Ontario tenant.');
+  const result = answer({question: 'What are my landlord duties in Ontario?'}, [rec], NOW, undefined, {subjectRouting: {topics: new Set(['housing']), tags: new Map()}});
+  assert.deepEqual(result.claims.map(c => c.evidenceId), ['landlord']);
 });
 
 test('answers carry the shadow diagnostic out of sight', () => {

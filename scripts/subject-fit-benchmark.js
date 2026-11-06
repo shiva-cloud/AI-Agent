@@ -7,6 +7,7 @@ import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
 import {answer} from '../src/engine.js';
 import {publicEvidence} from '../src/public-evidence.js';
+import {loadSubjectTags} from '../src/subject-tags.js';
 
 const args = process.argv.slice(2);
 const verbose = args.includes('--verbose');
@@ -17,6 +18,10 @@ const db = new DatabaseSync(dbPath, {readOnly: true});
 const records = publicEvidence(db, db.prepare('SELECT body FROM records').all().map(row => JSON.parse(row.body)));
 db.close();
 const byId = new Map(records.map(record => [record.id, record]));
+// --route housing,employment scores as if those topics were switched on, without switching them.
+const routeFlag = args.indexOf('--route');
+const topicsToShow = routeFlag >= 0 ? args[routeFlag + 1].split(',') : ['housing', 'employment'];
+const routing = routeFlag >= 0 ? {topics: new Set(topicsToShow), tags: loadSubjectTags()} : null;
 
 export function scoreCase(testCase, result, recordsById) {
   const about = new RegExp(testCase.about, 'i');
@@ -31,15 +36,24 @@ export function scoreCase(testCase, result, recordsById) {
 
 for (const name of ['subject-fit', 'subject-fit-holdout', 'subject-tags-holdout']) {
   const {cases} = JSON.parse(readFileSync(new URL(`../evaluation/${name}.json`, import.meta.url), 'utf8'));
-  const totals = {n: cases.length, on_subject: 0, lead_on_subject: 0, lead_off_subject: 0, wrong: 0, abstain: 0, clarify: 0};
+  const blank = () => ({n: 0, on_subject: 0, lead_on_subject: 0, lead_off_subject: 0, wrong: 0, abstain: 0, clarify: 0});
+  const totals = blank();
+  const byTopic = {};
   for (const testCase of cases) {
-    const result = answer({question: testCase.q}, records, new Date());
+    const result = answer({question: testCase.q}, records, new Date(), undefined, routing ? {subjectRouting: routing} : {});
     const {kind, fits} = scoreCase(testCase, result, byId);
+    totals.n++;
     totals[kind]++;
+    if (testCase.topic) {
+      byTopic[testCase.topic] ||= blank();
+      byTopic[testCase.topic].n++;
+      byTopic[testCase.topic][kind]++;
+    }
     if (verbose && kind !== 'on_subject') {
       const claims = result.claims.map((claim, index) => `${fits[index] ? '' : 'X '}${claim.evidenceId}`).join(', ');
       console.log(`${kind.padEnd(16)} ${testCase.q.slice(0, 62).padEnd(62)} ${claims.slice(0, 90)}`);
     }
   }
   console.log(name, JSON.stringify(totals));
+  for (const topic of topicsToShow) if (byTopic[topic]) console.log(`  ${topic}`, JSON.stringify(byTopic[topic]));
 }

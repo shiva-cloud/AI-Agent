@@ -9,6 +9,10 @@ import {SUBJECT_IDS, questionSubjects} from './subject-vocabulary.js';
 export const TAG_STATUSES = Object.freeze(['proposed', 'confirmed']);
 export const TAG_METHODS = Object.freeze(['template', 'rule', 'reviewer']);
 
+// Topics whose answers follow subject tags. Empty: nothing is switched on yet. Add a topic
+// only after its held-out gate passes; removing it restores the existing rules at once.
+export const ROUTED_TOPICS = Object.freeze(new Set());
+
 export const recordTextHash = record => createHash('sha256').update(`${record.title}\n${record.summary}`).digest('hex').slice(0, 16);
 
 export function loadSubjectTags(url = new URL('./subject-tags.json', import.meta.url)) {
