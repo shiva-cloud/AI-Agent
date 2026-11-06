@@ -35,8 +35,8 @@ export const kycRecords = [
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/financial-consumer-agency/services/banking/opening-bank-account.html',
-    quote: 'Under federal law, you have the right to open a personal retail bank account at any bank in Canada if you show acceptable identification.',
-    summary: 'Under Section 627.17 of the federal Bank Act and FCAC regulations, every individual in Canada has the statutory right to open a personal retail bank account at any federally regulated bank (such as RBC, TD, Scotiabank, BMO, CIBC), even if they do not have a job, have no initial deposit, and have no Canadian credit history. Newcomers must show original identification in one of two ways: (1) two documents from the official list, one showing their name and address and one showing their name and date of birth (for example a foreign passport, Canadian government-issued identification such as a PR card, a recent Canadian utility bill or a recent bank or credit card statement); or (2) one document showing their name and date of birth, with their identity confirmed by a customer of the bank in good standing or a person of good standing in the community. Banks cannot refuse an account solely because an applicant is unemployed or has a poor credit rating. This record does not open accounts or approve credit.'
+    quote: 'Understand when banks may refuse to open an account and what to do if that happens.',
+    summary: 'Learn how to open a bank account in Canada, how to choose one that meets your needs and what identification you need. Understand when banks may refuse to open an account and what to do if that happens.'
   }),
 
   // ── 2. FINTRAC $10,000 LARGE FUNDS TRANSFER KYC & AML COMPLIANCE ─────────────
@@ -125,8 +125,8 @@ export const kycRecords = [
     topic: 'sin',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/employment-social-development/services/sin/protection.html',
-    quote: 'Your Social Insurance Number is private and confidential. You are only legally required to provide it to employers and financial institutions for tax reporting.',
-    summary: 'Under federal Treasury Board of Canada guidelines and PIPEDA privacy legislation, individuals are legally obligated to disclose their Social Insurance Number (SIN) only to: (1) employers after hiring for mandatory T4 payroll tax reporting; (2) financial institutions for interest-bearing accounts that generate taxable income (T5 slips); and (3) federal government departments administering statutory benefits (such as CRA, Service Canada, CCB, and EI). Private businesses—including prospective landlords on rental applications, job interviewers before a formal job offer, car rental companies, telecommunications carriers, and gyms—have no legal authority to demand a SIN. Newcomers have the full legal right to refuse to provide a SIN to landlords or recruiters without penalty, offering government photo ID and credit bureau consent instead. This record does not replace lost SIN cards.'
+    quote: 'Employers need your SIN to report your income for tax and social benefits.',
+    summary: 'Employers need your SIN to report your income for tax and social benefits. The Directive on Social Insurance Number provides a list of federal laws that refer to SIN.'
   }),
 
   // ── 10. POLICE VULNERABLE SECTOR CHECK (VSC) & LEVEL 1-3 SCREENING ───────────
@@ -169,8 +169,8 @@ export const kycRecords = [
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://www.cbsa-asfc.gc.ca/travel-voyage/declare-eng.html',
-    quote: 'There is no limit on the amount of money you can bring into Canada, but you must declare amounts of $10,000 or more.',
-    summary: 'Under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act (PCMLTFA), there is no legal restriction on the total amount of money a newcomer may bring into Canada. However, arriving travelers carrying physical cash, bank drafts, traveller’s cheques, or other monetary instruments totaling CAD $10,000 or more must declare the full amount to the Canada Border Services Agency (CBSA) on arrival using Form E677 (Cross-Border Currency or Monetary Instruments Report - Individual). Funds are not taxed upon entry, but travelers should keep verifiable proof of funds (bank withdrawal receipts, property sale documentation, or tax records) in their carry-on luggage. Failure to declare funds of $10,000 or more can result in immediate seizure by CBSA officers, civil forfeiture, and penalties ranging from 5% to 50% of the seized funds. This record does not clear currency at border ports.'
+    quote: 'However, any time you cross the border, you must declare any currency or monetary instruments you have in your possession that are valued at CAN$10,000 or more.',
+    summary: 'However, any time you cross the border, you must declare any currency or monetary instruments you have in your possession that are valued at CAN$10,000 or more. The CAN$10,000 can be any combination of Canadian or foreign currency and monetary instruments, such as stocks, bonds, bank drafts, cheques and traveller\'s cheques. When you arrive in Canada with currency or monetary instruments valued at CAN$10,000 or more in your possession, you must report it on Form E311, the CBSA Declaration Card (if one was provided to you), on an Automated Border Clearance kiosk or a Primary Inspection Kiosk, or in the verbal declaration made to a border services officer.'
   }),
 
   // ── 14. DEPENDENT CHILDREN PUBLIC SCHOOL ENROLLMENT KYC ───────────────────────
@@ -269,7 +269,7 @@ export const kycRecords = [
     housingSubject: 'agreement',
     jurisdiction: 'ON',
     url: 'https://tribunalsontario.ca/ltb/application-and-hearing-process/',
-    quote: 'Tenants have the right to quiet enjoyment of their rental unit free from landlord harassment and unlawful entry.',
-    summary: 'Under the Residential Tenancies Act, 2006 (RTA Sections 25 to 27), tenants in Ontario have the statutory right to peaceful enjoyment and privacy. Landlords cannot enter a tenant’s rental premises without providing at least 24 hours advance written notice stating the specific reason for entry (necessary repairs, inspection) and a specific entry window between 8:00 a.m. and 8:00 p.m. Landlords are strictly prohibited from changing door locks, cutting essential utility services (heat, water, electricity), threatening eviction without an official LTB order, or harassing tenants for exercising their legal rights. If a landlord enters illegally or engages in coercive conduct, the tenant can file an Application About Tenant Rights (Form T2) with the Landlord and Tenant Board (LTB). The LTB possesses statutory authority to order rent abatements, award monetary compensation for tenant damages, mandate landlord repairs, and levy administrative fines up to its monetary limit ($50,000) against non-compliant landlords. Separately, a court can fine a landlord convicted of an offence under the Act up to $100,000 (individuals) or $500,000 (corporations) since July 1, 2026. This record does not adjudicate tribunal disputes.'
+    quote: 'If the landlord does not, the tenant can file a Form T1: Tenant Application for a Rebate of Money the Landlord Owes at the LTB .',
+    summary: 'For most new tenancies, the landlord and tenant must use and sign the Residential Tenancy Agreement (Standard Form of Lease) developed by the Government of Ontario before the tenant moves in. The Landlord and Tenant Board (LTB) does not cover issues between a landlord and a tenant before a lease begins. If the landlord does not, the tenant can file a Form T1: Tenant Application for a Rebate of Money the Landlord Owes at the LTB.'
   })
 ];

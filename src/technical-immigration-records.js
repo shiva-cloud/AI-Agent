@@ -35,7 +35,7 @@ export const technicalImmigrationRecords = [
     topic: 'family',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/parent-grandparent-super-visa.html',
-    quote: 'The Super Visa lets eligible parents and grandparents visit family in Canada for up to 5 years at a time.',
+    quote: 'You can visit your children or grandchildren (if they\'re a permanent resident, a Canadian citizen or a registered Indian) for 5 years at a time with a super visa.',
     summary: 'The IRCC Super Visa allows eligible parents and grandparents of Canadian citizens and permanent residents to visit Canada for up to 5 continuous years per entry without renewing their status, with multi-entry validity up to 10 years. Applicants must provide a signed letter of financial promise from their host child or grandchild meeting the Minimum Necessary Income (LICO table based on household size), proof of valid emergency medical insurance from a Canadian insurance company or a foreign insurer authorized by OSFI, valid for at least 1 year from entry and providing at least $100,000 in emergency coverage, and complete an immigration medical examination. Since 31 March 2026, the host can meet the income requirement in either of the two preceding tax years, or, if the host and any co-signer meet the required minimum percentage of income, the applicant\'s own income can be added to cover the rest. This record does not verify individual financial eligibility or issue visas.'
   }),
   createRecord({
@@ -44,7 +44,7 @@ export const technicalImmigrationRecords = [
     topic: 'family',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children.html',
-    quote: 'Sponsor your spouse, partner or dependent child to live in Canada as a permanent resident.',
+    quote: 'This is a program to sponsor your spouse, common-law partner, conjugal partner or dependent child to become a permanent resident of Canada.',
     summary: 'Canadian citizens and permanent residents living in Canada (and Canadian citizens abroad who show they will live in Canada when the sponsored person becomes a permanent resident) can sponsor their spouse, common-law partner (requiring proof of at least 12 continuous months of cohabitation in a conjugal relationship), or dependent children under age 22. Spouses and partners applying under the Spouse or Common-law Partner in Canada class may be able to apply for an open work permit while their permanent residence application is being processed. Sponsoring a spouse does not require meeting a minimum necessary income threshold unless the dependent child also has dependent children of their own. Sponsors must sign an undertaking of financial support: 3 years for a spouse or partner or a dependent child over 22, and for a dependent child under 22, 10 years or until the child turns 25, whichever comes first. This record does not approve sponsorship applications or determine marriage validity.'
   }),
   createRecord({
@@ -73,8 +73,8 @@ export const technicalImmigrationRecords = [
     topic: 'employment',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/eligibility/criteria-comprehensive-ranking-system.html',
-    quote: 'The Comprehensive Ranking System (CRS) ranks candidates out of 1,200 points across human capital, skill transferability and additional factors.',
-    summary: 'The Express Entry Comprehensive Ranking System (CRS) ranks candidates out of 1,200 points across Core Human Capital (age points highest at 110 for ages 20 to 29 (100 with an accompanying spouse), falling each year from age 30 to 0 at age 45; education up to 150 points with 135 for Master degree and 120 for Bachelor degree; first language CLB level), Skill Transferability (combinations of post-secondary education with CLB 9+ language or 3+ years foreign work experience with Canadian work experience awarding up to 100 bonus points), and Additional Factors: 15 points for a Canadian citizen or permanent resident sibling, 50 points for bilingual French proficiency at NCLC 7, and 600 points for a provincial nomination. Category-based selection draws (such as STEM, healthcare, and skilled trades) require at least 12 months of full-time (or equivalent) work experience in an eligible occupation within the past 3 years, which need not be continuous (since 18 February 2026; it was 6 continuous months before). This record does not calculate individual CRS profiles or guarantee Invitations to Apply.'
+    quote: 'All Express Entry candidates get a score out of 1,270, based on the four parts of the Comprehensive Ranking System formula.',
+    summary: 'All Express Entry candidates get a score out of 1,270, based on the four parts of the Comprehensive Ranking System formula. We invite the highest-ranking candidates from the pool to apply as a permanent resident through regular "rounds of invitations." See what minimum scores have been in the past. The Comprehensive Ranking System (CRS) is a points-based system that we use to assess and score your profile and rank it in the Express Entry pool.'
   }),
   createRecord({
     id: 'ircc-work-experience-rules',
@@ -100,8 +100,8 @@ export const technicalImmigrationRecords = [
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/documents/proof-funds.html',
-    quote: 'You must show that you have enough money to settle in Canada if you are invited to apply under FSW or FST.',
-    summary: 'Applicants under Federal Skilled Worker (FSW) and Federal Skilled Trades (FST) must show official bank letters proving unencumbered, readily available settlement funds based on family size (updated annually with LICO figures). Official bank letters must list all bank and investment accounts, balances, outstanding debts, and average balances for the past 6 months on official bank letterhead. Candidates applying under the Canadian Experience Class (CEC) or those authorized to work in Canada with a valid job offer from an employer are exempt from proof of funds requirements. This record does not verify individual bank balances or grant exemptions.'
+    quote: 'To stay eligible, you may need to update your proof of funds in your Express Entry profile.',
+    summary: 'To stay eligible, you may need to update your proof of funds in your Express Entry profile. Proof of funds is how you show us that you have enough money to settle in Canada.'
   }),
 
   // ── 3. POLICE CERTIFICATES & MEDICAL ADMISSIBILITY ───────────────────────────

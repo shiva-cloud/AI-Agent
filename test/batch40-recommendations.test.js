@@ -161,8 +161,8 @@ test('Rec 669: Authoritative KYC, Bank Act s. 627.17 & FINTRAC Regulatory Datase
   const bankActRecord = kycRecords.find(r => r.id === 'fintrac-banking-kyc-bank-act');
   assert.ok(bankActRecord);
   assert.equal(bankActRecord.topic, 'money');
-  assert.ok(bankActRecord.summary.includes('Bank Act'));
-  assert.ok(bankActRecord.summary.includes('627.17'));
+  // Rewritten in the official page's words on 2026-11-06; that page does not cite the section.
+  assert.match(bankActRecord.summary, /bank account/i);
 
   // Check FINTRAC $10,000 threshold record
   const fintracRecord = kycRecords.find(r => r.id === 'fintrac-large-wire-transfer-kyc');

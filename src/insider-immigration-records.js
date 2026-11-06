@@ -740,8 +740,8 @@ export const insiderImmigrationRecords = [
     topic: 'driving',
     jurisdiction: 'ON',
     url: 'https://www.ontario.ca/page/exchange-out-province-drivers-licence',
-    quote: 'To get credit for more than one year of driving experience, you need an official letter from the foreign licensing authority or embassy.',
-    summary: 'Since 1 July 2026, drivers licensed in jurisdictions without a licence exchange agreement with Ontario (including India, Pakistan, Philippines, Nigeria, UAE, China, and Brazil) can get credit for up to 12 months of driving experience by showing a valid, original foreign driver licence and, if the licence does not show that experience, an official authentication letter in English or French from the government or agency that issued it. They must pass the vision test, knowledge test and G2 road test, then wait at least 12 months before taking the G road test. A licence not written in English or French needs a translation from an approved translator, dated within six months of the application. This record does not book road tests.'
+    quote: 'Effective July 1, 2026, you can can obtain credit for up to one year of driving experience, by showing a valid, original foreign driver\'s licence and authentication document.',
+    summary: 'You might still be able to fast-track and get credit for previous driving experience. Effective July 1, 2026, you can can obtain credit for up to one year of driving experience, by showing a valid, original foreign driver\'s licence and authentication document. For example, if your foreign driver\'s licence was issued 6 months before you apply for an Ontario licence, but you have more than 6 months of total driving experience in that jurisdiction, you must provide an acceptable letter of authentication to receive credit for your full driving experience (up to a maximum of 12 months).'
   }),
 
   // ── 19. US H-1B 60-DAY GRACE PERIOD SEVERANCE TRAP (8 CFR § 214.1(l)(2)) ─────
@@ -751,8 +751,8 @@ export const insiderImmigrationRecords = [
     topic: 'employment',
     jurisdiction: 'United States',
     url: 'https://www.uscis.gov/working-in-the-united-states/information-for-employers-and-employees/options-for-nonimmigrant-workers-following-termination-of-employment',
-    quote: 'An individual may be granted a grace period of up to 60 consecutive days, or until the end of the authorized validity period, whichever is shorter, following cessation of employment.',
-    summary: 'Under 8 CFR section 214.1(l)(2), nonimmigrant workers in H-1B, L-1, O-1, or TN status who experience cessation of employment are granted a discretionary grace period of up to 60 consecutive calendar days, or until the end of their existing Form I-94 authorized validity period, whichever is shorter. Crucially, USCIS calculates this 60-day clock starting on the day immediately following the worker last day of actual employment, not when severance pay, payroll continuation, or health benefits terminate. Remaining in the US past the 60th day without filing a timely change of status or new H-1B change-of-employer petition constitutes unlawful presence, potentially triggering statutory 3-year or 10-year admissibility bars under INA section 212(a)(9)(B). This record does not grant immigration status.'
+    quote: 'The maximum 60-day grace period provides time for a nonimmigrant worker to retain their nonimmigrant status.',
+    summary: 'If the worker is an eligible H-1B nonimmigrant and an employer files a new nonfrivolous H-1B petition on their behalf, the worker can begin work immediately after USCIS receives the petition and continue to maintain their H-1B status. The maximum 60-day grace period provides time for a nonimmigrant worker to retain their nonimmigrant status. Within the grace period, eligible H-1B nonimmigrant workers may also begin employment again as soon as a new employer properly files a new H-1B petition, rather than waiting for the new petition to be approved.'
   }),
 
   // ── 20. US F-1 OPT TO H-1B CAP-GAP EXTENSION (8 CFR § 214.2(f)(5)(vi)) ─────────
@@ -773,8 +773,8 @@ export const insiderImmigrationRecords = [
     topic: 'employment',
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/government/publications/continuous-residence',
-    quote: 'You must not have spent more than 180 days outside the UK in any 12-month period to meet the continuous residence requirement.',
-    summary: 'Under UK Home Office Immigration Rules Appendix Continuous Residence (rules CR 2.1 through CR 2.3), applicants seeking Indefinite Leave to Remain (ILR) under Skilled Worker, Global Talent, Scale-up, or Tier 2 routes must satisfy the strict continuous residence requirement. The statutory limit prohibits being absent from the United Kingdom for more than 180 days in any 12-month rolling period throughout the 5-year qualifying period. Unlike calendar-year limits, the 180-day test applies to every possible 12-month rolling window counted backward and forward from any day of absence. Exceeding 180 days in any single rolling 12-month window irrevocably breaks continuous residence, resetting the 5-year qualification clock back to day zero, unless the absence qualifies under statutory exceptions such as overseas research, medical crises, or natural disasters. This record does not calculate ILR eligibility.'
+    quote: 'UK Visas and Immigration (UKVI) guidance on how staff assess the continuous residence requirements for applications for settlement (indefinite leave to remain) in the UK under the routes where Appendix Continuous Residence applies.',
+    summary: 'Immigration staff guidance on assessing and calculating the requirements under Appendix Continuous Residence. UK Visas and Immigration (UKVI) guidance on how staff assess the continuous residence requirements for applications for settlement (indefinite leave to remain) in the UK under the routes where Appendix Continuous Residence applies.'
   }),
 
   // ── 22. UK SECTION 21 NOTICE INVALIDATION BY GAS & HOW TO RENT (DEREGULATION ACT 2015) ─
@@ -899,8 +899,8 @@ export const insiderImmigrationRecords = [
     jurisdiction: 'New Zealand',
     housingSubject: 'deposit',
     url: 'https://www.tenancy.govt.nz/rent-bond-and-bills/bond/lodging-a-bond/',
-    quote: 'Landlords must lodge all bond money received with Tenancy Services within 23 working days of receiving it.',
-    summary: 'Under the New Zealand Residential Tenancies Act 1986 section 19 and section 23, the maximum residential tenancy bond a landlord may lawfully require is capped at four weeks rent. Furthermore, landlords are statutorily prohibited from retaining tenancy bond funds in private bank accounts. Section 23 mandates that the landlord must deposit all bond payments with the Ministry of Business, Innovation and Employment (MBIE) Tenancy Services Bond Centre within 23 working days of receipt, accompanied by a completed official Bond Lodgement Form signed by both parties. Failure to lodge within 23 working days is an unlawful act under RTA Schedule 1A, exposing the landlord to exemplary damages of up to $1,500 payable to the tenant upon application to the Tenancy Tribunal. This record does not process bond refund claims.'
+    quote: 'They can lodge a bond, lodge a bond top-up, and arrange a bond refund.',
+    summary: 'In most situations, landlords who charge a general bond or pet bond must lodge (deposit) it online with Tenancy Services. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. They can lodge a bond, lodge a bond top-up, and arrange a bond refund.'
   }),
 
   // ── 33. US 90-DAY MISREPRESENTATION PRESUMPTION (9 FAM 302.9) ──────────────────
@@ -1010,8 +1010,8 @@ export const insiderImmigrationRecords = [
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html',
-    quote: 'An individual can open an FHSA if they are a resident of Canada, at least 18 years of age, and a first-time home buyer.',
-    summary: 'Under Income Tax Act (ITA) Section 146.6, individuals who establish factual tax residency in Canada can immediately open a First Home Savings Account (FHSA) during their very first year of arrival. FHSA participation room of $8,000 CAD per year starts only in the year the individual (a Canadian resident aged 18 or older who is a first-time home buyer) opens their first FHSA; no room builds up before the account is opened. Contributions are generally deductible from Canadian taxable income, and qualifying withdrawals to buy a first qualifying home in Canada are not taxed. Unused contribution room of up to $8,000 can be carried forward to subsequent years, up to the lifetime statutory contribution limit of $40,000 CAD. This record does not open financial accounts.'
+    quote: 'Your FHSA participation room in the first year you open your FHSA is $8,000.',
+    summary: 'A first home savings account (FHSA) is a registered plan which allows you, if you are a first-time home buyer, to save to buy or build a qualifying first home tax-free (up to certain limits). Your FHSA participation room in the first year you open your FHSA is $8,000. Contributions to an FHSA are generally deductible and can be used to reduce your tax.'
   }),
 
   // ── 43. ONTARIO ESA TERMINATION NOTICE VS SEVERANCE DISTINCTION ────────────────
@@ -1054,7 +1054,7 @@ export const insiderImmigrationRecords = [
     topic: 'employment',
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/skilled-worker-visa/your-job',
-    quote: 'Skilled Worker salary thresholds change over time and include transitional arrangements for people already on the route.',
+    quote: 'You must have a job offer from an approved UK employer before you apply for a Skilled Worker visa.',
     summary: 'Under UK Home Office Immigration Rules Appendix Skilled Worker and Statement of Changes HC 590 enacted in April 2024, the baseline general minimum salary threshold for new Skilled Worker visa applicants was increased to £38,700 per year, and on 22 July 2025 it rose again to £41,700 (or the occupation-specific going rate, whichever is higher). However, under formal transitional arrangements, individuals who held valid Skilled Worker permission prior to April 4, 2024 and apply to extend their stay, change sponsored employment, or seek Indefinite Leave to Remain (ILR) before April 4, 2030 are strictly grandfathered. Transitional thresholds for people already on the route were also revised in July 2025, so the older £29,000 figure should not be relied on; check the current transitional rate on GOV.UK. This record does not sponsor Certificate of Sponsorship applications.'
   }),
 
@@ -1099,8 +1099,8 @@ export const insiderImmigrationRecords = [
     jurisdiction: 'ON',
     housingSubject: 'deposit',
     url: 'https://www.ohrc.on.ca/en/policy-human-rights-and-rental-housing',
-    quote: 'Landlords cannot refuse prospective tenants simply because they lack a Canadian credit history or local guarantor.',
-    summary: 'Under the Ontario Human Rights Code Section 2(1) and the OHRC Policy on Human Rights and Rental Housing, housing providers and property managers are strictly prohibited from discriminating against rental applicants based on race, place of origin, citizenship, or ethnic origin. Landlords cannot reject newcomer tenant applications or demand unlawful financial penalties (such as requiring 6 to 12 months rent upfront) solely because the applicant lacks a Canadian credit history, Canadian employment references, or a Canadian guarantor. The Code mandates that landlords must evaluate alternative evidence of creditworthiness, including foreign bank references, international income statements, or proof of timely rental payments abroad. Arbitrary refusal based on lack of domestic credit is actionable discrimination before the Human Rights Tribunal of Ontario (HRTO). This record does not file HRTO applications.'
+    quote: 'A lack of rental or credit history should not be viewed negatively.',
+    summary: 'Rental history, credit references and/or credit checks may be requested. A lack of rental or credit history should not be viewed negatively. A landlord can ask for income information, but they must also ask for and consider together any available information on rental history, credit references and credit checks (such as through Equifax Canada).'
   }),
 
   // ── 51. US USCIS 245(k) 180-DAY WORK VIOLATION EXEMPTION ──────────────────────

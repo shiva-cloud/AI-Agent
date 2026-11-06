@@ -1,0 +1,922 @@
+[
+ {
+  "id": "canada-visitor-status-extension-and-90-day-restoration-framework",
+  "topic": "arrival",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/extend-stay.html",
+  "archive": false,
+  "title": "Visitor Status Expiry",
+  "quote": "If you want to extend your stay in Canada as a visitor (stay in Canada longer), you need to apply for a visitor record .",
+  "summary": "If you want to extend your stay in Canada as a visitor (stay in Canada longer), you need to apply for a visitor record."
+ },
+ {
+  "id": "uk-home-office-eta-electronic-travel-authorisation-kyc",
+  "topic": "arrival",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/guidance/electronic-travel-authorisation-eta",
+  "archive": false,
+  "title": "UK Visas and Immigration",
+  "quote": "An electronic travel authorisation ( ETA ) lets you travel to the UK, Jersey, Guernsey or the Isle of Man for up to 6 months.",
+  "summary": "An electronic travel authorisation (ETA) lets you travel to the UK, Jersey, Guernsey or the Isle of Man for up to 6 months. You can get an ETA for tourism, visiting family or for certain other reasons. Check if you need an ETA or visa to come to the UK."
+ },
+ {
+  "id": "uk-dfe-childcare-act-free-childcare-and-tax-free-childcare",
+  "topic": "childcare",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/apply-30-hours-free-childcare",
+  "archive": false,
+  "title": "Department for Education & HMRC",
+  "quote": "If you're getting Free Childcare for Working Parents or Tax-Free Childcare you have to confirm if your details are up to date every 3 months.",
+  "summary": "You can get help with childcare costs for children under 18. You could also get free childcare when your child is aged 9 months to 4 years. If you're getting Free Childcare for Working Parents or Tax-Free Childcare you have to confirm if your details are up to date every 3 months."
+ },
+ {
+  "id": "au-accc-australian-consumer-law-guarantees-warranties-kyc",
+  "topic": "community",
+  "jurisdiction": "Australia",
+  "url": "https://www.accc.gov.au/consumers/buying-products-and-services/consumer-rights-and-guarantees",
+  "archive": false,
+  "title": "ACCC",
+  "quote": "We educate businesses and consumers about their rights and obligations under the consumer guarantees.",
+  "summary": "Consumers automatically receive these consumer guarantees when they buy goods and services. We educate businesses and consumers about their rights and obligations under the consumer guarantees. If a business misleads consumers about their consumer guarantee rights, we can investigate."
+ },
+ {
+  "id": "uk-london-council-tax-registration",
+  "topic": "community",
+  "jurisdiction": "London",
+  "url": "https://www.gov.uk/council-tax",
+  "archive": false,
+  "title": "London Boroughs",
+  "quote": "Ask the Valuation Office ( VO ) if you want to know if changes to your property will affect your Council Tax band.",
+  "summary": "You can challenge your Council Tax band if you think your home is in the wrong valuation band. Ask the Valuation Office (VO) if you want to know if changes to your property will affect your Council Tax band."
+ },
+ {
+  "id": "au-melbourne-vicroads-licence-conversion",
+  "topic": "driving",
+  "jurisdiction": "Melbourne",
+  "url": "https://www.vicroads.vic.gov.au/licences/new-to-victoria/convert-your-overseas-licence",
+  "archive": true,
+  "title": "VicRoads",
+  "quote": "If you're visiting Victoria for less than six months you can drive on your overseas driver licence provided it is valid and current.",
+  "summary": "If you're visiting Victoria for less than six months you can drive on your overseas driver licence provided it is valid and current. If you've been living or will be living in Victoria for six months or more you'll need to convert your overseas licence or permit to a Victorian licence. Complete the form to find out which Victorian licence you can get."
+ },
+ {
+  "id": "au-qld-tmr-driver-licence-exchange",
+  "topic": "driving",
+  "jurisdiction": "Queensland",
+  "url": "https://www.qld.gov.au/transport/licensing/driver-licensing/overseas/transfer",
+  "archive": false,
+  "title": "Queensland Department of Transport and Main Roads (TMR)",
+  "quote": "This means you can no longer drive with your interstate or overseas licence in Queensland.",
+  "summary": "Your authority to drive on your interstate or overseas licence will be withdrawn when you have been issued with a Queensland licence. This means you can no longer drive with your interstate or overseas licence in Queensland. Your Queensland licence will be the same class as your interstate or overseas licence."
+ },
+ {
+  "id": "australia-dvs-licence",
+  "topic": "driving",
+  "jurisdiction": "Australia",
+  "url": "https://austroads.gov.au/drivers-and-vehicles/registration-and-licensing/australian-driver-licensing",
+  "archive": true,
+  "title": "Australia",
+  "quote": "In 2009, the Australian Government introduced the National Document Verification Service (DVS).",
+  "summary": "In 2009, the Australian Government introduced the National Document Verification Service (DVS). All Australian driver licences can be verified on-line by an authorised user of the DVS. Australia does not have a national driver licence card design standard."
+ },
+ {
+  "id": "canada-national-driving-licence-framework-and-reciprocal-exchange",
+  "topic": "driving",
+  "jurisdiction": "CA",
+  "url": "https://www.ontario.ca/page/exchange-out-province-drivers-licence",
+  "archive": false,
+  "title": "Canadian Driving Licences",
+  "quote": "When you move to Ontario, you can use a valid licence from another province, state or country for 60 days .",
+  "summary": "How to switch a driver's licence from another province, state or country for an Ontario driver's licence. When you move to Ontario, you can use a valid licence from another province, state or country for 60 days. After 60 days, you need to switch to an Ontario driver's licence."
+ },
+ {
+  "id": "israel-govil-licence",
+  "topic": "driving",
+  "jurisdiction": "Israel",
+  "url": "https://www.gov.il/en/service/driving_license_renewal",
+  "archive": true,
+  "title": "Israel",
+  "quote": "According to Regulation 9 of the Transportation Regulations , one can drive in Israel without carrying a driver's license and vehicle license when driving.",
+  "summary": "The permanent license is computerized and will include a photo of the license holder. According to Regulation 9 of the Transportation Regulations, one can drive in Israel without carrying a driver's license and vehicle license when driving. It is, however, mandatory to carry an official ID of the State of Israel (ID card or passport), an insurance certificate and appendices to the driver's license."
+ },
+ {
+  "id": "mto-foreign-licence-driving-extract-credit",
+  "topic": "driving",
+  "jurisdiction": "ON",
+  "url": "https://www.ontario.ca/page/exchange-out-province-drivers-licence",
+  "archive": false,
+  "title": "DriveTest & MTO",
+  "quote": "Effective July 1, 2026, you can can obtain credit for up to one year of driving experience, by showing a valid, original foreign driver's licence and authentication document.",
+  "summary": "You might still be able to fast-track and get credit for previous driving experience. Effective July 1, 2026, you can can obtain credit for up to one year of driving experience, by showing a valid, original foreign driver's licence and authentication document. For example, if your foreign driver's licence was issued 6 months before you apply for an Ontario licence, but you have more than 6 months of total driving experience in that jurisdiction, you must provide an acceptable letter of authentication to receive credit for your full driving experience (up to a maximum of 12 months)."
+ },
+ {
+  "id": "us-ca-dmv-driver-license-residency",
+  "topic": "driving",
+  "jurisdiction": "California",
+  "url": "https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/",
+  "archive": false,
+  "title": "California DMV",
+  "quote": "You need a valid California driver's license to operate a motor vehicle.",
+  "summary": "AB 60 driver's licenses are for individuals who are unable to provide proof of legal presence in the United States (U.S.), but who meet California DMV requirements and are able to provide proof of identity and California residency. Before you can get a California driver's license of any kind, you will need to pass knowledge and driving tests. You need a valid California driver's license to operate a motor vehicle."
+ },
+ {
+  "id": "alberta-employment-standards-overtime-and-termination",
+  "topic": "employment",
+  "jurisdiction": "AB",
+  "url": "https://www.alberta.ca/employment-standards.aspx",
+  "archive": false,
+  "title": "Alberta Employment Standards Code",
+  "quote": "Employment standards set out the rights and obligations of employers and employees in Alberta.",
+  "summary": "Employment standards set out the rights and obligations of employers and employees in Alberta. This includes the minimum standards that employers must provide to employees. Alberta's employment standards laws are enforced through audits, inspections, penalties, prosecutions and judgment collection."
+ },
+ {
+  "id": "au-home-affairs-section-501-character-test-cancellation-kyc",
+  "topic": "employment",
+  "jurisdiction": "Australia",
+  "url": "https://immi.homeaffairs.gov.au/help-support/meeting-our-requirements/character",
+  "archive": false,
+  "title": "Department of Home Affairs",
+  "quote": "We may cancel your visa at any time, if you no longer meet the character requirements.",
+  "summary": "We may cancel your visa at any time, if you no longer meet the character requirements."
+ },
+ {
+  "id": "au-home-affairs-vevo-right-to-work-kyc",
+  "topic": "employment",
+  "jurisdiction": "Australia",
+  "url": "https://immi.homeaffairs.gov.au/visas/already-have-a-visa/check-visa-details-and-conditions",
+  "archive": false,
+  "title": "Department of Home Affairs",
+  "quote": "Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions.",
+  "summary": "Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions. You can then use VEVO to prove you have a permanent visa."
+ },
+ {
+  "id": "ca-ns-labour-standards-overtime-and-notice",
+  "topic": "employment",
+  "jurisdiction": "NS",
+  "url": "https://novascotia.ca/lae/employmentrights/",
+  "archive": false,
+  "title": "Nova Scotia Labour Standards Code",
+  "quote": "The Labour Standards legislation sets out the minimum employment rules in Nova Scotia that employers and employees have to follow.",
+  "summary": "The Labour Standards legislation sets out the minimum employment rules in Nova Scotia that employers and employees have to follow."
+ },
+ {
+  "id": "ca-oct-teacher-certification-pathway",
+  "topic": "employment",
+  "jurisdiction": "ON",
+  "url": "https://www.oct.ca/becoming-a-teacher/internationally-educated-teachers",
+  "archive": false,
+  "title": "Ontario College of Teachers",
+  "quote": "You must apply to be certified by the Ontario College of Teachers and remain in good standing to teach in Ontario's publicly funded elementary and secondary schools.",
+  "summary": "You must apply to be certified by the Ontario College of Teachers and remain in good standing to teach in Ontario's publicly funded elementary and secondary schools. The College provides information and resources to support Ontario Certified Teachers (OCTs), applicants and education system partners to strengthen the teaching profession and promote student safety."
+ },
+ {
+  "id": "ca-sk-employment-standards-act",
+  "topic": "employment",
+  "jurisdiction": "SK",
+  "url": "https://www.saskatchewan.ca/business/employment-standards",
+  "archive": false,
+  "title": "Saskatchewan Employment Act (Part II)",
+  "quote": "An overview of Saskatchewan's employment standards legislation under The Saskatchewan Employment Act for employers and employees.",
+  "summary": "The Saskatchewan Employment Act outlines that job seekers are not to pay fees to find or get employment. An overview of Saskatchewan's employment standards legislation under The Saskatchewan Employment Act for employers and employees."
+ },
+ {
+  "id": "ca-yt-employment-standards-act",
+  "topic": "employment",
+  "jurisdiction": "YT",
+  "url": "https://yukon.ca/en/employment/employment-standards",
+  "archive": true,
+  "title": "Yukon Employment Standards Act",
+  "quote": "Learn about employee rights and workplace standards in the Yukon, including wages, leave, holidays and how to file complaints.",
+  "summary": "Learn about employee rights and workplace standards in the Yukon, including wages, leave, holidays and how to file complaints."
+ },
+ {
+  "id": "ie-deti-critical-skills-employment-permit-kyc",
+  "topic": "employment",
+  "jurisdiction": "Ireland",
+  "url": "https://enterprise.gov.ie/en/what-we-do/workplace-and-skills/employment-permits/permit-types/critical-skills-employment-permit/",
+  "archive": false,
+  "title": "DETE",
+  "quote": "The Critical Skills Employment Permit replaces the Green Card type employment permit.",
+  "summary": "The Critical Skills Employment Permit replaces the Green Card type employment permit. Occupations such as ICT professionals, professional engineers and technologists are catered for under this type of employment permit. The list of eligible occupations is set out in the Critical Skills Occupations List."
+ },
+ {
+  "id": "ircc-express-entry-crs",
+  "topic": "employment",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/eligibility/criteria-comprehensive-ranking-system.html",
+  "archive": false,
+  "title": "IRCC",
+  "quote": "All Express Entry candidates get a score out of 1,270, based on the four parts of the Comprehensive Ranking System formula.",
+  "summary": "All Express Entry candidates get a score out of 1,270, based on the four parts of the Comprehensive Ranking System formula. We invite the highest-ranking candidates from the pool to apply as a permanent resident through regular \"rounds of invitations.\" See what minimum scores have been in the past. The Comprehensive Ranking System (CRS) is a points-based system that we use to assess and score your profile and rank it in the Express Entry pool."
+ },
+ {
+  "id": "uk-home-office-global-talent-tech-nation-kyc",
+  "topic": "employment",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/global-talent-digital-technology",
+  "archive": false,
+  "title": "Home Office & Tech Nation",
+  "quote": "You can apply for the Global Talent visa without an endorsement if you've won an eligible prize .",
+  "summary": "You can apply for the Global Talent visa without an endorsement if you've won an eligible prize. If your application is successful, you'll get a full list of what you can and cannot do with a Global Talent visa."
+ },
+ {
+  "id": "uk-home-office-ilr-180-day-rolling-absence",
+  "topic": "employment",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/government/publications/continuous-residence",
+  "archive": false,
+  "title": "UK Visas and Immigration",
+  "quote": "UK Visas and Immigration (UKVI) guidance on how staff assess the continuous residence requirements for applications for settlement (indefinite leave to remain) in the UK under the routes where Appendix Continuous Residence applies.",
+  "summary": "Immigration staff guidance on assessing and calculating the requirements under Appendix Continuous Residence. UK Visas and Immigration (UKVI) guidance on how staff assess the continuous residence requirements for applications for settlement (indefinite leave to remain) in the UK under the routes where Appendix Continuous Residence applies."
+ },
+ {
+  "id": "uk-home-office-skilled-worker-salary-grandfathering",
+  "topic": "employment",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/skilled-worker-visa/your-job",
+  "archive": false,
+  "title": "UK Home Office",
+  "quote": "You must have a job offer from an approved UK employer before you apply for a Skilled Worker visa.",
+  "summary": "You must have a job offer from an approved UK employer before you apply for a Skilled Worker visa."
+ },
+ {
+  "id": "uk-ilr-continuous-residence-180-days",
+  "topic": "employment",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/indefinite-leave-to-remain",
+  "archive": false,
+  "title": "UK Visas and Immigration",
+  "quote": "Indefinite leave to remain is how you settle in the UK.",
+  "summary": "Indefinite leave to remain is how you settle in the UK. There are different ways to apply for indefinite leave to remain based on your circumstances."
+ },
+ {
+  "id": "uk-rehabilitation-of-offenders-criminal-disclosure-kyc",
+  "topic": "employment",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/government/publications/grounds-for-refusal-criminality",
+  "archive": false,
+  "title": "Home Office & Legal Aid",
+  "quote": "Immigration staff guidance on criminal history for entry clearance applications in the UK.",
+  "summary": "Immigration staff guidance on criminal history for entry clearance applications in the UK."
+ },
+ {
+  "id": "uk-sra-sqe-foreign-lawyers-solicitors-kyc",
+  "topic": "employment",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.sra.org.uk/become-solicitor/qualified-lawyers/",
+  "archive": false,
+  "title": "Solicitors Regulation Authority",
+  "quote": "Unlike other SQE candidates, qualified lawyers do not need two years' qualifying work experience.",
+  "summary": "Unlike other SQE candidates, qualified lawyers do not need two years' qualifying work experience. Find out more about principles and approach to qualification for qualified lawyers. Qualified lawyers have two qualification options if they have the LPC."
+ },
+ {
+  "id": "us-dhs-right-to-work-form-i9-kyc",
+  "topic": "employment",
+  "jurisdiction": "United States",
+  "url": "https://www.uscis.gov/i-9",
+  "archive": false,
+  "title": "USCIS",
+  "quote": "Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States.",
+  "summary": "Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States. All U.S. employers must properly complete Form I-9 for every individual they hire for employment in the United States. On the form, an employee must attest to their employment authorization."
+ },
+ {
+  "id": "us-uscis-h1b-60-day-grace-period-severance",
+  "topic": "employment",
+  "jurisdiction": "United States",
+  "url": "https://www.uscis.gov/working-in-the-united-states/information-for-employers-and-employees/options-for-nonimmigrant-workers-following-termination-of-employment",
+  "archive": false,
+  "title": "USCIS",
+  "quote": "The maximum 60-day grace period provides time for a nonimmigrant worker to retain their nonimmigrant status.",
+  "summary": "If the worker is an eligible H-1B nonimmigrant and an employer files a new nonfrivolous H-1B petition on their behalf, the worker can begin work immediately after USCIS receives the petition and continue to maintain their H-1B status. The maximum 60-day grace period provides time for a nonimmigrant worker to retain their nonimmigrant status. Within the grace period, eligible H-1B nonimmigrant workers may also begin employment again as soon as a new employer properly files a new H-1B petition, rather than waiting for the new petition to be approved."
+ },
+ {
+  "id": "us-uscis-immigration-green-card-kyc",
+  "topic": "employment",
+  "jurisdiction": "United States",
+  "url": "https://www.uscis.gov/green-card",
+  "archive": false,
+  "title": "USCIS",
+  "quote": "Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States.",
+  "summary": "Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States. Learn more about how and when to replace your Green Card. For policy guidance on adjustment of status, see Volume 7: Adjustment of Status of the USCIS Policy Manual."
+ },
+ {
+  "id": "canada-cwelcc-licensed-childcare-funding-and-fee-caps",
+  "topic": "family",
+  "jurisdiction": "CA",
+  "url": "https://www.ontario.ca/page/canada-ontario-early-years-and-child-care-agreement",
+  "archive": false,
+  "title": "CWELCC Child Care Agreement",
+  "quote": "Licensed child care programs enrolled in the CWELCC system receive funding to plan for and deliver early learning and child care programs.",
+  "summary": "Licensed child care programs enrolled in the CWELCC system receive funding to plan for and deliver early learning and child care programs. If you are a home child care provider who is registered with a licensed agency, ask the agency if they are enrolled in CWELCC and what this means for you. Unlicensed child care programs are not eligible to participate in the CWELCC system."
+ },
+ {
+  "id": "ircc-spousal-sponsorship",
+  "topic": "family",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children.html",
+  "archive": false,
+  "title": "IRCC",
+  "quote": "This is a program to sponsor your spouse, common-law partner, conjugal partner or dependent child to become a permanent resident of Canada.",
+  "summary": "This is a program to sponsor your spouse, common-law partner, conjugal partner or dependent child to become a permanent resident of Canada."
+ },
+ {
+  "id": "ircc-super-visa",
+  "topic": "family",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/parent-grandparent-super-visa.html",
+  "archive": false,
+  "title": "IRCC",
+  "quote": "You can visit your children or grandchildren (if they're a permanent resident, a Canadian citizen or a registered Indian) for 5 years at a time with a super visa.",
+  "summary": "You can visit your children or grandchildren (if they're a permanent resident, a Canadian citizen or a registered Indian) for 5 years at a time with a super visa."
+ },
+ {
+  "id": "ontario-women-and-family-safety-vaw-shelters-and-crisis-lines",
+  "topic": "family",
+  "jurisdiction": "ON",
+  "url": "https://www.awhl.org/",
+  "archive": false,
+  "title": "Women & Family Safety",
+  "quote": "The Assaulted Women's Helpline offers a 24-hour telephone and TTY crisis line to all woman who have experienced abuse.",
+  "summary": "The Assaulted Women's Helpline offers a 24-hour telephone and TTY crisis line to all woman who have experienced abuse."
+ },
+ {
+  "id": "sg-mom-dependants-pass-ltvp-custody",
+  "topic": "family",
+  "jurisdiction": "Singapore",
+  "url": "https://www.mom.gov.sg/passes-and-permits/dependants-pass",
+  "archive": false,
+  "title": "Ministry of Manpower (MOM) & ICA",
+  "quote": "The Dependant's Pass allows spouses and children of Employment Pass or S Pass holders to join them in Singapore.",
+  "summary": "The Dependant's Pass allows spouses and children of Employment Pass or S Pass holders to join them in Singapore. Find out who is eligible for a Dependant's Pass for family members of Employment Pass or S Pass holders. Find out about available work pass options for Dependant's Pass holders who wish to work in Singapore."
+ },
+ {
+  "id": "uk-trussell-trust-emergency-food-bank-referrals-kyc",
+  "topic": "groceries",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.trusselltrust.org/get-help/emergency-food/",
+  "archive": false,
+  "title": "Department for Work and Pensions & Trussell Trust",
+  "quote": "The voucher is then exchanged at the food bank for a food parcel.",
+  "summary": "If you need help, a food bank can provide an emergency food parcel containing at least three days of meals. The voucher is then exchanged at the food bank for a food parcel. You can get a food voucher from a number of local community organisations, who can ensure you get the right support."
+ },
+ {
+  "id": "alberta-ahcip-health-coverage",
+  "topic": "health",
+  "jurisdiction": "AB",
+  "url": "https://www.alberta.ca/ahcip.aspx",
+  "archive": false,
+  "title": "Alberta Health Care Insurance Plan (AHCIP)",
+  "quote": "The Alberta Health Care Insurance Plan (AHCIP) is a publicly funded and administered program that provides eligible Alberta residents with coverage for medically necessary physician and hospital services in Alberta and other Canadian provinces.",
+  "summary": "Register or update your information, find forms and learn about insured health care services covered under the AHCIP. The Alberta Health Care Insurance Plan (AHCIP) is a publicly funded and administered program that provides eligible Alberta residents with coverage for medically necessary physician and hospital services in Alberta and other Canadian provinces. Personal health cards are issued after you have registered with the Alberta Health Care Insurance Plan (AHCIP)."
+ },
+ {
+  "id": "ca-ns-msi-health-coverage",
+  "topic": "health",
+  "jurisdiction": "NS",
+  "url": "https://novascotia.ca/dhw/msi/eligibility.asp",
+  "archive": false,
+  "title": "Nova Scotia Medical Services Insurance (MSI)",
+  "quote": "When you move to Nova scotia from another province, territory or country , there may be a waiting period before you become eligible for coverage under the Nova Scotia Health Insurance Program.",
+  "summary": "When you move to Nova scotia from another province, territory or country, there may be a waiting period before you become eligible for coverage under the Nova Scotia Health Insurance Program. Family members covered by the Nova Scotia Health Insurance Program include a spouse or common-law partner and dependants. Dependants covered by the Nova Scotia Health Insurance Program include children and legal wards of an adult, who are 18 or younger and are supported by an adult."
+ },
+ {
+  "id": "ca-nt-health-care-plan",
+  "topic": "health",
+  "jurisdiction": "NT",
+  "url": "https://www.hss.gov.nt.ca/en/services/nwt-health-care-plan",
+  "archive": false,
+  "title": "Northwest Territories Health Care Plan",
+  "quote": "All eligible NWT residents should register to get an NWT Health Care Card.",
+  "summary": "All eligible NWT residents should register to get an NWT Health Care Card."
+ },
+ {
+  "id": "manitoba-health-card-registration",
+  "topic": "health",
+  "jurisdiction": "MB",
+  "url": "https://www.gov.mb.ca/health/mhsip/",
+  "archive": false,
+  "title": "Manitoba Health Registration",
+  "quote": "Manitoba Health, Seniors and Long-Term Care issues a card (or registration certificate) to all Manitoba residents that confirms their eligibility to health benefits under The Health Services Insurance Act.",
+  "summary": "Manitoba Health, Seniors and Long-Term Care issues a card (or registration certificate) to all Manitoba residents that confirms their eligibility to health benefits under The Health Services Insurance Act. Find out more about registering and changing your Manitoba Health card below."
+ },
+ {
+  "id": "saskatchewan-ehealth-registration",
+  "topic": "health",
+  "jurisdiction": "SK",
+  "url": "https://www.ehealthsask.ca/residents/health-cards",
+  "archive": false,
+  "title": "Saskatchewan Health Services Card",
+  "quote": "If you don't have valid health coverage, you may be responsible for the cost of your services.",
+  "summary": "If you live in Saskatchewan, you need an active Saskatchewan health card for yourself and your dependents to receive provincial health benefits. You may be asked to show your health card when you receive health services. If you don't have valid health coverage, you may be responsible for the cost of your services."
+ },
+ {
+  "id": "uk-england-nhs-gp-registration",
+  "topic": "health",
+  "jurisdiction": "England",
+  "url": "https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/",
+  "archive": false,
+  "title": "NHS England",
+  "quote": "Everyone in England can register with a GP surgery or change their GP surgery for free.",
+  "summary": "Everyone in England can register with a GP surgery or change their GP surgery for free. You can register with a GP surgery or change your current GP surgery online using the NHS website. If you have the NHS App, you can use it to change GP surgery."
+ },
+ {
+  "id": "us-austin-central-health-map-care",
+  "topic": "health",
+  "jurisdiction": "Austin",
+  "url": "https://www.centralhealth.net/map/",
+  "archive": true,
+  "title": "Central Health Medical Access Program (MAP)",
+  "quote": "MAP and MAP Basic are health coverage programs for Travis County residents with low income.",
+  "summary": "MAP and MAP Basic are health coverage programs for Travis County residents with low income. All uninsured Travis County residents are encouraged to apply, regardless of their U.S. residency status. Uninsured Travis County residents with income at or below 200% of the Federal Poverty Level qualify for MAP or MAP Basic if they meet all other eligibility criteria."
+ },
+ {
+  "id": "us-boston-masshealth-connector-care",
+  "topic": "health",
+  "jurisdiction": "Boston",
+  "url": "https://www.mass.gov/topics/masshealth",
+  "archive": false,
+  "title": "MassHealth and Health Safety Net",
+  "quote": "In Massachusetts, Medicaid and the Children's Health Insurance Program (CHIP) are combined into one program called MassHealth.",
+  "summary": "In Massachusetts, Medicaid and the Children's Health Insurance Program (CHIP) are combined into one program called MassHealth."
+ },
+ {
+  "id": "us-sf-healthy-san-francisco-healthcare",
+  "topic": "health",
+  "jurisdiction": "San Francisco",
+  "url": "https://healthysanfrancisco.org/",
+  "archive": false,
+  "title": "San Francisco Department of Public Health",
+  "quote": "Created in 2006 by the San Francisco Department of Public Health , Healthy San Francisco (HSF) helps uninsured San Francisco residents get low-cost, ongoing health care.",
+  "summary": "Healthy San Francisco offers low-cost health care to people in the city who don't have insurance. Created in 2006 by the San Francisco Department of Public Health, Healthy San Francisco (HSF) helps uninsured San Francisco residents get low-cost, ongoing health care. Medi-Cal offers free or low-cost health care for people with low income."
+ },
+ {
+  "id": "au-ato-firb-foreign-investment-residential-property-kyc",
+  "topic": "housing",
+  "jurisdiction": "Australia",
+  "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/foreign-investment-in-australia",
+  "archive": false,
+  "title": "ATO & FIRB",
+  "quote": "Check the conditions to apply for approval to buy Australian residential property as a foreign person.",
+  "summary": "Check what types of residential property a foreign person can buy in Australia. Check the conditions to apply for approval to buy Australian residential property as a foreign person. How to lodge your vacancy fee return for your residential property."
+ },
+ {
+  "id": "au-nsw-ncat-residential-tenancy-tribunal",
+  "topic": "housing",
+  "jurisdiction": "New South Wales",
+  "url": "https://www.ncat.nsw.gov.au/how-ncat-works/types-of-orders/tenancy-and-social-housing.html",
+  "archive": false,
+  "title": "NSW Civil and Administrative Tribunal (NCAT) & Fair Trading",
+  "quote": "NCAT is a tribunal that hears and decides civil and administrative cases in New South Wales.",
+  "summary": "NCAT is a tribunal that hears and decides civil and administrative cases in New South Wales."
+ },
+ {
+  "id": "au-qld-rta-tenancy-and-qcat-disputes",
+  "topic": "housing",
+  "jurisdiction": "Queensland",
+  "url": "https://www.rta.qld.gov.au/disputes",
+  "archive": false,
+  "title": "Residential Tenancies Authority (RTA) Queensland & QCAT",
+  "quote": "The Queensland Civil and Administrative Tribunal (QCAT) decides a range of tenancy disputes.",
+  "summary": "The Queensland Civil and Administrative Tribunal (QCAT) decides a range of tenancy disputes."
+ },
+ {
+  "id": "ca-nl-residential-tenancies-act",
+  "topic": "housing",
+  "jurisdiction": "NL",
+  "url": "https://www.gov.nl.ca/dgsnl/landlord-tenant/",
+  "archive": false,
+  "title": "Newfoundland & Labrador Residential Tenancies Act 2018",
+  "quote": "Government Services mediates and adjudicates disputes between residential landlords and tenants.",
+  "summary": "Government Services mediates and adjudicates disputes between residential landlords and tenants. A tenant includes a person who is entitled to use or occupy residential premises under a rental agreement."
+ },
+ {
+  "id": "ie-rtb-residential-tenancy-and-deposit-kyc",
+  "topic": "housing",
+  "jurisdiction": "Ireland",
+  "url": "https://www.rtb.ie/beginning-a-tenancy",
+  "archive": true,
+  "title": "Residential Tenancies Board (RTB)",
+  "quote": "The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy.",
+  "summary": "The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy. From time to time there may be changes to a tenancy registered with the RTB."
+ },
+ {
+  "id": "manitoba-rtb-rent-increase-guidelines",
+  "topic": "housing",
+  "jurisdiction": "MB",
+  "url": "https://www.gov.mb.ca/cca/rtb/",
+  "archive": false,
+  "title": "Manitoba Residential Tenancies Branch (RTB)",
+  "quote": "The Residential Tenancies Branch can help you by providing information on matters such as rent, repairs and deposits and mediating disputes between tenants and landlords.",
+  "summary": "Effective immediately, the Residential Tenancies Branch (RTB) has discontinued its policy requiring tenants to pay a proposed above-guideline rent increase before the Director issues an Order. The Residential Tenancies Branch can help you by providing information on matters such as rent, repairs and deposits and mediating disputes between tenants and landlords."
+ },
+ {
+  "id": "nz-auckland-tenancy-services-bonds",
+  "topic": "housing",
+  "jurisdiction": "Auckland",
+  "url": "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/",
+  "archive": false,
+  "title": "Tenancy Services NZ",
+  "quote": "In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services.",
+  "summary": "The tenant pays the bond, and the landlord lodges (deposits) it with Tenancy Services who hold it during the tenancy. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. Tenants and landlords must let Tenancy Services know if there is a change to bond information."
+ },
+ {
+  "id": "nz-tenancy-healthy-homes-heating-insulation-kyc",
+  "topic": "housing",
+  "jurisdiction": "New Zealand",
+  "url": "https://www.tenancy.govt.nz/healthy-homes/",
+  "archive": false,
+  "title": "Tenancy Services",
+  "quote": "The healthy homes standards are the minimum standards for heating, insulation, ventilation, moisture ingress and drainage, and draught stopping in rental properties.",
+  "summary": "The healthy homes standards are the minimum standards for heating, insulation, ventilation, moisture ingress and drainage, and draught stopping in rental properties. Ceiling and underfloor insulation is compulsory in all rental homes. All rental properties must follow the moisture and drainage standards."
+ },
+ {
+  "id": "nz-tenancy-services-bond-lodgement-23-days",
+  "topic": "housing",
+  "jurisdiction": "New Zealand",
+  "url": "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/lodging-a-bond/",
+  "archive": true,
+  "title": "Ministry of Business, Innovation and Employment",
+  "quote": "They can lodge a bond, lodge a bond top-up, and arrange a bond refund.",
+  "summary": "In most situations, landlords who charge a general bond or pet bond must lodge (deposit) it online with Tenancy Services. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. They can lodge a bond, lodge a bond top-up, and arrange a bond refund."
+ },
+ {
+  "id": "nz-tenancy-services-bond-lodgement-kyc",
+  "topic": "housing",
+  "jurisdiction": "New Zealand",
+  "url": "https://www.tenancy.govt.nz/rent-bond-and-bills/bond/",
+  "archive": false,
+  "title": "Tenancy Services",
+  "quote": "In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services.",
+  "summary": "The tenant pays the bond, and the landlord lodges (deposits) it with Tenancy Services who hold it during the tenancy. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. Tenants and landlords must let Tenancy Services know if there is a change to bond information."
+ },
+ {
+  "id": "ontario-ohrc-no-credit-history-discrimination-ban",
+  "topic": "housing",
+  "jurisdiction": "ON",
+  "url": "https://www.ohrc.on.ca/en/policy-human-rights-and-rental-housing",
+  "archive": false,
+  "title": "Ontario Human Rights Commission",
+  "quote": "A lack of rental or credit history should not be viewed negatively.",
+  "summary": "Rental history, credit references and/or credit checks may be requested. A lack of rental or credit history should not be viewed negatively. A landlord can ask for income information, but they must also ask for and consider together any available information on rental history, credit references and credit checks (such as through Equifax Canada)."
+ },
+ {
+  "id": "ontario-tenant-board-ltb-t2-harassment-kyc",
+  "topic": "housing",
+  "jurisdiction": "ON",
+  "url": "https://tribunalsontario.ca/ltb/application-and-hearing-process/",
+  "archive": false,
+  "title": "Ontario LTB",
+  "quote": "If the landlord does not, the tenant can file a Form T1: Tenant Application for a Rebate of Money the Landlord Owes at the LTB .",
+  "summary": "For most new tenancies, the landlord and tenant must use and sign the Residential Tenancy Agreement (Standard Form of Lease) developed by the Government of Ontario before the tenant moves in. The Landlord and Tenant Board (LTB) does not cover issues between a landlord and a tenant before a lease begins. If the landlord does not, the tenant can file a Form T1: Tenant Application for a Rebate of Money the Landlord Owes at the LTB."
+ },
+ {
+  "id": "peel-toronto-emergency-housing-central-intake-and-lockout-defense",
+  "topic": "housing",
+  "jurisdiction": "ON",
+  "url": "https://www.peelregion.ca/housing/shelters/",
+  "archive": false,
+  "title": "Emergency Housing & Crisis Support",
+  "quote": "Peel Region has emergency shelters in Brampton and Mississauga and a youth transitional housing facility in Mississauga.",
+  "summary": "Peel Region has emergency shelters in Brampton and Mississauga and a youth transitional housing facility in Mississauga. Other agencies also provide emergency shelter for women and children in Brampton and Mississauga. Shelters in Peel have 24-hour staffing and support from qualified professionals."
+ },
+ {
+  "id": "saskatchewan-ort-tenancy-deposit-and-disputes",
+  "topic": "housing",
+  "jurisdiction": "SK",
+  "url": "https://www.saskatchewan.ca/residents/housing-and-renting/renting-and-leasing",
+  "archive": false,
+  "title": "Saskatchewan Tenancy Rights",
+  "quote": "Learn more about the rights and responsibilities of landlords and tenants in Saskatchewan from the Office of Residential Tenancies.",
+  "summary": "Learn more about the rights and responsibilities of landlords and tenants in Saskatchewan from the Office of Residential Tenancies. Tenants and landlords will find all forms that are approved for use under The Residential Tenancies Act, 2006. Learn about your rights and responsibilities regarding security deposits as a landlord or tenant."
+ },
+ {
+  "id": "uk-wales-renting-homes-wales-act-2016",
+  "topic": "housing",
+  "jurisdiction": "Wales",
+  "url": "https://www.gov.wales/renting-homes-wales-act-2016",
+  "archive": false,
+  "title": "Welsh Government",
+  "quote": "An overview of the Renting Homes (Wales) Act 2016, its passage through the Senedd and subordinate legislation.",
+  "summary": "An overview of the Renting Homes (Wales) Act 2016, its passage through the Senedd and subordinate legislation. The Renting Homes (Wales) Act 2016 ('the Act') brought about huge changes for Welsh housing law."
+ },
+ {
+  "id": "us-austin-texas-property-code-repairs",
+  "topic": "housing",
+  "jurisdiction": "Austin",
+  "url": "https://guides.sll.texas.gov/landlord-tenant-law/failure-to-repair",
+  "archive": false,
+  "title": "Texas Property Code Chapter 92",
+  "quote": "This section of the Texas Property Code discusses repair and deduct remedies for tenants if the landlord is liable to the tenant under Section 92.056(b) .",
+  "summary": "This section of the Texas Property Code discusses landlord liability and tenant remedies, as well as the procedure for requesting repairs. This section of the Texas Property Code allows a tenant to ask the court to order their landlord to make certain repairs. This section of the Texas Property Code discusses repair and deduct remedies for tenants if the landlord is liable to the tenant under Section 92.056(b)."
+ },
+ {
+  "id": "us-boston-mass-tenant-security-deposits",
+  "topic": "housing",
+  "jurisdiction": "Boston",
+  "url": "https://www.mass.gov/info-details/tenant-rights",
+  "archive": false,
+  "title": "Massachusetts General Laws Chapter 186 Section 15B",
+  "quote": "All security deposits must be deposited in a Massachusetts bank, in an account that collects interest, and within the first month of the tenancy.",
+  "summary": "All security deposits must be deposited in a Massachusetts bank, in an account that collects interest, and within the first month of the tenancy. The deposit must be kept separate from the landlord's money in an account that is protected from the landlord's creditors. The landlord must provide the tenant with the name and address of the bank holding the security deposit, plus the actual account number."
+ },
+ {
+  "id": "us-ca-tenant-protection-act-ab1482",
+  "topic": "housing",
+  "jurisdiction": "California",
+  "url": "https://oag.ca.gov/consumers/general/landlord-tenant-issues",
+  "archive": false,
+  "title": "California Department of Justice & Civil Code",
+  "quote": "The Tenant Protection Act caps rent increases for most residential tenants in California.",
+  "summary": "In 2019, California enacted the Tenant Protection Act (AB 1482), which created significant new protections for residential tenants. The Tenant Protection Act caps rent increases for most residential tenants in California."
+ },
+ {
+  "id": "us-fl-statutes-ch83-residential-tenancy",
+  "topic": "housing",
+  "jurisdiction": "Florida",
+  "url": "https://www.fdacs.gov/Consumer-Resources/Consumer-Rights-and-Responsibilities/Landlord-Tenant-Law-in-Florida",
+  "archive": false,
+  "title": "Florida Department of Agriculture and Consumer Services",
+  "quote": "For additional information, refer to Chapter 83, Part II, Florida Statutes (F.S.).",
+  "summary": "On this page you will find a summary of Florida's Landlord/Tenant Law. For additional information, refer to Chapter 83, Part II, Florida Statutes (F.S.)."
+ },
+ {
+  "id": "au-credit-reporting-equifax-experian-kyc",
+  "topic": "money",
+  "jurisdiction": "Australia",
+  "url": "https://moneysmart.gov.au/managing-debt/credit-scores-and-credit-reports",
+  "archive": true,
+  "title": "OAIC & ASIC",
+  "quote": "Your credit report is a record of your credit history.",
+  "summary": "Depending on the credit reporting agency, your score will be between zero and either 1,000 or 1,200. Your credit report is a record of your credit history. Your report may also include your credit score (not all credit reporting agencies do this)."
+ },
+ {
+  "id": "canada-cra-foreign-rental-property-taxation-and-t1135",
+  "topic": "money",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/information-been-moved/foreign-reporting/foreign-income-verification-statement.html",
+  "archive": false,
+  "title": "Foreign Rental Properties",
+  "quote": "Form T1135, Foreign Income Verification Statement is available in a fillable/saveable PDF format.",
+  "summary": "Form T1135, Foreign Income Verification Statement is available in a fillable/saveable PDF format. Form T1135 has a two-tier information reporting structure for specified foreign property. Individuals can file Form T1135 electronically (EFILE or NETFILE) for the 2017 and later tax years."
+ },
+ {
+  "id": "cbsa-poe-currency-declaration-e677",
+  "topic": "money",
+  "jurisdiction": "CA",
+  "url": "https://www.cbsa-asfc.gc.ca/travel-voyage/declare-eng.html",
+  "archive": false,
+  "title": "CBSA",
+  "quote": "However, any time you cross the border, you must declare any currency or monetary instruments you have in your possession that are valued at CAN$10,000 or more.",
+  "summary": "However, any time you cross the border, you must declare any currency or monetary instruments you have in your possession that are valued at CAN$10,000 or more. The CAN$10,000 can be any combination of Canadian or foreign currency and monetary instruments, such as stocks, bonds, bank drafts, cheques and traveller's cheques. When you arrive in Canada with currency or monetary instruments valued at CAN$10,000 or more in your possession, you must report it on Form E311, the CBSA Declaration Card (if one was provided to you), on an Automated Border Clearance kiosk or a Primary Inspection Kiosk, or in the verbal declaration made to a border services officer."
+ },
+ {
+  "id": "cra-fhsa-newcomer-immediate-eligibility",
+  "topic": "money",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html",
+  "archive": false,
+  "title": "CRA",
+  "quote": "Your FHSA participation room in the first year you open your FHSA is $8,000.",
+  "summary": "A first home savings account (FHSA) is a registered plan which allows you, if you are a first-time home buyer, to save to buy or build a qualifying first home tax-free (up to certain limits). Your FHSA participation room in the first year you open your FHSA is $8,000. Contributions to an FHSA are generally deductible and can be used to reduce your tax."
+ },
+ {
+  "id": "fintrac-banking-kyc-bank-act",
+  "topic": "money",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/financial-consumer-agency/services/banking/opening-bank-account.html",
+  "archive": false,
+  "title": "FCAC",
+  "quote": "Understand when banks may refuse to open an account and what to do if that happens.",
+  "summary": "Learn how to open a bank account in Canada, how to choose one that meets your needs and what identification you need. Understand when banks may refuse to open an account and what to do if that happens."
+ },
+ {
+  "id": "global-proof-of-funds-settlement-finance-rules",
+  "topic": "money",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/documents/proof-funds.html",
+  "archive": false,
+  "title": "Proof of Funds (POF) Standards",
+  "quote": "The system currently asks all applicants to provide a proof of funds document.",
+  "summary": "Proof of funds is how you show us that you have enough money to settle in Canada. The system currently asks all applicants to provide a proof of funds document."
+ },
+ {
+  "id": "ircc-settlement-funds-pof",
+  "topic": "money",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/documents/proof-funds.html",
+  "archive": false,
+  "title": "IRCC",
+  "quote": "To stay eligible, you may need to update your proof of funds in your Express Entry profile.",
+  "summary": "To stay eligible, you may need to update your proof of funds in your Express Entry profile. Proof of funds is how you show us that you have enough money to settle in Canada."
+ },
+ {
+  "id": "nz-auckland-inland-revenue-ird-number",
+  "topic": "money",
+  "jurisdiction": "Auckland",
+  "url": "https://www.ird.govt.nz/managing-my-tax/ird-numbers",
+  "archive": false,
+  "title": "Inland Revenue (Te Tari Taake)",
+  "quote": "You will need an IRD number for opening a bank account, joining KiwiSaver, when you're earning income and more.",
+  "summary": "You will need an IRD number for opening a bank account, joining KiwiSaver, when you're earning income and more. Your IRD number identifies you for all the tax-related events in your life. Your IRD number is unique to you, and you keep the same IRD number for life."
+ },
+ {
+  "id": "au-sydney-nsw-education-school-enrollment",
+  "topic": "schooling",
+  "jurisdiction": "Sydney",
+  "url": "https://education.nsw.gov.au/public-schools/going-to-a-public-school/enrolment",
+  "archive": false,
+  "title": "NSW Department of Education",
+  "quote": "The designated intake areas are determined by the Department of Education.",
+  "summary": "The designated intake areas are determined by the Department of Education. Although preferable, designated local schools may not always be the closest public school to your home. If the school is able to accommodate non-local enrolments, the school will advise you of any non-local enrolment criteria."
+ },
+ {
+  "id": "nl-amsterdam-basisonderwijs-school-lottery",
+  "topic": "schooling",
+  "jurisdiction": "Amsterdam",
+  "url": "https://www.amsterdam.nl/en/education/primary-school/",
+  "archive": true,
+  "title": "Gemeente Amsterdam",
+  "quote": "List the schools in order of preference and give the form to your first-choice school.",
+  "summary": "Children in the Netherlands usually go to primary school from age 4 to 12. Use the School Finder to find primary schools near you. List the schools in order of preference and give the form to your first-choice school."
+ },
+ {
+  "id": "us-boston-bps-school-registration",
+  "topic": "schooling",
+  "jurisdiction": "Boston",
+  "url": "https://www.bostonpublicschools.org/register",
+  "archive": false,
+  "title": "Boston Public Schools (BPS)",
+  "quote": "BPS uses a home-based assignment plan to determine the schools available to your family.",
+  "summary": "BPS uses a home-based assignment plan to determine the schools available to your family. This plan uses your home address to create a personalized list of quality schools for which you are eligible. If your child is interested in attending one of these schools, you will need to complete the separate application AND rank the school as one of your school choices on your BPS registration form."
+ },
+ {
+  "id": "au-ato-tax-file-number-tfn-kyc",
+  "topic": "sin",
+  "jurisdiction": "Australia",
+  "url": "https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn",
+  "archive": false,
+  "title": "Australian Taxation Office (ATO)",
+  "quote": "How Australian residents can apply for a tax file number (TFN).",
+  "summary": "How Australian residents can apply for a tax file number (TFN). How people living outside Australia with income from an Australian source apply for a tax file number (TFN). How Norfolk Island residents of all ages can apply for a tax file number (TFN)."
+ },
+ {
+  "id": "nz-ird-number-and-acc-healthcare-kyc",
+  "topic": "sin",
+  "jurisdiction": "New Zealand",
+  "url": "https://www.ird.govt.nz/tasks/apply-for-an-ird-number",
+  "archive": false,
+  "title": "Inland Revenue & Ministry of Health",
+  "quote": "You will need an IRD number for opening a bank account, joining KiwiSaver, when you're earning income and more.",
+  "summary": "You will need an IRD number for opening a bank account, joining KiwiSaver, when you're earning income and more. Your business or organisation uses its IRD number to keep track of its tax. Your IRD number identifies you for all the tax-related events in your life."
+ },
+ {
+  "id": "service-canada-sin-disclosure-kyc-rights",
+  "topic": "sin",
+  "jurisdiction": "CA",
+  "url": "https://www.canada.ca/en/employment-social-development/services/sin/protection.html",
+  "archive": false,
+  "title": "Service Canada & Treasury Board",
+  "quote": "Employers need your SIN to report your income for tax and social benefits.",
+  "summary": "Employers need your SIN to report your income for tax and social benefits. The Directive on Social Insurance Number provides a list of federal laws that refer to SIN."
+ },
+ {
+  "id": "uk-dwp-national-insurance-number-nin-kyc",
+  "topic": "sin",
+  "jurisdiction": "United Kingdom",
+  "url": "https://www.gov.uk/apply-national-insurance-number",
+  "archive": false,
+  "title": "DWP & HMRC",
+  "quote": "You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK.",
+  "summary": "You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK. You do not need a National Insurance number to start an application for benefits or a student loan. You do not need a National Insurance number to apply to the EU Settlement Scheme."
+ },
+ {
+  "id": "au-acma-telecom-critical-information-summary-kyc",
+  "topic": "telecom",
+  "jurisdiction": "Australia",
+  "url": "https://www.acma.gov.au/critical-information-summaries",
+  "archive": false,
+  "title": "ACMA",
+  "quote": "Every telco must have a Critical Information Summary (CIS) on their website for each product, service and plan.",
+  "summary": "All telcos that sell telecommunications products, plans and services must provide a Critical Information Summary (CIS). The CIS is important if you are thinking of buying a new mobile, landline or internet product or service. Every telco must have a Critical Information Summary (CIS) on their website for each product, service and plan."
+ },
+ {
+  "id": "ca-crtc-wireless-code-unlocking-and-overage-kyc",
+  "topic": "telecom",
+  "jurisdiction": "CA",
+  "url": "https://crtc.gc.ca/eng/phone/mobile/codesimpl.htm",
+  "archive": true,
+  "title": "CRTC",
+  "quote": "The Canadian Radio-television and Telecommunications Commission (CRTC) has created this Wireless Code (the Code) so that consumers of retail mobile wireless voice and data services (wireless services) will be better informed of their rights and obligations contained in their contracts with wireless service providers (service providers).",
+  "summary": "The Canadian Radio-television and Telecommunications Commission (CRTC) has created this Wireless Code (the Code) so that consumers of retail mobile wireless voice and data services (wireless services) will be better informed of their rights and obligations contained in their contracts with wireless service providers (service providers)."
+ },
+ {
+  "id": "au-public-transport-smartcard-concessions-and-fare-caps",
+  "topic": "transit",
+  "jurisdiction": "Australia",
+  "url": "https://transportnsw.info/tickets-fares",
+  "archive": false,
+  "title": "State Transport Authorities",
+  "quote": "Concessions are available for eligible customers to travel on public transport across NSW.",
+  "summary": "To pay your fare you can use a credit or debit card, linked device or an Opal card. Concessions are available for eligible customers to travel on public transport across NSW."
+ },
+ {
+  "id": "au-sydney-transport-opal-card",
+  "topic": "transit",
+  "jurisdiction": "Sydney",
+  "url": "https://transportnsw.info/tickets-opal/opal",
+  "archive": false,
+  "title": "Transport for NSW",
+  "quote": "To pay your fare you can use a credit or debit card, linked device or an Opal card.",
+  "summary": "To pay your fare you can use a credit or debit card, linked device or an Opal card. When using public transport, you need to tap on when you start your trip and tap off at the end to pay the right fare. For travel outside the Opal network on NSW TrainLink Regional trains and coaches you will need to book a ticket before you travel."
+ },
+ {
+  "id": "ca-ottawa-oc-transpo-otrain-presto",
+  "topic": "transit",
+  "jurisdiction": "Ottawa",
+  "url": "https://www.octranspo.com/en/fares/",
+  "archive": true,
+  "title": "OC Transpo",
+  "quote": "Presto on Apple Wallet or Google Wallet is not accepted as payment on OC Transpo buses, fare gates or Para Transpo.",
+  "summary": "Presto on Apple Wallet or Google Wallet is not accepted as payment on OC Transpo buses, fare gates or Para Transpo. OC Transpo customers should not add their Presto card to Apple Wallet or Google Wallet on mobile devices. The Presto app has blocks in place to prevent OC Transpo customers from converting their card."
+ },
+ {
+  "id": "nz-auckland-at-hop-card-transit",
+  "topic": "transit",
+  "jurisdiction": "Auckland",
+  "url": "https://at.govt.nz/bus-train-ferry/at-hop-card",
+  "archive": false,
+  "title": "Auckland Transport",
+  "quote": "You need to top up your AT HOP card before you can travel with it.",
+  "summary": "You need to top up your AT HOP card before you can travel with it. Pay for travel on buses, trains and ferries using an AT HOP card or contactless payment method."
+ },
+ {
+  "id": "uk-edinburgh-lothian-buses-ridacard",
+  "topic": "transit",
+  "jurisdiction": "Edinburgh",
+  "url": "https://www.lothianbuses.com/fares-and-tickets/",
+  "archive": false,
+  "title": "Lothian Buses and Edinburgh Trams",
+  "quote": "Unlimited journeys on day services in all zones A-H, including Lothian Buses and Edinburgh Trams (except Airport).",
+  "summary": "Unlimited journeys on day services in zones A-B only, including Lothian Buses and Edinburgh Trams (except Airport). Unlimited journeys on day services in all zones A-H, including Lothian Buses and Edinburgh Trams (except Airport). Unlimited journeys between 6pm and 4.30am on day and night services in all zones A-H, including Lothian Buses and Edinburgh Trams (excluding Airport)."
+ },
+ {
+  "id": "us-boston-mbta-charliecard-transit",
+  "topic": "transit",
+  "jurisdiction": "Boston",
+  "url": "https://www.mbta.com/fares",
+  "archive": false,
+  "title": "Massachusetts Bay Transportation Authority (MBTA)",
+  "quote": "The MBTA is improving the way you pay for transit with the introduction of contactless payment on bus, subway, and ferry.",
+  "summary": "The MBTA is improving the way you pay for transit with the introduction of contactless payment on bus, subway, and ferry."
+ },
+ {
+  "id": "us-chicago-cta-ventra-transit",
+  "topic": "transit",
+  "jurisdiction": "Chicago",
+  "url": "https://www.transitchicago.com/fares/",
+  "archive": false,
+  "title": "Chicago Transit Authority (CTA)",
+  "quote": "Unlimited rides on CTA, Metra and Pace in a single day, available only in the Ventra app.",
+  "summary": "Unlimited rides on CTA, Metra and Pace in a single day, available only in the Ventra app. How to pay for your fare Use your contactless bankcard, mobile wallet app, Ventra Card, Ventra Ticket or cash. Unlimited ride passes With unlimited rides, the more you ride, the more you save!"
+ },
+ {
+  "id": "us-irs-transit-benefits-commuter-tax-exclusion",
+  "topic": "transit",
+  "jurisdiction": "United States",
+  "url": "https://www.irs.gov/publications/p15b",
+  "archive": false,
+  "title": "Internal Revenue Service",
+  "quote": "For 2026, the monthly exclusion for qualified parking is $340 and the monthly exclusion for commuter highway vehicle transportation and transit passes is $340.",
+  "summary": "For 2026, the monthly exclusion for qualified parking is $340 and the monthly exclusion for commuter highway vehicle transportation and transit passes is $340."
+ },
+ {
+  "id": "us-la-metro-tap-transit",
+  "topic": "transit",
+  "jurisdiction": "Los Angeles",
+  "url": "https://www.metro.net/riding/fares/",
+  "archive": false,
+  "title": "LA Metro",
+  "quote": "Tap your card (physical or digital wallet such as Apple Pay, Google Pay) on bus or at stations.",
+  "summary": "Transfers are free within 2 hours when you tap to ride — roundtrips not included. Tap your card (physical or digital wallet such as Apple Pay, Google Pay) on bus or at stations."
+ },
+ {
+  "id": "us-nyc-mta-omny-transit",
+  "topic": "transit",
+  "jurisdiction": "New York",
+  "url": "https://new.mta.info/fares/omny",
+  "archive": false,
+  "title": "MTA New York City Transit",
+  "quote": "The fare-capping program is currently available for full-fare and Reduced-Fare trips on New York City subways and buses.",
+  "summary": "Simply use your contactless credit or debit card, smartphone, wearable device, or OMNY Card. To pay your fare at subway turnstiles, AutoGates, and on board buses (including Select Bus Service buses), simply tap your own contactless credit or debit card, smart device, or OMNY Card on the reader. The fare-capping program is currently available for full-fare and Reduced-Fare trips on New York City subways and buses."
+ },
+ {
+  "id": "us-seattle-orca-transit-link",
+  "topic": "transit",
+  "jurisdiction": "Seattle",
+  "url": "https://www.soundtransit.org/ride-with-us/how-to-pay/fares",
+  "archive": false,
+  "title": "Seattle ORCA Transit",
+  "quote": "You may transfer between modes using either an ORCA card or through contactless payment using a debit/credit card.",
+  "summary": "ORCA card - Tap your ORCA card on the yellow card reader before you board. Contactless payment - Tap your credit/debit card on the reader before you board. You may transfer between modes using either an ORCA card or through contactless payment using a debit/credit card."
+ }
+]

@@ -119,7 +119,8 @@ test('evidence database coverage floors hold when the database is present', (t) 
 
   const avgLen = (list) => list.reduce((a, r) => a + (r.summary || '').length, 0) / Math.max(list.length, 1);
   assert.ok(avgLen(recs.filter(r => group(r) === 'CA-federal')) >= 850, 'Canada federal summary depth');
-  assert.ok(avgLen(recs.filter(r => group(r) === 'BIG-12')) >= 830, 'big-12 summary depth');
+  // Lowered on 2026-11-06: batch f replaced long unverifiable summaries with shorter official-page text.
+  assert.ok(avgLen(recs.filter(r => group(r) === 'BIG-12')) >= 650, 'big-12 summary depth');
   assert.ok(avgLen(rest) >= 480, 'rest-of-world summary depth');
 
   for (const r of recs) {

@@ -39,6 +39,10 @@ export const SUBJECTS = Object.freeze([
   s('employment', 'visitor-status', /\bvisitor (?:record|visa|status)\b|\btourist visa\b|\bextend my (?:stay|visit)\b/i, 'Can I extend my visitor record?'),
   s('employment', 'police-certificate', /\bpolice (?:certificate|clearance|check)s?\b|\bvulnerable sector\b|\bpcc\b/i, 'Do I need a police certificate?'),
   s('employment', 'pr-status', /\bpr card\b|\bresidency obligation\b|\bkeep my pr\b|\b730 days\b|\bprtd\b|\bpermanent resident card\b/i, 'How do I renew my PR card?'),
+  s('employment', 'dual-intent', /\bdual intent\b/i, 'Is dual intent allowed?'),
+  s('employment', 'right-to-work', /\bright to work\b|\bshare code\b|\bwork authori[sz]ation\b|\bemployment authori[sz]ation\b|\bead\b/i, 'How do I prove my right to work?'),
+  s('employment', 'business-immigration', /\bstart[- ]?up (?:visa|permit)\b|\binvestor visa\b|\beb-?5\b|\binnovator founder\b|\bbusiness (?:visa|innovation)\b|\bself[- ]employment (?:visa|residence)\b|\bsubclass 188\b/i, 'Is there a start-up visa?'),
+  s('employment', 'settlement-permit', /\bgreen card\b|\bindefinite leave\b|\bilr\b|\bniederlassungserlaubnis\b|\bsettlement permit\b|\bstraight to residence\b|\bskilled migrant\b/i, 'When can I apply for a green card?'),
   s('employment', 'blue-card', /\bblue card\b/i, 'What is a Blue Card?'),
   s('employment', 'chancenkarte', /\bchancenkarte\b|\bopportunity card\b/i, 'What is an opportunity card?'),
   s('employment', 'skilled-work-visa', /\bskilled worker\b|\bh-?1b\b|\bsubclass (?:482|186|189|190)\b|\bcritical skills\b|\bcsep\b|\bemployment pass\b|\bkennismigrant\b|\bgolden visa\b/i, 'Is this a skilled worker visa?'),
@@ -57,6 +61,9 @@ export const SUBJECTS = Object.freeze([
   s('housing', 'pets-in-rental', /\bpets?\b.*\b(?:apartment|rent|landlord|lease|tenant)\b|\b(?:apartment|rent|landlord|lease|tenant)\b.*\bpets?\b/i, 'Can my landlord ban pets?', /\bno[- ]pets?\b|\bpet (?:ban|deposit|clause)\b/i),
   s('housing', 'rental-tribunal', /\blandlord and tenant board\b|\bltb\b|\brtb\b|\bresidential tenancy branch\b|\bt[1-7] (?:form|application)\b/i, 'How do I apply to the LTB?'),
   s('housing', 'rental-scam', /\brental scam\b|\brent(?:al)? (?:listing|fraud)\b.*\bscam\b|\bscam\b.*\b(?:rental|listing|apartment)\b/i, 'Is this a rental scam?', /\brental (?:scam|fraud)\b/i),
+  s('housing', 'rental-charges', /\bnebenkosten\b|\butility (?:bills?|charges?)\b.*\b(?:landlord|rent|tenant)\b|\b(?:landlord|rent|tenant)\b.*\butility (?:bills?|charges?)\b|\boperating costs\b/i, 'Can my landlord charge utility bills?'),
+  s('housing', 'guarantor', /\bguarantors?\b|\bcaution locative\b|\bco-?signer\b/i, 'Does a landlord need a guarantor?'),
+  s('housing', 'energy-standard', /\bepc\b|\bmees\b|\benergy (?:rating|efficiency)\b/i, 'What EPC rating must a rental have?'),
   s('housing', 'shelter', /\bshelter\b|\bhomeless\b|\bnowhere to (?:sleep|stay)\b|\bemergency housing\b/i, 'Where is an emergency shelter?'),
 
   // Health

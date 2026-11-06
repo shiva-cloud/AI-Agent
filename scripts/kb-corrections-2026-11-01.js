@@ -46,6 +46,8 @@ export const SUPERSEDED_BY_SOURCE_CHECK = new Set([
   'canada-ircc-settlement-services-eligibility-and-2026-limits'
 ]);
 
+const REWRITTEN_FROM_OFFICIAL_PAGE = new Set(JSON.parse(readFileSync(new URL('./kb-corrections-2026-11-06-f.json', import.meta.url), 'utf8')).map(r => r.id));
+
 export const CORRECTIONS = [
   // United Kingdom
   { id: 'uk-home-office-skilled-worker-visa-kyc', sources: ['https://www.gov.uk/skilled-worker-visa'],
@@ -517,6 +519,8 @@ export function planCorrections(rows) {
     const old = byId.get(c.id);
     if (!old) { problems.push(`${c.id}: not in database`); continue; }
     if (SUPERSEDED_BY_SOURCE_CHECK.has(c.id) && old.reviewMethod === 'source_verified') continue;
+    // Rewritten later from the official page (batch f), so these edits' text is gone everywhere.
+    if (REWRITTEN_FROM_OFFICIAL_PAGE.has(c.id)) continue;
     const { next, missing, changed } = applyEdits(old, c.edits);
     if (missing.length) problems.push(`${c.id}: text not found -> ${missing.join(' | ')}`);
     // Records accept only known evidence fields, so the correction is described

@@ -242,7 +242,7 @@
    "subjects": [
     "public-coverage"
    ],
-   "hash": "767463b5a306d5eb",
+   "hash": "8ff0d788a20df092",
    "status": "proposed",
    "method": "rule"
   },
@@ -256,14 +256,12 @@
    "method": "rule"
   },
   "alberta-employment-standards-overtime-and-termination": {
-   "subjects": [
-    "wage-deductions",
-    "overtime",
-    "termination-notice"
-   ],
-   "hash": "33b4142c313246bf",
-   "status": "proposed",
-   "method": "rule"
+   "subjects": [],
+   "hash": "f551695a710448bf",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "alberta-rtdrs-tenancy-and-security-deposits": {
    "subjects": [
@@ -341,12 +339,12 @@
    "method": "rule"
   },
   "au-ato-firb-foreign-investment-residential-property-kyc": {
-   "subjects": [
-    "rent-level"
-   ],
-   "hash": "0eb5e7822f54b06c",
-   "status": "proposed",
-   "method": "rule"
+   "subjects": [],
+   "hash": "2b3382cd78071322",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-ato-temporary-resident-cgt-foreign-assets-exemption": {
    "subjects": [
@@ -377,10 +375,9 @@
   },
   "au-credit-reporting-equifax-experian-kyc": {
    "subjects": [
-    "bank-account",
     "credit-building"
    ],
-   "hash": "12b8c614e515fba1",
+   "hash": "7d5d6eeefba88629",
    "status": "proposed",
    "method": "rule"
   },
@@ -397,25 +394,58 @@
     "skilled-work-visa"
    ],
    "hash": "b942bac1e8b3c9bf",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "au-dha-pam3-bridging-visa-b-travel-facility": {
+   "subjects": [],
+   "hash": "8ed905905d0a1ddc",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "au-dha-subclass-188-and-national-innovation-visa": {
+   "subjects": [
+    "business-immigration"
+   ],
+   "hash": "8d35313035ba24dc",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-dha-subclass-482-to-186-ens-pr-transition": {
    "subjects": [
     "skilled-work-visa"
    ],
    "hash": "5096d83488f2a590",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "au-dha-subclass-500-student-485-graduate": {
+   "subjects": [
+    "post-graduation-permit"
+   ],
+   "hash": "7b57459395bfc693",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-fair-work-cashback-coercion-prohibition": {
    "subjects": [
-    "wage-deductions",
-    "hours-and-breaks"
+    "unpaid-wages"
    ],
    "hash": "d7750b0b2fac55a9",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-fair-work-working-holiday-award-wage-floor": {
    "subjects": [
@@ -444,6 +474,14 @@
    "status": "proposed",
    "method": "rule"
   },
+  "au-home-affairs-section-501-character-test-cancellation-kyc": {
+   "subjects": [],
+   "hash": "f79037bb4c9a1d97",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "au-home-affairs-skilled-migration-kyc": {
    "subjects": [
     "skilled-work-visa"
@@ -454,12 +492,13 @@
   },
   "au-home-affairs-vevo-right-to-work-kyc": {
    "subjects": [
-    "minimum-wage",
-    "work-permit-general"
+    "right-to-work"
    ],
-   "hash": "997d277de9608176",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "86cf5be252cadbc3",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-medicare-services-australia-kyc": {
    "subjects": [
@@ -515,7 +554,7 @@
    "subjects": [
     "getting-a-licence"
    ],
-   "hash": "d65c38f15fca9d80",
+   "hash": "38120ea824827128",
    "status": "proposed",
    "method": "rule"
   },
@@ -529,12 +568,13 @@
   },
   "au-nsw-ncat-residential-tenancy-tribunal": {
    "subjects": [
-    "repairs",
-    "lease"
+    "rental-tribunal"
    ],
-   "hash": "f18501d654d6d690",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "4615936274106211",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-nsw-residential-tenancies-act-ncat": {
    "subjects": [
@@ -566,25 +606,19 @@
    "subjects": [
     "fares-and-passes"
    ],
-   "hash": "7f68e30c3e6a0586",
+   "hash": "b7655c38e65e06a5",
    "status": "proposed",
    "method": "rule"
   },
   "au-qld-rta-tenancy-and-qcat-disputes": {
    "subjects": [
-    "lease"
+    "rental-tribunal"
    ],
-   "hash": "5bfe59951f53533d",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "au-qld-tmr-driver-licence-exchange": {
-   "subjects": [
-    "getting-a-licence"
-   ],
-   "hash": "07950ddd422d9147",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "5343500fac61c49f",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "au-rental-bonds-lodgement-and-refund-kyc": {
    "subjects": [
@@ -667,7 +701,7 @@
    "subjects": [
     "school-registration"
    ],
-   "hash": "c5aa7efeb4adc1bc",
+   "hash": "45a3f51dd2a0ff69",
    "status": "proposed",
    "method": "rule"
   },
@@ -693,7 +727,7 @@
    "subjects": [
     "fares-and-passes"
    ],
-   "hash": "dbcb6369053b59bd",
+   "hash": "31e08ed56f7dc01f",
    "status": "proposed",
    "method": "rule"
   },
@@ -746,6 +780,14 @@
     "getting-a-licence"
    ],
    "hash": "2c97e018360128c9",
+   "status": "proposed",
+   "method": "rule"
+  },
+  "australia-dvs-licence": {
+   "subjects": [
+    "getting-a-licence"
+   ],
+   "hash": "2b264507c0ca1aac",
    "status": "proposed",
    "method": "rule"
   },
@@ -1001,7 +1043,8 @@
     "rent-level",
     "deposit",
     "lease",
-    "tenant-screening"
+    "tenant-screening",
+    "guarantor"
    ],
    "hash": "9e1ad5aa5b5eaacc",
    "status": "proposed",
@@ -1020,7 +1063,8 @@
    "subjects": [
     "deposit",
     "eviction",
-    "lease"
+    "lease",
+    "guarantor"
    ],
    "hash": "94557aef9ea4788a",
    "status": "proposed",
@@ -1161,7 +1205,7 @@
    "subjects": [
     "phone-plans"
    ],
-   "hash": "52df47ff9a7eebb2",
+   "hash": "581f8f6d9e904e27",
    "status": "proposed",
    "method": "rule"
   },
@@ -1175,13 +1219,13 @@
   },
   "ca-ircc-express-entry-fsw-cec-pnp-pr": {
    "subjects": [
-    "economic-immigration",
-    "provincial-nominee",
-    "skilled-work-visa"
+    "economic-immigration"
    ],
    "hash": "0c75e2a96a823ae6",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-ircc-pdi-excessive-demand-formula": {
    "subjects": [
@@ -1202,7 +1246,8 @@
   },
   "ca-ircc-start-up-visa-suv-program": {
    "subjects": [
-    "work-permit-general"
+    "work-permit-general",
+    "business-immigration"
    ],
    "hash": "56dde59e4b459413",
    "status": "proposed",
@@ -1210,12 +1255,13 @@
   },
   "ca-ircc-study-permit-pgwp-rules": {
    "subjects": [
-    "work-permit-general",
     "study-work"
    ],
    "hash": "c5665f11a3aaf28f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-mb-employment-standards-code": {
    "subjects": [
@@ -1328,14 +1374,13 @@
   },
   "ca-nl-residential-tenancies-act": {
    "subjects": [
-    "deposit",
-    "eviction",
-    "repairs",
-    "lease"
+    "rental-tribunal"
    ],
-   "hash": "03a8eb5299e6c3d1",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "fa58feba83c2f85a",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-nnas-internationally-educated-nurses": {
    "subjects": [
@@ -1355,24 +1400,18 @@
    "method": "rule"
   },
   "ca-ns-labour-standards-overtime-and-notice": {
-   "subjects": [
-    "minimum-wage",
-    "wage-deductions",
-    "overtime",
-    "termination-notice",
-    "severance"
-   ],
-   "hash": "3ba8a6e6bacdac20",
-   "status": "proposed",
-   "method": "rule"
+   "subjects": [],
+   "hash": "ba984c71f5ab8410",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-ns-msi-health-coverage": {
    "subjects": [
-    "public-coverage",
-    "prescriptions",
-    "dental-vision"
+    "public-coverage"
    ],
-   "hash": "a31a01d5fa9cbd25",
+   "hash": "829b837f588a8ff6",
    "status": "proposed",
    "method": "rule"
   },
@@ -1405,14 +1444,6 @@
     "termination-notice"
    ],
    "hash": "0c69b085f60bdce2",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "ca-nt-health-care-plan": {
-   "subjects": [
-    "public-coverage"
-   ],
-   "hash": "8b06a680ff13ab77",
    "status": "proposed",
    "method": "rule"
   },
@@ -1460,9 +1491,11 @@
    "subjects": [
     "credential-recognition"
    ],
-   "hash": "74082aeb9d4f2946",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "d500afc5fd381228",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-on-ltb-guideline-12-excluded-tenancies": {
    "subjects": [
@@ -1514,7 +1547,8 @@
   "ca-on-renting-without-credit-history": {
    "subjects": [
     "tenant-screening",
-    "rental-tribunal"
+    "rental-tribunal",
+    "guarantor"
    ],
    "hash": "41a4636536cd3654",
    "status": "proposed",
@@ -1541,7 +1575,7 @@
    "subjects": [
     "fares-and-passes"
    ],
-   "hash": "f15190455fd4506f",
+   "hash": "1b16e6d55d673b06",
    "status": "proposed",
    "method": "rule"
   },
@@ -1623,16 +1657,13 @@
   },
   "ca-sk-employment-standards-act": {
    "subjects": [
-    "wage-deductions",
-    "overtime",
-    "vacation-pay",
-    "statutory-holiday",
-    "termination-notice",
-    "workplace-safety"
+    "recruiter-fees"
    ],
-   "hash": "5c3082b4cc42e687",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "2defcdaa422d9c59",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-sk-sgi-driver-licensing-exchange": {
    "subjects": [
@@ -1644,16 +1675,12 @@
    "method": "rule"
   },
   "ca-yt-employment-standards-act": {
-   "subjects": [
-    "wage-deductions",
-    "overtime",
-    "vacation-pay",
-    "statutory-holiday",
-    "termination-notice"
-   ],
-   "hash": "15385e74451a3fa4",
-   "status": "proposed",
-   "method": "rule"
+   "subjects": [],
+   "hash": "63f341baf1abd3e1",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ca-yt-motor-vehicles-licence-conversion": {
    "subjects": [
@@ -1717,23 +1744,21 @@
   },
   "canada-cra-foreign-rental-property-taxation-and-t1135": {
    "subjects": [
-    "first-tax-return",
-    "tax-residency",
-    "foreign-property",
-    "income-tax-abroad"
+    "foreign-property"
    ],
-   "hash": "3810dd5a1ae7423a",
+   "hash": "f941717cfc5341a8",
    "status": "proposed",
    "method": "rule"
   },
   "canada-esdc-irpr-lmia-recruitment-fee-prohibition-and-fraud-defense": {
    "subjects": [
-    "recruiter-fees",
-    "work-permit-general"
+    "recruiter-fees"
    ],
    "hash": "0a716afad8ebf785",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "canada-governance-algorithmic-bias-and-brain-drain-retention": {
    "subjects": [
@@ -1764,11 +1789,9 @@
   },
   "canada-national-driving-licence-framework-and-reciprocal-exchange": {
    "subjects": [
-    "licence-exchange",
-    "getting-a-licence",
-    "car-insurance"
+    "getting-a-licence"
    ],
-   "hash": "53f2c87da7709cc5",
+   "hash": "8b48bc4d711639bf",
    "status": "proposed",
    "method": "rule"
   },
@@ -1776,7 +1799,8 @@
    "subjects": [
     "rent-level",
     "deposit",
-    "rental-tribunal"
+    "rental-tribunal",
+    "guarantor"
    ],
    "hash": "116801ce6a6158ba",
    "status": "proposed",
@@ -1816,6 +1840,7 @@
   },
   "canada-to-germany-skilled-relocation-chancenkarte-and-blue-card": {
    "subjects": [
+    "settlement-permit",
     "blue-card",
     "chancenkarte"
    ],
@@ -1859,10 +1884,9 @@
   },
   "cbsa-poe-currency-declaration-e677": {
    "subjects": [
-    "cash-declaration",
-    "proof-of-funds"
+    "cash-declaration"
    ],
-   "hash": "cbf96a77b694bfec",
+   "hash": "291b3ad75fed8363",
    "status": "proposed",
    "method": "rule"
   },
@@ -1956,17 +1980,20 @@
     "rent-level"
    ],
    "hash": "8dbd523f81241ef7",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "cmhc-rent-vancouver": {
    "subjects": [
-    "rent-increase",
     "rent-level"
    ],
    "hash": "a0eeb933ee2f926f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "colombia-dian-rut-tax": {
    "subjects": [
@@ -3470,11 +3497,9 @@
   },
   "cra-fhsa-newcomer-immediate-eligibility": {
    "subjects": [
-    "tax-residency",
-    "registered-savings",
-    "income-tax-abroad"
+    "registered-savings"
    ],
-   "hash": "e99be66f6de45e31",
+   "hash": "7c8714d876e9da6e",
    "status": "proposed",
    "method": "rule"
   },
@@ -3581,15 +3606,19 @@
   },
   "de-aufenthg-blue-card-21-month-pr-fast-track": {
    "subjects": [
+    "settlement-permit",
     "blue-card"
    ],
    "hash": "b96fc6041850e4b7",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-aufenthg-chancenkarte-secondary-work-rights": {
    "subjects": [
     "worker-classification",
+    "right-to-work",
     "blue-card",
     "chancenkarte",
     "skilled-work-visa"
@@ -3607,6 +3636,16 @@
    "status": "proposed",
    "method": "rule"
   },
+  "de-bamf-aufenthg-21-self-employment-business-visa": {
+   "subjects": [
+    "business-immigration"
+   ],
+   "hash": "71b9244940143e6d",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "de-bamf-chancenkarte-updates-aefc737b": {
    "subjects": [
     "blue-card",
@@ -3618,6 +3657,7 @@
   },
   "de-bamf-eu-blue-card-chancenkarte-kyc": {
    "subjects": [
+    "settlement-permit",
     "blue-card",
     "chancenkarte"
    ],
@@ -3627,12 +3667,13 @@
   },
   "de-bamf-settlement-permit-niederlassungserlaubnis-pr": {
    "subjects": [
-    "blue-card",
-    "skilled-work-visa"
+    "settlement-permit"
    ],
    "hash": "57ac36c830c4ec95",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-bamf-staatsangehoerigkeit-modernized-citizenship": {
    "subjects": [
@@ -3647,8 +3688,10 @@
     "study-work"
    ],
    "hash": "5f95596e12648eb2",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-bavaria-kvr-muenchen-and-bayern-housing": {
    "subjects": [
@@ -3719,37 +3762,43 @@
   },
   "de-bgb-551-mietkaution-three-installments": {
    "subjects": [
-    "deposit",
-    "lease"
+    "deposit"
    ],
    "hash": "efca48a898aad109",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-bgb-kuendigungsfrist-notice-periods": {
    "subjects": [
     "termination-notice"
    ],
    "hash": "245ec30ff4eed659",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-bgb-mietpreisbremse-prior-rent-disclosure": {
    "subjects": [
-    "lease"
+    "rent-increase"
    ],
    "hash": "7ebab99fdc8f7518",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-bgb-nebenkosten-12-month-preclusion": {
    "subjects": [
-    "deposit",
-    "repairs"
+    "rental-charges"
    ],
    "hash": "f681cb65fa37e8b7",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-bw-stuttgart-anmeldung-and-mietspiegel": {
    "subjects": [
@@ -3804,21 +3853,24 @@
   },
   "de-mietkaution-three-months-installment-kyc": {
    "subjects": [
-    "deposit",
-    "repairs"
+    "deposit"
    ],
    "hash": "e7d2c4579e30ba9c",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-mietrecht-kaution-schufa-housing-kyc": {
    "subjects": [
     "deposit",
-    "lease"
+    "tenant-screening"
    ],
    "hash": "e587b83644f9a537",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "de-nrw-auslaenderbehoerde-and-mieterverein": {
    "subjects": [
@@ -4174,7 +4226,8 @@
   },
   "es-ugce-highly-skilled-professional-pac": {
    "subjects": [
-    "work-permit-general"
+    "work-permit-general",
+    "right-to-work"
    ],
    "hash": "b598ec80e6e3d399",
    "status": "proposed",
@@ -4194,8 +4247,10 @@
     "credential-recognition"
    ],
    "hash": "d6d56667bafc84b1",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "esdc-sin": {
    "subjects": [
@@ -4248,12 +4303,13 @@
   },
   "eviction": {
    "subjects": [
-    "eviction",
-    "rental-tribunal"
+    "eviction"
    ],
    "hash": "6b168742080c2e0d",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "fcac-bank-account": {
    "subjects": [
@@ -4298,10 +4354,9 @@
   },
   "fintrac-banking-kyc-bank-act": {
    "subjects": [
-    "bank-account",
-    "credit-building"
+    "bank-account"
    ],
-   "hash": "f4c71eda0b86a672",
+   "hash": "ba52cdf917d1e256",
    "status": "proposed",
    "method": "rule"
   },
@@ -4373,7 +4428,8 @@
   "fr-caf-apl-housing-allowance-and-visale": {
    "subjects": [
     "deposit",
-    "lease"
+    "lease",
+    "guarantor"
    ],
    "hash": "ade315e3c7500f77",
    "status": "proposed",
@@ -4416,11 +4472,13 @@
   },
   "fr-logement-bail-alur-visale-et-droit-au-compte": {
    "subjects": [
-    "lease"
+    "guarantor"
    ],
    "hash": "d090be547fffe968",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "fr-ofii-cir-contrat-integration-republicaine": {
    "subjects": [
@@ -4430,11 +4488,29 @@
    "status": "proposed",
    "method": "rule"
   },
+  "fr-ofii-vls-ts-etudiant-and-rece-job-search": {
+   "subjects": [
+    "study-work"
+   ],
+   "hash": "07e3ead4e099d8cb",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "fr-paris-assurance-maladie-ameli-cpam": {
    "subjects": [
     "public-coverage"
    ],
    "hash": "8faab2d20ee76a93",
+   "status": "proposed",
+   "method": "rule"
+  },
+  "fr-paris-caf-aide-au-logement-apl": {
+   "subjects": [
+    "guarantor"
+   ],
+   "hash": "29fe1c5f261f2ae6",
    "status": "proposed",
    "method": "rule"
   },
@@ -4485,6 +4561,14 @@
     "pr-status"
    ],
    "hash": "952de7ba1c294a31",
+   "status": "proposed",
+   "method": "rule"
+  },
+  "fr-service-public-passeport-talent-creation-entreprise": {
+   "subjects": [
+    "right-to-work"
+   ],
+   "hash": "a9dcf8a24891c3c3",
    "status": "proposed",
    "method": "rule"
   },
@@ -4616,12 +4700,23 @@
   },
   "global-educational-credential-assessment-equivalencies": {
    "subjects": [
-    "credential-recognition",
-    "economic-immigration"
+    "credential-recognition"
    ],
    "hash": "0a866bc5e40bc8a5",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "global-home-country-employment-pre-planning": {
+   "subjects": [
+    "dual-intent"
+   ],
+   "hash": "0bababc791ef9879",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "global-immigration-consultants-fraud-guarantees": {
    "subjects": [
@@ -4643,12 +4738,13 @@
   },
   "global-maintained-status-study-work-continuity": {
    "subjects": [
-    "work-permit-general",
     "maintained-status"
    ],
    "hash": "739e837423766e72",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "global-medical-inadmissibility-excessive-demand": {
    "subjects": [
@@ -4663,16 +4759,20 @@
     "economic-immigration"
    ],
    "hash": "f2e9d907796c0cb5",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "global-police-clearance-certificates-statutory-standards": {
    "subjects": [
     "police-certificate"
    ],
    "hash": "38080e8db5b1e07d",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "global-pr-residency-obligation-and-citizenship-distinction": {
    "subjects": [
@@ -4693,10 +4793,9 @@
   },
   "global-proof-of-funds-settlement-finance-rules": {
    "subjects": [
-    "gifts",
     "proof-of-funds"
    ],
-   "hash": "ce5035fa6e59e43b",
+   "hash": "2c11f8881fe13fdf",
    "status": "proposed",
    "method": "rule"
   },
@@ -4710,12 +4809,13 @@
   },
   "global-student-work-limits-pgwp-rules": {
    "subjects": [
-    "work-permit-general",
     "study-work"
    ],
    "hash": "c05c33663484124f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "greece-settlement-services": {
    "subjects": [
@@ -4800,7 +4900,8 @@
   "hong-kong-tenancy-control-ordinance": {
    "subjects": [
     "deposit",
-    "lease"
+    "lease",
+    "rental-charges"
    ],
    "hash": "77442cebcb70df71",
    "status": "proposed",
@@ -4874,13 +4975,25 @@
    "status": "proposed",
    "method": "rule"
   },
+  "ie-dete-csep-stamp-4-twenty-one-month-rule": {
+   "subjects": [
+    "skilled-work-visa"
+   ],
+   "hash": "f3199fd69eeda0e1",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "ie-deti-critical-skills-employment-permit-kyc": {
    "subjects": [
     "skilled-work-visa"
    ],
-   "hash": "c6e5770908fbc347",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "8be5c00ffdb7522c",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ie-dublin-education-primary-school-admissions": {
    "subjects": [
@@ -4945,6 +5058,7 @@
   },
   "ie-isd-csep-21-month-stamp-4-fast-track": {
    "subjects": [
+    "right-to-work",
     "skilled-work-visa"
    ],
    "hash": "0347c7d7ec093565",
@@ -4969,29 +5083,33 @@
   },
   "ie-rtb-residential-tenancy-and-deposit-kyc": {
    "subjects": [
-    "eviction",
-    "rental-tribunal"
+    "lease"
    ],
-   "hash": "db4c42a4dbcbac91",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "29b19859b91fe3ff",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ie-rtb-rpz-2-percent-rent-cap": {
    "subjects": [
-    "rental-tribunal"
+    "rent-increase"
    ],
    "hash": "c9907a4a904f9144",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ie-rtb-security-deposit-and-rpz-protection-kyc": {
    "subjects": [
-    "deposit",
-    "rental-tribunal"
+    "deposit"
    ],
    "hash": "94f4504e0d0a6ffe",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ie-telecom-mobile-networks-prepaid-sim-broadband": {
    "subjects": [
@@ -5146,7 +5264,8 @@
     "work-permit-general",
     "study-work",
     "economic-immigration",
-    "visitor-status"
+    "visitor-status",
+    "dual-intent"
    ],
    "hash": "5339a22560a1dbc0",
    "status": "proposed",
@@ -5154,18 +5273,20 @@
   },
   "ircc-eca": {
    "subjects": [
-    "credential-recognition",
-    "economic-immigration"
+    "credential-recognition"
    ],
    "hash": "4fb60a1ca4630a85",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-employer-kyc-right-to-work": {
    "subjects": [
     "work-permit-general",
     "study-work",
-    "maintained-status"
+    "maintained-status",
+    "right-to-work"
    ],
    "hash": "8a65ba4aaab7cce4",
    "status": "proposed",
@@ -5173,22 +5294,23 @@
   },
   "ircc-express-entry-continuous-work-52-weeks": {
    "subjects": [
-    "work-permit-general",
-    "open-work-permit",
-    "post-graduation-permit",
     "economic-immigration"
    ],
    "hash": "930a649c32237c05",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-express-entry-crs": {
    "subjects": [
     "economic-immigration"
    ],
-   "hash": "066812ea5bc44e72",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "7eae355f6f2907a9",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-first-two-weeks": {
    "subjects": [
@@ -5203,17 +5325,20 @@
     "police-certificate"
    ],
    "hash": "ccf7eece1d54d24e",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-maintained-status-travel-trap": {
    "subjects": [
-    "work-permit-general",
     "maintained-status"
    ],
    "hash": "7a1e74dc803688f6",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-medical-excessive-demand": {
    "subjects": [
@@ -5233,22 +5358,23 @@
   },
   "ircc-pgwp-maintained-status": {
    "subjects": [
-    "credential-recognition",
-    "work-permit-general",
     "post-graduation-permit"
    ],
    "hash": "de843a1b76cedbcc",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-police-certificates-pcc": {
    "subjects": [
-    "economic-immigration",
     "police-certificate"
    ],
    "hash": "7f0b9ffb77367792",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-pr-residency-obligation-prtd": {
    "subjects": [
@@ -5260,29 +5386,30 @@
   },
   "ircc-remote-work-visitor-status": {
    "subjects": [
-    "unpaid-wages",
-    "work-permit-general"
+    "work-permit-general",
+    "visitor-status"
    ],
    "hash": "b1455fa506c4739a",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-self-employed-work-cec-exclusion": {
    "subjects": [
-    "cash-work",
-    "work-permit-general",
-    "economic-immigration",
-    "maintained-status"
+    "economic-immigration"
    ],
    "hash": "bcbbf423497b05da",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ircc-settlement-funds-pof": {
    "subjects": [
     "proof-of-funds"
    ],
-   "hash": "8bb8bd6abd588de3",
+   "hash": "e1a3a5c78bbdfffe",
    "status": "proposed",
    "method": "rule"
   },
@@ -5290,7 +5417,7 @@
    "subjects": [
     "spousal-sponsorship"
    ],
-   "hash": "93ae8469b7deeed5",
+   "hash": "7d95a84b1d26524f",
    "status": "proposed",
    "method": "rule"
   },
@@ -5298,18 +5425,19 @@
    "subjects": [
     "parents-and-relatives"
    ],
-   "hash": "69bf94baf4377ba8",
+   "hash": "6d1a819fff2b79c4",
    "status": "proposed",
    "method": "rule"
   },
   "ircc-work-experience-rules": {
    "subjects": [
-    "unpaid-wages",
-    "skilled-work-visa"
+    "economic-immigration"
    ],
    "hash": "9c8a56a2a8337dad",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ireland-ndls-licence": {
    "subjects": [
@@ -5338,12 +5466,13 @@
   },
   "irpr-maintained-status-expired-sin-and-payroll-compliance": {
    "subjects": [
-    "work-permit-general",
     "maintained-status"
    ],
    "hash": "9a1ad1d3a0bbb3d2",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "israel-fair-rent-law-tenancy": {
    "subjects": [
@@ -5352,6 +5481,14 @@
     "lease"
    ],
    "hash": "030b952da6be8ff4",
+   "status": "proposed",
+   "method": "rule"
+  },
+  "israel-govil-licence": {
+   "subjects": [
+    "getting-a-licence"
+   ],
+   "hash": "b5ced781a5a6d71f",
    "status": "proposed",
    "method": "rule"
   },
@@ -5474,8 +5611,10 @@
     "credential-recognition"
    ],
    "hash": "2514815603bef857",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "jordan-settlement-services": {
    "subjects": [
@@ -5725,16 +5864,23 @@
    "status": "proposed",
    "method": "rule"
   },
-  "manitoba-rtb-rent-increase-guidelines": {
+  "manitoba-health-card-registration": {
    "subjects": [
-    "rent-increase",
-    "deposit",
-    "repairs",
-    "rental-tribunal"
+    "public-coverage"
    ],
-   "hash": "1bd72839595dde17",
+   "hash": "fe08f344b6470029",
    "status": "proposed",
    "method": "rule"
+  },
+  "manitoba-rtb-rent-increase-guidelines": {
+   "subjects": [
+    "rent-increase"
+   ],
+   "hash": "252dce02f4553f0c",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "marshall-islands-settlement-services": {
    "subjects": [
@@ -5892,10 +6038,9 @@
   },
   "mto-foreign-licence-driving-extract-credit": {
    "subjects": [
-    "licence-exchange",
     "getting-a-licence"
    ],
-   "hash": "b3b58a279e6d3646",
+   "hash": "f3219a7c7880d061",
    "status": "proposed",
    "method": "rule"
   },
@@ -6058,7 +6203,7 @@
    "subjects": [
     "school-registration"
    ],
-   "hash": "d1b9df890f2a2064",
+   "hash": "5bde226170533080",
    "status": "proposed",
    "method": "rule"
   },
@@ -6141,12 +6286,15 @@
     "skilled-work-visa"
    ],
    "hash": "64a89c9ceace7a0f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nl-ind-permanent-residence-onbepaalde-tijd": {
    "subjects": [
-    "minimum-wage"
+    "minimum-wage",
+    "right-to-work"
    ],
    "hash": "c02c87200ae77e99",
    "status": "proposed",
@@ -6160,6 +6308,16 @@
    "hash": "cf84bd0fab0682df",
    "status": "proposed",
    "method": "rule"
+  },
+  "nl-ind-startup-visa-and-self-employed": {
+   "subjects": [
+    "business-immigration"
+   ],
+   "hash": "1f64045d2c7eb279",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nl-rijksoverheid-tenancy-security-deposit-2month-cap-kyc": {
    "subjects": [
@@ -6230,14 +6388,6 @@
    "status": "proposed",
    "method": "rule"
   },
-  "nz-auckland-at-hop-card-transit": {
-   "subjects": [
-    "fares-and-passes"
-   ],
-   "hash": "9fd1a6b8b66dea60",
-   "status": "proposed",
-   "method": "rule"
-  },
   "nz-auckland-council-rates-rubbish-services": {
    "subjects": [
     "libraries"
@@ -6258,7 +6408,7 @@
    "subjects": [
     "bank-account"
    ],
-   "hash": "b777ae2b3637773d",
+   "hash": "135fec9addf0a42e",
    "status": "proposed",
    "method": "rule"
   },
@@ -6272,11 +6422,13 @@
   },
   "nz-auckland-tenancy-services-bonds": {
    "subjects": [
-    "repairs"
+    "deposit"
    ],
-   "hash": "9bbf8c6ab8e69b9f",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "137200ad0cf7c501",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nz-canterbury-metrocard-transit-and-tenancy": {
    "subjects": [
@@ -6319,6 +6471,24 @@
    "status": "proposed",
    "method": "rule"
   },
+  "nz-immigration-skilled-migrant-smc-kyc": {
+   "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "a7d9af2a25ee6a05",
+   "status": "proposed",
+   "method": "rule"
+  },
+  "nz-inz-accredited-employer-work-visa-aewv": {
+   "subjects": [
+    "skilled-work-visa"
+   ],
+   "hash": "1d93a500b8f745a6",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "nz-inz-aewv-90-day-redundancy-cushion": {
    "subjects": [
     "termination-notice",
@@ -6328,19 +6498,41 @@
    "status": "proposed",
    "method": "rule"
   },
+  "nz-inz-skilled-migrant-and-green-list-pr": {
+   "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "6b7f1f6f73865422",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "nz-inz-smc-6-point-system-mechanics": {
+   "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "5590f1b16126a3d0",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "nz-inz-student-visa-work-and-pswv": {
    "subjects": [
     "post-graduation-permit"
    ],
    "hash": "3bd9a7ca562ea4a0",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nz-ird-number-and-acc-healthcare-kyc": {
    "subjects": [
     "national-id-abroad"
    ],
-   "hash": "9ddb16bc581c28c5",
+   "hash": "37a50adc3055e259",
    "status": "proposed",
    "method": "rule"
   },
@@ -6363,29 +6555,45 @@
    "status": "proposed",
    "method": "rule"
   },
+  "nz-rta-bond-lodgement-23-days-statutory": {
+   "subjects": [
+    "deposit"
+   ],
+   "hash": "9a57145825d0a69b",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "nz-tenancy-healthy-homes-heating-insulation-kyc": {
    "subjects": [
     "repairs"
    ],
-   "hash": "5f68400d17b82efe",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "ccfabc455a80e822",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nz-tenancy-services-bond-lodgement-23-days": {
    "subjects": [
     "deposit"
    ],
-   "hash": "e3e56408c4029284",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "3c684ed13f1bd660",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nz-tenancy-services-bond-lodgement-kyc": {
    "subjects": [
-    "lease"
+    "deposit"
    ],
-   "hash": "e0fab7d7bf860254",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "604c600bf0a5e418",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "nz-waka-kotahi-total-mobility-scheme-kyc": {
    "subjects": [
@@ -6471,21 +6679,24 @@
   },
   "ontario-esa-notice-vs-severance-distinction": {
    "subjects": [
-    "termination-notice",
-    "severance"
+    "severance",
+    "termination-notice"
    ],
    "hash": "b78ddeb58a5766df",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-esa-unlawful-wage-deductions-and-till-shortages": {
    "subjects": [
-    "wage-deductions",
-    "employment-insurance"
+    "wage-deductions"
    ],
    "hash": "8e0907a02792ee23",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-foreign-driving-experience": {
    "subjects": [
@@ -6563,46 +6774,51 @@
    "subjects": [
     "tenant-screening"
    ],
-   "hash": "48f1655cd1a0b2e9",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "d31d4d81d34982e6",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-post-2018-rent-control-verification": {
    "subjects": [
-    "rent-increase",
-    "rental-tribunal"
+    "rent-increase"
    ],
    "hash": "8f6b5ce99bc9b838",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-professional-licensing-pebc-oct-peo": {
    "subjects": [
     "credential-recognition"
    ],
    "hash": "9b24834697a398b0",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-rent-deposits": {
    "subjects": [
-    "rent-increase",
-    "deposit",
-    "rental-tribunal"
+    "deposit"
    ],
    "hash": "165f5173afb6bd1f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-rent-increase-guideline": {
    "subjects": [
-    "rent-increase",
-    "lease",
-    "rental-tribunal"
+    "rent-increase"
    ],
    "hash": "d688b726c09905d6",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-rental-heating-standards": {
    "subjects": [
@@ -6644,28 +6860,30 @@
   },
   "ontario-rta-unlawful-rent-increase-defense-and-form-n1": {
    "subjects": [
-    "rent-increase",
-    "rental-tribunal"
+    "rent-increase"
    ],
    "hash": "1e9959cd76ced6c7",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-tenant-board-ltb-t2-harassment-kyc": {
    "subjects": [
-    "eviction",
-    "repairs",
-    "rental-tribunal"
+    "lease"
    ],
-   "hash": "2c6fc2c8be8e1b0a",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "2124ea284088ee91",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ontario-tenant-guarantor-and-key-deposit-kyc": {
    "subjects": [
     "deposit",
     "tenant-screening",
-    "rental-tribunal"
+    "rental-tribunal",
+    "guarantor"
    ],
    "hash": "43e38db32e48cbbe",
    "status": "proposed",
@@ -6674,7 +6892,8 @@
   "ontario-tenant-kyc-screening-rights": {
    "subjects": [
     "lease",
-    "tenant-screening"
+    "tenant-screening",
+    "guarantor"
    ],
    "hash": "1cf0f42c3c48ca54",
    "status": "proposed",
@@ -6783,14 +7002,13 @@
   },
   "peel-toronto-emergency-housing-central-intake-and-lockout-defense": {
    "subjects": [
-    "eviction",
-    "lockout",
-    "rental-tribunal",
     "shelter"
    ],
-   "hash": "508cdcccc6528e0f",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "47ab2fe7696df4c9",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "peru-settlement-services": {
    "subjects": [
@@ -7045,17 +7263,20 @@
    "subjects": [
     "public-coverage"
    ],
-   "hash": "eef44a232ed7a395",
+   "hash": "4e3f1ac2ef9e24e0",
    "status": "proposed",
    "method": "rule"
   },
   "saskatchewan-ort-tenancy-deposit-and-disputes": {
    "subjects": [
+    "rental-tribunal",
     "deposit"
    ],
-   "hash": "437d8b49c2853e81",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "4504a9131821a411",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "saudi-arabia-chi-council-health-insurance": {
    "subjects": [
@@ -7253,19 +7474,19 @@
    "subjects": [
     "sin-application"
    ],
-   "hash": "88532ca4a715c929",
+   "hash": "7b03014081aaf9b1",
    "status": "proposed",
    "method": "rule"
   },
   "service-canada-sin-temporary-expiry-and-renewal-kyc": {
    "subjects": [
-    "work-permit-general",
-    "study-work",
-    "visitor-status"
+    "work-permit-general"
    ],
    "hash": "04a00130ca3f104c",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "serviceontario-vital-stats-baby-and-address-kyc": {
    "subjects": [
@@ -7321,28 +7542,23 @@
   },
   "sg-ica-student-pass-and-ltvp-graduate-job-search": {
    "subjects": [
-    "work-permit-general",
-    "skilled-work-visa"
+    "study-work"
    ],
    "hash": "cdbcb25cb50d2497",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "sg-mom-dependants-pass-ltvp-custody": {
-   "subjects": [
-    "birth-and-custody"
-   ],
-   "hash": "b66e5b54a8b27df2",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "sg-mom-employment-pass-compass-framework": {
    "subjects": [
     "skilled-work-visa"
    ],
    "hash": "a900e5008e283520",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "sg-mom-foreign-worker-medical-insurance-and-medishield": {
    "subjects": [
@@ -7360,6 +7576,16 @@
    "status": "proposed",
    "method": "rule"
   },
+  "sg-mom-s-pass-quota-and-salary-tiers": {
+   "subjects": [
+    "skilled-work-visa"
+   ],
+   "hash": "568158762c057ca9",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "sg-transit-lta-simplygo-and-mrt-fare-structure": {
    "subjects": [
     "fares-and-passes"
@@ -7367,6 +7593,16 @@
    "hash": "4eb9a2a89be8533c",
    "status": "proposed",
    "method": "rule"
+  },
+  "sg-ura-housing-and-mom-healthcare": {
+   "subjects": [
+    "lease"
+   ],
+   "hash": "f7b3c9f8ba4a4ff6",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "sierra-leone-settlement-services": {
    "subjects": [
@@ -7949,7 +8185,7 @@
    "subjects": [
     "childcare-cost"
    ],
-   "hash": "b720e0b576c3a49d",
+   "hash": "d42e90d2fb14ad25",
    "status": "proposed",
    "method": "rule"
   },
@@ -7974,7 +8210,7 @@
    "subjects": [
     "national-id-abroad"
    ],
-   "hash": "d245705e7228f770",
+   "hash": "2da98267dfe1d532",
    "status": "proposed",
    "method": "rule"
   },
@@ -7983,14 +8219,6 @@
     "school-registration"
    ],
    "hash": "7c4a4915d8f15e81",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "uk-edinburgh-lothian-buses-ridacard": {
-   "subjects": [
-    "fares-and-passes"
-   ],
-   "hash": "cbaa2b1561d01bdb",
    "status": "proposed",
    "method": "rule"
   },
@@ -8026,7 +8254,8 @@
   "uk-england-assured-shorthold-tenancy-and-section-21": {
    "subjects": [
     "deposit",
-    "eviction"
+    "eviction",
+    "energy-standard"
    ],
    "hash": "95b27a500cf85599",
    "status": "proposed",
@@ -8037,7 +8266,7 @@
     "public-coverage",
     "finding-care"
    ],
-   "hash": "60e8bb234e56561f",
+   "hash": "51bdd24a7b7d5b1a",
    "status": "proposed",
    "method": "rule"
   },
@@ -8052,60 +8281,133 @@
   },
   "uk-graduate-visa-unsponsored-work": {
    "subjects": [
-    "skilled-work-visa"
+    "post-graduation-permit"
    ],
    "hash": "f61529684501aab4",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-home-office-continuous-residence-exceptional-absences": {
+   "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "113df2b1acbf8881",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-home-office-global-talent-tech-nation-kyc": {
+   "subjects": [
+    "skilled-work-visa"
+   ],
+   "hash": "d8b2cba21f27d0fd",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-ilr-180-day-rolling-absence": {
    "subjects": [
-    "skilled-work-visa"
+    "settlement-permit"
    ],
-   "hash": "88729f93562c6500",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "f2ea8ab43a1eeb85",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-ilr-5-year-settlement": {
    "subjects": [
-    "skilled-work-visa"
+    "settlement-permit"
    ],
    "hash": "82525d535d3a5ea2",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-home-office-innovator-founder-and-global-talent": {
+   "subjects": [
+    "business-immigration"
+   ],
+   "hash": "bebbe9789a615fa8",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-right-to-rent-statutory-excuse": {
    "subjects": [
-    "lease",
-    "sublet"
+    "tenant-screening"
    ],
    "hash": "5f44d63cc9129d67",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-home-office-right-to-work-share-code-kyc": {
+   "subjects": [
+    "right-to-work"
+   ],
+   "hash": "cf5dc42420ecd3b5",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-home-office-scale-up-and-high-potential-individual": {
+   "subjects": [
+    "skilled-work-visa"
+   ],
+   "hash": "f6c39e86c73f3bae",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-home-office-section-3c-leave-cta-travel-trap": {
+   "subjects": [
+    "maintained-status"
+   ],
+   "hash": "e4a37647db774fa9",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-skilled-worker-salary-grandfathering": {
    "subjects": [
     "skilled-work-visa"
    ],
-   "hash": "e3bc558bcad86f34",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "f6c3e5a48c34763d",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-skilled-worker-visa-kyc": {
    "subjects": [
     "skilled-work-visa"
    ],
    "hash": "ff5882d6e13b51bf",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-student-visa-graduate-route": {
    "subjects": [
-    "skilled-work-visa"
+    "post-graduation-permit"
    ],
    "hash": "491d87e89f9e949c",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-home-office-visa-fee-waiver-destitution-kyc": {
    "subjects": [
@@ -8117,11 +8419,13 @@
   },
   "uk-ilr-continuous-residence-180-days": {
    "subjects": [
-    "skilled-work-visa"
+    "settlement-permit"
    ],
-   "hash": "da585180dad3e35f",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "d8d4663e55a3cef4",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-london-eadmissions-school-places": {
    "subjects": [
@@ -8217,6 +8521,24 @@
    "status": "proposed",
    "method": "rule"
   },
+  "uk-private-rented-epc-mees-regulations-kyc": {
+   "subjects": [
+    "energy-standard"
+   ],
+   "hash": "62d958c144a20293",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "uk-rehabilitation-of-offenders-criminal-disclosure-kyc": {
+   "subjects": [],
+   "hash": "da517b75d7cfd9a4",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "uk-scotland-nhs-chi-and-transport-scotland": {
    "subjects": [
     "public-coverage",
@@ -8240,31 +8562,37 @@
    "subjects": [
     "credential-recognition"
    ],
-   "hash": "aacdcd9f7cfac554",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "c518ba8e33dcfb52",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-tenancy-deposit-protection-caps-and-dispute-kyc": {
    "subjects": [
-    "deposit",
-    "eviction"
+    "deposit"
    ],
    "hash": "f638950b3adc6b93",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-tenancy-deposit-scheme-tds-kyc": {
    "subjects": [
     "deposit"
    ],
    "hash": "6fcbc8dd64f4d23f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "uk-tenancy-section-21-gas-safety-invalidation": {
    "subjects": [
     "deposit",
-    "eviction"
+    "eviction",
+    "energy-standard"
    ],
    "hash": "04f72cf6a29c3958",
    "status": "proposed",
@@ -8272,7 +8600,8 @@
   },
   "uk-tenant-fees-act-prohibited-payments-ban": {
    "subjects": [
-    "deposit"
+    "deposit",
+    "guarantor"
    ],
    "hash": "14b54c333bcf2b2a",
    "status": "proposed",
@@ -8290,7 +8619,7 @@
    "subjects": [
     "food-banks"
    ],
-   "hash": "a8c545217422c215",
+   "hash": "94290335dd41d6e3",
    "status": "proposed",
    "method": "rule"
   },
@@ -8307,12 +8636,13 @@
   },
   "uk-wales-renting-homes-wales-act-2016": {
    "subjects": [
-    "deposit",
-    "eviction"
+    "lease"
    ],
-   "hash": "e94ddeccf7f117c4",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "640f856081480b14",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "ukraine-civil-code-residential-tenancy": {
    "subjects": [
@@ -8409,22 +8739,21 @@
   },
   "us-austin-central-health-map-care": {
    "subjects": [
-    "public-coverage",
-    "prescriptions",
-    "dental-vision"
+    "public-coverage"
    ],
-   "hash": "37a800fed084f8c0",
+   "hash": "dbbbe459b56fcc8f",
    "status": "proposed",
    "method": "rule"
   },
   "us-austin-texas-property-code-repairs": {
    "subjects": [
-    "repairs",
-    "lease"
+    "repairs"
    ],
-   "hash": "e076b96b2c52595b",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "bc0abb0fe9e883b3",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-banking-cip-patriot-act-kyc": {
    "subjects": [
@@ -8438,7 +8767,7 @@
    "subjects": [
     "school-registration"
    ],
-   "hash": "a888b420a9616799",
+   "hash": "8712f27e033b4b5f",
    "status": "proposed",
    "method": "rule"
   },
@@ -8446,24 +8775,17 @@
    "subjects": [
     "deposit"
    ],
-   "hash": "f61b63f6b466d082",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "8fa2d424a7f46eb6",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-boston-masshealth-connector-care": {
    "subjects": [
-    "public-coverage",
-    "finding-care"
+    "public-coverage"
    ],
-   "hash": "a8394245dc4b6ddd",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "us-boston-mbta-charliecard-transit": {
-   "subjects": [
-    "fares-and-passes"
-   ],
-   "hash": "87a2a69489d1cc07",
+   "hash": "2872862d3ef01fa1",
    "status": "proposed",
    "method": "rule"
   },
@@ -8493,10 +8815,9 @@
   },
   "us-ca-dmv-driver-license-residency": {
    "subjects": [
-    "licence-exchange",
     "getting-a-licence"
    ],
-   "hash": "41ae57f02914b48d",
+   "hash": "99b97b3ba3f6adda",
    "status": "proposed",
    "method": "rule"
   },
@@ -8512,12 +8833,13 @@
   },
   "us-ca-tenant-protection-act-ab1482": {
    "subjects": [
-    "eviction",
-    "lease"
+    "rent-increase"
    ],
-   "hash": "5a0cc37450ecd4e4",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "26aa3124bbf8eaef",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-california-repair-and-deduct-kyc": {
    "subjects": [
@@ -8558,7 +8880,7 @@
    "subjects": [
     "fares-and-passes"
    ],
-   "hash": "3e690f5f9008095a",
+   "hash": "1b6bdc25ff1e8114",
    "status": "proposed",
    "method": "rule"
   },
@@ -8598,20 +8920,23 @@
   },
   "us-dhs-right-to-work-form-i9-kyc": {
    "subjects": [
-    "workplace-discrimination",
-    "pr-status"
+    "right-to-work"
    ],
-   "hash": "f72dfd10bed8698d",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "ed66135b97b3ba7c",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-dol-independent-contractor-economic-reality-kyc": {
    "subjects": [
     "worker-classification"
    ],
    "hash": "e412a7fada020d0f",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-dos-90-day-rule-misrepresentation-presumption": {
    "subjects": [
@@ -8652,13 +8977,13 @@
   },
   "us-fl-statutes-ch83-residential-tenancy": {
    "subjects": [
-    "deposit",
-    "eviction",
-    "lockout"
+    "lease"
    ],
-   "hash": "efef62297ceeb17b",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "eb7b5caddcab85e0",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-h1b-60-day-grace-period-rule": {
    "subjects": [
@@ -8723,7 +9048,15 @@
    "subjects": [
     "fares-and-passes"
    ],
-   "hash": "37b3d1af1b92c237",
+   "hash": "775b023c9adc90da",
+   "status": "proposed",
+   "method": "rule"
+  },
+  "us-j1-two-year-home-residence-212e": {
+   "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "0811cbea212a620e",
    "status": "proposed",
    "method": "rule"
   },
@@ -8759,14 +9092,6 @@
     "school-registration"
    ],
    "hash": "4b7b38737107f194",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "us-la-metro-tap-transit": {
-   "subjects": [
-    "fares-and-passes"
-   ],
-   "hash": "bf6f7fa78e2f5311",
    "status": "proposed",
    "method": "rule"
   },
@@ -8848,7 +9173,7 @@
    "subjects": [
     "fares-and-passes"
    ],
-   "hash": "a6001bebcead636e",
+   "hash": "60d9f108ccc45f73",
    "status": "proposed",
    "method": "rule"
   },
@@ -8869,14 +9194,6 @@
     "dental-vision"
    ],
    "hash": "97d20c27c9a0d2f0",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "us-seattle-orca-transit-link": {
-   "subjects": [
-    "fares-and-passes"
-   ],
-   "hash": "bd834a1780f8f49a",
    "status": "proposed",
    "method": "rule"
   },
@@ -8905,14 +9222,6 @@
     "lease"
    ],
    "hash": "362f2ec5faed694c",
-   "status": "proposed",
-   "method": "rule"
-  },
-  "us-sf-healthy-san-francisco-healthcare": {
-   "subjects": [
-    "finding-care"
-   ],
-   "hash": "1bf6adad8489b7c2",
    "status": "proposed",
    "method": "rule"
   },
@@ -9005,15 +9314,47 @@
   },
   "us-uscis-245k-status-violation-exemption": {
    "subjects": [
-    "cash-work"
+    "cash-work",
+    "settlement-permit"
    ],
    "hash": "8452f3fec3570ca4",
    "status": "proposed",
    "method": "rule"
   },
+  "us-uscis-540-day-ead-automatic-extension": {
+   "subjects": [
+    "right-to-work"
+   ],
+   "hash": "9d438fbcd46210c7",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "us-uscis-eb1-eb2-niw-eb3-green-card-pr": {
+   "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "c2e2d3b57f9a7255",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "us-uscis-eb5-investor-and-e2-treaty-visa": {
+   "subjects": [
+    "business-immigration"
+   ],
+   "hash": "1bd9841e0fdf0e43",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
   "us-uscis-f1-opt-cap-gap-extension": {
    "subjects": [
     "post-graduation-permit",
+    "right-to-work",
     "skilled-work-visa"
    ],
    "hash": "5cc1ff3ba228b45e",
@@ -9022,30 +9363,43 @@
   },
   "us-uscis-f1-student-visa-opt-rules": {
    "subjects": [
-    "wage-deductions",
     "post-graduation-permit"
    ],
    "hash": "5e4477245333579c",
-   "status": "proposed",
-   "method": "rule"
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-uscis-h1b-60-day-grace-period-severance": {
    "subjects": [
-    "termination-notice",
-    "severance",
     "skilled-work-visa"
    ],
-   "hash": "01862cd577c1f94b",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "16f4899d41ec2e77",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-uscis-immigration-green-card-kyc": {
    "subjects": [
+    "settlement-permit"
+   ],
+   "hash": "19df4e4e6f194875",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
+  },
+  "us-uscis-l1-intracompany-transferee-and-eb1c": {
+   "subjects": [
     "skilled-work-visa"
    ],
-   "hash": "fbe4d38d69a6ce4b",
-   "status": "proposed",
-   "method": "rule"
+   "hash": "c5cfc1976a2b2f03",
+   "status": "confirmed",
+   "method": "reviewer",
+   "reviewedBy": "Claude Opus 5.5, on the repository owner's instruction of 2026-11-06, no human check",
+   "reviewedAt": "2026-11-06"
   },
   "us-uscis-n400-naturalization-physical-presence-kyc": {
    "subjects": [
@@ -9150,7 +9504,8 @@
   "vietnam-law-on-housing-tenancy": {
    "subjects": [
     "deposit",
-    "lease"
+    "lease",
+    "rental-charges"
    ],
    "hash": "501456531c4a3b75",
    "status": "proposed",

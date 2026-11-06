@@ -38,8 +38,8 @@ export const globalRecords = [
     topic: 'employment',
     jurisdiction: 'United States',
     url: 'https://www.uscis.gov/green-card',
-    quote: 'A Permanent Resident Card (Green Card) issued by USCIS provides official proof of lawful permanent resident status.',
-    summary: 'Under the Immigration and Nationality Act (INA), foreign nationals acquire lawful permanent residence in the United States through employment-based categories (EB-1 extraordinary ability, EB-2 advanced degree or national interest waiver NIW, and EB-3 skilled workers) or family sponsorship. Temporary skilled workers enter under H-1B specialty occupation status sponsored by an employer with an approved Labor Condition Application (LCA) and Form I-129 petition. Foreign workers residing in the US file Form I-485 to adjust status to permanent resident, accompanied by Form I-765 for Employment Authorization (EAD) and Form I-131 Advance Parole travel authorization. Maintaining legal status requires adhering to authorized periods of stay specified on electronic Form I-94 arrival/departure records. This record does not adjudicate visa petitions or grant green cards.'
+    quote: 'Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States.',
+    summary: 'Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States. Learn more about how and when to replace your Green Card. For policy guidance on adjustment of status, see Volume 7: Adjustment of Status of the USCIS Policy Manual.'
   }),
 
   createGlobalRecord({
@@ -89,8 +89,8 @@ export const globalRecords = [
     topic: 'employment',
     jurisdiction: 'United States',
     url: 'https://www.uscis.gov/i-9',
-    quote: 'All U.S. employers must verify the identity and employment eligibility of all employees hired on Form I-9.',
-    summary: 'Under the federal Immigration Reform and Control Act (IRCA, Section 274A of the INA), all employers in the United States must complete Form I-9 (Employment Eligibility Verification) within 3 business days of an employee commencing work. Employees choose which documents to present from the official lists: List A (documents establishing both identity and employment authorization, such as a US Passport, Permanent Resident Card Form I-551, or foreign passport with I-94 and work endorsement); or a combination of List B (driver licence) and List C (unrestricted Social Security card). Employers enrolled in E-Verify confirm documents electronically against DHS and SSA databases. Employers cannot specify which documents an employee must produce, and demanding additional documents violates anti-discrimination provisions enforced by the Department of Justice Immigrant and Employee Rights Section (IER). This record does not certify employment.'
+    quote: 'Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States.',
+    summary: 'Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States. All U.S. employers must properly complete Form I-9 for every individual they hire for employment in the United States. On the form, an employee must attest to their employment authorization.'
   }),
 
   createGlobalRecord({
@@ -132,8 +132,8 @@ export const globalRecords = [
     topic: 'sin',
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/apply-national-insurance-number',
-    quote: 'You need a National Insurance number to work in the UK and pay National Insurance contributions.',
-    summary: 'Under Department for Work and Pensions (DWP) regulations, every resident working in the UK must obtain a unique National Insurance Number (NIN) for taxation and state pension contributions. Newcomers apply online via GOV.UK using: (1) Valid foreign passport; (2) Home Office eVisa (proved with a share code) showing lawful immigration status; biometric residence permits (BRPs) have been replaced by eVisas. Applicants may be asked to attend an in-person identity interview at a local Jobcentre Plus office. Under UK employment law, individuals have the statutory right to start working before their physical National Insurance number is issued, provided they have proven their legal right to work to their employer. Employers must assign a temporary payroll code and adjust contributions once the official NIN is supplied. This record does not issue NIN cards.'
+    quote: 'You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK.',
+    summary: 'You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK. You do not need a National Insurance number to start an application for benefits or a student loan. You do not need a National Insurance number to apply to the EU Settlement Scheme.'
   }),
 
   createGlobalRecord({
@@ -216,8 +216,8 @@ export const globalRecords = [
     topic: 'sin',
     jurisdiction: 'Australia',
     url: 'https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn',
-    quote: 'You need a Tax File Number (TFN) to ensure you are taxed at the correct individual tax rate in Australia.',
-    summary: 'Under the Income Tax Assessment Act 1936, every individual earning income in Australia must obtain an 8 or 9-digit Tax File Number (TFN) issued by the Australian Taxation Office (ATO). Foreign passport holders with valid permanent resident or temporary work visas (including Subclass 482, 485, and Working Holiday visas) apply online through the ATO Individual Auto Registration (IAR) service using their passport details (they must be in Australia and hold a visa that allows work or study); no paper documentation is required as ATO validates identity directly against Home Affairs border records. Once issued, employees must supply their TFN to their employer within 28 days on a TFN Declaration Form; failure to quote a TFN obligates employers to withhold tax at the highest marginal rate (47%). TFNs are issued for life and must be guarded against identity theft. This record does not generate tax file numbers.'
+    quote: 'How Australian residents can apply for a tax file number (TFN).',
+    summary: 'How Australian residents can apply for a tax file number (TFN). How people living outside Australia with income from an Australian source apply for a tax file number (TFN). How Norfolk Island residents of all ages can apply for a tax file number (TFN).'
   }),
 
   createGlobalRecord({
@@ -257,8 +257,8 @@ export const globalRecords = [
     topic: 'employment',
     jurisdiction: 'Australia',
     url: 'https://immi.homeaffairs.gov.au/visas/already-have-a-visa/check-visa-details-and-conditions',
-    quote: 'Employers can check visa work conditions online using the Visa Entitlement Verification Online system.',
-    summary: 'Under the Migration Act 1958 as amended by the Migration Amendment (Reform of Employer Sanctions) Act 2013, Australian employers have a statutory legal obligation to verify that foreign workers hold a valid visa with lawful work rights. Employers and employees check work conditions through the free Visa Entitlement Verification Online (VEVO) service using the worker’s passport number, date of birth, and Visa Grant Number. VEVO discloses work limitations, such as the 48-hour fortnightly work limitation during academic terms for Student Visa (Subclass 500) holders or 6-month employer restrictions for Working Holiday (Subclass 417/462) holders. Under the Fair Work Act 2009, all employees in Australia (including temporary foreign workers) are entitled to National Employment Standards (NES), statutory minimum wages, superannuation, and protection against unlawful wage exploitation. This record does not certify employment.'
+    quote: 'Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions.',
+    summary: 'Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions. You can then use VEVO to prove you have a permanent visa.'
   }),
 
   createGlobalRecord({
@@ -267,8 +267,8 @@ export const globalRecords = [
     topic: 'money',
     jurisdiction: 'Australia',
     url: 'https://moneysmart.gov.au/managing-debt/credit-scores-and-credit-reports',
-    quote: 'Comprehensive credit reporting gives lenders a complete picture of your credit behavior and payment history.',
-    summary: 'Under the Privacy Act 1988 and Australian Securities and Investments Commission (ASIC) guidelines, Australia operates a Comprehensive Credit Reporting (CCR) system where positive financial behaviors (such as on-time monthly loan and bill payments) are shared with credit reporting bodies (Equifax Australia, Experian AU, and illion). Newcomers arrive with an empty Australian credit file. To establish a credit profile, individuals should open a primary bank account, establish utility or postpaid telecommunication services in their own legal name, and maintain prompt payment habits. Newcomers are cautioned to avoid high-cost payday lenders (Small Amount Credit Contracts SACC) and unregulated consumer credit providers charging excessive establishment fees. Consumers have the statutory right under federal privacy law to request their free credit report once every 3 months. This record does not compute credit scores.'
+    quote: 'Your credit report is a record of your credit history.',
+    summary: 'Depending on the credit reporting agency, your score will be between zero and either 1,000 or 1,200. Your credit report is a record of your credit history. Your report may also include your credit score (not all credit reporting agencies do this).'
   }),
 
   createGlobalRecord({
@@ -398,8 +398,8 @@ export const globalRecords = [
     topic: 'sin',
     jurisdiction: 'New Zealand',
     url: 'https://www.ird.govt.nz/tasks/apply-for-an-ird-number',
-    quote: 'You need an IRD number to pay tax in New Zealand and ensure you are taxed at the correct rate.',
-    summary: 'Under the Tax Administration Act 1994, all individuals earning income in New Zealand must obtain an 8 or 9-digit IRD number issued by Inland Revenue (Te Tari Taake). Immigrants apply online using their foreign passport, immigration application number, and active New Zealand bank account number; failure to provide an IRD number results in income being taxed at the non-declaration rate of 45%. Healthcare in New Zealand is delivered through Health New Zealand (Te Whatu Ora). Citizens, permanent residents, and work visa holders with permits valid for 2 years or longer qualify for publicly funded health services. Furthermore, all residents and international visitors are universally covered by the Accident Compensation Corporation (ACC) for 24/7 no-fault personal injury compensation and medical rehabilitation. This record does not issue IRD numbers.'
+    quote: 'You will need an IRD number for opening a bank account, joining KiwiSaver, when you\'re earning income and more.',
+    summary: 'You will need an IRD number for opening a bank account, joining KiwiSaver, when you\'re earning income and more. Your business or organisation uses its IRD number to keep track of its tax. Your IRD number identifies you for all the tax-related events in your life.'
   }),
 
   createGlobalRecord({
@@ -409,8 +409,8 @@ export const globalRecords = [
     housingSubject: 'agreement',
     jurisdiction: 'New Zealand',
     url: 'https://www.tenancy.govt.nz/rent-bond-and-bills/bond/',
-    quote: 'Landlords must lodge rental bonds with Tenancy Services within 23 working days of receiving them.',
-    summary: 'Under the Residential Tenancies Act 1986, residential rental bonds in New Zealand must be lodged by the landlord with the Ministry of Business, Innovation and Employment (Tenancy Services) within 23 working days of payment. The maximum allowable bond is strictly capped at four weeks rent. Landlords are prohibited from charging key money, letting fees, or soliciting rental bidding above advertised listing prices. Landlords must provide at least 48 hours notice before conducting a property inspection and cannot inspect more than once every 4 weeks. Rent increases are limited to once every 12 months with at least 60 days advance written notice. Lease disputes are legally adjudicated by the Tenancy Tribunal, which possesses statutory authority to order compensation and fine non-compliant landlords. This record does not adjudicate tenancy claims.'
+    quote: 'In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services.',
+    summary: 'The tenant pays the bond, and the landlord lodges (deposits) it with Tenancy Services who hold it during the tenancy. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. Tenants and landlords must let Tenancy Services know if there is a change to bond information.'
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -422,8 +422,8 @@ export const globalRecords = [
     topic: 'employment',
     jurisdiction: 'Ireland',
     url: 'https://enterprise.gov.ie/en/what-we-do/workplace-and-skills/employment-permits/permit-types/critical-skills-employment-permit/',
-    quote: 'The Critical Skills Employment Permit is designed to attract highly skilled people into the Irish labor market.',
-    summary: 'Under the Employment Permits Acts administered by the Department of Enterprise, Trade and Employment (DETE), foreign professionals migrate to Ireland through the Critical Skills Employment Permit (CSEP). Eligible occupations on the Critical Skills Occupations List (including IT professionals, engineers, and healthcare specialists) require job offers with annual remuneration of at least €40,904 from 1 March 2026 (or €68,911 for roles not on the list, for applicants with relevant experience). Permit holders register with the Irish Immigration Service Delivery (ISD) to obtain an Irish Residence Permit (IRP) card with Stamp 1. After 21 months of continuous employment, CSEP holders transition directly to Stamp 4, which grants permanent permission to live and work in Ireland without requiring further employment permits. Spouses can join immediately with full working rights on Stamp 1G. This record does not issue employment permits.'
+    quote: 'The Critical Skills Employment Permit replaces the Green Card type employment permit.',
+    summary: 'The Critical Skills Employment Permit replaces the Green Card type employment permit. Occupations such as ICT professionals, professional engineers and technologists are catered for under this type of employment permit. The list of eligible occupations is set out in the Critical Skills Occupations List.'
   }),
 
   createGlobalRecord({
@@ -512,8 +512,8 @@ export const globalRecords = [
     jurisdiction: 'Ireland',
     housingSubject: 'agreement',
     url: 'https://www.rtb.ie/beginning-a-tenancy',
-    quote: 'Tenancies in Ireland are governed by the Residential Tenancies Board (RTB) which registers tenancies and regulates annual rent adjustments.',
-    summary: 'Under the Residential Tenancies Act 2004 (as amended), all residential tenancies in Ireland must be registered by landlords with the Residential Tenancies Board (RTB). After six months of continuous tenancy, tenants acquire Part 4 security of tenure, protecting them from eviction except under specified statutory grounds (such as substantial refurbishment or landlord family occupancy) with strict advance notice periods ranging from 90 to 224 days depending on tenancy duration. Rent Pressure Zone rules have applied to the whole country since 20 June 2025, and a national rent-control system took over from 1 March 2026; annual rent increases are capped at a maximum of 2% or the Harmonised Index of Consumer Prices (HICP), whichever is lower.'
+    quote: 'The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy.',
+    summary: 'The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy. From time to time there may be changes to a tenancy registered with the RTB.'
   }),
 
   createGlobalRecord({
@@ -816,7 +816,7 @@ export const globalRecords = [
   "jurisdiction": "CA",
   "title": "CRTC: The Wireless Code Mandatory Device Unlocking and $50 Overage Protection (Telecom Regulatory Policy CRTC 2017-200)",
   "url": "https://crtc.gc.ca/eng/phone/mobile/codesimpl.htm",
-  "quote": "Under the CRTC Wireless Code, all mobile wireless devices must be sold unlocked, and providers must unlock devices free of charge.",
+  "quote": "The Canadian Radio-television and Telecommunications Commission (CRTC) has created this Wireless Code (the Code) so that consumers of retail mobile wireless voice and data services (wireless services) will be better informed of their rights and obligations contained in their contracts with wireless service providers (service providers).",
   "summary": "Under the Canadian Radio-television and Telecommunications Commission (CRTC) Wireless Code (Telecom Regulatory Policy CRTC 2017-200), wireless service providers in Canada are legally prohibited from charging device unlocking fees. All mobile devices sold after 1 December 2017 must be unlocked upon purchase, and carriers must unlock subsidized or previously locked handsets at no cost upon consumer request. The Wireless Code further caps domestic data overage fees at $50 CAD per monthly billing cycle and international data roaming fees at $100 CAD per cycle, requiring explicit account holder consent before additional data can be consumed. Individual consumers also possess a 15-day trial period (30 days for persons with disabilities) to cancel wireless contracts without early cancellation fees if usage remains within reasonable limits. This record summarizes statutory consumer protections under the CRTC Wireless Code.",
   "risk": "high",
   "language": "en",
@@ -858,8 +858,8 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "Solicitors Regulation Authority: SQE Route to Qualification for Foreign Qualified Lawyers",
   "url": "https://www.sra.org.uk/become-solicitor/qualified-lawyers/",
-  "quote": "Foreign qualified lawyers can qualify as solicitors in England and Wales by passing SQE1 and SQE2 or obtaining qualified exemptions.",
-  "summary": "Under the Solicitors Regulation Authority (SRA) Standards and Regulations, foreign qualified lawyers from recognized jurisdictions can qualify as solicitors of England and Wales by completing the Solicitors Qualifying Examination (SQE). The qualification requires holding a recognized legal qualification, completing SQE1 (functioning legal knowledge) and SQE2 (practical legal skills), demonstrating satisfactory character and suitability, and satisfying English or Welsh language proficiency. Qualified lawyers with substantial practice experience may apply to the SRA for an exemption from SQE2 based on prior assessed professional experience. Qualifying work experience (QWE) is generally satisfied by prior admitted foreign practice without requiring a 2-year UK training contract. This record outlines statutory legal credential qualification rules.",
+  "quote": "Unlike other SQE candidates, qualified lawyers do not need two years' qualifying work experience.",
+  "summary": "Unlike other SQE candidates, qualified lawyers do not need two years' qualifying work experience. Find out more about principles and approach to qualification for qualified lawyers. Qualified lawyers have two qualification options if they have the LPC.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -878,8 +878,8 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "Home Office & Tech Nation: Global Talent Visa Endorsement Criteria for Digital Technology Leaders",
   "url": "https://www.gov.uk/global-talent-digital-technology",
-  "quote": "Global Talent applicants in digital technology require endorsement from Tech Nation showing exceptional talent or exceptional promise.",
-  "summary": "Under Immigration Rules Appendix Global Talent, individuals seeking to work in the UK digital technology sector without employer sponsorship can apply for a Global Talent visa following endorsement by Tech Nation (delivered via Founders Forum). Applicants must meet the mandatory criterion of demonstrating they are a recognized leading talent or have emerging potential in digital technology, supported by letters of reference from leading digital organizations and evidence of product innovation, commercial traction, open-source leadership, or significant career achievements. Endorsed applicants can choose visa validity spanning 1 to 5 years and qualify for Indefinite Leave to Remain (ILR) after 3 years under the exceptional talent route or 5 years under exceptional promise. This record provides statutory Global Talent endorsement parameters.",
+  "quote": "You can apply for the Global Talent visa without an endorsement if you've won an eligible prize .",
+  "summary": "You can apply for the Global Talent visa without an endorsement if you've won an eligible prize. If your application is successful, you'll get a full list of what you can and cannot do with a Global Talent visa.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -898,8 +898,8 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "UK Visas and Immigration: Electronic Travel Authorisation (ETA) Pre-Travel Authorization Scheme",
   "url": "https://www.gov.uk/guidance/electronic-travel-authorisation-eta",
-  "quote": "Non-visa nationals visiting the UK or transiting through the UK must obtain an electronic travel authorisation before travelling.",
-  "summary": "Under Immigration Rules Appendix Electronic Travel Authorisation, non-visa nationals who do not require a visa for short stays (up to 6 months for tourism, visiting family, business, or short study) must obtain an approved Electronic Travel Authorisation (ETA) prior to boarding transport to the UK. The ETA scheme is linked digitally to the traveler passport, costs £16 since 9 April 2025 (a further increase has been announced, so check GOV.UK), remains valid for 2 years or until passport expiration, and permits multiple entries. British and Irish passport holders, legal residents of Ireland traveling from within the Common Travel Area, and holders of valid UK visas or other UK immigration permission are exempt. Airlines and transport carriers verify ETA status before boarding under UK carrier liability regulations. This record summarizes statutory UK pre-entry travel authorization mandates.",
+  "quote": "An electronic travel authorisation ( ETA ) lets you travel to the UK, Jersey, Guernsey or the Isle of Man for up to 6 months.",
+  "summary": "An electronic travel authorisation (ETA) lets you travel to the UK, Jersey, Guernsey or the Isle of Man for up to 6 months. You can get an ETA for tourism, visiting family or for certain other reasons. Check if you need an ETA or visa to come to the UK.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -938,7 +938,7 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "Home Office & Legal Aid: Rehabilitation of Offenders Act 1974 and Immigration Disclosures",
   "url": "https://www.gov.uk/government/publications/grounds-for-refusal-criminality",
-  "quote": "Under Part 9 of the Immigration Rules, criminal convictions must be disclosed on immigration applications regardless of whether spent.",
+  "quote": "Immigration staff guidance on criminal history for entry clearance applications in the UK.",
   "summary": "Under the Immigration Rules Part 9 (Grounds for Refusal) Section 9.4.1, statutory provisions of the Rehabilitation of Offenders Act 1974 regarding spent convictions do not apply to UK visa and entry clearance applications pursuant to the Rehabilitation of Offenders Act 1974 (Exceptions) Order 1975. Applicants must disclose all historical criminal convictions, cautions, and bind-overs from any jurisdiction. Mandatory refusal applies if an applicant was sentenced to imprisonment for at least 4 years. For sentences between 12 months and 4 years, refusal is mandatory unless 10 years have elapsed since sentence completion. Non-disclosure constitutes statutory deception under Paragraph 9.7.1, triggering a mandatory 10-year ban on future UK entry clearance. This record outlines statutory UK criminality disclosure requirements.",
   "risk": "high",
   "language": "en",
@@ -958,8 +958,8 @@ export const globalRecords = [
   "jurisdiction": "Australia",
   "title": "ACCC: Consumer Guarantees, Warranties, and Mandatory Refund Rights under Australian Consumer Law",
   "url": "https://www.accc.gov.au/consumers/buying-products-and-services/consumer-rights-and-guarantees",
-  "quote": "Under the Australian Consumer Law, retailers cannot deny statutory consumer guarantees by claiming store warranty has expired.",
-  "summary": "Under Schedule 2 of the Competition and Consumer Act 2010 (the Australian Consumer Law or ACL), consumers possess statutory consumer guarantees on goods and services that operate automatically and cannot be excluded, restricted, or modified by contract. Products must be of acceptable quality, match description, and be fit for purpose. When a product suffers a major failure, the consumer possesses the absolute statutory right to choose between a full refund, replacement, or compensation for dropped value, regardless of whether a retailer 12-month manufacturer warranty has expired. Retailers stating \"no refunds\" or asserting that consumer rights terminate upon warranty expiration breach ACL Section 29 misleading representations rules. This record provides statutory consumer rights guidance.",
+  "quote": "We educate businesses and consumers about their rights and obligations under the consumer guarantees.",
+  "summary": "Consumers automatically receive these consumer guarantees when they buy goods and services. We educate businesses and consumers about their rights and obligations under the consumer guarantees. If a business misleads consumers about their consumer guarantee rights, we can investigate.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -979,8 +979,8 @@ export const globalRecords = [
   "jurisdiction": "Australia",
   "title": "ACMA: Mandatory Critical Information Summary (CIS) for Mobile and Internet Contracts",
   "url": "https://www.acma.gov.au/critical-information-summaries",
-  "quote": "Under ACMA rules, telecommunications providers must provide a clear Critical Information Summary before a customer agrees to an offer.",
-  "summary": "Under the Australian Communications and Media Authority (ACMA) Telecommunications Consumer Protections (TCP) Code (C628:2019), telecommunications and internet service providers in Australia must supply a standardized Critical Information Summary (CIS) to consumers prior to entering into any telecommunications contract. The CIS must explicitly state in plain language: minimum monthly charges, maximum early termination fees (ETF), included call and data allowances, excess data usage rates, contract duration, and complaint escalation pathways including the Telecommunications Industry Ombudsman (TIO). If a provider amends material terms during contract currency to consumer detriment, the consumer possesses the statutory right to cancel the agreement without early termination penalties. This record details Australian telecommunications protections.",
+  "quote": "Every telco must have a Critical Information Summary (CIS) on their website for each product, service and plan.",
+  "summary": "All telcos that sell telecommunications products, plans and services must provide a Critical Information Summary (CIS). The CIS is important if you are thinking of buying a new mobile, landline or internet product or service. Every telco must have a Critical Information Summary (CIS) on their website for each product, service and plan.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1059,7 +1059,7 @@ export const globalRecords = [
   "jurisdiction": "Australia",
   "title": "Department of Home Affairs: Migration Act Section 501 Mandatory Visa Refusal and Cancellation",
   "url": "https://immi.homeaffairs.gov.au/help-support/meeting-our-requirements/character",
-  "quote": "Under Section 501 of the Migration Act, non-citizens sentenced to 12 months or more imprisonment face mandatory visa cancellation.",
+  "quote": "We may cancel your visa at any time, if you no longer meet the character requirements.",
   "summary": "Under Section 501 of the Australian Migration Act 1958 and Ministerial Direction No. 99 / Direction No. 110, the Minister or delegate must cancel or refuse a visa if the non-citizen does not pass the statutory character test. A person fails the character test automatically if they possess a substantial criminal record, defined as being sentenced to imprisonment for 12 months or more (including concurrent sentences) or sentenced to death or life imprisonment. Under Section 501(3A), mandatory cancellation applies without prior notice if the person is serving a full-time prison sentence. The person possesses 28 calendar days from notification to lodge a formal revocation request. This record details statutory character cancellation under Australian migration law.",
   "risk": "high",
   "language": "en",
@@ -1080,8 +1080,8 @@ export const globalRecords = [
   "jurisdiction": "Australia",
   "title": "ATO & FIRB: Foreign Investment Review Board Rules for Purchasing Residential Real Estate",
   "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/foreign-investment-in-australia",
-  "quote": "Foreign non-residents must obtain prior FIRB approval before purchasing residential real estate in Australia and face vacancy fees.",
-  "summary": "Under the Foreign Acquisitions and Takeovers Act 1975 administered by the Australian Taxation Office (ATO) and Foreign Investment Review Board (FIRB), foreign non-resident persons must apply for and receive formal FIRB approval before acquiring an interest in Australian residential real estate. Foreign non-residents are legally prohibited from purchasing established (existing) dwellings for investment; they may only buy new dwellings, vacant land for development, or off-the-plan properties. Temporary resident visa holders may buy one established dwelling solely as their principal residence while residing in Australia, but must sell the dwelling within 3 months of leaving Australia or visa expiry. An annual vacancy fee applies if the property is not occupied or rented out for at least 183 days per year. This record summarizes statutory Australian foreign investment rules.",
+  "quote": "Check the conditions to apply for approval to buy Australian residential property as a foreign person.",
+  "summary": "Check what types of residential property a foreign person can buy in Australia. Check the conditions to apply for approval to buy Australian residential property as a foreign person. How to lodge your vacancy fee return for your residential property.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1404,8 +1404,8 @@ export const globalRecords = [
   "jurisdiction": "New Zealand",
   "title": "Tenancy Services: Healthy Homes Standards for Heating, Insulation, and Ventilation Compliance",
   "url": "https://www.tenancy.govt.nz/healthy-homes/",
-  "quote": "Under New Zealand Healthy Homes Standards, private landlords must install qualifying heating capable of heating living rooms to 18C.",
-  "summary": "Under the Residential Tenancies (Healthy Homes Standards) Regulations 2019 enacted under the Residential Tenancies Act 1986, private rental landlords in New Zealand must comply with mandatory standards across five areas: heating, insulation, ventilation, moisture ingress/drainage, and draught stopping. Landlords must provide at least one qualifying fixed heater (such as a heat pump or flued gas heater) capable of heating the main living room to at least 18 degrees Celsius on the coldest days of the year. Ceiling and underfloor insulation must meet Minimum R-value ratings, and kitchens and bathrooms must possess mechanical extractor fans ducted outdoors. Non-compliant landlords face statutory exemplary damages awarded by the Tenancy Tribunal of up to $7,200 NZD payable directly to the tenant. This record details statutory New Zealand rental housing quality rules.",
+  "quote": "The healthy homes standards are the minimum standards for heating, insulation, ventilation, moisture ingress and drainage, and draught stopping in rental properties.",
+  "summary": "The healthy homes standards are the minimum standards for heating, insulation, ventilation, moisture ingress and drainage, and draught stopping in rental properties. Ceiling and underfloor insulation is compulsory in all rental homes. All rental properties must follow the moisture and drainage standards.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1790,8 +1790,8 @@ export const globalRecords = [
   "jurisdiction": "Singapore",
   "title": "Ministry of Manpower (MOM) & ICA: Dependant's Pass, Long-Term Visit Pass (LTVP), and International Child Custody",
   "url": "https://www.mom.gov.sg/passes-and-permits/dependants-pass",
-  "quote": "Employment Pass and S Pass holders earning at least $6,000 monthly can sponsor spouses and children for Dependant's Passes.",
-  "summary": "Under Singapore immigration regulations administered by the Ministry of Manpower (MOM) and the Immigration and Checkpoints Authority (ICA), Employment Pass (EP) and ONE Pass holders earning a fixed monthly salary of at least S$6,000 can sponsor legally married spouses and unmarried children under 21 years of age for a Dependant's Pass (DP). Common-law partners, step-children, and handicapped children can be sponsored for a Long-Term Visit Pass (LTVP); parents of pass holders can be sponsored for LTVP if the sponsor earns at least S$12,000 monthly. DP holders wishing to work in Singapore must secure their own work pass (such as an EP or S Pass) or obtain a Letter of Consent (LOC) if they are business owners holding at least 30% equity. For minor children travelling with a single parent, Singapore requires court custody orders or statutory declarations proving legal guardianship under the Guardianship of Infants Act, adhering to the 1980 Hague Convention on the Civil Aspects of International Child Abduction. This record outlines Singapore statutory family pass and child custody rules.",
+  "quote": "The Dependant's Pass allows spouses and children of Employment Pass or S Pass holders to join them in Singapore.",
+  "summary": "The Dependant's Pass allows spouses and children of Employment Pass or S Pass holders to join them in Singapore. Find out who is eligible for a Dependant's Pass for family members of Employment Pass or S Pass holders. Find out about available work pass options for Dependant's Pass holders who wish to work in Singapore.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1870,7 +1870,7 @@ export const globalRecords = [
   "jurisdiction": "United States",
   "title": "Internal Revenue Service: Qualified Transportation Fringe Benefits and Commuter Tax Exclusions (IRC § 132(f))",
   "url": "https://www.irs.gov/publications/p15b",
-  "quote": "Employers may offer pre-tax transit and commuter benefits up to the monthly statutory exclusion limit under IRC Section 132(f).",
+  "quote": "For 2026, the monthly exclusion for qualified parking is $340 and the monthly exclusion for commuter highway vehicle transportation and transit passes is $340.",
   "summary": "Under Internal Revenue Code Section 132(f), employers in the United States may provide qualified transportation fringe benefits allowing employees to exclude up to the statutory monthly limit ($340 per month in 2026, up from $325 in 2025; indexed annually for inflation) from gross income for commuting expenses on public transit, commuter rail, subways, buses, and ferries, or for qualified commuter parking. In major metropolitan areas including New York City, San Francisco, and Washington D.C., municipal commuter benefits ordinances legally mandate employers with 20 or more full-time employees to offer pre-tax commuter transit programs. Public transit systems in major metropolitan centers operate contactless fare payment (such as OMNY in New York City, Ventra in Chicago, and Clipper in San Francisco) offering automatic 7-day fare capping upon reaching the weekly fare threshold. This record summarizes statutory US federal transit fringe benefits and commuter rules.",
   "risk": "high",
   "language": "en",
@@ -1890,8 +1890,8 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "Department for Education & HMRC: 15 and 30 Hours Free Childcare and Tax-Free Childcare Scheme",
   "url": "https://www.gov.uk/apply-30-hours-free-childcare",
-  "quote": "Eligible working parents of children aged 9 months to 4 years can access up to 30 hours of funded childcare per week.",
-  "summary": "Under the Childcare Act 2006 and the Childcare Payments Act 2014, working parents in England can access government-funded childcare: 15 hours per week of universal early education for all 3- and 4-year-olds for 38 weeks per year, expanding to 30 hours per week for eligible working parents earning at least the National Minimum Wage for 16 hours weekly and less than £100,000 adjusted net income per year. From 2024 to 2025, funded childcare expanded to working parents of children from 9 months of age. Additionally, eligible parents can use Tax-Free Childcare through HMRC, where for every £8 deposited by the parent, the government contributes £2, up to a maximum subsidy of £2,000 per child per year (£4,000 for children with disabilities). Parents on visas with a No Recourse to Public Funds (NRPF) condition cannot claim Tax-Free Childcare or Universal Credit childcare costs, but their children may access universal 15-hour entitlement and early education based on local authority low-income thresholds. This record outlines UK statutory childcare assistance entitlements.",
+  "quote": "If you're getting Free Childcare for Working Parents or Tax-Free Childcare you have to confirm if your details are up to date every 3 months.",
+  "summary": "You can get help with childcare costs for children under 18. You could also get free childcare when your child is aged 9 months to 4 years. If you're getting Free Childcare for Working Parents or Tax-Free Childcare you have to confirm if your details are up to date every 3 months.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1950,8 +1950,8 @@ export const globalRecords = [
   "jurisdiction": "Australia",
   "title": "State Transport Authorities: Smartcard Transit Capping, Concessions, and Contactless Rules in NSW, VIC, and QLD",
   "url": "https://transportnsw.info/tickets-fares",
-  "quote": "Public transport networks in Australia provide daily and weekly travel caps across Opal, Myki, and Translink networks.",
-  "summary": "Under state transport acts in Australia (Transport Administration Act 1988 in NSW, Transport Integration Act 2010 in Victoria, and Transport Operations Act 1994 in Queensland), public transport networks operate unified electronic smartcard systems: Opal in Sydney/NSW, Myki in Melbourne/Victoria, and Translink go card in Brisbane/Queensland. All systems provide statutory daily and weekly fare caps (for example, the Opal daily cap, weekend cap, and weekly travel reward, and Melbourne daily fare cap aligned with the regional fare cap). Contactless credit and debit cards can be tapped directly across trains, trams, buses, and ferries, automatically receiving adult smartcard fares and fare caps. Tertiary student concession fares (50% discount) are restricted to full-time students enrolled in approved courses at Australian universities; international students are generally ineligible for state-funded student concession fares unless on approved international exchange programs or specific tertiary pass programs. This record summarizes Australian public transit smartcard fare frameworks.",
+  "quote": "Concessions are available for eligible customers to travel on public transport across NSW.",
+  "summary": "To pay your fare you can use a credit or debit card, linked device or an Opal card. Concessions are available for eligible customers to travel on public transport across NSW.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -2072,8 +2072,8 @@ export const globalRecords = [
   "jurisdiction": "United Kingdom",
   "title": "Department for Work and Pensions & Trussell Trust: Emergency Food Bank Access and Crisis Support Schemes",
   "url": "https://www.trusselltrust.org/get-help/emergency-food/",
-  "quote": "Trussell Trust food banks provide emergency food parcels to individuals facing crisis via community referral vouchers.",
-  "summary": "In the United Kingdom, emergency food relief is coordinated nationally by the Trussell Trust and the Independent Food Aid Network (IFAN) alongside local authority Household Support Fund programs. Access to standard Trussell Trust food banks operates through an electronic or paper referral voucher system issued by frontline professionals, including Citizens Advice, general practitioners, health visitors, social workers, and schools. Vouchers entitle recipients to a minimum of 3 days of nutritionally balanced emergency food. Where an individual lacks a referral voucher or formal proof of income, independent grassroots food banks, community pantries, and religious charities provide walk-in emergency food parcels without requiring means tests or immigration status checks. Receiving charitable emergency food relief does not violate No Recourse to Public Funds (NRPF) visa conditions under Section 115 of the Immigration and Asylum Act 1999. This record summarizes statutory UK crisis food provision procedures.",
+  "quote": "The voucher is then exchanged at the food bank for a food parcel.",
+  "summary": "If you need help, a food bank can provide an emergency food parcel containing at least three days of meals. The voucher is then exchanged at the food bank for a food parcel. You can get a food voucher from a number of local community organisations, who can ensure you get the right support.",
   "risk": "high",
   "language": "en",
   "status": "approved",
