@@ -33,7 +33,7 @@ const SETTLEMENT_SYNSETS = [
   [/\b(?:visitor record|extend stay|status restoration)\b/i, ['visitor', 'record', 'restoration', 'ircc', 'ninety', 'days']],
   [/\b(?:renoviction|n12|n13|landlord own use)\b/i, ['eviction', 'n12', 'n13', 'compensation', 'bad', 'faith', 'ltb']],
   [/\b(?:sick child|sick toddler|urgent care|walk-in|walk[- ]in (?:clinic|cent(?:er|re)|care|doctor|medical)|emergency room|without doctor)\b/i, ['health', 'ohip', 'msp', 'coverage', 'care', 'clinic', 'physician']],
-  [/\b(?:locked out|lockout|changed (?:the )?locks?|threw out|illegal eviction|kick(?:ed)? (?:me )?out)\b/i, ['eviction', 'ltb', 'police', 'locks', 'tenant', 'rights', 't2', 'unlawful']],
+  [/\b(?:locked (?:(?:me|us|him|her|them) )?out|lockout|changed (?:the |my |our )?locks?|threw out|illegal eviction|kick(?:ed)? (?:me )?out)\b/i, ['eviction', 'ltb', 'police', 'locks', 'tenant', 'rights', 't2', 'unlawful']],
   [/\b(?:unpaid wage|unpaid overtime|withheld pay|stolen wages|boss won'?t pay)\b/i, ['wage', 'overtime', 'esa', 'employment', 'standards', 'claim', 'pay']],
   [/\b(?:first home|buy home|buying house|fhsa|downpayment)\b/i, ['first', 'home', 'fhsa', 'hbp', 'rrsp', 'tax', 'deduction', 'savings']],
   [/\b(?:criminal record|dui|rehabilitation|past conviction|entry denied)\b/i, ['rehabilitation', 'deemed', 'inadmissibility', 'irpa', 'conviction', 'sentence', 'trp']],

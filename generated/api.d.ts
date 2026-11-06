@@ -32840,8 +32840,8 @@ export interface operations {
                         intents: string[];
                         city: string | null;
                         region: string | null;
-                        /** @enum {unknown} */
-                        country: "CA" | "United States" | "United Kingdom" | "Australia" | "Germany" | "United Arab Emirates" | "New Zealand" | "Ireland" | "Singapore" | "France" | "Netherlands" | "Sweden" | "Spain" | "European Union";
+                        /** @description CA, a destination corridor, or a limited-coverage country named in referenceCoverage. */
+                        country: string;
                         /** @constant */
                         language: "en";
                         licenceCountry: string | null;
@@ -33042,8 +33042,8 @@ export interface operations {
                             intents: string[];
                             city: string | null;
                             region: string | null;
-                            /** @enum {unknown} */
-                            country: "CA" | "United States" | "United Kingdom" | "Australia" | "Germany" | "United Arab Emirates" | "New Zealand" | "Ireland" | "Singapore" | "France" | "Netherlands" | "Sweden" | "Spain" | "European Union";
+                            /** @description CA, a destination corridor, or a limited-coverage country named in referenceCoverage. */
+                            country: string;
                             /** @constant */
                             language: "en";
                             licenceCountry: string | null;
@@ -33112,10 +33112,10 @@ export interface operations {
                             expiresAt: string;
                             status: string;
                             /**
-                             * @description Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved.
+                             * @description Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved.
                              * @enum {unknown}
                              */
-                            reviewMethod: "editorial_review" | "bulk_approval" | "none";
+                            reviewMethod: "editorial_review" | "source_verified" | "bulk_approval" | "none";
                             jurisdiction: string;
                             snapshotId: string | null;
                         }[];
@@ -33194,6 +33194,25 @@ export interface operations {
                             /** Format: date-time */
                             expiresAt: string | null;
                         };
+                        referenceCoverage?: {
+                            /** @constant */
+                            version: "reference-1";
+                            country: string;
+                            message: string;
+                        };
+                        urgentHelp?: {
+                            /** @constant */
+                            version: "urgent-1";
+                            /** @enum {unknown} */
+                            kind: "self_harm" | "immediate_danger" | "document_withholding" | "housing_emergency" | "threats" | "representative_fraud";
+                            title: string;
+                            message: string;
+                            contacts: {
+                                label: string;
+                                phone: string;
+                            }[];
+                            helpView: string | null;
+                        };
                         retrieval?: {
                             version: string;
                             candidates: {
@@ -33238,10 +33257,10 @@ export interface operations {
                                 /** @enum {unknown} */
                                 status: "approved" | "research_seed";
                                 /**
-                                 * @description Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved.
+                                 * @description Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved.
                                  * @enum {unknown}
                                  */
-                                reviewMethod: "editorial_review" | "bulk_approval" | "none";
+                                reviewMethod: "editorial_review" | "source_verified" | "bulk_approval" | "none";
                                 /** @enum {unknown} */
                                 relevance: "primary" | "related";
                                 sourceIndex: number | null;
@@ -33261,10 +33280,10 @@ export interface operations {
                                 checkedAt: string;
                                 status: string;
                                 /**
-                                 * @description Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved.
+                                 * @description Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved.
                                  * @enum {unknown}
                                  */
-                                reviewMethod: "editorial_review" | "bulk_approval" | "none";
+                                reviewMethod: "editorial_review" | "source_verified" | "bulk_approval" | "none";
                             }[];
                             breakingAlert?: {
                                 [key: string]: unknown;

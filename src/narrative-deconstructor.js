@@ -28,7 +28,7 @@ export const LOCATION_PATTERNS = [
   { country: 'Canada', region: 'Ontario', city: 'Mississauga', pattern: /\bmississauga\b/i },
   { country: 'Canada', region: 'Ontario', city: 'Ottawa', pattern: /\bottawa\b/i },
   { country: 'Canada', region: 'Ontario', city: 'Hamilton', pattern: /\bhamilton\b/i },
-  { country: 'Canada', region: 'Ontario', city: null, pattern: /\b(?:ontario|on)\b/i },
+  { country: 'Canada', region: 'Ontario', city: null, pattern: /\b[Oo]ntario\b|\bONTARIO\b|(?:,\s*|\b[Ii]n\s+)ON\b/ },
 
   { country: 'Canada', region: 'British Columbia', city: 'Vancouver', pattern: /\b(?:vancouver|surrey|burnaby|richmond|metro vancouver)\b/i },
   { country: 'Canada', region: 'British Columbia', city: 'Victoria', pattern: /\bvictoria\b/i },
@@ -53,7 +53,7 @@ export const LOCATION_PATTERNS = [
   { country: 'United States', region: 'New York', city: 'New York City', pattern: /\b(?:new york city|nyc|manhattan|brooklyn|queens)\b/i },
   { country: 'United States', region: 'California', city: 'San Francisco', pattern: /\b(?:san francisco|sf bay area|silicon valley)\b/i },
   { country: 'United States', region: 'California', city: 'Los Angeles', pattern: /\blos angeles\b/i },
-  { country: 'United States', region: null, city: null, pattern: /\b(?:united states|usa|us|uscis|cbp|ice|ssn|green card|h1b|opt)\b/i },
+  { country: 'United States', region: null, city: null, pattern: /\bUS\b|\bICE\b|\bOPT\b|\b(?i:united states|usa|uscis|cbp|ssn|green card|h-?1b)\b/ },
 
   // United Kingdom
   { country: 'United Kingdom', region: 'England', city: 'London', pattern: /\blondon\b/i },

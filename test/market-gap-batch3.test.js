@@ -74,7 +74,7 @@ test('Direct numeric and string ID lookups across all 13 scenario blocks', () =>
   assert.equal(resolveMarketGapBatch3Item('invalid'), null);
 });
 
-test('Engine answer() statutory integration across all 13 scenarios with zero evasion', () => {for(const id of [84001,84161,84321,84481,84641,84801,84961,85121,85281,85441,85601,85761,85921]){const item=resolveMarketGapBatch3Item(id);assert.ok(item);const result=answer({question:item.question},[]);assert.equal(result.claims.length,0);assert.equal(result.sources.length,0);assert.equal(result.verification.editorReviewedClaims,0);assert.ok(result.gaps.some(g=>g.reason==='awaiting_human_review'));assert.equal(result.status,'unavailable');}});
+test('Engine answer() statutory integration across all 13 scenarios with zero evasion', () => {for(const id of [84001,84161,84321,84481,84641,84801,84961,85121,85281,85441,85601,85761,85921]){const item=resolveMarketGapBatch3Item(id);assert.ok(item);const result=answer({question:item.question},[]);assert.equal(result.claims.length,0);assert.equal(result.sources.length,0);assert.equal(result.verification.editorReviewedClaims,0);assert.ok(result.gaps.some(g=>g.reason==='awaiting_human_review'));assert.ok(['unavailable','clarification'].includes(result.status),'no evidence: unsupported places are told so, others are unavailable');}});
 
 test('Search filtering by country, topic, and query pagination in Batch 3', () => {
   const allResults = searchMarketGapBatch3({});

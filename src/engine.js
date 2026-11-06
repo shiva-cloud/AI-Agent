@@ -4,7 +4,9 @@ import {ValidationError} from './api-errors.js';
 import { randomUUID } from 'node:crypto';
 import { assertEnglishText, assertEnglishRecord } from './language.js';
 import { cities, topics } from './knowledge.js';
-import { queryTerms, rankLexically } from './search.js';
+import { queryTerms, rankLexically, tokenize } from './search.js';
+import {detectUrgentHelp} from './urgent-help.js';
+import {describesLifeInCountry,namedReferenceCountry,recordFitsSubject,referenceCoverageNotice} from './reference-countries.js';
 import {housingQuestionSubjects,recordHousingSubject} from './housing.js';
 import {licenceContext, originCountryContext} from './licence-context.js';
 import {highRiskTopics} from './evidence-policy.js';
@@ -62,7 +64,7 @@ const lexicon = {
  housing: /\blandlords?\b|\bapartments?\b|\bshelters?\b|\bhomeless(?:ness)?\b|\bcondos?\b|\bbasement (?:units?|apartments?|suites?)\b|\broommates?\b|\bsublet(?:s|ting)?\b|\b(?:one|two|three|1|2|3)[- ]bedrooms?\b|\beviction\b|\bevictions\b|\bevicted\b|\bevict\b|\brent(?:als?|ing)?\b|\btenants?\b|\bhousing\b|\btenanc(?:y|ies)\b|\bleases?\b|\b(?:security|damage|pet) deposits?\b|\blocked out\b|\block[ -]?outs?\b|\billegal lock[ -]?outs?\b|\bchanging locks\b|\bchanged locks\b|\bshut off (?:heat|hydro|utilities|power|water)\b|\bcut (?:heat|hydro|utilities|power|water)\b|\bhydro(?: bills?)?\b|\belectricity bills?\b|\bwater bills?\b|\butility bills?\b|\bwithhold(?:ing)? rent\b|\bkeep(?:ing)? deposit\b|\bforfeit(?:ed|ing)? deposit\b|\bguest fees?\b|\broommate fees?\b|\bovernight guests?\b|\bnotice\b|\bn12\b|\bn13\b|\bguideline\b|\brent increase\b|\blandlord entry\b|\brenoviction\b|\bmaintenance\b|\bheat(?:ing)?\b|\bno[- ]pet\b|\bscreening\b|\bbackground checks?\b|\bequifax\b|\btransunion\b|\bsinglekey\b|\bfrontlobby\b|\bnaborly\b|\bguarantors?\b|\bco[- ]signers?\b|\bkey deposits?\b|\bt2\b|\bharass(?:ment)?\b|\bquiet enjoyment\b|\bunlawful entry\b|\bfair housing act\b|\btenancy deposit scheme\b|\btds\b|\bdps\b|\bmydeposits\b|\btenant fees act\b|\bresidential tenancies authority\b|\brta bond\b|\brental bonds online\b|\bmietkaution\b|\bmietpreisbremse\b|\bejari\b|\btawtheeq\b|\brera\b|\bavra\b|\btenancy tribunal\b|\bassign(?:ment|ing)?\b|\bbreak lease\b|\bterminate early\b|\bn9\b|\bsection 21\b|\bform 6a\b|\bnebenkosten\b|\boperating costs?\b|\brent pressure zones?\b|\brpz\b|\bnotary public\b|\bholding deposits?\b|\bprohibited payments?\b|\bright to rent\b|\blandlord checking service\b|\bstatutory excuse\b|\bhuman rights code\b|\bohrc\b|\bvormiete\b|\brecord (?:phone )?calls?\b|\bone[- ]party consent\b|\bmonetary (?:claim )?limit\b|\bair condition(?:er|ing)?\b|\bwindow unit\b|\bura\b|\bhdb\b|\bbail d'habitation\b|\bloi alur\b|\bvisale\b|\bhuurcommissie\b|\bwws\b|\bhyresgästföreningen\b|\bhyresnämnden\b|\blau\b|\bley de arrendamientos\b|\bfianza\b|\bandrahand\b|\bförstahand\b|\bbruksvärde\b|\bivima\b|\bincasòl\b|\brlto\b|\brrio\b|\brtdrs\b|\bjust cause eviction\b|\brepair and deduct\b|\bcivil code (?:section\s+)?1942\b|\bsubstandard\b|\bmees\b|\bepc rating\b|\bncat\b|\bdecree 43\b|\bdecree no\.?\s*43\b|\bfirb\b|\bforeign investment review board\b|\bhealthy homes\b|\bunderfloor insulation\b|\bheating capacity\b|\bencadrement des loyers\b|état des lieux|etat des lieux|\bcondition reports?\b|\bwws\b|\bhuurcommissie\b|\brent hikes?\b/iu,
  community: /\blibrar(?:y|ies)\b|\besl\b|\blinc\b|\benglish (?:classes|courses|lessons)\b|\bsettlement(?:\s+(?:services?|support|help|programs?|agenc(?:y|ies)))?\b|\bnewcomers?(?:\s+(?:services?|support|help|programs?|agenc(?:y|ies)))?\b|\bcommunity\b|\banti[- ]fraud\b|\bcafc\b|\bscams?\b|\bdeportation\b|\bfraud\b|\bextortion\b|\bphishing\b|\bphoto card\b|\bontario photo card\b|\bnon[- ]driver\b|\bnon[- ]drivers\b|\bftc\b|\baction fraud\b|\bscamwatch\b|\bbsi\b|\banmeldung\b|\bbürgeramt\b|\beinwohnermeldeamt\b|\bwohnungsgeberbestätigung\b|\bsingpass\b|\brundfunkbeitrag\b|\bbeitragsservice\b|\bgez\b|\bupdate (?:my )?address\b|\bcitizenship\b|\bnaturalis(?:e|ation)\b|\bstaatsangehörigkeit\b|\blife in the uk\b|\bcitizenship test\b|\banti[- ]spam\b|\bcasl\b|\bdncr\b|\bdo not call\b|\bcollection agenc(?:y|ies)\b|\bconsumer protection\b|\bconsumer guarantees\b|\bfair trading\b|\bempadronamiento\b|\bpadrón\b|\bfolkbokföring\b|\bcir\b|\bcontrat d'intégration\b|\banef\b|\btitre de s[eé]jour\b|\bpr[eé]fecture\b|\binburgering\b|\binburgeringsexamen\b|\bswish\b|\bbankid\b|\bgemeente\b|\bskatteverket\b|\bayuntamiento\b|\bpolicía nacional\b|\bpolicia nacional\b|\bn-?400\b|\bphysical presence\b|\baustralian consumer law\b|\bacl\b|\bconsumer guarantee\b|\bwarrant(?:y|ies)\b|\bsworn translations?\b|\bcourt[- ]certified translators?\b|\bbeglaubigte übersetzung\b|\bdata sharing\b|\bprivacy complaint\b|\bgdpr\b|\bprivacy\b|\bdata protection\b|\bcommunity cent(?:er|re)\b|\bidentity theft\b|\bidentity fraud\b|\bsim swap\b/iu,
  arrival: /\blanded\b|\barriv(?:al|e|ed|ing)\b|\bfirst (?:week|weeks?|two weeks|2 weeks|7 days|14 days)\b|\bthis week\b|\bemergency (?:telephone|phone)?\s*number\b|\bdigital device\b|\bdevice search\b|\bphone search\b|\bpasscode\b|\bduty[- ]free\b|\bhousehold (?:items|goods|effects)\b|\bsettlers?(?:'s)? effects\b|\bused personal (?:effects|belongings)\b|\bcustoms duty exemption\b|\bduty[- ]free customs\b|\bcustoms clearance\b|\btransfer of residence\b|\btor\b|\btor01\b|\bform 0350\b|\bform c&e\b|\bmpi\b|\bbiosecurity\b|\bsoft landing\b|\bfirst landing\b|\bflagpoling\b|\bflagpole\b|\blanding interview\b|\buebersiedlungsgut\b|\bübersiedlungsgut\b|\belectronic travel authori[sz]ation\b|\beta\b|\binfringement notice\b|\bundeclared\b|\bimport (?:a )?(?:dog|cat|pet)\b|\bmickleham\b|\bquarantine\b|\brnat\b|\bhousehold belongings\b|\bmoving with pets\b|\bpets?\b|\banimals?\b|\bveterinar(?:y|ian)\b|\but[- ]kort\b|\buppeh[aå]llstillst[aå]ndskort\b|\bresidence permit cards?\b/iu,
- employment: /\bjobs?\b|\bminimum wages?\b|\bwork(?:ers?|ing|ed)?\b|\bmoonlighting\b|\bcash jobs?\b|\bside hustle\b|\bundocumented work\b|\bundocumented worker\b|\bundocumented employment\b|\bunder[- ]the[- ]table\b|\bgig work\b|\bunpaid overtime\b|\bwage theft\b|\bwithholding wages\b|\bnurs(?:e|es|ing)\b|\bcredentials?\b|\bemployment\b|\bexpress entry\b|\bcrs\b|\bfsw\b|\bcec\b|\bpnp\b|\boinp\b|\bwork permit\b|\bpgwp\b|\bbowp\b|\blmia\b|\bnoc\b|\bteer\b|\bsection 186\b|\b(?:maintained|implied) status\b|\breference letters?\b|\bpolice (?:certificate|clearance)s?\b|\bpcc\b|\bbiometrics\b|\bfbi\b|\bnbi\b|\bciid\b|\bprtd\b|\bpr card\b|\bland border\b|\bdual intent\b|\bresidency obligation\b|\bpebc\b|\boct\b|\bpeo\b|\bpharmac(?:y|ist)\b|\bengineers?\b|\bteachers?\b|\bdegree\b|\bdiploma\b|\bmaster(?:'?s)?\b|\bbachelor(?:'?s)?\b|\beca\b|\bwes\b|\bright to work\b|\bwp-ext\b|\bimm 5429\b|\bimm 5988\b|\bonboarding\b|\bvulnerable sector\b|\bvsc\b|\bpolice reference check\b|\b900[- ]series\b|\bh-1b\b|\bead\b|\bgreen card\b|\bform i-9\b|\be-verify\b|\bskilled worker visa\b|\bshare code\b|\bvevo\b|\bsubclass (?:189|190|482|485|491|500|600|820|186)\b|\bgraduate visa\b|\bstudent visa\b|\bgenuine student\b|\bgst\b|\bskillselect\b|\beu blue card\b|\bblaue karte\b|\bchancenkarte\b|\bgolden visa\b|\bgreen visa\b|\bmohre\b|\bsmc\b|\baewv\b|\bcsep\b|\bstamp 4\b|\bgrace period\b|\bopt\b|\bcap[- ]gap\b|\bilr\b|\bindefinite leave to remain\b|\bcontinuous residence\b|\bcondition 8607\b|\bsponsor transfer\b|\bgratuity\b|\bend[- ]of[- ]service\b|\bredundanc(?:y|ies)?\b|\bvariation of conditions\b|\bvoc\b|\b90[- ]day rule\b|\bmisrepresentation\b|\badjustment of status\b|\bi-485\b|\b540[- ]days?\b|\bautomatic extension\b|\bworking holiday\b|\b88[- ]days?\b|\bregional work\b|\bpiece rate\b|\bhorticulture\b|\bnotice periods?\b|\bkündigungsfrist\b|\bprobation(?:ary)?\b|\b1560 hours\b|\b52 weeks\b|\bi-94\b|\bform i-94\b|\badmit until date\b|\bseverance\b|\bseverance pay\b|\btermination pay\b|\bnotice of termination\b|\bsalary threshold\b|\bgrandfather(?:ed)?\b|\b38,?700\b|\bprobearbeit\b|\bopportunity card\b|\bintent to reside\b|\b245\(k\)\b|\bstatus violations?\b|\bunauthorized work\b|\bunauthorized employment\b|\bresumes?\b|\bcvs?\b|\baccount(?:ants?|ing)\b|\bcpa\b|\bweb form\b|\bircc web form\b|\bvisitor record\b|\bvisitor status\b|\btourist visa\b|\bextend (?:status|stay|visitor)\b|\brestoration\b|\brestore status\b|\bo[- ]?1a?\b|\beb[- ]?[123]\b|\bniw\b|\bnational interest waiver\b|\bperm\b|\bform i[- ]?140\b|\bj[- ]?1\b|\b212\(e\)\b|\bds[- ]?3035\b|\bb[- ]?[12]\b|\bbrp\b|\bevisa\b|\bdigital evisa\b|\bisl\b|\bimmigration salary list\b|\bssp\b|\bstatutory sick pay\b|\bsick pay\b|\bsick leave\b|\bmaternity leave\b|\bmaternity pay\b|\bsmp\b|\bmutterschutz\b|\bpaternity leave\b|\bannual leave\b|\bpaid leave\b|\bholidays act\b|\bloe\b|\brecord of employment\b|\broe\b|\bsole trader\b|\bpty ltd\b|\bdelaware c[- ]corp\b|\bincorporat(?:e|ion)\b|\bllc\b|\bs[- ]corp\b|\bc[- ]corp\b|\bfreiberufler\b|\bduale ausbildung\b|\bvocational training\b|\bteaching council\b|\bnzqa\b|\biqa\b|\bsqe\b|\bpres\b|\bnmbi\b|\bapprobation\b|\bfachsprachprüfung\b|\bpartner visa\b|\bsubclass 820\b|\bde facto\b|\bresident return visa\b|\brrv\b|\bsubclass 155\b|\badministrative review tribunal\b|\bart\b|\birp\b|\birish residence permit\b|\boverstay\b|\blong service leave\b|\bat[- ]will\b|\bconsular\b|\b221\(g\)\b|\bsevis\b|\be[- ]2\b|\biloe\b|\bsection 3c\b|\b3c leave\b|\bstudy visa\b|\bstudy permit\b|\bstudent visa\b|\bstudent permit\b|\bf[- ]?1 visa\b|\bf[- ]?1\b|\bj[- ]?1\b|\bm[- ]?1\b|\bi[- ]?20\b|\bcas letter\b|\bgraduate route\b|\bpsw\b|\bpost[- ]study work\b|\bpost[- ]graduation work\b|\bsubclass 500\b|\bsubclass 485\b|\bstamp 2\b|\bstamp 1g\b|\bstudent'?s pass\b|\bvls[- ]ts\b|\bpal\b|\bprovincial attestation letter\b|\boff[- ]campus work\b|\bpr\b|\bpermanent residen(?:ce|cy|t|ts)\b|\bapply for pr\b|\bpr application\b|\bpr status\b|\bpr visa\b|\bpr pathway\b|\bpoints[- ]based (?:system|immigration)\b|\bstraight to residence\b|\bwork to residence\b|\bsmc resident visa\b|\bpts scheme\b|\bbusiness visa\b|\binvestor visa\b|\bstartup visa\b|\bstart[- ]up visa\b|\bentrepreneur visa\b|\binnovator founder\b|\beb[- ]?5\b|\be[- ]?2 investor\b|\bsubclass 188\b|\bactive investor plus\b|\bstep program\b|\bpasseport talent\b|\bfrench tech visa\b|\bcommercial freelance\b|\bfreiberufler visa\b|\bsuv\b|\bwork visa\b|\bimmigrat(?:e|ion)\b|\bvisa options?\b|\bvisa programs?\b|\bimmigration programs?\b|\bcompass\b|\bs[- ]?pass\b|\bone pass\b|\bentrepass\b|\bkennismigrant\b|\bhighly skilled migrant\b|\bzoekjaar\b|\borientation year\b|\barbetstillstånd\b|\bput\b|\bdigital nomad\b|\bteletrabajador\b|\bprofesionales altamente cualificados\b|\bpac\b|\bl[- ]?1\b|\bl[- ]?1a\b|\bl[- ]?1b\b|\bo[- ]?1\b|\bo[- ]?1a\b|\bo[- ]?1b\b|\bscale[- ]up worker\b|\bhpi\b|\bhigh potential individual\b|\b186 ens\b|\bgep\b|\bgeneral employment permit\b|\baewv\b|\baccredited employer\b|\bcarte de résident\b|\b10-year residency\b|\bresidencia de larga duración\b|\benisa\b|\bkollektivavtal\b|\befa\b|\btjänstepension\b|\brvo\b|\berkend referent\b|\brecognized sponsor\b|\blanguage requirements?\b|\bielts\b|\btoefl\b|\bpte\b|\bcelpip\b|\bclb\b|\bnclc\b|\bcefr\b|\btcf\b|\btef\b|\bgoethe\b|\bdele\b|\bsiele\b|\bfbi idhs\b|\bacro\b|\bafp\b|\bführungszeugnis\b|\bpolice clearance\b|\bpolice certificate\b|\bcredential assessment\b|\beca\b|\bwes\b|\bvetassess\b|\banabin\b|\bzas\b|\becctis\b|\bnuffic\b|\buhr\b|\bhomologación\b|\bhomologacion\b|\bpr card landing\b|\blanding day\b|\beconomic reality\b|\bflsa\b|\bindependent contractor\b|\b29 cfr part 795\b|\bsqe[12]?\b|\blawyers?\b|\bsolicitors?\b|\bglobal talent\b|\btech nation\b|\bfee waiver\b|\brehabilitation of offenders\b|\btzbfg\b|\bfixed[- ]term contracts?\b|\bbefristeter arbeitsvertrag\b|\bbridging visa\b|\bbva\b|\bbvb\b|\bsection 501\b|\bcharacter test\b|\bvisa cancellation\b|\bdegree attestation\b|\bmofa\b|\bapprenticeship\b|\bskilled trades\b|\btrade equivalency\b|\bcertificate of qualification\b|\bpolicy guidance\b|\blegislat(?:ion|ive)\b|\bstatutory interpretation\b/iu,
+ employment: /\bovertime\b|\bvacation pay\b|\bpaycheques?\b|\bpaychecks?\b|\bemployers?\b|\bstatutory holidays?\b|\bblue card\b|\bgolden visa\b|\bjobs?\b|\bminimum wages?\b|\bwork(?:ers?|ing|ed)?\b|\bmoonlighting\b|\bcash jobs?\b|\bside hustle\b|\bundocumented work\b|\bundocumented worker\b|\bundocumented employment\b|\bunder[- ]the[- ]table\b|\bgig work\b|\bunpaid overtime\b|\bwage theft\b|\bwithholding wages\b|\bnurs(?:e|es|ing)\b|\bcredentials?\b|\bemployment\b|\bexpress entry\b|\bcrs\b|\bfsw\b|\bcec\b|\bpnp\b|\boinp\b|\bwork permit\b|\bpgwp\b|\bbowp\b|\blmia\b|\bnoc\b|\bteer\b|\bsection 186\b|\b(?:maintained|implied) status\b|\breference letters?\b|\bpolice (?:certificate|clearance)s?\b|\bpcc\b|\bbiometrics\b|\bfbi\b|\bnbi\b|\bciid\b|\bprtd\b|\bpr card\b|\bland border\b|\bdual intent\b|\bresidency obligation\b|\bpebc\b|\boct\b|\bpeo\b|\bpharmac(?:y|ist)\b|\bengineers?\b|\bteachers?\b|\bdegree\b|\bdiploma\b|\bmaster(?:'?s)?\b|\bbachelor(?:'?s)?\b|\beca\b|\bwes\b|\bright to work\b|\bwp-ext\b|\bimm 5429\b|\bimm 5988\b|\bonboarding\b|\bvulnerable sector\b|\bvsc\b|\bpolice reference check\b|\b900[- ]series\b|\bh-1b\b|\bead\b|\bgreen card\b|\bform i-9\b|\be-verify\b|\bskilled worker visa\b|\bshare code\b|\bvevo\b|\bsubclass (?:189|190|482|485|491|500|600|820|186)\b|\bgraduate visa\b|\bstudent visa\b|\bgenuine student\b|\bgst\b|\bskillselect\b|\beu blue card\b|\bblaue karte\b|\bchancenkarte\b|\bgolden visa\b|\bgreen visa\b|\bmohre\b|\bsmc\b|\baewv\b|\bcsep\b|\bstamp 4\b|\bgrace period\b|\bopt\b|\bcap[- ]gap\b|\bilr\b|\bindefinite leave to remain\b|\bcontinuous residence\b|\bcondition 8607\b|\bsponsor transfer\b|\bgratuity\b|\bend[- ]of[- ]service\b|\bredundanc(?:y|ies)?\b|\bvariation of conditions\b|\bvoc\b|\b90[- ]day rule\b|\bmisrepresentation\b|\badjustment of status\b|\bi-485\b|\b540[- ]days?\b|\bautomatic extension\b|\bworking holiday\b|\b88[- ]days?\b|\bregional work\b|\bpiece rate\b|\bhorticulture\b|\bnotice periods?\b|\bkündigungsfrist\b|\bprobation(?:ary)?\b|\b1560 hours\b|\b52 weeks\b|\bi-94\b|\bform i-94\b|\badmit until date\b|\bseverance\b|\bseverance pay\b|\btermination pay\b|\bnotice of termination\b|\bsalary threshold\b|\bgrandfather(?:ed)?\b|\b38,?700\b|\bprobearbeit\b|\bopportunity card\b|\bintent to reside\b|\b245\(k\)\b|\bstatus violations?\b|\bunauthorized work\b|\bunauthorized employment\b|\bresumes?\b|\bcvs?\b|\baccount(?:ants?|ing)\b|\bcpa\b|\bweb form\b|\bircc web form\b|\bvisitor record\b|\bvisitor status\b|\btourist visa\b|\bextend (?:status|stay|visitor)\b|\brestoration\b|\brestore status\b|\bo[- ]?1a?\b|\beb[- ]?[123]\b|\bniw\b|\bnational interest waiver\b|\bperm\b|\bform i[- ]?140\b|\bj[- ]?1\b|\b212\(e\)\b|\bds[- ]?3035\b|\bb[- ]?[12]\b|\bbrp\b|\bevisa\b|\bdigital evisa\b|\bisl\b|\bimmigration salary list\b|\bssp\b|\bstatutory sick pay\b|\bsick pay\b|\bsick leave\b|\bmaternity leave\b|\bmaternity pay\b|\bsmp\b|\bmutterschutz\b|\bpaternity leave\b|\bannual leave\b|\bpaid leave\b|\bholidays act\b|\bloe\b|\brecord of employment\b|\broe\b|\bsole trader\b|\bpty ltd\b|\bdelaware c[- ]corp\b|\bincorporat(?:e|ion)\b|\bllc\b|\bs[- ]corp\b|\bc[- ]corp\b|\bfreiberufler\b|\bduale ausbildung\b|\bvocational training\b|\bteaching council\b|\bnzqa\b|\biqa\b|\bsqe\b|\bpres\b|\bnmbi\b|\bapprobation\b|\bfachsprachprüfung\b|\bpartner visa\b|\bsubclass 820\b|\bde facto\b|\bresident return visa\b|\brrv\b|\bsubclass 155\b|\badministrative review tribunal\b|\bart\b|\birp\b|\birish residence permit\b|\boverstay\b|\blong service leave\b|\bat[- ]will\b|\bconsular\b|\b221\(g\)\b|\bsevis\b|\be[- ]2\b|\biloe\b|\bsection 3c\b|\b3c leave\b|\bstudy visa\b|\bstudy permit\b|\bstudent visa\b|\bstudent permit\b|\bf[- ]?1 visa\b|\bf[- ]?1\b|\bj[- ]?1\b|\bm[- ]?1\b|\bi[- ]?20\b|\bcas letter\b|\bgraduate route\b|\bpsw\b|\bpost[- ]study work\b|\bpost[- ]graduation work\b|\bsubclass 500\b|\bsubclass 485\b|\bstamp 2\b|\bstamp 1g\b|\bstudent'?s pass\b|\bvls[- ]ts\b|\bpal\b|\bprovincial attestation letter\b|\boff[- ]campus work\b|\bpr\b|\bpermanent residen(?:ce|cy|t|ts)\b|\bapply for pr\b|\bpr application\b|\bpr status\b|\bpr visa\b|\bpr pathway\b|\bpoints[- ]based (?:system|immigration)\b|\bstraight to residence\b|\bwork to residence\b|\bsmc resident visa\b|\bpts scheme\b|\bbusiness visa\b|\binvestor visa\b|\bstartup visa\b|\bstart[- ]up visa\b|\bentrepreneur visa\b|\binnovator founder\b|\beb[- ]?5\b|\be[- ]?2 investor\b|\bsubclass 188\b|\bactive investor plus\b|\bstep program\b|\bpasseport talent\b|\bfrench tech visa\b|\bcommercial freelance\b|\bfreiberufler visa\b|\bsuv\b|\bwork visa\b|\bimmigrat(?:e|ion)\b|\bvisa options?\b|\bvisa programs?\b|\bimmigration programs?\b|\bcompass\b|\bs[- ]?pass\b|\bone pass\b|\bentrepass\b|\bkennismigrant\b|\bhighly skilled migrant\b|\bzoekjaar\b|\borientation year\b|\barbetstillstånd\b|\bput\b|\bdigital nomad\b|\bteletrabajador\b|\bprofesionales altamente cualificados\b|\bpac\b|\bl[- ]?1\b|\bl[- ]?1a\b|\bl[- ]?1b\b|\bo[- ]?1\b|\bo[- ]?1a\b|\bo[- ]?1b\b|\bscale[- ]up worker\b|\bhpi\b|\bhigh potential individual\b|\b186 ens\b|\bgep\b|\bgeneral employment permit\b|\baewv\b|\baccredited employer\b|\bcarte de résident\b|\b10-year residency\b|\bresidencia de larga duración\b|\benisa\b|\bkollektivavtal\b|\befa\b|\btjänstepension\b|\brvo\b|\berkend referent\b|\brecognized sponsor\b|\blanguage requirements?\b|\bielts\b|\btoefl\b|\bpte\b|\bcelpip\b|\bclb\b|\bnclc\b|\bcefr\b|\btcf\b|\btef\b|\bgoethe\b|\bdele\b|\bsiele\b|\bfbi idhs\b|\bacro\b|\bafp\b|\bführungszeugnis\b|\bpolice clearance\b|\bpolice certificate\b|\bcredential assessment\b|\beca\b|\bwes\b|\bvetassess\b|\banabin\b|\bzas\b|\becctis\b|\bnuffic\b|\buhr\b|\bhomologación\b|\bhomologacion\b|\bpr card landing\b|\blanding day\b|\beconomic reality\b|\bflsa\b|\bindependent contractor\b|\b29 cfr part 795\b|\bsqe[12]?\b|\blawyers?\b|\bsolicitors?\b|\bglobal talent\b|\btech nation\b|\bfee waiver\b|\brehabilitation of offenders\b|\btzbfg\b|\bfixed[- ]term contracts?\b|\bbefristeter arbeitsvertrag\b|\bbridging visa\b|\bbva\b|\bbvb\b|\bsection 501\b|\bcharacter test\b|\bvisa cancellation\b|\bdegree attestation\b|\bmofa\b|\bapprenticeship\b|\bskilled trades\b|\btrade equivalency\b|\bcertificate of qualification\b|\bpolicy guidance\b|\blegislat(?:ion|ive)\b|\bstatutory interpretation\b/iu,
  money: /(?<!food )\bbank(?:ing|s)?\b|\bosap\b|\bstudent loans?\b|\bsend(?:ing)? money\b|\bmoney transfers?\b|\bremittances?\b|\btax(?:es)?\b|\bcra\b|\bcbsa\b|\bcash\b|\bport of entry\b|\bcredit\b|\bbenefits?\b|\bproof of funds?\b|\bpof\b|\bsettlement funds?\b|\bnoa\b|\bnotice of assessment\b|\blico\b|\bkyc\b|\bidentity verification\b|\bbank act\b|\bfintrac\b|\bwire transfers?\b|\bsource of funds\b|\blarge cash\b|\baml\b|\bsecured credit\b|\bcredit file\b|\bpredatory (?:loans?|lending)\b|\be677\b|\bdeclare\b|\bbring(?:ing)? money\b|\bcash declaration\b|\bcarrying cash\b|\brc151\b|\brc66\b|\bgifts?\b|\bdeed of gift\b|\bgift deed\b|\binterac sign[- ]in\b|\bsign[- ]in partner\b|\bcra my account\b|\bcra security code\b|\bfraud alert\b|\bcredit bureau\b|\bequifax\b|\btransunion\b|\bpatriot act\b|\bcip\b|\bfdic\b|\bctr\b|\bfca\b|\b100[- ]point\b|\baustrac\b|\bsuperannuation\b|\bbafin\b|\bsperrkonto\b|\bwps\b|\bwages protection system\b|\bexperian\b|\bfico\b|\bschufa\b|\baecb\b|\bt1135\b|\bforeign property\b|\bpersonal[- ]use property\b|\bfica\b|\bsocial security taxes?\b|\bmedicare taxes?\b|\bfhsa\b|\bfirst home savings account\b|\bdual[- ]status\b|\bfirst[- ]year choice\b|\b6013\(g\)\b|\bcgt\b|\bcapital gains tax\b|\bmoving expenses?\b|\bt1-m\b|\bline 21900\b|\b40 kilometres\b|\b40 km\b|\bfincen(?:\s+form\s+105)?\b|\bcesg\b|\bresp\b|\bkiwisaver\b|\bsubstantial presence\b|\bform 8843\b|\bfatca\b|\bform 8938\b|\bfbar\b|\bform 114\b|\bvat\b|\bcorporate tax\b|\bsmall business relief\b|\busc\b|\buniversal social charge\b|\bhelp loan\b|\bstudent debt\b|\bfirst home guarantee\b|\bfhbg\b|\blisa\b|\blifetime isa\b|\bsdlt\b|\bstamp duty\b|\bfirst[- ]time buyer relief\b|\bsepa\b|\bdirect debit\b|\blastschrift\b|\bhundesteuer\b|\bdog tax\b|\b30% ruling\b|\b30%-regeling\b|\bbeckham law\b|\bsettlement funds\b|\bproof of funds\b|\bmaintenance funds\b|\bshow money\b|\bdroit au compte\b|\bkvk\b|\bforeign income\b|\bcash gifts?\b|\bbringing cash across border\b|\bwire transfer limits?\b|\binternational transfer limits?\b|\bforeign bank accounts?\b|\bfragebogen zur steuerlichen erfassung\b|\bfinanzamt\b|\bbounced (?:rental )?cheque\b|\bcurrent account\b|\bdroit au compte\b|\bdgpip\b|\bdgfip\b|\btax domicile\b|\bf[- ]skatt\b|\bsink\b|\bbeckham law\b|\bmodelo 720\b|\bstatutory residence test\b|\bsrt\b|\btax residency\b|\bsuper fund\b|\bretail fund\b|\bindustry super\b/iu,
  family: /\bchild(?:ren)?\b(?![ -]?care)|\bschools?\b|\bkindergarten\b|\bfamily\b|\bopen access\b|\bmother\b|\bfather\b|\bspous(?:e|al)\b|\bpartner\b|\bsiblings?\b|\bbrother\b|\bsister\b|\bsponsor(?:ship|s|ed|ing)?\b|\bsuper visa\b|\bpgp\b|\bschool enrollment\b|\bschool registration\b|\btdsb\b|\bpdsb\b|\bvsb\b|\bimmunization\b|\bdaughter\b|\bson\b|\bcustody\b|\bimm 5604\b|\bnon[- ]accompanying\b|\bcommon[- ]law\b|\bcohabitation\b|\bconjugal\b|\bplunket\b|\bschool (?:zone|enrolment|enrollment)\b|\bsponsor (?:unmarried )?daughters?\b|\b4,?000\s*(?:aed|dirhams?)\b|\bfamily visa\b|\bparental leave\b|\bföräldrapenning\b|\bforaldrapenning\b|\bsgi\b|\bmutterschutz(?:gesetz)?\b|\bchild custody\b|\bcustody across borders\b|\bhague convention\b|\bcare for elderly parent\b|\belderly parent\b|\bdependent parent\b|\bparental\b/iu,
  childcare: /\bchild[ -]?care\b|\bday[ -]?care\b|\bdaycare subsid(?:y|ies)\b|\bchildcare subsid(?:y|ies)\b|\bnursery schools?\b|\bafter[- ]school care\b|\bbabysitters?\b|\bkita\b|\bkita[- ]gutschein\b|\bjugendamt\b|\bncs\b|\bnational childcare scheme\b/iu,
@@ -171,6 +173,18 @@ export function isConceptualOrFederalQuestion(q) {
   if (!q) return false;
   return Boolean(resolveQuestionBankItem(q)) || Boolean(resolveQuestionBankBatch3Item(q)) || Boolean(resolveMarketGapBatch1Item(q)) || Boolean(resolveMarketGapBatch2Item(q)) || Boolean(resolveMarketGapBatch3Item(q)) || Boolean(resolveGlobalSettlementItem(q)) || /\b(?:fundamental|difference|differ|distinguish|distinction|definition|define|mean(?:ing)?|concept|international law|sovereign|philosophy|principle|principles|objective|compare|comparison|evaluate|evaluation|misconception|unanswered|treaty|treaties|bilateral|quota|quotas|authority|entitlements?|discretion|retrospective|enforce|accountab|human rights|misinformation|contradict|refus(?:e|es|ed|ing|al|als)?|inadmissib|ban|deport|waiver|maintain|overstay|consultant|lawyer|representat|notari|apostille|consular|legalization|authenticat|eligibility|pathway|sustainable|sustainability|planning|document|inconsisten|record|express entry|fsw|cec|pnp|crs|pr card|permanent residen|work permit|study permit|student visa|visitor visa|super visa|spousal sponsor|sponsor|dependents?|maintained status|lmia|pgwp|bowp|teer|noc|biometrics|police certificate|police clearance|eca|wes|fintrac|cra|income tax|cbsa|customs|border|duty[- ]free|bsf186|goods to follow|citizenship|naturaliz|physical presence|misrepresentation|section 40|a40|asylum|refugee|five eyes|unhcr|bank act|proof of funds|settlement funds|show money|electronic travel authorization|eta|airport transit|custody|newborn|healthcare costs?|housing availability|rent a home|rental housing|rental deposits?|refuses? to return|temporary migrant|legal protections?|indefinitely|suspended?|exchange.*information|expire.*during|expire.*relocation|vehicle insurance|transport systems?|international students?|students?|chronic|treatment|vaccin(?:e|es|ated)?|mental[- ]health|emergenc(?:y|ies)?|privacy|qualificat(?:ion|ions)?|medical(?:\\s+examinations?)?|medical\\s+condition|limited housing|family sponsorship|airline|carrier|trains?|healthcare rights?|health insurance|prescription|medicines?|vaccination|waiting periods?|permanent address|undocumented|credit history|rental scams?|public housing|homeless|housing demand|housing shortages?|reconsideration|diplomatic|watchlist|discrimination|intergenerational|neighbourhood|integration|climate|algorithmic|brain drain|access local healthcare|visa categor(?:y|ies)|children|providers?|register(?:ing|ation)?|consequences?|immigration programs?|settlement|rental history|tax identification(?: number)?|utility bills?|address[- ]reporting|housing dispute|rental screening|healthcare services?|healthcare benefit|unpaid|liable|habitual residence|annulled|entry|admissib(?:le|ility)|residen(?:ce|cy)|authoriz(?:ation|ations)|nationalit(?:y|ies)|destination|relocat(?:e|ing|ion)|educational?|authenticit(?:y|ies)|origin|require(?:ment|ments)?|overseas|cross-border|applicant|applicants|internationally|departure|insurance|expenses|birth|certificates?|issuing|translat(?:e|ion|ions)|parentage|passports?|travel|biometric|biometrics|savings|transferring|identity|aliases|facial recognition|refugees?|tuition|institution|recruitment|occupation|exploitation|verification|disaster|portals?|visas?|applications?|conditions?|employers?|immigrat(?:e|ion|ions|ing)?|citizens?|foreigners?|migrants?|enter(?:ing|ed)?|admission|permits?|stay|agents?|directors?|employees?|points?|birthdays?|assessing|career|scores?|invitation|professions?|classification|qualify|testing|assess(?:ed|ment)?|business(?:es)?|invest(?:ment|ments|or|ors)?|capital|patent|relationship|marriages?|stepchild(?:ren)?|adopt(?:ion|ions|ive|ed)?|polygam(?:y|ous)|equivalency|portfolio|academics?|examinations?|gifted|deposits?|foreign[- ]currency|balances?|exchange rates?|inherit(?:ed|ance)?|self[- ]employed|income|liabilities|loans?|retirement|exclusion|convict(?:ion|ions)?|criminal|proceedings?|pending|civil disputes?|appeals?|deadlines?|procedural unfairness|unlawful presence|stateless(?:ness)?|remov(?:al|als)?|persecut(?:ion|ed)?|fraudulent|deported|property|political|environmental|minors?|evidence|social[- ]media|displaced|displacement|resettlement|protection|detention|passenger|humanitarian|cancellation|renunciation|naturalization|pensions?|contributions?|assets?|literacy|mortgages?|consumer|downgrading|apprenticeships?|barriers?|overqualification|belonging|segregation|culture shock|adaptation|mobility|sovereignty|ageing|demographic|data[- ]protection|outages?|officers?|disciplinary|embass(?:y|ies)?|exceptional|competitiveness|occupancy|correspondence|signatures?|towns?|caregiving|scoring|networks?|legal name|names? differs?|language tests?|language-test|funds|offen[cs]e|reapply|reapplying|salaries|salary|parents?|laws?|fairness|advis[eo]rs?|decline|promises|pathways?|artificial intelligence|standards?|impacts?|professional experience|exchange programs?|trust)\b/i.test(q);
 }
+
+// Short codes collide with ordinary words ("on", "act", "pe", "nu"), so they
+// count only when written as the upper-case code; an all-capitals question gives
+// no such signal. Full names stay case-insensitive.
+function regionNamedIn(name, text) {
+  if (name.length > 3) return new RegExp(`\\b${name}\\b`, 'i').test(text);
+  return text !== text.toUpperCase() && new RegExp(`\\b${name}\\b`).test(text);
+}
+const PROVINCE_SPECIFIC_TERMS = Object.freeze([
+  [/\b(?:ohip|ltb|landlord and tenant board|n12|n13)\b/i, 'ON'],
+  [/\b(?:msp|rtb|residential tenancy branch)\b/i, 'BC']
+]);
 
 export function parse(input) {
   if (!input || typeof input.question !== 'string' || !input.question.trim() || input.question.length > 2000) throw new ValidationError('question must contain 1–2000 characters');
@@ -340,16 +354,21 @@ export function parse(input) {
   }
   if (!resolvedRegion && country) {
     const candidateRegions = destinationRegions[country] || [];
-    const matchedRegion = candidateRegions.find(r => new RegExp(`\\b${r}\\b`, 'i').test(q));
+    const matchedRegion = candidateRegions.find(r => regionNamedIn(r, q));
     if (matchedRegion) resolvedRegion = matchedRegion;
   }
   if (!resolvedRegion && country && REGION_ALIASES[country]) {
     for (const [alias, canonical] of Object.entries(REGION_ALIASES[country])) {
-      if (new RegExp(`\\b${alias}\\b`, 'i').test(q)) {
+      if (regionNamedIn(alias, q)) {
         resolvedRegion = canonical;
         break;
       }
     }
+  }
+  // These programmes and tribunals exist in one province only, so naming one
+  // already answers "which province?".
+  if (!resolvedRegion && country === 'CA') {
+    resolvedRegion = PROVINCE_SPECIFIC_TERMS.find(([pattern]) => pattern.test(q))?.[1] ?? null;
   }
   if (resolvedRegion && country && REGION_ALIASES[country]?.[resolvedRegion]) {
     resolvedRegion = REGION_ALIASES[country][resolvedRegion];
@@ -399,6 +418,11 @@ export function retrieve(parsed, records, now=new Date(),searchIndex) {
     // Reject out-of-scope records before expensive English/policy validation.
     // Every record that can reach ranking still passes the full validator.
     if(!r || !scope.has(r.jurisdiction) || !parsed.intents.includes(r.topic))return false;
+    // The origin country is in scope for exchanging its licence or for leaving it.
+    // Its tax or health rules do not apply to someone asking about Canada.
+    if(r.jurisdiction===parsed.licenceCountry && !['driving','community'].includes(r.topic))return false;
+    // "Moving from Germany to Canada" says nothing about living in Germany.
+    if(isGlobal && !describesLifeInCountry(r))return false;
     try {assertEnglishRecord(r);} catch {return false;}
     return (r.topic!=='housing' || parsed.housingSubjects===undefined || parsed.housingSubjects.length===0 || !recordHousingSubject(r) || parsed.housingSubjects.includes(recordHousingSubject(r)))
       && (r.topic!=='telecom' || parsed.telecom===undefined || parsed.telecom.subjects.includes(r.telecomSubject));
@@ -411,6 +435,46 @@ export function retrieve(parsed, records, now=new Date(),searchIndex) {
     score:r.lexicalScore+(r.jurisdiction===parsed.city?0.6:(activeRegion && r.jurisdiction===activeRegion)?0.45:(isGlobal&&r.jurisdiction===parsed.country)?0.3:0),
     retrievalVersion:r.retrievalVersion||'lexical-bm25-0.1'
   })).sort((a,b)=>b.score-a.score || b.scopeScore-a.scopeScore || a.id.localeCompare(b.id));
+}
+const CANADIAN_REGION_NAMES = Object.freeze({ON:'ontario',BC:'british columbia',AB:'alberta',QC:'quebec',MB:'manitoba',SK:'saskatchewan',NS:'nova scotia',NB:'new brunswick',PE:'prince edward island',NL:'newfoundland labrador',YT:'yukon',NT:'northwest territories',NU:'nunavut'});
+const GENERIC_QUESTION_TERMS = new Set('case newcomer another under date available who policy law eligibility status assessment guidance authority document legal rules government analyze responsible different compare options required requirement much many long need needed get got find help know tell want use using as while than by if not but any some all there who which why will may might must also have has had was were been am very more most less best new free local official common normal normally general basic main minimum maximum apply start process work file people person thing things way'.split(' '));
+function substantiveTerms(terms, parsed) {
+  const place = new Set(tokenize([parsed.city, parsed.region, CANADIAN_REGION_NAMES[parsed.region], parsed.country, 'canada', 'canadian'].filter(Boolean).join(' ')));
+  return (terms || []).filter(term => !place.has(term));
+}
+const MIN_RELATIVE_SCORE = 0.3;
+// Subjects a record must actually be about when the question names them: nothing
+// else in the same topic stands in for them, however many other words it shares.
+const REQUIRED_SUBJECTS = Object.freeze([
+  [/\bstatutory holidays?\b|\bpublic holidays?\b/i, /\bholidays?\b/i],
+  [/\bvacation pay\b/i, /\bvacation\b/i],
+  [/\bovertime\b/i, /\bovertime\b/i],
+  [/\bminimum wages?\b/i, /\bminimum wages?\b/i],
+  [/\bfood banks?\b/i, /\bfood banks?\b|\bdaily bread\b/i],
+  [/\bmental health\b/i, /\bmental\b|\bcrisis\b/i],
+  [/\bforeign (?:property|assets?)\b|\bt1135\b/i, /\bforeign (?:property|assets?)\b|\bt1135\b/i],
+  [/\bfhsa\b|\bfirst home savings\b/i, /\bfhsa\b|\bfirst home savings\b/i],
+  [/\bsublet(?:ting)?\b/i, /\bsublet|\bassign/i],
+  [/\bmou?ld\b/i, /\bmou?ld\b|\brepairs?\b|\bmaintenance\b/i],
+  [/\bfirst and last\b|\blast month'?s rent\b/i, /\bdeposit\b|\blast month/i],
+  [/\b(?:locked|locks?|lockout)\b.*\b(?:out|landlord|apartment)\b|\blandlord\b.*\b(?:locked|lockout|locks?)\b/i, /\block|\bevict/i]
+]);
+const coversRequiredSubjects = (record, question) => {
+  const text = `${record.title} ${record.summary}`;
+  return REQUIRED_SUBJECTS.every(([asked, needed]) => !asked.test(question) || needed.test(text));
+};
+const hasInformativeOverlap = (matchedTerms, parsed) => substantiveTerms(matchedTerms, parsed).some(term => !GENERIC_QUESTION_TERMS.has(term));
+// The narrower reading of a question about a country outside the corridors. It
+// applies only when a published record about life there fits the question;
+// otherwise the question keeps its normal "not covered yet" answer.
+function referenceScope(input, parsed, records, now, searchIndex) {
+  if (input?.city) return null;
+  const country = namedReferenceCountry(normalizeEnglishQuestion(input?.question), parsed, records);
+  if (!country) return null;
+  const scoped = {...parsed, country, region: null, city: null, licenceCountry: null, licenceCountryAmbiguous: false, ambiguous: false, missingSlots: [], relocation: null};
+  const inCountry = records.filter(record => describesLifeInCountry(record) && recordFitsSubject(record, input.question));
+  const fits = retrieve(scoped, inCountry, now, searchIndex).some(r => r.available && hasInformativeOverlap(r.matchedTerms, scoped));
+  return fits ? {parsed: scoped, records: inCountry, country} : null;
 }
 export function answer(input,records,now=new Date(),searchIndex,options={}) {
   const safeOptions = (options && typeof options === 'object') ? options : {};
@@ -425,8 +489,11 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
   const directResolved = Boolean(qbMatch || mkt1Match || mkt2Match || mkt3Match || gmsMatch);
   
   const narrativeCrisis = !directResolved ? resolveNarrativeCrisis(input?.question, input) : null;
-  const directHandled = directResolved;
-  const parsed = directResolved
+  // A catalog match found from the question's text is only a research lead: it
+  // must not stop reviewed evidence from answering the same question. Only an
+  // explicit catalog id asks for that catalog entry and nothing else.
+  const directHandled = directResolved && Boolean(input?.questionBankId || input?.marketGapId || input?.gmsId);
+  let parsed = directHandled
     ? {
         intents: [(gmsMatch?.topic || mkt1Match?.topic || mkt2Match?.topic || mkt3Match?.topic || 'immigration_law')],
         city: null,
@@ -453,6 +520,9 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
   if (directHandled && parsed.missingSlots.includes('location')) {
     parsed.missingSlots = parsed.missingSlots.filter(s => s !== 'location');
   }
+  const reference = directHandled ? null : referenceScope(input, parsed, safeRecords, safeNow, searchIndex);
+  if (reference) parsed = reference.parsed;
+  const evidenceRecords = reference ? reference.records : safeRecords;
   const result={traceId:randomUUID(),parsed,status:'unavailable',claims:[],sources:[],gaps:[],clarification:null,
     notice:'Limited research pilot. These are relevant source summaries, not a complete answer to every detail of your question.'};
   // Narrative matches are research hints, never substitutes for reviewed evidence.
@@ -481,18 +551,40 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
     // (sanitizePromptInjection below keeps the same literals global for replace()).
     const hasInjection = INJECTION_PATTERNS.some(pat => new RegExp(pat.source, pat.flags.replace('g', '')).test(input?.question || ''));
     const isConceptual = !hasInjection && isConceptualOrFederalQuestion(normalizeEnglishQuestion(input?.question));
-    const searchIntents = directHandled ? [] : (parsed.intents.length ? parsed.intents : (isConceptual ? ['employment', 'community', 'arrival', 'housing', 'money'] : []));
-    const candidates = searchIntents.length ? retrieve({...parsed, intents: searchIntents},safeRecords,safeNow,searchIndex) : [];
+    // The catalog knows which country a templated question is about, even when it
+    // borrows a Canadian term ("CRA account access in New Zealand"); Canadian
+    // evidence must not answer it.
+    const catalogElsewhere = gmsMatch && gmsMatch.country !== 'Canada' && parsed.country === 'CA';
+    // Being in the catalog does not make a question conceptual: its templated words
+    // ("assessment", "authority") would match unrelated records across these topics.
+    const searchIntents = directHandled || catalogElsewhere ? [] : (parsed.intents.length ? parsed.intents : (isConceptual && !directResolved ? ['employment', 'community', 'arrival', 'housing', 'money'] : []));
+    const candidates = searchIntents.length ? retrieve({...parsed, intents: searchIntents},evidenceRecords,safeNow,searchIndex) : [];
     result.retrieval={version:candidates[0]?.retrievalVersion||'lexical-bm25-0.1',candidates:candidates.map(r=>({id:r.id,score:r.score,matchedTerms:r.matchedTerms,available:r.available,reason:r.reason}))};
-    for(const topic of searchIntents) {
+    // The topic alone is not relevance: a record matching only the place name or
+    // a filler word ("minimum" in "minimum wage") must not stand in for an answer
+    // when the record that fits is withheld or missing. This guards the legal and
+    // benefit topics; a transit or directory pointer stays useful without sharing
+    // the asker's words ("bus journey" -> trip planner). A one-word question
+    // ("Toronto bus") asks for the topic itself, and injected instructions are
+    // not part of what was asked.
+    const askedTerms = new Set(substantiveTerms(parsed.queryTerms, parsed));
+    const questionIsSpecific = !hasInjection && askedTerms.size > 1 && [...askedTerms].some(term => !GENERIC_QUESTION_TERMS.has(term));
+    const fitsQuestion=r=>{
+      if(!coversRequiredSubjects(r,input.question))return false;
+      if(!parsed.intents.length) return hasInformativeOverlap(r.matchedTerms, parsed);
+      // A country-level reference record must always fit the question itself.
+      return reference || (questionIsSpecific && highRiskTopics.has(r.topic)) ? hasInformativeOverlap(r.matchedTerms, parsed) : true;
+    };
+    // A record far weaker than the best match on any asked topic is a stand-in, not
+    // an answer. Withheld records count: when the record that fits awaits review, say
+    // so rather than serve a weak one. A rejected record is no longer evidence at all.
+    const bestScore=Math.max(0,...candidates.filter(r=>r.status!=='rejected'&&fitsQuestion(r)).map(r=>r.score));
+    // Lead with the topic holding the strongest match, whatever order the words came in.
+    const bestForTopic=topic=>Math.max(0,...candidates.filter(r=>r.topic===topic&&fitsQuestion(r)).map(r=>r.score));
+    for(const topic of [...searchIntents].sort((a,b)=>bestForTopic(b)-bestForTopic(a))) {
       // Broad topic matches must not masquerade as answers to unrelated legal subquestions.
-      const relevant=candidates.filter(r=>{
-        if(r.topic !== topic) return false;
-        if(parsed.intents.length) return true;
-        const substantive = (r.matchedTerms || []).filter(t => t !== (parsed.city || '').toLowerCase() && t !== (parsed.country || '').toLowerCase());
-        return substantive.length > 0;
-      });
-      const usable=relevant.filter(r=>r.available);
+      const relevant=candidates.filter(r=>r.topic===topic&&fitsQuestion(r));
+      const usable=relevant.filter(r=>r.available&&(!highRiskTopics.has(r.topic)||r.score>=bestScore*MIN_RELATIVE_SCORE));
       const conflicts=new Set(usable.filter(r=>usable.some(s=>s.id!==r.id && s.topic===r.topic && s.jurisdiction===r.jurisdiction && s.claimKey && s.claimKey===r.claimKey && s.summary!==r.summary)).map(r=>r.id));
       if(conflicts.size) result.gaps.push({topic,reason:'conflicting_evidence'});
       else for(const r of usable.slice(0,2)) {
@@ -505,7 +597,7 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
       const selectedIds=new Set(result.claims.map(c=>c.evidenceId));
       const cited=[...new Map([...relevant.filter(r=>selectedIds.has(r.id)),...relevant.slice(0,3)].map(r=>[r.id,r])).values()];
       for(const r of cited) result.sources.push({id:r.id,title:r.title,url:r.url,quote:r.quote,checkedAt:r.checkedAt,expiresAt:r.expiresAt,status:r.available?r.status:r.reason,reviewMethod:r.available?reviewMethodOf(r):'none',jurisdiction:r.jurisdiction,snapshotId:r.snapshotId ?? null});
-      if(!usable.length) result.gaps.push({topic,reason:relevant[0]?.reason || 'missing_evidence'});
+      if(!usable.length) result.gaps.push({topic,reason:relevant.find(r=>!r.available)?.reason || 'missing_evidence'});
       if(topic==='telecom' && parsed.telecom.priceRequest)result.gaps.push({topic,reason:'missing_live_price_data'});
       if(topic==='housing' && usable.length) for(const subject of parsed.housingSubjects) {
         if(!result.claims.some(c=>relevant.some(r=>r.id===c.evidenceId && recordHousingSubject(r)===subject))) {
@@ -521,6 +613,10 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
     for(const facet of parsed.facets){
       if(facet.id==='ordered_checklist' && (facet.topic===null ? checklistTopics.size>0 : checklistTopics.has(facet.topic)))continue;
       result.gaps.push({topic:facet.topic,subject:facet.id,reason:facet.reason});
+    }
+    if(reference && result.claims.length){
+      result.gaps.push({topic:null,reason:'limited_country_coverage'});
+      result.referenceCoverage=referenceCoverageNotice(reference.country);
     }
     if(parsed.missingSlots.includes('licence_country')) result.clarification=parsed.licenceCountryAmbiguous?'You mentioned more than one licence country. Which current licence do you want to ask about?':'Which country issued your current driving licence?';
     result.status=result.claims.length?(result.gaps.length?'partial':'guidance'):'unavailable';
@@ -538,6 +634,11 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
   if (leads.some(([,match])=>match) && result.status !== 'clarification')
     result.status = result.claims.length ? 'partial' : 'unavailable';
   result.message=result.claims.length?result.message||'Here is starting guidance from the available sources.':'A verified answer to this question is not yet available.';
+  // A question placed abroad must not be handed Canadian phone numbers just
+  // because the parser's default country is CA.
+  const placedAbroad = result.placeClarification?.reason === 'unknown_place' || result.placeClarification?.mentioned?.some(place => place.status === 'outside_canada');
+  const urgentHelp = detectUrgentHelp(input?.question, placedAbroad ? null : parsed.country);
+  if (urgentHelp) result.urgentHelp = urgentHelp;
   const multilingual = detectAndTranslateMultilingualQuery(input?.question);
   if (multilingual) result.multilingual = multilingual;
   result.answerability=assessAnswerability(parsed,result.claims,result.gaps);

@@ -11,7 +11,7 @@ const relocationClause={type:['object','null'],properties:{originRaw:text,destRa
 const parsed=object({intents:array(text),city:nullableText,region:nullableText,country:{enum:destinationCountries},language:{const:'en'},licenceCountry:nullableText,licenceCountryAmbiguous:boolean,risk:{enum:['low','high']},missingSlots:array(text),ambiguous:boolean,queryTerms:array(text),housingSubjects:array(text),telecom:object({subjects:array(text),priceRequest:boolean}),contractVersion:text,requestedOutput:{enum:['source_guidance','eligibility','checklist','timeline']},facets:array(facet),parserVersion:text,geographyVersion:{const:'geo-1'},relocation:relocationClause,thresholds:{anyOf:[{type:'object',additionalProperties:true},{type:'null'}]}});
 const claim=object({id:text,text:text,evidenceId:text,status:{enum:['approved','research_seed']},kind:{enum:['source_guidance','checklist']}});
 Object.assign(claim.properties,{steps:array(text),topic:text});
-const reviewMethod={enum:['editorial_review','bulk_approval','none'],description:'Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved.'};
+const reviewMethod={enum:['editorial_review','source_verified','bulk_approval','none'],description:'Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved.'};
 const source=object({id:text,title:text,url:{type:'string',format:'uri'},quote:text,checkedAt:{type:'string',format:'date'},expiresAt:{type:'string',format:'date'},status:text,reviewMethod,jurisdiction:text,snapshotId:nullableText});
 const gap=object({topic:nullableText,reason:text});gap.properties.subject=text;
 const answerSchema=object({traceId:text,parsed,status:{enum:['guidance','partial','unavailable','clarification']},claims:array(claim),sources:array(source),gaps:array(gap),clarification:nullableText,notice:text,message:text,
@@ -27,6 +27,12 @@ answerSchema.properties.context=object({version:{const:'context-1'},status:{enum
  reason:{enum:[null,'invalid_question','invalid_context','missing_timestamp','timestamp_in_future','expired','no_usable_fields','self_contained','question_has_own_context']},
  assumptions:array(object({field:{enum:['topic','city','country']},value:text,label:text,source:{const:'previous_turn'}})),
  requiresConfirmation:boolean,message:nullableText,expiresAt:{type:['string','null'],format:'date-time'}});
+// A reference country is outside the request's destination list, so the response
+// value is any country name. Present only when such records answered (src/reference-countries.js).
+parsed.properties.country={type:'string',description:'CA, a destination corridor, or a limited-coverage country named in referenceCoverage.'};
+answerSchema.properties.referenceCoverage=object({version:{const:'reference-1'},country:text,message:text});
+// Present only when the question describes an emergency (src/urgent-help.js).
+answerSchema.properties.urgentHelp=object({version:{const:'urgent-1'},kind:{enum:['self_harm','immediate_danger','document_withholding','housing_emergency','threats','representative_fraud']},title:text,message:text,contacts:array(object({label:text,phone:text})),helpView:nullableText});
 answerSchema.properties.retrieval=object({version:text,candidates:array(object({id:text,score:number,matchedTerms:array(text),available:boolean,reason:text}))});
 // Reader-facing structure built from the published claims (src/answer-composer.js).
 const presentationPoint=object({text:nullableText,items:array(text)});

@@ -159,6 +159,8 @@ export const TOOL_REGISTRY = [
 
 export function detectSuggestedTools(result, limit = 2) {
   if (!result || !result.parsed) return [];
+  // Every tool here applies Canadian rules; a limited-coverage country has none.
+  if (result.referenceCoverage) return [];
   const question = result.parsed.rawQuestion || '';
   const queryTerms = (result.parsed.queryTerms || []).join(' ');
   // A tool is suggested only for what the person asked; words inside the cited

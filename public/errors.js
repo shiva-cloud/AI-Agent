@@ -11,6 +11,7 @@ export const GAP_LABELS = {
   missing_verified_checklist: 'a verified ordered checklist is not available; source summaries are only starting guidance',
   awaiting_human_review: 'sources exist, but they need independent human review before publication',
   missing_evidence: 'no verified source yet for this part',
+  limited_country_coverage: 'we hold only a few official records for this country, so other details may be missing',
   rejected: 'a stored draft exists, but it was rejected in review',
   future_check_date: 'the source check date is still in the future',
   stale: 'the stored summaries have expired and need a fresh source check',

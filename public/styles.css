@@ -1463,6 +1463,14 @@ select, input, textarea {
 .sos-cards-grid{display:flex;flex-direction:column;gap:20px;margin-top:20px}
 .sos-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;border-left:6px solid var(--line)}
 .sos-card.emergency-high{border-left-color:#ef4444}
+.reference-coverage-note{margin:0 0 18px;padding:12px 14px;border:1px solid var(--line);border-left:4px solid #f59e0b;border-radius:8px}
+.urgent-help-card{margin:0 0 18px}
+.urgent-help-card .sos-card-header{gap:12px}
+.urgent-help-card .sos-badge{white-space:nowrap;flex-shrink:0}
+.urgent-help-contacts{list-style:none;margin:12px 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px}
+.urgent-help-contacts li{display:flex;flex-direction:column;gap:2px}
+.urgent-help-phone{font-size:20px;font-weight:800}
+.urgent-help-open{padding:8px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:700;cursor:pointer}
 .sos-card.emergency-mid{border-left-color:#f59e0b}
 .sos-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px}
 .sos-card-header h3{font-size:18px;font-weight:800;color:var(--ink);margin:0}

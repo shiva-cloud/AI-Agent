@@ -62,7 +62,7 @@ test('Direct numeric and string ID lookups across all 10 scenario blocks', () =>
   assert.equal(resolveMarketGapBatch1Item('invalid'), null);
 });
 
-test('Engine answer() statutory integration across all 10 scenarios with zero evasion', () => {for(const id of [80001,80201,80401,80601,80801,81001,81201,81401,81601,81801]){const item=resolveMarketGapBatch1Item(id);assert.ok(item);const result=answer({question:item.question},[]);assert.equal(result.claims.length,0);assert.equal(result.sources.length,0);assert.equal(result.verification.editorReviewedClaims,0);assert.ok(result.gaps.some(g=>g.reason==='awaiting_human_review'));assert.equal(result.status,'unavailable');}});
+test('Engine answer() statutory integration across all 10 scenarios with zero evasion', () => {for(const id of [80001,80201,80401,80601,80801,81001,81201,81401,81601,81801]){const item=resolveMarketGapBatch1Item(id);assert.ok(item);const result=answer({question:item.question},[]);assert.equal(result.claims.length,0);assert.equal(result.sources.length,0);assert.equal(result.verification.editorReviewedClaims,0);assert.ok(result.gaps.some(g=>g.reason==='awaiting_human_review'));assert.ok(['unavailable','clarification'].includes(result.status),'no evidence: unsupported places are told so, others are unavailable');}});
 
 test('Search filtering by country, topic, and query pagination', () => {
   // 1. Search by Country

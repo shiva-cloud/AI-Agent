@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Northstar API contract",
-    "version": "0.19.67",
+    "version": "0.19.74",
     "description": "Route/auth inventory, POST fields and structured success-response schemas for all current API operations. Runtime English, semantic, provenance and conditional identity policies remain authoritative. Legacy editorial calls require reviewer/actor fields; individual authentication supplies them. JSON POST bodies are bounded to 12000 bytes. Static assets excluded."
   },
   "paths": {
@@ -63512,22 +63512,8 @@
                       ]
                     },
                     "country": {
-                      "enum": [
-                        "CA",
-                        "United States",
-                        "United Kingdom",
-                        "Australia",
-                        "Germany",
-                        "United Arab Emirates",
-                        "New Zealand",
-                        "Ireland",
-                        "Singapore",
-                        "France",
-                        "Netherlands",
-                        "Sweden",
-                        "Spain",
-                        "European Union"
-                      ]
+                      "type": "string",
+                      "description": "CA, a destination corridor, or a limited-coverage country named in referenceCoverage."
                     },
                     "language": {
                       "const": "en"
@@ -64118,22 +64104,8 @@
                           ]
                         },
                         "country": {
-                          "enum": [
-                            "CA",
-                            "United States",
-                            "United Kingdom",
-                            "Australia",
-                            "Germany",
-                            "United Arab Emirates",
-                            "New Zealand",
-                            "Ireland",
-                            "Singapore",
-                            "France",
-                            "Netherlands",
-                            "Sweden",
-                            "Spain",
-                            "European Union"
-                          ]
+                          "type": "string",
+                          "description": "CA, a destination corridor, or a limited-coverage country named in referenceCoverage."
                         },
                         "language": {
                           "const": "en"
@@ -64415,10 +64387,11 @@
                           "reviewMethod": {
                             "enum": [
                               "editorial_review",
+                              "source_verified",
                               "bulk_approval",
                               "none"
                             ],
-                            "description": "Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved."
+                            "description": "Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved."
                           },
                           "jurisdiction": {
                             "type": "string"
@@ -64782,6 +64755,84 @@
                       ],
                       "additionalProperties": false
                     },
+                    "referenceCoverage": {
+                      "type": "object",
+                      "properties": {
+                        "version": {
+                          "const": "reference-1"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "version",
+                        "country",
+                        "message"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "urgentHelp": {
+                      "type": "object",
+                      "properties": {
+                        "version": {
+                          "const": "urgent-1"
+                        },
+                        "kind": {
+                          "enum": [
+                            "self_harm",
+                            "immediate_danger",
+                            "document_withholding",
+                            "housing_emergency",
+                            "threats",
+                            "representative_fraud"
+                          ]
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "contacts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "label": {
+                                "type": "string"
+                              },
+                              "phone": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "label",
+                              "phone"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "helpView": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "version",
+                        "kind",
+                        "title",
+                        "message",
+                        "contacts",
+                        "helpView"
+                      ],
+                      "additionalProperties": false
+                    },
                     "retrieval": {
                       "type": "object",
                       "properties": {
@@ -64981,10 +65032,11 @@
                               "reviewMethod": {
                                 "enum": [
                                   "editorial_review",
+                                  "source_verified",
                                   "bulk_approval",
                                   "none"
                                 ],
-                                "description": "Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved."
+                                "description": "Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved."
                               },
                               "relevance": {
                                 "enum": [
@@ -65072,10 +65124,11 @@
                               "reviewMethod": {
                                 "enum": [
                                   "editorial_review",
+                                  "source_verified",
                                   "bulk_approval",
                                   "none"
                                 ],
-                                "description": "Who approved the evidence: a named editorial decision, a bulk script or seed file, or not approved."
+                                "description": "Who approved the evidence: a named editorial decision, the automated check against the archived official page, a bulk script or seed file, or not approved."
                               }
                             },
                             "required": [

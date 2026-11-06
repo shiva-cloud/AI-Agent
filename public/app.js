@@ -550,6 +550,32 @@ function humanPanel(city, fullyUnavailable) {
   return panel;
 }
 
+// Shown above everything else, whatever the evidence status: reaching help must
+// not depend on a reviewed answer existing.
+function urgentHelpCard(help) {
+  const card = el('section', undefined, 'sos-card emergency-high urgent-help-card');
+  card.setAttribute('role', 'alert');
+  const header = el('div', undefined, 'sos-card-header');
+  header.append(el('h3', help.title), el('span', 'Urgent', 'sos-badge danger'));
+  card.append(header, el('p', help.message));
+  const contacts = el('ul', undefined, 'urgent-help-contacts');
+  help.contacts.forEach(c => {
+    const li = el('li');
+    const call = el('a', c.phone, 'urgent-help-phone');
+    call.href = `tel:${c.phone.replace(/[^0-9+]/g, '')}`;
+    li.append(call, el('span', c.label));
+    contacts.append(li);
+  });
+  card.append(contacts);
+  if (help.helpView) {
+    const open = el('button', 'Open Emergency Help steps', 'urgent-help-open');
+    open.type = 'button';
+    open.addEventListener('click', () => document.querySelector(`[data-view="${help.helpView}"]`)?.click());
+    card.append(open);
+  }
+  return card;
+}
+
 function renderAnswer(r, original) {
   clearPendingTimer();
   const box = el('article', undefined, 'result advisory-result');
@@ -573,7 +599,7 @@ function renderAnswer(r, original) {
     'Spain': '🇪🇸'
   };
   const isGlobal = country !== 'CA';
-  const flag = flagMap[country] || '🍁';
+  const flag = flagMap[country] || (isGlobal ? '🌐' : '🍁');
   const pillText = isGlobal
     ? `${flag} ${r.parsed?.city ? r.parsed.city + ', ' : ''}${country} Settlement Advisory · National Statutory Guidance`
     : `🍁 Canadian Settlement Advisory · ${r.parsed.city ? r.parsed.city + ', ' : ''}${r.parsed.region || 'National Guidance'}`;
@@ -589,6 +615,8 @@ function renderAnswer(r, original) {
   const fresh = freshnessChip(r.sources || []);
   if (fresh) heroHeader.append(fresh);
   box.append(heroHeader);
+  if (r.urgentHelp) box.append(urgentHelpCard(r.urgentHelp));
+  if (r.referenceCoverage) box.append(el('p', r.referenceCoverage.message, 'reference-coverage-note'));
 
   // The server's presentation (headline, summary, sections) renders every
   // answer that has evidence; answers without claims keep the status headline.
@@ -850,7 +878,8 @@ function renderAnswer(r, original) {
 
   // 4. Contextual Follow-up Suggestions & Conversational Continuity
   const currentCountry = r.parsed?.country || 'CA';
-  const followups = buildFollowupSuggestions(r, original, currentCountry);
+  // The suggestions fall back to Canadian programmes, which do not apply here.
+  const followups = r.referenceCoverage ? [] : buildFollowupSuggestions(r, original, currentCountry);
   if (followups) box.append(followups);
 
   // 5. Session History Memory Drawer
@@ -867,6 +896,9 @@ function renderAnswer(r, original) {
 
   announce(r.status === 'guidance' ? 'An answer has been found.' : r.status === 'partial' ? 'An answer was found, but some parts are still unverified.' : 'An answer is not yet available.');
   $('#answer').replaceChildren(box);
+  // On a phone the form fills the screen, so an answer rendered below it looks
+  // like no answer at all.
+  if (box.getBoundingClientRect().top > window.innerHeight * 0.6) box.scrollIntoView({ block: 'start' });
 }
 
 let coverageData = null;
