@@ -1,6 +1,14 @@
 # Implementation status — 6 November 2026
 
-## Current release: 0.19.69, English-only
+## Current release: 0.19.70, English-only
+
+### Portal-placeholder batch fourteen (0.19.70)
+
+Details in `docs/CHANGELOG.md` 0.19.70:
+
+- A read-only probe found 153 country-portal records still unpublished with exactly one blocker each: their quotes were either the pilot's "No English page excerpt captured" placeholder or a two-to-four-word site title — text their pages never carry. All 153 source rows are registered, permitted, tier A and unexpired. A homepage probe fetched all 153 (23 carried candidate sentences); after an English-only filter and a stability review, nine were re-quoted from stable verbatim page sentences and published as `source_verified`: Austria (the ID-Austria capability sentence), Barbados (the marriage-licence service sentence), Iceland (the disability-services listing), Latvia (the institutional-information sentence), Liechtenstein (the economy description), Micronesia (the constitutional-amendments navigation block; the old quote was the duplicated title), Saint Kitts and Nevis (the historical sugarcane-heritage sentence; the ministries listing rejected as reshuffle-rotating), Antigua and Barbuda (the GOVERNMENT INFO listing) and Sri Lanka (the welcome block with its years-old Internet-Explorer notice).
+- The chain moved 171 → **180** distinct records (200 publication rows). Pre-apply (`settlement-before-kb-audit-2026-11-06.sqlite`) and pre-publish (`settlement-before-verify-publish-1793941919440.sqlite`) backups are on disk. The batch's `scripts/kb-corrections-2026-11-06.js` follows the audited pattern with an empty SOURCE_REGISTRATIONS (no URL changed, no registration needed; all nine records are database-only). Idempotent re-run 0/0/0; gate-sims 9/9 before apply, live re-verification 9/9 at publish.
+- The unpublished portal count is 144: 79 unfetchable this run (network errors, 403s, timeouts, blocks, shells), 51 homepages with no stable English sentence, and 14 stability rejections (five transient/news/truncated sentences; nine non-English-first homepages). The next pass for these is deep links (about/contact/government pages) or the archive route — a homepage-only pass is exhausted.
 
 ### Four small audit bugs (0.19.69)
 

@@ -2,6 +2,26 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.70 — Portal-placeholder batch fourteen: nine more country-portal records re-quoted from their live pages and published (6 November 2026)
+
+First slice of the country-portal placeholder cleanup. A read-only probe showed 153 country-portal records still unpublished, every one with a working publication chain except its quote: each carried either the placeholder line "No English page excerpt captured; link identified through research" (written when the research pilot could not capture an excerpt) or a two-to-four-word site title — text the cited pages never carry as running text, so the word-for-word check could not pass. All 153 source rows are registered, permitted and tier A, and no expiry has passed, so the quote is the only blocker. A full probe fetched all 153 homepages; 23 carried a candidate sentence, and after an English-only filter (the database enforces English text; Andorra's homepage is Catalan) and a stability review nine made the batch:
+
+- **`country-austria-portal`** — the verbatim ID-Austria capability sentence ("It lets you access digital services and conclude contracts electronically.").
+- **`country-barbados-portal`** — the verbatim marriage-licence service sentence (the application must be made by BOTH persons at the office of the Ministry of Home Affairs).
+- **`country-iceland-portal`** — the verbatim disability-services section listing (Diagnosis, rights, accessibility, and support).
+- **`country-latvia-portal`** — the verbatim institutional-information sentence (head of institution, structure, budget, annual public accounts, working groups and councils, subordinate authorities, history).
+- **`country-liechtenstein-portal`** — the verbatim economy description (companies provide attractive jobs in industrial and financial services companies, or in SMEs).
+- **`country-micronesia-portal`** — the verbatim constitutional-amendments navigation block ending in the voting question (the old quote was the two-word duplicated title "FSM Government – FSM Government").
+- **`country-saint-kitts-and-nevis-portal`** — the verbatim sugarcane-heritage sentence, stable because it is historical (the current ministries listing was rejected — cabinet reshuffles rotate it).
+- **`country-antigua-and-barbuda-portal`** — the verbatim GOVERNMENT INFO section listing (the old quote was the three-word site title).
+- **`country-sri-lanka-portal`** — the page's own welcome block including its long-standing "works best with Microsoft Internet Explorer version 10 or later" notice (the old quote was the five-word title) — carried by the page for years and honestly describing the portal's technical state.
+
+Rejected at the stability review even though the fetch succeeded: Italy's "significant result … industrial future" (news), Libya's "Website Under Development …" (transient by its own wording), Moldova's "The official website of the Government has been updated." (an update notice), Liberia's plan-dependent development sentence, Azerbaijan's truncated teaser ("… sustainable dev…" — the page itself cuts the sentence off mid-word), and the portals whose candidate sentences are Catalan, Spanish or Portuguese. Rejected as unfetchable this run: 79 portals (network errors, 403s, timeouts, block pages, thin shells — the same populations the wider network bucket shows) and 51 pages whose homepages carry no stable English sentence at all; those two groups stay in the pool for a deep-link or archive pass (about/contact/government pages) rather than a homepage pass.
+
+Nine corrected, nine published — all nine new to the publication chain (publications 200 rows / **180** distinct). The pre-apply backup (`settlement-before-kb-audit-2026-11-06.sqlite`) and the pre-publish backup (`settlement-before-verify-publish-1793941919440.sqlite`) are on disk. The batch's script `scripts/kb-corrections-2026-11-06.js` follows the audited pattern (dry-run default, `--apply` with a backup, hash-chained audit rows labelled as automated correction, seed walk, source-ops plan) with an empty `SOURCE_REGISTRATIONS` — no record changed URL, no source registration was needed, and the seed walk had nothing to do (all nine are database-only). The script re-runs idempotent (0 corrections, 0 problems, 0 seed). Every draft was gate-simulated against its fetched page before apply (9/9) and the publish run re-verified against the live pages (9/9, `reviewMethod: source_verified`).
+
+The unpublished country-portal count is now 144: 79 unfetchable, 51 without a stable English homepage sentence, and 14 whose candidate sentences were rejected at the stability review (mostly non-English homepages — Andorra, Brazil, Czechia, the Dominican Republic, Mexico, San Marino, Seychelles, Suriname and Uruguay are non-English-first sites whose English pages, where they exist, sit deeper in the site).
+
 ## 0.19.69 — Four small audit bugs: a stateful injection check, a NaN expiry-audit parameter, mojibake in the Atom feed, and a `kb:review` script that only printed usage (6 November 2026)
 
 The four small defects called out by the 6 November full-project audit (`docs/FULL_PROJECT_AUDIT_2026-11-06_HI.md`), each fixed and exercised:
