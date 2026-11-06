@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Northstar API contract",
-    "version": "0.19.53",
+    "version": "0.19.67",
     "description": "Route/auth inventory, POST fields and structured success-response schemas for all current API operations. Runtime English, semantic, provenance and conditional identity policies remain authoritative. Legacy editorial calls require reviewer/actor fields; individual authentication supplies them. JSON POST bodies are bounded to 12000 bytes. Static assets excluded."
   },
   "paths": {
@@ -20308,7 +20308,185 @@
       "get": {
         "operationId": "get__v1_tools_pnp_pathway",
         "security": [],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "targetProvince",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[Bb][Cc]|[Oo][Nn]|[Aa][Bb])$"
+            }
+          },
+          {
+            "name": "nocCode",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9]{5}|other)$"
+            }
+          },
+          {
+            "name": "hourlyWage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 250
+            }
+          },
+          {
+            "name": "hasFullTimeJobOffer",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hasActiveExpressEntryProfile",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "expressEntryCrsScore",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1200
+            }
+          },
+          {
+            "name": "yearsOfDirectExperience",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 30
+            }
+          },
+          {
+            "name": "hasOneYearCanadianExperience",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "currentlyWorkingForBcEmployer",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "educationLevel",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "doctoral",
+                "masters",
+                "post_grad_cert",
+                "bachelors",
+                "diploma_2yr",
+                "secondary"
+              ]
+            }
+          },
+          {
+            "name": "completedBcEducation",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "completedCanadianEducationOutsideBc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hasProfessionalDesignationBc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "clbLevel",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10
+            }
+          },
+          {
+            "name": "isBilingualEnglishAndFrench",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "jobLocationArea",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "area_1_metro_van",
+                "area_2_regional",
+                "area_3_rural"
+              ]
+            }
+          },
+          {
+            "name": "hasRegionalEducationOrExperience",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "familySize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            }
+          },
+          {
+            "name": "liquidSavingsCad",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1000000
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -20611,7 +20789,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Planning estimate against saved program criteria. Provide the required profile fields before an estimate is returned."
       },
       "post": {
         "operationId": "post__v1_tools_pnp_pathway",
@@ -20626,18 +20805,16 @@
                 "properties": {
                   "targetProvince": {
                     "type": "string",
-                    "minLength": 2,
-                    "maxLength": 2
+                    "pattern": "^(?:[Bb][Cc]|[Oo][Nn]|[Aa][Bb])$"
                   },
                   "nocCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 10
+                    "pattern": "^(?:[0-9]{5}|other)$"
                   },
                   "hourlyWage": {
-                    "type": "integer",
+                    "type": "number",
                     "minimum": 0,
-                    "maximum": 1000
+                    "maximum": 250
                   },
                   "hasFullTimeJobOffer": {
                     "type": "boolean"
@@ -20651,7 +20828,7 @@
                     "maximum": 1200
                   },
                   "yearsOfDirectExperience": {
-                    "type": "integer",
+                    "type": "number",
                     "minimum": 0,
                     "maximum": 30
                   },
@@ -20662,9 +20839,14 @@
                     "type": "boolean"
                   },
                   "educationLevel": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 50
+                    "enum": [
+                      "doctoral",
+                      "masters",
+                      "post_grad_cert",
+                      "bachelors",
+                      "diploma_2yr",
+                      "secondary"
+                    ]
                   },
                   "completedBcEducation": {
                     "type": "boolean"
@@ -20678,15 +20860,17 @@
                   "clbLevel": {
                     "type": "integer",
                     "minimum": 0,
-                    "maximum": 12
+                    "maximum": 10
                   },
                   "isBilingualEnglishAndFrench": {
                     "type": "boolean"
                   },
                   "jobLocationArea": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 50
+                    "enum": [
+                      "area_1_metro_van",
+                      "area_2_regional",
+                      "area_3_rural"
+                    ]
                   },
                   "hasRegionalEducationOrExperience": {
                     "type": "boolean"
@@ -20694,16 +20878,31 @@
                   "familySize": {
                     "type": "integer",
                     "minimum": 1,
-                    "maximum": 20
+                    "maximum": 10
                   },
                   "liquidSavingsCad": {
-                    "type": "integer",
+                    "type": "number",
                     "minimum": 0,
-                    "maximum": 10000000
+                    "maximum": 1000000
                   }
                 },
                 "required": [
-                  "targetProvince"
+                  "targetProvince",
+                  "nocCode",
+                  "hourlyWage",
+                  "hasFullTimeJobOffer",
+                  "hasActiveExpressEntryProfile",
+                  "expressEntryCrsScore",
+                  "yearsOfDirectExperience",
+                  "hasOneYearCanadianExperience",
+                  "currentlyWorkingForBcEmployer",
+                  "educationLevel",
+                  "completedBcEducation",
+                  "clbLevel",
+                  "isBilingualEnglishAndFrench",
+                  "jobLocationArea",
+                  "familySize",
+                  "liquidSavingsCad"
                 ],
                 "additionalProperties": true
               }
@@ -21012,7 +21211,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Planning estimate against saved program criteria. Provide the required profile fields before an estimate is returned."
       }
     },
     "/v1/tools/bowp-diagnostic": {

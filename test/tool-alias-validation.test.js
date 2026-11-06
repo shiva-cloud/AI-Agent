@@ -25,6 +25,26 @@ test('typed aliases and canonical fields reject coercion traps before defaults',
   assert.doesNotThrow(() => validateToolAliasInput('/v1/tools/study-to-pr', { clb: '', teer: '0', foreignYears: '1.5' }));
 });
 
+test('text aliases and canonical categories reject objects and other non-text values', () => {
+  const textInput = {applicant: '1,000', applicantName: '$12,000', funds: '$12,000'};
+  normalizeToolInput(textInput, '/v1/tools/visitor-visa-financial-ties');
+  assert.equal(textInput.applicant, '1,000');
+  assert.equal(textInput.applicantName, '$12,000');
+  assert.equal(textInput.funds, 12000);
+  for (const [path, fields] of [
+    ['/v1/tools/pnp-pathway', ['province', 'targetProvince']],
+    ['/v1/tools/uk-skilled-worker', ['soc', 'socCode']],
+    ['/v1/tools/ei-benefits', ['action', 'benefitType']],
+    ['/v1/tools/germany-chancenkarte', ['language', 'germanLanguageLevel']]
+  ]) {
+    for (const field of fields) {
+      for (const value of [null, 1, true, [], {}, ['BC']]) {
+        assert.throws(() => applyFormAliases(path, {[field]: value}), ToolInputError);
+      }
+    }
+  }
+});
+
 test('GET and POST reject malformed typed aliases across tool families', async () => {
   const store = openStore(':memory:');
   const server = createApp(store, 'alias-validation-test-token-long-enough');
@@ -41,6 +61,13 @@ test('GET and POST reject malformed typed aliases across tool families', async (
     ['global-visa-matrix', 'experience', '1e999']
   ];
   try {
+    for (const input of [{province: {}}, {targetProvince: ['BC']}]) {
+      const response = await fetch(`${root}/v1/tools/pnp-pathway`, {
+        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(input)
+      });
+      assert.equal(response.status, 400);
+      assert.equal((await response.json()).code, 'invalid_field_value');
+    }
     for (const [tool, field, value] of cases) {
       const path = `${root}/v1/tools/${tool}`;
       for (const response of [

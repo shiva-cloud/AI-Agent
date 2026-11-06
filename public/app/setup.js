@@ -2274,22 +2274,22 @@ export function setupPnpPathway() {
 
   const runPnpAudit = async () => {
     resultsContainer.innerHTML = '<p class="muted">Estimating your provincial nominee score…</p>';
-    const province = $('#pnp-province')?.value || 'BC';
-    const noc = $('#pnp-noc')?.value || '21231';
-    const wage = Number($('#pnp-wage')?.value || 42);
-    const jobOffer = $('#pnp-job-offer')?.value !== 'false';
-    const ee = $('#pnp-ee')?.value === 'true';
-    const crs = Number($('#pnp-crs')?.value || 465);
-    const exp = Number($('#pnp-exp')?.value || 4);
-    const cdnExp = $('#pnp-cdn-exp')?.value === 'true';
-    const worksBc = $('#pnp-works-bc')?.value === 'true';
-    const edu = $('#pnp-edu')?.value || 'masters';
-    const bcEdu = $('#pnp-bc-edu')?.value === 'true';
-    const clb = Number($('#pnp-clb')?.value || 9);
-    const bilingual = $('#pnp-bilingual')?.value === 'true';
-    const area = $('#pnp-area')?.value || 'area_1_metro_van';
-    const savings = Number($('#pnp-savings')?.value || 25000);
-    const familySize = Number($('#pnp-family-size')?.value || 1);
+    const province = $('#pnp-province').value;
+    const noc = $('#pnp-noc').value;
+    const wage = Number($('#pnp-wage').value);
+    const jobOffer = $('#pnp-job-offer').value === 'true';
+    const ee = $('#pnp-ee').value === 'true';
+    const crs = Number($('#pnp-crs').value);
+    const exp = Number($('#pnp-exp').value);
+    const cdnExp = $('#pnp-cdn-exp').value === 'true';
+    const worksBc = $('#pnp-works-bc').value === 'true';
+    const edu = $('#pnp-edu').value;
+    const bcEdu = $('#pnp-bc-edu').value === 'true';
+    const clb = Number($('#pnp-clb').value);
+    const bilingual = $('#pnp-bilingual').value === 'true';
+    const area = $('#pnp-area').value;
+    const savings = Number($('#pnp-savings').value);
+    const familySize = Number($('#pnp-family-size').value);
 
     try {
       const res = await fetch('/v1/tools/pnp-pathway', {
@@ -2325,10 +2325,8 @@ export function setupPnpPathway() {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    runPnpAudit();
+    if (form.reportValidity()) runPnpAudit();
   });
-
-  autoRun(runPnpAudit, form);
 }
 
 export function setupBowpDiagnostic() {

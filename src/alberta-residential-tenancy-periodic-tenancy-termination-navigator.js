@@ -9,7 +9,9 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { ValidationError } from './api-errors.js';
+import { calculatorBoolean, calculatorChoice, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_PERIODIC_TENANCY_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Residential Tenancies Act, RSA 2000, c. R-171, ss. 5-12',
@@ -30,7 +32,7 @@ export const ALBERTA_PERIODIC_TENANCY_CONSTANTS = Object.freeze({
  *
  * @param {Object} params
  * @param {string} [params.partyGivingNotice='LANDLORD'] - 'LANDLORD' or 'TENANT'
- * @param {string} [params.tenancyType='MONTH_TO_MONTH'] - 'MONTH_TO_MONTH' or 'WEEK_TO_WEEK'
+ * @param {string} [params.tenancyType='MONTH_TO_MONTH'] - 'MONTH_TO_MONTH'
  * @param {number} [params.fullTenancyMonthsNoticeGiven=3] - Full tenancy months of notice given
  * @param {string} [params.landlordStatedReason='LANDLORD_OR_RELATIVE_OCCUPANCY'] - Stated reason for termination
  * @param {boolean} [params.noticeInWritingAndSigned=true] - Notice is in writing and signed
@@ -56,11 +58,16 @@ export function evaluateAlbertaPeriodicTenancyNotice({
   const cleanRentalAddress = boundedText(rentalAddress, 'Rental Property');
   const cleanPurchaser = boundedText(purchaserName, 'Purchaser');
   const cleanTenant = boundedText(tenantName, 'Tenant');
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const party = String(partyGivingNotice || 'LANDLORD').trim().toUpperCase();
-  const tType = String(tenancyType || 'MONTH_TO_MONTH').trim().toUpperCase();
-  const monthsNotice = Number.isFinite(Number(fullTenancyMonthsNoticeGiven)) ? Math.max(0, Math.floor(Number(fullTenancyMonthsNoticeGiven))) : 0;
-  const reason = String(landlordStatedReason || '').trim().toUpperCase();
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const party = calculatorChoice(typeof partyGivingNotice === 'string' ? partyGivingNotice.toUpperCase() : partyGivingNotice, 'partyGivingNotice', ['LANDLORD', 'TENANT']);
+  // This calculator only collects notice in months.
+  const tType = calculatorChoice(typeof tenancyType === 'string' ? tenancyType.toUpperCase() : tenancyType, 'tenancyType', ['MONTH_TO_MONTH']);
+  const monthsNotice = calculatorNumber(fullTenancyMonthsNoticeGiven, 'fullTenancyMonthsNoticeGiven', {max: 24, integer: true});
+  if (typeof landlordStatedReason !== 'string') throw new ValidationError('landlordStatedReason must be text');
+  const reason = landlordStatedReason.trim().toUpperCase();
+  noticeInWritingAndSigned = calculatorBoolean(noticeInWritingAndSigned, 'noticeInWritingAndSigned');
+  purchaserSignedWrittenOccupancyRequest = calculatorBoolean(purchaserSignedWrittenOccupancyRequest, 'purchaserSignedWrittenOccupancyRequest');
+  majorRenovationPermitsObtained = calculatorBoolean(majorRenovationPermitsObtained, 'majorRenovationPermitsObtained');
 
   const statutoryViolations = [];
   const riskWarnings = [];

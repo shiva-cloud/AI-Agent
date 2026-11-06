@@ -42,6 +42,8 @@ test('Alberta Maternity & Parental - Ineligible with under 90 days service', () 
 
   assert.equal(result.meets90DayThreshold, false);
   assert.equal(result.isEligible, false);
+  assert.equal(result.complianceStatus, 'INELIGIBLE_UNDER_90_DAYS_SERVICE');
+  assert.doesNotMatch(result.legalVerdict, /Employer committed/);
   assert.ok(result.statutoryViolations.some(v => v.rule === 'INSUFFICIENT_SERVICE_DAYS'));
   assert.ok(result.actionableRemedies.some(r => r.action === 'ACCRUE_REMAINING_SERVICE_DAYS'));
 });

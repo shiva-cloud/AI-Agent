@@ -8,16 +8,16 @@ import {cleanExcerpt} from '../public/editorial.js';
 
 const queueOf=store=>publishQueue(store.db,store.records(),store.ingestion.sources(),store.ingestion.candidates());
 const reviewer={reviewer:'editorial-board',note:'Checked against the official page for this test.'};
-const today=new Date().toISOString().slice(0,10);
+const expiresAt=new Date(Date.now()+30*24*60*60*1000).toISOString().slice(0,10);
 // Recreates legacy rows that seed scripts approved without an editor, before the
 // approval trigger existed; the trigger is dropped on this in-memory copy only.
 function bulkApprove(store,match=()=>true){
  store.db.exec('DROP TRIGGER IF EXISTS records_editorial_approval_update');
  const ids=[];
  for(const r of store.records()){
-  if(r.risk!=='high'||r.topic==='housing'||r.topic==='telecom'||!(r.expiresAt>today)||!match(r))continue;
+  if(r.risk!=='high'||r.topic==='housing'||r.topic==='telecom'||!match(r))continue;
   const {reviewMethod:_r,sourceId:_s,snapshotId:_n,...rest}=r;
-  store.db.prepare('UPDATE records SET body=? WHERE id=?').run(JSON.stringify({...rest,status:'approved'}),r.id);ids.push(r.id);
+  store.db.prepare('UPDATE records SET body=? WHERE id=?').run(JSON.stringify({...rest,status:'approved',expiresAt}),r.id);ids.push(r.id);
  }
  return ids;
 }

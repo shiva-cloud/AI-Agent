@@ -199,7 +199,12 @@ test('evidence database coverage floors hold when the database is present', (t) 
   // exemption page, and the KBA, FRSC and LTO driving portals - and
   // republished them - all eight are new to the publication chain (156
   // distinct published records).
-  assert.ok(publishedIds.size >= 156, 'publication-chain floor');
+  // Refrozen a sixth time the next day: short-quote batch thirteen repaired
+  // and published fifteen more - the INZ Skilled Migrant Category record and
+  // the three make-it-in-germany records relocated to their AufenthG statute
+  // texts, plus eleven country-portal records re-quoted from stable verbatim
+  // page sentences (171 distinct published records).
+  assert.ok(publishedIds.size >= 171, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

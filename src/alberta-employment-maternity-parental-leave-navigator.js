@@ -9,7 +9,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorChoice, calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_MATERNITY_PARENTAL_CONSTANTS = Object.freeze({
   MIN_SERVICE_DAYS_REQUIRED: 90, // s. 45
@@ -49,24 +50,17 @@ export function evaluateAlbertaMaternityParentalLeave({
   employeeName = 'Employee',
   assessmentDate = todayIso()
 } = {}) {
-  const cleanLeaveType = boundedText(leaveType, 'COMBINED_MATERNITY_PARENTAL', 50);
+  const cleanLeaveType = calculatorChoice(leaveType, 'leaveType', ['MATERNITY_ONLY', 'PARENTAL_ONLY', 'COMBINED_MATERNITY_PARENTAL']);
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const daysEmployed = Number.isFinite(Number(consecutiveDaysOfEmployment))
-    ? Math.max(0, Math.min(36500, Math.floor(Number(consecutiveDaysOfEmployment))))
-    : 0;
-  const matWeeks = Number.isFinite(Number(maternityWeeksRequested))
-    ? Math.max(0, Math.min(104, Math.floor(Number(maternityWeeksRequested))))
-    : 0;
-  const parWeeks = Number.isFinite(Number(parentalWeeksRequested))
-    ? Math.max(0, Math.min(104, Math.floor(Number(parentalWeeksRequested))))
-    : 0;
-  const noticeBefore = Number.isFinite(Number(noticeWeeksProvidedBeforeLeave))
-    ? Math.max(0, Math.min(52, Math.floor(Number(noticeWeeksProvidedBeforeLeave))))
-    : 0;
-  const noticeReturn = Number.isFinite(Number(noticeWeeksProvidedBeforeReturn))
-    ? Math.max(0, Math.min(52, Math.floor(Number(noticeWeeksProvidedBeforeReturn))))
-    : 0;
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const daysEmployed = calculatorNumber(consecutiveDaysOfEmployment, 'consecutiveDaysOfEmployment', {max: 36500, integer: true});
+  const matWeeks = calculatorNumber(maternityWeeksRequested, 'maternityWeeksRequested', {max: 104, integer: true});
+  const parWeeks = calculatorNumber(parentalWeeksRequested, 'parentalWeeksRequested', {max: 104, integer: true});
+  const noticeBefore = calculatorNumber(noticeWeeksProvidedBeforeLeave, 'noticeWeeksProvidedBeforeLeave', {max: 52, integer: true});
+  const noticeReturn = calculatorNumber(noticeWeeksProvidedBeforeReturn, 'noticeWeeksProvidedBeforeReturn', {max: 52, integer: true});
+  medicalCertificateProvided = calculatorBoolean(medicalCertificateProvided, 'medicalCertificateProvided');
+  employerRefusesReinstatement = calculatorBoolean(employerRefusesReinstatement, 'employerRefusesReinstatement');
+  employerDisciplinedOrDismissedDueToLeave = calculatorBoolean(employerDisciplinedOrDismissedDueToLeave, 'employerDisciplinedOrDismissedDueToLeave');
 
   const meets90DayThreshold = daysEmployed >= ALBERTA_MATERNITY_PARENTAL_CONSTANTS.MIN_SERVICE_DAYS_REQUIRED;
 
@@ -168,7 +162,7 @@ export function evaluateAlbertaMaternityParentalLeave({
   let complianceStatus = 'COMPLIANT_LEAVE_AND_JOB_PROTECTION';
   let legalVerdict = 'Employee qualifies for job-protected leave under Alberta Employment Standards Code. Reinstatement rights are statutorily protected under the Code.';
 
-  if (statutoryViolations.length > 0) {
+  if (employerRefusesReinstatement || employerDisciplinedOrDismissedDueToLeave) {
     complianceStatus = 'UNLAWFUL_EMPLOYER_LEAVE_OR_REINSTATEMENT_BREACH';
     legalVerdict = `Employer committed statutory violations under Alberta ESC ss. 45–53.1 (${statutoryViolations.length} infraction${statutoryViolations.length === 1 ? '' : 's'}). Remedies for reinstatement and compensation apply.`;
   } else if (!meets90DayThreshold) {

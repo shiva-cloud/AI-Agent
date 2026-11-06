@@ -4,7 +4,6 @@
 // and 8 jurisdictions. Unreviewed research catalog; citations are not independently verified.
 
 import fs from 'node:fs';
-import path from 'node:path';
 
 const COUNTRY_PROFILES = {
   "Canada": {
@@ -395,7 +394,7 @@ function determineVerdict(q, category, country, prof) {
 
 function initGlobalSettlementIndex() {
   if (isInitialized) return;
-  const filePath = path.resolve(process.cwd(), 'corpus/global_immigration_settlement_20000_questions.md');
+  const filePath = new URL('../corpus/global_immigration_settlement_20000_questions.md', import.meta.url);
   if (!fs.existsSync(filePath)) {
     console.warn(`[GlobalSettlementResolver] Warning: ${filePath} not found.`);
     isInitialized = true;

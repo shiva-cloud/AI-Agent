@@ -10,7 +10,9 @@
  * - Employment Standards Regulation, Alta. Reg. 14/1997
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { ValidationError } from './api-errors.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_STATUTORY_DAILY_OVERTIME_HOURS = 8;
 export const ALBERTA_STATUTORY_WEEKLY_OVERTIME_HOURS = 44;
@@ -18,22 +20,13 @@ export const ALBERTA_BANKING_EXPIRY_MONTHS = 6;
 export const ALBERTA_OVERTIME_MULTIPLIER = 1.5;
 
 export function calculateAlbertaOvertimeHours(dailyHoursWorked = []) {
-  if (!Array.isArray(dailyHoursWorked) || dailyHoursWorked.length === 0) {
-    return {
-      dailyOvertimeTotal: 0,
-      weeklyExcessHours: 0,
-      statutoryOvertimeHours: 0,
-      regularHours: 0,
-      totalHours: 0
-    };
+  if (!Array.isArray(dailyHoursWorked) || dailyHoursWorked.length > 7) {
+    throw new ValidationError('dailyHoursWorked must contain at most seven daily totals for one workweek');
   }
-
   let totalHours = 0;
   let dailyOvertimeTotal = 0;
-
-  const hoursArray = Array.isArray(dailyHoursWorked) ? dailyHoursWorked.slice(0, 31) : [];
-  for (const rawDaily of hoursArray) {
-    const daily = Number.isFinite(Number(rawDaily)) ? Math.max(0, Number(rawDaily)) : 0;
+  for (const rawDaily of dailyHoursWorked) {
+    const daily = calculatorNumber(rawDaily, 'dailyHoursWorked', {max: 24});
     totalHours += daily;
     if (daily > ALBERTA_STATUTORY_DAILY_OVERTIME_HOURS) {
       dailyOvertimeTotal += (daily - ALBERTA_STATUTORY_DAILY_OVERTIME_HOURS);
@@ -58,23 +51,27 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
   const {
     regularHourlyWageCad = 25,
     dailyHoursWorked = [8, 8, 8, 8, 8], // 40 hrs standard
-    hasWrittenOvertimeAgreement = false,
+    hasWrittenOvertimeAgreement: agreement = false,
     existingBankedHours = 0,
     monthsElapsedSinceBanked = 0,
-    isEmploymentTerminating = false,
+    isEmploymentTerminating: terminating = false,
     hoursTakenAsTimeOff = 0,
-    hasManagerialOrProfessionalExemption = false,
+    hasManagerialOrProfessionalExemption: exempt = false,
     employeeName = 'Employee',
     assessmentDate = todayIso()
   } = params;
 
   const cleanEmployee = boundedText(employeeName, 'Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const wage = Number.isFinite(Number(regularHourlyWageCad)) ? Math.max(0, Math.min(100_000, Number(regularHourlyWageCad))) : 0;
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const wage = calculatorNumber(regularHourlyWageCad, 'regularHourlyWageCad', {max: 100000});
   const otRate = wage * ALBERTA_OVERTIME_MULTIPLIER;
-  const existingBank = Number.isFinite(Number(existingBankedHours)) ? Math.max(0, Math.min(10_000, Number(existingBankedHours))) : 0;
-  const timeOffTaken = Number.isFinite(Number(hoursTakenAsTimeOff)) ? Math.max(0, Math.min(10_000, Number(hoursTakenAsTimeOff))) : 0;
-  const monthsElapsed = Number.isFinite(Number(monthsElapsedSinceBanked)) ? Math.max(0, Math.min(120, Math.floor(Number(monthsElapsedSinceBanked)))) : 0;
+  const existingBank = calculatorNumber(existingBankedHours, 'existingBankedHours', {max: 10000});
+  const timeOffTaken = calculatorNumber(hoursTakenAsTimeOff, 'hoursTakenAsTimeOff', {max: 10000});
+  const monthsElapsed = calculatorNumber(monthsElapsedSinceBanked, 'monthsElapsedSinceBanked', {max: 120, integer: true});
+  const hasWrittenOvertimeAgreement = calculatorBoolean(agreement, 'hasWrittenOvertimeAgreement');
+  const isEmploymentTerminating = calculatorBoolean(terminating, 'isEmploymentTerminating');
+  const hasManagerialOrProfessionalExemption = calculatorBoolean(exempt, 'hasManagerialOrProfessionalExemption');
+  const hoursAudit = calculateAlbertaOvertimeHours(dailyHoursWorked);
 
   const statutoryViolations = [];
   const complianceChecklist = [];
@@ -96,7 +93,6 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
   }
 
   // 1. Calculate Overtime Hours for Current Period
-  const hoursAudit = calculateAlbertaOvertimeHours(dailyHoursWorked);
   const newOtHours = hoursAudit.statutoryOvertimeHours;
 
   // 2. Validate Overtime Agreement Legality (ESC s. 23)
@@ -123,9 +119,9 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
   // Under Alberta ESC s. 23(2), banked time must be provided within 6 months.
   // If not taken, or upon termination, it must be paid out at 1.5x regular wage rate (s. 23(3)).
   const remainingBankedHours = Math.max(0, existingBank - timeOffTaken);
-  const isBankExpired = monthsElapsed > ALBERTA_BANKING_EXPIRY_MONTHS;
+  const isBankExpired = remainingBankedHours > 0 && monthsElapsed > ALBERTA_BANKING_EXPIRY_MONTHS;
 
-  let mandatoryPayoutBankedHours = 0;
+  let mandatoryPayoutBankedHours = canBankOvertime ? 0 : remainingBankedHours;
   if (isEmploymentTerminating) {
     mandatoryPayoutBankedHours = remainingBankedHours;
     complianceChecklist.push({
@@ -144,15 +140,15 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
 
   // 4. Financial Calculations
   // Payout for current period overtime (if not banked)
-  const currentPeriodOtPayOwed = canBankOvertime ? 0 : (newOtHours * otRate);
+  const newlyBankedHours = canBankOvertime && !isEmploymentTerminating ? newOtHours : 0;
+  const currentPayoutHours = newOtHours - newlyBankedHours;
+  const currentPeriodOtPayOwed = currentPayoutHours * otRate;
   // Payout for expired or terminating banked hours (always at 1.5x)
   const bankedHoursPayoutOwed = mandatoryPayoutBankedHours * otRate;
   const totalPayoutOwedCad = currentPeriodOtPayOwed + bankedHoursPayoutOwed;
 
   // 5. Banking Net Balance (if not terminating and valid agreement)
-  const updatedBankBalance = canBankOvertime && !isEmploymentTerminating && !isBankExpired
-    ? (remainingBankedHours + newOtHours)
-    : 0;
+  const updatedBankBalance = remainingBankedHours - mandatoryPayoutBankedHours + newlyBankedHours;
 
   if (canBankOvertime && !isEmploymentTerminating) {
     riskWarnings.push({
@@ -184,9 +180,9 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
       monthsElapsedSinceBanked: monthsElapsed,
       isExpiredPast6Months: isBankExpired,
       isEmploymentTerminating,
-      newlyBankedHours: canBankOvertime && !isEmploymentTerminating ? newOtHours : 0,
+      newlyBankedHours,
       activeBankBalanceHours: updatedBankBalance,
-      hoursSubjectToMandatoryPayout: (canBankOvertime ? 0 : newOtHours) + mandatoryPayoutBankedHours
+      hoursSubjectToMandatoryPayout: currentPayoutHours + mandatoryPayoutBankedHours
     },
     financialLiability: {
       regularHourlyWageCad: wage,

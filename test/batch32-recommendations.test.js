@@ -455,6 +455,10 @@ test('Rec 556: calculatorNumber validates numbers, integers, minimums, maximums,
   // Valid numeric and string inputs
   assert.equal(calculatorNumber(42, 'Score'), 42);
   assert.equal(calculatorNumber('150.50', 'Amount'), 150.5);
+  assert.equal(calculatorNumber(' 1.5e2 ', 'Amount'), 150);
+  for (const value of ['0x10', '0b10', '0o10']) {
+    assert.throws(() => calculatorNumber(value, 'Amount'), /must be a number/);
+  }
   assert.equal(calculatorNumber(0, 'ZeroVal', { min: 0 }), 0);
 
   // Integer constraint

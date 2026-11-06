@@ -425,8 +425,8 @@ test('Rec 543: evaluateBcOvertimeBanking audits daily/weekly multipliers, writte
   assert.equal(result.regularHourlyWageCad, 30);
   assert.ok(result.statutoryViolations.some(v => v.rule === 'UNAUTHORIZED_MANDATORY_TIME_BANKING'));
   assert.equal(result.overtimeCalculation.newOvertimeEarnedCad, 300); // (4 * 30 * 1.5) + (2 * 30 * 2.0) = 180 + 120 = 300
-  assert.equal(result.overtimeCalculation.totalBankedHours, 18); // 8 existing + (4 * 1.5 + 2 * 2.0) = 8 + 10 = 18
-  assert.equal(result.overtimeCalculation.totalBankedValueCad, 540); // 18 * 30
+  assert.equal(result.overtimeCalculation.totalBankedHours, 8); // Only the existing hours were banked.
+  assert.equal(result.overtimeCalculation.totalBankedValueCad, 240); // 8 * 30
   assert.equal(result.overtimeCalculation.totalCashOwedImmediatelyCad, 540);
   assert.equal(result.overtimeCalculation.unpaidOvertimeDeficitCad, 540);
   assert.ok(result.actionableRemedies.some(r => r.action === 'PAY_OUT_ALL_BANKED_OVERTIME_UPON_TERMINATION'));

@@ -8,7 +8,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorChoice, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_JUST_CAUSE_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Code, RSA 2000, c. E-9, ss. 55(2)(f), 56-58',
@@ -39,13 +40,15 @@ export function auditAlbertaTerminationJustCause({
   employerName = 'Employer',
   assessmentDate = todayIso()
 } = {}) {
-  const cleanCategory = boundedText(allegedMisconductCategory, 'PERFORMANCE_ISSUES', 60);
+  const cleanCategory = calculatorChoice(allegedMisconductCategory, 'allegedMisconductCategory', ["CRIMINAL_THEFT_FRAUD","GROSS_INSUBORDINATION","PERFORMANCE_ISSUES","ATTENDANCE_LATENESS"]);
   const cleanEmployee = boundedText(employeeName, 'Employee', 120);
   const cleanEmployer = boundedText(employerName, 'Employer', 120);
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const serviceYears = Number.isFinite(Number(yearsOfContinuousService)) ? Math.max(0, Math.min(60, Number(yearsOfContinuousService))) : 5;
-  const weeklyWage = Number.isFinite(Number(regularWeeklyWageCad)) ? Math.max(0, Math.min(100000, Number(regularWeeklyWageCad))) : 1100;
-  const actualNotice = Number.isFinite(Number(actualTerminationNoticeWeeksGiven)) ? Math.max(0, Math.min(52, Number(actualTerminationNoticeWeeksGiven))) : 0;
+  employerIssuedPriorWrittenWarnings = calculatorBoolean(employerIssuedPriorWrittenWarnings, 'employerIssuedPriorWrittenWarnings');
+  employeeGivenOpportunityToImprove = calculatorBoolean(employeeGivenOpportunityToImprove, 'employeeGivenOpportunityToImprove');
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const serviceYears = calculatorNumber(yearsOfContinuousService, 'yearsOfContinuousService', {max: 60});
+  const weeklyWage = calculatorNumber(regularWeeklyWageCad, 'regularWeeklyWageCad', {max: 100000});
+  const actualNotice = calculatorNumber(actualTerminationNoticeWeeksGiven, 'actualTerminationNoticeWeeksGiven', {max: 52});
 
   // 1. Statutory Notice Scale under Alberta ESC s. 56
   let statutoryNoticeWeeks = 0;
@@ -57,7 +60,8 @@ export function auditAlbertaTerminationJustCause({
   else if (serviceYears < 10) statutoryNoticeWeeks = 6; // 8 - 10 yrs: 6 weeks
   else statutoryNoticeWeeks = 8; // 10+ yrs: 8 weeks
 
-  const statutoryTerminationPayEntitledCad = statutoryNoticeWeeks * weeklyWage;
+  const outstandingWeeks = Math.max(0, statutoryNoticeWeeks - actualNotice);
+  const outstandingPay = outstandingWeeks * weeklyWage;
 
   // 2. McKinley Proportionality & Just Cause Threshold Evaluation
   let isJustCauseEstablished = false;
@@ -86,16 +90,18 @@ export function auditAlbertaTerminationJustCause({
         analysis: `Under Supreme Court doctrine, performance and attendance issues do not constitute summary just cause without clear progressive warnings and a reasonable opportunity to remediate.`
       });
 
-      statutoryViolations.push({
-        rule: 'UNLAWFUL_DENIAL_OF_STATUTORY_TERMINATION_PAY',
-        statute: 'Employment Standards Code s. 55(2)(f) & s. 57',
-        finding: `Employer dismissed employee alleging cause without progressive discipline. Under Alberta law, statutory termination pay ($${statutoryTerminationPayEntitledCad}) cannot be withheld.`
-      });
+      if (outstandingPay > 0) {
+        statutoryViolations.push({
+          rule: 'UNLAWFUL_DENIAL_OF_STATUTORY_TERMINATION_PAY',
+          statute: 'Employment Standards Code s. 55(2)(f) & s. 57',
+          finding: `Employer dismissed employee alleging cause without progressive discipline. Under Alberta law, statutory termination pay ($${outstandingPay}) cannot be withheld.`
+        });
 
-      actionableRemedies.push({
-        action: 'FILE_EMPLOYMENT_STANDARDS_TERMINATION_PAY_CLAIM',
-        remedyDescription: `File a formal wage complaint with Alberta Employment Standards to recover $${statutoryTerminationPayEntitledCad} in statutory termination pay.`
-      });
+        actionableRemedies.push({
+          action: 'FILE_EMPLOYMENT_STANDARDS_TERMINATION_PAY_CLAIM',
+          remedyDescription: `File a formal wage complaint with Alberta Employment Standards to recover $${outstandingPay} in statutory termination pay.`
+        });
+      }
 
       actionableRemedies.push({
         action: 'CONSULT_LITIGATION_COUNSEL_FOR_WRONGFUL_DISMISSAL',
@@ -104,7 +110,7 @@ export function auditAlbertaTerminationJustCause({
     }
   }
 
-  const noticeShortfallWeeks = isJustCauseEstablished ? 0 : Math.max(0, statutoryNoticeWeeks - actualNotice);
+  const noticeShortfallWeeks = isJustCauseEstablished ? 0 : outstandingWeeks;
   const netPayOwingCad = noticeShortfallWeeks * weeklyWage;
 
   let complianceStatus = isJustCauseEstablished
@@ -114,6 +120,11 @@ export function auditAlbertaTerminationJustCause({
   let legalVerdict = isJustCauseEstablished
     ? `Employer allegation of just cause under s. 55(2)(f) appears defensible based on severity or documented progressive discipline.`
     : `Employer's just-cause allegation is legally defective under McKinley proportionality principles. Employer owes $${netPayOwingCad} in statutory termination pay, plus common law notice.`;
+
+  if (!isJustCauseEstablished && netPayOwingCad === 0) {
+    complianceStatus = 'JUST_CAUSE_DEFECTIVE_NO_TERMINATION_PAY_SHORTFALL';
+    legalVerdict = 'The supplied facts do not support the cause allegation under this model. The calculated statutory termination pay balance is zero.';
+  }
 
   return {
     assessmentDate: cleanDate,

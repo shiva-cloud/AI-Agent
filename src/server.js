@@ -500,7 +500,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
     let input;try {input=JSON.parse(raw);}catch{return send(400,{error:'Invalid JSON'});}
     if(!input || typeof input!=='object' || Array.isArray(input)) return send(400,{error:'JSON object required'});
     assertFiniteInput(input);
-    if(isToolRequest){normalizeToolInput(input);applyFormAliases(path,input);}
+    if(isToolRequest){normalizeToolInput(input,path);applyFormAliases(path,input);}
     if(options.accounts&&req.manager&&path.startsWith('/v1/manage/')){
       try{const result=handleManage({accounts:options.accounts,method:'POST',path,query:url.searchParams,input,actor:req.manager,testMode:options.testMode});return result?send(result.status,result.body):send(404,{error:'Not found'});}
       catch(error){if(error instanceof PlanError)return send(error.status,{error:error.message,code:error.code,...error.details});throw error;}

@@ -9,7 +9,8 @@
  * - Residential Tenancy Dispute Resolution Service (RTDRS) Rules of Practice and Procedure
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorChoice, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_LANDLORD_RESPONSE_WINDOW_DAYS = 14;
 
@@ -34,30 +35,20 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
     assessmentDate = todayIso()
   } = params;
 
-  const cleanTransactionType = boundedText(transactionType, 'ASSIGNMENT', 30);
+  const cleanTransactionType = calculatorChoice(transactionType, 'transactionType', ['ASSIGNMENT', 'SUBLEASE']);
+  const responseStatus = calculatorChoice(landlordResponseStatus, 'landlordResponseStatus', ['NO_RESPONSE', 'CONSENTED', 'REFUSED_WITH_REASONS', 'REFUSED_WITHOUT_REASONS']);
   const cleanRefusalCategory = boundedText(refusalReasonCategory, '', 100);
   const cleanRefusalExplanation = boundedText(refusalReasonExplanation, '', 200);
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
-  const isValidIso = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.trim()) && !Number.isNaN(Date.parse(d.trim()));
-  const hasValidReq = isValidIso(requestDeliveredDate);
-  const hasValidCurr = isValidIso(currentDate);
-
-  const safeReqDate = hasValidReq ? requestDeliveredDate.trim() : '2026-10-01';
-  const safeCurrDate = hasValidCurr ? currentDate.trim() : cleanAssessmentDate;
-
-  const tReq = Date.parse(safeReqDate);
-  const tCurr = Date.parse(safeCurrDate);
-  const daysElapsed = (hasValidReq && hasValidCurr && !Number.isNaN(tReq) && !Number.isNaN(tCurr))
-    ? Math.max(0, Math.floor((tCurr - tReq) / (1000 * 60 * 60 * 24)))
-    : 0;
+  const cleanAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const safeReqDate = calculatorDate(requestDeliveredDate, 'requestDeliveredDate');
+  const safeCurrDate = calculatorDate(currentDate, 'currentDate');
+  const daysElapsed = Math.max(0, Math.floor((Date.parse(safeCurrDate) - Date.parse(safeReqDate)) / 86400000));
 
   const is14DayDeadlinePassed = daysElapsed > ALBERTA_LANDLORD_RESPONSE_WINDOW_DAYS;
   const daysRemainingInWindow = Math.max(0, ALBERTA_LANDLORD_RESPONSE_WINDOW_DAYS - daysElapsed);
-  const fee = Number.isFinite(Number(feeChargedForConsentCad))
-    ? Math.max(0, Math.min(100000, Number(feeChargedForConsentCad)))
-    : 0;
+  const fee = calculatorNumber(feeChargedForConsentCad, 'feeChargedForConsentCad', {max: 100000});
 
   const statutoryFindings = [];
   const statutoryViolations = [];
@@ -79,7 +70,7 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
   }
 
   // 2. Fourteen-Day Deemed Consent Rule (Alberta RTA s. 22(3) & s. 22(4))
-  if (landlordResponseStatus === 'NO_RESPONSE') {
+  if (responseStatus === 'NO_RESPONSE') {
     if (is14DayDeadlinePassed) {
       isStatutorilyDeemedConsented = true;
       statutoryFindings.push({
@@ -98,17 +89,17 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
         details: `Request is in progress. ${daysRemainingInWindow} day(s) remain for landlord to deliver written decision.`
       });
     }
-  } else if (landlordResponseStatus === 'CONSENTED') {
+  } else if (responseStatus === 'CONSENTED') {
     statutoryFindings.push({
       finding: 'FORMAL_CONSENT_GRANTED',
       section: 'Alberta RTA s. 22(1)',
       details: 'Landlord provided written consent. Proceed with formal assignment or sublease agreement.'
     });
-  } else if (landlordResponseStatus === 'REFUSED_WITHOUT_REASONS' || landlordResponseStatus === 'REFUSED_WITH_REASONS') {
+  } else if (responseStatus === 'REFUSED_WITHOUT_REASONS' || responseStatus === 'REFUSED_WITH_REASONS') {
     // 3. Reasonableness of Refusal (Alberta RTA s. 22(2) & s. 23)
     const isGroundRecognized = REASONABLE_REFUSAL_GROUNDS.includes(cleanRefusalCategory);
 
-    if (landlordResponseStatus === 'REFUSED_WITHOUT_REASONS') {
+    if (responseStatus === 'REFUSED_WITHOUT_REASONS') {
       isUnreasonableRefusal = true;
       statutoryViolations.push({
         violation: 'REFUSAL_WITHOUT_REASONS',
@@ -140,7 +131,7 @@ export function evaluateAlbertaTenancySubleaseAssignment(params = {}) {
 
   const legalVerdict = isStatutorilyDeemedConsented
     ? 'DEEMED_STATUTORY_CONSENT_ESTABLISHED'
-    : (isUnreasonableRefusal ? 'ACTIONABLE_UNREASONABLE_REFUSAL_RTDRS' : (landlordResponseStatus === 'CONSENTED' ? 'CONSENT_GRANTED' : 'IN_PROGRESS_AWAITING_REPLY'));
+    : (isUnreasonableRefusal ? 'ACTIONABLE_UNREASONABLE_REFUSAL_RTDRS' : (responseStatus === 'CONSENTED' ? 'CONSENT_GRANTED' : 'IN_PROGRESS_AWAITING_REPLY'));
 
   return {
     assessmentDate: cleanAssessmentDate,

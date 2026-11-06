@@ -122,13 +122,14 @@ test('Rec 249: Alberta Maternity & Parental Leave — Service bounds, duration c
     parentalWeeksRequested: '62',
     noticeWeeksProvidedBeforeLeave: '6',
     noticeWeeksProvidedBeforeReturn: '4',
-    leaveType: 'COMBINED_MATERNITY_PARENTAL\u0007'
+    leaveType: 'COMBINED_MATERNITY_PARENTAL'
   });
   assert.equal(r.meets90DayThreshold, true);
   assert.equal(r.totalWeeksRequested, 78);
   assert.equal(r.complianceStatus, 'COMPLIANT_LEAVE_AND_JOB_PROTECTION');
   assert.equal(r.leaveType, 'COMBINED_MATERNITY_PARENTAL');
   assert.ok(r.legalVerdict.includes('statutorily protected'));
+  assert.throws(() => evaluateAlbertaMaternityParentalLeave({leaveType: 'COMBINED_MATERNITY_PARENTAL\u0007'}), /leaveType/);
 });
 
 // Recommendation 250
@@ -209,12 +210,10 @@ test('Rec 254: Alberta Sublease & Assignment — Template string fee refund fix 
   assert.ok(!r.actionableRemedies.some(a => a.includes('$${fee}')));
 
   // Date resiliency with malformed dates
-  const r2 = evaluateAlbertaTenancySubleaseAssignment({
+  assert.throws(() => evaluateAlbertaTenancySubleaseAssignment({
     requestDeliveredDate: 'invalid-date',
     currentDate: 'not-a-date'
-  });
-  assert.equal(r2.rightsAssessment.daysElapsedSinceRequest, 0);
-  assert.equal(Number.isFinite(r2.rightsAssessment.daysElapsedSinceRequest), true);
+  }), /valid ISO calendar date/);
 });
 
 // Recommendation 255

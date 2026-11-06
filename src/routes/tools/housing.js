@@ -1,3 +1,4 @@
+import { applyFormAliases } from '../../tool-input.js';
 // src/routes/tools/housing.js
 // Domain route handlers for housing tools.
 
@@ -433,22 +434,7 @@ export function handleHousingGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-tenancy-sublease') {
-      const transactionType = url.searchParams.get('type') || 'ASSIGNMENT';
-      const requestDeliveredDate = url.searchParams.get('requestDate') || '2026-10-01';
-      const currentDate = url.searchParams.get('currentDate') || todayIso();
-      const landlordResponseStatus = url.searchParams.get('responseStatus') || 'NO_RESPONSE';
-      const refusalReasonCategory = url.searchParams.get('refusalCategory') || '';
-      const refusalReasonExplanation = url.searchParams.get('explanation') || '';
-      const feeChargedForConsentCad = url.searchParams.get('feeCharged') ? Number(url.searchParams.get('feeCharged')) : 0;
-      return send(200, evaluateAlbertaTenancySubleaseAssignment({
-        transactionType,
-        requestDeliveredDate,
-        currentDate,
-        landlordResponseStatus,
-        refusalReasonCategory,
-        refusalReasonExplanation,
-        feeChargedForConsentCad
-      }));
+      return send(200, evaluateAlbertaTenancySubleaseAssignment(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/on-creed-accommodation') {
@@ -496,26 +482,7 @@ export function handleHousingGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-abandoned-goods') {
-      const role = url.searchParams.get('role') || 'TENANT';
-      const value = url.searchParams.get('value') ? Number(url.searchParams.get('value')) : 2500;
-      const daysElapsed = url.searchParams.get('daysElapsed') ? Number(url.searchParams.get('daysElapsed')) : 15;
-      const inventory = url.searchParams.get('inventory') !== 'false';
-      const disposedEarly = url.searchParams.get('disposedEarly') === 'true';
-      const withheldForRent = url.searchParams.get('withheldForRent') === 'true';
-      const storageCosts = url.searchParams.get('storageCosts') ? Number(url.searchParams.get('storageCosts')) : 200;
-      const rentArrears = url.searchParams.get('rentArrears') ? Number(url.searchParams.get('rentArrears')) : 1500;
-      const auctionProceeds = url.searchParams.get('auctionProceeds') ? Number(url.searchParams.get('auctionProceeds')) : 0;
-      return send(200, evaluateAlbertaAbandonedGoods({
-        actorRole: role,
-        estimatedMarketValueCad: value,
-        daysSinceLandlordTookPossession: daysElapsed,
-        hasPreparedItemizedInventory: inventory,
-        landlordDisposedBefore30Days: disposedEarly,
-        landlordRefusedReleaseWithoutRentArrears: withheldForRent,
-        accruedStorageAndMovingCostsCad: storageCosts,
-        unpaidRentArrearsCad: rentArrears,
-        auctionProceedsRealizedCad: auctionProceeds
-      }));
+      return send(200, evaluateAlbertaAbandonedGoods(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/manitoba-rent-increase') {
@@ -561,24 +528,7 @@ export function handleHousingGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-landlord-entry') {
-      const noticeHours = url.searchParams.get('noticeHours') ? Number(url.searchParams.get('noticeHours')) : 24;
-      const purpose = url.searchParams.get('purpose') || 'REPAIRS_OR_MAINTENANCE';
-      const day = url.searchParams.get('day') || 'Tuesday';
-      const hour = url.searchParams.get('hour') ? Number(url.searchParams.get('hour')) : 14;
-      const religiousDay = url.searchParams.get('religiousDay') === 'true';
-      const specifiedTime = url.searchParams.get('specifiedTime') !== 'false';
-      const signed = url.searchParams.get('signed') !== 'false';
-      const consent = url.searchParams.get('consent') === 'true';
-      return send(200, evaluateAlbertaLandlordEntry({
-        noticeHoursGiven: noticeHours,
-        entryPurpose: purpose,
-        entryDayOfWeek: day,
-        entryScheduledHour: hour,
-        isTenantDayOfReligiousWorship: religiousDay,
-        noticeSpecifiedDateAndTime: specifiedTime,
-        noticeSignedByLandlord: signed,
-        tenantConsentedToEntry: consent
-      }));
+      return send(200, evaluateAlbertaLandlordEntry(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/ontario-residential-tenancy-urgent-repairs-t6') {
@@ -719,22 +669,7 @@ export function handleHousingGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-periodic-tenancy-notice') {
-      const party = url.searchParams.get('party') || 'LANDLORD';
-      const tenancyType = url.searchParams.get('tenancyType') || 'MONTH_TO_MONTH';
-      const monthsNotice = url.searchParams.get('monthsNotice') ? Number(url.searchParams.get('monthsNotice')) : 3;
-      const reason = url.searchParams.get('reason') || 'LANDLORD_OR_RELATIVE_OCCUPANCY';
-      const writtenSigned = url.searchParams.get('writtenSigned') !== 'false';
-      const purchaserReq = url.searchParams.get('purchaserReq') !== 'false';
-      const permits = url.searchParams.get('permits') !== 'false';
-      return send(200, evaluateAlbertaPeriodicTenancyNotice({
-        partyGivingNotice: party,
-        tenancyType,
-        fullTenancyMonthsNoticeGiven: monthsNotice,
-        landlordStatedReason: reason,
-        noticeInWritingAndSigned: writtenSigned,
-        purchaserSignedWrittenOccupancyRequest: purchaserReq,
-        majorRenovationPermitsObtained: permits
-      }));
+      return send(200, evaluateAlbertaPeriodicTenancyNotice(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/bc-rtb-dispute-track') {

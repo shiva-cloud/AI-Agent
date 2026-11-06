@@ -1,3 +1,4 @@
+import { applyFormAliases } from '../../tool-input.js';
 // src/routes/tools/employment.js
 // Domain route handlers for employment tools.
 
@@ -38,6 +39,51 @@ import { evaluateSaskatchewanLayoffNotice } from '../../saskatchewan-employment-
 import { evaluateStatutorySeveranceNotice } from '../../statutory-severance-notice-navigator.js';
 import { evaluateWorkplaceSafetyAndRefusal } from '../../workplace-safety-navigator.js';
 import { todayIso } from '../../text-input.js';
+
+function overtimeFieldReader(input) {
+  return function field(name, alias = name) {
+    if (input instanceof URLSearchParams) {
+      return input.get(input.has(alias) && !input.has(name) ? alias : name) ?? undefined;
+    }
+    return input[Object.hasOwn(input, alias) && !Object.hasOwn(input, name) ? alias : name];
+  };
+}
+
+function albertaOvertimeInputs(input) {
+  const field = overtimeFieldReader(input);
+  const hours = field('dailyHoursWorked', 'hoursWorked');
+  return {
+    regularHourlyWageCad: field('regularHourlyWageCad', 'wage'),
+    dailyHoursWorked: typeof hours === 'string' ? hours.split(',') : hours,
+    hasWrittenOvertimeAgreement: field('hasWrittenOvertimeAgreement', 'agreement'),
+    existingBankedHours: field('existingBankedHours', 'banked'),
+    monthsElapsedSinceBanked: field('monthsElapsedSinceBanked', 'months'),
+    isEmploymentTerminating: field('isEmploymentTerminating', 'terminating'),
+    hoursTakenAsTimeOff: field('hoursTakenAsTimeOff', 'timeOffTaken'),
+    hasManagerialOrProfessionalExemption: field('hasManagerialOrProfessionalExemption', 'exempt'),
+    assessmentDate: field('assessmentDate'),
+    employeeName: field('employeeName')
+  };
+}
+
+function bcOvertimeInputs(input) {
+  const field = overtimeFieldReader(input);
+  return {
+    regularHourlyWageCad: field('regularHourlyWageCad', 'wage'),
+    dailyHoursWorkedOver8: field('dailyHoursWorkedOver8', 'ot15'),
+    dailyHoursWorkedOver12: field('dailyHoursWorkedOver12', 'ot20'),
+    weeklyHoursWorkedOver40: field('weeklyHoursWorkedOver40', 'weeklyOt'),
+    employeeRequestedTimeBankInWriting: field('employeeRequestedTimeBankInWriting', 'requestWritten'),
+    wantsPaidTimeOffInsteadOfPay: field('wantsPaidTimeOffInsteadOfPay', 'timeOff'),
+    bankedHoursAlreadyAccumulated: field('bankedHoursAlreadyAccumulated', 'banked'),
+    employeeRequestedPayout: field('employeeRequestedPayout', 'payoutReq'),
+    employmentTerminated: field('employmentTerminated', 'terminated'),
+    overtimePaidActuallyCad: field('overtimePaidActuallyCad', 'paidActual'),
+    assessmentDate: field('assessmentDate'),
+    employeeName: field('employeeName'),
+    employerName: field('employerName')
+  };
+}
 
 export function handleEmploymentGet(ctx) {
   const { path, url } = ctx;
@@ -401,24 +447,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-overtime-banking') {
-      const regularHourlyWageCad = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 25;
-      const dailyHoursWorked = url.searchParams.get('hoursWorked') ? url.searchParams.get('hoursWorked').split(',').map(Number) : [8, 8, 8, 8, 8];
-      const hasWrittenOvertimeAgreement = url.searchParams.get('agreement') === 'true';
-      const existingBankedHours = url.searchParams.get('banked') ? Number(url.searchParams.get('banked')) : 0;
-      const monthsElapsedSinceBanked = url.searchParams.get('months') ? Number(url.searchParams.get('months')) : 0;
-      const isEmploymentTerminating = url.searchParams.get('terminating') === 'true';
-      const hoursTakenAsTimeOff = url.searchParams.get('timeOffTaken') ? Number(url.searchParams.get('timeOffTaken')) : 0;
-      const hasManagerialOrProfessionalExemption = url.searchParams.get('exempt') === 'true';
-      return send(200, evaluateAlbertaOvertimeBanking({
-        regularHourlyWageCad,
-        dailyHoursWorked,
-        hasWrittenOvertimeAgreement,
-        existingBankedHours,
-        monthsElapsedSinceBanked,
-        isEmploymentTerminating,
-        hoursTakenAsTimeOff,
-        hasManagerialOrProfessionalExemption
-      }));
+      return send(200, evaluateAlbertaOvertimeBanking(albertaOvertimeInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/on-remote-work-jurisdiction') {
@@ -604,20 +633,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-just-cause') {
-      const misconduct = url.searchParams.get('misconduct') || 'PERFORMANCE_ISSUES';
-      const warnings = url.searchParams.get('warnings') === 'true';
-      const pip = url.searchParams.get('pip') === 'true';
-      const serviceYears = url.searchParams.get('serviceYears') ? Number(url.searchParams.get('serviceYears')) : 5;
-      const weeklyWage = url.searchParams.get('weeklyWage') ? Number(url.searchParams.get('weeklyWage')) : 1100;
-      const noticeGiven = url.searchParams.get('noticeGiven') ? Number(url.searchParams.get('noticeGiven')) : 0;
-      return send(200, auditAlbertaTerminationJustCause({
-        allegedMisconductCategory: misconduct,
-        employerIssuedPriorWrittenWarnings: warnings,
-        employeeGivenOpportunityToImprove: pip,
-        yearsOfContinuousService: serviceYears,
-        regularWeeklyWageCad: weeklyWage,
-        actualTerminationNoticeWeeksGiven: noticeGiven
-      }));
+      return send(200, auditAlbertaTerminationJustCause(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/ontario-severance-payroll') {
@@ -640,26 +656,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/alberta-employment-maternity-parental-leave') {
-      const leaveType = url.searchParams.get('leaveType') || 'COMBINED_MATERNITY_PARENTAL';
-      const daysEmployed = url.searchParams.get('daysEmployed') ? Number(url.searchParams.get('daysEmployed')) : 180;
-      const matWeeks = url.searchParams.get('matWeeks') ? Number(url.searchParams.get('matWeeks')) : 16;
-      const parWeeks = url.searchParams.get('parWeeks') ? Number(url.searchParams.get('parWeeks')) : 62;
-      const noticeBefore = url.searchParams.get('noticeBefore') ? Number(url.searchParams.get('noticeBefore')) : 6;
-      const medCert = url.searchParams.get('medCert') !== 'false';
-      const noticeReturn = url.searchParams.get('noticeReturn') ? Number(url.searchParams.get('noticeReturn')) : 4;
-      const reinstatementRefused = url.searchParams.get('reinstatementRefused') === 'true';
-      const reprisal = url.searchParams.get('reprisal') === 'true';
-      return send(200, evaluateAlbertaMaternityParentalLeave({
-        leaveType,
-        consecutiveDaysOfEmployment: daysEmployed,
-        maternityWeeksRequested: matWeeks,
-        parentalWeeksRequested: parWeeks,
-        noticeWeeksProvidedBeforeLeave: noticeBefore,
-        medicalCertificateProvided: medCert,
-        noticeWeeksProvidedBeforeReturn: noticeReturn,
-        employerRefusesReinstatement: reinstatementRefused,
-        employerDisciplinedOrDismissedDueToLeave: reprisal
-      }));
+      return send(200, evaluateAlbertaMaternityParentalLeave(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/british-columbia-employment-illness-injury-leave') {
@@ -749,28 +746,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/bc-overtime-banking') {
-      const wage = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 30;
-      const ot15 = url.searchParams.get('ot15') ? Number(url.searchParams.get('ot15')) : 2;
-      const ot20 = url.searchParams.get('ot20') ? Number(url.searchParams.get('ot20')) : 0;
-      const weeklyOt = url.searchParams.get('weeklyOt') ? Number(url.searchParams.get('weeklyOt')) : 0;
-      const requestWritten = url.searchParams.get('requestWritten') !== 'false';
-      const timeOff = url.searchParams.get('timeOff') === 'true';
-      const banked = url.searchParams.get('banked') ? Number(url.searchParams.get('banked')) : 10;
-      const payoutReq = url.searchParams.get('payoutReq') === 'true';
-      const terminated = url.searchParams.get('terminated') === 'true';
-      const paidActual = url.searchParams.get('paidActual') ? Number(url.searchParams.get('paidActual')) : 0;
-      return send(200, evaluateBcOvertimeBanking({
-        regularHourlyWageCad: wage,
-        dailyHoursWorkedOver8: ot15,
-        dailyHoursWorkedOver12: ot20,
-        weeklyHoursWorkedOver40: weeklyOt,
-        employeeRequestedTimeBankInWriting: requestWritten,
-        wantsPaidTimeOffInsteadOfPay: timeOff,
-        bankedHoursAlreadyAccumulated: banked,
-        employeeRequestedPayout: payoutReq,
-        employmentTerminated: terminated,
-        overtimePaidActuallyCad: paidActual
-      }));
+      return send(200, evaluateBcOvertimeBanking(bcOvertimeInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/manitoba-general-holiday-pay') {
@@ -982,7 +958,7 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/alberta-overtime-banking') {
-      return send(200, evaluateAlbertaOvertimeBanking(input));
+      return send(200, evaluateAlbertaOvertimeBanking(albertaOvertimeInputs(input)));
     }
 
     if(path==='/v1/tools/on-remote-work-jurisdiction') {
@@ -1046,7 +1022,7 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/bc-overtime-banking') {
-      return send(200, evaluateBcOvertimeBanking(input));
+      return send(200, evaluateBcOvertimeBanking(bcOvertimeInputs(input)));
     }
 
     if(path==='/v1/tools/manitoba-general-holiday-pay') {

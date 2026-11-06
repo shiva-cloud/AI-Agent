@@ -755,31 +755,39 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     assert.equal(bizPostData.gstHstAudit.isRegistrationMandatory, true);
 
     // 34. GET & POST /v1/tools/pnp-pathway
-    const pnpGetRes = await fetch(`${baseUrl}/v1/tools/pnp-pathway?province=BC&noc=21231&wage=45&jobOffer=true&ee=true&crs=460`);
+    const pnpFields = 'province=BC&noc=21231&wage=45&jobOffer=true&ee=true&crs=460&exp=0&cdnExp=false&worksInBc=false&education=bachelors&bcEdu=false&clb=8&bilingual=false&area=area_1_metro_van&familySize=1&savings=0';
+    const pnpEndpoint = baseUrl + '/v1/tools/pnp-pathway';
+    const pnpGetRes = await fetch(pnpEndpoint + '?' + pnpFields);
     assert.equal(pnpGetRes.status, 200);
     const pnpGetData = await pnpGetRes.json();
     assert.equal(pnpGetData.province, 'BC');
-    assert.equal(pnpGetData.streamType, 'ENHANCED_EXPRESS_ENTRY');
-    assert.equal(pnpGetData.bonusCrsPoints, 600);
     assert.equal(pnpGetData.projectedPostNominationCrs, 1060);
     assert.equal(pnpGetData.bcTechEligibility.qualifiesForBcTech, true);
+    assert.equal(pnpGetData.settlementFunds.providedFundsCad, 0);
 
-    const pnpPostRes = await fetch(`${baseUrl}/v1/tools/pnp-pathway`, {
+    const pnpPost = body => fetch(pnpEndpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        targetProvince: 'ON',
-        nocCode: '21211',
-        hasActiveExpressEntryProfile: true,
-        expressEntryCrsScore: 470,
-        hourlyWage: 40
-      })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
     });
+    const pnpProfile = Object.fromEntries(new URLSearchParams(pnpFields));
+    const pnpPostRes = await pnpPost(pnpProfile);
     assert.equal(pnpPostRes.status, 200);
-    const pnpPostData = await pnpPostRes.json();
-    assert.equal(pnpPostData.province, 'ON');
-    assert.equal(pnpPostData.oinpTechEligibility.qualifiesForOinpTech, true);
-    assert.ok(pnpPostData.strategicLevers.length > 0);
+    assert.deepEqual(await pnpPostRes.json(), pnpGetData);
+    const pnpOntarioRes = await pnpPost({...pnpProfile, targetProvince: 'ON', nocCode: '21211'});
+    assert.equal(pnpOntarioRes.status, 200);
+    const pnpOntario = await pnpOntarioRes.json();
+    assert.equal(pnpOntario.province, 'ON');
+    assert.equal(pnpOntario.oinpTechEligibility.qualifiesForOinpTech, true);
+    assert.doesNotMatch(pnpOntario.oinpTechEligibility.statutoryAdvisory, /high probability/i);
+
+    const emptyPnpGet = await fetch(pnpEndpoint);
+    const emptyPnpPost = await pnpPost({});
+    assert.equal(emptyPnpGet.status, 400);
+    assert.equal(emptyPnpPost.status, 400);
+    assert.deepEqual(await emptyPnpGet.json(), await emptyPnpPost.json());
+    assert.equal((await pnpPost({...pnpProfile, jobOffer: 'unknown'})).status, 400);
+    assert.equal((await pnpPost({...pnpProfile, crs: -1})).status, 400);
 
     // 35. GET & POST /v1/tools/bowp-diagnostic
     const bowpGetRes = await fetch(`${baseUrl}/v1/tools/bowp-diagnostic?permitType=pgwp&expiryDate=2026-12-31&insideCanada=true&prProgram=express_entry_cec&aor=true&hasSpouse=true&teer=teer_1&payStubs=true`);
@@ -2513,6 +2521,20 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     assert.equal(abOtPostData.complianceStatus, 'STATUTORY_DEFICIENCY_DETECTED');
     assert.equal(abOtPostData.financialLiability.totalStatutoryPayoutOwedCad, 450);
 
+    const overtimeUrl = baseUrl + '/v1/tools/alberta-overtime-banking';
+    const query = 'regularHourlyWageCad=20&dailyHoursWorked=12&isEmploymentTerminating=true&hasWrittenOvertimeAgreement=true';
+    const aliasPost = await fetch(overtimeUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wage: 20, hoursWorked: [12], terminating: true, agreement: true })
+    });
+    const canonicalGet = await fetch(overtimeUrl + '?' + query);
+    for (const response of [canonicalGet, aliasPost]) {
+      assert.equal(response.status, 200);
+      assert.equal((await response.json()).financialLiability.totalStatutoryPayoutOwedCad, 120);
+    }
+    assert.equal((await fetch(overtimeUrl + '?hoursWorked=8,,10')).status, 400);
+
     // 109. Ontario Roommate & Occupant Rights Navigator
     const onRoomGetRes = await fetch(`${baseUrl}/v1/tools/ontario-roommate-rights?sharedFacilities=true`);
     assert.equal(onRoomGetRes.status, 200);
@@ -3565,6 +3587,22 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     const bcOtPostData = await bcOtPostRes.json();
     assert.equal(bcOtPostData.complianceStatus, 'OVERTIME_WAGE_STANDARDS_BREACH');
     assert.equal(bcOtPostData.overtimeCalculation.unpaidOvertimeDeficitCad, 300);
+
+    const bcOtUrl = baseUrl + '/v1/tools/bc-overtime-banking';
+    const bcCanonicalGet = await fetch(bcOtUrl + '?regularHourlyWageCad=20&dailyHoursWorkedOver8=3&wantsPaidTimeOffInsteadOfPay=true&employeeRequestedTimeBankInWriting=false');
+    const bcAliasPost = await fetch(bcOtUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wage: 20, ot15: 3, timeOff: 'true', requestWritten: 'false' })
+    });
+    for (const response of [bcCanonicalGet, bcAliasPost]) {
+      assert.equal(response.status, 200);
+      const audit = await response.json();
+      assert.equal(audit.overtimeCalculation.totalCashOwedImmediatelyCad, 90);
+      assert.equal(audit.overtimeCalculation.totalBankedHours, 10);
+    }
+    assert.equal((await fetch(bcOtUrl + '?terminated=maybe')).status, 400);
+    assert.equal((await fetch(bcOtUrl + '?wage=abc')).status, 400);
 
     // 159. Alberta Periodic Tenancy Notice Navigator
     const abPeriodicGetRes = await fetch(`${baseUrl}/v1/tools/alberta-periodic-tenancy-notice?party=LANDLORD&monthsNotice=3&reason=LANDLORD_OR_RELATIVE_OCCUPANCY`);

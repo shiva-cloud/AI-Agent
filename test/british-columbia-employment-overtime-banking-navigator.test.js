@@ -54,3 +54,20 @@ test('BC Overtime & Time Banking - Unilateral time banking without employee writ
 
   assert.ok(result.statutoryViolations.some(v => v.rule === 'UNAUTHORIZED_MANDATORY_TIME_BANKING'));
 });
+
+test('BC overtime keeps fractional earnings on a bank payout and respects explicit false', () => {
+  const input = { dailyHoursWorkedOver8: 0.01, regularHourlyWageCad: 30, bankedHoursAlreadyAccumulated: 1,
+    wantsPaidTimeOffInsteadOfPay: true, employmentTerminated: 'false' };
+  const held = evaluateBcOvertimeBanking(input).overtimeCalculation;
+  assert.equal(held.totalCashOwedImmediatelyCad, 0);
+  assert.equal(held.totalBankedValueCad, 30.45);
+  const payout = evaluateBcOvertimeBanking({ ...input, employeeRequestedPayout: true }).overtimeCalculation;
+  assert.equal(payout.totalCashOwedImmediatelyCad, 30.45);
+});
+
+test('BC overtime rejects malformed dates and amounts', () => {
+  for (const input of [{ assessmentDate: '2026-02-30' }, { overtimePaidActuallyCad: true },
+    { weeklyHoursWorkedOver40: -1 }, { regularHourlyWageCad: [] }]) {
+    assert.throws(() => evaluateBcOvertimeBanking(input), error => error.statusCode === 400);
+  }
+});

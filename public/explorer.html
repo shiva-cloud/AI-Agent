@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Northstar Q&amp;A Explorer — Live Verification Dashboard</title>
+  <title>Northstar Q&amp;A Explorer — Historical Test Archive</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/explorer.css">
 </head>
@@ -15,14 +15,13 @@
       <div class="header-top">
         <div class="header-titles">
           <div class="header-badge-row">
-            <span class="pulse-dot"></span>
-            <span class="badge-label">Live Browser Q&amp;A Explorer</span>
+            <span class="badge-label">Historical Q&amp;A Archive</span>
             <span class="badge-count">100 Technical Scenarios</span>
             <a class="brand-link" href="/" title="Open Main Northstar Workspace">← Back to Workspace</a>
           </div>
           <h1 class="header-h1">Northstar <span>Settlement &amp; Immigration</span> Audit</h1>
           <p class="header-desc">
-            लाइव परीक्षण: व्यक्तिगत प्रोफाइल, फैमिली स्पॉन्सरशिप, CRS गणना, N12 बेदखली और देश-वार पुलिस क्लीयरेंस के सटीक सरकारी जवाब।
+            These saved test responses and scores are historical fixtures. Their claims and links are unreviewed here and may be outdated. For current guidance, open the workspace and ask the question again.
           </p>
         </div>
 
@@ -30,15 +29,15 @@
         <div class="header-metrics">
           <div class="metric-card">
             <div class="metric-num green">80%</div>
-            <div class="metric-lbl">Guidance Rate</div>
+            <div class="metric-lbl">Archived Guidance Rate</div>
           </div>
           <div class="metric-card">
             <div class="metric-num blue">78.3</div>
-            <div class="metric-lbl">Avg Score / 100</div>
+            <div class="metric-lbl">Average Fixture Score / 100</div>
           </div>
           <div class="metric-card">
             <div class="metric-num purple">55</div>
-            <div class="metric-lbl">Direct &amp; Perfect</div>
+            <div class="metric-lbl">Archived High Scores</div>
           </div>
         </div>
       </div>
@@ -85,11 +84,11 @@
       </section>
 
       <!-- Right Column: Detail & Reply Inspector -->
-      <section id="detailPanel" class="detail-column" aria-label="Question detail and official guidance">
+      <section id="detailPanel" class="detail-column" aria-label="Question detail and historical test response">
         <div id="emptyDetailPrompt" class="empty-prompt">
           <div class="empty-icon">👈</div>
           <h2 class="empty-title">कोई भी प्रश्न चुनें</h2>
-          <p class="empty-desc">बाईं ओर किसी भी सवाल पर क्लिक करें ताकि उसका सटीक सरकारी जवाब, दावे और स्रोत यहाँ देख सकें।</p>
+          <p class="empty-desc">Select a question to see its saved test response and recorded sources.</p>
         </div>
 
         <div id="detailContent" class="detail-content explorer-hidden">
@@ -101,7 +100,7 @@
             </div>
             <div class="detail-meta-right">
               <span id="detailStatus" class="status-badge guidance">GUIDANCE</span>
-              <span id="detailScore" class="q-score-badge">Score: 95</span>
+              <span id="detailScore" class="q-score-badge"></span>
             </div>
           </div>
 
@@ -119,14 +118,14 @@
             </div>
           </details>
 
-          <!-- Section 2: System Verified Response Accordion -->
+          <!-- Section 2: Archived Test Response Accordion -->
           <details class="accordion-section" open>
             <summary>
               <div class="summary-title summary-title-split">
                 <span class="summary-label">
-                  <span>🏛️</span> <strong>System Verified Response (सरकारी उत्तर)</strong>
+                  <span>🏛️</span> <strong>Archived Test Response — Unreviewed</strong>
                 </span>
-                <span id="detailLatency" class="latency-chip">32 ms</span>
+                <span id="detailLatency" class="latency-chip"></span>
               </div>
               <span class="summary-chevron">▶</span>
             </summary>
@@ -141,10 +140,10 @@
             </div>
           </details>
 
-          <!-- Section 3: Official Authorities & Sources Accordion -->
+          <!-- Section 3: Saved References Accordion -->
           <details class="accordion-section" open>
             <summary>
-              <span class="summary-title"><span>📑</span> <strong>Official Authorities &amp; Sources Cited (उद्धृत सरकारी स्रोत)</strong></span>
+              <span class="summary-title"><span>📑</span> <strong>References Saved With This Fixture</strong></span>
               <span class="summary-chevron">▶</span>
             </summary>
             <div class="accordion-body">
@@ -157,7 +156,7 @@
           <!-- Section 4: Perfection & Directness Audit Accordion -->
           <details class="accordion-section" open>
             <summary>
-              <span class="summary-title"><span>🔍</span> <strong>Perfection &amp; Directness Audit</strong></span>
+              <span class="summary-title"><span>🔍</span> <strong>Historical Test Scoring</strong></span>
               <span class="summary-chevron">▶</span>
             </summary>
             <div class="accordion-body">

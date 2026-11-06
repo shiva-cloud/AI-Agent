@@ -11,9 +11,19 @@ export function normalizeTypedNumber(value){
   const n=Number(value.replace(/CAD|C\$|CA\$|US\$|\$|,|\s/gi,''));
   return Number.isFinite(n)?n:value;
 }
-export function normalizeToolInput(input){
+export function normalizeToolInput(input,path){
   if(!input||typeof input!=='object'||Array.isArray(input))return input;
-  for(const [k,v] of Object.entries(input))input[k]=normalizeTypedNumber(v);
+  const textFields = new Set();
+  for (const [alias, spec] of Object.entries(TOOL_FORM_ALIASES[path] || {})) {
+    if (typeof spec === 'string') {
+      textFields.add(alias);
+      textFields.add(spec);
+    } else if (['plain', 'branch', 'csv'].includes(spec[1])) {
+      textFields.add(alias);
+      for (const name of spec[0]) textFields.add(name);
+    }
+  }
+  for(const [k,v] of Object.entries(input))if(!textFields.has(k))input[k]=normalizeTypedNumber(v);
   return input;
 }
 // POST tool handlers accept the same friendly field names the website forms and
@@ -29,6 +39,56 @@ const ALIAS_TRANSFORMS={
   branch:value=>({parental:'parental_standard',qpip:'qpip_paternity',sickness:'sickness'}[value]??value)
 };
 const TOOL_FORM_ALIASES={
+  '/v1/tools/alberta-periodic-tenancy-notice':{
+    party:'partyGivingNotice',
+    tenancyType:'tenancyType',
+    monthsNotice:[['fullTenancyMonthsNoticeGiven'],'number'],
+    reason:'landlordStatedReason',
+    writtenSigned:[['noticeInWritingAndSigned'],'boolTrue'],
+    purchaserReq:[['purchaserSignedWrittenOccupancyRequest'],'boolTrue'],
+    permits:[['majorRenovationPermitsObtained'],'boolTrue']
+  },
+  '/v1/tools/alberta-landlord-entry':{
+    purpose:'entryPurpose',
+    day:'entryDayOfWeek',
+    noticeHours:[['noticeHoursGiven'],'number'],
+    hour:[['entryScheduledHour'],'number'],
+    religiousDay:[['isTenantDayOfReligiousWorship'],'boolTrue'],
+    specifiedTime:[['noticeSpecifiedDateAndTime'],'boolTrue'],
+    signed:[['noticeSignedByLandlord'],'boolTrue'],
+    consent:[['tenantConsentedToEntry'],'boolTrue']
+  },
+  '/v1/tools/alberta-abandoned-goods':{
+    role:'actorRole',
+    value:[['estimatedMarketValueCad'],'number'],
+    daysElapsed:[['daysSinceLandlordTookPossession'],'number'],
+    storageCosts:[['accruedStorageAndMovingCostsCad'],'number'],
+    rentArrears:[['unpaidRentArrearsCad'],'number'],
+    auctionProceeds:[['auctionProceedsRealizedCad'],'number'],
+    inventory:[['hasPreparedItemizedInventory'],'boolTrue'],
+    disposedEarly:[['landlordDisposedBefore30Days'],'boolTrue'],
+    withheldForRent:[['landlordRefusedReleaseWithoutRentArrears'],'boolTrue']
+  },
+  '/v1/tools/alberta-just-cause':{
+    misconduct:'allegedMisconductCategory',
+    serviceYears:[['yearsOfContinuousService'],'number'],
+    weeklyWage:[['regularWeeklyWageCad'],'number'],
+    noticeGiven:[['actualTerminationNoticeWeeksGiven'],'number'],
+    warnings:[['employerIssuedPriorWrittenWarnings'],'boolTrue'],
+    pip:[['employeeGivenOpportunityToImprove'],'boolTrue']
+  },
+  '/v1/tools/alberta-employment-maternity-parental-leave':{
+    daysEmployed:[['consecutiveDaysOfEmployment'],'number'],matWeeks:[['maternityWeeksRequested'],'number'],
+    parWeeks:[['parentalWeeksRequested'],'number'],noticeBefore:[['noticeWeeksProvidedBeforeLeave'],'number'],
+    noticeReturn:[['noticeWeeksProvidedBeforeReturn'],'number'],medCert:[['medicalCertificateProvided'],'boolTrue'],
+    reinstatementRefused:[['employerRefusesReinstatement'],'boolTrue'],reprisal:[['employerDisciplinedOrDismissedDueToLeave'],'boolTrue'],
+    leaveType:'leaveType'
+  },
+  '/v1/tools/alberta-tenancy-sublease':{
+    type:'transactionType',requestDate:'requestDeliveredDate',currentDate:'currentDate',
+    responseStatus:'landlordResponseStatus',refusalCategory:'refusalReasonCategory',explanation:'refusalReasonExplanation',
+    feeCharged:[['feeChargedForConsentCad'],'number']
+  },
   '/v1/tools/study-permit-cap-pal':{
     tuition:[['tuitionFeeFirstYearCad'],'number'],
     funds:[['liquidFundsAvailableCad'],'number'],
@@ -37,6 +97,17 @@ const TOOL_FORM_ALIASES={
     extension:[['isExtensionOfStudyPermit'],'boolTrue'],
     familyExempt:[['isFamilyOfWorkOrStudyHolder'],'boolTrue'],
     field:'fieldOfStudyCategory',cip:'cipCode',applicant:'applicantName'
+  },
+  '/v1/tools/pnp-pathway':{
+    province:'targetProvince',noc:'nocCode',education:'educationLevel',area:'jobLocationArea',
+    wage:[['hourlyWage'],'number'],crs:[['expressEntryCrsScore'],'number'],
+    exp:[['yearsOfDirectExperience'],'number'],clb:[['clbLevel'],'number'],
+    familySize:[['familySize'],'number'],savings:[['liquidSavingsCad'],'number'],
+    jobOffer:[['hasFullTimeJobOffer'],'boolTrue'],ee:[['hasActiveExpressEntryProfile'],'boolTrue'],
+    cdnExp:[['hasOneYearCanadianExperience'],'boolTrue'],worksInBc:[['currentlyWorkingForBcEmployer'],'boolTrue'],
+    bcEdu:[['completedBcEducation'],'boolTrue'],cdnEduOutside:[['completedCanadianEducationOutsideBc'],'boolTrue'],
+    designation:[['hasProfessionalDesignationBc'],'boolTrue'],bilingual:[['isBilingualEnglishAndFrench'],'boolTrue'],
+    regionalExp:[['hasRegionalEducationOrExperience'],'boolTrue']
   },
   '/v1/tools/study-to-pr':{
     degree:'studyLevel',
@@ -179,13 +250,21 @@ export function validateToolAliasInput(path, input) {
   if (!aliases || path === '/v1/tools/study-permit-cap-pal') return;
   const types = new Map();
   for (const [alias, spec] of Object.entries(aliases)) {
-    if (!Array.isArray(spec) || !['number', 'boolTrue', 'notFalse', 'csv'].includes(spec[1])) continue;
+    if (typeof spec === 'string') {
+      types.set(alias, 'plain');
+      types.set(spec, 'plain');
+      continue;
+    }
     for (const name of [alias, ...(Array.isArray(spec[0]) ? spec[0] : [spec[0]])]) types.set(name, spec[1]);
   }
   const entries = input instanceof URLSearchParams ? input.entries() : Object.entries(input);
   for (const [name, value] of entries) {
     const type = types.get(name);
     if (!type || value === undefined || value === '') continue;
+    if (type === 'plain' || type === 'branch') {
+      if (typeof value !== 'string') throw new ToolInputError(`Invalid value for ${name}: expected text.`);
+      continue;
+    }
     if (type === 'csv') {
       const items = typeof value === 'string' ? value.split(',') : value;
       if (!Array.isArray(items) || items.length > 100 || items.some(item => typeof item !== 'string' || item.length > 200)) {

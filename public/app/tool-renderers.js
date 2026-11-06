@@ -2605,7 +2605,7 @@ export function renderPnpAssessment(data, container) {
             <div data-s="display-flex align-items-center justify-content-space-between margin-bottom-0_35rem">
               <span data-s="font-weight-700 font-size-0_85rem">BC TECH STREAM</span>
               <span data-style="font-size:0.75rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;background:${data.bcTechEligibility.qualifiesForBcTech ? '#16a34a20' : '#ef444420'};color:${data.bcTechEligibility.qualifiesForBcTech ? '#16a34a' : '#ef4444'};">
-                ${data.bcTechEligibility.qualifiesForBcTech ? 'QUALIFIED' : 'NOT QUALIFIED'}
+                ${data.bcTechEligibility.qualifiesForBcTech ? 'PROFILE MATCH' : 'NO PROFILE MATCH'}
               </span>
             </div>
             <div data-s="font-size-0_78rem color-text-muted">${escapeHtml(data.bcTechEligibility.statutoryAdvisory)}</div>
@@ -2626,7 +2626,7 @@ export function renderPnpAssessment(data, container) {
             <div data-s="display-flex align-items-center justify-content-space-between margin-bottom-0_35rem">
               <span data-s="font-weight-700 font-size-0_85rem">AAIP TECH PATHWAY (AB)</span>
               <span data-style="font-size:0.75rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;background:${data.aaipTechEligibility.qualifiesForAaipTech ? '#16a34a20' : '#ef444420'};color:${data.aaipTechEligibility.qualifiesForAaipTech ? '#16a34a' : '#ef4444'};">
-                ${data.aaipTechEligibility.qualifiesForAaipTech ? 'QUALIFIED' : 'INELIGIBLE'}
+                ${data.aaipTechEligibility.qualifiesForAaipTech ? 'PROFILE MATCH' : 'NO PROFILE MATCH'}
               </span>
             </div>
             <div data-s="font-size-0_78rem color-text-muted">${escapeHtml(data.aaipTechEligibility.statutoryAdvisory)}</div>

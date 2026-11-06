@@ -9,7 +9,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const BC_OVERTIME_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, RSBC 1996, c. 113, ss. 35, 40, 42',
@@ -47,32 +48,28 @@ export function evaluateBcOvertimeBanking(params = {}) {
     dailyHoursWorkedOver8 = 2,
     dailyHoursWorkedOver12 = 0,
     weeklyHoursWorkedOver40 = 0,
-    employeeRequestedTimeBankInWriting = true,
-    wantsPaidTimeOffInsteadOfPay = false,
+    employeeRequestedTimeBankInWriting: written = true,
+    wantsPaidTimeOffInsteadOfPay: timeOff = false,
     bankedHoursAlreadyAccumulated = 10,
-    employeeRequestedPayout = false,
-    employmentTerminated = false,
+    employeeRequestedPayout: payout = false,
+    employmentTerminated: terminated = false,
     overtimePaidActuallyCad = 0
   } = safeParams;
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
-
-  const wage = Number.isFinite(Number(regularHourlyWageCad))
-    ? Math.max(0, Math.min(10000, Number(regularHourlyWageCad)))
-    : 0;
-  const ot15Hours = (Number.isFinite(Number(dailyHoursWorkedOver8)) ? Math.max(0, Math.min(24, Number(dailyHoursWorkedOver8))) : 0) +
-    (Number.isFinite(Number(weeklyHoursWorkedOver40)) ? Math.max(0, Math.min(168, Number(weeklyHoursWorkedOver40))) : 0);
-  const ot20Hours = Number.isFinite(Number(dailyHoursWorkedOver12))
-    ? Math.max(0, Math.min(24, Number(dailyHoursWorkedOver12)))
-    : 0;
-  const existingBanked = Number.isFinite(Number(bankedHoursAlreadyAccumulated))
-    ? Math.max(0, Math.min(10000, Number(bankedHoursAlreadyAccumulated)))
-    : 0;
-  const paidActual = Number.isFinite(Number(overtimePaidActuallyCad))
-    ? Math.max(0, Math.min(1_000_000, Number(overtimePaidActuallyCad)))
-    : 0;
+  const cleanAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const wage = calculatorNumber(regularHourlyWageCad, 'regularHourlyWageCad', { max: 10000 });
+  const ot15Hours = calculatorNumber(dailyHoursWorkedOver8, 'dailyHoursWorkedOver8', { max: 24 }) +
+    calculatorNumber(weeklyHoursWorkedOver40, 'weeklyHoursWorkedOver40', { max: 168 });
+  const ot20Hours = calculatorNumber(dailyHoursWorkedOver12, 'dailyHoursWorkedOver12', { max: 24 });
+  const existingBanked = calculatorNumber(bankedHoursAlreadyAccumulated, 'bankedHoursAlreadyAccumulated', { max: 10000 });
+  const paidActual = calculatorNumber(overtimePaidActuallyCad, 'overtimePaidActuallyCad', { max: 1_000_000 });
+  const employeeRequestedTimeBankInWriting = calculatorBoolean(written, 'employeeRequestedTimeBankInWriting');
+  const wantsPaidTimeOffInsteadOfPay = calculatorBoolean(timeOff, 'wantsPaidTimeOffInsteadOfPay');
+  const employeeRequestedPayout = calculatorBoolean(payout, 'employeeRequestedPayout');
+  const employmentTerminated = calculatorBoolean(terminated, 'employmentTerminated');
+  const bankNewOvertime = wantsPaidTimeOffInsteadOfPay && employeeRequestedTimeBankInWriting;
 
   const statutoryViolations = [];
   const riskWarnings = [];
@@ -91,22 +88,22 @@ export function evaluateBcOvertimeBanking(params = {}) {
   // 1 hour at 1.5x = 1.5 equivalent hours; 1 hour at 2.0x = 2.0 equivalent hours
   const newBankedEquivalentHours = Math.round(((ot15Hours * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_1) +
                                               (ot20Hours * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_2)) * 100) / 100;
-  const totalBankedHours = Math.round((existingBanked + (wantsPaidTimeOffInsteadOfPay ? newBankedEquivalentHours : 0)) * 100) / 100;
+  const totalBankedHours = Math.round((existingBanked + (bankNewOvertime ? newBankedEquivalentHours : 0)) * 100) / 100;
 
   // Dollar values
   const ot15PayCad = Math.round(ot15Hours * wage * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_1 * 100) / 100;
   const ot20PayCad = Math.round(ot20Hours * wage * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_2 * 100) / 100;
   const totalNewOvertimeEarnedCad = Math.round((ot15PayCad + ot20PayCad) * 100) / 100;
-  const totalBankedValueCad = Math.round(totalBankedHours * wage * 100) / 100;
+  const totalBankedValueCad = Math.round((existingBanked * wage + (bankNewOvertime ? totalNewOvertimeEarnedCad : 0)) * 100) / 100;
 
   // 3. Mandatory Payout on Demand or Termination (s. 42(3), 42(4))
   let totalCashOwedImmediatelyCad = 0;
-  if (!wantsPaidTimeOffInsteadOfPay) {
+  if (!bankNewOvertime) {
     totalCashOwedImmediatelyCad += totalNewOvertimeEarnedCad;
   }
 
   if (employmentTerminated || employeeRequestedPayout) {
-    totalCashOwedImmediatelyCad += totalBankedValueCad;
+    totalCashOwedImmediatelyCad = Math.round((totalCashOwedImmediatelyCad + totalBankedValueCad) * 100) / 100;
     if (employmentTerminated) {
       actionableRemedies.push({
         action: 'PAY_OUT_ALL_BANKED_OVERTIME_UPON_TERMINATION',
@@ -135,7 +132,9 @@ export function evaluateBcOvertimeBanking(params = {}) {
 
   if (statutoryViolations.length > 0) {
     complianceStatus = 'OVERTIME_WAGE_STANDARDS_BREACH';
-    legalVerdict = `Employer breached BC ESA overtime rules. Unpaid wages of $${unpaidOvertimeDeficitCad.toFixed(2)} are legally recoverable.`;
+    legalVerdict = unpaidOvertimeDeficitCad === 0
+      ? 'Employer banked overtime without a written request.'
+      : `Employer breached BC ESA overtime rules. Unpaid wages of $${unpaidOvertimeDeficitCad.toFixed(2)} are legally recoverable.`;
   }
 
   return {

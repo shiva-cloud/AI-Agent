@@ -8,7 +8,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorChoice, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_ENTRY_NOTICE_CONSTANTS = Object.freeze({
   MINIMUM_NOTICE_HOURS: 24, // s. 23(1)(c)
@@ -46,15 +47,17 @@ export function evaluateAlbertaLandlordEntry({
 } = {}) {
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const hoursNotice = Number.isFinite(Number(noticeHoursGiven))
-    ? Math.max(0, Math.min(8760, Number(noticeHoursGiven)))
-    : 0;
-  const hour = Number.isFinite(Number(entryScheduledHour))
-    ? Math.max(0, Math.min(23, Math.floor(Number(entryScheduledHour))))
-    : 12;
-  const day = boundedText(entryDayOfWeek, 'Tuesday', 20).toLowerCase();
-  const cleanPurpose = boundedText(entryPurpose, 'REPAIRS_OR_MAINTENANCE', 50);
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const hoursNotice = calculatorNumber(noticeHoursGiven, 'noticeHoursGiven', {max: 8760});
+  const hour = calculatorNumber(entryScheduledHour, 'entryScheduledHour', {max: 23, integer: true});
+  const day = calculatorChoice(typeof entryDayOfWeek === 'string' ? entryDayOfWeek.toLowerCase() : entryDayOfWeek, 'entryDayOfWeek',
+    ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+  const cleanPurpose = calculatorChoice(entryPurpose, 'entryPurpose', ['EMERGENCY', 'ABANDONMENT', 'REPAIRS_OR_MAINTENANCE',
+    'INSPECTION', 'SHOW_PROSPECTIVE_TENANTS', 'SHOW_PURCHASERS', 'GENERAL_DROP_IN']);
+  tenantConsentedToEntry = calculatorBoolean(tenantConsentedToEntry, 'tenantConsentedToEntry');
+  isTenantDayOfReligiousWorship = calculatorBoolean(isTenantDayOfReligiousWorship, 'isTenantDayOfReligiousWorship');
+  noticeSpecifiedDateAndTime = calculatorBoolean(noticeSpecifiedDateAndTime, 'noticeSpecifiedDateAndTime');
+  noticeSignedByLandlord = calculatorBoolean(noticeSignedByLandlord, 'noticeSignedByLandlord');
 
   const isEmergency = cleanPurpose === 'EMERGENCY';
   const isAbandonment = cleanPurpose === 'ABANDONMENT';

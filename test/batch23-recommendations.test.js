@@ -142,10 +142,10 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       existingBankedHours: 10,
       monthsElapsedSinceBanked: 7, // expired!
       employeeName: '  Mark Vance  ',
-      assessmentDate: 'invalid-date'
+      assessmentDate: '2026-10-31'
     });
 
-    assert.equal(res.assessmentDate, todayIso());
+    assert.equal(res.assessmentDate, '2026-10-31');
     assert.equal(res.employeeName, 'Mark Vance');
     assert.equal(res.jurisdiction, 'ALBERTA');
     assert.equal(res.bankingAudit.isExpiredPast6Months, true);
@@ -258,12 +258,12 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       entryDayOfWeek: 'Sunday', // violation: Sunday entry prohibited
       entryScheduledHour: 21, // violation: outside 8am-8pm
       tenantName: '  Tenant One  ',
-      landlordName: '  Landlord Two  ',
-      assessmentDate: 'invalid-date'
+      landlordName: '  Landlord Two  '
     });
 
     assert.equal(res.assessmentDate, todayIso());
     assert.equal(res.tenantName, 'Tenant One');
+    assert.throws(() => evaluateAlbertaLandlordEntry({assessmentDate: 'invalid-date'}), /valid ISO calendar date/);
     assert.equal(res.landlordName, 'Landlord Two');
     assert.equal(res.isEntryPermitted, false);
     assert.equal(res.complianceStatus, 'UNLAWFUL_ENTRY_BREACH_OF_QUIET_ENJOYMENT');

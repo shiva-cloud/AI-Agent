@@ -91,25 +91,20 @@ test('Rec 222: Saskatchewan Security Deposit Return — Sanitizes rent, deposit,
   assert.equal(result.businessDaysSinceTenancyEnded, 0);
 });
 
-test('Rec 223: Alberta Periodic Tenancy Termination — Sanitizes fullTenancyMonthsNoticeGiven', () => {
-  const result = evaluateAlbertaPeriodicTenancyNotice({
-    fullTenancyMonthsNoticeGiven: 'invalid'
-  });
-  assert.equal(result.fullTenancyMonthsNoticeGiven, 0);
+test('Rec 223: Alberta periodic notice rejects invalid months and accepts zero', () => {
+  assert.throws(() => evaluateAlbertaPeriodicTenancyNotice({ fullTenancyMonthsNoticeGiven: 'invalid' }));
+  const result = evaluateAlbertaPeriodicTenancyNotice({ fullTenancyMonthsNoticeGiven: 0 });
   assert.ok(result.statutoryViolations.some(v => v.rule === 'INSUFFICIENT_LANDLORD_NOTICE_PERIOD'));
 });
 
-test('Rec 224: Alberta Overtime Banking — Bounds dailyHoursWorked array and sanitizes wage inputs', () => {
-  const otCalc = calculateAlbertaOvertimeHours(['invalid', 10]);
-  assert.equal(otCalc.totalHours, 10);
-  assert.equal(otCalc.statutoryOvertimeHours, 2);
-
-  const banking = evaluateAlbertaOvertimeBanking({
-    regularHourlyWageCad: 'bad',
-    existingBankedHours: 'bad'
-  });
-  assert.equal(banking.financialLiability.regularHourlyWageCad, 0);
-  assert.equal(banking.bankingAudit.existingBankedHours, 0);
+test('Rec 224: Alberta overtime banking rejects invalid hours and monetary inputs', () => {
+  for (const hours of [['invalid', 10], [25], Array(8).fill(1)]) {
+    assert.throws(() => calculateAlbertaOvertimeHours(hours));
+  }
+  assert.equal(calculateAlbertaOvertimeHours([0, 10]).statutoryOvertimeHours, 2);
+  for (const field of ['regularHourlyWageCad', 'existingBankedHours', 'assessmentDate', 'isEmploymentTerminating']) {
+    assert.throws(() => evaluateAlbertaOvertimeBanking({ [field]: 'bad' }));
+  }
 });
 
 test('Rec 225: Manitoba Statutory Holiday Pay — Normalizes wages and hours safely', () => {

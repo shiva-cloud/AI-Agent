@@ -89,7 +89,7 @@ function renderList() {
           <span class="q-id-badge">${esc(item.id)}</span>
           <span class="q-cat-tag">${esc(item.category)}</span>
         </div>
-        <span class="${scoreClass}">${esc(item.perfectionScore)}/100</span>
+        <span class="${scoreClass}">Fixture: ${esc(item.perfectionScore)}/100</span>
       </div>
       <div class="q-title">${esc(item.scenario)}</div>
       <div class="q-snippet">${esc(item.question)}</div>
@@ -127,13 +127,13 @@ function renderDetail(item) {
   detailCategory.textContent = item.category;
 
   // Status Badge
-  detailStatus.textContent = item.status === 'guidance' ? 'GUIDANCE' : 'CLARIFICATION';
+  detailStatus.textContent = item.status === 'guidance' ? 'SAVED GUIDANCE' : 'SAVED CLARIFICATION';
   detailStatus.className = `status-badge ${item.status === 'guidance' ? 'guidance' : 'clarification'}`;
 
-  detailScore.textContent = `Score: ${item.perfectionScore}/100`;
+  detailScore.textContent = `Fixture score: ${item.perfectionScore}/100`;
   detailScenario.textContent = item.scenario;
   detailQuestion.textContent = item.question;
-  detailLatency.textContent = `${item.latencyMs || 35} ms`;
+  detailLatency.textContent = item.latencyMs == null ? '' : `Recorded: ${item.latencyMs} ms`;
 
   // Claims
   detailClaimsContainer.innerHTML = '';
@@ -146,7 +146,7 @@ function renderDetail(item) {
       claimBox.innerHTML = `
         <div class="claim-header">
           <span class="claim-id">${esc(claim.id)}</span>
-          <span class="claim-status">${esc(claim.status || 'approved')}</span>
+          <span class="claim-status">UNREVIEWED ARCHIVE</span>
         </div>
         <p class="claim-text">${esc(claim.text)}</p>
       `;
@@ -158,7 +158,7 @@ function renderDetail(item) {
   } else {
     detailClaimsContainer.innerHTML = `
       <div class="claims-unavailable">
-        ज्ञानकोश में इस विशिष्ट गणना/शर्त का सत्यापित सरकारी प्रमाण उपलब्ध नहीं है।
+        This fixture has no saved response.
       </div>
     `;
   }
@@ -185,17 +185,8 @@ function renderDetail(item) {
     detailSourcesContainer.innerHTML = '<div class="sources-empty">कोई स्रोत उद्धृत नहीं।</div>';
   }
 
-  // Audit Analysis
-  detailPerfectionAnalysis.innerHTML = `
-    <div><strong>Rating:</strong> ${esc(item.perfectionRating)}</div>
-    <div class="analysis-line"><strong>Analysis:</strong> ${
-      item.perfectionScore >= 90
-        ? 'सिस्टम ने सरकारी कानूनों (RTA, IRCC, LTB, DriveTest) की सटीक धाराओं और प्रक्रियाओं के साथ सीधा, बिना घुमाए उत्तर दिया।'
-        : item.perfectionScore >= 75
-        ? 'सिस्टम ने आधिकारिक नियामक प्राधिकरण की गाइडेंस दी है, हालांकि व्यक्तिगत गणना के लिए आधिकारिक टूल्स देखने की सिफारिश की गई है।'
-        : 'प्रश्नोत्तरी में या तो क्लैरिफिकेशन की आवश्यकता है या वर्तमान में ज्ञानकोश में विशिष्ट गणना उपलब्ध नहीं है।'
-    }</div>
-  `;
+  detailPerfectionAnalysis.textContent =
+    'The saved score comes from the original test and does not measure factual accuracy or current policy.';
 }
 
 // Global Show/Hide Questions List Toggle

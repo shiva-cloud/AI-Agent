@@ -102,9 +102,9 @@ export function calculateBcPnpPoints(input) {
   const bcEdu = Boolean(input.completedBcEducation);
   const cdnEduOutsideBc = Boolean(input.completedCanadianEducationOutsideBc);
   const designation = Boolean(input.hasProfessionalDesignationBc);
-  const clb = Number(input.clbLevel || 7);
+  const clb = Number(input.clbLevel ?? 7);
   const bilingual = Boolean(input.isBilingualEnglishAndFrench);
-  const wage = Number(input.hourlyWage || 25);
+  const wage = Number(input.hourlyWage ?? 25);
   const area = input.jobLocationArea || 'area_1_metro_van';
   const regionalExp = Boolean(input.hasRegionalEducationOrExperience);
 
@@ -257,10 +257,10 @@ export function auditSettlementFunds(familySize = 1, liquidSavingsCad = 0, curre
 export function evaluateProvincialNomineePathway(input = {}) {
   const province = (input.targetProvince || 'BC').toUpperCase();
   const noc = String(input.nocCode || '21231').trim();
-  const wage = Number(input.hourlyWage || 35);
+  const wage = Number(input.hourlyWage ?? 35);
   const hasJobOffer = Boolean(input.hasFullTimeJobOffer);
   const hasEeProfile = Boolean(input.hasActiveExpressEntryProfile);
-  const baseCrs = Number(input.expressEntryCrsScore || 450);
+  const baseCrs = Number(input.expressEntryCrsScore ?? 450);
 
   // 1. Calculate BC PNP Points
   const bcPoints = calculateBcPnpPoints({
@@ -341,10 +341,10 @@ export function evaluateProvincialNomineePathway(input = {}) {
   }
 
   // Language Lever
-  if (Number(input.clbLevel || 7) < 9) {
+  if (Number(input.clbLevel ?? 7) < 9) {
     strategicLevers.push({
       action: 'Upgrade English / French test score from current level to CLB 9+ (IELTS 8.0 Listening, 7.0 others or CELPIP 9)',
-      pointsGain: `+${(9 - Number(input.clbLevel || 7)) * 5} to +10 BC PNP Pts & +25 Federal CRS Pts`,
+      pointsGain: `+${(9 - Number(input.clbLevel ?? 7)) * 5} to +10 BC PNP Pts & +25 Federal CRS Pts`,
       impact: 'Achieves maximum points in the Language Proficiency human capital factor.'
     });
   }
@@ -373,7 +373,7 @@ export function evaluateProvincialNomineePathway(input = {}) {
     statutoryBlockers.push({
       code: 'SUB_MINIMUM_WAGE',
       statute: 'BC Employment Standards Act & BC PNP Policy',
-      message: `Offered wage ($${wage.toFixed(2)}/hr) is below the BC statutory minimum threshold ($${PNP_CONSTANTS.BC_PNP_BENCHMARKS.MIN_HOURLY_WAGE_BC.toFixed(2)}/hr). Application will be rejected.`
+      message: `Offered wage ($${wage.toFixed(2)}/hr) is below the BC statutory minimum threshold ($${PNP_CONSTANTS.BC_PNP_BENCHMARKS.MIN_HOURLY_WAGE_BC.toFixed(2)}/hr). Check the current provincial wage and program requirements.`
     });
   }
 
@@ -400,21 +400,21 @@ export function evaluateProvincialNomineePathway(input = {}) {
       pointsVsCutoff: cutoffDiffTech,
       likelihood: bcLikelihood,
       statutoryAdvisory: qualifiesForBcTech
-        ? 'Candidate holds an eligible Tech NOC with qualifying full-time job offer. Eligible for weekly targeted BC Tech draws at significantly lower point thresholds (~85 vs ~125).'
-        : 'Candidate does not meet BC Tech criteria (either NOC is non-tech or job offer duration is under 365 days). Must compete in general draws (~125 points).'
+        ? 'The profile matches the tool’s saved BC Tech conditions. Confirm the current draw criteria and schedule.'
+        : 'The profile does not match the tool’s saved BC Tech conditions for occupation, offer and wage. Compare the profile with current provincial criteria.'
     },
     oinpTechEligibility: {
       isOinpTechNoc,
       qualifiesForOinpTech,
       statutoryAdvisory: qualifiesForOinpTech
-        ? 'Candidate matches Ontario Human Capital Priorities Tech Draw parameters (NOC ' + noc + ', Express Entry active, CRS within target band). High probability of Ontario Notification of Interest (NOI).'
-        : 'Candidate does not match current OINP Tech Draw filters (requires targeted tech NOC and active Express Entry profile).'
+        ? 'Candidate matches Ontario Human Capital Priorities Tech Draw parameters (NOC ' + noc + ', Express Entry active, CRS within target band). This compares the profile with the tool’s saved filters. Invitation decisions and current draw criteria require separate confirmation.'
+        : 'Candidate does not match the tool’s saved Ontario filters (requires targeted tech NOC and active Express Entry profile).'
     },
     aaipTechEligibility: {
       qualifiesForAaipTech,
       statutoryAdvisory: qualifiesForAaipTech
-        ? 'Eligible for Alberta Advantage Immigration Program (AAIP) Accelerated Tech Pathway (CRS 300+, tech NOC, Alberta employer). Fast-tracked provincial nomination processing.'
-        : 'Ineligible for AAIP Accelerated Tech Pathway (requires job offer from Alberta tech employer, tech NOC, and active Express Entry profile).'
+        ? 'The profile matches the tool’s saved Alberta Advantage Immigration Program tech filters for occupation, job offer and Express Entry. Confirm the current program requirements.'
+        : 'The profile does not match the tool’s saved Alberta tech filters.'
     },
     settlementFunds: fundsAudit,
     strategicLevers,

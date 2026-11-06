@@ -82,3 +82,22 @@ test('Alberta Overtime Banking - Employment Termination Payout', () => {
   assert.equal(result.financialLiability.totalStatutoryPayoutOwedCad, 1200);
   assert.equal(result.bankingAudit.activeBankBalanceHours, 0);
 });
+
+test('Alberta overtime reconciles current and carried hours across payout triggers', () => {
+  const base = { regularHourlyWageCad: 20, dailyHoursWorked: [12], existingBankedHours: 10,
+    hoursTakenAsTimeOff: 2, hasWrittenOvertimeAgreement: true };
+  for (const [changes, payable, active] of [
+    [{ isEmploymentTerminating: true }, 12, 0],
+    [{ monthsElapsedSinceBanked: 7 }, 8, 4],
+    [{ hasWrittenOvertimeAgreement: 'false' }, 12, 0],
+    [{ isEmploymentTerminating: 'false' }, 0, 12]
+  ]) {
+    const result = evaluateAlbertaOvertimeBanking({ ...base, ...changes });
+    assert.equal(result.bankingAudit.hoursSubjectToMandatoryPayout, payable);
+    assert.equal(result.bankingAudit.activeBankBalanceHours, active);
+    assert.equal(result.financialLiability.totalStatutoryPayoutOwedCad, payable * 30);
+  }
+  const used = evaluateAlbertaOvertimeBanking({ ...base, monthsElapsedSinceBanked: 7, hoursTakenAsTimeOff: 10 });
+  assert.equal(used.bankingAudit.isExpiredPast6Months, false);
+  assert.equal(used.bankingAudit.activeBankBalanceHours, 4);
+});

@@ -8,7 +8,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorChoice, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_ABANDONED_GOODS_CONSTANTS = Object.freeze({
   STATUTORY_VALUATION_THRESHOLD_CAD: 2000, // Reg s. 5(1)
@@ -46,15 +47,18 @@ export function evaluateAlbertaAbandonedGoods({
   landlordName = 'Landlord',
   assessmentDate = todayIso()
 } = {}) {
-  const cleanActor = boundedText(actorRole, 'TENANT', 30);
+  const cleanActor = calculatorChoice(actorRole, 'actorRole', ["TENANT","LANDLORD"]);
   const cleanTenant = boundedText(tenantName, 'Tenant', 120);
   const cleanLandlord = boundedText(landlordName, 'Landlord', 120);
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const value = Number.isFinite(Number(estimatedMarketValueCad)) ? Math.max(0, Math.min(10000000, Number(estimatedMarketValueCad))) : 2500;
-  const daysElapsed = Number.isFinite(Number(daysSinceLandlordTookPossession)) ? Math.max(0, Math.min(3650, Math.floor(Number(daysSinceLandlordTookPossession)))) : 15;
-  const storageCosts = Number.isFinite(Number(accruedStorageAndMovingCostsCad)) ? Math.max(0, Math.min(100000, Number(accruedStorageAndMovingCostsCad))) : 200;
-  const rentArrears = Number.isFinite(Number(unpaidRentArrearsCad)) ? Math.max(0, Math.min(100000, Number(unpaidRentArrearsCad))) : 1500;
-  const auctionGross = Number.isFinite(Number(auctionProceedsRealizedCad)) ? Math.max(0, Math.min(10000000, Number(auctionProceedsRealizedCad))) : 0;
+  hasPreparedItemizedInventory = calculatorBoolean(hasPreparedItemizedInventory, 'hasPreparedItemizedInventory');
+  landlordDisposedBefore30Days = calculatorBoolean(landlordDisposedBefore30Days, 'landlordDisposedBefore30Days');
+  landlordRefusedReleaseWithoutRentArrears = calculatorBoolean(landlordRefusedReleaseWithoutRentArrears, 'landlordRefusedReleaseWithoutRentArrears');
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const value = calculatorNumber(estimatedMarketValueCad, 'estimatedMarketValueCad', {max: 10000000});
+  const daysElapsed = calculatorNumber(daysSinceLandlordTookPossession, 'daysSinceLandlordTookPossession', {max: 3650, integer: true});
+  const storageCosts = calculatorNumber(accruedStorageAndMovingCostsCad, 'accruedStorageAndMovingCostsCad', {max: 100000});
+  const rentArrears = calculatorNumber(unpaidRentArrearsCad, 'unpaidRentArrearsCad', {max: 100000});
+  const auctionGross = calculatorNumber(auctionProceedsRealizedCad, 'auctionProceedsRealizedCad', {max: 10000000});
 
   const isAbove2000Threshold = value >= ALBERTA_ABANDONED_GOODS_CONSTANTS.STATUTORY_VALUATION_THRESHOLD_CAD;
   const isWithin30DayStorageWindow = daysElapsed < ALBERTA_ABANDONED_GOODS_CONSTANTS.MANDATORY_STORAGE_PERIOD_DAYS;

@@ -1,6 +1,8 @@
 // src/routes/tools/immigration.js
 // Domain route handlers for immigration tools.
 
+import { ToolInputError } from '../../api-errors.js';
+import { applyFormAliases, ASSUMPTION_NOTICE } from '../../tool-input.js';
 import { analyzeGcmsRefusalNotes } from '../../gcms-refusal-analyzer.js';
 import { auditCitizenshipPhysicalPresence } from '../../federal-citizenship-residence-calculator-audit-navigator.js';
 import { evaluateAlbertaOpportunityStream } from '../../alberta-opportunity-stream-navigator.js';
@@ -68,6 +70,46 @@ import { evaluateVisitorVisaTies } from '../../visitor-visa-financial-ties-navig
 import { evaluateVulnerableWorkerProtection } from '../../vulnerable-worker-defense.js';
 import { evaluateYukonCriticalImpactWorker } from '../../yukon-nominee-critical-impact-worker-navigator.js';
 import { todayIso } from '../../text-input.js';
+
+const pnpRequiredFields = [
+  'targetProvince', 'nocCode', 'hourlyWage', 'hasFullTimeJobOffer', 'hasActiveExpressEntryProfile',
+  'expressEntryCrsScore', 'yearsOfDirectExperience', 'hasOneYearCanadianExperience',
+  'currentlyWorkingForBcEmployer', 'educationLevel', 'completedBcEducation',
+  'clbLevel', 'isBilingualEnglishAndFrench', 'jobLocationArea', 'familySize', 'liquidSavingsCad'
+];
+const pnpOptionalBonuses = [
+  'completedCanadianEducationOutsideBc', 'hasProfessionalDesignationBc', 'hasRegionalEducationOrExperience'
+];
+const pnpNumbers = {
+  hourlyWage: [0, 250], expressEntryCrsScore: [0, 1200, true], yearsOfDirectExperience: [0, 30],
+  clbLevel: [0, 10, true], familySize: [1, 10, true], liquidSavingsCad: [0, 1_000_000]
+};
+const pnpOptions = {
+  targetProvince: /^(BC|ON|AB)$/i,
+  nocCode: /^(?:[0-9]{5}|other)$/,
+  educationLevel: /^(?:doctoral|masters|post_grad_cert|bachelors|diploma_2yr|secondary)$/,
+  jobLocationArea: /^(?:area_1_metro_van|area_2_regional|area_3_rural)$/
+};
+
+function assessPnp(input) {
+  const missing = pnpRequiredFields.filter(name => input[name] === undefined || input[name] === '');
+  if (missing.length) throw new ToolInputError('Provide PNP profile fields: ' + missing.join(', ') + '.');
+  for (const [name, [min, max, integer]] of Object.entries(pnpNumbers)) {
+    const value = input[name];
+    if (value < min || value > max || (integer && !Number.isInteger(value))) {
+      throw new ToolInputError('Invalid ' + name + ': expected ' + (integer ? 'a whole number' : 'a number') + ' from ' + min + ' to ' + max + '.');
+    }
+  }
+  for (const [name, pattern] of Object.entries(pnpOptions)) {
+    const value = input[name];
+    if (typeof value !== 'string' || !pattern.test(value.trim())) throw new ToolInputError('Invalid ' + name + ' for PNP assessment.');
+    input[name] = value.trim();
+  }
+  const assumedInputs = pnpOptionalBonuses.filter(name => input[name] === undefined).sort();
+  const result = evaluateProvincialNomineePathway(input);
+  if (assumedInputs.length) Object.assign(result, {assumedInputs, assumptionNotice: ASSUMPTION_NOTICE});
+  return result;
+}
 
 export function handleImmigrationGet(ctx) {
   const { path, url } = ctx;
@@ -270,47 +312,7 @@ export function handleImmigrationGet(ctx) {
     }
 
     if(path==='/v1/tools/pnp-pathway') {
-      const targetProvince = url.searchParams.get('province') || 'BC';
-      const nocCode = url.searchParams.get('noc') || '21231';
-      const hourlyWage = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 35;
-      const hasFullTimeJobOffer = url.searchParams.get('jobOffer') !== 'false';
-      const hasActiveExpressEntryProfile = url.searchParams.get('ee') === 'true';
-      const expressEntryCrsScore = url.searchParams.get('crs') ? Number(url.searchParams.get('crs')) : 450;
-      const yearsOfDirectExperience = url.searchParams.get('exp') ? Number(url.searchParams.get('exp')) : 3;
-      const hasOneYearCanadianExperience = url.searchParams.get('cdnExp') !== 'false';
-      const currentlyWorkingForBcEmployer = url.searchParams.get('worksInBc') !== 'false';
-      const educationLevel = url.searchParams.get('education') || 'bachelors';
-      const completedBcEducation = url.searchParams.get('bcEdu') === 'true';
-      const completedCanadianEducationOutsideBc = url.searchParams.get('cdnEduOutside') === 'true';
-      const hasProfessionalDesignationBc = url.searchParams.get('designation') === 'true';
-      const clbLevel = url.searchParams.get('clb') ? Number(url.searchParams.get('clb')) : 8;
-      const isBilingualEnglishAndFrench = url.searchParams.get('bilingual') === 'true';
-      const jobLocationArea = url.searchParams.get('area') || 'area_1_metro_van';
-      const hasRegionalEducationOrExperience = url.searchParams.get('regionalExp') === 'true';
-      const familySize = url.searchParams.get('familySize') ? Number(url.searchParams.get('familySize')) : 1;
-      const liquidSavingsCad = url.searchParams.get('savings') ? Number(url.searchParams.get('savings')) : 25000;
-
-      return send(200, evaluateProvincialNomineePathway({
-        targetProvince,
-        nocCode,
-        hourlyWage,
-        hasFullTimeJobOffer,
-        hasActiveExpressEntryProfile,
-        expressEntryCrsScore,
-        yearsOfDirectExperience,
-        hasOneYearCanadianExperience,
-        currentlyWorkingForBcEmployer,
-        educationLevel,
-        completedBcEducation,
-        completedCanadianEducationOutsideBc,
-        hasProfessionalDesignationBc,
-        clbLevel,
-        isBilingualEnglishAndFrench,
-        jobLocationArea,
-        hasRegionalEducationOrExperience,
-        familySize,
-        liquidSavingsCad
-      }));
+      return send(200, assessPnp(applyFormAliases(path, Object.fromEntries(url.searchParams))));
     }
 
     if(path==='/v1/tools/bowp-diagnostic') {
@@ -1913,7 +1915,7 @@ export function handleImmigrationPost(ctx) {
     }
 
     if(path==='/v1/tools/pnp-pathway') {
-      return send(200, evaluateProvincialNomineePathway(input));
+      return send(200, assessPnp({...input}));
     }
 
     if(path==='/v1/tools/bowp-diagnostic') {

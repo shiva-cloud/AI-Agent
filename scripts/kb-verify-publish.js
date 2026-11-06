@@ -12,6 +12,7 @@
 //   node scripts/kb-verify-publish.js --queue-only        rank the queue and list
 //       blockers without fetching any page or writing anything
 //   --topic health   --limit 50                           narrow a run
+//   --id rec-a,rec-b                                      verify only these records
 //
 // The report is written to data/kb-verify-publish-report.json.
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -44,10 +45,10 @@ async function fetchAll(urls, { concurrency = 4, fetchImpl } = {}) {
   return pages;
 }
 
-export async function verifyAndPublish(store, { apply = false, topic = null, limit = Infinity, fetchImpl, now = new Date(), queueOnly = false, onPublished = null } = {}) {
+export async function verifyAndPublish(store, { apply = false, topic = null, limit = Infinity, fetchImpl, now = new Date(), queueOnly = false, onPublished = null, ids = null } = {}) {
   const today = now.toISOString().slice(0, 10);
   const queue = publishQueue(store.db, store.records(), store.ingestion.sources(), store.ingestion.candidates(), now);
-  const rows = queue.rows.filter(r => r.state === 'ready' && (!topic || r.topic === topic)).slice(0, limit);
+  const rows = queue.rows.filter(r => r.state === 'ready' && (!topic || r.topic === topic) && (!ids || ids.includes(r.id))).slice(0, limit);
   // --queue-only: rank the queue and list blockers without touching the
   // network. Fetches stay limited to apply/check runs that actually verify.
   if (queueOnly) {
@@ -122,6 +123,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const out = opt('--report') || join(root, 'data', 'kb-verify-publish-report.json');
   try {
     const report = await verifyAndPublish(store, { apply: apply && !queueOnly, topic: opt('--topic'), limit: Number(opt('--limit')) || Infinity,
+      ids: args.includes('--id') ? args[args.indexOf('--id') + 1].split(',') : null,
       queueOnly, onPublished: r => console.log(`published: ${r.id}`) });
     report.backup = backupFile;
     // The report lands on disk before anything else can fail after a

@@ -52,6 +52,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/coverage/countries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get__v1_coverage_countries"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/coverage/{city}": {
         parameters: {
             query?: never;
@@ -1003,8 +1019,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** @description Planning estimate against saved program criteria. Provide the required profile fields before an estimate is returned. */
         get: operations["get__v1_tools_pnp_pathway"];
         put?: never;
+        /** @description Planning estimate against saved program criteria. Provide the required profile fields before an estimate is returned. */
         post: operations["post__v1_tools_pnp_pathway"];
         delete?: never;
         options?: never;
@@ -2158,6 +2176,70 @@ export interface paths {
         get: operations["get__v1_tools_canada_status_admissibility"];
         put?: never;
         post: operations["post__v1_tools_canada_status_admissibility"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/tools/australia-tenancy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get__v1_tools_australia_tenancy"];
+        put?: never;
+        post: operations["post__v1_tools_australia_tenancy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/tools/us-state-tenancy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get__v1_tools_us_state_tenancy"];
+        put?: never;
+        post: operations["post__v1_tools_us_state_tenancy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/tools/uk-devolved-tenancy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get__v1_tools_uk_devolved_tenancy"];
+        put?: never;
+        post: operations["post__v1_tools_uk_devolved_tenancy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/tools/uae-tenancy-dispute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get__v1_tools_uae_tenancy_dispute"];
+        put?: never;
+        post: operations["post__v1_tools_uae_tenancy_dispute"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4932,6 +5014,53 @@ export interface operations {
                                 count: number;
                             }[];
                         }[];
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    get__v1_coverage_countries: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        asOf?: string;
+                        big12?: {
+                            [key: string]: unknown;
+                        }[];
+                        restOfWorld?: {
+                            [key: string]: unknown;
+                        };
+                        canada?: {
+                            [key: string]: unknown;
+                        };
+                    } & {
+                        [key: string]: unknown;
                     };
                 };
             };
@@ -12561,7 +12690,27 @@ export interface operations {
     };
     get__v1_tools_pnp_pathway: {
         parameters: {
-            query?: never;
+            query: {
+                targetProvince: string;
+                nocCode: string;
+                hourlyWage: number;
+                hasFullTimeJobOffer: boolean;
+                hasActiveExpressEntryProfile: boolean;
+                expressEntryCrsScore: number;
+                yearsOfDirectExperience: number;
+                hasOneYearCanadianExperience: boolean;
+                currentlyWorkingForBcEmployer: boolean;
+                educationLevel: "doctoral" | "masters" | "post_grad_cert" | "bachelors" | "diploma_2yr" | "secondary";
+                completedBcEducation: boolean;
+                completedCanadianEducationOutsideBc?: boolean;
+                hasProfessionalDesignationBc?: boolean;
+                clbLevel: number;
+                isBilingualEnglishAndFrench: boolean;
+                jobLocationArea: "area_1_metro_van" | "area_2_regional" | "area_3_rural";
+                hasRegionalEducationOrExperience?: boolean;
+                familySize: number;
+                liquidSavingsCad: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -12666,24 +12815,26 @@ export interface operations {
             content: {
                 "application/json": {
                     targetProvince: string;
-                    nocCode?: string;
-                    hourlyWage?: number;
-                    hasFullTimeJobOffer?: boolean;
-                    hasActiveExpressEntryProfile?: boolean;
-                    expressEntryCrsScore?: number;
-                    yearsOfDirectExperience?: number;
-                    hasOneYearCanadianExperience?: boolean;
-                    currentlyWorkingForBcEmployer?: boolean;
-                    educationLevel?: string;
-                    completedBcEducation?: boolean;
+                    nocCode: string;
+                    hourlyWage: number;
+                    hasFullTimeJobOffer: boolean;
+                    hasActiveExpressEntryProfile: boolean;
+                    expressEntryCrsScore: number;
+                    yearsOfDirectExperience: number;
+                    hasOneYearCanadianExperience: boolean;
+                    currentlyWorkingForBcEmployer: boolean;
+                    /** @enum {unknown} */
+                    educationLevel: "doctoral" | "masters" | "post_grad_cert" | "bachelors" | "diploma_2yr" | "secondary";
+                    completedBcEducation: boolean;
                     completedCanadianEducationOutsideBc?: boolean;
                     hasProfessionalDesignationBc?: boolean;
-                    clbLevel?: number;
-                    isBilingualEnglishAndFrench?: boolean;
-                    jobLocationArea?: string;
+                    clbLevel: number;
+                    isBilingualEnglishAndFrench: boolean;
+                    /** @enum {unknown} */
+                    jobLocationArea: "area_1_metro_van" | "area_2_regional" | "area_3_rural";
                     hasRegionalEducationOrExperience?: boolean;
-                    familySize?: number;
-                    liquidSavingsCad?: number;
+                    familySize: number;
+                    liquidSavingsCad: number;
                 } & {
                     [key: string]: unknown;
                 };
@@ -22654,6 +22805,451 @@ export interface operations {
                 content: {
                     "application/json": {
                         isEligible?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    get__v1_tools_australia_tenancy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        state?: string;
+                        tribunal?: string;
+                        financialSummary?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryRemedies?: string[];
+                        violations?: string[];
+                        overallComplianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    post__v1_tools_australia_tenancy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    state: string;
+                    weeklyRentAud?: number;
+                    bondPaidAud?: number;
+                    rentIncreasePercent?: number;
+                    monthsSinceLastRentIncrease?: number;
+                    noticeGivenDays?: number;
+                    tenantName?: string;
+                    assessmentDate?: string;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        state?: string;
+                        tribunal?: string;
+                        financialSummary?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryRemedies?: string[];
+                        violations?: string[];
+                        overallComplianceStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    get__v1_tools_us_state_tenancy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        state?: string;
+                        financialOverview?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryViolations?: string[];
+                        overallStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    post__v1_tools_us_state_tenancy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    state: string;
+                    monthlyRentUsd?: number;
+                    securityDepositPaidUsd?: number;
+                    rentIncreasePercent?: number;
+                    tenancyDurationMonths?: number;
+                    daysSinceMoveOut?: number;
+                    tenantName?: string;
+                    assessmentDate?: string;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        state?: string;
+                        financialOverview?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryViolations?: string[];
+                        overallStatus?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    get__v1_tools_uk_devolved_tenancy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        nation?: string;
+                        evictionAssessment?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryViolations?: string[];
+                        overallCompliance?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    post__v1_tools_uk_devolved_tenancy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    nation: string;
+                    monthlyRentGbp?: number;
+                    depositPaidGbp?: number;
+                    tenureDurationMonths?: number;
+                    noticeGivenDays?: number;
+                    evictionGround?: string;
+                    tenantName?: string;
+                    assessmentDate?: string;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        nation?: string;
+                        evictionAssessment?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryViolations?: string[];
+                        overallCompliance?: string;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    get__v1_tools_uae_tenancy_dispute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        emirate?: string;
+                        portal?: string;
+                        disputeForum?: string;
+                        financialOverview?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryViolations?: string[];
+                        isCompliant?: boolean;
+                        /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
+                        assumedInputs?: string[];
+                        assumptionNotice?: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description JSON API failure. Some failures include additional context. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        error: string;
+                        code: string;
+                    } & {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    post__v1_tools_uae_tenancy_dispute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    emirate: string;
+                    currentAnnualRentAed?: number;
+                    averageMarketRentAed?: number;
+                    proposedAnnualRentAed?: number;
+                    noticeDaysPriorToRenewal?: number;
+                    evictionNoticeGiven?: boolean;
+                    evictionServedViaNotary?: boolean;
+                    tenantName?: string;
+                    assessmentDate?: string;
+                } & {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        jurisdiction?: string;
+                        emirate?: string;
+                        portal?: string;
+                        disputeForum?: string;
+                        financialOverview?: {
+                            [key: string]: unknown;
+                        };
+                        statutoryViolations?: string[];
+                        isCompliant?: boolean;
                         /** @description Inputs the caller did not provide; the tool used built-in defaults for them. */
                         assumedInputs?: string[];
                         assumptionNotice?: string;
