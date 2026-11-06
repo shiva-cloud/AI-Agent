@@ -208,7 +208,7 @@ test('evidence database coverage floors hold when the database is present', (t) 
   // replaced three pilot paraphrase quotes with verbatim page sentences -
   // the IRB NDP index, Legal Aid Ontario, and Amsterdam's first-registration
   // page via its archived copy (187 distinct published records).
-  assert.ok(publishedIds.size >= 187, 'publication-chain floor');
+  assert.ok(publishedIds.size >= 190, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

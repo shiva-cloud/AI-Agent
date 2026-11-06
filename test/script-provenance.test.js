@@ -6,7 +6,9 @@ import { readFileSync, readdirSync } from 'node:fs';
 // record when an approved audit entry with a reviewer and note matches it. Scripts that
 // inserted their own entries under invented reviewer names are archived; only the KB
 // correction scripts may write audits, and they label themselves as automated, not
-// editorial.
+// editorial. batch eighteen's edits are a user-approved editorial summary revision
+// carried out by an automated script; the review method remains source_verified and
+// the reviewer label states the approval rather than an automated correction.
 const ALLOWED = new Map([
   ['kb-corrections-2026-11-01.js', /automated correction, not editorial review/],
   ['jurisdiction-normalize-2026-11-03.js', /automated correction, not editorial review/],
@@ -16,7 +18,8 @@ const ALLOWED = new Map([
   ['kb-corrections-2026-11-06.js', /automated correction, not editorial review/],
   ['kb-corrections-2026-11-06-b.js', /automated correction, not editorial review/],
   ['kb-corrections-2026-11-06-c.js', /automated correction, not editorial review/],
-  ['kb-corrections-2026-11-06-d.js', /automated correction, not editorial review/]
+  ['kb-corrections-2026-11-06-d.js', /automated correction, not editorial review/],
+  ['kb-corrections-2026-11-06-e.js', /user-approved editorial revision/]
 ]);
 
 test('active scripts do not insert their own audit entries', () => {

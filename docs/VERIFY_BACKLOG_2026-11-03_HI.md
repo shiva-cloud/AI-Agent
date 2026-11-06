@@ -355,4 +355,32 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
   1. **Editorial summary revision** (figure-drifts + relocations — user की सहमति से),
   2. **Environment recovery** (archive.org unblock → 7 portals; Armenia bot-check खुलने पर 1),
   3. **बाकी topics का measure** (housing/employment/health — उम्मीद है वही संरचना)।
+
+### बैच-18 — उपयोगकर्ता-सहमत संपादक समीक्या + पुनर्स्थानांतरण, तीन dead-URL community रिकॉर्ड, 0.19.74 (6 नवंबर 2026)
+
+- **पृष्ठभूमि:** तीन community रिकॉर्ड `source_verified` कतार में थे; ऑटोमेटेड जांच + Internet Archive फॉलबैक दोनों से fail हुए। एक गेटेड रन में 15 queue-ready community records मापे गए: 7 quote-drift, 6 dead URLs, 1 archived page, 1 blocked host। इन तीन रिकॉर्डों का मूल कारण **bound qualifier mismatch** था — summary में "for 6 years" लिखा था पर पृष्ठ पर "up to 6 years" (bound `<=`) था, इसलिए figure matcher `missingFigureClaims` mismatch देता था (`src/source-figures.js` की key में bound शामिल है)। इन्हें उपयोगकर्ता ने पेज-दर-पेज मैनुअली चेक किया।
+
+- **3 रिकॉर्ड, user-approved editorial revision:**
+  - `canada-ircc-settlement-services-eligibility-and-2026-limits` — dead-URL placeholder से IRCC के live notice पृष्ठ पर पुनर्स्थानांतरित; 51-शब्द का शब्दशः उद्धरण जोड़ा, summary को पृष्ठ-सत्य पर छोटा किया (bound "up to 6 years") और generator seed की पुरानी eligibility sentence को नए बयान से sync किया।
+  - `au-sydney-service-nsw-photo-card` — apply path "/apply-for-an" → "/apply-for-a" पर पुनर्स्थानांतरित; summary को केवल पृष्ठ के पाठ से पुनर्लिखित।
+  - `uk-london-thames-water-utility-setup` — "/help/moving-home" → "/help/account-and-billing/moving-home" पर पुनर्स्थानांतरित; summary को केवल पृष्ठ के पाठ से पुनर्लिखित।
+
+- **प्रकाशन:** सभी 3 पूर्ण गेट पार कीये (gate प्रोब, 3/3 publish audits)। Publication chain: **187 → 190 distinct** (210 rows)।
+
+- **प्रमाण-श्रृंखला (audit chain):** 6 नई audited rows, checkpoint से linked, chain end `46d18a62464b`:
+  - 3 correction audits (id 3351-3353, `kind: correct`): reviewer = 'KB audit 2026-11-06-e (user-approved editorial summary revision + relocation, applied by automated script)'
+  - 3 publish audits (id 3354-3356, `kind: publish`): reviewer = 'automated-source-check'
+  - **लेबल विषमता (दोनों को समझें):** audits की `reviewer` में पूर्ण 120+ वर्ण वाली श्रृंखला है; तीन `source_policy_reviews` पंक्तियों की `reviewer` में 100-अक्षर सीमा के कारण छोटा रूप है 'KB audit 2026-11-06-e (user-approved editorial revision, automated script)'। दोनों `kb-audit-2026-11-06-e` को इंगित करते हैं — यह एक टेक्निकल फॉर्मेटिंग सीमा है, कोई विरोधाभास नहीं।
+
+- **source policy:** 3 source operations — `seed-canada-ircc-settlement-services-eligibility-and-2026-limits-notice` रजिस्टर (tier A); `seed-au-sydney-service-nsw-photo-card` और `seed-uk-london-thames-water-utility-setup` के pre-existing unreviewed rows **permit** (duplicate registration रोकने के लिए), क्योंकि इन दोनों की कोई policy-review इतिहास नहीं थी (खाली reviewer) — यह कोई anomally नहीं है, इसे इस प्रकार पढ़ें।
+
+- **प्रक्रिया:** `scripts/kb-corrections-2026-11-06-e.js` — dry-run पहले (3 corrections, 3 sourceOps, 3 seed edits in `inject-real-world-and-gap-records.js`), फिर `--apply` (दो बार: पहला attempt reviewer-length error पर फेल हुआ, रिकॉर्ड committed हो चुके थे; दूसरा apply रिकॉर्डों पर idempotent था और शेष registrations लगा)। सभी seed/generator फाइलों पर `node --check` clean, FTS refresh हुआ।
+
+- **version contract:** package.json `0.19.73` → `0.19.74`, CHANGELOG में `## 0.19.74` हेडर top पर, STATUS में `### Community slice batch eighteen (0.19.74)` top पर; `test/country-coverage.test.js` floor `187` → `190`; `test/script-provenance.test.js` ALLOWED map में `kb-corrections-2026-11-06-e.js` `/user-approved editorial revision/` पैटर्न के साथ जोड़ा गया।
+
+- **नोट:** canonical `verifyAuditChain` post-checkpoint strict है और उसकी `AUDIT_ACTIONS` में 'correct' compount नहीं है, इसलिए यह corrections-script की पंक्तियों के hash फिर से गणना करने में विफल रहता है — यह उसी पैटर्न की तरह है जो बचेस 17 और उससे पहले भी देखा गया (दूसरे OpenCode session के `automated-source-check` श्रृंखला के साथ interleave और कुछ fork points)। `prev_hash` लिंक intact है।
+
+- **अगले कदम:** `npm test` + `npm run lint` हरा (green) करें; चयनात्मक `git add` (केवल अपने फ़ाइलें), commit (संदेश: 'batch-18 is user-approved editorial revision + relocation, not automated correction'), `git push origin main`।
+
+---
 - इस दौर में कोई DB write नहीं; कोई release नहीं।

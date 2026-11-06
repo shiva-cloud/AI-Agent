@@ -1,3 +1,14 @@
+## 0.19.74 — Community slice batch eighteen: user-approved editorial summary revisions + relocations for three dead-URL community records (6 November 2026)
+
+Three community records that appeared to be dead URLs failed archive fallback in a gated review run, so a human verified them page by page. The review found two of the three were live and usable, so the edits are user-approved editorial summary revisions and relocations rather than automated corrections; the third was a false positive caused by a bound qualifier mismatch ('for 6 years' vs the page's 'up to 6 years') and also carried a trivially stale eligibility sentence. All three passed the full publication gate.
+
+- `canada-ircc-settlement-services-eligibility-and-2026-limits` relocated from the retired `IRCC-eligibility-and-2026-limits` placeholder to IRCC's live notice page; the verbatim quote and summary trimmed to claims actually on the page, plus an older eligibility sentence in the generator seed updated to the revised sentence.
+- `au-sydney-service-nsw-photo-card` relocated (apply path `/apply-for-an` → `/apply-for-a`); summary rewritten to match only text on the page.
+- `uk-london-thames-water-utility-setup` relocated (`/help/moving-home` → `/help/account-and-billing/moving-home`); summary rewritten to match only text on the page.
+- Audit chain extended by six rows (3 corrections `kind: correct`, 3 publishes `kind: publish`) linked from the prior checkpoint; publication floor holds at 190 distinct published records (up from 187).
+
+---
+
 # Changelog
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.

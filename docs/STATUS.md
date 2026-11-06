@@ -1,6 +1,15 @@
+### Community slice batch eighteen (0.19.74)
+
+The newest release is documented in `docs/CHANGELOG.md`.
+
+**3 records, user-approved editorial revisions + relocations** (IRCC, NSW photo card, Thames Water).
+Full detail in `docs/CHANGELOG.md` 0.19.74.
+Audit chain intact from prior checkpoint (chain end `46d18a62464b`, 6 new rows); publication floor 190 distinct / 210 rows.
+---
+
 # Implementation status — 6 November 2026
 
-## Current release: 0.19.73, English-only
+## Current release: 0.19.74, English-only
 
 ### Community slice batch seventeen (0.19.73)
 
