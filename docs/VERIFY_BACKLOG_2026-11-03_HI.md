@@ -336,3 +336,12 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - सभी 16 repairable-दिखने वालों का full-gate candidate probe (हर वाक्य verbatim + figure check सहित): **सिर्फ़ 1 (Madrid) pass, और उसके सारे passes Spanish nav-fragments** — non-ASCII (í) DB English guard से भी reject होते। **0 ईमानदार repairs।**
 - **निष्कर्ष:** non-portal queue का "quote-drift" असल में **figure/content-drift** है — pages का content बदल चुका है या summaries के figures अब pages पर नहीं हैं। यह automated re-quoting से ठीक नहीं हो सकता; चाहिए (क) editorial summary revision, या (ख) relocation (नया official URL)। Snapshot-वालों (Manchester, Action Fraud, Melbourne, OFII) के snapshots में भी usable English नहीं।
 - अगले व्यावहारिक रास्ते: **relocation batch** (13 dead-URL community records — websearch से नए official URLs ढूँढकर batch-13 flow: नया URL + नया quote + source registration), और driving (174) का sample measure (शायद उसकी प्रकृति अलग हो)।
+
+### Recon-only दौर - relocation batch की तैयारी (0.19.73 के बाद, कोई release नहीं)
+
+- Websearch इस environment में उपलब्ध नहीं (HTTP 402 - quota/billing) — relocation खोज hosts के अपने index/parent pages के raw HTML से hrefs grep करके की गई।
+- 13 dead-URL records का live re-probe: **12 असली 404 + 1 403** (ADDCAbu Dhabi)।
+- खोज सफल (parent-page grep से): IRCC settlement-eligibility का नया notice page, Service NSW photo card (`apply-for-an` → `apply-for-a`), Thames Water moving-home (`/help/account-and-billing/moving-home`)। Singpass का /main जीवित।
+- **पर सभी full publication gate से fail — कारण हर जगह वही: summary के figures pages पर नहीं।** IRCC record "2026 limits" कहता है, नया notice 2027 की तारीख़ें देता है (record factually outdated); NSW summary "Photo Card Act 2005" कहता है, page वह वर्ष नहीं बताता; Thames Water के 26 quote-only candidates पर figures missing।
+- **निष्कर्ष:** relocation bucket **editorial-bound** है — नया URL + नया quote अकेला काफ़ी नहीं; summary को नए page के अनुसार revise करना पड़ेगा (editorial review), उसके बाद ही relocation+publish संभव। 0 records force नहीं किए।
+- इस दौर में कोई DB write नहीं (सिर्फ़ probes); कोई release नहीं।
