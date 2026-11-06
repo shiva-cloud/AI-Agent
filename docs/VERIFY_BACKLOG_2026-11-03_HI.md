@@ -329,3 +329,10 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - Chain **184 → 187 distinct** (207 rows)। Script `scripts/kb-corrections-2026-11-06-d.js` (SOURCE_REGISTRATIONS खाली; seed walk ने 1 generator file update किया, `node --check` साफ़), idempotent re-run 0/0/0। हर candidate पूरे gate (verbatim + summary-figure check) से गुज़रा।
 - **Scoped-measure pattern सस्ता और काम करता है:** 15 नापे → 3 publish → बाकी community का repair-map दिख गया। housing (148), employment (92), health (51) अगले।
 - Floors 184 → **187** refrozen (दसवीं freeze); version 0.19.73।
+
+### माप-only दौर - community के बाकी 27 records (0.19.73 के बाद, कोई release नहीं)
+
+- Community के शेष 27 queue-ready records का dry verification: **12 live quote-drift, 7 dead-URL (archive में snapshot नहीं), 3 snapshot-पर-quote-नहीं, 1 snapshot-quote-छोटा, 2 × HTTP 400 (BAMF/STAG), 2 अज्ञात-null failures।**
+- सभी 16 repairable-दिखने वालों का full-gate candidate probe (हर वाक्य verbatim + figure check सहित): **सिर्फ़ 1 (Madrid) pass, और उसके सारे passes Spanish nav-fragments** — non-ASCII (í) DB English guard से भी reject होते। **0 ईमानदार repairs।**
+- **निष्कर्ष:** non-portal queue का "quote-drift" असल में **figure/content-drift** है — pages का content बदल चुका है या summaries के figures अब pages पर नहीं हैं। यह automated re-quoting से ठीक नहीं हो सकता; चाहिए (क) editorial summary revision, या (ख) relocation (नया official URL)। Snapshot-वालों (Manchester, Action Fraud, Melbourne, OFII) के snapshots में भी usable English नहीं।
+- अगले व्यावहारिक रास्ते: **relocation batch** (13 dead-URL community records — websearch से नए official URLs ढूँढकर batch-13 flow: नया URL + नया quote + source registration), और driving (174) का sample measure (शायद उसकी प्रकृति अलग हो)।
