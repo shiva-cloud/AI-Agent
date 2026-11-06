@@ -67,11 +67,35 @@ test('the validator names each kind of problem', () => {
   const problems = tags => validateSubjectTags(new Map(tags), [rec]).join('\n');
   assert.equal(problems([tagged(rec, ['sublet'])]), '');
   assert.match(problems([['a', {subjects: ['nope'], hash, status: 'confirmed', method: 'reviewer'}]]), /unknown subject/);
-  assert.match(problems([['a', {subjects: [], hash, status: 'confirmed', method: 'reviewer'}]]), /no subjects/);
+  assert.equal(problems([['a', {subjects: [], hash, status: 'confirmed', method: 'reviewer'}]]), '', 'a reviewer may decide nothing fits');
+  assert.match(problems([['a', {subjects: [], hash, status: 'proposed', method: 'rule'}]]), /no subjects/);
   assert.match(problems([['a', {subjects: ['sublet', 'sublet'], hash, status: 'proposed', method: 'rule'}]]), /repeated/);
   assert.match(problems([['ghost', {subjects: ['sublet'], hash, status: 'proposed', method: 'rule'}]]), /no such record/);
   assert.match(problems([['a', {subjects: ['sublet'], hash: '0'.repeat(16), status: 'proposed', method: 'rule'}]]), /stale/);
   assert.match(problems([['a', {subjects: ['sublet'], hash, status: 'confirmed', method: 'rule'}]]), /without a reviewer/);
+});
+
+test('review decisions become confirmed tags only for the text that was judged', async () => {
+  const {applyDecisions} = await import('../scripts/subject-tags-apply-review.js');
+  const a = record('a', 'housing', 'Tenants may sublet.');
+  const b = record('b', 'housing', 'Rent guideline.');
+  const c = record('c', 'housing', 'Deposit rules.');
+  const hash = recordTextHash;
+  const {tags, report} = applyDecisions({}, [
+    {id: 'a', decision: 'approved', subjects: ['sublet'], hash: hash(a), by: 'u1', at: '2026-11-06'},
+    {id: 'b', decision: 'none', subjects: ['rent-increase'], hash: hash(b)},
+    {id: 'c', decision: 'changed', subjects: ['deposit'], hash: 'stale000stale000'},
+    {id: 'ghost', decision: 'approved', subjects: ['sublet'], hash: 'x'},
+    {id: 'a', decision: 'maybe', subjects: ['sublet'], hash: hash(a)}
+  ], [a, b, c]);
+  assert.deepEqual(tags.a.subjects, ['sublet']);
+  assert.equal(tags.a.method, 'reviewer');
+  assert.deepEqual(tags.b.subjects, [], 'none clears the subjects even if some were sent');
+  assert.equal(tags.c, undefined);
+  assert.deepEqual(report.staleSkipped, ['c']);
+  assert.deepEqual(report.unknownRecord, ['ghost']);
+  assert.deepEqual(report.invalid, ['a']);
+  assert.deepEqual(validateSubjectTags(new Map(Object.entries(tags)), [a, b, c]), []);
 });
 
 test('the committed tag file is valid, and no rule suggestion is treated as confirmed', () => {

@@ -27,7 +27,9 @@ export function validateSubjectTags(tags, records = null) {
   const problems = [];
   const byId = records && new Map(records.map(record => [record.id, record]));
   for (const [id, tag] of tags) {
-    if (!Array.isArray(tag.subjects) || !tag.subjects.length) problems.push(`${id}: no subjects`);
+    // A reviewer may decide that no subject fits, which is different from not being checked.
+    const reviewedAsNone = tag.status === 'confirmed' && tag.method === 'reviewer' && Array.isArray(tag.subjects) && !tag.subjects.length;
+    if (!reviewedAsNone && (!Array.isArray(tag.subjects) || !tag.subjects.length)) problems.push(`${id}: no subjects`);
     for (const subject of tag.subjects || []) if (!SUBJECT_IDS.has(subject)) problems.push(`${id}: unknown subject ${subject}`);
     if (new Set(tag.subjects).size !== tag.subjects?.length) problems.push(`${id}: repeated subject`);
     if (!TAG_STATUSES.includes(tag.status)) problems.push(`${id}: bad status ${tag.status}`);

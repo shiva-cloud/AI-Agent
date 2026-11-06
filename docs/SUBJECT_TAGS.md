@@ -49,3 +49,7 @@ The questions are developer-written and judge subject only, not legal accuracy. 
 ## Rollout
 
 Each topic switches on separately once 95% of its records are tagged and a reviewer has sampled 10% of its tags. A question that matches no subject keeps the existing rules. Turning a topic's switch off restores them at once.
+
+## Reviewing tags
+
+`scripts/subject-tags-review-list.js` lists the publicly served records of the named topics with their suggestions. Decisions from a review are applied with `scripts/subject-tags-apply-review.js`, which skips any decision made against text that has since changed and writes nothing unless `--write` is passed.
