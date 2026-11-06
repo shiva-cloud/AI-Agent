@@ -101,3 +101,29 @@ test('Alberta overtime reconciles current and carried hours across payout trigge
   assert.equal(used.bankingAudit.isExpiredPast6Months, false);
   assert.equal(used.bankingAudit.activeBankBalanceHours, 4);
 });
+
+test('Each outstanding credit expires after its own six-month deadline at its earning rate', () => {
+  const input = { hasWrittenOvertimeAgreement: true, dailyHoursWorked: [], regularHourlyWageCad: 40,
+    bankedCredits: [
+      { payPeriodEnd: '2025-08-31', remainingHours: 3, hourlyWageWhenEarnedCad: 20 },
+      { payPeriodEnd: '2025-10-31', remainingHours: 2, hourlyWageWhenEarnedCad: 25 }
+    ] };
+  const onDeadline = evaluateAlbertaOvertimeBanking({ ...input, assessmentDate: '2026-02-28' });
+  assert.equal(onDeadline.bankingAudit.activeBankBalanceHours, 5);
+  const after = evaluateAlbertaOvertimeBanking({ ...input, assessmentDate: '2026-03-01' });
+  assert.equal(after.financialLiability.bankedHoursPayoutCad, 90);
+  assert.equal(after.bankingAudit.activeBankBalanceHours, 2);
+  const ended = evaluateAlbertaOvertimeBanking({ ...input, assessmentDate: '2026-03-01', isEmploymentTerminating: true });
+  assert.equal(ended.financialLiability.bankedHoursPayoutCad, 165);
+});
+
+test('Collective agreement extension respects the last eligible day and termination', () => {
+  const input = { hasWrittenOvertimeAgreement: true, collectiveAgreementBankingMonths: 9,
+    bankedCredits: [{ payPeriodEnd: '2025-05-31', remainingHours: 3, hourlyWageWhenEarnedCad: 20 }],
+    assessmentDate: '2026-02-28' };
+  assert.equal(evaluateAlbertaOvertimeBanking(input).bankingAudit.isBankExpired, false);
+  assert.equal(evaluateAlbertaOvertimeBanking({ ...input, assessmentDate: '2026-03-01' }).financialLiability.bankedHoursPayoutCad, 90);
+  assert.equal(evaluateAlbertaOvertimeBanking({ ...input, isEmploymentTerminating: true }).financialLiability.bankedHoursPayoutCad, 90);
+  assert.throws(() => evaluateAlbertaOvertimeBanking({ ...input, hasWrittenOvertimeAgreement: false }), /written overtime agreement/);
+  assert.throws(() => evaluateAlbertaOvertimeBanking({ ...input, collectiveAgreementBankingMonths: 5 }), /collectiveAgreementBankingMonths/);
+});

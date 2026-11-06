@@ -2420,6 +2420,19 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     assert.equal(bcGroupPostData.isExemptUnderSection65, true);
     assert.equal(bcGroupPostData.complianceStatus, 'EXEMPT_JUST_CAUSE');
 
+    const groupUrl = baseUrl + '/v1/tools/bc-esa-group-termination';
+    const groupGet = await fetch(groupUrl + '?affectedEmployeesCount=50&groupNoticeWeeksGiven=1.5&isJustCauseTermination=false');
+    const groupPost = await fetch(groupUrl, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ affectedCount: 50, noticeGivenWeeks: 1.5, justCause: 'false' })
+    });
+    for (const response of [groupGet, groupPost]) {
+      assert.equal(response.status, 200);
+      assert.equal((await response.json()).groupTerminationDetails.statutoryGroupPayInLieuCad, 7800);
+    }
+    assert.equal((await fetch(groupUrl + '?affectedCount=49.5')).status, 400);
+    assert.equal((await fetch(groupUrl + '?justCause=unknown')).status, 400);
+
     // 104. Federal Start-Up Visa Navigator
     const suvGetRes = await fetch(`${baseUrl}/v1/tools/start-up-visa?entityType=VENTURE_CAPITAL_FUND&commitmentCert=true&letterSupport=true&investmentCad=250000&coOwners=2&applicantPct=25&jointPct=65&essential=true&speaking=6&listening=6&reading=6&writing=6&funds=25000&familySize=2&incorporated=true&managementInCanada=true`);
     assert.equal(suvGetRes.status, 200);
@@ -2783,6 +2796,19 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     const bcYouthPostData = await bcYouthPostRes.json();
     assert.equal(bcYouthPostData.isCompliant, false);
 
+    const bcYouthUrl = baseUrl + '/v1/tools/bc-child-youth-employment';
+    const youthCanonicalGet = await fetch(bcYouthUrl + '?childAge=13&hasParentalConsentInWriting=false&dailyHoursOnSchoolDay=4.25');
+    const youthAliasPost = await fetch(bcYouthUrl, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ childAge: 13, parentConsent: 'false', schoolDayHours: 4.25 })
+    });
+    for (const response of [youthCanonicalGet, youthAliasPost]) {
+      assert.equal(response.status, 200);
+      assert.deepEqual((await response.json()).statutoryViolations.map(v => v.violation),
+        ['MISSING_PARENTAL_CONSENT', 'EXCEEDED_SCHOOL_DAY_MAX_HOURS']);
+    }
+    assert.equal((await fetch(bcYouthUrl + '?directorPermit=maybe')).status, 400);
+
     // 121. Ontario Human Rights Housing Creed Accommodation Navigator
     const onCreedGetRes = await fetch(`${baseUrl}/v1/tools/on-creed-accommodation?practiceCategory=SUKKAH_STRUCTURE_ON_BALCONY&sincere=true&refused=true&refusalGround=BUILDING_AESTHETICS`);
     assert.equal(onCreedGetRes.status, 200);
@@ -2852,7 +2878,7 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     const abRestGetRes = await fetch(`${baseUrl}/v1/tools/alberta-rest-periods?shiftHours=8&breakMinutes=30&interShiftHours=12&consecutiveDays=5`);
     assert.equal(abRestGetRes.status, 200);
     const abRestGetData = await abRestGetRes.json();
-    assert.equal(abRestGetData.complianceStatus, 'COMPLIANT_WITH_ALBERTA_REST_STANDARDS');
+    assert.equal(abRestGetData.complianceStatus, 'BREAK_SCHEDULE_REVIEW_REQUIRED');
 
     const abRestPostRes = await fetch(`${baseUrl}/v1/tools/alberta-rest-periods`, {
       method: 'POST',
@@ -2866,6 +2892,20 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     assert.equal(abRestPostRes.status, 200);
     const abRestPostData = await abRestPostRes.json();
     assert.equal(abRestPostData.complianceStatus, 'NON_COMPLIANT_REST_STANDARDS_BREACHED');
+
+    const restUrl = baseUrl + '/v1/tools/alberta-rest-periods';
+    const restGet = await fetch(restUrl + '?shiftDurationHours=10&restBreakMinutesProvided=30&isManagerOrSupervisor=false');
+    const restPost = await fetch(restUrl, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ shiftHours: 10, breakMinutes: 30, isManager: 'false' })
+    });
+    for (const response of [restGet, restPost]) {
+      assert.equal(response.status, 200);
+      assert.equal((await response.json()).shiftAudit.hasCompliantIntraShiftBreak, false);
+    }
+    for (const query of ['consecutiveDays=2.5', 'isManager=maybe', 'assessmentDate=2026-02-30']) {
+      assert.equal((await fetch(restUrl + '?' + query)).status, 400);
+    }
 
     // 125. British Columbia Strata Short-Term Rental Bylaw Navigator
     const bcStrGetRes = await fetch(`${baseUrl}/v1/tools/bc-strata-str?strataBylaw=true&stayDays=4&dailyFine=1000&daysFined=2&noticeProvided=true&hearingProvided=true`);
@@ -3437,7 +3477,7 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     assert.ok(ftaPostData.statutoryViolations.some(v => v.rule === 'MISSING_PREARRANGED_CONTRACT_OR_OFFER'));
 
     // 152. Ontario Employment Reprisal Navigator
-    const onReprisalGetRes = await fetch(`${baseUrl}/v1/tools/ontario-employment-reprisal?action=ASKED_EMPLOYER_TO_COMPLY_WITH_ESA&adverse=TERMINATED_EMPLOYMENT&days=3&wage=1000&weeksLost=8`);
+    const onReprisalGetRes = await fetch(`${baseUrl}/v1/tools/ontario-employment-reprisal?action=ASKED_EMPLOYER_TO_COMPLY_WITH_ESA&adverse=TERMINATED_EMPLOYMENT&days=3&wage=1000&weeksLost=8&reinstatement=true&priorDiscipline=false`);
     assert.equal(onReprisalGetRes.status, 200);
     const onReprisalGetData = await onReprisalGetRes.json();
     assert.equal(onReprisalGetData.complianceStatus, 'STATUTORY_REPRISAL_VIOLATION_CONFIRMED');
@@ -3448,6 +3488,9 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         protectedActionTaken: 'TOOK_OR_REQUESTED_STATUTORY_LEAVE',
+        daysBetweenActionAndReprisal: 5,
+        seeksJobReinstatement: false,
+        employerProvidedDocumentedPerformanceIssuesPrior: false,
         employerAdverseAction: 'DEMOTED_OR_CUT_HOURS',
         regularWeeklyWageCad: 800,
         weeksOfLostIncome: 4
@@ -3668,6 +3711,20 @@ test('new endpoints: compare-cities and i18n respond correctly over HTTP', async
     const mbHolidayPostData = await mbHolidayPostRes.json();
     assert.equal(mbHolidayPostData.complianceStatus, 'MANITOBA_HOLIDAY_WAGE_STANDARDS_BREACH');
     assert.equal(mbHolidayPostData.holidayPayDetails.wageDeficitCad, 300);
+
+    const mbHolidayUrl = baseUrl + '/v1/tools/manitoba-general-holiday-pay';
+    const mbCanonicalGet = await fetch(mbHolidayUrl + '?grossWagesInPast4WeeksCad=2000&absentWithoutConsentBeforeOrAfter=false');
+    const mbAliasPost = await fetch(mbHolidayUrl, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wages4w: 2000, absent: 'false' })
+    });
+    for (const response of [mbCanonicalGet, mbAliasPost]) {
+      assert.equal(response.status, 200);
+      assert.equal((await response.json()).holidayPayDetails.totalStatutoryEntitlementCad, 100);
+    }
+    for (const query of ['hours=25', 'worked=maybe', 'assessmentDate=2026-02-30']) {
+      assert.equal((await fetch(mbHolidayUrl + '?' + query)).status, 400);
+    }
 
     // 162. Federal Caregiver PR Pathway Navigator
     const caregiverGetRes = await fetch(`${baseUrl}/v1/tools/federal-caregiver-pr-pathway?noc=44100&monthsExp=12&weeklyHours=35&clbR=5&clbW=5&clbL=5&clbS=5`);

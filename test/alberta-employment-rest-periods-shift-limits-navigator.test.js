@@ -21,8 +21,8 @@ test('Alberta Rest Periods - Fully compliant 8-hour shift and 12-hour rest gap',
     consecutiveRestDaysProvidedAfterBlock: 2
   });
 
-  assert.equal(result.complianceStatus, 'COMPLIANT_WITH_ALBERTA_REST_STANDARDS');
-  assert.equal(result.shiftAudit.hasCompliantIntraShiftBreak, true);
+  assert.equal(result.complianceStatus, 'BREAK_SCHEDULE_REVIEW_REQUIRED');
+  assert.equal(result.shiftAudit.hasCompliantIntraShiftBreak, null);
   assert.equal(result.shiftAudit.hasCompliantInterShiftRest, true);
   assert.equal(result.shiftAudit.hasExceeded24DayLimit, false);
   assert.equal(result.statutoryViolations.length, 0);
@@ -83,4 +83,36 @@ test('Alberta Rest Periods - Managerial employee is statutorily exempt', () => {
   assert.equal(result.isStatutorilyExemptFromRestProvisions, true);
   assert.equal(result.complianceStatus, 'EXEMPT_MANAGERIAL_SUPERVISORY');
   assert.equal(result.statutoryViolations.length, 0);
+});
+
+test('Shift break duration thresholds include the tenth hour', () => {
+  for (const [hours, minutes, required] of [[5, 0, 0], [5.25, 15, 30], [9.75, 30, 30], [10, 30, 60], [12, 60, 60]]) {
+    const { shiftAudit } = auditAlbertaEmploymentRestPeriods({ shiftDurationHours: hours, restBreakMinutesProvided: minutes, isManagerOrSupervisor: 'false' });
+    assert.equal(shiftAudit.minimumBreakMinutes, required);
+    assert.equal(shiftAudit.hasSufficientTotalBreakMinutes, minutes >= required);
+  }
+});
+
+test('A completed 24-day block requires four consecutive rest days', () => {
+  for (const days of [0, 3, 4]) {
+    const result = auditAlbertaEmploymentRestPeriods({ consecutiveWorkDaysWorked: 24, consecutiveRestDaysProvidedAfterBlock: days });
+    assert.equal(result.statutoryViolations.some(v => v.rule === 'INSUFFICIENT_REST_AFTER_24_WORK_DAYS'), days < 4);
+    assert.equal(result.shiftAudit.hasExceeded24DayLimit, false);
+  }
+});
+
+test('A shift exceeding 12 hours requires exception review even with sufficient break minutes', () => {
+  const input = { shiftDurationHours: 12.25, restBreakMinutesProvided: 60 };
+  assert.equal(auditAlbertaEmploymentRestPeriods(input).complianceStatus, 'SHIFT_LENGTH_EXCEPTION_REVIEW_REQUIRED');
+  assert.equal(auditAlbertaEmploymentRestPeriods({ ...input, isUrgentAccidentOrEmergency: true }).riskWarnings.length, 0);
+});
+test('Break time cannot exceed the containing shift', () => {
+  assert.throws(() => auditAlbertaEmploymentRestPeriods({ shiftDurationHours: 5, restBreakMinutesProvided: 600 }));
+});
+test('Sufficient total minutes leaves placement undetermined', () => {
+  const result = auditAlbertaEmploymentRestPeriods({ shiftDurationHours: 10, restBreakMinutesProvided: 60 });
+  assert.equal(result.shiftAudit.hasSufficientTotalBreakMinutes, true);
+  assert.equal(result.shiftAudit.hasCompliantIntraShiftBreak, null);
+  assert.equal(result.shiftAudit.breakPlacementAssessment, 'NOT_DETERMINED');
+  assert.equal(result.complianceStatus, 'BREAK_SCHEDULE_REVIEW_REQUIRED');
 });

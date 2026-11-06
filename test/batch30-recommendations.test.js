@@ -165,8 +165,8 @@ test('Rec 524: auditAlbertaEmploymentRestPeriods audits 30-min break per 5h and 
   });
   assert.equal(res.employeeName, 'Noah Patel');
   assert.equal(res.assessmentDate, '2026-10-31');
-  assert.equal(res.complianceStatus, 'COMPLIANT_WITH_ALBERTA_REST_STANDARDS');
-  assert.equal(res.shiftAudit.hasCompliantIntraShiftBreak, true);
+  assert.equal(res.complianceStatus, 'BREAK_SCHEDULE_REVIEW_REQUIRED');
+  assert.equal(res.shiftAudit.hasCompliantIntraShiftBreak, null);
 });
 
 test('Rec 525: auditAlbertaTerminationJustCause audits McKinley v. BC Tel progressive discipline requirements', () => {

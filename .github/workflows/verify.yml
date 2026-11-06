@@ -25,6 +25,23 @@ jobs:
       - run: node scripts/verify-everything.js
       - run: node scripts/worker-smoke.js
       - run: node scripts/server-smoke.js
+  browser:
+    strategy:
+      matrix:
+        engine: [chromium, firefox, webkit]
+    env:
+      TEST_BROWSER: ${{ matrix.engine }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps ${{ matrix.engine }}
+      - run: node scripts/browser-command-forms.mjs
   container:
     runs-on: ubuntu-latest
     timeout-minutes: 10

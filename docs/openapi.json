@@ -46805,8 +46805,8 @@
                 "properties": {
                   "affectedEmployeesCount": {
                     "type": "integer",
-                    "minimum": 1,
-                    "maximum": 10000
+                    "minimum": 0,
+                    "maximum": 100000
                   },
                   "twoMonthWindow": {
                     "type": "boolean"
@@ -46815,18 +46815,19 @@
                     "type": "boolean"
                   },
                   "groupNoticeWeeksGiven": {
-                    "type": "integer",
+                    "type": "number",
                     "minimum": 0,
-                    "maximum": 52
+                    "maximum": 104
                   },
                   "individualTenureMonths": {
-                    "type": "integer",
+                    "type": "number",
                     "minimum": 0,
-                    "maximum": 600
+                    "maximum": 720
                   },
                   "regularWeeklyWageCad": {
                     "type": "number",
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 100000
                   },
                   "isUnionized": {
                     "type": "boolean"
@@ -46848,6 +46849,21 @@
                   },
                   "isJustCauseTermination": {
                     "type": "boolean"
+                  },
+                  "employeeName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  },
+                  "employerName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 120
+                  },
+                  "assessmentDate": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 10
                   }
                 },
                 "required": [
@@ -47792,6 +47808,40 @@
                   },
                   "hasWrittenOvertimeAgreement": {
                     "type": "boolean"
+                  },
+                  "collectiveAgreementBankingMonths": {
+                    "type": "integer",
+                    "minimum": 6,
+                    "maximum": 120,
+                    "description": "Whole-month period explicitly provided by the applicable written collective agreement."
+                  },
+                  "bankedCredits": {
+                    "type": "array",
+                    "maxItems": 500,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "payPeriodEnd",
+                        "remainingHours",
+                        "hourlyWageWhenEarnedCad"
+                      ],
+                      "properties": {
+                        "payPeriodEnd": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "remainingHours": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 10000
+                        },
+                        "hourlyWageWhenEarnedCad": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100000
+                        }
+                      }
+                    }
                   },
                   "existingBankedHours": {
                     "type": "number",
@@ -50602,18 +50652,36 @@
                   },
                   "dailyHoursOnSchoolDay": {
                     "type": "number",
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 24
                   },
                   "dailyHoursOnNonSchoolDay": {
                     "type": "number",
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 24
                   },
                   "weeklyHoursDuringSchoolWeek": {
                     "type": "number",
-                    "minimum": 0
+                    "minimum": 0,
+                    "maximum": 168
                   },
                   "hasAdultSupervisionOnSite": {
                     "type": "boolean"
+                  },
+                  "childName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  },
+                  "employerName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 120
+                  },
+                  "assessmentDate": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 10
                   }
                 },
                 "required": [
@@ -57022,6 +57090,11 @@
                   },
                   "wantsPaidTimeOffInsteadOfPay": {
                     "type": "boolean"
+                  },
+                  "existingBankedValueCad": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100000000
                   },
                   "bankedHoursAlreadyAccumulated": {
                     "type": "number",

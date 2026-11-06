@@ -63,3 +63,24 @@ test('Alberta Youth Employment - 14-year-old scheduled to work until 10:00 PM (n
   assert.equal(result.isCompliant, false);
   assert.ok(result.statutoryViolations.some(v => v.rule === 'PROHIBITED_ADOLESCENT_NIGHT_WORK'));
 });
+
+test('Adolescent shift boundaries include overnight work and fractional hours', () => {
+  for (const [start, end, night] of [[20, 21, false], [6, 8, false], [20, 21.5, true], [23, 1, true], [5.5, 6, true]]) {
+    const audit = evaluateAlbertaYouthEmploymentRules({ shiftStartHour: start, shiftEndHour: end });
+    assert.equal(audit.statutoryViolations.some(v => v.rule === 'PROHIBITED_ADOLESCENT_NIGHT_WORK'), night);
+  }
+});
+
+test('Explicit false does not grant consent and invalid facts cannot generate a verdict', () => {
+  const result = evaluateAlbertaYouthEmploymentRules({ hasWrittenParentalConsent: 'false', duringSchoolHours: 'false' });
+  assert.deepEqual(result.statutoryViolations.map(v => v.rule), ['MISSING_WRITTEN_PARENTAL_CONSENT']);
+  for (const value of [{ employeeAge: 14.5 }, { assessmentDate: '2026-02-30' }, { adultSupervisionPresent: 'maybe' }, { shiftEndHour: 25 }]) {
+    assert.throws(() => evaluateAlbertaYouthEmploymentRules(value), error => error.statusCode === 400);
+  }
+});
+
+test('Adult inputs are outside the youth assessment', () => {
+  const audit = evaluateAlbertaYouthEmploymentRules({ employeeAge: 18 });
+  assert.equal(audit.complianceStatus, 'YOUTH_EMPLOYMENT_RULES_NOT_APPLICABLE');
+  assert.equal(audit.regulationsSummary.maxDailyHours, null);
+});

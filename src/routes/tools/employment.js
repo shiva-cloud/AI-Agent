@@ -40,7 +40,7 @@ import { evaluateStatutorySeveranceNotice } from '../../statutory-severance-noti
 import { evaluateWorkplaceSafetyAndRefusal } from '../../workplace-safety-navigator.js';
 import { todayIso } from '../../text-input.js';
 
-function overtimeFieldReader(input) {
+function employmentFieldReader(input) {
   return function field(name, alias = name) {
     if (input instanceof URLSearchParams) {
       return input.get(input.has(alias) && !input.has(name) ? alias : name) ?? undefined;
@@ -50,12 +50,19 @@ function overtimeFieldReader(input) {
 }
 
 function albertaOvertimeInputs(input) {
-  const field = overtimeFieldReader(input);
+  const field = employmentFieldReader(input);
   const hours = field('dailyHoursWorked', 'hoursWorked');
+  let credits = field('bankedCredits');
+  if (input instanceof URLSearchParams && typeof credits === 'string') {
+    try { credits = JSON.parse(credits); }
+    catch { throw new ValidationError('bankedCredits must be a JSON array'); }
+  }
   return {
     regularHourlyWageCad: field('regularHourlyWageCad', 'wage'),
     dailyHoursWorked: typeof hours === 'string' ? hours.split(',') : hours,
     hasWrittenOvertimeAgreement: field('hasWrittenOvertimeAgreement', 'agreement'),
+    collectiveAgreementBankingMonths: field('collectiveAgreementBankingMonths'),
+    bankedCredits: credits,
     existingBankedHours: field('existingBankedHours', 'banked'),
     monthsElapsedSinceBanked: field('monthsElapsedSinceBanked', 'months'),
     isEmploymentTerminating: field('isEmploymentTerminating', 'terminating'),
@@ -67,7 +74,7 @@ function albertaOvertimeInputs(input) {
 }
 
 function bcOvertimeInputs(input) {
-  const field = overtimeFieldReader(input);
+  const field = employmentFieldReader(input);
   return {
     regularHourlyWageCad: field('regularHourlyWageCad', 'wage'),
     dailyHoursWorkedOver8: field('dailyHoursWorkedOver8', 'ot15'),
@@ -75,6 +82,7 @@ function bcOvertimeInputs(input) {
     weeklyHoursWorkedOver40: field('weeklyHoursWorkedOver40', 'weeklyOt'),
     employeeRequestedTimeBankInWriting: field('employeeRequestedTimeBankInWriting', 'requestWritten'),
     wantsPaidTimeOffInsteadOfPay: field('wantsPaidTimeOffInsteadOfPay', 'timeOff'),
+    existingBankedValueCad: field('existingBankedValueCad'),
     bankedHoursAlreadyAccumulated: field('bankedHoursAlreadyAccumulated', 'banked'),
     employeeRequestedPayout: field('employeeRequestedPayout', 'payoutReq'),
     employmentTerminated: field('employmentTerminated', 'terminated'),
@@ -82,6 +90,148 @@ function bcOvertimeInputs(input) {
     assessmentDate: field('assessmentDate'),
     employeeName: field('employeeName'),
     employerName: field('employerName')
+  };
+}
+
+function manitobaHolidayInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    holidayName: field('holidayName', 'holiday'),
+    grossWagesInPast4WeeksCad: field('grossWagesInPast4WeeksCad', 'wages4w'),
+    workedOnHoliday: field('workedOnHoliday', 'worked'),
+    hoursWorkedOnHoliday: field('hoursWorkedOnHoliday', 'hours'),
+    regularHourlyWageCad: field('regularHourlyWageCad', 'wage'),
+    absentWithoutConsentBeforeOrAfter: field('absentWithoutConsentBeforeOrAfter', 'absent'),
+    substituteDayOffWithPayAgreed: field('substituteDayOffWithPayAgreed', 'substitute'),
+    holidayPayActuallyPaidCad: field('holidayPayActuallyPaidCad', 'paidActual'),
+    employeeName: field('employeeName'),
+    assessmentDate: field('assessmentDate')
+  };
+}
+
+function ontarioHolidayInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    holidayName: field('holidayName', 'holiday'),
+    regularWagesInPast4WeeksCad: field('regularWagesInPast4WeeksCad', 'wages4w'),
+    vacationPayPayableInPast4WeeksCad: field('vacationPayPayableInPast4WeeksCad', 'vacPay'),
+    workedShiftBeforeAndAfterHoliday: field('workedShiftBeforeAndAfterHoliday', 'qualified'),
+    hadReasonableCauseForAbsence: field('hadReasonableCauseForAbsence', 'reasonableCause'),
+    workedOnPublicHoliday: field('workedOnPublicHoliday', 'worked'),
+    hoursWorkedOnHoliday: field('hoursWorkedOnHoliday', 'hours'),
+    regularHourlyWageCad: field('regularHourlyWageCad', 'wage'),
+    substituteDayOffAgreed: field('substituteDayOffAgreed', 'substitute'),
+    holidayPayActuallyPaidCad: field('holidayPayActuallyPaidCad', 'paidActual'),
+    assessmentDate: field('assessmentDate')
+  };
+}
+
+function albertaYouthInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    employeeAge: field('employeeAge', 'age'),
+    jobCategory: field('jobCategory', 'job'),
+    hasWrittenParentalConsent: field('hasWrittenParentalConsent', 'consent'),
+    isSchoolDay: field('isSchoolDay', 'schoolDay'),
+    scheduledShiftHours: field('scheduledShiftHours', 'hours'),
+    shiftStartHour: field('shiftStartHour', 'start'),
+    shiftEndHour: field('shiftEndHour', 'end'),
+    duringSchoolHours: field('duringSchoolHours', 'duringSchool'),
+    adultSupervisionPresent: field('adultSupervisionPresent', 'supervision'),
+    employeeName: field('employeeName'),
+    assessmentDate: field('assessmentDate')
+  };
+}
+
+function bcGroupTerminationInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    affectedEmployeesCount: field('affectedEmployeesCount', 'affectedCount'),
+    twoMonthWindow: field('twoMonthWindow'),
+    singleLocation: field('singleLocation'),
+    groupNoticeWeeksGiven: field('groupNoticeWeeksGiven', 'noticeGivenWeeks'),
+    individualTenureMonths: field('individualTenureMonths', 'tenureMonths'),
+    regularWeeklyWageCad: field('regularWeeklyWageCad', 'weeklyWage'),
+    isUnionized: field('isUnionized', 'unionized'),
+    ministerNotified: field('ministerNotified'),
+    unionNotified: field('unionNotified'),
+    isConstructionIndustry: field('isConstructionIndustry', 'construction'),
+    isCasualOrSeasonalLayoff: field('isCasualOrSeasonalLayoff', 'seasonal'),
+    isDefiniteTermContract: field('isDefiniteTermContract', 'definiteTerm'),
+    isJustCauseTermination: field('isJustCauseTermination', 'justCause'),
+    employeeName: field('employeeName'),
+    employerName: field('employerName'),
+    assessmentDate: field('assessmentDate')
+  };
+}
+
+function bcYouthInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    childAge: field('childAge'),
+    proposedOccupationActivity: field('proposedOccupationActivity', 'activity'),
+    hasParentalConsentInWriting: field('hasParentalConsentInWriting', 'parentConsent'),
+    hasDirectorChildEmploymentPermit: field('hasDirectorChildEmploymentPermit', 'directorPermit'),
+    dailyHoursOnSchoolDay: field('dailyHoursOnSchoolDay', 'schoolDayHours'),
+    dailyHoursOnNonSchoolDay: field('dailyHoursOnNonSchoolDay', 'nonSchoolDayHours'),
+    weeklyHoursDuringSchoolWeek: field('weeklyHoursDuringSchoolWeek', 'schoolWeekHours'),
+    hasAdultSupervisionOnSite: field('hasAdultSupervisionOnSite', 'supervision'),
+    childName: field('childName'),
+    employerName: field('employerName'),
+    assessmentDate: field('assessmentDate')
+  };
+}
+
+function albertaRestInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    shiftDurationHours: field('shiftDurationHours', 'shiftHours'),
+    restBreakMinutesProvided: field('restBreakMinutesProvided', 'breakMinutes'),
+    isBreakSplitIntoTwoPeriods: field('isBreakSplitIntoTwoPeriods', 'splitBreak'),
+    hoursBetweenConsecutiveShifts: field('hoursBetweenConsecutiveShifts', 'interShiftHours'),
+    consecutiveWorkDaysWorked: field('consecutiveWorkDaysWorked', 'consecutiveDays'),
+    consecutiveRestDaysProvidedAfterBlock: field('consecutiveRestDaysProvidedAfterBlock', 'restDaysAfter'),
+    isManagerOrSupervisor: field('isManagerOrSupervisor', 'isManager'),
+    isUrgentAccidentOrEmergency: field('isUrgentAccidentOrEmergency', 'emergency'),
+    employeeName: field('employeeName'),
+    assessmentDate: field('assessmentDate')
+  };
+}
+
+function bcDeductionInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    requiresSpecialClothingOrUniform: field('requiresSpecialClothingOrUniform', 'specialClothing'),
+    employerProvidedUniformFreeOfCharge: field('employerProvidedUniformFreeOfCharge', 'providedFree'),
+    employerCleansUniformOrPaysAllowance: field('employerCleansUniformOrPaysAllowance', 'cleanedOrAllowance'),
+    uniformCostOrDepositChargedCad: field('uniformCostOrDepositChargedCad', 'uniformFee'),
+    deductedForTillShortage: field('deductedForTillShortage', 'tillShortage'),
+    tillShortageDeductionCad: field('tillShortageDeductionCad', 'tillAmount'),
+    deductedForCustomerDineAndDash: field('deductedForCustomerDineAndDash', 'dineAndDash'),
+    dineAndDashDeductionCad: field('dineAndDashDeductionCad', 'dineAndDashAmount'),
+    deductedForEquipmentBreakage: field('deductedForEquipmentBreakage', 'breakage'),
+    equipmentBreakageDeductionCad: field('equipmentBreakageDeductionCad', 'breakageAmount'),
+    assessmentDate: field('assessmentDate'),
+    employeeName: field('employeeName'),
+    employerName: field('employerName')
+  };
+}
+
+function ontarioReprisalInputs(input) {
+  const field = employmentFieldReader(input);
+  return {
+    protectedActionTaken: field('protectedActionTaken', 'action'),
+    employerAdverseAction: field('employerAdverseAction', 'adverse'),
+    daysBetweenActionAndReprisal: field('daysBetweenActionAndReprisal', 'days'),
+    regularWeeklyWageCad: field('regularWeeklyWageCad', 'wage'),
+    weeksOfLostIncome: field('weeksOfLostIncome', 'weeksLost'),
+    seeksJobReinstatement: field('seeksJobReinstatement', 'reinstatement'),
+    employerProvidedDocumentedPerformanceIssuesPrior: field('employerProvidedDocumentedPerformanceIssuesPrior', 'priorDiscipline'),
+    assessmentDate: field('assessmentDate'),
+    employeeName: field('employeeName'),
+    employerName: field('employerName'),
+    jobTitle: field('jobTitle'),
+    adverseActionDescription: field('adverseActionDescription')
   };
 }
 
@@ -416,34 +566,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/bc-esa-group-termination') {
-      const affectedEmployeesCount = url.searchParams.get('affectedCount') ? Number(url.searchParams.get('affectedCount')) : 75;
-      const twoMonthWindow = url.searchParams.get('twoMonthWindow') !== 'false';
-      const singleLocation = url.searchParams.get('singleLocation') !== 'false';
-      const groupNoticeWeeksGiven = url.searchParams.get('noticeGivenWeeks') ? Number(url.searchParams.get('noticeGivenWeeks')) : 0;
-      const individualTenureMonths = url.searchParams.get('tenureMonths') ? Number(url.searchParams.get('tenureMonths')) : 36;
-      const regularWeeklyWageCad = url.searchParams.get('weeklyWage') ? Number(url.searchParams.get('weeklyWage')) : 1200;
-      const isUnionized = url.searchParams.get('unionized') === 'true';
-      const ministerNotified = url.searchParams.get('ministerNotified') === 'true';
-      const unionNotified = url.searchParams.get('unionNotified') === 'true';
-      const isConstructionIndustry = url.searchParams.get('construction') === 'true';
-      const isCasualOrSeasonalLayoff = url.searchParams.get('seasonal') === 'true';
-      const isDefiniteTermContract = url.searchParams.get('definiteTerm') === 'true';
-      const isJustCauseTermination = url.searchParams.get('justCause') === 'true';
-      return send(200, evaluateBcGroupTerminationNotice({
-        affectedEmployeesCount,
-        twoMonthWindow,
-        singleLocation,
-        groupNoticeWeeksGiven,
-        individualTenureMonths,
-        regularWeeklyWageCad,
-        isUnionized,
-        ministerNotified,
-        unionNotified,
-        isConstructionIndustry,
-        isCasualOrSeasonalLayoff,
-        isDefiniteTermContract,
-        isJustCauseTermination
-      }));
+      return send(200, evaluateBcGroupTerminationNotice(bcGroupTerminationInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/alberta-overtime-banking') {
@@ -509,45 +632,11 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/bc-child-youth-employment') {
-      const childAge = url.searchParams.get('childAge') ? Number(url.searchParams.get('childAge')) : 13;
-      const proposedOccupationActivity = url.searchParams.get('activity') || 'RETAIL_CASHIER_OR_STOCKING';
-      const hasParentalConsentInWriting = url.searchParams.get('parentConsent') !== 'false';
-      const hasDirectorChildEmploymentPermit = url.searchParams.get('directorPermit') === 'true';
-      const dailyHoursOnSchoolDay = url.searchParams.get('schoolDayHours') ? Number(url.searchParams.get('schoolDayHours')) : 3;
-      const dailyHoursOnNonSchoolDay = url.searchParams.get('nonSchoolDayHours') ? Number(url.searchParams.get('nonSchoolDayHours')) : 6;
-      const weeklyHoursDuringSchoolWeek = url.searchParams.get('schoolWeekHours') ? Number(url.searchParams.get('schoolWeekHours')) : 15;
-      const hasAdultSupervisionOnSite = url.searchParams.get('supervision') !== 'false';
-      return send(200, evaluateBcChildYouthEmployment({
-        childAge,
-        proposedOccupationActivity,
-        hasParentalConsentInWriting,
-        hasDirectorChildEmploymentPermit,
-        dailyHoursOnSchoolDay,
-        dailyHoursOnNonSchoolDay,
-        weeklyHoursDuringSchoolWeek,
-        hasAdultSupervisionOnSite
-      }));
+      return send(200, evaluateBcChildYouthEmployment(bcYouthInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/alberta-rest-periods') {
-      const shiftHours = url.searchParams.get('shiftHours') ? Number(url.searchParams.get('shiftHours')) : 8;
-      const breakMinutes = url.searchParams.get('breakMinutes') ? Number(url.searchParams.get('breakMinutes')) : 30;
-      const splitBreak = url.searchParams.get('splitBreak') === 'true';
-      const interShiftHours = url.searchParams.get('interShiftHours') ? Number(url.searchParams.get('interShiftHours')) : 12;
-      const consecutiveDays = url.searchParams.get('consecutiveDays') ? Number(url.searchParams.get('consecutiveDays')) : 5;
-      const restDaysAfter = url.searchParams.get('restDaysAfter') ? Number(url.searchParams.get('restDaysAfter')) : 2;
-      const isManager = url.searchParams.get('isManager') === 'true';
-      const emergency = url.searchParams.get('emergency') === 'true';
-      return send(200, auditAlbertaEmploymentRestPeriods({
-        shiftDurationHours: shiftHours,
-        restBreakMinutesProvided: breakMinutes,
-        isBreakSplitIntoTwoPeriods: splitBreak,
-        hoursBetweenConsecutiveShifts: interShiftHours,
-        consecutiveWorkDaysWorked: consecutiveDays,
-        consecutiveRestDaysProvidedAfterBlock: restDaysAfter,
-        isManagerOrSupervisor: isManager,
-        isUrgentAccidentOrEmergency: emergency
-      }));
+      return send(200, auditAlbertaEmploymentRestPeriods(albertaRestInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/on-tha-licensing') {
@@ -589,28 +678,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/bc-uniform-deductions') {
-      const specialClothing = url.searchParams.get('specialClothing') !== 'false';
-      const providedFree = url.searchParams.get('providedFree') !== 'false';
-      const cleanedOrAllowance = url.searchParams.get('cleanedOrAllowance') !== 'false';
-      const uniformFee = url.searchParams.get('uniformFee') ? Number(url.searchParams.get('uniformFee')) : 0;
-      const tillShortage = url.searchParams.get('tillShortage') === 'true';
-      const tillAmount = url.searchParams.get('tillAmount') ? Number(url.searchParams.get('tillAmount')) : 0;
-      const dineAndDash = url.searchParams.get('dineAndDash') === 'true';
-      const dineAndDashAmount = url.searchParams.get('dineAndDashAmount') ? Number(url.searchParams.get('dineAndDashAmount')) : 0;
-      const breakage = url.searchParams.get('breakage') === 'true';
-      const breakageAmount = url.searchParams.get('breakageAmount') ? Number(url.searchParams.get('breakageAmount')) : 0;
-      return send(200, auditBcEmploymentUniformAndDeductions({
-        requiresSpecialClothingOrUniform: specialClothing,
-        employerProvidedUniformFreeOfCharge: providedFree,
-        employerCleansUniformOrPaysAllowance: cleanedOrAllowance,
-        uniformCostOrDepositChargedCad: uniformFee,
-        deductedForTillShortage: tillShortage,
-        tillShortageDeductionCad: tillAmount,
-        deductedForCustomerDineAndDash: dineAndDash,
-        dineAndDashDeductionCad: dineAndDashAmount,
-        deductedForEquipmentBreakage: breakage,
-        equipmentBreakageDeductionCad: breakageAmount
-      }));
+      return send(200, auditBcEmploymentUniformAndDeductions(bcDeductionInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/ontario-temp-layoff') {
@@ -710,22 +778,7 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/ontario-employment-reprisal') {
-      const action = url.searchParams.get('action') || 'ASKED_EMPLOYER_TO_COMPLY_WITH_ESA';
-      const adverse = url.searchParams.get('adverse') || 'TERMINATED_EMPLOYMENT';
-      const days = url.searchParams.get('days') ? Number(url.searchParams.get('days')) : 7;
-      const wage = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 1000;
-      const weeksLost = url.searchParams.get('weeksLost') ? Number(url.searchParams.get('weeksLost')) : 8;
-      const reinstatement = url.searchParams.get('reinstatement') !== 'false';
-      const priorDiscipline = url.searchParams.get('priorDiscipline') === 'true';
-      return send(200, evaluateOntarioEmploymentReprisal({
-        protectedActionTaken: action,
-        employerAdverseAction: adverse,
-        daysBetweenActionAndReprisal: days,
-        regularWeeklyWageCad: wage,
-        weeksOfLostIncome: weeksLost,
-        seeksJobReinstatement: reinstatement,
-        employerProvidedDocumentedPerformanceIssuesPrior: priorDiscipline
-      }));
+      return send(200, evaluateOntarioEmploymentReprisal(ontarioReprisalInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/alberta-constructive-dismissal') {
@@ -750,72 +803,15 @@ export function handleEmploymentGet(ctx) {
     }
 
     if(path==='/v1/tools/manitoba-general-holiday-pay') {
-      const holiday = url.searchParams.get('holiday') || 'LOUIS_RIEL_DAY';
-      const wages4w = url.searchParams.get('wages4w') ? Number(url.searchParams.get('wages4w')) : 3600;
-      const worked = url.searchParams.get('worked') === 'true';
-      const hours = url.searchParams.get('hours') ? Number(url.searchParams.get('hours')) : 0;
-      const wage = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 22;
-      const absent = url.searchParams.get('absent') === 'true';
-      const substitute = url.searchParams.get('substitute') === 'true';
-      const paidActual = url.searchParams.get('paidActual') ? Number(url.searchParams.get('paidActual')) : 0;
-      return send(200, evaluateManitobaGeneralHolidayPay({
-        holidayName: holiday,
-        grossWagesInPast4WeeksCad: wages4w,
-        workedOnHoliday: worked,
-        hoursWorkedOnHoliday: hours,
-        regularHourlyWageCad: wage,
-        absentWithoutConsentBeforeOrAfter: absent,
-        substituteDayOffWithPayAgreed: substitute,
-        holidayPayActuallyPaidCad: paidActual
-      }));
+      return send(200, evaluateManitobaGeneralHolidayPay(manitobaHolidayInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/ontario-public-holiday-pay') {
-      const holiday = url.searchParams.get('holiday') || 'FAMILY_DAY';
-      const wages4w = url.searchParams.get('wages4w') ? Number(url.searchParams.get('wages4w')) : 3200;
-      const vacPay = url.searchParams.get('vacPay') ? Number(url.searchParams.get('vacPay')) : 128;
-      const qualified = url.searchParams.get('qualified') !== 'false';
-      const reasonableCause = url.searchParams.get('reasonableCause') === 'true';
-      const worked = url.searchParams.get('worked') === 'true';
-      const hours = url.searchParams.get('hours') ? Number(url.searchParams.get('hours')) : 0;
-      const wage = url.searchParams.get('wage') ? Number(url.searchParams.get('wage')) : 20;
-      const substitute = url.searchParams.get('substitute') === 'true';
-      const paidActual = url.searchParams.get('paidActual') ? Number(url.searchParams.get('paidActual')) : 0;
-      return send(200, evaluateOntarioPublicHolidayPay({
-        holidayName: holiday,
-        regularWagesInPast4WeeksCad: wages4w,
-        vacationPayPayableInPast4WeeksCad: vacPay,
-        workedShiftBeforeAndAfterHoliday: qualified,
-        hadReasonableCauseForAbsence: reasonableCause,
-        workedOnPublicHoliday: worked,
-        hoursWorkedOnHoliday: hours,
-        regularHourlyWageCad: wage,
-        substituteDayOffAgreed: substitute,
-        holidayPayActuallyPaidCad: paidActual
-      }));
+      return send(200, evaluateOntarioPublicHolidayPay(ontarioHolidayInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/alberta-youth-employment-rules') {
-      const age = url.searchParams.get('age') ? Number(url.searchParams.get('age')) : 14;
-      const job = url.searchParams.get('job') || 'RETAIL_CLERK';
-      const consent = url.searchParams.get('consent') !== 'false';
-      const schoolDay = url.searchParams.get('schoolDay') !== 'false';
-      const hours = url.searchParams.get('hours') ? Number(url.searchParams.get('hours')) : 2;
-      const start = url.searchParams.get('start') ? Number(url.searchParams.get('start')) : 16;
-      const end = url.searchParams.get('end') ? Number(url.searchParams.get('end')) : 18;
-      const duringSchool = url.searchParams.get('duringSchool') === 'true';
-      const supervision = url.searchParams.get('supervision') !== 'false';
-      return send(200, evaluateAlbertaYouthEmploymentRules({
-        employeeAge: age,
-        jobCategory: job,
-        hasWrittenParentalConsent: consent,
-        isSchoolDay: schoolDay,
-        scheduledShiftHours: hours,
-        shiftStartHour: start,
-        shiftEndHour: end,
-        duringSchoolHours: duringSchool,
-        adultSupervisionPresent: supervision
-      }));
+      return send(200, evaluateAlbertaYouthEmploymentRules(albertaYouthInputs(url.searchParams)));
     }
 
     if(path==='/v1/tools/severance-bardal') {
@@ -954,7 +950,7 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/bc-esa-group-termination') {
-      return send(200, evaluateBcGroupTerminationNotice(input));
+      return send(200, evaluateBcGroupTerminationNotice(bcGroupTerminationInputs(input)));
     }
 
     if(path==='/v1/tools/alberta-overtime-banking') {
@@ -970,11 +966,11 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/bc-child-youth-employment') {
-      return send(200, evaluateBcChildYouthEmployment(input));
+      return send(200, evaluateBcChildYouthEmployment(bcYouthInputs(input)));
     }
 
     if(path==='/v1/tools/alberta-rest-periods') {
-      return send(200, auditAlbertaEmploymentRestPeriods(input));
+      return send(200, auditAlbertaEmploymentRestPeriods(albertaRestInputs(input)));
     }
 
     if(path==='/v1/tools/on-tha-licensing') {
@@ -986,7 +982,7 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/bc-uniform-deductions') {
-      return send(200, auditBcEmploymentUniformAndDeductions(input));
+      return send(200, auditBcEmploymentUniformAndDeductions(bcDeductionInputs(input)));
     }
 
     if(path==='/v1/tools/ontario-temp-layoff') {
@@ -1014,7 +1010,7 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/ontario-employment-reprisal') {
-      return send(200, evaluateOntarioEmploymentReprisal(input));
+      return send(200, evaluateOntarioEmploymentReprisal(ontarioReprisalInputs(input)));
     }
 
     if(path==='/v1/tools/alberta-constructive-dismissal') {
@@ -1026,15 +1022,15 @@ export function handleEmploymentPost(ctx) {
     }
 
     if(path==='/v1/tools/manitoba-general-holiday-pay') {
-      return send(200, evaluateManitobaGeneralHolidayPay(input));
+      return send(200, evaluateManitobaGeneralHolidayPay(manitobaHolidayInputs(input)));
     }
 
     if(path==='/v1/tools/ontario-public-holiday-pay') {
-      return send(200, evaluateOntarioPublicHolidayPay(input));
+      return send(200, evaluateOntarioPublicHolidayPay(ontarioHolidayInputs(input)));
     }
 
     if(path==='/v1/tools/alberta-youth-employment-rules') {
-      return send(200, evaluateAlbertaYouthEmploymentRules(input));
+      return send(200, evaluateAlbertaYouthEmploymentRules(albertaYouthInputs(input)));
     }
 
     if(path==='/v1/tools/severance-bardal') {

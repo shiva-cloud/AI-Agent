@@ -87,3 +87,20 @@ test('BC Group Termination - Individual Notice calculation function verification
   assert.equal(calculateBcIndividualNoticeWeeks(96), 8); // capped at 8 weeks
   assert.equal(calculateBcIndividualNoticeWeeks(120), 8);
 });
+
+test('Group thresholds preserve partial notice and explicit false flags', () => {
+  for (const [count, weeks] of [[49, 0], [50, 8], [99, 8], [100, 12], [299, 12], [300, 16]]) {
+    const result = evaluateBcGroupTerminationNotice({ affectedEmployeesCount: count, groupNoticeWeeksGiven: 1.5,
+      regularWeeklyWageCad: 1200, isJustCauseTermination: 'false', ministerNotified: 'false' });
+    assert.equal(result.groupTerminationDetails.requiredNoticeWeeks, weeks);
+    assert.equal(result.groupTerminationDetails.statutoryGroupPayInLieuCad, Math.max(0, weeks - 1.5) * 1200);
+    assert.equal(result.statutoryViolations.some(v => v.violation === 'FAILURE_TO_NOTIFY_MINISTER'), weeks > 0);
+  }
+});
+
+test('Group notice rejects invalid inputs before selecting an exemption', () => {
+  for (const input of [{ affectedEmployeesCount: 49.9 }, { regularWeeklyWageCad: true }, { twoMonthWindow: 'no' },
+    { assessmentDate: '2026-02-30' }, { groupNoticeWeeksGiven: -1 }]) {
+    assert.throws(() => evaluateBcGroupTerminationNotice({ ...input, isConstructionIndustry: true }), error => error.statusCode === 400);
+  }
+});

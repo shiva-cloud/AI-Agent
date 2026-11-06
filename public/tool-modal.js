@@ -41,6 +41,2909 @@
   }
 
   const TOOL_FORMS = {
+    "study-permit-off-campus-work": {
+  "title": "study permit off campus work",
+  "endpoint": "/v1/tools/federal-student-off-campus-work",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "hasValidStudyPermit",
+      "label": "has Valid Study Permit",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "enrolledFullTimeAtDli",
+      "label": "enrolled Full Time At Dli",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "isInRegularAcademicSession",
+      "label": "is In Regular Academic Session",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "isOnRegularlyScheduledBreak",
+      "label": "is On Regularly Scheduled Break",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "weeklyHoursWorkedOffCampus",
+      "label": "weekly Hours Worked Off Campus",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 168
+    },
+    {
+      "id": "hasValidSocialInsuranceNumber",
+      "label": "has Valid Social Insurance Number",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "programLengthMonths",
+      "label": "program Length Months",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 60
+    }
+  ]
+},
+    "bc-dispute-resolution-urgency": {
+  "title": "bc dispute resolution urgency",
+  "endpoint": "/v1/tools/bc-rtb-dispute-track",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "disputeCategory",
+      "label": "dispute Category",
+      "required": true,
+      "type": "text",
+      "placeholder": "TENANT_UNLAWFUL_LOCKOUT_ORDER_OF_POSSESSION",
+      "maxLength": 60
+    },
+    {
+      "id": "vitalServiceOrStructuralDanger",
+      "label": "vital Service Or Structural Danger",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "locksChangedWithoutOrder",
+      "label": "locks Changed Without Order",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "violenceOrImminentThreatDemonstrated",
+      "label": "violence Or Imminent Threat Demonstrated",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "isMonetaryClaimOnly",
+      "label": "is Monetary Claim Only",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "readyToServeEvidenceWithinOneDay",
+      "label": "ready To Serve Evidence Within One Day",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "caregiver-pr-experience": {
+  "title": "caregiver pr experience",
+  "endpoint": "/v1/tools/federal-caregiver-pr-pathway",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "nocCode",
+      "label": "noc Code",
+      "required": true,
+      "type": "text",
+      "placeholder": "21231",
+      "maxLength": 10
+    },
+    {
+      "id": "completedCanadianExperienceMonths",
+      "label": "completed Canadian Experience Months",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 120
+    },
+    {
+      "id": "averageWeeklyHours",
+      "label": "average Weekly Hours",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "experienceInPrivateHousehold",
+      "label": "experience In Private Household",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "clbReading",
+      "label": "clb Reading",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 12
+    },
+    {
+      "id": "clbWriting",
+      "label": "clb Writing",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 12
+    },
+    {
+      "id": "clbListening",
+      "label": "clb Listening",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 12
+    },
+    {
+      "id": "clbSpeaking",
+      "label": "clb Speaking",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 12
+    },
+    {
+      "id": "hasOneYearPostSecondaryOrEca",
+      "label": "has One Year Post Secondary Or Eca",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasValidCanadianWorkPermitOrStatus",
+      "label": "has Valid Canadian Work Permit Or Status",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "super-visa-medical-insurance": {
+  "title": "super visa medical insurance",
+  "endpoint": "/v1/tools/federal-super-visa-insurance-lico",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "medicalInsuranceCoverageCad",
+      "label": "medical Insurance Coverage  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "insurancePolicyValidityDays",
+      "label": "insurance Policy Validity Days",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "id": "insuranceFromApprovedProvider",
+      "label": "insurance From Approved Provider",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "proofOfInsurancePaymentProvided",
+      "label": "proof Of Insurance Payment Provided",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "completedUpfrontImeMedicalExam",
+      "label": "completed Upfront Ime Medical Exam",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "sponsorAnnualIncomeCad",
+      "label": "sponsor Annual Income  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "householdSizeIncludingApplicants",
+      "label": "household Size Including Applicants",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 15
+    }
+  ]
+},
+    "alberta-periodic-tenancy-termination": {
+  "title": "alberta periodic tenancy termination",
+  "endpoint": "/v1/tools/alberta-periodic-tenancy-notice",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "partyGivingNotice",
+      "label": "party Giving Notice",
+      "required": true,
+      "type": "select",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "LANDLORD",
+          "text": "LANDLORD"
+        },
+        {
+          "val": "TENANT",
+          "text": "TENANT"
+        }
+      ]
+    },
+    {
+      "id": "tenancyType",
+      "label": "tenancy Type",
+      "required": true,
+      "type": "select",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "MONTH_TO_MONTH",
+          "text": "MONTH TO MONTH"
+        }
+      ]
+    },
+    {
+      "id": "fullTenancyMonthsNoticeGiven",
+      "label": "full Tenancy Months Notice Given",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 24
+    },
+    {
+      "id": "landlordStatedReason",
+      "label": "landlord Stated Reason",
+      "required": true,
+      "type": "text",
+      "placeholder": "LANDLORD_OR_RELATIVE_OCCUPANCY",
+      "maxLength": 50
+    },
+    {
+      "id": "noticeInWritingAndSigned",
+      "label": "notice In Writing And Signed",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "purchaserSignedWrittenOccupancyRequest",
+      "label": "purchaser Signed Written Occupancy Request",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "majorRenovationPermitsObtained",
+      "label": "major Renovation Permits Obtained",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "bc-overtime-banking": {
+  "title": "bc overtime banking",
+  "endpoint": "/v1/tools/bc-overtime-banking",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "regularHourlyWageCad",
+      "label": "regular Hourly Wage  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "dailyHoursWorkedOver8",
+      "label": "daily Hours Worked Over8",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "dailyHoursWorkedOver12",
+      "label": "daily Hours Worked Over12",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "weeklyHoursWorkedOver40",
+      "label": "weekly Hours Worked Over40",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "employeeRequestedTimeBankInWriting",
+      "label": "employee Requested Time Bank In Writing",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "wantsPaidTimeOffInsteadOfPay",
+      "label": "wants Paid Time Off Instead Of Pay",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    { "id": "existingBankedValueCad", "label": "Recorded value of existing overtime bank (CAD, optional)", "type": "number", "valueType": "number", "step": "0.01", "min": 0 },
+    {
+      "id": "bankedHoursAlreadyAccumulated",
+      "label": "banked Hours Already Accumulated",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "employeeRequestedPayout",
+      "label": "employee Requested Payout",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "employmentTerminated",
+      "label": "employment Terminated",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "overtimePaidActuallyCad",
+      "label": "overtime Paid Actually  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    }
+  ]
+},
+    "ontario-illegal-entry-t2": {
+  "title": "ontario illegal entry t2",
+  "endpoint": "/v1/tools/ontario-illegal-entry-t2",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "writtenNoticeGiven",
+      "label": "written Notice Given",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "noticeHoursGiven",
+      "label": "notice Hours Given",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "id": "entryScheduledHour",
+      "label": "entry Scheduled Hour",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 23
+    },
+    {
+      "id": "isEmergencyEntry",
+      "label": "is Emergency Entry",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "tenantConsentedAtTimeOfEntry",
+      "label": "tenant Consented At Time Of Entry",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "noticeSpecifiedTimeWindow",
+      "label": "notice Specified Time Window",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "noticeStatedValidPurpose",
+      "label": "notice Stated Valid Purpose",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "monthlyRentCad",
+      "label": "monthly Rent  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "unlawfulEntryIncidentsCount",
+      "label": "unlawful Entry Incidents Count",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 100
+    },
+    {
+      "id": "outOfPocketExpensesCad",
+      "label": "out Of Pocket Expenses  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    }
+  ]
+},
+    "saskatchewan-security-deposit": {
+  "title": "saskatchewan security deposit",
+  "endpoint": "/v1/tools/saskatchewan-security-deposit-return",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "monthlyRentCad",
+      "label": "monthly Rent  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "securityDepositPaidCad",
+      "label": "security Deposit Paid  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "tenancyEnded",
+      "label": "tenancy Ended",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "businessDaysSinceTenancyEnded",
+      "label": "business Days Since Tenancy Ended",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "landlordRefundedFullDeposit",
+      "label": "landlord Refunded Full Deposit",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "amountActuallyRefundedCad",
+      "label": "amount Actually Refunded  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "landlordServedPrescribedForm13",
+      "label": "landlord Served Prescribed Form13",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "tenantSignedWrittenDeductionConsent",
+      "label": "tenant Signed Written Deduction Consent",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "tenantAgreedDeductionAmountCad",
+      "label": "tenant Agreed Deduction Amount  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    }
+  ]
+},
+    "start-up-visa-peer-review": {
+  "title": "start up visa peer review",
+  "endpoint": "/v1/tools/federal-suv-peer-review",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "designatedEntityType",
+      "label": "designated Entity Type",
+      "required": true,
+      "type": "text",
+      "placeholder": "BUSINESS_INCUBATOR",
+      "maxLength": 50
+    },
+    {
+      "id": "securedInvestmentAmountCad",
+      "label": "secured Investment Amount  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "hasOfficialLetterOfSupport",
+      "label": "has Official Letter Of Support",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "applicantVotingRightsPercentage",
+      "label": "applicant Voting Rights Percentage",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "totalFoundersAndEntityVotingPercentage",
+      "label": "total Founders And Entity Voting Percentage",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "totalFoundersCount",
+      "label": "total Founders Count",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 20
+    },
+    {
+      "id": "hasActiveOngoingManagementRole",
+      "label": "has Active Ongoing Management Role",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "businessIncorporatedInCanada",
+      "label": "business Incorporated In Canada",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "peerReviewRequestedByOfficer",
+      "label": "peer Review Requested By Officer",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "alberta-constructive-dismissal": {
+  "title": "alberta constructive dismissal",
+  "endpoint": "/v1/tools/alberta-constructive-dismissal",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "previousAnnualSalaryCad",
+      "label": "previous Annual Salary  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "newAnnualSalaryCad",
+      "label": "new Annual Salary  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "yearsOfContinuousService",
+      "label": "years Of Continuous Service",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "employeeAgreedToReduction",
+      "label": "employee Agreed To Reduction",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "unilateralReductionInHoursOrStatus",
+      "label": "unilateral Reduction In Hours Or Status",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "daysSinceReductionImposed",
+      "label": "days Since Reduction Imposed",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 1000
+    }
+  ]
+},
+    "bc-security-deposit-double": {
+  "title": "bc security deposit double",
+  "endpoint": "/v1/tools/bc-security-deposit-double-penalty",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "securityDepositPaidCad",
+      "label": "security Deposit Paid  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "petDepositPaidCad",
+      "label": "pet Deposit Paid  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "tenancyHasEnded",
+      "label": "tenancy Has Ended",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "forwardingAddressProvidedInWriting",
+      "label": "forwarding Address Provided In Writing",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "daysSinceForwardingAddressReceived",
+      "label": "days Since Forwarding Address Received",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "id": "tenantSignedWrittenDeductionConsent",
+      "label": "tenant Signed Written Deduction Consent",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "tenantAgreedDeductionAmountCad",
+      "label": "tenant Agreed Deduction Amount  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "landlordFiledRtbClaimWithin15Days",
+      "label": "landlord Filed Rtb Claim Within15Days",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "landlordRefundedAmountCad",
+      "label": "landlord Refunded Amount  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    }
+  ]
+},
+    "c12-professional-fta": {
+  "title": "c12 professional fta",
+  "endpoint": "/v1/tools/federal-fta-professional-work-permit",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "treaty",
+      "label": "treaty",
+      "required": true,
+      "type": "text",
+      "placeholder": "CUSMA",
+      "maxLength": 20
+    },
+    {
+      "id": "applicantCitizenshipCountry",
+      "label": "applicant Citizenship Country",
+      "required": true,
+      "type": "text",
+      "placeholder": "USA",
+      "maxLength": 10
+    },
+    {
+      "id": "hasSignedServiceContractOrJobOffer",
+      "label": "has Signed Service Contract Or Job Offer",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasRequiredDegreeOrLicence",
+      "label": "has Required Degree Or Licence",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "yearsOfProfessionalExperience",
+      "label": "years Of Professional Experience",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 60
+    },
+    {
+      "id": "employerComplianceFeePaid",
+      "label": "employer Compliance Fee Paid",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "isRegulatedProfessionInProvince",
+      "label": "is Regulated Profession In Province",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "provincialLicenceAcquiredOrInProcess",
+      "label": "provincial Licence Acquired Or In Process",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "bc-strata-depreciation-crf": {
+  "title": "bc strata depreciation crf",
+  "endpoint": "/v1/tools/bc-strata-depreciation-crf",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "strataLotsCount",
+      "label": "strata Lots Count",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 5000
+    },
+    {
+      "id": "yearsSinceLastDepreciationReport",
+      "label": "years Since Last Depreciation Report",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 50
+    },
+    {
+      "id": "reportAuthorCredential",
+      "label": "report Author Credential",
+      "required": true,
+      "type": "text",
+      "placeholder": "CERTIFIED_RESERVE_PLANNER_CRP",
+      "maxLength": 50
+    },
+    {
+      "id": "annualOperatingBudgetCad",
+      "label": "annual Operating Budget  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "annualCrfContributionCad",
+      "label": "annual Crf Contribution  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "strataAttemptedAnnualWaiverVote",
+      "label": "strata Attempted Annual Waiver Vote",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "depreciationReportAttachedToFormB",
+      "label": "depreciation Report Attached To Form B",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "alberta-general-holiday-pay": {
+  "title": "alberta general holiday pay",
+  "endpoint": "/v1/tools/alberta-general-holiday-pay",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "holidayName",
+      "label": "holiday Name",
+      "required": true,
+      "type": "text",
+      "placeholder": "CANADA_DAY",
+      "maxLength": 50
+    },
+    {
+      "id": "workDaysInPast12Months",
+      "label": "work Days In Past12Months",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "isRegularDayOfWork",
+      "label": "is Regular Day Of Work",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "workedOnHoliday",
+      "label": "worked On Holiday",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hoursWorkedOnHoliday",
+      "label": "hours Worked On Holiday",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 24
+    },
+    {
+      "id": "regularHourlyWageCad",
+      "label": "regular Hourly Wage  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "wagesEarnedInPast4WeeksCad",
+      "label": "wages Earned In Past4Weeks  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "absentWithoutConsentBeforeOrAfter",
+      "label": "absent Without Consent Before Or After",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "futureDayOffWithPayProvided",
+      "label": "future Day Off With Pay Provided",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "holidayPayActuallyPaidCad",
+      "label": "holiday Pay Actually Paid  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    }
+  ]
+},
+    "ontario-rent-deposit-interest": {
+  "title": "ontario rent deposit interest",
+  "endpoint": "/v1/tools/ontario-rent-deposit-interest",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "initialDepositAmountCad",
+      "label": "initial Deposit Amount  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "currentMonthlyRentCad",
+      "label": "current Monthly Rent  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "tenancyDurationYears",
+      "label": "tenancy Duration Years",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 50
+    },
+    {
+      "id": "guidelineInterestRatePercent",
+      "label": "guideline Interest Rate Percent",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "landlordPaidAnnualInterest",
+      "label": "landlord Paid Annual Interest",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "depositAppliedToLastMonthRentIncrease",
+      "label": "deposit Applied To Last Month Rent Increase",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "landlordDemandedDamageDeposit",
+      "label": "landlord Demanded Damage Deposit",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "extraDepositPaidCad",
+      "label": "extra Deposit Paid  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    }
+  ]
+},
+    "bowp-pr-aor": {
+  "title": "bowp pr aor",
+  "endpoint": "/v1/tools/federal-bowp-pr-acknowledgement",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "isCurrentlyInCanada",
+      "label": "is Currently In Canada",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasValidWorkAuthorization",
+      "label": "has Valid Work Authorization",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "daysUntilCurrentPermitExpires",
+      "label": "days Until Current Permit Expires",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "id": "prApplicationStream",
+      "label": "pr Application Stream",
+      "required": true,
+      "type": "text",
+      "placeholder": "EXPRESS_ENTRY_CEC",
+      "maxLength": 50
+    },
+    {
+      "id": "hasReceivedOfficialAor",
+      "label": "has Received Official Aor",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "pnpHasEmploymentRestrictions",
+      "label": "pnp Has Employment Restrictions",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasPendingInadmissibilityProceedings",
+      "label": "has Pending Inadmissibility Proceedings",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "francophone-mobility-c16": {
+  "title": "francophone mobility c16",
+  "endpoint": "/v1/tools/federal-francophone-mobility-c16",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "frenchOralNclcLevel",
+      "label": "french Oral Nclc Level",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 12
+    },
+    {
+      "id": "destinationProvince",
+      "label": "destination Province",
+      "required": true,
+      "type": "select",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "ON",
+          "text": "ON"
+        },
+        {
+          "val": "BC",
+          "text": "BC"
+        },
+        {
+          "val": "AB",
+          "text": "AB"
+        },
+        {
+          "val": "MB",
+          "text": "MB"
+        },
+        {
+          "val": "SK",
+          "text": "SK"
+        },
+        {
+          "val": "NS",
+          "text": "NS"
+        },
+        {
+          "val": "NB",
+          "text": "NB"
+        },
+        {
+          "val": "NL",
+          "text": "NL"
+        },
+        {
+          "val": "PE",
+          "text": "PE"
+        },
+        {
+          "val": "QC",
+          "text": "QC"
+        },
+        {
+          "val": "YT",
+          "text": "YT"
+        },
+        {
+          "val": "NT",
+          "text": "NT"
+        },
+        {
+          "val": "NU",
+          "text": "NU"
+        }
+      ]
+    },
+    {
+      "id": "teerCategory",
+      "label": "teer Category",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 5
+    },
+    {
+      "id": "isPrimaryAgricultureNoc",
+      "label": "is Primary Agriculture Noc",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasValidJobOffer",
+      "label": "has Valid Job Offer",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasApprovedFrenchTest",
+      "label": "has Approved French Test",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "employerComplianceFeePaid",
+      "label": "employer Compliance Fee Paid",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "bc-illness-injury-leave": {
+  "title": "bc illness injury leave",
+  "endpoint": "/v1/tools/british-columbia-employment-illness-injury-leave",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "consecutiveDaysEmployed",
+      "label": "consecutive Days Employed",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 5000
+    },
+    {
+      "id": "paidSickDaysTakenThisYear",
+      "label": "paid Sick Days Taken This Year",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "paidSickDaysRequested",
+      "label": "paid Sick Days Requested",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "unpaidSickDaysTakenThisYear",
+      "label": "unpaid Sick Days Taken This Year",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "unpaidSickDaysRequested",
+      "label": "unpaid Sick Days Requested",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "wagesEarnedInPast30DaysCad",
+      "label": "wages Earned In Past30Days  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "daysWorkedInPast30Days",
+      "label": "days Worked In Past30Days",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 31
+    },
+    {
+      "id": "employerRefusedPaidSickDays",
+      "label": "employer Refused Paid Sick Days",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "employerDisciplinedOrDismissedForLeave",
+      "label": "employer Disciplined Or Dismissed For Leave",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "medicalProofProvided",
+      "label": "medical Proof Provided",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "ontario-urgent-repairs-t6": {
+  "title": "ontario urgent repairs t6",
+  "endpoint": "/v1/tools/ontario-residential-tenancy-urgent-repairs-t6",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "vitalServiceInterrupted",
+      "label": "vital Service Interrupted",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "indoorTemperatureCelsius",
+      "label": "indoor Temperature Celsius",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any"
+    },
+    {
+      "id": "calendarMonth",
+      "label": "calendar Month",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 12
+    },
+    {
+      "id": "landlordNotifiedInWriting",
+      "label": "landlord Notified In Writing",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "daysSinceWrittenNotice",
+      "label": "days Since Written Notice",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 365
+    },
+    {
+      "id": "emergencyRepairIncurredByTenantCad",
+      "label": "emergency Repair Incurred By Tenant  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "monthlyRentCad",
+      "label": "monthly Rent  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "monthsOfDisrepair",
+      "label": "months Of Disrepair",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 1,
+      "max": 60
+    },
+    {
+      "id": "estimatedAbatementPercentage",
+      "label": "estimated Abatement Percentage",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "landlordRetaliationThreatened",
+      "label": "landlord Retaliation Threatened",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "alberta-maternity-parental": {
+  "title": "alberta maternity parental",
+  "endpoint": "/v1/tools/alberta-employment-maternity-parental-leave",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "leaveType",
+      "label": "leave Type",
+      "required": true,
+      "type": "select",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "COMBINED_MATERNITY_PARENTAL",
+          "text": "COMBINED MATERNITY PARENTAL"
+        },
+        {
+          "val": "MATERNITY_ONLY",
+          "text": "MATERNITY ONLY"
+        },
+        {
+          "val": "PARENTAL_ONLY",
+          "text": "PARENTAL ONLY"
+        }
+      ]
+    },
+    {
+      "id": "consecutiveDaysOfEmployment",
+      "label": "consecutive Days Of Employment",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 5000
+    },
+    {
+      "id": "maternityWeeksRequested",
+      "label": "maternity Weeks Requested",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 52
+    },
+    {
+      "id": "parentalWeeksRequested",
+      "label": "parental Weeks Requested",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 104
+    },
+    {
+      "id": "noticeWeeksProvidedBeforeLeave",
+      "label": "notice Weeks Provided Before Leave",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 52
+    },
+    {
+      "id": "medicalCertificateProvided",
+      "label": "medical Certificate Provided",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "noticeWeeksProvidedBeforeReturn",
+      "label": "notice Weeks Provided Before Return",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 52
+    },
+    {
+      "id": "employerRefusesReinstatement",
+      "label": "employer Refuses Reinstatement",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "employerDisciplinedOrDismissedDueToLeave",
+      "label": "employer Disciplined Or Dismissed Due To Leave",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    "c11-entrepreneur": {
+  "title": "c11 entrepreneur",
+  "endpoint": "/v1/tools/federal-c11-entrepreneur-work-permit",
+  "method": "POST",
+  "fields": [
+    {
+      "id": "businessOwnershipPercentage",
+      "label": "business Ownership Percentage",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "hasControllingInterest",
+      "label": "has Controlling Interest",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "capitalInvestedCad",
+      "label": "capital Invested  (CAD)",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "any",
+      "min": 0
+    },
+    {
+      "id": "hasComprehensiveBusinessPlan",
+      "label": "has Comprehensive Business Plan",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "createsJobsForCanadiansOrPrs",
+      "label": "creates Jobs For Canadians Or Prs",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "projectedCanadianStaffHired",
+      "label": "projected Canadian Staff Hired",
+      "required": true,
+      "type": "number",
+      "valueType": "number",
+      "step": "1",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "id": "hasRelevantEntrepreneurialBackground",
+      "label": "has Relevant Entrepreneurial Background",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "hasSecuredPhysicalPremisesOrLease",
+      "label": "has Secured Physical Premises Or Lease",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "id": "employerComplianceFeePaid",
+      "label": "employer Compliance Fee Paid",
+      "required": true,
+      "type": "select",
+      "valueType": "boolean",
+      "options": [
+        {
+          "val": "",
+          "text": "Choose an answer"
+        },
+        {
+          "val": "true",
+          "text": "Yes"
+        },
+        {
+          "val": "false",
+          "text": "No"
+        }
+      ]
+    }
+  ]
+},
+    'ontario-employment-reprisal': {
+      title: 'Ontario employment reprisal',
+      fields: [
+        { id: 'action', label: 'Protected action taken', type: 'select', options: [
+          { val: '', text: 'Choose an action' },
+          { val: 'ASKED_EMPLOYER_TO_COMPLY_WITH_ESA', text: 'Asked employer to comply with employment standards' },
+          { val: 'INQUIRED_ABOUT_STATUTORY_RIGHTS', text: 'Asked about employment rights' },
+          { val: 'FILED_MINISTRY_OF_LABOUR_CLAIM', text: 'Filed a Ministry claim' },
+          { val: 'TOOK_OR_REQUESTED_STATUTORY_LEAVE', text: 'Took or requested statutory leave' },
+          { val: 'REFUSED_UNLAWFUL_UNPAID_OVERTIME', text: 'Refused unlawful unpaid overtime' },
+          { val: 'TESTIFIED_IN_ESA_PROCEEDING', text: 'Testified in a proceeding' }
+        ] },
+        { id: 'adverse', label: 'Employer action', type: 'select', options: [
+          { val: '', text: 'Choose an action' },
+          { val: 'TERMINATED_EMPLOYMENT', text: 'Terminated employment' },
+          { val: 'SUSPENDED_WITHOUT_PAY', text: 'Suspended without pay' },
+          { val: 'DEMOTED_OR_CUT_HOURS', text: 'Demoted or reduced hours' },
+          { val: 'HARASSED_OR_THREATENED', text: 'Harassed or threatened' }
+        ] },
+        { id: 'days', label: 'Days between the two actions', type: 'number', default: '' },
+        { id: 'wage', label: 'Regular weekly wage (CAD)', type: 'number', step: 'any', default: '' },
+        { id: 'weeksLost', label: 'Weeks of income lost', type: 'number', step: 'any', default: '' },
+        { id: 'reinstatement', label: 'Seeking reinstatement?', type: 'select', options: [{ val: '', text: 'Choose an answer' }, { val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }] },
+        { id: 'priorDiscipline', label: 'Employer documented performance issues beforehand?', type: 'select', options: [{ val: '', text: 'Choose an answer' }, { val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }] }
+      ]
+    },
+    'alberta-youth-employment-rules': {
+      title: 'Alberta youth employment',
+      fields: [
+        { id: 'age', label: 'Employee age in full years', type: 'number', default: 14 },
+        { id: 'job', label: 'Job category', type: 'select', options: [
+          { val: 'RETAIL_CLERK', text: 'Retail clerk' },
+          { val: 'OFFICE_MESSENGER', text: 'Office messenger' },
+          { val: 'FLYER_NEWSPAPER_DELIVERY', text: 'Flyer or newspaper delivery' },
+          { val: 'TUTOR_OR_COACH', text: 'Tutor or coach' },
+          { val: 'LIGHT_JANITORIAL', text: 'Light janitorial work' },
+          { val: 'OTHER', text: 'Other work' }
+        ] },
+        { id: 'hours', label: 'Scheduled work hours', type: 'number', step: 'any', default: 2 },
+        { id: 'start', label: 'Start hour (e.g. 16.5 for 4:30 PM)', type: 'number', step: 'any', default: 16 },
+        { id: 'end', label: 'End hour (e.g. 18 for 6 PM)', type: 'number', step: 'any', default: 18 },
+        { id: 'consent', label: 'Written parental consent on file?', type: 'select', options: [{ val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }] },
+        { id: 'schoolDay', label: 'School day?', type: 'select', options: [{ val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }] },
+        { id: 'duringSchool', label: 'Work during school hours?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'supervision', label: 'Adult supervision present?', type: 'select', options: [{ val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }] }
+      ]
+    },
+    'manitoba-general-holiday-pay': {
+      title: 'Manitoba general holiday pay',
+      fields: [
+        { id: 'holiday', label: 'Holiday', type: 'select', options: [
+          { val: 'LOUIS_RIEL_DAY', text: 'Louis Riel Day' },
+          { val: 'NEW_YEARS_DAY', text: 'New Year’s Day' },
+          { val: 'GOOD_FRIDAY', text: 'Good Friday' },
+          { val: 'VICTORIA_DAY', text: 'Victoria Day' },
+          { val: 'CANADA_DAY', text: 'Canada Day' },
+          { val: 'LABOUR_DAY', text: 'Labour Day' },
+          { val: 'NATIONAL_DAY_FOR_TRUTH_AND_RECONCILIATION', text: 'National Day for Truth and Reconciliation' },
+          { val: 'THANKSGIVING_DAY', text: 'Thanksgiving Day' },
+          { val: 'CHRISTMAS_DAY', text: 'Christmas Day' },
+          { val: 'OTHER', text: 'Other day' }
+        ] },
+        { id: 'wages4w', label: 'Regular wages in the preceding four weeks (CAD)', type: 'number', step: '0.01', default: 3600 },
+        { id: 'worked', label: 'Worked on the holiday?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'hours', label: 'Hours worked on the holiday', type: 'number', step: 'any', default: 0 },
+        { id: 'wage', label: 'Regular hourly wage (CAD)', type: 'number', step: 'any', default: 22 },
+        { id: 'absent', label: 'Absent without consent on the scheduled shift before or after?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'substitute', label: 'Agreed to a substitute paid day off?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'paidActual', label: 'Holiday pay already received (CAD)', type: 'number', step: '0.01', default: 0 }
+      ]
+    },
+    'ontario-public-holiday-pay': {
+      title: 'Ontario public holiday pay',
+      fields: [
+        { id: 'holiday', label: 'Holiday', type: 'select', options: [
+          { val: 'FAMILY_DAY', text: 'Family Day' },
+          { val: 'NEW_YEARS_DAY', text: 'New Year’s Day' },
+          { val: 'GOOD_FRIDAY', text: 'Good Friday' },
+          { val: 'VICTORIA_DAY', text: 'Victoria Day' },
+          { val: 'CANADA_DAY', text: 'Canada Day' },
+          { val: 'LABOUR_DAY', text: 'Labour Day' },
+          { val: 'BOXING_DAY', text: 'Boxing Day' },
+          { val: 'THANKSGIVING_DAY', text: 'Thanksgiving Day' },
+          { val: 'CHRISTMAS_DAY', text: 'Christmas Day' },
+          { val: 'OTHER', text: 'Other day' }
+        ] },
+        { id: 'wages4w', label: 'Regular wages in the preceding four weeks (CAD)', type: 'number', step: '0.01', default: 3200 },
+        { id: 'vacPay', label: 'Vacation pay payable in the preceding four weeks (CAD)', type: 'number', step: '0.01', default: 128 },
+        { id: 'worked', label: 'Worked on the holiday?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'hours', label: 'Hours worked on the holiday', type: 'number', step: 'any', default: 0 },
+        { id: 'wage', label: 'Regular hourly wage (CAD)', type: 'number', step: 'any', default: 20 },
+        { id: 'qualified', label: 'Worked the scheduled shifts before and after the holiday?', type: 'select', options: [{ val: 'true', text: 'Yes' }, { val: 'false', text: 'No' }] },
+        { id: 'reasonableCause', label: 'Had reasonable cause for a missed shift?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'substitute', label: 'Agreed to a substitute paid day off?', type: 'select', options: [{ val: 'false', text: 'No' }, { val: 'true', text: 'Yes' }] },
+        { id: 'paidActual', label: 'Holiday pay already received (CAD)', type: 'number', step: '0.01', default: 0 }
+      ]
+    },
     'study-permit-cap-pal': {
       title: 'Study Permit Cap & Provincial Attestation Letter (PAL)',
       fields: [
@@ -427,7 +3330,7 @@
           { val: 'singapore', text: 'Singapore: Employment Pass COMPASS (40-Point Pass Mark)' }
         ]},
         { id: 'salary', label: 'Monthly Basic Salary (Local Currency AED/EUR/NZD)', type: 'number', default: 15000 },
-        { id: 'years', label: 'Years of Continuous Service / Employment', type: 'number', default: 3.5 },
+        { id: 'years', label: 'Years of Continuous Service / Employment', type: 'number', step: 'any', default: 3.5 },
         { id: 'deductions', label: 'Employer Attempted Deductions (e.g. Visa Fees)', type: 'number', default: 0 }
       ]
     },
@@ -590,7 +3493,7 @@
         { id: 'rate', label: 'Hourly Wage Rate ($ CAD)', type: 'number', default: 25.00 },
         { id: 'hours', label: 'Weekly Hours Worked (for Overtime)', type: 'number', default: 52 },
         { id: 'earnings', label: 'Gross Annual Earnings ($ CAD for Vacation)', type: 'number', default: 60000 },
-        { id: 'years', label: 'Years of Continuous Service', type: 'number', default: 5.5 },
+        { id: 'years', label: 'Years of Continuous Service', type: 'number', step: 'any', default: 5.5 },
         { id: 'wages', label: 'Gross Wages in Prior 4 Weeks ($ CAD for Holiday)', type: 'number', default: 3600 },
         { id: 'payroll', label: 'Employer Ontario Payroll ($ CAD for Severance)', type: 'number', default: 3000000 }
       ]
@@ -634,7 +3537,7 @@
           { val: 'qpip', text: 'Quebec QPIP Dedicated 5-Week Paternity Leave' }
         ]},
         { id: 'hours', label: 'Insurable Hours Accrued in Past 52 Weeks', type: 'number', default: 650 },
-        { id: 'rate', label: 'Regional Unemployment Rate (%)', type: 'number', default: 7.5 },
+        { id: 'rate', label: 'Regional Unemployment Rate (%)', type: 'number', step: 'any', default: 7.5 },
         { id: 'earnings', label: 'Average Weekly Insurable Earnings ($ CAD)', type: 'number', default: 1200 },
         { id: 'reason', label: 'Voluntary Separation Reason (if applicable)', type: 'select', options: [
           { val: 'spouse_relocation', text: 'Spouse Relocation for Employment' },
@@ -779,12 +3682,13 @@
     resultsEl.innerHTML = '';
     formEl.innerHTML = '';
 
-    const config = TOOL_FORMS[tool.id] || {
-      title: tool.title,
-      fields: [
-        { id: 'province', label: 'Province', type: 'select', options: [{ val: 'ON', text: 'Ontario' }, { val: 'BC', text: 'British Columbia' }] }
-      ]
-    };
+    const config = TOOL_FORMS[tool.id];
+    if (!config) {
+      titleEl.textContent = tool.title || 'Tool';
+      statusEl.textContent = 'This tool is unavailable. Please choose a tool from the command list.';
+      overlay.hidden = false;
+      return;
+    }
 
     titleEl.textContent = config.title || tool.title;
 
@@ -800,6 +3704,7 @@
         const select = document.createElement('select');
         select.id = `modal-field-${f.id}`;
         select.name = f.id;
+        select.required = Boolean(f.required);
         for (const opt of f.options) {
           const option = document.createElement('option');
           option.value = opt.val;
@@ -812,6 +3717,12 @@
         input.type = f.type || 'text';
         input.id = `modal-field-${f.id}`;
         input.name = f.id;
+        input.required = Boolean(f.required);
+        if (f.min !== undefined) input.min = f.min;
+        if (f.max !== undefined) input.max = f.max;
+        if (f.maxLength !== undefined) input.maxLength = f.maxLength;
+        if (f.placeholder) input.placeholder = f.placeholder;
+        if (f.step !== undefined) input.step = f.step;
         if (f.default !== undefined) input.value = f.default;
         row.appendChild(input);
       }
@@ -846,8 +3757,16 @@
       }
 
       try {
-        const endpoint = tool.endpoint || `/v1/tools/${tool.id}`;
-        const res = await fetch(`${endpoint}?${queryParams.toString()}`, {signal: request.signal});
+        const endpoint = config.endpoint || tool.endpoint || `/v1/tools/${tool.id}`;
+        const body = Object.fromEntries(queryParams);
+        for (const field of config.fields) {
+          if (!field.required && body[field.id] === '') { delete body[field.id]; continue; }
+          if (field.valueType === 'boolean') body[field.id] = body[field.id] === 'true';
+          if (field.valueType === 'number') body[field.id] = Number(body[field.id]);
+        }
+        const res = config.method === 'POST'
+          ? await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: request.signal })
+          : await fetch(`${endpoint}?${queryParams.toString()}`, {signal: request.signal});
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
@@ -900,7 +3819,24 @@
   function renderResultHtml(toolId, data) {
     let out = '<div class="tool-modal-result-card">';
     out += html`<h4>⚡ Statutory Assessment Result</h4>`;
+    if (toolId === 'family-reunification' && data.verdict) {
+      out += html`<p><strong>${data.verdict.replace(/_/g, ' ')}</strong></p>`;
+      if (data.explanation) out += html`<p>${data.explanation}</p>`;
+    }
+    if (['australia-tenancy', 'us-state-tenancy', 'uk-devolved-tenancy', 'uae-tenancy-dispute'].includes(toolId)) {
+      const issues = data.violations || data.statutoryViolations;
+      out += html`<p><strong>${data.state || data.devolvedNation || data.emirate}</strong> · ${issues.length} tenancy issues identified.</p>`;
+      for (const issue of issues) out += html`<p>${issue}</p>`;
+    }
 
+    const holidayPay = toolId === 'ontario-public-holiday-pay' ? data.calculationSummary :
+      toolId === 'manitoba-general-holiday-pay' ? data.holidayPayDetails : undefined;
+    if (holidayPay) {
+      const cad = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });
+      out += html`<p>Total due for this assessment: ${cad.format(holidayPay.totalStatutoryEntitlementCad)}</p>
+        <p>Already paid: ${cad.format(holidayPay.holidayPayActuallyPaidCad)}</p>
+        <p>Unpaid balance: ${cad.format(holidayPay.wageDeficitCad)}</p>`;
+    }
     if (data.palStatus) {
       const badgeCls = data.isPalRequired === null ? 'badge-neutral' : data.isPalRequired ? 'badge-warn' : 'badge-compliant';
       out += html`<div class="modal-badge ${badgeCls}">PAL STATUS: ${data.palStatus}</div>`;

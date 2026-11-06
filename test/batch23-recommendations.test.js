@@ -213,10 +213,10 @@ test('Batch 23 Recommendations (Sweep 30: Recs 411–425)', async (t) => {
       shiftStartHour: 18,
       shiftEndHour: 22, // exceeds 9:00 PM prohibition
       employeeName: '  Young Worker  ',
-      assessmentDate: 'invalid-date'
+      assessmentDate: '2026-10-31'
     });
 
-    assert.equal(res.assessmentDate, todayIso());
+    assert.equal(res.assessmentDate, '2026-10-31');
     assert.equal(res.employeeName, 'Young Worker');
     assert.equal(res.isCompliant, false);
     assert.ok(res.statutoryViolations.some(v => v.rule === 'MISSING_WRITTEN_PARENTAL_CONSENT'));

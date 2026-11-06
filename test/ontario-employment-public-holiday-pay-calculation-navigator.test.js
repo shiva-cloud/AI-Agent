@@ -59,5 +59,21 @@ test('Ontario Public Holiday - Failed First and Last Rule without reasonable cau
 
   assert.equal(result.isQualified, false);
   assert.equal(result.calculationSummary.statutoryPublicHolidayPayCad, 0);
-  assert.ok(result.statutoryViolations.some(v => v.rule === 'FAILED_FIRST_AND_LAST_SHIFT_QUALIFYING_RULE'));
+  assert.equal(result.complianceStatus, 'FAILED_FIRST_AND_LAST_SHIFT_QUALIFYING_RULE');
+  assert.deepEqual(result.statutoryViolations, []);
+});
+
+test('A day outside the holiday list yields no holiday entitlement or wage claim', () => {
+  const result = evaluateOntarioPublicHolidayPay({ holidayName: 'CIVIC_HOLIDAY', workedOnPublicHoliday: true, hoursWorkedOnHoliday: 8 });
+  assert.equal(result.complianceStatus, 'PUBLIC_HOLIDAY_RULES_NOT_APPLICABLE');
+  assert.equal(result.calculationSummary.totalStatutoryEntitlementCad, 0);
+  assert.deepEqual(result.actionableRemedies, []);
+});
+
+test('Missed qualifying shift preserves the worked premium in the breakdown', () => {
+  const result = evaluateOntarioPublicHolidayPay({ workedShiftBeforeAndAfterHoliday: 'false', hadReasonableCauseForAbsence: 'false',
+    workedOnPublicHoliday: true, hoursWorkedOnHoliday: 8, regularHourlyWageCad: 20, holidayPayActuallyPaidCad: 100 });
+  assert.equal(result.calculationSummary.statutoryPublicHolidayPayCad, 0);
+  assert.equal(result.calculationSummary.premiumHoursPayCad, 240);
+  assert.equal(result.calculationSummary.wageDeficitCad, 140);
 });

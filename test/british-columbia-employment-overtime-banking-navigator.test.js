@@ -60,6 +60,8 @@ test('BC overtime keeps fractional earnings on a bank payout and respects explic
     wantsPaidTimeOffInsteadOfPay: true, employmentTerminated: 'false' };
   const held = evaluateBcOvertimeBanking(input).overtimeCalculation;
   assert.equal(held.totalCashOwedImmediatelyCad, 0);
+  assert.equal(held.newBankedEquivalentHours, 0.015);
+  assert.equal(held.totalBankedHours, 1.015);
   assert.equal(held.totalBankedValueCad, 30.45);
   const payout = evaluateBcOvertimeBanking({ ...input, employeeRequestedPayout: true }).overtimeCalculation;
   assert.equal(payout.totalCashOwedImmediatelyCad, 30.45);
@@ -70,4 +72,11 @@ test('BC overtime rejects malformed dates and amounts', () => {
     { weeklyHoursWorkedOver40: -1 }, { regularHourlyWageCad: [] }]) {
     assert.throws(() => evaluateBcOvertimeBanking(input), error => error.statusCode === 400);
   }
+});
+
+test('Recorded opening value survives a change of hourly wage', () => {
+  const result = evaluateBcOvertimeBanking({ regularHourlyWageCad: 40, bankedHoursAlreadyAccumulated: 10,
+    existingBankedValueCad: 250, dailyHoursWorkedOver8: 0, employeeRequestedPayout: true });
+  assert.equal(result.overtimeCalculation.totalCashOwedImmediatelyCad, 250);
+  assert.equal(result.overtimeCalculation.existingBankValueBasis, 'RECORDED_BALANCE');
 });

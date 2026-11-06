@@ -47,6 +47,15 @@ export function calculateAlbertaOvertimeHours(dailyHoursWorked = []) {
   };
 }
 
+function bankCreditDeadline(payPeriodEnd, months) {
+  const deadline = new Date(payPeriodEnd + 'T00:00:00Z');
+  const day = deadline.getUTCDate();
+  deadline.setUTCDate(1);
+  deadline.setUTCMonth(deadline.getUTCMonth() + months + 1, 0);
+  deadline.setUTCDate(Math.min(day, deadline.getUTCDate()));
+  return deadline.toISOString().slice(0, 10);
+}
+
 export function evaluateAlbertaOvertimeBanking(params = {}) {
   const {
     regularHourlyWageCad = 25,
@@ -65,12 +74,42 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
   const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
   const wage = calculatorNumber(regularHourlyWageCad, 'regularHourlyWageCad', {max: 100000});
   const otRate = wage * ALBERTA_OVERTIME_MULTIPLIER;
-  const existingBank = calculatorNumber(existingBankedHours, 'existingBankedHours', {max: 10000});
+  let existingBank = calculatorNumber(existingBankedHours, 'existingBankedHours', {max: 10000});
   const timeOffTaken = calculatorNumber(hoursTakenAsTimeOff, 'hoursTakenAsTimeOff', {max: 10000});
   const monthsElapsed = calculatorNumber(monthsElapsedSinceBanked, 'monthsElapsedSinceBanked', {max: 120, integer: true});
   const hasWrittenOvertimeAgreement = calculatorBoolean(agreement, 'hasWrittenOvertimeAgreement');
   const isEmploymentTerminating = calculatorBoolean(terminating, 'isEmploymentTerminating');
   const hasManagerialOrProfessionalExemption = calculatorBoolean(exempt, 'hasManagerialOrProfessionalExemption');
+  const expiryMonths = calculatorNumber(
+    params.collectiveAgreementBankingMonths === undefined ? ALBERTA_BANKING_EXPIRY_MONTHS : params.collectiveAgreementBankingMonths,
+    'collectiveAgreementBankingMonths', { min: ALBERTA_BANKING_EXPIRY_MONTHS, max: 120, integer: true }
+  );
+  if (params.collectiveAgreementBankingMonths !== undefined && !hasWrittenOvertimeAgreement) {
+    throw new ValidationError('A collective agreement banking period requires a written overtime agreement');
+  }
+  const credits = params.bankedCredits;
+  let expiredCreditHours = 0;
+  let expiredCreditPay = 0;
+  let outstandingCreditPay = 0;
+  if (credits !== undefined) {
+    if (!Array.isArray(credits) || credits.length > 500 || existingBank || timeOffTaken || monthsElapsed) {
+      throw new ValidationError('Supply up to 500 outstanding bankedCredits separately from aggregate hours, time off and elapsed months');
+    }
+    for (const credit of credits) {
+      const end = calculatorDate(credit?.payPeriodEnd, 'payPeriodEnd');
+      if (end > cleanDate) throw new ValidationError('payPeriodEnd must be on or before assessmentDate');
+      const hours = calculatorNumber(credit.remainingHours, 'remainingHours', { max: 10000 });
+      const rate = calculatorNumber(credit.hourlyWageWhenEarnedCad, 'hourlyWageWhenEarnedCad', { max: 100000 });
+      const creditPay = hours * rate * ALBERTA_OVERTIME_MULTIPLIER;
+      existingBank += hours;
+      outstandingCreditPay += creditPay;
+      if (cleanDate > bankCreditDeadline(end, expiryMonths)) {
+        expiredCreditHours += hours;
+        expiredCreditPay += creditPay;
+      }
+    }
+    if (existingBank > 10000) throw new ValidationError('Total remainingHours must be at most 10000');
+  }
   const hoursAudit = calculateAlbertaOvertimeHours(dailyHoursWorked);
 
   const statutoryViolations = [];
@@ -119,7 +158,7 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
   // Under Alberta ESC s. 23(2), banked time must be provided within 6 months.
   // If not taken, or upon termination, it must be paid out at 1.5x regular wage rate (s. 23(3)).
   const remainingBankedHours = Math.max(0, existingBank - timeOffTaken);
-  const isBankExpired = remainingBankedHours > 0 && monthsElapsed > ALBERTA_BANKING_EXPIRY_MONTHS;
+  const isBankExpired = credits !== undefined ? expiredCreditHours > 0 : remainingBankedHours > 0 && monthsElapsed > expiryMonths;
 
   let mandatoryPayoutBankedHours = canBankOvertime ? 0 : remainingBankedHours;
   if (isEmploymentTerminating) {
@@ -130,11 +169,11 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
       details: 'Employment termination triggers immediate mandatory payout of all banked hours at 1.5x regular wage rate.'
     });
   } else if (isBankExpired) {
-    mandatoryPayoutBankedHours = remainingBankedHours;
+    mandatoryPayoutBankedHours = credits !== undefined && canBankOvertime ? expiredCreditHours : remainingBankedHours;
     statutoryViolations.push({
       violation: 'BANKED_HOURS_EXPIRED_UNPAID',
       section: 'Alberta ESC s. 23(3)(a)',
-      details: `Banked hours have exceeded the 6-month statutory limit (${monthsElapsed} months elapsed). Must be paid out immediately at 1.5x overtime rate.`
+      details: `Banked hours have exceeded the ${expiryMonths}-month banking limit for the reported pay period. Must be paid out immediately at 1.5x overtime rate.`
     });
   }
 
@@ -144,7 +183,10 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
   const currentPayoutHours = newOtHours - newlyBankedHours;
   const currentPeriodOtPayOwed = currentPayoutHours * otRate;
   // Payout for expired or terminating banked hours (always at 1.5x)
-  const bankedHoursPayoutOwed = mandatoryPayoutBankedHours * otRate;
+  let bankedHoursPayoutOwed = mandatoryPayoutBankedHours * otRate;
+  if (credits !== undefined) {
+    bankedHoursPayoutOwed = isEmploymentTerminating || !canBankOvertime ? outstandingCreditPay : expiredCreditPay;
+  }
   const totalPayoutOwedCad = currentPeriodOtPayOwed + bankedHoursPayoutOwed;
 
   // 5. Banking Net Balance (if not terminating and valid agreement)
@@ -152,8 +194,8 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
 
   if (canBankOvertime && !isEmploymentTerminating) {
     riskWarnings.push({
-      warning: 'SIX_MONTH_EXPIRY_HORIZON',
-      details: `All newly banked hours (${newOtHours} hrs) must be taken as paid time off within 6 months, or employer is statutorily bound to pay them at $${otRate.toFixed(2)}/hr (1.5x).`
+      warning: expiryMonths === 6 ? 'SIX_MONTH_EXPIRY_HORIZON' : 'COLLECTIVE_AGREEMENT_EXPIRY_HORIZON',
+      details: `All newly banked hours (${newOtHours} hrs) must be taken as paid time off within ${expiryMonths} months, or employer is statutorily bound to pay them at $${otRate.toFixed(2)}/hr (1.5x).`
     });
   }
 
@@ -178,7 +220,9 @@ export function evaluateAlbertaOvertimeBanking(params = {}) {
       existingBankedHours: existingBank,
       timeOffTakenHours: timeOffTaken,
       monthsElapsedSinceBanked: monthsElapsed,
-      isExpiredPast6Months: isBankExpired,
+      bankingPeriodMonths: expiryMonths,
+      isBankExpired,
+      ...(expiryMonths === ALBERTA_BANKING_EXPIRY_MONTHS ? { isExpiredPast6Months: isBankExpired } : {}),
       isEmploymentTerminating,
       newlyBankedHours,
       activeBankBalanceHours: updatedBankBalance,

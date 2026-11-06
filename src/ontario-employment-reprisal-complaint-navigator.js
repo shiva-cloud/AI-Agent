@@ -9,7 +9,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ONTARIO_REPRISAL_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, 2000, S.O. 2000, c. 41, ss. 74, 103, 104',
@@ -38,7 +39,23 @@ export const ONTARIO_REPRISAL_CONSTANTS = Object.freeze({
  * @param {boolean} [params.employerProvidedDocumentedPerformanceIssuesPrior=false] - Whether employer had pre-existing written progressive discipline
  * @returns {Object} Comprehensive reprisal audit, reverse onus evaluation, and monetary remedy calculation
  */
-export function evaluateOntarioEmploymentReprisal({
+export function evaluateOntarioEmploymentReprisal(params = {}) {
+  const requiredFields = ['protectedActionTaken', 'employerAdverseAction', 'daysBetweenActionAndReprisal',
+    'regularWeeklyWageCad', 'weeksOfLostIncome', 'seeksJobReinstatement',
+    'employerProvidedDocumentedPerformanceIssuesPrior'];
+  const missingFields = requiredFields.filter(name => params?.[name] === undefined || params?.[name] === null || params?.[name] === '');
+  if (missingFields.length) {
+    return {
+      jurisdiction: 'ONTARIO_CANADA',
+      complianceStatus: 'NOT_DETERMINED',
+      legalVerdict: 'Complete the listed facts to assess the reported reprisal and wage loss.',
+      missingFields,
+      statutoryViolations: [],
+      actionableRemedies: [],
+      riskWarnings: []
+    };
+  }
+  const {
   employeeName = 'Employee',
   protectedActionTaken = 'ASKED_EMPLOYER_TO_COMPLY_WITH_ESA',
   employerAdverseAction = 'TERMINATED_EMPLOYMENT',
@@ -51,9 +68,9 @@ export function evaluateOntarioEmploymentReprisal({
   jobTitle = 'Employee',
   adverseActionDescription = 'Adverse Action',
   assessmentDate = todayIso()
-} = {}) {
+} = params;
   const cleanEmployee = boundedText(employeeName, 'Employee', 100);
-  const safeAssessmentDate = safeIsoDate(assessmentDate, todayIso());
+  const safeAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
 
   const cleanEmployer = boundedText(employerName, 'Employer', 120);
   const cleanJobTitle = boundedText(jobTitle, 'Employee', 120);
@@ -61,11 +78,11 @@ export function evaluateOntarioEmploymentReprisal({
   const safeProtectedAction = boundedText(protectedActionTaken, 'ASKED_EMPLOYER_TO_COMPLY_WITH_ESA', 80);
   const safeAdverseAction = boundedText(employerAdverseAction, 'TERMINATED_EMPLOYMENT', 80);
 
-  const weeklyWage = Math.max(0, Math.min(100000, Number(regularWeeklyWageCad) || 0));
-  const weeksLost = Math.max(0, Math.min(520, Math.floor(Number(weeksOfLostIncome) || 0)));
-  const daysDiff = Math.max(0, Math.min(3650, Math.floor(Number(daysBetweenActionAndReprisal) || 0)));
-  const reinstatementSought = Boolean(seeksJobReinstatement);
-  const performanceIssuesDocumented = Boolean(employerProvidedDocumentedPerformanceIssuesPrior);
+  const weeklyWage = calculatorNumber(regularWeeklyWageCad, 'regularWeeklyWageCad', { max: 100000 });
+  const weeksLost = calculatorNumber(weeksOfLostIncome, 'weeksOfLostIncome', { max: 520 });
+  const daysDiff = calculatorNumber(daysBetweenActionAndReprisal, 'daysBetweenActionAndReprisal', { max: 3650, integer: true });
+  const reinstatementSought = calculatorBoolean(seeksJobReinstatement, 'seeksJobReinstatement');
+  const performanceIssuesDocumented = calculatorBoolean(employerProvidedDocumentedPerformanceIssuesPrior, 'employerProvidedDocumentedPerformanceIssuesPrior');
 
   const statutoryViolations = [];
   const riskWarnings = [];
@@ -78,6 +95,14 @@ export function evaluateOntarioEmploymentReprisal({
       warningType: 'UNSPECIFIED_ACTION_CATEGORY',
       description: `Action '${safeProtectedAction}' must relate to rights under the Employment Standards Act, 2000 to trigger s. 74 protection.`
     });
+  }
+
+  if (!isProtectedAction) {
+    return {
+      jurisdiction: 'ONTARIO_CANADA', complianceStatus: 'NOT_DETERMINED',
+      legalVerdict: 'The reported activity requires review to establish whether it is protected.',
+      statutoryViolations: [], actionableRemedies: [], riskWarnings
+    };
   }
 
   // Under s. 74, any adverse action following protected inquiry establishes prima facie reprisal

@@ -107,22 +107,16 @@ test('Rec 224: Alberta overtime banking rejects invalid hours and monetary input
   }
 });
 
-test('Rec 225: Manitoba Statutory Holiday Pay — Normalizes wages and hours safely', () => {
-  const result = evaluateManitobaGeneralHolidayPay({
-    grossWagesInPast4WeeksCad: 'bad',
-    regularHourlyWageCad: 'invalid'
-  });
-  assert.equal(result.holidayPayDetails.statutoryGeneralHolidayPayCad, 0);
-  assert.equal(result.holidayPayDetails.totalStatutoryEntitlementCad, 0);
+test('Rec 225: Manitoba holiday pay rejects malformed wage inputs', () => {
+  for (const key of ['grossWagesInPast4WeeksCad', 'regularHourlyWageCad']) {
+    assert.throws(() => evaluateManitobaGeneralHolidayPay({ [key]: 'invalid' }), error => error.statusCode === 400);
+  }
 });
 
-test('Rec 226: Ontario Public Holiday Pay — Normalizes past 4 weeks wages and vacation pay', () => {
-  const result = evaluateOntarioPublicHolidayPay({
-    regularWagesInPast4WeeksCad: 'bad',
-    vacationPayPayableInPast4WeeksCad: 'invalid'
-  });
-  assert.equal(result.calculationSummary.lookbackTotalGrossCad, 0);
-  assert.equal(result.calculationSummary.statutoryPublicHolidayPayCad, 0);
+test('Rec 226: Ontario public holiday pay rejects malformed lookback figures', () => {
+  for (const field of ['regularWagesInPast4WeeksCad', 'vacationPayPayableInPast4WeeksCad']) {
+    assert.throws(() => evaluateOntarioPublicHolidayPay({ [field]: 'invalid' }), error => error.statusCode === 400);
+  }
 });
 
 test('Rec 227: Study Permit Cap PAL — Eliminates string concatenation bug and bounds family size', () => {

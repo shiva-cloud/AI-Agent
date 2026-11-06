@@ -53,5 +53,15 @@ test('Manitoba General Holiday - Disqualified due to unapproved absence before/a
 
   assert.equal(result.isDisqualified, true);
   assert.equal(result.holidayPayDetails.totalStatutoryEntitlementCad, 0);
-  assert.ok(result.statutoryViolations.some(v => v.rule === 'DISQUALIFIED_BY_UNEXCUSED_ABSENCE'));
+  assert.equal(result.complianceStatus, 'DISQUALIFIED_BY_UNEXCUSED_ABSENCE');
+  assert.equal(result.holidayPayDetails.statutoryGeneralHolidayPayCad, 0);
+  assert.equal(result.statutoryViolations.length, 0);
+});
+
+test('An optional holiday yields no statutory holiday premium, deficit or remedy', () => {
+  const audit = evaluateManitobaGeneralHolidayPay({ holidayName: 'boxing_day', workedOnHoliday: true, hoursWorkedOnHoliday: 8 });
+  assert.equal(audit.complianceStatus, 'GENERAL_HOLIDAY_RULES_NOT_APPLICABLE');
+  assert.equal(audit.holidayPayDetails.totalStatutoryEntitlementCad, 0);
+  assert.equal(audit.holidayPayDetails.wageDeficitCad, 0);
+  assert.equal(audit.actionableRemedies.length, 0);
 });

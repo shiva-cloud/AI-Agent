@@ -12,7 +12,9 @@
  *   - Section 45.4: Prescribed hazardous work and environments for youth under 16 and 19
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { ValidationError } from './api-errors.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const BC_LIGHT_WORK_ACTIVITIES = Object.freeze([
   'CLERICAL_ADMINISTRATIVE',
@@ -37,38 +39,35 @@ export const BC_HAZARDOUS_WORK_ACTIVITIES = Object.freeze([
 ]);
 
 export function evaluateBcChildYouthEmployment(params = {}) {
-  const safeParams = (params && typeof params === 'object') ? params : {};
+  if (!params || typeof params !== 'object' || Array.isArray(params)) {
+    throw new ValidationError('Assessment inputs must be an object');
+  }
   const {
     childName = 'Child Worker',
     employerName = 'Employer',
     assessmentDate = todayIso(),
     childAge = 13,
     proposedOccupationActivity = 'RETAIL_CASHIER_OR_STOCKING',
-    hasParentalConsentInWriting = true,
-    hasDirectorChildEmploymentPermit = false,
+    hasParentalConsentInWriting: consent = true,
+    hasDirectorChildEmploymentPermit: permit = false,
     dailyHoursOnSchoolDay = 3,
     dailyHoursOnNonSchoolDay = 6,
     weeklyHoursDuringSchoolWeek = 15,
-    hasAdultSupervisionOnSite = true
-  } = safeParams;
+    hasAdultSupervisionOnSite: supervision = true
+  } = params;
 
   const cleanChildName = boundedText(childName, 'Child Worker', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
-
-  const age = Number.isFinite(Number(childAge))
-    ? Math.max(0, Math.min(100, Math.floor(Number(childAge))))
-    : 0;
-  const activity = boundedText(proposedOccupationActivity, 'RETAIL_CASHIER_OR_STOCKING', 60).toUpperCase();
-  const schoolDayHours = Number.isFinite(Number(dailyHoursOnSchoolDay))
-    ? Math.max(0, Math.min(24, Number(dailyHoursOnSchoolDay)))
-    : 0;
-  const nonSchoolDayHours = Number.isFinite(Number(dailyHoursOnNonSchoolDay))
-    ? Math.max(0, Math.min(24, Number(dailyHoursOnNonSchoolDay)))
-    : 0;
-  const schoolWeekHours = Number.isFinite(Number(weeklyHoursDuringSchoolWeek))
-    ? Math.max(0, Math.min(168, Number(weeklyHoursDuringSchoolWeek)))
-    : 0;
+  const cleanAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const age = calculatorNumber(childAge, 'childAge', { min: 1, max: 18, integer: true });
+  const activity = boundedText(proposedOccupationActivity, '', 100).toUpperCase();
+  if (!activity) throw new ValidationError('proposedOccupationActivity must contain an activity');
+  const schoolDayHours = calculatorNumber(dailyHoursOnSchoolDay, 'dailyHoursOnSchoolDay', { max: 24 });
+  const nonSchoolDayHours = calculatorNumber(dailyHoursOnNonSchoolDay, 'dailyHoursOnNonSchoolDay', { max: 24 });
+  const schoolWeekHours = calculatorNumber(weeklyHoursDuringSchoolWeek, 'weeklyHoursDuringSchoolWeek', { max: 168 });
+  const hasParentalConsentInWriting = calculatorBoolean(consent, 'hasParentalConsentInWriting');
+  const hasDirectorChildEmploymentPermit = calculatorBoolean(permit, 'hasDirectorChildEmploymentPermit');
+  const hasAdultSupervisionOnSite = calculatorBoolean(supervision, 'hasAdultSupervisionOnSite');
 
   const statutoryViolations = [];
   const complianceChecklist = [];
@@ -76,6 +75,11 @@ export function evaluateBcChildYouthEmployment(params = {}) {
 
   const isLightWork = BC_LIGHT_WORK_ACTIVITIES.includes(activity);
   const isHazardousWork = BC_HAZARDOUS_WORK_ACTIVITIES.includes(activity);
+
+  if (age >= 14 && !isLightWork && !isHazardousWork) {
+    throw new ValidationError('This calculator cannot classify the proposed activity for this age group. Use a listed activity.');
+  }
+  const appliesSchoolHoursLimits = age === 12 || age === 13;
 
   // 1. Children Under 12 Years of Age (ESA s. 9(1))
   if (age < 12) {
@@ -96,7 +100,7 @@ export function evaluateBcChildYouthEmployment(params = {}) {
   }
 
   // 2. Children 12 to 13 Years of Age (ESA s. 9(2) & Reg ss. 45.1–45.3)
-  if (age >= 12 && age <= 13) {
+  if (appliesSchoolHoursLimits) {
     // A. Parental consent
     if (hasParentalConsentInWriting) {
       complianceChecklist.push({
@@ -121,9 +125,9 @@ export function evaluateBcChildYouthEmployment(params = {}) {
       });
     } else {
       complianceChecklist.push({
-        item: 'LIGHT_WORK_COMPLIANCE',
+        item: isLightWork ? 'LIGHT_WORK_COMPLIANCE' : 'DIRECTORS_PERMIT_NON_LIGHT_WORK',
         status: 'MET',
-        details: `Activity '${activity}' complies with prescribed light work categories.`
+        details: isLightWork ? `Activity '${activity}' is listed as light work.` : `A Director's permit was reported for '${activity}'.`
       });
     }
 
@@ -205,11 +209,11 @@ export function evaluateBcChildYouthEmployment(params = {}) {
     legalVerdict: isCompliant ? 'STATUTORILY_AUTHORIZED_CHILD_EMPLOYMENT' : 'UNLAWFUL_CHILD_OR_YOUTH_EMPLOYMENT',
     hoursAudit: {
       dailyHoursOnSchoolDay: schoolDayHours,
-      maxSchoolDayHoursPermitted: 4,
+      maxSchoolDayHoursPermitted: appliesSchoolHoursLimits ? 4 : null,
       dailyHoursOnNonSchoolDay: nonSchoolDayHours,
-      maxNonSchoolDayHoursPermitted: 7,
+      maxNonSchoolDayHoursPermitted: appliesSchoolHoursLimits ? 7 : null,
       weeklyHoursDuringSchoolWeek: schoolWeekHours,
-      maxSchoolWeekHoursPermitted: 20
+      maxSchoolWeekHoursPermitted: appliesSchoolHoursLimits ? 20 : null
     },
     statutoryViolations,
     complianceChecklist,

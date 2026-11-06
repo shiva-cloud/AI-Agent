@@ -64,3 +64,27 @@ test('BC Uniform Deductions - Detects broken dishes / equipment deduction', () =
   assert.ok(result.statutoryViolations.some(v => v.rule === 'PROHIBITED_BREAKAGE_PROPERTY_DAMAGE_DEDUCTION'));
   assert.ok(result.actionableRemedies.some(r => r.action === 'RECOVER_PROPERTY_DAMAGE_DEDUCTIONS'));
 });
+test('False strings and inapplicable uniform charges cannot create unlawful totals', () => {
+  const result = auditBcEmploymentUniformAndDeductions({
+    requiresSpecialClothingOrUniform: 'false',
+    uniformCostOrDepositChargedCad: 50,
+    deductedForTillShortage: 'false'
+  });
+  assert.equal(result.totalUnlawfulDeductionsCad, 0);
+  assert.deepEqual(result.statutoryViolations, []);
+  assert.equal(result.deductionBreakdown.uniformCostOrDepositCad, 0);
+  assert.throws(() => auditBcEmploymentUniformAndDeductions({ uniformCostOrDepositChargedCad: 'invalid' }));
+});
+test('Reported deductions without amounts request records before quantifying recovery', () => {
+  const result = auditBcEmploymentUniformAndDeductions({ deductedForTillShortage: true });
+  assert.equal(result.recoveryAmountComplete, false);
+  assert.deepEqual(result.unquantifiedDeductions, ['till shortage']);
+  assert.ok(result.actionableRemedies.every(remedy => !remedy.remedyDescription.includes('$0')));
+  assert.ok(result.statutoryViolations.every(violation => !violation.finding.includes('$0')));
+});
+test('A known sub-dollar deduction retains its amount alongside an unquantified charge', () => {
+  const result = auditBcEmploymentUniformAndDeductions({ deductedForTillShortage: true, equipmentBreakageDeductionCad: 0.5 });
+  assert.equal(result.totalUnlawfulDeductionsCad, 0.5);
+  assert.equal(result.recoveryAmountComplete, false);
+  assert.match(result.actionableRemedies.find(r => r.action === 'RECOVER_PROPERTY_DAMAGE_DEDUCTIONS').remedyDescription, /\$0\.5/);
+});

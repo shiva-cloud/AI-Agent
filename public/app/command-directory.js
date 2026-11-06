@@ -3557,7 +3557,7 @@ export const COMMAND_DIRECTORY = [
   },
   {
     "id": "cmd-manitoba-holiday-pay",
-    "toolModal": "manitoba-holiday-pay",
+    "toolModal": "manitoba-general-holiday-pay",
     "category": "labor",
     "title": "Manitoba General Statutory Holiday Pay Navigator",
     "desc": "Calculate statutory holiday pay (5% of gross wages in 4 weeks prior) and 1.5x holiday pay under Manitoba Employment Standards Code ss. 21-28",
@@ -3623,7 +3623,7 @@ export const COMMAND_DIRECTORY = [
   },
   {
     "id": "cmd-alberta-youth-employment",
-    "toolModal": "alberta-youth-employment",
+    "toolModal": "alberta-youth-employment-rules",
     "category": "labor",
     "title": "Alberta Youth Employment Standards Navigator",
     "desc": "Audit age restrictions, light work rules for adolescents 13-14 (max 2h school day), adult supervision for 15-17 past 9pm under Alberta ESC ss. 65-67",

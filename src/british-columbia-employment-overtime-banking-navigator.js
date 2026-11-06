@@ -64,6 +64,9 @@ export function evaluateBcOvertimeBanking(params = {}) {
     calculatorNumber(weeklyHoursWorkedOver40, 'weeklyHoursWorkedOver40', { max: 168 });
   const ot20Hours = calculatorNumber(dailyHoursWorkedOver12, 'dailyHoursWorkedOver12', { max: 24 });
   const existingBanked = calculatorNumber(bankedHoursAlreadyAccumulated, 'bankedHoursAlreadyAccumulated', { max: 10000 });
+  const recordedValue = safeParams.existingBankedValueCad;
+  const existingBankValue = recordedValue === undefined ? existingBanked * wage :
+    calculatorNumber(recordedValue, 'existingBankedValueCad', { max: 100000000 });
   const paidActual = calculatorNumber(overtimePaidActuallyCad, 'overtimePaidActuallyCad', { max: 1_000_000 });
   const employeeRequestedTimeBankInWriting = calculatorBoolean(written, 'employeeRequestedTimeBankInWriting');
   const wantsPaidTimeOffInsteadOfPay = calculatorBoolean(timeOff, 'wantsPaidTimeOffInsteadOfPay');
@@ -86,15 +89,15 @@ export function evaluateBcOvertimeBanking(params = {}) {
 
   // 2. Overtime Pay Calculation & Bank Credit Calculation
   // 1 hour at 1.5x = 1.5 equivalent hours; 1 hour at 2.0x = 2.0 equivalent hours
-  const newBankedEquivalentHours = Math.round(((ot15Hours * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_1) +
-                                              (ot20Hours * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_2)) * 100) / 100;
-  const totalBankedHours = Math.round((existingBanked + (bankNewOvertime ? newBankedEquivalentHours : 0)) * 100) / 100;
+  const newBankedEquivalentHours = ot15Hours * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_1 +
+    ot20Hours * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_2;
+  const totalBankedHours = existingBanked + (bankNewOvertime ? newBankedEquivalentHours : 0);
 
   // Dollar values
   const ot15PayCad = Math.round(ot15Hours * wage * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_1 * 100) / 100;
   const ot20PayCad = Math.round(ot20Hours * wage * BC_OVERTIME_CONSTANTS.OVERTIME_RATE_TIER_2 * 100) / 100;
   const totalNewOvertimeEarnedCad = Math.round((ot15PayCad + ot20PayCad) * 100) / 100;
-  const totalBankedValueCad = Math.round((existingBanked * wage + (bankNewOvertime ? totalNewOvertimeEarnedCad : 0)) * 100) / 100;
+  const totalBankedValueCad = Math.round((existingBankValue + (bankNewOvertime ? totalNewOvertimeEarnedCad : 0)) * 100) / 100;
 
   // 3. Mandatory Payout on Demand or Termination (s. 42(3), 42(4))
   let totalCashOwedImmediatelyCad = 0;
@@ -153,6 +156,7 @@ export function evaluateBcOvertimeBanking(params = {}) {
       newOvertimeEarnedCad: totalNewOvertimeEarnedCad,
       newBankedEquivalentHours,
       totalBankedHours,
+      existingBankValueBasis: recordedValue === undefined ? 'CURRENT_RATE_ESTIMATE' : 'RECORDED_BALANCE',
       totalBankedValueCad,
       totalCashOwedImmediatelyCad,
       overtimePaidActuallyCad: paidActual,

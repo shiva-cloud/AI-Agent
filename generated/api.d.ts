@@ -23979,6 +23979,9 @@ export interface operations {
                     isCasualOrSeasonalLayoff?: boolean;
                     isDefiniteTermContract?: boolean;
                     isJustCauseTermination?: boolean;
+                    employeeName?: string;
+                    employerName?: string;
+                    assessmentDate?: string;
                 } & {
                     [key: string]: unknown;
                 };
@@ -24512,6 +24515,14 @@ export interface operations {
                     regularHourlyWageCad: number;
                     dailyHoursWorked?: number[];
                     hasWrittenOvertimeAgreement?: boolean;
+                    /** @description Whole-month period explicitly provided by the applicable written collective agreement. */
+                    collectiveAgreementBankingMonths?: number;
+                    bankedCredits?: {
+                        /** Format: date */
+                        payPeriodEnd: string;
+                        remainingHours: number;
+                        hourlyWageWhenEarnedCad: number;
+                    }[];
                     existingBankedHours?: number;
                     monthsElapsedSinceBanked?: number;
                     isEmploymentTerminating?: boolean;
@@ -26071,6 +26082,9 @@ export interface operations {
                     dailyHoursOnNonSchoolDay?: number;
                     weeklyHoursDuringSchoolWeek?: number;
                     hasAdultSupervisionOnSite?: boolean;
+                    childName?: string;
+                    employerName?: string;
+                    assessmentDate?: string;
                 } & {
                     [key: string]: unknown;
                 };
@@ -29847,6 +29861,7 @@ export interface operations {
                     weeklyHoursWorkedOver40?: number;
                     employeeRequestedTimeBankInWriting?: boolean;
                     wantsPaidTimeOffInsteadOfPay?: boolean;
+                    existingBankedValueCad?: number;
                     bankedHoursAlreadyAccumulated?: number;
                     employeeRequestedPayout?: boolean;
                     employmentTerminated?: boolean;

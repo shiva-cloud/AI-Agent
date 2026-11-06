@@ -172,6 +172,7 @@ describe('Batch 16 Recommendations (Sweep 23: Recs 306–320)', () => {
   // Rec 313: Ontario Reprisal Complaint
   it('Rec 313: evaluateOntarioEmploymentReprisal enforces reverse onus under s. 74(2)', () => {
     const res = evaluateOntarioEmploymentReprisal({
+    employerProvidedDocumentedPerformanceIssuesPrior: false,
       protectedActionTaken: 'INQUIRED_ABOUT_STATUTORY_RIGHTS',
       employerAdverseAction: 'TERMINATED_EMPLOYMENT',
       daysBetweenActionAndReprisal: 5,

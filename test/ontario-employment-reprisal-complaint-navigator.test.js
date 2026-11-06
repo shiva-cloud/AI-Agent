@@ -14,6 +14,7 @@ test('Ontario ESA Reprisal - Constants reflect ESA ss. 74, 103, 104', () => {
 test('Ontario ESA Reprisal - Summary termination following ESA inquiry', () => {
   // $1000/week * 8 weeks lost = $8,000 + $2,000 distress = $10,000 total claim
   const result = evaluateOntarioEmploymentReprisal({
+
     protectedActionTaken: 'ASKED_EMPLOYER_TO_COMPLY_WITH_ESA',
     employerAdverseAction: 'TERMINATED_EMPLOYMENT',
     daysBetweenActionAndReprisal: 3,
@@ -34,6 +35,7 @@ test('Ontario ESA Reprisal - Summary termination following ESA inquiry', () => {
 
 test('Ontario ESA Reprisal - Penalty for taking statutory sick leave', () => {
   const result = evaluateOntarioEmploymentReprisal({
+    employerProvidedDocumentedPerformanceIssuesPrior: false,
     protectedActionTaken: 'TOOK_OR_REQUESTED_STATUTORY_LEAVE',
     employerAdverseAction: 'DEMOTED_OR_CUT_HOURS',
     daysBetweenActionAndReprisal: 5,
@@ -49,6 +51,10 @@ test('Ontario ESA Reprisal - Penalty for taking statutory sick leave', () => {
 
 test('Ontario ESA Reprisal - Employer asserts prior progressive discipline', () => {
   const result = evaluateOntarioEmploymentReprisal({
+    daysBetweenActionAndReprisal: 7,
+    regularWeeklyWageCad: 1000,
+    weeksOfLostIncome: 8,
+    seeksJobReinstatement: true,
     protectedActionTaken: 'REFUSED_UNLAWFUL_UNPAID_OVERTIME',
     employerAdverseAction: 'TERMINATED_EMPLOYMENT',
     employerProvidedDocumentedPerformanceIssuesPrior: true
@@ -56,4 +62,14 @@ test('Ontario ESA Reprisal - Employer asserts prior progressive discipline', () 
 
   assert.equal(result.remedySummary.employerBurdenStatus, 'EVIDENTIARY_DISPUTE_PRE_EXISTING_DISCIPLINE_ALLEGED');
   assert.ok(result.riskWarnings.some(w => w.warningType === 'EMPLOYER_MAY_ASSERT_NON_REPRISAL_MOTIVE'));
+});
+
+test('Missing facts cannot generate a reprisal finding or remedy', () => {
+  for (const input of [{}, { protectedActionTaken: 'TOOK_OR_REQUESTED_STATUTORY_LEAVE' }]) {
+    const result = evaluateOntarioEmploymentReprisal(input);
+    assert.equal(result.complianceStatus, 'NOT_DETERMINED');
+    assert.ok(result.missingFields.length > 0);
+    assert.deepEqual(result.actionableRemedies, []);
+    assert.equal(result.remedySummary, undefined);
+  }
 });

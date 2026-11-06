@@ -8,7 +8,9 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { ValidationError } from './api-errors.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const MANITOBA_HOLIDAY_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'The Employment Standards Code, C.C.S.M. c. E110, ss. 21-28',
@@ -49,55 +51,52 @@ export function evaluateManitobaGeneralHolidayPay(params = {}) {
     assessmentDate = todayIso(),
     holidayName = 'LOUIS_RIEL_DAY',
     grossWagesInPast4WeeksCad = 3600,
-    workedOnHoliday = false,
+    workedOnHoliday: worked = false,
     hoursWorkedOnHoliday = 0,
     regularHourlyWageCad = 22,
-    absentWithoutConsentBeforeOrAfter = false,
-    substituteDayOffWithPayAgreed = false,
+    absentWithoutConsentBeforeOrAfter: absent = false,
+    substituteDayOffWithPayAgreed: substitute = false,
     holidayPayActuallyPaidCad = 0
   } = safeParams;
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
-  const past4WeeksWages = Number.isFinite(Number(grossWagesInPast4WeeksCad)) ? Math.max(0, Math.min(1000000, Number(grossWagesInPast4WeeksCad))) : 0;
-  const hours = Number.isFinite(Number(hoursWorkedOnHoliday)) ? Math.max(0, Math.min(24, Number(hoursWorkedOnHoliday))) : 0;
-  const wage = Number.isFinite(Number(regularHourlyWageCad)) ? Math.max(0, Math.min(10000, Number(regularHourlyWageCad))) : 0;
-  const paidActual = Number.isFinite(Number(holidayPayActuallyPaidCad)) ? Math.max(0, Math.min(1000000, Number(holidayPayActuallyPaidCad))) : 0;
+  const cleanAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const past4WeeksWages = calculatorNumber(grossWagesInPast4WeeksCad, 'grossWagesInPast4WeeksCad', { max: 1000000 });
+  const hours = calculatorNumber(hoursWorkedOnHoliday, 'hoursWorkedOnHoliday', { max: 24 });
+  const wage = calculatorNumber(regularHourlyWageCad, 'regularHourlyWageCad', { max: 10000 });
+  const paidActual = calculatorNumber(holidayPayActuallyPaidCad, 'holidayPayActuallyPaidCad', { max: 1000000 });
+  const workedOnHoliday = calculatorBoolean(worked, 'workedOnHoliday');
+  const absentWithoutConsentBeforeOrAfter = calculatorBoolean(absent, 'absentWithoutConsentBeforeOrAfter');
+  const substituteDayOffWithPayAgreed = calculatorBoolean(substitute, 'substituteDayOffWithPayAgreed');
 
   const statutoryViolations = [];
   const riskWarnings = [];
   const actionableRemedies = [];
 
   // 1. Holiday Recognition
-  const holidayKey = boundedText(holidayName, 'LOUIS_RIEL_DAY', 60).toUpperCase();
+  const holidayKey = boundedText(holidayName, '', 60).toUpperCase();
+  if (!holidayKey) throw new ValidationError('holidayName must contain a holiday name');
   const isRecognizedHoliday = MANITOBA_HOLIDAY_CONSTANTS.MANITOBA_GENERAL_HOLIDAYS.includes(holidayKey);
   if (!isRecognizedHoliday) {
     riskWarnings.push({
       warningType: 'NOT_A_MANITOBA_CODE_GENERAL_HOLIDAY',
-      description: `'${holidayName}' is not one of Manitoba's 9 statutory general holidays (e.g. Boxing Day or Civic Holiday are optional in MB).`
+      description: `'${holidayKey}' is not one of Manitoba's 9 statutory general holidays (e.g. Boxing Day or Civic Holiday are optional in MB).`
     });
   }
 
   // 2. Disqualification Audit (s. 26)
-  let isDisqualified = false;
-  if (absentWithoutConsentBeforeOrAfter) {
-    isDisqualified = true;
-    statutoryViolations.push({
-      rule: 'DISQUALIFIED_BY_UNEXCUSED_ABSENCE',
-      statute: 'The Employment Standards Code s. 26',
-      finding: 'Employee was absent from work on the scheduled shift immediately before or after the holiday without employer consent.'
-    });
-  }
+  const isDisqualified = isRecognizedHoliday && absentWithoutConsentBeforeOrAfter;
+  const eligible = isRecognizedHoliday && !isDisqualified;
 
   // 3. Statutory 5% Holiday Pay Calculation (s. 24)
-  const statutoryGeneralHolidayPayCad = Math.round(past4WeeksWages * MANITOBA_HOLIDAY_CONSTANTS.STATUTORY_HOLIDAY_PERCENT_FACTOR * 100) / 100;
+  const statutoryGeneralHolidayPayCad = eligible ? Math.round(past4WeeksWages * MANITOBA_HOLIDAY_CONSTANTS.STATUTORY_HOLIDAY_PERCENT_FACTOR * 100) / 100 : 0;
 
   // 4. Working on Holiday Premium (s. 25)
   let premiumHoursPayCad = 0;
   let totalStatutoryEntitlementCad = 0;
 
-  if (isDisqualified) {
-    totalStatutoryEntitlementCad = workedOnHoliday ? Math.round(hours * wage * 100) / 100 : 0;
+  if (!eligible) {
+    totalStatutoryEntitlementCad = isDisqualified && workedOnHoliday ? Math.round(hours * wage * 100) / 100 : 0;
   } else if (!workedOnHoliday) {
     // Did not work: entitled to statutory 5% holiday pay
     totalStatutoryEntitlementCad = statutoryGeneralHolidayPayCad;
@@ -136,7 +135,13 @@ export function evaluateManitobaGeneralHolidayPay(params = {}) {
   let complianceStatus = 'COMPLIANT_GENERAL_HOLIDAY_PAY';
   let legalVerdict = 'General holiday pay is fully compliant with Manitoba Employment Standards Code.';
 
-  if (statutoryViolations.length > 0) {
+  if (!isRecognizedHoliday) {
+    complianceStatus = 'GENERAL_HOLIDAY_RULES_NOT_APPLICABLE';
+    legalVerdict = 'The specified day falls outside this general holiday pay calculation. Ordinary wages are assessed separately.';
+  } else if (isDisqualified && wageDeficitCad === 0) {
+    complianceStatus = 'DISQUALIFIED_BY_UNEXCUSED_ABSENCE';
+    legalVerdict = 'The recorded absence disqualifies the employee from general holiday pay.';
+  } else if (wageDeficitCad > 0) {
     complianceStatus = 'MANITOBA_HOLIDAY_WAGE_STANDARDS_BREACH';
     legalVerdict = `Employer breached Manitoba ESC holiday wage standards. Unpaid balance of $${wageDeficitCad.toFixed(2)} is legally recoverable.`;
   }

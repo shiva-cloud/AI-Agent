@@ -10,7 +10,9 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { ValidationError } from './api-errors.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const ALBERTA_YOUTH_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Code, RSA 2000, c. E-9, ss. 65-67; Alta. Reg. 211/2004 ss. 51-53',
@@ -46,31 +48,33 @@ export const ALBERTA_YOUTH_CONSTANTS = Object.freeze({
 export function evaluateAlbertaYouthEmploymentRules({
   employeeAge = 14,
   jobCategory = 'RETAIL_CLERK',
-  hasWrittenParentalConsent = true,
-  isSchoolDay = true,
+  hasWrittenParentalConsent: consent = true,
+  isSchoolDay: schoolDay = true,
   scheduledShiftHours = 2,
   shiftStartHour = 16,
   shiftEndHour = 18,
-  duringSchoolHours = false,
-  adultSupervisionPresent = true,
+  duringSchoolHours: duringSchool = false,
+  adultSupervisionPresent: supervision = true,
   employeeName = 'Youth Employee',
   assessmentDate = todayIso()
 } = {}) {
   const cleanEmployee = boundedText(employeeName, 'Youth Employee', 120);
-  const cleanDate = safeIsoDate(assessmentDate, todayIso());
-  const age = Number.isFinite(Number(employeeAge))
-    ? Math.max(0, Math.min(100, Math.floor(Number(employeeAge))))
-    : 0;
-  const hours = Number.isFinite(Number(scheduledShiftHours))
-    ? Math.max(0, Math.min(24, Number(scheduledShiftHours)))
-    : 0;
-  const start = Number.isFinite(Number(shiftStartHour))
-    ? Math.max(0, Math.min(24, Math.floor(Number(shiftStartHour))))
-    : 0;
-  const end = Number.isFinite(Number(shiftEndHour))
-    ? Math.max(0, Math.min(24, Math.floor(Number(shiftEndHour))))
-    : 0;
-  const category = boundedText(jobCategory, 'RETAIL_CLERK', 60).toUpperCase();
+  const cleanDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const age = calculatorNumber(employeeAge, 'employeeAge', { max: 100, integer: true });
+  const hours = calculatorNumber(scheduledShiftHours, 'scheduledShiftHours', { max: 24 });
+  const start = calculatorNumber(shiftStartHour, 'shiftStartHour', { max: 24 }) % 24;
+  const end = calculatorNumber(shiftEndHour, 'shiftEndHour', { max: 24 });
+  const category = boundedText(jobCategory, '', 60).toUpperCase();
+  if (!category) throw new ValidationError('jobCategory must contain a job category');
+  const hasWrittenParentalConsent = calculatorBoolean(consent, 'hasWrittenParentalConsent');
+  const isSchoolDay = calculatorBoolean(schoolDay, 'isSchoolDay');
+  const duringSchoolHours = calculatorBoolean(duringSchool, 'duringSchoolHours');
+  const adultSupervisionPresent = calculatorBoolean(supervision, 'adultSupervisionPresent');
+  // Endpoints describe one shift; an earlier end is on the following day.
+  const crossesMidnight = end < start || (end === start && hours === 24);
+  const includesNightHours = hours > 0 && (crossesMidnight ||
+    start < ALBERTA_YOUTH_CONSTANTS.ADOLESCENT_PROHIBITED_END_HOUR ||
+    end > ALBERTA_YOUTH_CONSTANTS.ADOLESCENT_PROHIBITED_START_HOUR);
 
   const statutoryViolations = [];
   const riskWarnings = [];
@@ -134,18 +138,18 @@ export function evaluateAlbertaYouthEmploymentRules({
     }
 
     // Night Work Prohibition (9:00 PM to 6:00 AM)
-    if (end > ALBERTA_YOUTH_CONSTANTS.ADOLESCENT_PROHIBITED_START_HOUR || start < ALBERTA_YOUTH_CONSTANTS.ADOLESCENT_PROHIBITED_END_HOUR) {
+    if (includesNightHours) {
       statutoryViolations.push({
         rule: 'PROHIBITED_ADOLESCENT_NIGHT_WORK',
         statute: 'Alta. Reg. 211/2004 s. 52(b)',
-        finding: `Shift spanning ${start}:00 to ${end}:00 breaches the statutory prohibition against adolescent work between 9:00 PM and 6:00 AM.`
+        finding: `Shift starting at hour ${start} and ending at hour ${end} breaches the statutory prohibition against adolescent work between 9:00 PM and 6:00 AM.`
       });
     }
   }
 
   // 3. Young Persons (Ages 15, 16, 17)
   if (age >= 15 && age <= 17) {
-    if (end > 21 && !adultSupervisionPresent) {
+    if (hours > 0 && (end > 21 || crossesMidnight) && !adultSupervisionPresent) {
       statutoryViolations.push({
         rule: 'MISSING_ADULT_SUPERVISION_LATE_SHIFT',
         statute: 'Alta. Reg. 211/2004 s. 53',
@@ -162,7 +166,10 @@ export function evaluateAlbertaYouthEmploymentRules({
   let complianceStatus = 'COMPLIANT_YOUTH_EMPLOYMENT';
   let legalVerdict = 'Youth employment arrangement complies with Alberta Employment Standards Code and Child Employment Regulations.';
 
-  if (!isCompliant) {
+  if (age >= 18) {
+    complianceStatus = 'YOUTH_EMPLOYMENT_RULES_NOT_APPLICABLE';
+    legalVerdict = 'The employee is 18 or older. This assessment covers workers under 18.';
+  } else if (!isCompliant) {
     complianceStatus = 'UNLAWFUL_YOUTH_EMPLOYMENT_BREACH';
     legalVerdict = `Employer committed youth employment infractions under Alberta law (${statutoryViolations.length} violation${statutoryViolations.length === 1 ? '' : 's'}). Administrative penalties apply.`;
   }
@@ -181,8 +188,8 @@ export function evaluateAlbertaYouthEmploymentRules({
     regulationsSummary: {
       isAdolescent: age === 13 || age === 14,
       isYoungPerson: age >= 15 && age <= 17,
-      maxDailyHours: age <= 14 ? (isSchoolDay ? 2 : 8) : 12,
-      nightWorkPermitted: age >= 15
+      maxDailyHours: age >= 18 ? null : age <= 14 ? (isSchoolDay ? 2 : 8) : 12,
+      nightWorkPermitted: age >= 18 ? null : age >= 15
     },
     statutoryViolations,
     riskWarnings,

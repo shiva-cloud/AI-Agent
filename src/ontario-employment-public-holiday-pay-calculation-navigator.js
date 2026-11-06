@@ -10,6 +10,9 @@
  */
 
 import { boundedText, todayIso } from './text-input.js';
+import { ValidationError } from './api-errors.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+
 export const ONTARIO_PUBLIC_HOLIDAY_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, 2000, S.O. 2000, c. 41, Part X ss. 24-32',
   LOOKBACK_DIVISOR: 20, // s. 24(1)
@@ -58,21 +61,18 @@ export function evaluateOntarioPublicHolidayPay({
   holidayPayActuallyPaidCad = 0,
   assessmentDate = todayIso()
 } = {}) {
-  const safeHolidayName = boundedText(holidayName, 'FAMILY_DAY', 60);
-  const safeAssessmentDate = typeof assessmentDate === 'string' && !Number.isNaN(Date.parse(assessmentDate))
-    ? assessmentDate.trim().slice(0, 10)
-    : '2026-10-31';
-
-  const regWages = Number.isFinite(Number(regularWagesInPast4WeeksCad)) ? Math.max(0, Math.min(10000000, Number(regularWagesInPast4WeeksCad))) : 0;
-  const vacPay = Number.isFinite(Number(vacationPayPayableInPast4WeeksCad)) ? Math.max(0, Math.min(10000000, Number(vacationPayPayableInPast4WeeksCad))) : 0;
-  const hours = Number.isFinite(Number(hoursWorkedOnHoliday)) ? Math.max(0, Math.min(24, Number(hoursWorkedOnHoliday))) : 0;
-  const wage = Number.isFinite(Number(regularHourlyWageCad)) ? Math.max(0, Math.min(10000, Number(regularHourlyWageCad))) : 0;
-  const paidActual = Number.isFinite(Number(holidayPayActuallyPaidCad)) ? Math.max(0, Math.min(10000000, Number(holidayPayActuallyPaidCad))) : 0;
-
-  const workedShifts = Boolean(workedShiftBeforeAndAfterHoliday);
-  const hadReasonableCause = Boolean(hadReasonableCauseForAbsence);
-  const workedHoliday = Boolean(workedOnPublicHoliday);
-  const substituteAgreed = Boolean(substituteDayOffAgreed);
+  const safeHolidayName = boundedText(holidayName, '', 60);
+  if (!safeHolidayName) throw new ValidationError('holidayName must contain a holiday name');
+  const safeAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const regWages = calculatorNumber(regularWagesInPast4WeeksCad, 'regularWagesInPast4WeeksCad', { max: 10000000 });
+  const vacPay = calculatorNumber(vacationPayPayableInPast4WeeksCad, 'vacationPayPayableInPast4WeeksCad', { max: 10000000 });
+  const hours = calculatorNumber(hoursWorkedOnHoliday, 'hoursWorkedOnHoliday', { max: 24 });
+  const wage = calculatorNumber(regularHourlyWageCad, 'regularHourlyWageCad', { max: 10000 });
+  const paidActual = calculatorNumber(holidayPayActuallyPaidCad, 'holidayPayActuallyPaidCad', { max: 10000000 });
+  const workedShifts = calculatorBoolean(workedShiftBeforeAndAfterHoliday, 'workedShiftBeforeAndAfterHoliday');
+  const hadReasonableCause = calculatorBoolean(hadReasonableCauseForAbsence, 'hadReasonableCauseForAbsence');
+  const workedHoliday = calculatorBoolean(workedOnPublicHoliday, 'workedOnPublicHoliday');
+  const substituteAgreed = calculatorBoolean(substituteDayOffAgreed, 'substituteDayOffAgreed');
 
   const statutoryViolations = [];
   const riskWarnings = [];
@@ -89,14 +89,7 @@ export function evaluateOntarioPublicHolidayPay({
   }
 
   // 2. First and Last Rule (Qualifying shifts)
-  const isQualified = workedShifts || hadReasonableCause;
-  if (!isQualified) {
-    statutoryViolations.push({
-      rule: 'FAILED_FIRST_AND_LAST_SHIFT_QUALIFYING_RULE',
-      statute: 'Employment Standards Act, 2000 s. 26',
-      finding: 'Employee failed to work all scheduled hours on the shift immediately before or after the public holiday without reasonable cause.'
-    });
-  }
+  const isQualified = isRecognized && (workedShifts || hadReasonableCause);
 
   // 3. Statutory Public Holiday Pay Formula ((Wages + Vac) / 20)
   const statutoryPublicHolidayPayCad = isQualified
@@ -107,12 +100,13 @@ export function evaluateOntarioPublicHolidayPay({
   let premiumHoursPayCad = 0;
   let totalStatutoryEntitlementCad = 0;
 
-  if (!workedHoliday) {
+  if (!workedHoliday || !isRecognized) {
     totalStatutoryEntitlementCad = statutoryPublicHolidayPayCad;
   } else {
     if (!isQualified) {
       // Unqualified employee who worked on holiday: receives 1.5x regular rate for hours worked (s. 28)
-      totalStatutoryEntitlementCad = Math.round(hours * wage * ONTARIO_PUBLIC_HOLIDAY_CONSTANTS.OVERTIME_HOLIDAY_MULTIPLIER * 100) / 100;
+      premiumHoursPayCad = Math.round(hours * wage * ONTARIO_PUBLIC_HOLIDAY_CONSTANTS.OVERTIME_HOLIDAY_MULTIPLIER * 100) / 100;
+      totalStatutoryEntitlementCad = premiumHoursPayCad;
     } else if (substituteAgreed) {
       // Option 1 (s. 27(2)): Regular hourly pay + substitute day off with public holiday pay
       premiumHoursPayCad = Math.round(hours * wage * 100) / 100;
@@ -146,7 +140,13 @@ export function evaluateOntarioPublicHolidayPay({
   let complianceStatus = 'COMPLIANT_PUBLIC_HOLIDAY_PAY';
   let legalVerdict = 'Public holiday pay administration complies with Ontario ESA Part X standards.';
 
-  if (statutoryViolations.length > 0) {
+  if (!isRecognized) {
+    complianceStatus = 'PUBLIC_HOLIDAY_RULES_NOT_APPLICABLE';
+    legalVerdict = 'The specified day falls outside this public holiday pay calculation. Ordinary wages are assessed separately.';
+  } else if (!isQualified && wageDeficitCad === 0) {
+    complianceStatus = 'FAILED_FIRST_AND_LAST_SHIFT_QUALIFYING_RULE';
+    legalVerdict = 'The qualifying shift requirement was not met. The recorded payments cover the amount due for this assessment.';
+  } else if (wageDeficitCad > 0) {
     complianceStatus = 'ONTARIO_PUBLIC_HOLIDAY_WAGE_BREACH';
     legalVerdict = `Employer breached Ontario ESA public holiday rules. Unpaid wages of $${wageDeficitCad.toFixed(2)} are legally recoverable.`;
   }

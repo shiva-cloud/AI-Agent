@@ -34,19 +34,40 @@ function variedValue(field) {
   return field.default ?? 'Sample text';
 }
 
-test('every website tool form behaves identically over POST and GET', async () => {
+test('every command has a working form and legacy GET forms preserve POST parity', async () => {
   const store = openStore(':memory:');
   const server = createApp(store, 'form-contract-token-24-chars', {}, {
     rateLimits: { v1: { limit: 5000, windowMs: 60000 }, tools: { limit: 5000, windowMs: 60000 }, admin: { limit: 100, windowMs: 60000 }, static: { limit: 240, windowMs: 60000 } }
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const root = `http://127.0.0.1:${server.address().port}`;
+  const commands = readFileSync(new URL('../public/app/command-directory.js', import.meta.url), 'utf8');
+  const commandIds = [...commands.matchAll(/"toolModal": "([^"]+)"/g)].map(match => match[1]);
+  for (const id of commandIds) assert.ok(TOOL_FORMS[id], id + ' must have a dedicated form');
   const ids = Object.keys(TOOL_FORMS);
   assert.ok(ids.length >= 25, `expected the full tool form registry, found ${ids.length}`);
   try {
     for (const id of ids) {
       const form = TOOL_FORMS[id];
       const endpoint = form.endpoint || `/v1/tools/${id}`;
+      if (form.method === 'POST') {
+        for (const flag of [true, false]) {
+          const body = {};
+          for (const field of form.fields) {
+            if (field.valueType === 'boolean') body[field.id] = flag;
+            else if (field.type === 'select') body[field.id] = field.options.find(option => option.val !== '').val;
+            else if (field.type === 'number') body[field.id] = field.min ?? 0;
+            else body[field.id] = field.placeholder;
+          }
+          const response = await fetch(root + endpoint, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+          });
+          const result = await response.json();
+          assert.equal(response.status, 200, id + ' ' + JSON.stringify(result));
+          assert.ok(Object.keys(result).length > 0);
+        }
+        continue;
+      }
       for (const mode of ['defaults', 'varied']) {
         const body = {};
         for (const field of form.fields ?? []) {

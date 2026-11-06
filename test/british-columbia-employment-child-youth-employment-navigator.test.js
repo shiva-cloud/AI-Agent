@@ -63,3 +63,27 @@ test('BC Youth Employment - Verify Constants Lists', () => {
   assert.ok(BC_LIGHT_WORK_ACTIVITIES.includes('PEER_TUTORING'));
   assert.ok(BC_HAZARDOUS_WORK_ACTIVITIES.includes('UNDERGROUND_MINING'));
 });
+
+test('BC youth assessment distinguishes reported permits from light work', () => {
+  const child = evaluateBcChildYouthEmployment({ childAge: 11, hasDirectorChildEmploymentPermit: 'false' });
+  assert.equal(child.isCompliant, false);
+  assert.equal(child.hoursAudit.maxSchoolDayHoursPermitted, null);
+  const permitted = evaluateBcChildYouthEmployment({ childAge: 12, proposedOccupationActivity: 'OTHER', hasDirectorChildEmploymentPermit: true });
+  assert.ok(permitted.complianceChecklist.some(entry => entry.item === 'DIRECTORS_PERMIT_NON_LIGHT_WORK'));
+  assert.ok(!permitted.complianceChecklist.some(entry => entry.item === 'LIGHT_WORK_COMPLIANCE'));
+});
+
+test('Daily and weekly limits include the exact boundary and detect fractional excess', () => {
+  const atLimit = { childAge: 13, dailyHoursOnSchoolDay: 4, dailyHoursOnNonSchoolDay: 7, weeklyHoursDuringSchoolWeek: 20 };
+  assert.equal(evaluateBcChildYouthEmployment(atLimit).isCompliant, true);
+  for (const field of ['dailyHoursOnSchoolDay', 'dailyHoursOnNonSchoolDay', 'weeklyHoursDuringSchoolWeek']) {
+    assert.equal(evaluateBcChildYouthEmployment({ ...atLimit, [field]: atLimit[field] + 0.25 }).isCompliant, false);
+  }
+});
+
+test('Unsupported ages, unclassified youth activities and malformed inputs are rejected', () => {
+  for (const input of [null, [], false, { childAge: 19 }, { childAge: 13.5 }, { childAge: 14, proposedOccupationActivity: 'UNKNOWN' },
+    { assessmentDate: '2026-02-30' }, { dailyHoursOnSchoolDay: true }, { hasAdultSupervisionOnSite: 'maybe' }]) {
+    assert.throws(() => evaluateBcChildYouthEmployment(input), error => error.statusCode === 400);
+  }
+});

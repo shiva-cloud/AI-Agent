@@ -8,7 +8,8 @@
  * Pure ES module — zero runtime npm dependencies.
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const BC_UNIFORM_DEDUCTION_CONSTANTS = Object.freeze({
   STATUTORY_AUTHORITY: 'Employment Standards Act, RSBC 1996, c. 113, ss. 21, 25',
@@ -38,27 +39,43 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
     employeeName = 'Employee',
     employerName = 'Employer',
     assessmentDate = todayIso(),
-    requiresSpecialClothingOrUniform = true,
-    employerProvidedUniformFreeOfCharge = true,
-    employerCleansUniformOrPaysAllowance = true,
+    requiresSpecialClothingOrUniform: requiresSpecialClothingOrUniformInput = true,
+    employerProvidedUniformFreeOfCharge: employerProvidedUniformFreeOfChargeInput = true,
+    employerCleansUniformOrPaysAllowance: employerCleansUniformOrPaysAllowanceInput = true,
     uniformCostOrDepositChargedCad = 0,
-    deductedForTillShortage = false,
+    deductedForTillShortage: deductedForTillShortageInput = false,
     tillShortageDeductionCad = 0,
-    deductedForCustomerDineAndDash = false,
+    deductedForCustomerDineAndDash: deductedForCustomerDineAndDashInput = false,
     dineAndDashDeductionCad = 0,
-    deductedForEquipmentBreakage = false,
+    deductedForEquipmentBreakage: deductedForEquipmentBreakageInput = false,
     equipmentBreakageDeductionCad = 0
   } = safeParams;
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
+  const cleanAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
 
-  const uniformFee = Number.isFinite(Number(uniformCostOrDepositChargedCad)) ? Math.max(0, Math.min(50000, Number(uniformCostOrDepositChargedCad))) : 0;
-  const shortageFee = Number.isFinite(Number(tillShortageDeductionCad)) ? Math.max(0, Math.min(50000, Number(tillShortageDeductionCad))) : 0;
-  const dineAndDashFee = Number.isFinite(Number(dineAndDashDeductionCad)) ? Math.max(0, Math.min(50000, Number(dineAndDashDeductionCad))) : 0;
-  const breakageFee = Number.isFinite(Number(equipmentBreakageDeductionCad)) ? Math.max(0, Math.min(50000, Number(equipmentBreakageDeductionCad))) : 0;
+  const uniformFee = calculatorNumber(uniformCostOrDepositChargedCad, 'uniformCostOrDepositChargedCad', { max: 50000 });
+  const shortageFee = calculatorNumber(tillShortageDeductionCad, 'tillShortageDeductionCad', { max: 50000 });
+  const dineAndDashFee = calculatorNumber(dineAndDashDeductionCad, 'dineAndDashDeductionCad', { max: 50000 });
+  const breakageFee = calculatorNumber(equipmentBreakageDeductionCad, 'equipmentBreakageDeductionCad', { max: 50000 });
 
+  const requiresSpecialClothingOrUniform = calculatorBoolean(requiresSpecialClothingOrUniformInput, 'requiresSpecialClothingOrUniform');
+  const employerProvidedUniformFreeOfCharge = calculatorBoolean(employerProvidedUniformFreeOfChargeInput, 'employerProvidedUniformFreeOfCharge');
+  const employerCleansUniformOrPaysAllowance = calculatorBoolean(employerCleansUniformOrPaysAllowanceInput, 'employerCleansUniformOrPaysAllowance');
+  const deductedForTillShortage = calculatorBoolean(deductedForTillShortageInput, 'deductedForTillShortage');
+  const deductedForCustomerDineAndDash = calculatorBoolean(deductedForCustomerDineAndDashInput, 'deductedForCustomerDineAndDash');
+  const deductedForEquipmentBreakage = calculatorBoolean(deductedForEquipmentBreakageInput, 'deductedForEquipmentBreakage');
+  const recoverableUniformFee = requiresSpecialClothingOrUniform ? uniformFee : 0;
+
+  const unquantifiedDeductions = [
+    [requiresSpecialClothingOrUniform && !employerProvidedUniformFreeOfCharge, uniformFee, 'uniform'],
+    [deductedForTillShortage, shortageFee, 'till shortage'],
+    [deductedForCustomerDineAndDash, dineAndDashFee, 'unpaid customer bill'],
+    [deductedForEquipmentBreakage, breakageFee, 'equipment breakage']
+  ].filter(([reported, amount]) => reported && amount === 0).map(([, , name]) => name);
+
+  const requestRecords = 'Check the payroll or purchase records for the amount charged and request reimbursement.';
   const statutoryViolations = [];
   const riskWarnings = [];
   const actionableRemedies = [];
@@ -69,11 +86,11 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
       statutoryViolations.push({
         rule: 'ILLEGAL_UNIFORM_CHARGE_OR_DEPOSIT',
         statute: 'Employment Standards Act s. 25(1)',
-        finding: `Employer required employee to pay $${uniformFee} for special clothing/uniform. Section 25 strictly mandates that special clothing must be provided free of charge.`
+        finding: `Employer required employee to pay ${uniformFee > 0 ? '$' + uniformFee : 'an unspecified amount'} for special clothing/uniform. Section 25 strictly mandates that special clothing must be provided free of charge.`
       });
       actionableRemedies.push({
         action: 'RECOVER_UNIFORM_COST_OR_DEPOSIT',
-        remedyDescription: `Demand full refund of $${uniformFee} charged for uniforms or uniform deposits.`
+        remedyDescription: uniformFee > 0 ? `Demand full refund of $${uniformFee} charged for uniforms or uniform deposits.` : requestRecords
       });
     }
 
@@ -95,11 +112,11 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
     statutoryViolations.push({
       rule: 'PROHIBITED_CASH_SHORTAGE_DEDUCTION',
       statute: 'Employment Standards Act s. 21(2)(a)',
-      finding: `Employer unlawfully deducted $${shortageFee} for cash register/till shortages. Shifting cash shortages to employees is strictly illegal.`
+      finding: `Employer unlawfully deducted ${shortageFee > 0 ? '$' + shortageFee : 'an unspecified amount'} for cash register/till shortages. Shifting cash shortages to employees is strictly illegal.`
     });
     actionableRemedies.push({
       action: 'RECOVER_UNLAWFUL_TILL_DEDUCTIONS',
-      remedyDescription: `File Employment Standards complaint to recover $${shortageFee} in illegal till deductions with statutory interest.`
+      remedyDescription: shortageFee > 0 ? `File Employment Standards complaint to recover $${shortageFee} in illegal till deductions with statutory interest.` : requestRecords
     });
   }
 
@@ -107,11 +124,11 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
     statutoryViolations.push({
       rule: 'PROHIBITED_DINE_AND_DASH_DEDUCTION',
       statute: 'Employment Standards Act s. 21(2)(b)',
-      finding: `Employer unlawfully deducted $${dineAndDashFee} for unpaid customer tabs or dine-and-dash incidents. Customer theft cannot be deducted from wages.`
+      finding: `Employer unlawfully deducted ${dineAndDashFee > 0 ? '$' + dineAndDashFee : 'an unspecified amount'} for unpaid customer tabs or dine-and-dash incidents. Customer theft cannot be deducted from wages.`
     });
     actionableRemedies.push({
       action: 'RECOVER_DINE_AND_DASH_DEDUCTIONS',
-      remedyDescription: `Demand repayment of $${dineAndDashFee} unlawfully withheld for unpaid customer bills.`
+      remedyDescription: dineAndDashFee > 0 ? `Demand repayment of $${dineAndDashFee} unlawfully withheld for unpaid customer bills.` : requestRecords
     });
   }
 
@@ -119,15 +136,22 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
     statutoryViolations.push({
       rule: 'PROHIBITED_BREAKAGE_PROPERTY_DAMAGE_DEDUCTION',
       statute: 'Employment Standards Act s. 21(2)(c)',
-      finding: `Employer unlawfully deducted $${breakageFee} for damaged or broken equipment/dishes.`
+      finding: `Employer unlawfully deducted ${breakageFee > 0 ? '$' + breakageFee : 'an unspecified amount'} for damaged or broken equipment/dishes.`
     });
     actionableRemedies.push({
       action: 'RECOVER_PROPERTY_DAMAGE_DEDUCTIONS',
-      remedyDescription: `Demand immediate reimbursement of $${breakageFee} deducted for broken company property.`
+      remedyDescription: breakageFee > 0 ? `Demand immediate reimbursement of $${breakageFee} deducted for broken company property.` : requestRecords
     });
   }
 
-  const totalUnlawfulDeductionsCad = uniformFee + shortageFee + dineAndDashFee + breakageFee;
+  if (unquantifiedDeductions.length) {
+    riskWarnings.push({
+      warningType: 'DEDUCTION_AMOUNTS_REQUIRED',
+      description: 'Enter the amounts for the reported charges: ' + unquantifiedDeductions.join(', ') + '.'
+    });
+  }
+
+  const totalUnlawfulDeductionsCad = Math.round((recoverableUniformFee + shortageFee + dineAndDashFee + breakageFee) * 100) / 100;
 
   let complianceStatus = 'COMPLIANT_NO_UNLAWFUL_DEDUCTIONS';
   let legalVerdict = 'Uniform provision, cleaning standards, and wage payments comply with British Columbia Employment Standards Act.';
@@ -146,8 +170,10 @@ export function auditBcEmploymentUniformAndDeductions(params = {}) {
     totalUnlawfulDeductionsCad,
     complianceStatus,
     legalVerdict,
+    recoveryAmountComplete: unquantifiedDeductions.length === 0,
+    unquantifiedDeductions,
     deductionBreakdown: {
-      uniformCostOrDepositCad: uniformFee,
+      uniformCostOrDepositCad: recoverableUniformFee,
       tillShortageCad: shortageFee,
       dineAndDashCad: dineAndDashFee,
       equipmentBreakageCad: breakageFee

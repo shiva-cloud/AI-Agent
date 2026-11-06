@@ -11,7 +11,8 @@
  * - Bardal v. Globe & Mail Ltd. (1960), 24 D.L.R. (2d) 140 (Ont. H.C.) (Common law perspective)
  */
 
-import { boundedText, safeIsoDate, todayIso } from './text-input.js';
+import { calculatorBoolean, calculatorDate, calculatorNumber } from './calculator-input.js';
+import { boundedText, todayIso } from './text-input.js';
 
 export const BC_GROUP_TERMINATION_THRESHOLDS = Object.freeze([
   { minEmployees: 300, maxEmployees: Infinity, requiredNoticeWeeks: 16 },
@@ -20,7 +21,7 @@ export const BC_GROUP_TERMINATION_THRESHOLDS = Object.freeze([
 ]);
 
 export function calculateBcIndividualNoticeWeeks(consecutiveMonthsOfEmployment = 0) {
-  const months = Number.isFinite(Number(consecutiveMonthsOfEmployment)) ? Math.max(0, Math.min(720, Math.floor(Number(consecutiveMonthsOfEmployment)))) : 0;
+  const months = calculatorNumber(consecutiveMonthsOfEmployment, 'consecutiveMonthsOfEmployment', { max: 720 });
   if (months < 3) {
     return 0;
   }
@@ -42,28 +43,36 @@ export function evaluateBcGroupTerminationNotice(params = {}) {
     employerName = 'Employer',
     assessmentDate = todayIso(),
     affectedEmployeesCount = 0,
-    twoMonthWindow = true,
-    singleLocation = true,
+    twoMonthWindow: twoMonthWindowInput = true,
+    singleLocation: singleLocationInput = true,
     groupNoticeWeeksGiven = 0,
     individualTenureMonths = 36,
     regularWeeklyWageCad = 1200,
-    isUnionized = false,
-    ministerNotified = false,
-    unionNotified = false,
-    isConstructionIndustry = false,
-    isCasualOrSeasonalLayoff = false,
-    isDefiniteTermContract = false,
-    isJustCauseTermination = false
+    isUnionized: isUnionizedInput = false,
+    ministerNotified: ministerNotifiedInput = false,
+    unionNotified: unionNotifiedInput = false,
+    isConstructionIndustry: isConstructionIndustryInput = false,
+    isCasualOrSeasonalLayoff: isCasualOrSeasonalLayoffInput = false,
+    isDefiniteTermContract: isDefiniteTermContractInput = false,
+    isJustCauseTermination: isJustCauseTerminationInput = false
   } = safeParams;
 
   const cleanEmployeeName = boundedText(employeeName, 'Employee', 100);
   const cleanEmployerName = boundedText(employerName, 'Employer', 120);
-  const cleanAssessmentDate = safeIsoDate(assessmentDate, todayIso());
-
-  const count = Number.isFinite(Number(affectedEmployeesCount)) ? Math.max(0, Math.min(100000, Math.floor(Number(affectedEmployeesCount)))) : 0;
-  const weeklyWage = Number.isFinite(Number(regularWeeklyWageCad)) ? Math.max(0, Math.min(100000, Number(regularWeeklyWageCad))) : 1200;
-  const noticeGiven = Number.isFinite(Number(groupNoticeWeeksGiven)) ? Math.max(0, Math.min(104, Math.floor(Number(groupNoticeWeeksGiven)))) : 0;
-  const tenureMonths = Number.isFinite(Number(individualTenureMonths)) ? Math.max(0, Math.min(720, Math.floor(Number(individualTenureMonths)))) : 36;
+  const cleanAssessmentDate = calculatorDate(assessmentDate, 'assessmentDate');
+  const count = calculatorNumber(affectedEmployeesCount, 'affectedEmployeesCount', { max: 100000, integer: true });
+  const weeklyWage = calculatorNumber(regularWeeklyWageCad, 'regularWeeklyWageCad', { max: 100000 });
+  const noticeGiven = calculatorNumber(groupNoticeWeeksGiven, 'groupNoticeWeeksGiven', { max: 104 });
+  const tenureMonths = calculatorNumber(individualTenureMonths, 'individualTenureMonths', { max: 720 });
+  const twoMonthWindow = calculatorBoolean(twoMonthWindowInput, 'twoMonthWindow');
+  const singleLocation = calculatorBoolean(singleLocationInput, 'singleLocation');
+  const isUnionized = calculatorBoolean(isUnionizedInput, 'isUnionized');
+  const ministerNotified = calculatorBoolean(ministerNotifiedInput, 'ministerNotified');
+  const unionNotified = calculatorBoolean(unionNotifiedInput, 'unionNotified');
+  const isConstructionIndustry = calculatorBoolean(isConstructionIndustryInput, 'isConstructionIndustry');
+  const isCasualOrSeasonalLayoff = calculatorBoolean(isCasualOrSeasonalLayoffInput, 'isCasualOrSeasonalLayoff');
+  const isDefiniteTermContract = calculatorBoolean(isDefiniteTermContractInput, 'isDefiniteTermContract');
+  const isJustCauseTermination = calculatorBoolean(isJustCauseTerminationInput, 'isJustCauseTermination');
 
   const statutoryViolations = [];
   const complianceChecklist = [];
@@ -164,16 +173,16 @@ export function evaluateBcGroupTerminationNotice(params = {}) {
 
   // 3. Group Notice Shortfall Calculation
   const groupShortfallWeeks = Math.max(0, requiredGroupWeeks - noticeGiven);
-  const groupPayLiabilityCad = groupShortfallWeeks * weeklyWage;
+  const groupPayLiabilityCad = Math.round(groupShortfallWeeks * weeklyWage * 100) / 100;
 
   // 4. Individual Notice Calculation under Section 63
   const individualNoticeWeeks = calculateBcIndividualNoticeWeeks(tenureMonths);
-  const individualPayLiabilityCad = individualNoticeWeeks * weeklyWage;
+  const individualPayLiabilityCad = Math.round(individualNoticeWeeks * weeklyWage * 100) / 100;
 
   // 5. Section 64(4) Stacking Doctrine:
   // "The notice required by this section is in addition to the liability of the employer under section 63."
   const totalCombinedStatutoryWeeks = groupShortfallWeeks + individualNoticeWeeks;
-  const totalStatutoryLiabilityCad = groupPayLiabilityCad + individualPayLiabilityCad;
+  const totalStatutoryLiabilityCad = Math.round((groupPayLiabilityCad + individualPayLiabilityCad) * 100) / 100;
 
   // Common Law Warning: Common law reasonable notice (Bardal) typically exceeds ESA minimums significantly
   const estimatedBardalNoticeMonths = Math.min(24, Math.max(1, Math.round(tenureMonths / 12 * 1.0 + 2)));
