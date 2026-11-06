@@ -13,7 +13,8 @@ const ALLOWED = new Map([
   ['kb-corrections-2026-11-03.js', /automated correction, not editorial review/],
   ['kb-corrections-2026-11-04.js', /automated correction, not editorial review/],
   ['kb-corrections-2026-11-05.js', /automated correction, not editorial review/],
-  ['kb-corrections-2026-11-06.js', /automated correction, not editorial review/]
+  ['kb-corrections-2026-11-06.js', /automated correction, not editorial review/],
+  ['kb-corrections-2026-11-06-b.js', /automated correction, not editorial review/]
 ]);
 
 test('active scripts do not insert their own audit entries', () => {

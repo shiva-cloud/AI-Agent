@@ -295,3 +295,13 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - बचे **144 portals**: 79 इस run में unfetchable (network_error/403/timeout/block/shell), 51 homepages पर कोई स्थिर English वाक्य नहीं, 14 stability-mana — अगला pass **deep-links** (about/contact/government pages) या archive-route ले सकता है; homepage-only pass अब ख़त्म।
 - नयी script `scripts/kb-corrections-2026-11-06.js` — audited pattern (dry-run default, `--apply` + backup, hash-chained REVIEWER audit rows, seed walk, source-ops plan) पर SOURCE_REGISTRATIONS खाली (कोई URL नहीं बदला, कोई registration नहीं; सभी 9 DB-only)। Idempotent re-run 0/0/0; gate-sims 9/9 apply से पहले, live re-verification 9/9 publish पर। Backups: `settlement-before-kb-audit-2026-11-06.sqlite`, `settlement-before-verify-publish-1793941919440.sqlite`।
 - Floors 171 → **180** refrozen; version 0.19.70।
+
+### बैच-15 - deep-link पहला हिस्सा: 3 records, citation re-point सहित, 0.19.71
+
+- बैच-14 के बाद 144 portals में से 65 hosts reachable थे (51 no-stable-homepage + 14 stability-rejected)। हर एक के English/about/contact paths probe किए — **सिर्फ़ 3 portals को stable verbatim English sentence मिली**, और तीनों sentences उनके `/en` deep pages पर हैं, cited homepages पर नहीं:
+  - Andorra (English section की foreign-affairs nav listing — शुरुआत का "Back" artifact हटाया; homepage Catalan है), Luxembourg ("The Grand Duchy offers you not only the must-see museums dedicated to history and the arts, but also those devoted to iron mines, brewing art and the rural world."), Mexico ("It is a one-stop website for Government services, information and citizen participation.")।
+- **ईमानदार fail:** पहले publish प्रयास में 3 × `quote_not_on_page` — gate record के अपने cited URL (homepage) की page check करता है, और quote deep page पर था। Gate सही था, मेरी gate-sim ग़लत page पर की थी।
+- समाधान (batch-13 का two-phase relocation pattern): तीनों records की citation उसी page पर re-point की जो quote carry करता है (same-host `/en`), और तीन नए page URLs permitted tier-A sources के रूप में register किए (`seed-country-andorra-portal-en`, `seed-country-luxembourg-portal-en`, `seed-country-mexico-portal-en`)। फिर publish **3/3**, chain **180 → 183 distinct** (203 rows)।
+- नयी script `scripts/kb-corrections-2026-11-06-b.js` — audited pattern, idempotent re-run 0/0/0। सभी backups on disk (failed attempt का pre-publish backup भी)।
+- ईमानदार negative result: बाकी **62 reachable portals को कुछ नहीं मिला** (हर path 404 / thin JS shell / non-English sentences)। homepage + deep-link route अब लगभग ख़त्म; बचे **141 portals** में ~79 hosts बिल्कुल answer नहीं देते (उनके लिए archive route ही व्यावहारिक है)।
+- Floors 180 → **183** refrozen (आठवीं freeze); version 0.19.71।

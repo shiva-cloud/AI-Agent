@@ -204,12 +204,10 @@ test('evidence database coverage floors hold when the database is present', (t) 
   // the three make-it-in-germany records relocated to their AufenthG statute
   // texts, plus eleven country-portal records re-quoted from stable verbatim
   // page sentences (171 distinct published records).
-  // Refrozen a seventh time the same day: portal-placeholder batch fourteen
-  // replaced nine more placeholder/title quotes with stable verbatim page
-  // sentences - Austria, Barbados, Iceland, Latvia, Liechtenstein, Micronesia,
-  // Saint Kitts and Nevis, Antigua and Barbuda, and Sri Lanka (180 distinct
-  // published records).
-  assert.ok(publishedIds.size >= 180, 'publication-chain floor');
+  // Refrozen an eighth time the same day: deep-link batch fifteen re-pointed
+  // three more portal citations to the English pages that carry their quotes -
+  // Andorra, Luxembourg, and Mexico (183 distinct published records).
+  assert.ok(publishedIds.size >= 183, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

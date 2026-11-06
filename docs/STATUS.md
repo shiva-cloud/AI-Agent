@@ -1,6 +1,14 @@
 # Implementation status — 6 November 2026
 
-## Current release: 0.19.70, English-only
+## Current release: 0.19.71, English-only
+
+### Deep-link batch fifteen (0.19.71)
+
+Details in `docs/CHANGELOG.md` 0.19.71:
+
+- Of the 144 portals still unpublished after batch fourteen, the 65 reachable hosts' English/about/contact paths were probed. Three yielded a stable verbatim English sentence — Andorra (the English section's foreign-affairs navigation listing, leading "Back" artifact trimmed), Luxembourg (the Grand Duchy museums/iron-mines description from luxembourg.public.lu/en) and Mexico (the one-stop description from gob.mx/en).
+- Because the quotes live on the `/en` deep pages rather than the cited homepages, the batch re-pointed each citation to the exact page its quote is checked against and registered the three page URLs as permitted tier-A sources (the batch-thirteen two-phase relocation flow). The first publish attempt failed honestly with 3 × `quote_not_on_page` — the gate checks the record's own URL, which is exactly right — and the extended script then published 3/3.
+- Chain 180 → **183** distinct records (203 publication rows). The script `scripts/kb-corrections-2026-11-06-b.js` re-runs idempotent (0/0/0). Remaining unpublished portals: **141** — ~79 hosts that do not answer at all (archive route is the realistic path) and ~62 whose reachable pages carry no quotable English sentence (homepage/deep-link route close to exhausted).
 
 ### Portal-placeholder batch fourteen (0.19.70)
 
