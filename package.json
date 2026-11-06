@@ -1,6 +1,6 @@
 {
   "name": "settlement-intelligence",
-  "version": "0.19.68",
+  "version": "0.19.69",
   "private": true,
   "type": "module",
   "engines": {
@@ -31,7 +31,7 @@
     "prune-backups": "node scripts/prune-backups.js",
     "kb:corrections": "node scripts/kb-corrections-2026-11-01.js",
     "kb:corrections:apply": "node scripts/kb-corrections-2026-11-01.js --apply",
-    "kb:review": "node scripts/kb-review-queue.js",
+    "kb:review": "node scripts/kb-review-queue.js status",
     "coverage:report": "node scripts/country-coverage-report.js"
   },
   "devDependencies": {

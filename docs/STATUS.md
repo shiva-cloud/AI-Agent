@@ -1,6 +1,12 @@
 # Implementation status — 6 November 2026
 
-## Current release: 0.19.68, English-only
+## Current release: 0.19.69, English-only
+
+### Four small audit bugs (0.19.69)
+
+Details in `docs/CHANGELOG.md` 0.19.69:
+
+- The 6 November full-project audit's four small defects are fixed and exercised: the injection pre-check in `src/engine.js` no longer uses the global literals directly with `.test()` (a `/g` regex's `lastIndex` made every second request pass unchecked; it now tests fresh stateless copies, the sanitizer's global replace untouched), `/v1/kb/expiry-audit` rejects a non-numeric `warningDays` back to the 14-day default instead of producing `NaN`, the Atom feed's entry separator is a proper `·` again (it had degenerated to the double-encoded `Â·`), and `npm run kb:review` now passes the `status` subcommand instead of printing only the script's usage line (451 records in the current review queue).
 
 ### Short-quote batch thirteen (0.19.68)
 

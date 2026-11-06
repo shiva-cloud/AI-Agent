@@ -263,7 +263,8 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
       });
     }
     if(path==='/v1/kb/expiry-audit') {
-      const warningDays = url.searchParams.get('warningDays') ? Number(url.searchParams.get('warningDays')) : 14;
+      const rawWarningDays = url.searchParams.get('warningDays');
+const warningDays = rawWarningDays !== null && Number.isFinite(Number(rawWarningDays)) ? Number(rawWarningDays) : 14;
       return send(200, auditKbRecordExpiries(store.db, { warningDays }));
     }
     if(path==='/v1/kb/provenance-check') {
@@ -341,7 +342,7 @@ export function createApp(store=openStore(), adminToken=process.env.ADMIN_TOKEN,
         .sort((a,b)=>b.checkedAt.localeCompare(a.checkedAt)||b.id.localeCompare(a.id)).slice(0,12);
       const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
       const updated=items[0]?.checkedAt??new Date().toISOString().slice(0,10);
-      const xml='<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n<title>Northstar evidence currency</title>\n<subtitle>Aggregate source-checked evidence currency for the settlement research pilot. No visitor data.</subtitle>\n<link rel="self" href="/v1/changes.xml"/>\n<updated>' + esc(updated) + '</updated>\n<id>/v1/changes.xml</id>\n' + items.map(i=>'<entry>\n<title>' + esc(i.title) + '</title>\n<id>' + esc(i.id) + '</id>\n<updated>' + esc(i.checkedAt) + '</updated>\n<summary>' + esc(i.status.replaceAll('_',' ') + ' Â· checked ' + i.checkedAt + ' Â· expires ' + i.expiresAt) + '</summary>\n</entry>\n').join('') + '</feed>';
+      const xml='<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n<title>Northstar evidence currency</title>\n<subtitle>Aggregate source-checked evidence currency for the settlement research pilot. No visitor data.</subtitle>\n<link rel="self" href="/v1/changes.xml"/>\n<updated>' + esc(updated) + '</updated>\n<id>/v1/changes.xml</id>\n' + items.map(i=>'<entry>\n<title>' + esc(i.title) + '</title>\n<id>' + esc(i.id) + '</id>\n<updated>' + esc(i.checkedAt) + '</updated>\n<summary>' + esc(i.status.replaceAll('_',' ') + ' · checked ' + i.checkedAt + ' · expires ' + i.expiresAt) + '</summary>\n</entry>\n').join('') + '</feed>';
       res.writeHead(200,{...headers,'Content-Type':'application/atom+xml; charset=utf-8'});
       return res.end(xml);
     }

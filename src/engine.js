@@ -476,7 +476,10 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
     result.status='clarification'; result.clarification=place.message; result.placeClarification=place;
     result.gaps.push({topic:null,reason:'missing_or_unsupported_geography'});
   } else {
-    const hasInjection = INJECTION_PATTERNS.some(pat => pat.test(input?.question || ''));
+    // .test() advances a /g regex's lastIndex, so every second call would
+    // wrongly miss an injection; test with a fresh stateless copy instead
+    // (sanitizePromptInjection below keeps the same literals global for replace()).
+    const hasInjection = INJECTION_PATTERNS.some(pat => new RegExp(pat.source, pat.flags.replace('g', '')).test(input?.question || ''));
     const isConceptual = !hasInjection && isConceptualOrFederalQuestion(normalizeEnglishQuestion(input?.question));
     const searchIntents = directHandled ? [] : (parsed.intents.length ? parsed.intents : (isConceptual ? ['employment', 'community', 'arrival', 'housing', 'money'] : []));
     const candidates = searchIntents.length ? retrieve({...parsed, intents: searchIntents},safeRecords,safeNow,searchIndex) : [];

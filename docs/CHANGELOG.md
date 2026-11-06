@@ -2,6 +2,15 @@
 
 Milestone history consolidated from `docs/STATUS.md`; newest first. Dates use UTC.
 
+## 0.19.69 — Four small audit bugs: a stateful injection check, a NaN expiry-audit parameter, mojibake in the Atom feed, and a `kb:review` script that only printed usage (6 November 2026)
+
+The four small defects called out by the 6 November full-project audit (`docs/FULL_PROJECT_AUDIT_2026-11-06_HI.md`), each fixed and exercised:
+
+- **`src/engine.js` — the injection pre-check was stateful.** `INJECTION_PATTERNS` carries `g` flags (the same literals feed `sanitizePromptInjection`, which needs global replace), but the request path ran them through `INJECTION_PATTERNS.some(pat => pat.test(...))` — and `.test()` on a `/g` regex advances its `lastIndex`, so every second request with an injection-shaped question would have passed unchecked. The check now tests a fresh stateless copy (`new RegExp(pat.source, pat.flags.replace('g', ''))` per pattern), leaving the sanitizer's global behaviour untouched (verified: detection hits on five consecutive calls; the sanitizer still strips every match).
+- **`src/server.js` `/v1/kb/expiry-audit` — a non-numeric `warningDays` produced `NaN`.** The parameter is now accepted only when `Number(...)` is finite, falling back to the 14-day default otherwise (`?warningDays=abc` no longer poisons the audit's date math).
+- **`src/server.js` Atom feed — mojibake in every entry.** The changes.xml summary separator had been written as the two-character sequence `Â·` (a UTF-8 middle dot double-encoded), so every feed entry read "approved Â· checked …"; it is a proper `·` again.
+- **`package.json` — `npm run kb:review` printed only the script's usage line.** The npm script now passes the `status` subcommand (`node scripts/kb-review-queue.js status`), which prints the review-queue totals (451 records in the current queue).
+
 ## 0.19.68 — Short-quote batch thirteen: the INZ and make-it-in-germany records relocated to pages an automated check can verify, eleven portal records re-quoted, fifteen published (6 November 2026)
 
 Fifth slice of the short-quote batch, same audited script pattern, entries appended to the day's script `scripts/kb-corrections-2026-11-05.js`. This slice takes the pool's remaining immigration-agency records — relocating the four whose cited pages cannot serve an automated fetch — and eleven of the thirty country-portal placeholders; nineteen portal placeholders remain:
