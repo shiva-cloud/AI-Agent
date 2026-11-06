@@ -4323,7 +4323,7 @@
     "gifts",
     "proof-of-funds"
    ],
-   "hash": "83790ec5bfbcbc6f",
+   "hash": "adaeb7fff7029b13",
    "status": "proposed",
    "method": "rule"
   },
@@ -4333,7 +4333,7 @@
     "money-transfer",
     "gifts"
    ],
-   "hash": "674ea23d89828b9b",
+   "hash": "e8b1a5c2d37fe087",
    "status": "proposed",
    "method": "rule"
   },
@@ -4852,7 +4852,7 @@
    "subjects": [
     "bank-account"
    ],
-   "hash": "24f293f378f07d4a",
+   "hash": "6ff57285fdda4a98",
    "status": "proposed",
    "method": "rule"
   },
@@ -4861,7 +4861,7 @@
     "birth-and-custody",
     "school-registration"
    ],
-   "hash": "931f4940a3442df2",
+   "hash": "d1ff66d67ffbc60a",
    "status": "proposed",
    "method": "rule"
   },
@@ -4937,9 +4937,9 @@
    "subjects": [
     "public-coverage",
     "finding-care",
-    "prescriptions"
+    "emergency-care"
    ],
-   "hash": "623dc770775b1db9",
+   "hash": "5c092eae3f0d4ad8",
    "status": "proposed",
    "method": "rule"
   },
@@ -4947,7 +4947,7 @@
    "subjects": [
     "skilled-work-visa"
    ],
-   "hash": "14dc66c768e4b60a",
+   "hash": "0347c7d7ec093565",
    "status": "proposed",
    "method": "rule"
   },
@@ -5129,7 +5129,7 @@
    "subjects": [
     "birth-and-custody"
    ],
-   "hash": "d86813e22631e7b0",
+   "hash": "14a695996cd1dcc1",
    "status": "proposed",
    "method": "rule"
   },
@@ -5219,7 +5219,7 @@
    "subjects": [
     "immigration-medical"
    ],
-   "hash": "2b33367aebbc5134",
+   "hash": "5f60643057d84c2f",
    "status": "proposed",
    "method": "rule"
   },
@@ -5227,7 +5227,7 @@
    "subjects": [
     "parents-and-relatives"
    ],
-   "hash": "d8252636b1df0af2",
+   "hash": "5eefee5e97b81e97",
    "status": "proposed",
    "method": "rule"
   },
@@ -5290,7 +5290,7 @@
    "subjects": [
     "spousal-sponsorship"
    ],
-   "hash": "f76fc865bf68d011",
+   "hash": "93ae8469b7deeed5",
    "status": "proposed",
    "method": "rule"
   },
@@ -5298,7 +5298,7 @@
    "subjects": [
     "parents-and-relatives"
    ],
-   "hash": "653065dab451f4fa",
+   "hash": "69bf94baf4377ba8",
    "status": "proposed",
    "method": "rule"
   },
@@ -5895,7 +5895,7 @@
     "licence-exchange",
     "getting-a-licence"
    ],
-   "hash": "d90f66fe911853eb",
+   "hash": "b3b58a279e6d3646",
    "status": "proposed",
    "method": "rule"
   },

@@ -594,7 +594,7 @@ export const insiderImmigrationRecords = [
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/permanent-residence/non-economic-classes/family-class-determining-spouse/family-members-not-declared.html',
     quote: 'A foreign national shall not be considered a member of the family class by virtue of their relationship to a sponsor if the foreign national was a non-accompanying family member and was not examined.',
-    summary: 'Under Immigration and Refugee Protection Regulations (IRPR) section 117(9)(d), if a family member (spouse, common-law partner, or dependent child) was not declared or was declared as non-accompanying and not medically examined at the time the sponsor applied for and obtained permanent residence, that family member is permanently excluded from the Family Class and can never be sponsored. Omitting a dependent to expedite processing or save fees results in an irreversible statutory lifetime ban on sponsorship, curable only through exceptional discretionary Humanitarian and Compassionate (H&C) applications under IRPA section 25(1). This record does not adjudicate family class applications.'
+    summary: 'Under Immigration and Refugee Protection Regulations (IRPR) section 117(9)(d), if a family member (spouse, common-law partner, or dependent child) was not declared or was declared as non-accompanying and not medically examined at the time the sponsor applied for and obtained permanent residence, that family member is excluded from the Family Class and cannot be sponsored, unless an officer determined they did not need to be examined (section 117(10)). Omitting a dependent to expedite processing or save fees can bar that person from family sponsorship permanently; the remaining route is an exceptional, discretionary Humanitarian and Compassionate (H&C) application under IRPA section 25(1). The temporary public policy that allowed certain undeclared family members to be sponsored ended on 10 September 2026 and now applies only to eligible applications received from 31 May 2019 to 10 September 2026. This record does not adjudicate family class applications.'
   }),
 
   // ── 6. RTA SECTION 5(i) SHARED KITCHEN EXEMPTION ─────────────────────────────
@@ -646,12 +646,12 @@ export const insiderImmigrationRecords = [
   // ── 10. PARENTAL WIRE GIFTS & DEED OF GIFT ───────────────────────────────────
   createRecord({
     id: 'fintrac-overseas-parental-gift-deed',
-    title: 'FINTRAC & CRA: Tax-free foreign parental gift wires and Deed of Gift documentation',
+    title: 'FINTRAC & CRA: Foreign parental gift wires and gift documentation',
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://fintrac-canafe.canada.ca/reporting-declaration/rpt/eft-eng',
     quote: 'Reporting entities must report electronic funds transfers of $10,000 CAD or more sent or received across borders within 15 days.',
-    summary: 'Canada imposes no gift tax, inheritance tax, or wealth tax on genuine monetary transfers received from family members abroad. While incoming foreign wire transfers of $10,000 CAD or more are automatically reported by financial institutions to FINTRAC under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act (PCMLTFA), pure gifts given out of natural love and affection are non-taxable to the recipient. To prevent financial institution anti-money laundering (AML) account freezes or CRA income audits, recipients should maintain a signed and notarized Deed of Gift from the parents confirming the transfer is a non-repayable gift, alongside foreign bank statements showing legitimate source of funds. Splitting wires to evade reporting thresholds constitutes illegal structuring. This record does not verify banking compliance.'
+    summary: 'Canada imposes no gift tax, inheritance tax, or wealth tax on genuine monetary transfers received from family members abroad. While incoming foreign wire transfers of $10,000 CAD or more are automatically reported by financial institutions to FINTRAC under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act (PCMLTFA), a genuine gift is generally not taxable income to the recipient, although income later earned on the money is taxable. To reduce the risk of bank anti-money laundering (AML) delays or CRA questions, recipients should keep a signed gift letter or deed (no specific form is required by law) from the parents confirming the transfer is a non-repayable gift, alongside foreign bank statements showing legitimate source of funds. Splitting transfers to avoid reporting is an offence (structured financial transactions, PCMLTFA s.77.3). This record does not verify banking compliance.'
   }),
 
   // ── 11. AUTO INSURANCE FOREIGN EXPERIENCE LETTER (FSRA) ─────────────────────
@@ -736,12 +736,12 @@ export const insiderImmigrationRecords = [
   // ── 18. MTO FOREIGN DRIVING EXTRACT EXPERIENCE CREDIT ─────────────────────────
   createRecord({
     id: 'mto-foreign-licence-driving-extract-credit',
-    title: 'DriveTest & MTO: Authenticated Driving History Extract for 2+ years foreign licence experience credit',
+    title: 'DriveTest & MTO: Foreign licence experience credit limited to 12 months since 1 July 2026',
     topic: 'driving',
     jurisdiction: 'ON',
     url: 'https://www.ontario.ca/page/exchange-out-province-drivers-licence',
     quote: 'To get credit for more than one year of driving experience, you need an official letter from the foreign licensing authority or embassy.',
-    summary: 'Under Ontario Highway Traffic Act Regulation 340/94, drivers licensed in non-reciprocal jurisdictions (including India, Pakistan, Philippines, Nigeria, UAE, China, and Brazil) who want to bypass the mandatory 12-month G1 waiting period and take the Full G highway road test directly must provide an official, authenticated Driving History Extract / Letter of Experience on government letterhead from their foreign licensing authority or consulate. Presenting a plastic foreign driver licence alone grants only up to 12 months credit, allowing the driver to book the G2 road test, but still requiring a subsequent waiting period before the Full G. The driving extract must be in English or accompanied by an ATIO-certified translation, dated within 6 months of presentation, and state the initial date of licence issue and class. This record does not book road tests.'
+    summary: 'Since 1 July 2026, drivers licensed in jurisdictions without a licence exchange agreement with Ontario (including India, Pakistan, Philippines, Nigeria, UAE, China, and Brazil) can get credit for up to 12 months of driving experience by showing a valid, original foreign driver licence and, if the licence does not show that experience, an official authentication letter in English or French from the government or agency that issued it. They must pass the vision test, knowledge test and G2 road test, then wait at least 12 months before taking the G road test. A licence not written in English or French needs a translation from an approved translator, dated within six months of the application. This record does not book road tests.'
   }),
 
   // ── 19. US H-1B 60-DAY GRACE PERIOD SEVERANCE TRAP (8 CFR § 214.1(l)(2)) ─────
@@ -877,7 +877,7 @@ export const insiderImmigrationRecords = [
     jurisdiction: 'Ireland',
     url: 'https://www.irishimmigration.ie/coming-to-work-in-ireland/what-are-my-work-options/',
     quote: 'Critical Skills Employment Permit holders who have completed 21 months of continuous employment in Ireland can apply for Stamp 4 permission.',
-    summary: 'Under Irish Department of Justice Immigration Service Delivery (ISD) policies and the Employment Permits Act 2024, foreign nationals holding a Critical Skills Employment Permit (CSEP) who complete 21 consecutive months of compliant employment with their authorized sponsor are entitled to apply for an official Support Letter to transition to Stamp 4 permission. Stamp 4 confers unrestricted right to work in Ireland, exempting the holder from employment permit requirements, labour market needs tests, and sponsor lock-in, while allowing them to change employers freely, establish independent business ventures, and accumulate reckonable residence towards naturalization under the Irish Nationality and Citizenship Act 1956. This record does not register Stamp 4 permissions.'
+    summary: 'Under Irish Department of Justice Immigration Service Delivery (ISD) policies and the Employment Permits Act 2024, foreign nationals holding a Critical Skills Employment Permit (CSEP) who have completed 21 months from the start of their employment on that permit, and have held Stamp 1 permission for at least 21 months, can apply directly to the Registration Office for Stamp 4 permission. The Department of Enterprise stopped taking applications for Stamp 4 support letters on 30 November 2023. Stamp 4 confers unrestricted right to work in Ireland, exempting the holder from employment permit requirements, labour market needs tests, and sponsor lock-in, while allowing them to change employers freely, establish independent business ventures, and accumulate reckonable residence towards naturalization under the Irish Nationality and Citizenship Act 1956. This record does not register Stamp 4 permissions.'
   }),
 
   // ── 31. NEW ZEALAND AEWV 90-DAY REDUNDANCY WINDOW (INZ WK3) ───────────────────

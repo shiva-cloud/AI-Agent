@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { CORRECTIONS, planCorrections, templateSummary } from '../scripts/kb-corrections-2026-11-01.js';
+import { CORRECTIONS, planCorrections, SUPERSEDED_BY_SOURCE_CHECK, templateSummary } from '../scripts/kb-corrections-2026-11-01.js';
 import { seeds } from '../src/knowledge.js';
 import { kycRecords } from '../src/kyc-records.js';
 import { globalRecords } from '../src/global-records.js';
@@ -92,4 +92,17 @@ test('KB audit: hollow crawler change notices are rejected, real records are not
   const real = { id: 'ircc-express-entry-crs', status: 'approved', summary: 'The Express Entry Comprehensive Ranking System ranks candidates.' };
   const { plan } = planCorrections([hollow, real]);
   assert.deepEqual(plan.filter(p => p.kind === 'reject').map(p => p.id), ['ca-ircc-news-8be12c8b']);
+});
+
+test('KB audit: a source-verified record is never rewritten by a superseded correction', () => {
+  for (const id of SUPERSEDED_BY_SOURCE_CHECK) {
+    assert.ok(CORRECTIONS.some(c => c.id === id), id);
+    const record = {id, topic: 'employment', jurisdiction: 'CA', title: 't', summary: 'Republished official text.', quote: 'q', reviewMethod: 'source_verified'};
+    const {plan, problems} = planCorrections([record]);
+    assert.deepEqual(plan, [], id);
+    assert.deepEqual(problems.filter(problem => problem.startsWith(`${id}:`)), [], id);
+  }
+  const unverifiedId = [...SUPERSEDED_BY_SOURCE_CHECK][0];
+  const unverified = {id: unverifiedId, topic: 'employment', jurisdiction: 'CA', title: 't', summary: 'Other text.', quote: 'q'};
+  assert.ok(planCorrections([unverified]).problems.some(problem => problem.startsWith(`${unverifiedId}: text not found`)), 'without verification the mismatch is still reported');
 });
