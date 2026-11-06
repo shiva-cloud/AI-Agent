@@ -29,7 +29,7 @@ export function scoreCase(testCase, result, recordsById) {
   return {kind: fits[0] ? 'lead_on_subject' : fits.some(Boolean) ? 'lead_off_subject' : 'wrong', fits};
 }
 
-for (const name of ['subject-fit', 'subject-fit-holdout']) {
+for (const name of ['subject-fit', 'subject-fit-holdout', 'subject-tags-holdout']) {
   const {cases} = JSON.parse(readFileSync(new URL(`../evaluation/${name}.json`, import.meta.url), 'utf8'));
   const totals = {n: cases.length, on_subject: 0, lead_on_subject: 0, lead_off_subject: 0, wrong: 0, abstain: 0, clarify: 0};
   for (const testCase of cases) {

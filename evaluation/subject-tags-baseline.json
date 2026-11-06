@@ -1,0 +1,35 @@
+{
+  "description": "Scores before any subject tag affects an answer. Phase gates compare subject-tags-holdout against this. Records change as batches publish, so re-measure this commit's code against the current database when comparing.",
+  "measuredAt": "2026-11-06",
+  "code": "4fd1d42",
+  "scores": {
+    "subject-fit": {
+      "n": 66,
+      "on_subject": 39,
+      "lead_on_subject": 6,
+      "lead_off_subject": 0,
+      "wrong": 0,
+      "abstain": 21,
+      "clarify": 0
+    },
+    "subject-fit-holdout": {
+      "n": 40,
+      "on_subject": 16,
+      "lead_on_subject": 3,
+      "lead_off_subject": 1,
+      "wrong": 8,
+      "abstain": 12,
+      "clarify": 0,
+      "note": "Failures were read while choosing this design, so it is no longer strictly held out."
+    },
+    "subject-tags-holdout": {
+      "n": 96,
+      "on_subject": 32,
+      "lead_on_subject": 9,
+      "lead_off_subject": 1,
+      "wrong": 23,
+      "abstain": 29,
+      "clarify": 2
+    }
+  }
+}

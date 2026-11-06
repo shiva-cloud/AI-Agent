@@ -6,6 +6,7 @@ import { assertEnglishText, assertEnglishRecord } from './language.js';
 import { cities, topics } from './knowledge.js';
 import { queryTerms, rankLexically, tokenize } from './search.js';
 import {detectUrgentHelp} from './urgent-help.js';
+import {loadSubjectTags,subjectShadow} from './subject-tags.js';
 import {describesLifeInCountry,namedReferenceCountry,recordFitsSubject,referenceCoverageNotice} from './reference-countries.js';
 import {housingQuestionSubjects,recordHousingSubject} from './housing.js';
 import {licenceContext, originCountryContext} from './licence-context.js';
@@ -442,6 +443,8 @@ function substantiveTerms(terms, parsed) {
   const place = new Set(tokenize([parsed.city, parsed.region, CANADIAN_REGION_NAMES[parsed.region], parsed.country, 'canada', 'canadian'].filter(Boolean).join(' ')));
   return (terms || []).filter(term => !place.has(term));
 }
+// Diagnostic only until a topic is switched on: see subjectShadow.
+const subjectTags = loadSubjectTags();
 const MIN_RELATIVE_SCORE = 0.3;
 // Subjects a record must actually be about when the question names them: nothing
 // else in the same topic stands in for them, however many other words it shares.
@@ -620,6 +623,8 @@ export function answer(input,records,now=new Date(),searchIndex,options={}) {
     }
     if(parsed.missingSlots.includes('licence_country')) result.clarification=parsed.licenceCountryAmbiguous?'You mentioned more than one licence country. Which current licence do you want to ask about?':'Which country issued your current driving licence?';
     result.status=result.claims.length?(result.gaps.length?'partial':'guidance'):'unavailable';
+    // Internal diagnostic metadata is intentionally excluded from public JSON.
+    Object.defineProperty(result,'subjectShadow',{value:subjectShadow({question:input?.question,parsed,candidates,claims:result.claims,tags:subjectTags}),enumerable:false});
   }
   const crisisMatch = !narrativeCrisis ? resolveSocialCrisisGuidance(input?.question, parsed) : null;
   const leads = [
