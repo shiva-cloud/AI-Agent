@@ -204,10 +204,11 @@ test('evidence database coverage floors hold when the database is present', (t) 
   // the three make-it-in-germany records relocated to their AufenthG statute
   // texts, plus eleven country-portal records re-quoted from stable verbatim
   // page sentences (171 distinct published records).
-  // Refrozen an eighth time the same day: deep-link batch fifteen re-pointed
-  // three more portal citations to the English pages that carry their quotes -
-  // Andorra, Luxembourg, and Mexico (183 distinct published records).
-  assert.ok(publishedIds.size >= 183, 'publication-chain floor');
+  // Refrozen a ninth time the same day: archive-fallback batch sixteen
+  // published Cyprus through the Internet Archive copy of its 403-blocked
+  // page (viaArchive) and re-pointed Armenia's citation to the /en/en page
+  // that carries its quote (184 distinct published records).
+  assert.ok(publishedIds.size >= 184, 'publication-chain floor');
 });
 
 test('countryCoverage engine function produces structured global coverage matrix', () => {

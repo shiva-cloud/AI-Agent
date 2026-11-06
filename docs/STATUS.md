@@ -1,6 +1,15 @@
 # Implementation status — 6 November 2026
 
-## Current release: 0.19.71, English-only
+## Current release: 0.19.72, English-only
+
+### Archive-fallback batch sixteen (0.19.72)
+
+Details in `docs/CHANGELOG.md` 0.19.72:
+
+- The publish pipeline's built-in Internet Archive fallback was used for the first time on these records: **Cyprus published viaArchive** — its live page serves HTTP 403, and the archive capture of the same official URL carries the verbatim services-directory description. Citation unchanged; the archived copy is the recorded evidence.
+- **Armenia corrected but waiting**: its `/en` path serves a Radware bot-check interstitial to automated fetches; the quote was replaced with the verbatim sentence from the same host's `/en/en` page, the citation re-pointed there and the page registered permitted tier-A (batch-thirteen relocation flow). The publish attempt failed honestly (`quote_not_on_page` — this run's fetch was itself bot-checked); no retries were hammered.
+- Snapshots for 7 of the 11 403-blocked portals were refused by web.archive.org this run (environmental — left alone, not hammered); 3 answered snapshots carried no usable English sentence. Belgium's deep-link candidate was rejected as describing the EU's "Your Europe" service, not the Belgian portal.
+- Chain 183 → **184** distinct records (204 publication rows). `scripts/kb-corrections-2026-11-06-c.js` re-runs idempotent (0/0/0). Unpublished portals now **140**.
 
 ### Deep-link batch fifteen (0.19.71)
 

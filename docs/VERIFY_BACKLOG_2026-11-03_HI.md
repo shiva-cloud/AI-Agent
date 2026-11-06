@@ -305,3 +305,14 @@ Floors: `test/country-coverage.test.js` — बटन यह है कि publi
 - नयी script `scripts/kb-corrections-2026-11-06-b.js` — audited pattern, idempotent re-run 0/0/0। सभी backups on disk (failed attempt का pre-publish backup भी)।
 - ईमानदार negative result: बाकी **62 reachable portals को कुछ नहीं मिला** (हर path 404 / thin JS shell / non-English sentences)। homepage + deep-link route अब लगभग ख़त्म; बचे **141 portals** में ~79 hosts बिल्कुल answer नहीं देते (उनके लिए archive route ही व्यावहारिक है)।
 - Floors 180 → **183** refrozen (आठवीं freeze); version 0.19.71।
+
+### बैच-16 - archive-fallback: Cyprus viaArchive प्रकाशित, Armenia citation relocate, 0.19.72
+
+- **खोज:** publish pipeline में पहले से built-in Wayback fallback है — live page 404/403 दे तो वही official URL का `web.archive.org/web/2026/...` snapshot खोलकर quote verify करता है (`viaArchive: true`, note में archived copy दर्ज)। नया code नहीं चाहिए था।
+- 141 बचे portals में सिर्फ़ **11** 403-blocked हैं (fallback-trigger वाली अकेली failure class):
+  - **Cyprus — प्रकाशित viaArchive** ✓ — archive capture में verbatim services-directory description है ("Citizens and day-to-day life Services for Cypriot citizens and foreign nationals...")। Citation अपरिवर्तित — record official URL ही cite करता है, archived copy सबूत है।
+  - **Armenia — corrected, प्रकाशन प्रतीक्षारत** — `/en` path Radware bot-check interstitial देता है; quote उसी host की `/en/en` page की verbatim sentence से बदला, citation वहाँ re-point + page tier-A registered (batch-13 का relocation flow — make-it-in-germany के hCaptcha जैसा case)। Publish प्रयास ईमानदारी से fail (`quote_not_on_page` — इस run का fetch ख़ुद bot-checked था); site को बार-बार नहीं खटखटाया।
+- ईमानदार negative: 11 में से **7 के snapshots ख़ुद web.archive.org ने 403 कर दिए** (environmental — hammer नहीं किया), 3 snapshots में कोई usable English sentence नहीं। Belgium का deep-link candidate reject — वह "Your Europe" (EU site) के बारे में है, Belgium portal के बारे में नहीं। 13 thin-shell hosts का deep-probe: सिर्फ़ Armenia qualify।
+- Chain **183 → 184 distinct** (204 rows)। Script `scripts/kb-corrections-2026-11-06-c.js`, idempotent re-run 0/0/0, gate-sims 2/2, सभी backups on disk।
+- बचे **140 portals** — संरचना: 11 × 403 (1 published, 7 archive-blocked इस run, 3 no-usable-English), ~50 network/timeout hosts (fallback trigger ही नहीं होता — live fetch का 404/403 आना ज़रूरी), ~18 thin-shell (deep-probe पूरा), non-English-homepage समूह।
+- Floors 183 → **184** refrozen (नौवीं freeze); version 0.19.72।
