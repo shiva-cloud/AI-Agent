@@ -2,12 +2,18 @@ import { ToolInputError } from './api-errors.js';
 import { isIsoCalendarDate } from './text-input.js';
 
 export const STUDY_FINANCE_SOURCE = 'https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents/financial-support.html';
-export const STUDY_FINANCE_REVIEWED_ON = '2026-11-06';
+export const STUDY_FINANCE_REVIEWED_ON = '2026-11-07';
+// IRCC publishes these amounts with a start date and no end date, and updates them yearly,
+// so a review stays good for a set time. Tying coverage to the review day itself stopped
+// the study tools from calculating the day after every review. When this lapses the tools
+// abstain until the source page is checked again and REVIEWED_ON is moved.
+export const STUDY_FINANCE_REVIEW_VALID_DAYS = 90;
+export const STUDY_FINANCE_REVIEW_VALID_THROUGH = new Date(Date.parse(`${STUDY_FINANCE_REVIEWED_ON}T00:00:00Z`) + STUDY_FINANCE_REVIEW_VALID_DAYS * 86400000).toISOString().slice(0, 10);
 // Amounts exclude tuition and transportation; household size includes applicant.
-// The source page dated 2026-08-28 was checked on REVIEWED_ON.
+// The source page was checked on REVIEWED_ON and carried every amount below.
 const VERSIONS = [
   { from: '2025-01-01', through: '2026-08-31', amounts: [22895, 28502, 35040, 42543, 48252, 54420, 60589], extra: 6170 },
-  { from: '2026-09-01', through: STUDY_FINANCE_REVIEWED_ON, amounts: [23448, 29192, 35888, 43572, 49419, 55736, 62054], extra: 6318 }
+  { from: '2026-09-01', through: STUDY_FINANCE_REVIEW_VALID_THROUGH, amounts: [23448, 29192, 35888, 43572, 49419, 55736, 62054], extra: 6318 }
 ];
 export const STUDY_TRAVEL_PLANNING_ESTIMATE_PER_PERSON = 1500;
 

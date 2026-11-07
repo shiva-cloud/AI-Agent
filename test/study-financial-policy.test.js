@@ -1,16 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { studyFinancialPolicy } from '../src/study-financial-policy.js';
+import { STUDY_FINANCE_REVIEW_VALID_THROUGH, studyFinancialPolicy } from '../src/study-financial-policy.js';
 import { evaluateStudyPermitCapAndPal } from '../src/study-permit-cap-pal-navigator.js';
 import { auditStudyPermitAndPal } from '../src/study-permit-pal-navigator.js';
 import { graduatePalRequirement } from '../src/study-graduate-pal-policy.js';
 
-test('graduate PAL exemption requires public DLI and reviewed 2026 application date', () => {
+test('graduate PAL exemption requires public DLI and a date inside the reviewed window', () => {
   assert.equal(graduatePalRequirement('2026-01-01', true), false);
+  assert.equal(graduatePalRequirement('2026-11-07', true), false, 'the day after a review still decides');
+  assert.equal(graduatePalRequirement('2027-02-05', true), false);
   assert.equal(graduatePalRequirement('2026-11-06', false), true);
   assert.equal(graduatePalRequirement('2026-11-06', undefined), null);
   assert.equal(graduatePalRequirement('2025-12-31', true), null);
-  assert.equal(graduatePalRequirement('2027-01-01', true), null);
+  assert.equal(graduatePalRequirement('2027-02-06', true), null);
   assert.throws(() => graduatePalRequirement('2026-11-06', 'yes'));
   assert.equal(auditStudyPermitAndPal({ programLevel: 'masters_degree', applicationDate: '2026-11-06' }).palAssessment.isPalRequired, null);
   assert.equal(auditStudyPermitAndPal({ programLevel: 'masters_degree', institutionType: 'public_university', applicationDate: '2026-11-06' }).palAssessment.isPalRequired, false);
@@ -32,7 +34,10 @@ test('reviewed study finance table uses effective dates, household size and juri
   assert.equal(get('2026-09-01').livingCostsCad, 23448);
   assert.equal(get('2026-11-06', 2).livingCostsCad, 35888);
   assert.equal(get('2026-11-06', 7).livingCostsCad, 68372);
-  for (const args of [['2024-12-31'], ['2026-11-07'], ['2026-11-06', 0, 'QC']]) {
+  assert.equal(STUDY_FINANCE_REVIEW_VALID_THROUGH, '2027-02-05');
+  assert.equal(get('2026-11-07').livingCostsCad, 23448, 'the day after a review still calculates');
+  assert.equal(get(STUDY_FINANCE_REVIEW_VALID_THROUGH).livingCostsCad, 23448);
+  for (const args of [['2024-12-31'], ['2027-02-06'], ['2026-11-06', 0, 'QC']]) {
     assert.equal(get(...args).status, 'POLICY_REVIEW_REQUIRED');
     assert.equal(get(...args).livingCostsCad, null);
   }
@@ -42,14 +47,14 @@ test('reviewed study finance table uses effective dates, household size and juri
 });
 
 test('both study engines share financial totals and abstain outside reviewed coverage', () => {
-  for (const province of ['ON', 'QC']) for (const applicationDate of ['2026-08-31','2026-09-01','2027-01-01']) {
+  for (const province of ['ON', 'QC']) for (const applicationDate of ['2026-08-31','2026-09-01','2027-02-06']) {
     const cap = evaluateStudyPermitCapAndPal({ applicationDate, province, tuitionFeeFirstYearCad: 20000, liquidFundsAvailableCad: 90000, familyMembersAccompanying: 2 });
     const pal = auditStudyPermitAndPal({ applicationDate, targetProvince: province, programLevel: 'undergraduate_degree', firstYearTuition: 20000, accompanyingDependents: 2 });
     assert.equal(cap.financialAudit.requiredLivingFundsCad, pal.financialProof.costOfLivingRequired);
     assert.equal(cap.financialAudit.travelAllowanceCad, pal.financialProof.estimatedTravel);
     assert.equal(cap.financialAudit.totalStatutoryProofRequiredCad, pal.financialProof.totalProofRequiredCad);
     assert.equal(cap.financialAudit.policy.sourceUrl, pal.financialProof.policy.sourceUrl);
-    if (province === 'QC' || applicationDate === '2027-01-01') {
+    if (province === 'QC' || applicationDate === '2027-02-06') {
       assert.equal(cap.financialAudit.status, 'NOT_DETERMINED');
       assert.equal(cap.financialAudit.isFinanciallySufficient, null);
     }
