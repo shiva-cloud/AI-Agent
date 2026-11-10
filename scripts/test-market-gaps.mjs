@@ -20,3 +20,4 @@ for (const q of questions) {
 }
 
 store.db.close();
+
