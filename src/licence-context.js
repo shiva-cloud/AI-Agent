@@ -55,7 +55,7 @@ const originPatterns = countries.map(([country, aliases]) => ({
   new RegExp(`\\b(?:degrees?|diplomas?|universit(?:y|ies)|colleges?|institutes?|schools?)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
   new RegExp(`\\b(?:custody|children|daughter|son|parents?|mother|father|spouse|family)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
   new RegExp(`\\b(?:conviction|convictions|charge|charges|arrest|arrests|dui|tickets?|traffic|offen[cs]e|offenses?)(?:\\s+[a-z0-9'-]+){0,4}\\s+(?:in|from)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
-  new RegExp(`\\b(?:in|from|and in)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+){0,3}(${aliases})(?=(?:\\s+(?:for\\s+\\d+|since|while|before|prior to|until|during|through|across|on an?|as an?|with|after|when|paying|to|but)|\\s*[,.?!()]))`, 'giu'),
+  new RegExp(`\\b(?:in|from|and in)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+){0,3}(${aliases})(?=\\s+(?:for\\s+\\d+|since|while|before|prior to|until|during|through|across|on an?|as an?|with|after|when|paying|to|but))`, 'giu'),
   new RegExp(`\\b(${aliases})(?:'s)?\\s+(?:police\\s+(?:clearance|character\\s+certificate|certificate)s?|pcc|acro|nbi|ciid|fbi|degree|diploma|passport|education|school|licen[cs]e)\\b`, 'giu'),
   new RegExp(`\\b(?:police clearance|police character certificate|police certificate|pcc|extract|apostille|nbi|psk|fbi|acro|ciid|transcripts?)\\s+(?:from|for|in)\\s+(?:the\\s+)?(${aliases})\\b`, 'giu'),
   new RegExp(`\\b(?:from|in|by)\\s+(?:the\\s+)?(?:police(?:\\s+force)?|authorit(?:y|ies)|station|embassy|consulate|office)\\s+(?:in|at|of)\\s+(?:the\\s+)?(?:[a-z0-9'-]+\\s+){0,3}(${aliases})\\b`, 'giu')

@@ -36,6 +36,27 @@ test('prompt injection does not become content',()=>{
 });
 test('seed approval requires provenance; withdrawal and audit remain available',()=>{const store=openStore(':memory:');try{assert.throws(()=>store.review('ohip','approve','Test reviewer','Source checked for test purposes'),/imported evidence snapshot/);assert.equal(store.summary().audits.length,0);store.review('ohip','reject','Test reviewer','Withdraw for test verification');assert.equal(store.records().find(x=>x.id==='ohip').status,'rejected');store.review('ohip','rollback','Test reviewer','Return to pending for test');assert.equal(store.records().find(x=>x.id==='ohip').status,'pending');assert.equal(store.summary().audits.length,2);}finally{store.db.close();}});
 test('questions are not persisted and feedback requires a real trace',()=>{const store=openStore(':memory:');const r=answer({question:'SIN private@example.com'},seeds,date);store.log(r);assert.ok(!JSON.stringify(store.db.prepare('SELECT * FROM traces').all()).includes('private@example.com'));assert.throws(()=>store.feedback('fake','helpful'));store.feedback(r.traceId,'helpful');store.db.close();});
+test('London Oyster and SpareRoom resolve to United Kingdom without CA cross-parse',()=>{assert.equal(parse({question:'Oyster card vs contactless'}).country,'United Kingdom');assert.equal(parse({question:'SpareRoom in London'}).country,'United Kingdom');});
+test('Global destination disambiguation and wage/deposit leak guards', () => {
+  const pUK = parse({ question: 'NI number in the UK' });
+  assert.equal(pUK.country, 'United Kingdom');
+  assert.equal(pUK.region, null);
+  assert.ok(pUK.intents.includes('sin'));
+
+  const pUS = parse({ question: 'SSN in the United States' });
+  assert.equal(pUS.country, 'United States');
+  assert.ok(pUS.intents.includes('sin'));
+
+  const pDE = parse({ question: 'Kaution rules in Germany' });
+  assert.equal(pDE.country, 'Germany');
+  assert.ok(pDE.intents.includes('housing'));
+
+  const pWage = parse({ question: 'closed permit hours cut and cash wages', city: 'Toronto' });
+  assert.equal(pWage.country, 'CA');
+  assert.equal(pWage.city, 'Toronto');
+  assert.ok(pWage.intents.includes('employment'));
+  assert.ok(!pWage.intents.includes('money'));
+});
 test('HTTP contracts, auth, injection-safe paths and origin checks',async()=>{const store=openStore(':memory:'),token='test-token-at-least-24-characters';const server=createApp(store,token);await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}`;try{
  assert.equal((await fetch(base+'/')).status,200);
  assert.equal((await fetch(base+'/admin/overview')).status,401);

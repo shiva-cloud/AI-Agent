@@ -5584,7 +5584,7 @@ export const REMEDY_RECORDS = [
     "id": "ca-ns-residential-tenancies-security-deposits-halifax-kyc",
     "topic": "housing",
     "housingSubject": "deposit",
-    "jurisdiction": "CA",
+    "jurisdiction": "NS",
     "title": "Nova Scotia Residential Tenancies Program: Statutory security deposit limits and return rules in Halifax (RTA s. 12)",
     "url": "https://beta.novascotia.ca/programs-and-services/residential-tenancies-program",
     "quote": "Under Nova Scotia Residential Tenancies Act Section 12, security deposits cannot exceed one-half of one month rent.",
