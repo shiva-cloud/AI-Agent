@@ -1,0 +1,29 @@
+{
+  "id": "europe-health-source-corrections-2026-11-08",
+  "corrections": [
+    {
+      "id": "nl-amsterdam-zorgverzekering-huisarts",
+      "sourceOwner": "Government of the Netherlands",
+      "url": "https://www.government.nl/themes/family-health-and-care/health-insurance/standard-health-insurance/taking-out-compulsory-health-insurance",
+      "title": "Government of the Netherlands: Basic and additional health insurance",
+      "quote": "A standard health insurance package is compulsory, whereas an additional health insurance package is not.",
+      "summary": "Government.nl explains the general requirement to arrange basic health insurance when living or working in the Netherlands by registering with a healthcare insurer. Basic coverage includes covered GP, hospital, psychiatrist and pharmacy costs. Additional insurance is optional and can cover costs outside the basic package. This record does not determine individual exemptions, a registration deadline, deductible amounts, healthcare allowances or specialist referral requirements."
+    },
+    {
+      "id": "ie-dublin-hse-gp-visit-card",
+      "sourceOwner": "Health Service Executive",
+      "url": "https://www2.hse.ie/services/schemes-allowances/gp-visit-cards/gp-visit-cards/",
+      "title": "HSE: GP visit cards and registration tracking",
+      "quote": "If you have a medical card, you don't need a GP visit card.",
+      "summary": "HSE explains that a GP visit card covers doctor visits, while medicines and other services still require payment. Medical card holders do not need a separate GP visit card. The page links to application or registration routes for general applicants, older people, young children and carers. Applicants can track registration using their reference number and check card validity online. This record does not determine individual eligibility, private insurance duties or hospital charges."
+    },
+    {
+      "id": "ie-hse-public-healthcare-and-medical-cards-kyc",
+      "sourceOwner": "Health Service Executive",
+      "url": "https://www2.hse.ie/services/schemes-allowances/medical-cards/about-the-medical-card/what-it-covers/",
+      "title": "HSE: Medical card coverage and application assessment",
+      "quote": "Being eligible for a medical card depends on your circumstances.",
+      "summary": "HSE says medical cards cover GP visits and most prescribed medicines, with prescription charges potentially payable, plus public outpatient and inpatient services, eye and ear tests, and dental checks. People living in the Republic of Ireland who intend to stay at least one year can apply; applying does not guarantee eligibility. Where automatic qualification does not apply, HSE assesses income, expenses, marital status and dependants. Unsuccessful medical-card applicants are automatically assessed for a GP visit card. This record does not establish general public-healthcare entitlement or emergency-department charges."
+    }
+  ]
+}

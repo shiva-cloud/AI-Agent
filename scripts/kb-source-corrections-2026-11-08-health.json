@@ -1,0 +1,29 @@
+{
+  "id": "health-source-corrections-2026-11-08",
+  "corrections": [
+    {
+      "id": "au-medicare-services-australia-kyc",
+      "url": "https://www.servicesaustralia.gov.au/medicare-card",
+      "title": "Services Australia: Medicare card and enrolment information",
+      "quote": "You get a Medicare card when you're enrolled in Medicare.",
+      "summary": "Services Australia explains that Medicare enrolment provides a Medicare card and directs applicants to the full enrolment conditions. The card page covers getting, using and replacing a card, adding or removing people, and accessing a digital card through the myGov app. A replacement is available if the card expires or is lost, stolen or damaged. This record does not determine visa-based eligibility, insurance obligations or entitlement to free treatment.",
+      "sourceOwner": "Services Australia"
+    },
+    {
+      "id": "us-ca-covered-california-health-enrollment",
+      "url": "https://www.coveredca.com/",
+      "title": "Covered California: Health insurance marketplace and enrolment help",
+      "quote": "Most Californians who buy health insurance through Covered California qualify for financial help.",
+      "summary": "Covered California is California's official health insurance marketplace. Its site provides plan comparison, eligibility and enrolment information, account management and help finding local assistance. Financial help depends on household income and household size. This record points to the marketplace's current application information; it does not determine individual eligibility, promise a subsidy, or establish Medi-Cal eligibility for any immigration category.",
+      "sourceOwner": "Covered California"
+    },
+    {
+      "id": "nz-auckland-te-whatu-ora-pho-gp",
+      "sourceOwner": "Health New Zealand - Te Whatu Ora",
+      "url": "https://www.healthnz.govt.nz/hospitals-services/services-support/asian-migrant-and-refugee-health/signing-up-with-a-healthcare-provider",
+      "title": "Health New Zealand: Enrolling with a general practice",
+      "quote": "You need to be eligible for publicly funded health services to enrol with a GP.",
+      "summary": "Health New Zealand says GP enrolment requires eligibility for publicly funded health services. A practice may ask for proof, such as a passport or birth certificate, and an enrolment form must be signed. Not every practice accepts new patients. Enrolment may reduce visit fees, but GP or nurse visits may still require payment. This record does not promise free hospital, accident or child healthcare or determine individual eligibility."
+    }
+  ]
+}

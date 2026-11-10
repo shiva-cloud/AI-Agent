@@ -1,0 +1,29 @@
+{
+  "id": "access-health-source-corrections-2026-11-08",
+  "corrections": [
+    {
+      "id": "us-chicago-cook-county-health-carelink",
+      "sourceOwner": "Cook County Health",
+      "url": "https://cookcountyhealth.org/carelink/",
+      "title": "Cook County Health: CareLink applications and financial assistance",
+      "quote": "Eligibility is based on gross income, family size, and proof of Cook County residency.",
+      "summary": "CareLink discounts eligible care at Cook County Health facilities. Eligibility depends on income, family size and county residency, with other coverage options assessed by a financial counselor. Applications are completed in person with a financial counselor; applicants provide identification, income and address evidence. The approval letter gives the eligibility dates and discount amount. Prescriptions are not covered by CareLink. This record does not guarantee eligibility, a particular discount or a poverty-level cutoff."
+    },
+    {
+      "id": "us-la-dhs-my-health-la-medical",
+      "sourceOwner": "Los Angeles County Department of Health Services",
+      "url": "https://dhs.lacounty.gov/patient-information/get-coverage/financial-services/",
+      "title": "LA County Health Services: Financial assistance and Ability to Pay applications",
+      "quote": "No one will be denied access to services due to inability to pay.",
+      "summary": "LA County Health Services offers help applying for Medi-Cal or its financial assistance programs. Its Ability to Pay program serves county residents, with assistance based on income and family size. Patient Financial Services staff help with applications, questions and bills. The page links to policies, application forms and multilingual brochures, and explains how to complain about a denied hospital financial-assistance decision. This record does not determine Medi-Cal eligibility for any immigration category or guarantee zero charges for all services."
+    },
+    {
+      "id": "au-services-australia-rhca-medicare-enrolment",
+      "sourceOwner": "Services Australia",
+      "url": "https://www.servicesaustralia.gov.au/when-reciprocal-health-care-agreements-apply-and-you-visit-australia",
+      "title": "Services Australia: Country-specific reciprocal healthcare information for visitors",
+      "quote": "Information for visitors to Australia on Reciprocal Health Care Agreements.",
+      "summary": "Services Australia provides country-specific reciprocal healthcare guidance for visitors from Belgium, Finland, Italy, Malta, the Netherlands, New Zealand, Norway, Ireland, Slovenia, Sweden and the United Kingdom. Visitors may qualify for medical care under Medicare; the relevant country page should be checked for its conditions. This directory does not establish individual eligibility, universal Medicare-card enrolment, a standard coverage package or student-visa insurance exemptions."
+    }
+  ]
+}

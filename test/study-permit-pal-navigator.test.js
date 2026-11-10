@@ -4,16 +4,16 @@ import { auditStudyPermitAndPal, PROGRAM_LEVELS, INSTITUTION_TYPES, STATUTORY_CO
 
 test('Study Permit & PAL Navigator — Input validation', () => {
   assert.throws(() => auditStudyPermitAndPal(null), /must be a valid object/);
-  assert.throws(() => auditStudyPermitAndPal({}), /Invalid programLevel/);
-  assert.throws(() => auditStudyPermitAndPal({ programLevel: 'unknown' }), /Invalid programLevel/);
+  assert.throws(() => auditStudyPermitAndPal({ applicationDate: '2026-11-06',}), /Invalid programLevel/);
+  assert.throws(() => auditStudyPermitAndPal({ applicationDate: '2026-11-06', programLevel: 'unknown' }), /Invalid programLevel/);
 });
 
 test('Study Permit & PAL Navigator — K-12 and In-Canada Extensions are exempt from PAL', () => {
-  const k12 = auditStudyPermitAndPal({ programLevel: PROGRAM_LEVELS.K_12 });
+  const k12 = auditStudyPermitAndPal({ applicationDate: '2026-11-06', programLevel: PROGRAM_LEVELS.K_12 });
   assert.equal(k12.palAssessment.isPalRequired, false);
   assert.ok(k12.palAssessment.reason.includes('IRPR s. 211.1(2)'));
 
-  const extension = auditStudyPermitAndPal({
+  const extension = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.UNDERGRADUATE_DEGREE,
     isExtensionWithinCanada: true
   });
@@ -22,7 +22,7 @@ test('Study Permit & PAL Navigator — K-12 and In-Canada Extensions are exempt 
 });
 
 test('Study Permit & PAL Navigator — University Bachelor degree holder with CLB 7 qualifies for PGWP', () => {
-  const result = auditStudyPermitAndPal({
+  const result = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.UNDERGRADUATE_DEGREE,
     institutionType: INSTITUTION_TYPES.PUBLIC_UNIVERSITY,
     fieldOfStudy: 'General Arts',
@@ -42,7 +42,7 @@ test('Study Permit & PAL Navigator — University Bachelor degree holder with CL
 });
 
 test('Study Permit & PAL Navigator — College Diploma outside priority fields is barred from PGWP under Nov 2024 rules', () => {
-  const ineligibleCollege = auditStudyPermitAndPal({
+  const ineligibleCollege = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.COLLEGE_DIPLOMA,
     institutionType: INSTITUTION_TYPES.PUBLIC_COLLEGE,
     fieldOfStudy: 'Business Administration',
@@ -52,7 +52,7 @@ test('Study Permit & PAL Navigator — College Diploma outside priority fields i
   assert.equal(ineligibleCollege.pgwpEligibility.isEligible, false);
   assert.ok(ineligibleCollege.pgwpEligibility.riskFlags.some(f => f.includes('Nov 1, 2024 Rule')));
 
-  const eligibleCollege = auditStudyPermitAndPal({
+  const eligibleCollege = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.COLLEGE_DIPLOMA,
     institutionType: INSTITUTION_TYPES.PUBLIC_COLLEGE,
     fieldOfStudy: 'Practical Nursing (Healthcare)',
@@ -64,7 +64,7 @@ test('Study Permit & PAL Navigator — College Diploma outside priority fields i
 });
 
 test('Study Permit & PAL Navigator — Private curriculum licensing partnerships are strictly barred from PGWP', () => {
-  const pvtLicensing = auditStudyPermitAndPal({
+  const pvtLicensing = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.COLLEGE_DIPLOMA,
     institutionType: INSTITUTION_TYPES.PRIVATE_CURRICULUM_LICENSING,
     fieldOfStudy: 'Computer Programming (STEM)',
@@ -76,7 +76,7 @@ test('Study Permit & PAL Navigator — Private curriculum licensing partnerships
 });
 
 test('Study Permit & PAL Navigator — Enforces 24-hour in-study work limit and calculates family dependent finances', () => {
-  const inSession = auditStudyPermitAndPal({
+  const inSession = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.MASTERS_DEGREE,
     inStudySession: true,
     firstYearTuition: 15000,
@@ -90,7 +90,7 @@ test('Study Permit & PAL Navigator — Enforces 24-hour in-study work limit and 
   assert.equal(inSession.financialProof.estimatedTravel, 1500 * 3);
   assert.equal(inSession.financialProof.totalProofRequiredCad, 15000 + 35888 + 4500);
 
-  const onBreak = auditStudyPermitAndPal({
+  const onBreak = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.MASTERS_DEGREE,
     inStudySession: false
   });

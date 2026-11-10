@@ -1,0 +1,22 @@
+{
+  "id": "canada-batch7-2026-11-08",
+  "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+  "corrections": [
+    {
+      "id": "ircc-first-two-weeks",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/news/video/your-first-two-weeks-canada.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: Your First Two Weeks in Canada",
+      "quote": "One of your first steps should be to call or visit one of these organizations in your new city.",
+      "summary": "IRCC’s official video guide outlines initial settlement steps for newcomers arriving in Canada, recommending contacting local immigrant-serving organizations early with your permanent residency documents to connect with language classes, housing support, and community services. Consult current departmental guidance for recent operational updates."
+    },
+    {
+      "id": "esdc-sin-documents",
+      "url": "https://www.canada.ca/en/employment-social-development/services/sin/required-documents.html",
+      "sourceOwner": "Employment and Social Development Canada",
+      "title": "ESDC: Required documents for a SIN",
+      "quote": "one primary identity document - proves your legal status in Canada",
+      "summary": "Applying for a Social Insurance Number (SIN) requires a primary identity document to prove legal status in Canada and a secondary identity document to confirm your identity, plus supporting legal documents if your name has changed. All documents must be original or clear digital copies as specified by Service Canada. This record outlines application requirements; it does not issue numbers or determine status."
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "kb-source-corrections-2026-11-08-batch14",
+  "corrections": [
+    {
+      "id": "crtc-internet-code",
+      "url": "https://www.ccts-cprst.ca/internet-code/",
+      "sourceOwner": "Commission for Complaints for Telecom-television Services",
+      "title": "CRTC and CCTS: The Internet Code and Consumer Protection Rules",
+      "quote": "In July 2019, the Canadian Radio-television and Telecommunications Commission (CRTC) created the Internet Code , a mandatory code of conduct that applies to large Internet service providers",
+      "summary": "The Canadian Radio-television and Telecommunications Commission (CRTC) created the Internet Code as a mandatory code of conduct for large Internet service providers. Administered by the CCTS, the Code applies to individual residential customers and retail fixed Internet access services to ensure clear contract terms, data-usage alerts, and dispute resolution."
+    },
+    {
+      "id": "ca-nnas-internationally-educated-nurses",
+      "url": "https://www.nnas.ca/applicant-handbook/",
+      "sourceOwner": "National Nursing Assessment Service",
+      "title": "National Nursing Assessment Service: Applicant Handbooks and Nursing Pathways",
+      "quote": "These handbooks will help you understand the NNAS process to get started on your journey to practice nursing in Canada.",
+      "summary": "The National Nursing Assessment Service (NNAS) provides applicant handbooks and pathways for internationally educated nurses seeking to practice nursing in Canada. Applicants can access guides for the Expedited Service and Registered Psychiatric Nurse Pathway, complete registration requirements, and navigate documentation."
+    },
+    {
+      "id": "ca-mcc-physician-credential-verification",
+      "url": "https://mcc.ca/services/source-verification/",
+      "sourceOwner": "Medical Council of Canada",
+      "title": "Medical Council of Canada: Verification of Credentials and SVR Process",
+      "quote": "Source verification is the process by which the Medical Council of Canada (MCC) sends your credential to the issuing institution (the source) and requests that they confirm that they issued the credential and that it is authentic, accurate, and valid (verification). This process is completed in collaboration with the Educational Commission for Foreign Medical Graduates (ECFMG), a division of Intealth.",
+      "summary": "The Medical Council of Canada (MCC) verifies international medical credentials by contacting issuing institutions in collaboration with ECFMG. Candidates submit a Source Verification Request (SVR) and documents through physiciansapply.ca to share verified credentials with Canadian medical regulatory authorities. Verification times vary, and MCC recommends submitting requests promptly."
+    },
+    {
+      "id": "canada-ircc-reconsideration-diplomatic-and-watchlist-recourse",
+      "url": "https://www.canada.ca/en/public-safety-canada/news/2020/11/government-of-canada-launches-redress-system-for-the-secure-air-travel-act-list--the-canadian-travel-number.html",
+      "sourceOwner": "Public Safety Canada",
+      "title": "Public Safety Canada: Canadian Travel Number (CTN) Redress System for Secure Air Travel Act List",
+      "quote": "The Canadian Travel Number (CTN) is not for everyone. It will only help reduce air travel delays in situations where the traveller's name is the same, or similar, as someone on the SATA list.",
+      "summary": "The Government of Canada established the Canadian Travel Number (CTN) under the Secure Air Travel Act (SATA) redress system. The CTN is a unique number that travellers with names similar to someone on the SATA list can apply for and use during flight bookings to reduce potential delays and false flagging during airport check-in."
+    },
+    {
+      "id": "ca-nl-labour-standards-code",
+      "url": "https://www.assembly.nl.ca/legislation/sr/statutes/l02.htm",
+      "sourceOwner": "House of Assembly Newfoundland and Labrador",
+      "title": "House of Assembly Newfoundland and Labrador: Labour Standards Act (RSNL1990 c. L-2)",
+      "quote": "Where an employee works in excess of the standard working hours as permitted by this Part, the employer shall pay to the employee the rate of wages for overtime that may be set out in the regulations by prescribed formula",
+      "summary": "Under the Newfoundland and Labrador Labour Standards Act (RSNL1990 c. L-2), employers must pay overtime wages to employees who work in excess of standard working hours. By mutual agreement, an employer may compensate overtime with one and a half hours of paid time off for each hour of overtime worked, taken within 3 months or within 12 months."
+    },
+    {
+      "id": "ca-nl-motor-registration-licence-exchange",
+      "url": "https://www.assembly.nl.ca/legislation/sr/statutes/h03.htm",
+      "sourceOwner": "House of Assembly Newfoundland and Labrador",
+      "title": "House of Assembly Newfoundland and Labrador: Highway Traffic Act (RSNL1990 c. H-3)",
+      "quote": "drive in the province, for a period of not more than 3 months from the date of coming or returning to the province, a vehicle of the class that that person is authorized to drive under the licence the person holds.",
+      "summary": "Under the Newfoundland and Labrador Highway Traffic Act (RSNL1990 chapter H-3), a person holding a valid driver licence issued outside the province may drive in the province for not more than 3 months from the date of coming or returning before obtaining a provincial licence."
+    },
+    {
+      "id": "canada-national-housing-assessment-and-tenant-protections",
+      "url": "https://www.cmhc-schl.gc.ca/consumers/renting-a-home/i-want-to-rent/lease-and-rental-agreements",
+      "sourceOwner": "Canada Mortgage and Housing Corporation",
+      "title": "CMHC: Lease and Rental Agreements and Tenant Guidance in Canada",
+      "quote": "Rental agreements between a landlord and tenant are commonly referred to as a \"lease\". In Canada, there are two types of rental agreements: Written lease Verbal rental agreement A written lease is a good idea because it clearly specifies what a landlord and tenant are agreeing to when renting a property.",
+      "summary": "The Canada Mortgage and Housing Corporation (CMHC) explains rental agreements (leases) across Canada. Rental agreements define the legal rights and responsibilities of landlords and tenants, outlining rent, responsibilities, inclusions, and termination conditions. Specific tenancy legislation and protections vary by province and territory."
+    },
+    {
+      "id": "ca-cpa-accounting-credential-bridging",
+      "url": "https://www.cicic.ca/938/financial_auditors_and_accountants.canada?id=10",
+      "sourceOwner": "Canadian Information Centre for International Credentials",
+      "title": "CICIC: Financial Auditors and Accountants Professional Recognition in Canada",
+      "quote": "Provincial/territorial regulatory authorities are responsible for: assessing your qualifications; and issuing a licence to practise. For information on the documents that you must submit to obtain a licence to practise as a financial auditor or accountant, contact the regulatory authority in the province or territory you wish to work in.",
+      "summary": "The Canadian Information Centre for International Credentials (CICIC) provides occupational guidance for financial auditors and accountants. Provincial and territorial regulatory authorities assess qualifications and issue licences to practice. Information is available regarding qualification recognition and certifying internationally trained accountants."
+    }
+  ]
+}

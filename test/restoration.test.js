@@ -9,7 +9,8 @@ function setup(){const s=openStore(':memory:');s.ingestion.permitSource('seed-si
 function publish(s,key,changes={}) {
  const today=new Date().toISOString().slice(0,10),expiresAt=new Date(Date.now()+7*86400000).toISOString().slice(0,10);
  const record={...seeds[0],status:'pending',checkedAt:today,expiresAt,...changes};
- const c=s.ingestion.ingest({sourceId:'seed-sin-route',requestKey:key,content:'Social Insurance Number: Apply. Test evidence excerpt.',record});
+ const content=`${record.quote || 'Social Insurance Number: Apply.'} Test evidence excerpt.`;
+ const c=s.ingestion.ingest({sourceId:'seed-sin-route',requestKey:key,content,record});
  return s.ingestion.decide(c.id,{...review,decision:'approve'}).publicationId;
 }
 function request(s,id,key='restore-one'){return {...review,publicationId:id,requestKey:key,expectedHash:s.ingestion.historyState('sin-route').currentHash};}

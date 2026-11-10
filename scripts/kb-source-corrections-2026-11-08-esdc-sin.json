@@ -1,0 +1,15 @@
+{
+  "id": "esdc-sin-2026-11-08",
+  "sourceOwner": "Employment and Social Development Canada",
+  "corrections": [
+    {
+      "id": "esdc-sin",
+      "url": "https://www.canada.ca/en/employment-social-development/services/sin.html",
+      "sourceOwner": "Employment and Social Development Canada",
+      "title": "ESDC: Social Insurance Number (SIN)",
+      "quote": "To work in Canada or access government programs and benefits, you need a 9-digit identifier known as Social Insurance Number (SIN). Your SIN is private and it is illegal for anyone else to use it.",
+      "summary": "The ESDC Social Insurance Number page states that to work in Canada or access government programs and benefits you need a 9-digit identifier known as a Social Insurance Number (SIN), that the SIN is private, that it is illegal for anyone else to use it, and that you are responsible for protecting it. To find a forgotten SIN it suggests signing in to My Service Canada Account (MSCA) or checking an income tax return, a tax slip such as a T4, a Record of Employment, or an RRSP contribution receipt, and it notes that Service Canada no longer issues plastic SIN cards \u2014 old cards can still be used and a lost or damaged card is replaced with a Confirmation of SIN letter in paper or digital format. Application paths split by status: for temporary residents the SIN starts with \"9\" and expires with the immigration documents, and the page covers applying for a first SIN with a work or study permit that authorized work, extending an expiring or expired SIN, and requesting a confirmation of an existing SIN; for citizens and permanent residents the SIN is permanent and does not expire, covering a first SIN, a confirmation for the applicant or a child, and registering a newborn in a Territory; a further segment applies to people outside Canada and without legal status there who are eligible for benefits or a pension. This record states the page’s process information and does not confirm anyone’s status, eligibility or personal SIN."
+    }
+  ]
+}
+

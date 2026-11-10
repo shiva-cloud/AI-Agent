@@ -61,7 +61,7 @@ jobs:
       - name: Prepare disposable seed snapshot for container smoke test
         run: |
           node --input-type=module -e "import { openStore } from './src/store.js'; openStore('/tmp/ci-seed.sqlite').db.close()"
-          node scripts/prepare-release-db.js /tmp/ci-seed.sqlite
+          node scripts/prepare-release-db.js /tmp/ci-seed.sqlite --research
       - run: docker build -t settlement-ci .
       - run: |
           docker run -d --name settlement-ci -p 127.0.0.1:3300:3000 settlement-ci

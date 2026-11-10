@@ -80,7 +80,7 @@ test('invalid snapshot hashes prevent completion manifests',async()=>{
  const w=workspace(),store=openStore(w.file);try{
   const reviewer={reviewer:'Test reviewer',note:'Test fixture permission reviewed.',tier:'A'};store.ingestion.permitSource('seed-sin-route',reviewer);
   const today=new Date().toISOString().slice(0,10),expiresAt=new Date(Date.now()+86400000*7).toISOString().slice(0,10);
-  store.ingestion.ingest({sourceId:'seed-sin-route',requestKey:'test-snapshot',content:'Social Insurance Number: Apply. Test excerpt.',record:{...seeds[0],status:'pending',checkedAt:today,expiresAt}});
+  store.ingestion.ingest({sourceId:'seed-sin-route',requestKey:'test-snapshot',content:`${seeds[0].quote} Social Insurance Number: Apply. Test excerpt.`,record:{...seeds[0],status:'pending',checkedAt:today,expiresAt}});
   store.db.exec('DROP TRIGGER snapshots_immutable_update');store.db.exec("UPDATE snapshots SET content_hash='incorrect'");
   await assert.rejects(()=>createBackup(w.file,w.backups),/Snapshot content hash mismatch/);
   const outputs=readdirSync(w.backups);assert.equal(outputs.length,1);assert.ok(!existsSync(join(w.backups,outputs[0],'manifest.json')));

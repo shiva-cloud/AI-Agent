@@ -1,0 +1,63 @@
+{
+  "id": "canada-immigration-2026-11-08",
+  "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+  "corrections": [
+    {
+      "id": "ircc-pr-residency-obligation-prtd",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/new-immigrants/pr-travel-document.html",
+      "title": "IRCC: Permanent resident travel document (PRTD) and commercial vehicle return",
+      "quote": "If you're a permanent resident of Canada, you need a permanent resident travel document (PRTD) if: you're outside Canada without a valid permanent resident card (PR card), and you're returning to Canada by commercial vehicle (airplane, boat, train or bus)",
+      "summary": "If you are a permanent resident outside Canada without a valid PR card, you need a permanent resident travel document (PRTD) to return to Canada by commercial vehicle (such as airplane, boat, train or bus). The application fee is $50 and it is valid for single one-time entry. This record does not issue travel documents or determine status."
+    },
+    {
+      "id": "ca-ircc-start-up-visa-suv-program",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/start-visa.html",
+      "title": "IRCC: Start-up Visa Program for Innovative Entrepreneurs",
+      "quote": "Canada's Start-up Visa Program targets immigrant entrepreneurs with the skills and potential to build businesses in Canada (outside Quebec) that are innovative can create jobs for Canadians can compete on a global scale",
+      "summary": "Canada's Start-up Visa Program targets immigrant entrepreneurs with the skills to build businesses in Canada (outside Quebec) that are innovative, create jobs for Canadians, and compete globally. To apply, applicants must have a valid 2025 commitment certificate and apply by June 30, 2026. The program is closed to all other applications. This record does not issue visas."
+    },
+    {
+      "id": "global-proof-of-funds-and-financial-maintenance",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/documents/proof-funds.html",
+      "title": "IRCC Express Entry: Proof of funds requirements and exemptions",
+      "quote": "You need proof of funds to meet the minimum requirements of the: Federal Skilled Worker Program Federal Skilled Trades Program",
+      "summary": "Under Express Entry, proof of funds is required to meet the minimum requirements of the Federal Skilled Worker Program and Federal Skilled Trades Program. You do not need to show proof of funds if you are applying under the Canadian Experience Class (CEC), or if you are authorized to work in Canada and have a valid job offer. This record does not evaluate settlement funds."
+    },
+    {
+      "id": "ircc-employer-kyc-right-to-work",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/temporary-residents/visitors/implied-status-extending-stay.html",
+      "title": "IRCC: Maintained status during processing and right to work under R186(u)",
+      "quote": "A work permit holder may continue working under the same conditions as their previous work permit until a decision is made on their extension application if they have applied to extend their stay in Canada as a worker [ R186(u) ] before the expiry of the permit and they remain in Canada .",
+      "summary": "Under IRPR R186(u), a work permit holder may continue working under the same conditions as their previous work permit until a decision is made on their extension application if they applied to extend their stay in Canada as a worker before permit expiry and remain in Canada. This legal status is referred to as maintained status. This record does not verify individual applications or issue permits."
+    },
+    {
+      "id": "canada-pnp-intent-to-reside-charter-s6",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/permanent-residence/economic-classes/provincial-nominees.html",
+      "title": "IRCC: Provincial Nominee Program (PNP) processing and streams",
+      "quote": "The Provincial Nominee Program (PNP) is designed to enable provinces and territories to support the immigration of people who have expressed an interest in settling in their province or territory the province or territory believes will be able to contribute to the economic development and prosperity of that province or territory and Canada",
+      "summary": "The Provincial Nominee Program (PNP) enables participating provinces and territories (outside Quebec and Nunavut) to nominate individuals who have expressed an interest in settling in that province or territory. Provinces can nominate individuals through either the Non-Express Entry base stream or the Express Entry enhanced stream. This record does not issue provincial nominations."
+    },
+    {
+      "id": "ca-ircc-pdi-mobilite-francophone-c16",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/work-canada/permit/francophone-mobility.html",
+      "title": "IRCC: Francophone Mobility work permit (LMIA exemption)",
+      "quote": "The Francophone Mobility work permit makes it easier for Canadian employers to hire you without a labour market impact assessment (LMIA) , if you meet certain requirements and you are destined to live and work outside Quebec.",
+      "summary": "Under the Francophone Mobility program, Canadian employers can hire eligible French-speaking foreign workers without a Labour Market Impact Assessment (LMIA) if they are destined to live and work outside Quebec. The application fee is $155. This record does not evaluate language ability or issue work permits."
+    },
+    {
+      "id": "cbsa-expired-pr-card-land-border-entry",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/new-immigrants/pr-card/understand-pr-status.html",
+      "title": "IRCC: Permanent resident status, 730-day residency rule, and expired PR card",
+      "quote": "To keep your PR status, you must have been in Canada for at least 730 days during the last five years. These 730 days don't need to be continuous. Some of your time outside Canada may count towards the 730 days you need.",
+      "summary": "Under Canadian immigration rules, you do not lose your permanent resident status when your PR card expires. To keep your PR status, you must have been in Canada for at least 730 days during the last five years (these 730 days do not need to be continuous). If you travel outside Canada without a valid PR card, you must apply for a permanent resident travel document before returning on a commercial vehicle. This record does not determine individual status."
+    },
+    {
+      "id": "cbsa-flagpoling-restrictions-and-pgwp-ban",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/apply.html",
+      "title": "IRCC: How to apply for a post-graduation work permit (PGWP)",
+      "quote": "In most cases, you must apply online for a PGWP. Step 1: Make sure you have what you need",
+      "summary": "Under IRCC guidelines, in most cases applicants must apply online for a post-graduation work permit (PGWP). Applicants must prepare electronic copies of documents and a valid payment card. This record does not issue work permits or decide applications."
+    }
+  ]
+}
+

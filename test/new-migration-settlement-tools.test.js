@@ -11,7 +11,7 @@ import { createApp } from '../src/server.js';
 import { openStore } from '../src/store.js';
 
 test('Study Permit Cap & PAL: validates PAL exemption for Master’s and financial sufficiency', () => {
-  const masters = evaluateStudyPermitCapAndPal({
+  const masters = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     studyLevel: 'masters',
     isPublicDli: true,
     tuitionFeeFirstYearCad: 25000,
@@ -23,7 +23,7 @@ test('Study Permit Cap & PAL: validates PAL exemption for Master’s and financi
   assert.equal(masters.pgwpPathway.status, 'eligible');
   assert.equal(masters.pgwpPathway.requiredLanguageClb, 7);
 
-  const underTier = evaluateStudyPermitCapAndPal({
+  const underTier = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     studyLevel: 'undergraduate_degree',
     tuitionFeeFirstYearCad: 22000,
     liquidFundsAvailableCad: 45000,
@@ -35,13 +35,13 @@ test('Study Permit Cap & PAL: validates PAL exemption for Master’s and financi
   assert.equal(underTier.financialAudit.requiredLivingFundsCad, 23448);
   assert.equal(underTier.financialAudit.totalStatutoryProofRequiredCad, 22000 + 23448 + 1500);
 
-  const collegeNonPriority = evaluateStudyPermitCapAndPal({
+  const collegeNonPriority = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     studyLevel: 'college_diploma',
     fieldOfStudyCategory: 'business_general'
   });
   assert.equal(collegeNonPriority.pgwpPathway.status, 'restricted_non_priority');
 
-  const collegePriority = evaluateStudyPermitCapAndPal({
+  const collegePriority = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     studyLevel: 'college_diploma',
     fieldOfStudyCategory: 'healthcare'
   });
@@ -217,7 +217,7 @@ test('HTTP API: verifies GET and POST contracts for 4 new navigators', async () 
 
   try {
     // 1. Study Permit PAL
-    const resGetPal = await fetch(`${baseUrl}/v1/tools/study-permit-cap-pal?studyLevel=masters&isPublicDli=true`);
+    const resGetPal = await fetch(`${baseUrl}/v1/tools/study-permit-cap-pal?studyLevel=masters&isPublicDli=true&applicationDate=2026-11-06`);
     assert.equal(resGetPal.status, 200);
     const bodyGetPal = await resGetPal.json();
     assert.equal(bodyGetPal.isPalRequired, false);

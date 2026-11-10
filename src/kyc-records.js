@@ -42,35 +42,35 @@ export const kycRecords = [
   // ── 2. FINTRAC $10,000 LARGE FUNDS TRANSFER KYC & AML COMPLIANCE ─────────────
   createKYCRecord({
     id: 'fintrac-large-wire-transfer-kyc',
-    title: 'FINTRAC: International wire transfers, large cash deposits, and KYC verification',
+    title: 'FINTRAC: Electronic funds transfers and large transaction reporting',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://fintrac-canafe.canada.ca/reporting-declaration/info/rpt-eng',
-    quote: 'Financial entities must submit reports for large cash transactions and international electronic funds transfers of $10,000 or more.',
-    summary: 'Under the federal Proceeds of Crime (Money Laundering) and Terrorist Financing Act (PCMLTFA), Canadian banks and money services businesses must verify customer identity and submit a Large Cash Transaction Report or International Electronic Funds Transfer (EFT) report to FINTRAC for cash received, or an international electronic funds transfer sent or received, of CAD $10,000 or more, in one transaction or several within 24 hours. Newcomers transferring settlement funds from abroad should keep verifiable source-of-funds documentation (such as property sale deeds, documented gift deeds from immediate family, tax returns, or bank statements) to satisfy institutional KYC anti-money laundering inquiries and reduce the risk of delays or account freezes. There is no Canadian tax on bringing personal capital into Canada, but identity and legitimate source must be documented. This record does not conduct AML reviews or clear transactions.'
+    url: 'https://fintrac-canafe.canada.ca/individuals-individus/rpt-eng',
+    quote: 'Electronic Funds Transfer Report When a reporting entity sends or receives an electronic funds transfer of $10,000 CAD or more either in a single transaction or in multiple transactions within a 24-hour period',
+    summary: 'Under FINTRAC reporting rules, a reporting entity must submit an Electronic Funds Transfer Report when sending or receiving an electronic funds transfer of $10,000 CAD or more, whether in a single transaction or in multiple transactions within a 24-hour period. This overview describes statutory reporting obligations; it does not process individual transactions.'
   }),
 
   // ── 3. TENANT SCREENING KYC & ILLEGAL SIN DEMANDS ─────────────────────────────
   createKYCRecord({
     id: 'ontario-tenant-kyc-screening-rights',
-    title: 'OHRC & Privacy Commissioner: Tenant screening KYC, credit checks, and illegal SIN demands',
+    title: 'OPC: Privacy in the landlord and tenant relationship and SIN requirements',
     topic: 'housing',
     housingSubject: 'agreement',
     jurisdiction: 'ON',
-    url: 'https://www.ohrc.on.ca/en/policy-human-rights-and-rental-housing-ontario',
-    quote: 'Landlords cannot demand a Social Insurance Number or discriminate against newcomers who lack a Canadian credit history.',
-    summary: 'Under PIPEDA privacy laws and the Ontario Human Rights Code (OHRC), landlords and tenant screening agencies (such as SingleKey or FrontLobby) may legally verify identity through government photo ID and request income verification or rental references. However, asking for or requiring a Social Insurance Number (SIN) on a rental application is completely optional; landlords cannot legally demand a SIN or reject a rental application because a tenant refuses to provide it. Demanding online banking login credentials or complete account passwords is an illegal violation of privacy. Refusing newcomer tenants solely because they lack Canadian credit history or domestic references constitutes indirect discrimination under OHRC Section 2(1); landlords must consider alternative affordability proofs such as employment letters, bank balances, or a guarantor. This record does not review leases or adjudicate human rights claims.'
+    url: 'https://www.priv.gc.ca/en/privacy-topics/landlords-and-tenants/privacy-in-the-landlord-and-tenant-relationship/',
+    quote: 'Does a landlord require my Social Insurance Number ( SIN )? No. Your Social Insurance Number is a confidential number used for income reporting purposes. Under the law, organizations cannot require you to consent to the collection, use or disclosure of your personal information unless it is required for a specific and legitimate purpose.',
+    summary: 'The Office of the Privacy Commissioner of Canada (OPC) advises that landlords do not require a tenant\'s Social Insurance Number (SIN). The SIN is a confidential number for income reporting, and organizations cannot require consent to collect or use it unless required for a specific and legitimate purpose. While landlords may ask for identification or conduct credit checks, tenants are under no legal obligation to provide their SIN for standard tenant screening. This record explains privacy guidelines; it does not investigate privacy complaints.'
   }),
 
   // ── 4. EMPLOYMENT RIGHT-TO-WORK KYC & MAINTAINED STATUS (WP-EXT) ─────────────
   createKYCRecord({
     id: 'ircc-employer-kyc-right-to-work',
-    title: 'IRCC: Employer compliance, Right-to-Work verification, and Maintained Status proof',
+    title: 'IRCC: Maintained status during processing and right to work under R186(u)',
     topic: 'employment',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/temporary-residents/foreign-workers/work-without-permit/authorization-work-without-permit-implied-status.html',
-    quote: 'Employers must verify a foreign national is legally authorized to work in Canada before hiring.',
-    summary: 'Under IRPA Section 124(1)(c), Canadian employers must verify identity and legal work authorization prior to onboarding employees. Temporary foreign workers receive a 900-series Social Insurance Number (SIN starting with 9) with an expiration matching their immigration permit. For workers on maintained status (formerly implied status under IRPR 186(u)) whose physical permit expired while a timely extension is pending, the worker shows the expired permit together with proof of the timely application: the online Acknowledgement of Receipt and, for online applications, the letter IRCC issues confirming they may keep working until a decision is made. For international students, employers must verify the study permit condition allowing off-campus work up to 24 hours per week during academic sessions. This record does not issue work permits or SINs.'
+    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/temporary-residents/visitors/implied-status-extending-stay.html',
+    quote: 'A work permit holder may continue working under the same conditions as their previous work permit until a decision is made on their extension application if they have applied to extend their stay in Canada as a worker [ R186(u) ] before the expiry of the permit and they remain in Canada .',
+    summary: 'Under IRPR R186(u), a work permit holder may continue working under the same conditions as their previous work permit until a decision is made on their extension application if they applied to extend their stay in Canada as a worker before permit expiry and remain in Canada. This legal status is referred to as maintained status. This record does not verify individual applications or issue permits.'
   }),
 
   // ── 5. SERVICEONTARIO OHIP HEALTHCARE REGULATION 552 3-LIST KYC ─────────────
@@ -90,32 +90,32 @@ export const kycRecords = [
     title: 'DriveTest Ontario: Identity verification, consular extracts, and certified translations',
     topic: 'driving',
     jurisdiction: 'ON',
-    url: 'https://drivetest.ca/licences/licence-exchanges/foreign-licence-experience-credits/',
-    quote: 'DriveTest requires official, verifiable original documentation to credit foreign driving experience.',
-    summary: 'To credit foreign driving experience and skip graduated licensing wait times at DriveTest centres, applicants must complete a two-step KYC authentication: (1) Identity & Status: original foreign passport plus Canadian legal status document (Study Permit, Work Permit, COPR, or PR Card); (2) Official Driving Extract: an authentic driving record extract issued by the foreign licensing authority (such as an authenticated DL extract from Parivahan/Sarathi for India, DVLA share code certificate for the UK, or LTO LTMS certificate for the Philippines). If the foreign licence or extract is not in English or French, it must be accompanied by an official translation certified by an accredited ATIO (Association of Translators and Interpreters of Ontario) or STIBC (BC) translator. Standard notary translations or uncertified translations are rejected. This record does not authenticate documents.'
+    url: 'https://www.ontario.ca/page/exchange-out-province-drivers-licence',
+    quote: "The authentication document must: be an official letter from the foreign government or agency that issued the driver's licence confirm that the driver's licence is authentic be written in English or French",
+    summary: 'Ontario DriveTest requires proof of driving experience from countries without exchange agreements. The authentication document must be an official letter from the issuing foreign government confirming authenticity, written in English or French. Applicants must apply in person at DriveTest or ServiceOntario Bay and College.'
   }),
 
   // ── 7. SECURED CREDIT CARDS & CREDIT FILE INCEPTION KYC ──────────────────────
   createKYCRecord({
     id: 'fcac-secured-credit-card-kyc',
-    title: 'FCAC: Secured credit cards, credit bureau inception, and avoiding predatory lending',
+    title: 'FCAC: Choosing a credit card and secured credit cards',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/financial-consumer-agency/services/credit-cards/secured-credit-cards.html',
-    quote: 'A secured credit card requires a security deposit that acts as your credit limit, helping you establish a credit history in Canada.',
-    summary: 'Under Financial Consumer Agency of Canada (FCAC) guidelines, newcomers starting with zero Canadian credit history (Score: N/A) can build an Equifax and TransUnion credit file by opening a secured credit card with a federally regulated institution (such as Neo Financial, Home Trust, Capital One, or major bank newcomer packages). A secured card requires cash collateral equal to the credit limit (typically $500 to $2,000) held in a dedicated deposit account. On-time monthly payments report directly to both Canadian credit bureaus, creating an official credit profile within 3 to 6 months. Newcomers are cautioned to maintain credit utilization below 30% of the limit and avoid predatory alternative lenders (such as payday loans or high-cost installment loans; since 1 January 2025 the legal maximum for most consumer loans is 35% APR) which trap newcomers in debt cycles and damage credit bureau ratings. This record does not issue credit or approve loans.'
+    url: 'https://www.canada.ca/en/financial-consumer-agency/services/credit-cards/choose-credit-card.html',
+    quote: "Secured credit cards A secured credit card may be an option if you don't have a credit history or if you have bad credit. You must provide a security deposit to get a secured credit card.",
+    summary: 'The Financial Consumer Agency of Canada (FCAC) explains that a secured credit card may be an option if you do not have a credit history or if you have bad credit. To get a secured card, you must provide a security deposit to the card issuer. This resource explains card options; it does not issue credit or approve applications.'
   }),
 
   // ── 8. TENANT GUARANTORS & KEY DEPOSIT REPLACEMENT COST KYC ───────────────────
   createKYCRecord({
     id: 'ontario-tenant-guarantor-and-key-deposit-kyc',
-    title: 'LTB & RTA: Guarantor rules, key deposit limits, and illegal fee prohibitions',
+    title: 'Ontario: Standard lease rules for rent deposits and key deposits',
     topic: 'housing',
     housingSubject: 'deposit',
     jurisdiction: 'ON',
-    url: 'https://tribunalsontario.ca/ltb/faqs/',
-    quote: 'Landlords cannot charge non-refundable fees or key deposits that exceed the reasonable cost of replacing the keys.',
-    summary: 'Under Section 134 of the Ontario Residential Tenancies Act (RTA), landlords are strictly prohibited from demanding non-refundable deposits, application fees, or move-in fees. A key or electronic fob deposit is legal only if it is fully refundable and does not exceed the direct replacement cost (typically $25 to $50). Demanding $300 to $500 key deposits constitutes an illegal charge recoverable through Landlord and Tenant Board (LTB) Form T1. While landlords may request a guarantor or co-signer if an applicant has no domestic credit history, under OREA Form 400 guarantor obligations remain legally binding for the entire tenancy including automatic month-to-month renewals unless an explicit termination clause is agreed. Landlords cannot discriminate against applicants simply because their guarantor resides outside Ontario if adequate domestic assets or income exist. This record does not adjudicate LTB disputes.'
+    url: 'https://www.ontario.ca/page/guide-ontarios-standard-lease',
+    quote: '8. Rent deposit In this section, the landlord and tenant agree whether a rent deposit is required, and the amount. The law limits the amount and how it is to be treated. A rent deposit cannot be used as a damage deposit. 9. Key deposit In this section, the landlord and tenant agree whether a key deposit is required, and the amount. The law limits the amount and how it is to be treated.',
+    summary: 'Under the Ontario standard lease guide, the landlord and tenant agree whether a rent deposit is required, and the amount; the law limits the amount and how it is to be treated, and a rent deposit cannot be used as a damage deposit. Similarly, the landlord and tenant agree whether a key deposit is required, and the law limits the amount and how it is treated. This resource describes standard lease clauses; it does not adjudicate tenancy disputes.'
   }),
 
   // ── 9. SIN DISCLOSURE LIMITS & STATUTORY PRIVACY RIGHTS ──────────────────────
@@ -154,12 +154,12 @@ export const kycRecords = [
   // ── 12. CANADIAN ANTI-FRAUD CENTRE (CAFC) NEWCOMER SCAM SHIELD ───────────────
   createKYCRecord({
     id: 'antifraud-newcomer-scam-shield',
-    title: 'Canadian Anti-Fraud Centre (CAFC): Newcomer fraud shield and scam protection',
+    title: 'CAFC: What to do if you are a victim of fraud',
     topic: 'community',
     jurisdiction: 'CA',
     url: 'https://antifraudcentre-centreantifraude.ca/scams-fraudes/victim-victime-eng.htm',
-    quote: 'Immigration authorities and the CRA will never threaten deportation, demand payment by cryptocurrency or gift cards, or ask for your SIN over the phone.',
-    summary: 'The Canadian Anti-Fraud Centre (CAFC) and IRCC warn newcomers against prevalent newcomer extortion scams: (1) Fake CRA or CBSA Deportation Calls: scammers spoofing police or government phone numbers claiming immigration status will be revoked unless funds are immediately transferred via Bitcoin, wire transfer, or gift cards; (2) Rental Scams: fraudulent listings on online marketplaces (Kijiji, Facebook) requesting advance deposits via wire transfer for properties the landlord cannot show in person; (3) DriveTest Booking Scalpers: third-party websites charging $50 to $150 to book road test slots that are free or statutory fee only; (4) Unlicensed Ghost Consultants: unauthorized agents charging illegal fees for job offers or immigration filings. Official Canadian authorities never accept cryptocurrency, never threaten immediate arrest over the phone, and never demand wire transfers. Victims should contact the Canadian Anti-Fraud Centre at 1-888-495-8501. This record does not investigate criminal fraud.'
+    quote: "If you're a victim of identity fraud: place flags on all of your accounts change all of your passwords report the fraud to both credit bureaus ( Equifax and TransUnion ) Contact the police Report the incident to your local police and get a file number for future reference.",
+    summary: 'The Canadian Anti-Fraud Centre (CAFC) advises individuals who suspect identity fraud to place flags on their accounts, change passwords, and report the fraud to both credit bureaus (Equifax and TransUnion). Victims should also report the incident to their local police to obtain a file number for future reference. This guidance provides protective steps; it does not investigate criminal offenses.'
   }),
 
   // ── 13. CBSA PORT OF ENTRY (POE) CURRENCY DECLARATION (FORM E677) ───────────
@@ -191,19 +191,19 @@ export const kycRecords = [
     topic: 'community',
     jurisdiction: 'ON',
     url: 'https://www.ontario.ca/page/ontario-photo-card',
-    quote: 'The Ontario Photo Card provides government-issued photo identification for Ontario residents who do not have a driver licence.',
-    summary: 'The Ontario Photo Card (issued under the Photo Card Act by ServiceOntario) provides an official, government-issued photo identification card for Ontario residents aged 16 and older who do not hold an active driver licence. Newcomers are advised to obtain this card to avoid the security risk of carrying their original foreign passport for daily identification (such as opening bank accounts, signing tenancy agreements, collecting Canada Post parcels, or entering age-restricted venues). To apply, applicants must visit a ServiceOntario centre with: (1) Proof of legal name and Canadian immigration status (PR Card, COPR, or valid Study/Work Permit); and (2) Proof of Ontario residency (residential lease, bank statement, or utility bill). The card is valid for 5 years and recognized by government and financial institutions across Canada. A person cannot hold both a driver licence and an Ontario Photo Card simultaneously. This record does not issue photo cards.'
+    quote: "The Ontario Photo Card is a wallet-sized card that provides government-issued identification to residents of Ontario who do not have a driver's licence, making it easier for them to do things such as open a bank account and any other activities that require official identification.",
+    summary: 'The Ontario Photo Card provides government-issued photo identification to residents of Ontario who do not have a driver licence, facilitating activities such as opening a bank account and accessing services that require official identification. You cannot hold an Ontario Photo Card and a driver licence at the same time. The card is valid for 5 years. This record does not issue identity cards.'
   }),
 
   // ── 16. CRA FIRST-YEAR BENEFIT REGISTRATION (RC151 & RC66) ───────────────────
   createKYCRecord({
     id: 'cra-newcomer-benefit-registration-rc151-rc66',
-    title: 'CRA: First-year newcomer benefit applications via Form RC151 and Form RC66',
+    title: 'CRA: Newcomer benefit registration and Form RC151 application',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/revenue-agency/services/child-family-benefits/gsthst-c-apply.html',
-    quote: 'New residents of Canada can apply for the GST/HST credit and Canada Child Benefit upon arrival before filing their first tax return.',
-    summary: 'Newcomers do not need to wait until their first Canadian income tax return is filed to begin receiving federal benefits. Under Canada Revenue Agency (CRA) guidelines, individuals who have become residents of Canada for tax purposes can immediately apply for federal tax-free benefits: (1) Form RC151 (GST/HST credit application for individuals who become residents of Canada; the Canada Carbon Rebate, formerly the Climate Action Incentive, ended in 2025): calculates eligibility based on declared worldwide income for the previous two calendar years and initiates quarterly tax-free payments; (2) Form RC66 (Canada Child Benefits Application): initiates monthly Canada Child Benefit payments for temporary residents after 18 months or for permanent residents immediately upon arrival (accompanied by Schedule RC66SCH to document foreign income). Applications require a valid Social Insurance Number (SIN) and proof of birth for eligible children. This record does not calculate benefit payment amounts.'
+    url: 'https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants.html',
+    quote: 'New residents of Canada must apply for the Canada Groceries and Essentials Benefit (CGEB), formerly the GST/HST credit You do not need to do your first tax return before you can get the CGEB benefit. You can apply using one of the methods below – only one application per household is required. If you are a new resident of Canada and have no children: Use the Web Form RC151, Canada Groceries and Essentials Benefit Application for Individuals Who Became Residents of Canada .',
+    summary: 'New residents of Canada must apply for the Canada Groceries and Essentials Benefit (CGEB, formerly the GST/HST credit) and do not need to do their first tax return before receiving payments. Newcomers without children can apply directly online using Web Form RC151 (Canada Groceries and Essentials Benefit Application for Individuals Who Became Residents of Canada). Only one application per household is required. This record does not calculate benefit payments.'
   }),
 
   // ── 17. SERVICE CANADA SIN ISSUANCE & 900-SERIES EXPIRY ───────────────────────
@@ -220,34 +220,34 @@ export const kycRecords = [
   // ── 18. CRA DIGITAL KYC VIA INTERAC SIGN-IN PARTNER ───────────────────────────
   createKYCRecord({
     id: 'cra-my-account-interac-sign-in-partner-kyc',
-    title: 'CRA: Digital KYC identity verification for CRA My Account via Interac Sign-In Partner',
+    title: 'CRA: My Account sign-in options and Sign-In Partners',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/cra-sign-in-services-individuals.html',
-    quote: 'Use a Sign-In Partner to log in with your Canadian online banking credentials to access CRA digital services.',
-    summary: 'First-year newcomers cannot register for Canada Revenue Agency (CRA) My Account using the standard online registration form because they lack a prior year Notice of Assessment (Line 15000 tax figure). To establish verified digital identity, the CRA allows newcomers to access digital tax services by selecting an Interac Sign-In Partner using their existing Canadian online banking credentials (such as RBC, TD, Scotiabank, BMO, CIBC, or National Bank). Upon first logging in through an approved Sign-In Partner, the CRA verifies the bank’s KYC identity data, activates a limited-access profile for direct deposit and address verification, and issues an official CRA Security Code by mail to the taxpayer’s Canadian residential address within 5 to 10 business days to unlock full tax records. Taxpayers must never share their CRA sign-in credentials with unauthorized tax preparers. This record does not manage CRA online accounts.'
+    url: 'https://www.canada.ca/en/revenue-agency/services/e-services/e-services-individuals/account-individuals.html',
+    quote: "Do not use autofill for your online banking information if you are on a shared device. When you are on your Sign-In Partner's website, ensure it is your information that is entered and not that of somebody else.",
+    summary: 'The Canada Revenue Agency (CRA) outlines sign-in options for My Account for individuals, including using a Sign-In Partner with online banking credentials. Users are advised not to use autofill on shared devices and to ensure their own information is entered on their Sign-In Partner website. This record provides access guidance; it does not manage individual CRA accounts.'
   }),
 
   // ── 19. TAX-FREE PARENTAL GIFTS & WIRE TRANSFER KYC ───────────────────────────
   createKYCRecord({
     id: 'fintrac-cra-tax-free-family-gift-wire-kyc',
-    title: 'CRA & FINTRAC: Overseas family gifts, wire transfer reporting, and gift documentation',
+    title: 'CRA: Non-taxable amounts, gifts and inheritances',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/amounts-that-are-not-taxed.html',
-    quote: 'Under Canadian tax law, you do not have to pay tax on gifts and inheritances that you receive.',
-    summary: 'Under the federal Income Tax Act and Canada Revenue Agency (CRA) administrative policy, monetary gifts and inheritances received from overseas parents or family members are generally not taxable income in Canada. Income later earned on the money (interest, dividends, rent or capital gains) is taxable, and foreign property costing more than CAD 100,000 in total must be reported on Form T1135. There is no Canadian statutory limit on the amount of personal capital or parental financial support a newcomer may receive. However, for international electronic wire transfers of CAD $10,000 or more, receiving Canadian banks report the transfer to FINTRAC and may ask where the money came from. Keeping a clear paper trail is good practice (no specific form is required by law): (1) A signed gift letter (Gift Letter) specifying the donor’s identity, familial relationship, exact sum transferred, and confirming that the funds are an irrevocable non-repayable gift without interest or commercial obligation; (2) The overseas remitting bank transfer receipt showing the account owner and transmission date. Retaining these records protects newcomers against bank compliance holds and CRA tax audits regarding unexplained deposits. This record does not draft legal deeds or exempt transactions.'
+    url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/amounts-that-taxed.html',
+    quote: 'You do not have to report certain non-taxable amounts as income, including: lottery winnings of any amount, unless the prize can be considered income from employment, a business or property, or a prize for achievement most gifts and inheritances',
+    summary: 'Under CRA rules, you do not have to report certain non-taxable amounts as income on your Canadian tax return, including most gifts and inheritances and lottery winnings. Income earned from investing gifted money remains taxable. This guidance outlines general personal tax principles; it does not calculate tax assessments or exempt commercial transfers.'
   }),
 
   // ── 20. EQUIFAX & TRANSUNION IDENTITY THEFT FRAUD ALERTS ──────────────────────
   createKYCRecord({
     id: 'consumer-protection-equifax-transunion-fraud-alert-kyc',
-    title: 'Equifax & TransUnion: Identity theft fraud alerts and credit report rights for newcomers',
+    title: 'FCAC: Checking credit reports and placing fraud alerts',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.consumer.equifax.ca/personal/education/identity/how-to-place-a-fraud-alert/',
-    quote: 'A fraud alert encourages lenders to take extra steps to verify your identity before extending credit.',
-    summary: 'Newcomers to Canada are disproportionately targeted by synthetic identity theft and unauthorized credit applications. Under federal Financial Consumer Agency of Canada (FCAC) rules and provincial consumer reporting acts, every resident has the legal right to place a free Potential Fraud Alert on their credit profile with both Canadian credit bureaus (Equifax Canada and TransUnion Canada). Once a fraud alert is activated, prospective lenders, credit card issuers, and telecommunication providers are legally obligated to call the consumer at their verified personal telephone number before approving any new credit facility, loan, or mobile contract. Furthermore, newcomers have the statutory right to request their free annual consumer disclosure (comprehensive credit report) directly from Equifax and TransUnion by mail or online without lowering their credit score. This record does not investigate identity theft or cancel fraudulent accounts.'
+    url: 'https://www.canada.ca/en/financial-consumer-agency/services/credit-reports-score/check-errors.html',
+    quote: 'contact both Equifax and TransUnion to place a fraud alert on your credit report',
+    summary: 'The Financial Consumer Agency of Canada (FCAC) advises checking your credit report regularly to ensure information is accurate. If you find an error or suspect fraud, you should contact the lender involved and contact both Equifax and TransUnion to place a fraud alert on your credit report. A fraud alert notifies lenders to confirm your identity before approving credit applications. This overview provides consumer credit guidance; it does not process dispute forms or place credit alerts.'
   }),
 
   // ── 21. BC MSP SERVICES CARD KYC ENROLLMENT ───────────────────────────────────
@@ -258,7 +258,7 @@ export const kycRecords = [
     jurisdiction: 'BC',
     url: 'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol',
     quote: 'Eligible British Columbia residents must enrol in the Medical Services Plan (MSP).',
-    summary: 'Under the Medicare Protection Act of British Columbia, all eligible residents (including permanent residents, study permit holders, and work permit holders with permits valid for 6 months or longer) must enroll in the Medical Services Plan (MSP). Enrollment requires a 2-piece identity verification: (1) Primary document: valid Canadian immigration permit (Work Permit, Study Permit, PR Card, or Confirmation of Permanent Residence); (2) Secondary document: foreign passport, Canadian driver licence, or credit card. British Columbia enforces a statutory waiting period consisting of the remainder of the calendar month of arrival plus two consecutive calendar months before MSP coverage takes effect. Newcomers must obtain private bridge health insurance during this waiting window. Once enrolled, adult residents complete in-person identity verification at an ICBC driver licensing centre to obtain their photo BC Services Card. This record does not issue BC Services Cards or grant immediate coverage.'
+    summary: 'Under the Medicare Protection Act of British Columbia, all eligible residents (including permanent residents, study permit holders, and work permit holders with permits valid for 6 months or longer) must enroll in the Medical Services Plan (MSP). Enrollment requires a 2-piece identity verification: (1) Primary document: valid Canadian immigration permit (Work Permit, Study Permit, PR Card, or Confirmation of Permanent Residence); (2) Secondary document: foreign passport, Canadian driver licence, or credit card. British Columbia enforces a statutory waiting period consisting of the remainder of the calendar month of arrival plus two consecutive calendar months before MSP coverage takes effect. Newcomers must obtain private bridge health insurance during this waiting window. Babies born in British Columbia to eligible residents are enrolled in the Medical Services Plan (MSP), with newborn coverage effective from the date of birth. Once enrolled, adult residents complete in-person identity verification at an ICBC driver licensing centre to obtain their photo BC Services Card. This record does not issue BC Services Cards or grant immediate coverage.'
   }),
 
   // ── 22. ONTARIO LTB FORM T2 TENANT HARASSMENT & ENTRY RIGHTS ───────────────────

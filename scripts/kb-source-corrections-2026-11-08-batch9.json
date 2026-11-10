@@ -1,0 +1,38 @@
+{
+  "id": "batch9-2026-11-08",
+  "sourceOwner": "Department of Health and Community Services",
+  "corrections": [
+    {
+      "id": "ca-nl-mcp-health-care-plan",
+      "url": "https://www.gov.nl.ca/hcs/mcp/",
+      "sourceOwner": "Government of Newfoundland and Labrador",
+      "title": "Newfoundland & Labrador Medical Care Plan (MCP): Registration, Eligibility & Coverage",
+      "quote": "The Newfoundland and Labrador Medical Care Plan (MCP) is a publicly administered comprehensive plan of public medical care insurance which was introduced on April 1, 1969. MCP covers the costs of insured physician services for residents of the province who have met eligibility criteria to register as MCP beneficiaries.",
+      "summary": "The Newfoundland and Labrador Medical Care Plan (MCP) covers the costs of insured physician services for residents of the province who meet eligibility criteria to register as beneficiaries. Beneficiaries are also entitled to coverage of insured medical services received in a hospital under the Hospital Insurance Plan (HIP), introduced on April 1, 1969. Beneficiaries must present a valid MCP card when receiving insured services. This overview outlines public health insurance in Newfoundland and Labrador; it does not issue cards or process claims."
+    },
+    {
+      "id": "de-berlin-buergeramt-anmeldung",
+      "url": "https://service.berlin.de/dienstleistung/120686/",
+      "sourceOwner": "Land Berlin (Bürgeramt)",
+      "title": "Service-Portal Berlin: Bürgeramt Anmeldung Address Registration Protocol",
+      "quote": "Wenn Sie eine Wohnung als alleinige Wohnung oder Hauptwohnung in Berlin bezogen haben, müssen Sie sich innerhalb von 14 Tagen nach Ihrem Einzug anmelden.",
+      "summary": "Under Berlin registration requirements, individuals establishing a sole or main residence in Berlin must complete address registration at a local Bürgeramt. Landlords are required to provide a written confirmation of moving in. This overview explains municipal registration rules in Berlin; it does not book appointments or issue registration certificates."
+    },
+    {
+      "id": "de-senat-kita-gutschein-jugendamt-childcare-kyc",
+      "url": "https://service.berlin.de/dienstleistung/324873/",
+      "sourceOwner": "Land Berlin (Senatsverwaltung für Bildung, Jugend und Familie)",
+      "title": "Youth Welfare Office (Jugendamt): Kita-Gutschein Application and Subsidized Daycare Vouchers",
+      "quote": "Wenn Ihr Kind in eine Kita oder in eine Kindertagespflegestelle gehen soll, benötigen Sie einen Kita-Gutschein. Diesen können Sie in einer öffentlich finanzierten Berliner Kita oder Kindertagespflegestelle Ihrer Wahl einlösen, wenn dort ein Platz für Ihr Kind frei ist.",
+      "summary": "In Berlin, parents require a Kita-Gutschein (daycare voucher) for their child to attend an early childhood education centre (Kita) or child day care (Kindertagespflege). The voucher is redeemed at a publicly financed facility of choice when a place is available. Applications are processed through the youth welfare office (Jugendamt) of the family’s home district. This overview describes childcare voucher application procedures; it does not allocate daycare spaces."
+    },
+    {
+      "id": "de-berlin-kita-gutschein-daycare-voucher",
+      "url": "https://service.berlin.de/dienstleistung/324873/",
+      "sourceOwner": "Land Berlin (Senatsverwaltung für Bildung, Jugend und Familie)",
+      "title": "Senatsverwaltung für Bildung: Kita-Gutschein Daycare Voucher and Application Timelines",
+      "quote": "Bitte stellen Sie den Erstantrag frühestens 9 Monate und spätestens 2 Monate, bevor Ihr Kind in die Kita oder Kindertagespflegestelle gehen soll.",
+      "summary": "The initial application for a Berlin Kita-Gutschein should be submitted within the prescribed statutory timeframe before the child is scheduled to begin daycare or child day care. The application is reviewed by the local district youth welfare office (Jugendamt). This guidance outlines application timelines; it does not issue vouchers or confirm placement."
+    }
+  ]
+}

@@ -22,6 +22,7 @@ const KINDS = Object.freeze({
   immediate_danger: {title: 'Your safety comes first', message: 'If you or someone with you is in danger, call the emergency number now. You can ask for an interpreter. Immigration paperwork can wait until you are safe.'},
   document_withholding: {title: 'Your passport or permit is being held', message: 'If you are being threatened, watched or not allowed to leave, call the emergency number. A hotline can also help you confidentially.'},
   housing_emergency: {title: 'You may be without a safe place to stay', message: 'If you are in danger or out in the cold tonight, call the emergency number. Community helplines can find emergency shelter.'},
+  medical_emergency: {title: 'Urgent medical help', message: 'If you need immediate medical help, call the emergency number now. Tell the responders what is happening and ask for an interpreter if needed.'},
   threats: {title: 'You are being threatened', message: 'If you feel unsafe, call the emergency number. Save the messages and dates, and do not pay or sign anything under pressure.'},
   representative_fraud: {title: 'Your agent has stopped responding', message: 'If a deadline is close, speak to a legal clinic or licensed representative today. Keep every receipt and message, and do not pay anyone else to rush it.'}
 });
@@ -29,6 +30,8 @@ const KINDS = Object.freeze({
 function detectKind(question) {
   if (SELF_HARM.test(question)) return 'self_harm';
   if (VIOLENCE.test(question)) return 'immediate_danger';
+  if (/\b(?:emergency medical (?:treatment|care)|medical emergency|cannot breathe|can.t breathe|severe chest pain)\b/i.test(question)) return 'medical_emergency';
+  if (/\b(?:agent|consultant|representative)\b/i.test(question) && /\b(?:stopped responding|cash without (?:a )?receipt|scamm?ed|ghosted)\b/i.test(question)) return 'representative_fraud';
   const narrative = deconstructNarrative(question);
   const conflict = narrative.slots.conflict?.id, myth = narrative.mythWarning?.id;
   const social = detectSocialCrisisScenario(question)?.type;

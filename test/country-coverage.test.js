@@ -9,6 +9,7 @@ import { listSupportedCorridorCodes, getCorridor } from '../src/corridors-regist
 import { countrySettlementRecords } from '../src/country-settlement.js';
 import { countryPortals } from '../src/country-portals.js';
 import { countryCoverage } from '../src/engine.js';
+import { assertEnglishRecord } from '../src/language.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -118,13 +119,10 @@ snapshotTest('evidence database coverage floors hold when the database is presen
   assert.ok(rest.length >= 418, 'rest-of-world floor');
   assert.ok(new Set(rest.map(r => r.jurisdiction)).size >= 212, 'rest-of-world country floor');
 
-  const avgLen = (list) => list.reduce((a, r) => a + (r.summary || '').length, 0) / Math.max(list.length, 1);
-  assert.ok(avgLen(recs.filter(r => group(r) === 'CA-federal')) >= 850, 'Canada federal summary depth');
-  // Lowered on 2026-11-06: batch f replaced long unverifiable summaries with shorter official-page text.
-  assert.ok(avgLen(recs.filter(r => group(r) === 'BIG-12')) >= 650, 'big-12 summary depth');
-  assert.ok(avgLen(rest) >= 480, 'rest-of-world summary depth');
-
+  // Source corrections can legitimately shorten a summary. Validate every
+  // record's schema and evidence policy instead of rewarding average length.
   for (const r of recs) {
+    assertEnglishRecord(r);
     assert.equal(r.language, 'en', `${r.id} uses the English-only contract`);
     assert.ok((r.quote || '').length > 5, `${r.id} carries a quote`);
     assert.ok((r.reviewBasis || '').length > 5, `${r.id} states its review basis`);

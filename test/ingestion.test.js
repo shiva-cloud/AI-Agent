@@ -7,7 +7,8 @@ import {createApp} from '../src/server.js';
 const review={reviewer:'Test reviewer',note:'Test fixture permission and evidence reviewed.',tier:'A'};
 function fixture(key='test-import',changes={}) {
   const today=new Date().toISOString().slice(0,10),expiry=new Date(Date.now()+86400000*7).toISOString().slice(0,10);
-  return {sourceId:'seed-sin-route',requestKey:key,content:'Social Insurance Number: Apply. This is a test excerpt, not new researched evidence.',record:{...seeds[0],status:'pending',checkedAt:today,expiresAt:expiry,...changes}};
+  const content=`${seeds[0].quote} Social Insurance Number: Apply. This is a test excerpt, not new researched evidence.`;
+  return {sourceId:'seed-sin-route',requestKey:key,content,record:{...seeds[0],status:'pending',checkedAt:today,expiresAt:expiry,...changes}};
 }
 function ready(){const store=openStore(':memory:');store.ingestion.permitSource('seed-sin-route',review);return store;}
 test('registry migration inventories seeds without falsely claiming source permission',()=>{
@@ -20,7 +21,7 @@ test('quote, URL, calendar date, risk and geography validation reject unsupporte
  const s=ready();try{for(const changes of [{quote:'Absent quote'},{url:'https://example.com/'},{checkedAt:'2026-02-31'},{jurisdiction:'Paris'},{topic:'unknown'},{topic:'health',risk:'low'},{status:'approved'},{snapshotId:'fake'}])assert.throws(()=>s.ingestion.ingest(fixture('test-import',changes)));assert.equal(s.ingestion.candidates().length,0);}finally{s.db.close();}
 });
 test('publication stores immutable history and snapshot-aware answer traces',()=>{
- const s=ready();try{const c=s.ingestion.ingest(fixture());const result=s.ingestion.decide(c.id,{...review,decision:'approve'});assert.ok(result.publicationId);const r=s.records().find(r=>r.id==='sin-route');assert.equal(r.status,'approved');assert.equal(r.snapshotId,c.snapshot_id);assert.equal(s.ingestion.history(r.id).length,1);const a=answer({question:'SIN'},s.records());s.log(a);const trace=JSON.parse(s.db.prepare('SELECT body FROM traces').get().body);assert.equal(trace.evidence[0].snapshotId,c.snapshot_id);assert.throws(()=>s.ingestion.decide(c.id,{...review,decision:'approve'}),/already decided/);}finally{s.db.close();}
+ const s=ready();try{const c=s.ingestion.ingest(fixture());const result=s.ingestion.decide(c.id,{...review,decision:'approve'});assert.ok(result.publicationId);const r=s.records().find(r=>r.id==='sin-route');assert.equal(r.status,'approved');assert.equal(r.snapshotId,c.snapshot_id);assert.equal(s.ingestion.history(r.id).length,1);const a=answer({question:'SIN'},s.records());s.log(a);const trace=JSON.parse(s.db.prepare('SELECT body FROM traces').get().body);assert.equal(trace.evidence.find(e=>e.recordId==='sin-route')?.snapshotId,c.snapshot_id);assert.throws(()=>s.ingestion.decide(c.id,{...review,decision:'approve'}),/already decided/);}finally{s.db.close();}
 });
 test('stale concurrent candidate cannot overwrite a publication',()=>{
  const s=ready();try{const c=s.ingestion.ingest(fixture('first'));const d=s.ingestion.ingest(fixture('second',{summary:'A different proposed English summary.'}));s.ingestion.decide(c.id,{...review,decision:'approve'});assert.throws(()=>s.ingestion.decide(d.id,{...review,decision:'approve'}),/changed/);assert.equal(s.ingestion.candidates().find(x=>x.id===d.id).status,'pending');assert.equal(s.ingestion.history('sin-route').length,1);}finally{s.db.close();}

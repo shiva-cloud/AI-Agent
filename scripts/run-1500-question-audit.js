@@ -16,7 +16,7 @@ async function runAudit() {
   const records = store.records();
   console.log(`Knowledge Base loaded: ${records.length} records in SQLite store.`);
 
-  const evalDate = new Date('2026-10-31T12:00:00Z');
+  const evalDate = new Date('2026-11-08T12:00:00Z');
   const results = [];
   const startTime = Date.now();
   let completed = 0;

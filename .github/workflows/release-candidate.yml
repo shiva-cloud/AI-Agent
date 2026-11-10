@@ -1,0 +1,52 @@
+name: Release candidate
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: Run containing reviewed-evidence with settlement.sqlite and evaluation-reviewed.json
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@v4
+        with:
+          name: reviewed-evidence
+          path: data
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+      - run: npm run release:db
+      - run: node scripts/kb-health.js --db release/settlement.sqlite --publication-ready
+      - run: node scripts/evaluate-reviewed.js data/evaluation-reviewed.json release/settlement.sqlite
+      - name: Exercise packaged evidence
+        run: |
+          cp release/settlement.sqlite data/settlement.sqlite
+          npm test
+          node scripts/server-smoke.js release/settlement.sqlite
+      - run: docker build -t settlement-release .
+      - name: Exercise the release container
+        run: |
+          docker run -d --name settlement-release-check -p 127.0.0.1:3300:3000 settlement-release
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:3300/ready; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:3300/ready
+          curl --fail --silent -H 'Content-Type: application/json' --data '{"question":"Vancouver library"}' http://127.0.0.1:3300/v1/answers > /tmp/release-answer.json
+          node --input-type=module -e "import {readFileSync} from 'node:fs'; import assert from 'node:assert/strict'; const answer=JSON.parse(readFileSync('/tmp/release-answer.json')); assert.ok(answer.traceId); assert.ok(answer.status);"
+      - name: Clean up release container
+        if: always()
+        run: docker rm -f -v settlement-release-check || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: validated-release-evidence
+          path: release/settlement.sqlite

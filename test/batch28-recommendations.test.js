@@ -262,7 +262,7 @@ test('Rec 494: evaluateStudentWorkCompliance enforces Fall 2024 24h weekly cap a
 
 // Rec 495: Study Permit Cap & PAL Navigator
 test('Rec 495: evaluateStudyPermitCapAndPal calculates PAL mandates, exemptions, and 75% LICO living costs', () => {
-  const undergrad = evaluateStudyPermitCapAndPal({
+  const undergrad = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     studyLevel: 'undergraduate_degree',
     province: 'ON',
     tuitionFeeFirstYearCad: 25000,
@@ -274,7 +274,7 @@ test('Rec 495: evaluateStudyPermitCapAndPal calculates PAL mandates, exemptions,
   assert.equal(undergrad.financialAudit.requiredLivingFundsCad, STATUTORY_LIVING_COST_BASE_CAD);
   assert.equal(undergrad.financialAudit.isFinanciallySufficient, true);
 
-  const masters = evaluateStudyPermitCapAndPal({
+  const masters = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     studyLevel: 'masters',
     isPublicDli: true,
     isExtensionOfStudyPermit: true
@@ -285,7 +285,7 @@ test('Rec 495: evaluateStudyPermitCapAndPal calculates PAL mandates, exemptions,
 
 // Rec 496: Study Permit PAL & PGWP 2024/2025 Navigator
 test('Rec 496: auditStudyPermitAndPal enforces Nov 1 2024 priority field alignment and CLB 7/5 benchmarks', () => {
-  const stemCollege = auditStudyPermitAndPal({
+  const stemCollege = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.COLLEGE_DIPLOMA,
     institutionType: INSTITUTION_TYPES.PUBLIC_COLLEGE,
     fieldOfStudy: 'stem_engineering',
@@ -299,7 +299,7 @@ test('Rec 496: auditStudyPermitAndPal enforces Nov 1 2024 priority field alignme
   assert.equal(stemCollege.pgwpEligibility.requiredClb, 5);
   assert.equal(stemCollege.pgwpEligibility.priorityFieldMatch, true);
 
-  const businessCollege = auditStudyPermitAndPal({
+  const businessCollege = auditStudyPermitAndPal({ applicationDate: '2026-11-06',
     programLevel: PROGRAM_LEVELS.COLLEGE_DIPLOMA,
     institutionType: INSTITUTION_TYPES.PUBLIC_COLLEGE,
     fieldOfStudy: 'business_marketing',

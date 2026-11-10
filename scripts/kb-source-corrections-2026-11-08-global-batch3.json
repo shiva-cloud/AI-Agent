@@ -1,0 +1,54 @@
+{
+  "id": "global-batch3-2026-11-08",
+  "corrections": [
+    {
+      "id": "au-subclass-482-to-186-ens-pathway",
+      "url": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/employer-nomination-scheme-186",
+      "sourceOwner": "Department of Home Affairs",
+      "title": "Department of Home Affairs: Employer Nomination Scheme (subclass 186) visa",
+      "quote": "This visa lets skilled workers, who are nominated by their employer, live and work in Australia permanently.",
+      "summary": "Under the Australian Employer Nomination Scheme (subclass 186) visa, skilled workers who are nominated by their employer can live and work in Australia permanently. The visa requires employer sponsorship and satisfaction of health, character, and age requirements. This record outlines permanent employer-sponsored residence pathways in Australia; it does not process employer nominations or grant visas."
+    },
+    {
+      "id": "au-home-affairs-482-180-day-cessation-transfer",
+      "url": "https://immi.homeaffairs.gov.au/visas/already-have-a-visa/check-visa-details-and-conditions/see-your-visa-conditions?product=482",
+      "sourceOwner": "Department of Home Affairs",
+      "title": "Department of Home Affairs: Visa conditions and VEVO verification",
+      "quote": "Not sure which visa you have? Check your conditions (VEVO) or have a look at the visa grant letter you received.",
+      "summary": "Under Australian immigration guidance from the Department of Home Affairs, visa holders can verify attached conditions and work entitlements using Visa Entitlement Verification Online (VEVO) or by checking their official visa grant letter. Visa conditions specify employment and sponsorship rules. This overview outlines visa condition verification; it does not process sponsorship transfers or grant visas."
+    },
+    {
+      "id": "fr-service-public-passeport-talent-salarie-qualifie",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F16922",
+      "sourceOwner": "Direction de l'information légale et administrative (Service-Public.fr)",
+      "title": "Service-Public France: Carte de séjour pluriannuelle talent-salarié qualifié",
+      "quote": "La carte de séjour « talent-salarié qualifié » vous autorise à séjourner en France et vous autorise à exercer une activité professionnelle salariée. V",
+      "summary": "Under French immigration rules on Service-Public, the multi-year talent-salarié qualifié residence card authorizes foreign nationals to reside in France and engage in salaried professional employment. The card is accessible to qualified employees holding relevant diplomas and employment contracts. This overview describes general multi-year residence card rules in France; it does not issue work permits or make individual visa decisions."
+    },
+    {
+      "id": "fr-banque-de-france-droit-au-compte-banking-right-kyc",
+      "url": "https://particuliers.banque-france.fr/votre-banque-et-vous/droit-au-compte",
+      "sourceOwner": "Banque de France",
+      "title": "Banque de France: Droit au compte bancaire and account opening assistance",
+      "quote": "Elle vous accompagne dans l'exercice de votre droit au compte bancaire si vous êtes dépourvu de compte",
+      "summary": "Under French banking regulations administered by the Banque de France, individuals residing in France who do not have a bank account can exercise their statutory right to a bank account (droit au compte). The Banque de France designates a commercial banking institution to open a basic deposit account. This overview describes general right to a bank account procedures in France; it does not open bank accounts or issue credit cards directly."
+    },
+    {
+      "id": "fr-anil-etat-des-lieux-condition-report-protections-kyc",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F31270",
+      "sourceOwner": "Direction de l'information légale et administrative (Service-Public.fr)",
+      "title": "Service-Public France: État des lieux d’entrée pour un bail d’habitation",
+      "quote": "L'état des lieux d'entrée est un document qui décrit l'état du logement et de ses équipements du logement qui va devenir",
+      "summary": "Under French tenancy rules on Service-Public, the entry condition report (état des lieux d'entrée) is a document describing the physical condition of the rental dwelling and its fittings when the tenant moves in. It is attached to the residential lease and serves as a reference when comparing the condition of the premises upon departure. This overview explains tenancy condition report requirements in France; it does not resolve security deposit disputes or inspect rental premises."
+    },
+    {
+      "id": "fr-justice-autorite-parentale-hague-regroupement",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F3133",
+      "sourceOwner": "Direction de l'information légale et administrative (Service-Public.fr)",
+      "title": "Service-Public France: Exercice de l’autorité parentale et séparation des parents",
+      "quote": "La séparation des parents a-t-elle un effet sur l'autorité parentale ?\nLa séparation des parents est sans incidence sur l'exercice de l'autorité parentale",
+      "summary": "Under French civil guidance on Service-Public, parental authority is the set of rights and duties aimed at the interest of the child. Separation of the parents has no effect on the exercise of parental authority, and each parent must maintain personal relations with the child and respect the child's ties with the other parent. This overview outlines general statutory rules on parental authority in France; it does not adjudicate family court disputes or issue custody orders."
+    }
+  ]
+}
+

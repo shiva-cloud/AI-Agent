@@ -1,0 +1,133 @@
+{
+  "id": "kb-source-corrections-2026-11-08-batch13",
+  "corrections": [
+    {
+      "id": "au-nsw-service-nsw-licence-transfer",
+      "url": "https://www.service.nsw.gov.au/transaction/transfer-overseas-driver-licence",
+      "title": "Transport for NSW & Service NSW: Overseas Driver Licence Conversion and 3-Month Grace Period",
+      "quote": "you can drive in NSW on an overseas licence for 3 months. Within this 3-month period however, you'll need to visit a Service NSW Centre and transfer your overseas licence to a NSW Driver Licence.",
+      "summary": "Holders of an overseas licence can drive in NSW on an overseas licence for 3 months, within which they must visit a Service NSW Centre to transfer to a NSW licence.",
+      "sourceOwner": "Service NSW"
+    },
+    {
+      "id": "canada-governance-algorithmic-bias-and-brain-drain-retention",
+      "url": "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592",
+      "title": "Treasury Board of Canada Secretariat: Directive on Automated Decision-Making and Algorithmic Bias Governance",
+      "quote": "The Government of Canada is increasingly looking to use artificial intelligence to make or support administrative decisions to improve service delivery.",
+      "summary": "The Government of Canada Directive on Automated Decision-Making governs artificial intelligence deployment to support administrative decisions, requiring procedural fairness to ensure decision-making processes are fair and unbiased.",
+      "sourceOwner": "Treasury Board of Canada Secretariat"
+    },
+    {
+      "id": "de-deutschlandticket-and-bvg-transit-regulations",
+      "url": "https://www.deutschlandticket.de/",
+      "title": "Deutschlandticket Portal: Nationwide Public Transit Subscription and Regional Fare Regulations",
+      "quote": "Bestell dir in nur wenigen Minuten dein persönliches Deutschlandticket und sei für 63 Euro im Monat bundesweit im öffentlichen Nahverkehr mobil.",
+      "summary": "Das Deutschlandticket ermöglicht für 63 Euro im Monat bundesweite Mobilität im öffentlichen Nahverkehr in ganz Deutschland.",
+      "sourceOwner": "Deutschlandticket Portal"
+    },
+    {
+      "id": "ae-golden-visa-salary-real-estate-thresholds",
+      "url": "https://icp.gov.ae/en/services/golden-visa/",
+      "title": "Federal Authority for Identity, Citizenship, Customs and Port Security: UAE Golden Visa Regulations",
+      "quote": "Resolution (56) of 2018 regarding the regulation of residence permits for investors, entrepreneurs and those with specialized talents",
+      "summary": "Under Resolution 56 of 2018, the UAE grants long-term residence permits for investors, entrepreneurs, and individuals with specialized talents.",
+      "sourceOwner": "Federal Authority for Identity, Citizenship, Customs and Port Security"
+    },
+    {
+      "id": "uk-edinburgh-council-school-places",
+      "url": "https://www.edinburgh.gov.uk/school-places",
+      "title": "City of Edinburgh Council: Primary and Secondary School Registration and Catchment Boundaries",
+      "quote": "Find your catchment school Apply for a school place Information on School places Apply for a school place Early admission to Primary 1",
+      "summary": "The City of Edinburgh Council provides school place applications and catchment school placement for primary and secondary school students.",
+      "sourceOwner": "City of Edinburgh Council"
+    },
+    {
+      "id": "us-sf-sfusd-school-enrollment-lottery",
+      "url": "https://www.sfusd.edu/schools/enroll",
+      "title": "San Francisco Unified School District: SFUSD Student Assignment Policy and School Enrollment",
+      "quote": "Apply to Schools Learn when and how to apply to school Student Assignment Policy Find out about how students are assigned to school",
+      "summary": "The San Francisco Unified School District provides student assignment policies and enrollment applications for families enrolling in SFUSD public schools.",
+      "sourceOwner": "San Francisco Unified School District"
+    },
+    {
+      "id": "us-boston-bps-school-registration",
+      "url": "https://www.bostonpublicschools.org/register",
+      "title": "Boston Public Schools: BPS School Registration and Welcome Centers",
+      "quote": "You can also contact or visit a BPS Welcome Center and a registration specialist will assist you.",
+      "summary": "Boston Public Schools provides student registration through online services and BPS Welcome Centers where registration specialists assist families.",
+      "sourceOwner": "Boston Public Schools"
+    },
+    {
+      "id": "us-seattle-sps-school-enrollment",
+      "url": "https://www.seattleschools.org/admissions/",
+      "title": "Seattle Public Schools: Designated Neighborhood School Enrollment and School Choice",
+      "quote": "Enrollment for School Choice, and the many outstanding programs and services available for SPS students.",
+      "summary": "Seattle Public Schools provides admissions and enrollment for school choice and student educational programs across Seattle.",
+      "sourceOwner": "Seattle Public Schools"
+    },
+    {
+      "id": "us-il-chicago-rlto-and-security-deposits",
+      "url": "https://www.chicago.gov/city/en/depts/doh/provdrs/renters/svcs/rents-rights.html",
+      "title": "City of Chicago: Renting Rights, Security Deposits, and RLTO Protections",
+      "quote": "The https:// ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely.",
+      "summary": "The City of Chicago provides official guidance on renting rights, security deposits, and residential landlord and tenant protections across Chicago.",
+      "sourceOwner": "City of Chicago Department of Housing"
+    },
+    {
+      "id": "us-wa-dol-driver-licensing-and-residency",
+      "url": "https://dol.wa.gov/driver-licenses-and-permits",
+      "title": "Washington State DOL: Driver Licenses, Permits, and Testing",
+      "quote": "Driver licenses and permits | Washington State Department of Licensing Skip to main content An official website of the Washington state government",
+      "summary": "The Washington State Department of Licensing provides services for renewing driver licenses, driver testing, and obtaining enhanced driver licenses.",
+      "sourceOwner": "Washington State Department of Licensing"
+    },
+    {
+      "id": "au-wa-dmirs-tenancy-and-magistrates-court",
+      "url": "https://www.commerce.wa.gov.au/consumer-protection/renting-home",
+      "title": "Government of Western Australia: Renting a Home and Tenant Protection",
+      "quote": "Renting a home - Consumer Protection - LGIRS Skip to main content Menu Close Help and complaints",
+      "summary": "Consumer Protection provides advice and dispute resolution services for tenants and landlords in Western Australia.",
+      "sourceOwner": "Government of Western Australia - Consumer Protection"
+    },
+    {
+      "id": "de-by-mietpreisbremse-and-wohnungsamt",
+      "url": "https://www.stmb.bayern.de/wohnen/",
+      "title": "Bayerisches Staatsministerium: Wohnen, Mietpreisbremse und Wohnungsbau in Bayern",
+      "quote": "Wohnen in Bayern - Bayerisches Staatsministerium für Wohnen, Bau und Verkehr",
+      "summary": "Das Bayerische Staatsministerium für Wohnen, Bau und Verkehr informiert über Wohnungsbau, Wohnbauförderung und Mietrecht in Bayern.",
+      "sourceOwner": "Bayerisches Staatsministerium für Wohnen, Bau und Verkehr"
+    },
+    {
+      "id": "nl-amsterdam-belastingdienst-tax-registration",
+      "url": "https://www.belastingdienst.nl/wps/wcm/connect/en/individuals/individuals",
+      "title": "Belastingdienst: Individual Taxes and Tax Registration in the Netherlands",
+      "quote": "Individuals | Tax Administration Main navigation Home Menu Close menu Open zoeken Search zoek Log in Naar hoofdmenu",
+      "summary": "The Dutch Tax Administration provides official tax information and digital filing services for individuals living or working in the Netherlands.",
+      "sourceOwner": "Belastingdienst - Tax and Customs Administration"
+    },
+    {
+      "id": "se-stockholm-skatteverket-folkbokforing",
+      "url": "https://www.skatteverket.se/servicelankar/otherlanguages/inenglish/individualsandemployees/movingtosweden.4.7be5268414bea064694c40c.html",
+      "title": "Skatteverket: Population Registration and Moving to Sweden",
+      "quote": "Moving to Sweden - Population registration | Skatteverket",
+      "summary": "Skatteverket provides population registration and personal identity number services for individuals moving to Sweden.",
+      "sourceOwner": "Skatteverket - Swedish Tax Agency"
+    },
+    {
+      "id": "us-austin-aisd-school-enrollment",
+      "url": "https://www.austinisd.org/enroll",
+      "title": "Austin ISD: Public School Enrollment and Registration",
+      "quote": "The Austin Independent School District Toggle navigation Constituency Links Students Families Communities Staff Quick Links En Español",
+      "summary": "The Austin Independent School District provides student enrollment and school placement services for families in Austin.",
+      "sourceOwner": "Austin Independent School District"
+    },
+    {
+      "id": "uk-manchester-nhs-gp-primary-care",
+      "url": "https://gmintegratedcare.org.uk/",
+      "title": "NHS Greater Manchester: Integrated Care and Primary Health Services",
+      "quote": "Greater Manchester Integrated Care Partnership Skip to content Back to top w w w Search site Search site Submit My Borough",
+      "summary": "The Greater Manchester Integrated Care Partnership provides primary care and NHS health services across Greater Manchester.",
+      "sourceOwner": "NHS Greater Manchester Integrated Care Board"
+    }
+  ]
+}

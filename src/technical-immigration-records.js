@@ -36,7 +36,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/parent-grandparent-super-visa.html',
     quote: 'You can visit your children or grandchildren (if they\'re a permanent resident, a Canadian citizen or a registered Indian) for 5 years at a time with a super visa.',
-    summary: 'The IRCC Super Visa allows eligible parents and grandparents of Canadian citizens and permanent residents to visit Canada for up to 5 continuous years per entry without renewing their status, with multi-entry validity up to 10 years. Applicants must provide a signed letter of financial promise from their host child or grandchild meeting the Minimum Necessary Income (LICO table based on household size), proof of valid emergency medical insurance from a Canadian insurance company or a foreign insurer authorized by OSFI, valid for at least 1 year from entry and providing at least $100,000 in emergency coverage, and complete an immigration medical examination. Since 31 March 2026, the host can meet the income requirement in either of the two preceding tax years, or, if the host and any co-signer meet the required minimum percentage of income, the applicant\'s own income can be added to cover the rest. This record does not verify individual financial eligibility or issue visas.'
+    summary: 'You can visit your children or grandchildren (if they\'re a permanent resident, a Canadian citizen or a registered Indian) for 5 years at a time with a super visa.'
   }),
   createRecord({
     id: 'ircc-spousal-sponsorship',
@@ -45,7 +45,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children.html',
     quote: 'This is a program to sponsor your spouse, common-law partner, conjugal partner or dependent child to become a permanent resident of Canada.',
-    summary: 'Canadian citizens and permanent residents living in Canada (and Canadian citizens abroad who show they will live in Canada when the sponsored person becomes a permanent resident) can sponsor their spouse, common-law partner (requiring proof of at least 12 continuous months of cohabitation in a conjugal relationship), or dependent children under age 22. Spouses and partners applying under the Spouse or Common-law Partner in Canada class may be able to apply for an open work permit while their permanent residence application is being processed. Sponsoring a spouse does not require meeting a minimum necessary income threshold unless the dependent child also has dependent children of their own. Sponsors must sign an undertaking of financial support: 3 years for a spouse or partner or a dependent child over 22, and for a dependent child under 22, 10 years or until the child turns 25, whichever comes first. This record does not approve sponsorship applications or determine marriage validity.'
+    summary: 'This is a program to sponsor your spouse, common-law partner, conjugal partner or dependent child to become a permanent resident of Canada.'
   }),
   createRecord({
     id: 'ircc-parent-sponsorship-pgp',
@@ -54,7 +54,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/parents-grandparents.html',
     quote: 'Sponsor your parents and grandparents for permanent residence through the Parents and Grandparents Program.',
-    summary: 'The Parents and Grandparents Program (PGP) allows Canadian citizens and permanent residents to sponsor parents and grandparents for permanent residence, but IRCC paused new intake on 15 July 2026: until further notice it is not accepting interest to sponsor forms or inviting sponsors to apply, and it continues to process existing applications. The super visa remains available for visits. Sponsors who are invited to apply must prove they meet the Minimum Necessary Income (LICO plus 30%) for each of the 3 consecutive tax years prior to applying, evidenced exclusively by official CRA Notices of Assessment (NOA), and sign a 20-year undertaking to financially support their sponsored parents. Foreign pension or applicant income cannot be counted toward the sponsor income threshold. This record does not issue invitations to apply or calculate individual income.'
+    summary: 'Under IRCC guidelines, you can sponsor your biological or adopted parents and grandparents if you are invited to apply, you are at least 18 years old, and you live in Canada. Sponsors must also meet other eligibility requirements, including providing proof of income to support family members. This overview outlines program eligibility; it does not issue invitations to apply or assess individual sponsor income.'
   }),
   createRecord({
     id: 'ircc-dependent-child-sponsorship',
@@ -63,7 +63,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children/who-you-can-sponsor.html',
     quote: 'A child qualifies as a dependent if they are under 22 years of age and not married or in a common-law relationship.',
-    summary: 'A child qualifies as a dependent for Canadian immigration if they are under 22 years of age and not married or in a common-law partnership, or 22 and older if financially dependent due to a physical or mental health condition before age 22. When sponsoring a minor child with one biological parent living abroad, IRCC requires form IMM 5604 (Declaration from Non-Accompanying Parent) signed in front of a notary public, with a copy of that parent\'s photo ID showing their signature. Canadian citizens and permanent residents may also sponsor an orphaned brother, sister, nephew, niece, or grandchild under 18 years old who is unmarried and whose parents are deceased. This record does not grant child custody or legal guardianship.'
+    summary: 'Under IRCC dependent child sponsorship rules, a child qualifies as a dependant if they are under 22 years old and do not have a spouse or common-law partner. Children 22 years or older may qualify if they cannot financially support themselves because of a mental or physical condition. This record outlines statutory IRCC sponsorship eligibility and does not decide custody.'
   }),
 
   // ── 2. EXPRESS ENTRY, WORK EXPERIENCE & CRS ──────────────────────────────────
@@ -116,12 +116,12 @@ export const technicalImmigrationRecords = [
   }),
   createRecord({
     id: 'ircc-medical-excessive-demand',
-    title: 'IRCC: Immigration medical examination and excessive demand policy',
+    title: 'IRCC: Medical assessment date and excessive-demand thresholds',
     topic: 'health',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/standard-requirements/medical-requirements/refusals-inadmissibility/excessive-demand-on-health-and-social-services.html',
-    quote: 'The excessive demand threshold is updated annually and reflects three times the Canadian average health and social services spending.',
-    summary: 'Applicants for Canadian permanent residence must complete an immigration medical examination with a panel physician using the eMedical system. Under IRCC excessive demand policy, medical conditions are assessed against the excessive demand cost threshold (three times the Canadian average per capita cost of health and social services, over 5 years). No condition is cleared or refused automatically: a medical officer assesses the services the applicant is likely to need over 5 years and their cost, including for stable conditions such as controlled type 2 diabetes or treated hypertension. Sponsored spouses, common-law partners and children of a sponsor, refugees and protected persons are exempt from the excessive demand ground (IRPA section 38(2)), but not from the public health or public safety grounds. This record does not diagnose conditions or issue medical clearance.'
+    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/standard-requirements/medical-requirements/refusals-inadmissibility/excessive-demand-on-health-social-services.html',
+    quote: 'The excessive demand threshold applied is determined by the date',
+    summary: 'The excessive-demand threshold depends on when the medical officer performs the assessment. IRCC describes both anticipated costs and effects on waiting lists. The operational page contains date-specific historical thresholds; use the threshold applicable to the assessment date. This record does not diagnose conditions, guarantee clearance or provide a current-year dollar amount.'
   }),
 
   // ── 4. HOUSING & TENANCY DISPUTES ───────────────────────────────────────────
@@ -143,7 +143,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'ON',
     url: 'https://tribunalsontario.ca/ltb/notices-and-applications-forms/',
     quote: 'A landlord must give this notice if they in good faith require the rental unit for personal residential occupation.',
-    summary: 'When an Ontario landlord serves a Form N12 notice to terminate a tenancy for personal use (for themselves, a spouse, child, or parent), section 48.1 of the Residential Tenancies Act requires the landlord to pay the tenant compensation equal to 1 month rent or offer another acceptable rental unit on or before the termination date on the notice. If the landlord fails to pay the compensation by the termination date, the LTB can dismiss the eviction application. If a landlord evicts in bad faith (such as relisting or re-renting within 12 months without occupying the unit), the LTB can order the landlord to pay the former tenant up to 12 months rent, moving expenses, and rent differentials under Form T5. This record does not issue eviction orders or award compensation.'
+    summary: 'Under Ontario rules, if a landlord gives notice to end a tenancy for personal use (such as for themselves, their immediate family, or caregiver), they must give the tenant the equivalent of 1 month rent or offer another acceptable unit. If the landlord gives 120 days notice or more, the 1 month rent compensation is not required.'
   }),
   createRecord({
     id: 'ontario-landlord-entry-privacy',
@@ -153,7 +153,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'ON',
     url: 'https://www.ontario.ca/page/renting-ontario-your-rights',
     quote: 'Landlords must follow rules under the RTA before entering a rental property and regarding tenancy terms.',
-    summary: 'Under Ontario Residential Tenancies Act, landlords may only enter a rented unit after giving at least 24 hours advance written notice specifying the date, time between 8 a.m. and 8 p.m., and a valid reason such as repairs, inspections, or mortgage appraisal, except in genuine emergencies or where the tenant consents. Section 14 of the RTA makes no pet clauses in tenancy agreements completely void and unenforceable, meaning a landlord cannot evict a tenant simply for having a pet unless the pet causes damage, severe allergic reactions, or substantial interference (condominium declarations may have separate valid pet bylaws). Only the court sheriff may physically enforce an eviction; illegal lockouts by landlords are offences investigated by the Rental Housing Enforcement Unit (RHEU). Landlords may only require first and last month rent deposits, and security deposits are illegal. This record does not enforce privacy or investigate offences.'
+    summary: 'In Ontario, a landlord cannot evict a tenant directly or change the locks without an eviction order from the Landlord and Tenant Board (LTB). Even if the landlord provides written notice, the tenant has the right to attend an LTB hearing. The standard lease prohibits banning guests or pets unless exempted by condominium bylaws or causing damage.'
   }),
 
   // ── 5. DRIVING LICENCE FOREIGN EXPERIENCE ────────────────────────────────────
@@ -164,7 +164,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'ON',
     url: 'https://drivetest.ca/licences/licence-exchanges/foreign-licence-experience-credits/',
     quote: 'You can credit foreign driving experience to fast-track your Ontario graduated driver licence.',
-    summary: 'Applicants moving to Ontario with a driver licence from a non-reciprocal country can credit foreign driving experience toward the graduated licensing system. With 2 or more years of verified driving experience supported by an official driving record abstract (such as an authenticated extract from the issuing transportation authority like Sarathi in India or embassy), applicants may bypass the mandatory G1 (12 months) and G2 (12 months) waiting periods upon passing the G1 knowledge and vision tests, and book the full G highway road test directly. If an applicant fails the G road test on the first attempt, they must pass the G2 road test before attempting the G road test again. Reciprocal licence holders with 2 or more years experience receive a full G licence directly, while those with less than 2 years receive a G2 licence. New residents may drive on an out-of-province or foreign licence for up to 60 days before switching to an Ontario licence. This record does not issue driving licences or verify individual records.'
+    summary: 'In Ontario, effective July 1, 2026, you can obtain credit for up to one year of driving experience by showing a valid original foreign driver licence and authentication document. If you do not have an exchange agreement, you must complete the vision test, knowledge test and G2 road test, and wait at least 12 months before attempting the G road test.'
   }),
 
   // ── 6. FOREIGN POLICE CLEARANCE CERTIFICATES (USA, PHILIPPINES, NIGERIA) ────
@@ -186,7 +186,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/new-immigrants/pr-travel-document.html',
     quote: 'Permanent residents must meet the residency obligation of 730 days in Canada to maintain their status.',
-    summary: 'Under section 28 of the Immigration and Refugee Protection Act (IRPA), permanent residents must accumulate at least 730 days (2 years) of physical presence in Canada within each 5-year rolling period to maintain permanent resident status. Days spent outside Canada count toward the 730 days residency obligation if accompanying a Canadian citizen spouse or common-law partner, working full-time for a Canadian enterprise or the Canadian public service abroad, or accompanying a permanent resident spouse who works full-time for a Canadian business. If a permanent resident is outside Canada with an expired or lost PR card, they cannot board a commercial flight, train, bus, or boat to Canada without applying online for a Permanent Resident Travel Document (PRTD) through the IRCC portal. This record does not determine residency compliance or issue travel documents.'
+    summary: 'If you are a permanent resident outside Canada without a valid PR card, you need a permanent resident travel document (PRTD) to return to Canada by commercial vehicle (such as airplane, boat, train or bus). The application fee is $50 and it is valid for single one-time entry. This record does not issue travel documents or determine status.'
   }),
 
   // ── 8. ONTARIO PROFESSIONAL LICENSING (PEBC, OCT, PEO) ───────────────────────
@@ -209,7 +209,7 @@ export const technicalImmigrationRecords = [
     jurisdiction: 'ON',
     url: 'https://tribunalsontario.ca/ltb/maintenance-and-repairs/',
     quote: 'Landlords must provide vital services including heat during prescribed winter months.',
-    summary: 'Under the Ontario Residential Tenancies Act and local municipal property standards bylaws, landlords are legally required to provide vital services including adequate heating from September 15 to June 1. Municipal bylaws specify minimum heating standards: the minimum room temperature is 20°C in Brampton under Property Standards By-law 56-2008, and 21°C in Toronto under Toronto Municipal Code Chapter 497 and in Mississauga. A landlord cannot shut off or withhold heat or any vital service, even for non-payment of rent. If heating is inadequate and the landlord fails to resolve it after written notice, tenants may contact municipal bylaw enforcement (311) for an inspection or file Form T6 (Tenant Application about Maintenance and Repairs) with the Landlord and Tenant Board for a rent abatement or repair order. This record does not issue repair orders or assess abatements.'
+    summary: 'Under the Landlord and Tenant Board (LTB) rules on vital services, a landlord cannot shut off or interfere with the supply of vital services to a tenant\'s rental unit, including heat from September 1 to June 15, electricity, fuel, and hot or cold water. Landlords are prohibited from withholding vital services even if rent is unpaid. This guidance explains vital service obligations; it does not issue repair orders or assess rent abatements.'
   }),
 
   // ── 10. BC RESIDENTIAL TENANCY BRANCH DISPUTE RESOLUTION ─────────────────────

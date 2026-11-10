@@ -120,7 +120,7 @@ test('Rec 226: Ontario public holiday pay rejects malformed lookback figures', (
 });
 
 test('Rec 227: Study Permit Cap PAL — Eliminates string concatenation bug and bounds family size', () => {
-  const result = evaluateStudyPermitCapAndPal({
+  const result = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06',
     tuitionFeeFirstYearCad: '20000',
     liquidFundsAvailableCad: '50000',
     familyMembersAccompanying: '2'

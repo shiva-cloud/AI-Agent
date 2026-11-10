@@ -1,0 +1,70 @@
+{
+  "id": "canada-batch6-2026-11-08",
+  "corrections": [
+    {
+      "id": "antifraud-newcomer-scam-shield",
+      "url": "https://antifraudcentre-centreantifraude.ca/scams-fraudes/victim-victime-eng.htm",
+      "sourceOwner": "Canadian Anti-Fraud Centre",
+      "title": "CAFC: What to do if you are a victim of fraud",
+      "quote": "If you're a victim of identity fraud: place flags on all of your accounts change all of your passwords report the fraud to both credit bureaus ( Equifax and TransUnion ) Contact the police Report the incident to your local police and get a file number for future reference.",
+      "summary": "The Canadian Anti-Fraud Centre (CAFC) advises individuals who suspect identity fraud to place flags on their accounts, change passwords, and report the fraud to both credit bureaus (Equifax and TransUnion). Victims should also report the incident to their local police to obtain a file number for future reference. This guidance provides protective steps; it does not investigate criminal offenses."
+    },
+    {
+      "id": "fintrac-cra-tax-free-family-gift-wire-kyc",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/amounts-that-taxed.html",
+      "sourceOwner": "Canada Revenue Agency",
+      "title": "CRA: Non-taxable amounts, gifts and inheritances",
+      "quote": "You do not have to report certain non-taxable amounts as income, including: lottery winnings of any amount, unless the prize can be considered income from employment, a business or property, or a prize for achievement most gifts and inheritances",
+      "summary": "Under CRA rules, you do not have to report certain non-taxable amounts as income on your Canadian tax return, including most gifts and inheritances and lottery winnings. Income earned from investing gifted money remains taxable. This guidance outlines general personal tax principles; it does not calculate tax assessments or exempt commercial transfers."
+    },
+    {
+      "id": "fintrac-overseas-parental-gift-deed",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/amounts-that-taxed.html",
+      "sourceOwner": "Canada Revenue Agency",
+      "title": "CRA & FINTRAC: Tax treatment of personal gifts, parental wire transfers, and documentation",
+      "quote": "You do not have to report certain non-taxable amounts as income, including: lottery winnings of any amount, unless the prize can be considered income from employment, a business or property, or a prize for achievement most gifts and inheritances",
+      "summary": "Under CRA guidelines, individuals do not have to report certain non-taxable amounts as income, including most personal gifts and inheritances. While receiving a gift or parental wire transfer is generally not taxable income in Canada, recipients should keep documentation such as a deed of gift or bank records to satisfy banking and tax inquiries. This overview describes personal income tax rules; it does not provide legal representation or audit defense."
+    },
+    {
+      "id": "canada-official-document-certified-translations-legal-validity",
+      "url": "https://www.canada.ca/en/services/immigration-citizenship/helpcentre/glossary.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: Certified translations and translator requirements",
+      "quote": "A certified translator is a member in good standing of a professional translation association in Canada or abroad. Their certification must be confirmed by a seal or stamp that shows the translator's membership number. All stamps and seals that are not in English or French must also be translated.",
+      "summary": "Under IRCC translation rules, a certified translator must be a member in good standing of a professional translation association in Canada or abroad, confirmed by a seal or stamp with their membership number. All stamps and seals not in English or French must also be translated. This guidance outlines submission requirements; it does not evaluate translated credentials."
+    },
+    {
+      "id": "global-document-legalization-apostille-notarization",
+      "url": "https://www.international.gc.ca/gac-amc/about-a_propos/services/authentication-authentification/apostille-convention.aspx?lang=eng",
+      "sourceOwner": "Global Affairs Canada",
+      "title": "Global Affairs Canada: Authentication of documents and Apostille Convention",
+      "quote": "You may need to authenticate a Canadian document or get an apostille to use it abroad. Authenticate your documents Confirm the requirements for your document Submit your authentication request",
+      "summary": "Global Affairs Canada explains that you may need to authenticate a Canadian document or get an apostille certificate to use it in another country. Documents submitted for authentication must meet specific requirements, including having an original recognized signature or seal. This service verifies signatures; it does not validate document content or issue foreign visas."
+    },
+    {
+      "id": "canada-immigration-removal-orders-due-process-and-notice",
+      "url": "https://www.cbsa-asfc.gc.ca/security-securite/rem-ren-eng.html",
+      "sourceOwner": "Canada Border Services Agency",
+      "title": "CBSA: Enforcing removals and due process legal avenues",
+      "quote": "Anyone ordered removed from Canada is entitled to due process before the law. All removal orders are subject to various levels of appeals. An individual may appeal the decision to issue a removal order to the Immigration and Refugee Board ( IRB ). If they do not benefit from appeal rights at the IRB , an application for a judicial review may be made through the Federal Court of Canada .",
+      "summary": "The CBSA removals program notes that anyone ordered removed from Canada is entitled to due process before the law, and removal orders are subject to various levels of appeal. Individuals may appeal to the Immigration and Refugee Board (IRB), or apply for judicial review through the Federal Court of Canada if IRB appeal rights do not apply. This record outlines statutory processes; it does not provide legal representation."
+    },
+    {
+      "id": "ca-ns-access-ns-driver-licence-exchange",
+      "url": "https://novascotia.ca/exchange-your-out-of-province-drivers-licence/",
+      "sourceOwner": "Government of Nova Scotia",
+      "title": "Nova Scotia: Exchanging your out-of-province driver's licence",
+      "quote": "If you've recently moved to Nova Scotia and have a valid driver's licence, you may be able to drive for a period of up to 180 days*. After that, you need to exchange it for a Nova Scotia driver's licence to continue driving legally.",
+      "summary": "Under Nova Scotia Registry of Motor Vehicles rules, newcomers with a valid driver licence may drive for a period of up to 180 days upon moving to Nova Scotia, after which they need to exchange it for a Nova Scotia driver licence to continue driving legally. This overview outlines licensing timelines; it does not issue driver licences or conduct driving examinations."
+    },
+    {
+      "id": "ontario-education-act-newcomer-child-school-enrolment",
+      "url": "https://www.ontario.ca/page/kindergarten",
+      "sourceOwner": "Government of Ontario",
+      "title": "Ontario: Kindergarten and school attendance rights",
+      "quote": "Kindergarten is a free 2-year program for 4- and 5-year-old children. When children turn 6 years old, they must attend school in September of that year.",
+      "summary": "In Ontario, kindergarten is a free 2-year program for 4- and 5-year-old children to help prepare for Grade 1. When children turn 6 years old, they must attend school in September of that year. Parents can access learning resources and practical tips to support their children. This resource outlines provincial schooling standards; it does not process individual school registrations."
+    }
+  ]
+}
+

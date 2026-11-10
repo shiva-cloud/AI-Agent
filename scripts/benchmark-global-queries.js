@@ -3,7 +3,7 @@ import { openStore } from '../src/store.js';
 
 const store = openStore();
 const records = store.records();
-const now = new Date('2026-10-30T12:00:00Z');
+const now = new Date('2026-11-08T12:00:00Z');
 
 const queries = [
   // United States

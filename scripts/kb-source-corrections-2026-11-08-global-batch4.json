@@ -1,0 +1,70 @@
+{
+  "id": "global-batch4-2026-11-08",
+  "corrections": [
+    {
+      "id": "es-agenciatributaria-modelo-720-foreign-assets-declaration-kyc",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/procedimientoini/GI34.shtml",
+      "sourceOwner": "Agencia Estatal de Administración Tributaria (AEAT)",
+      "title": "Agencia Tributaria: Declaración informativa sobre bienes y derechos situados en el extranjero (Modelo 720)",
+      "quote": "Modelo 720. Declaración Informativa. Declaración sobre bienes y derechos situados en el extranjero.",
+      "summary": "Under Spanish tax guidance from the Agencia Tributaria, Modelo 720 is an informative declaration concerning goods and rights located abroad (bienes y derechos situados en el extranjero). The procedure allows tax residents to file declarations electronically. This overview summarizes informative reporting obligations in Spain; it does not calculate individual tax liabilities or provide tax advice."
+    },
+    {
+      "id": "es-telecom-law252007-prepaid-sim-and-fiber-broadband",
+      "url": "https://www.cnmc.es/ambitos-de-actuacion/telecomunicaciones",
+      "sourceOwner": "Comisión Nacional de los Mercados y la Competencia (CNMC)",
+      "title": "Comisión Nacional de los Mercados y la Competencia (CNMC): Supervisión de telecomunicaciones",
+      "quote": "Establecemos normas para garantizar una competencia efectiva entre empresas de distintos sectores económicos, con especial atención a la protección del consumidor.",
+      "summary": "Under Spanish regulatory oversight by the Comisión Nacional de los Mercados y la Competencia (CNMC), rules are established to promote market functioning and ensure effective competition among telecommunications and service providers with special focus on consumer protection. This overview outlines Spanish telecommunications market oversight; it does not sell mobile plans or resolve individual billing disputes."
+    },
+    {
+      "id": "se-forsakringskassan-foraldrapenning-480day-parental-leave-kyc",
+      "url": "https://www.forsakringskassan.se/privatperson/foralder/foraldrapenning",
+      "sourceOwner": "Försäkringskassan",
+      "title": "Försäkringskassan: Föräldrapenning och ersättning för föräldraledighet",
+      "quote": "För att kunna få föräldrapenning ska du ta hand om barnet under den tid som du ansöker för. Du kan inte få föräldrapenning för tid som du jobbar.",
+      "summary": "Under Swedish social insurance guidance from Försäkringskassan, parental benefit (föräldrapenning) provides financial compensation to parents who care for a child. An applicant must care for the child during the period claimed and cannot receive parental benefit for hours spent working. This overview describes general parental benefit principles in Sweden; it does not calculate daily benefit amounts or determine individual qualifying income."
+    },
+    {
+      "id": "se-skolverket-forskola-childcare-custody",
+      "url": "https://www.skolverket.se/regler-och-ansvar/ansvar-i-skolfragor/ratt-till-forskola",
+      "sourceOwner": "Skolverket",
+      "title": "Skolverket: Rätt till förskola och barngruppernas utformning",
+      "quote": "Enligt skollagen ska huvudmannen se till att barngrupperna i förskolan har en lämplig sammansättning och storlek och att barnen även i övrigt erbjuds en god miljö.",
+      "summary": "Under Swedish school law guidance from Skolverket, organizers must ensure that preschool groups have a suitable composition and size and that children are offered a good and safe learning environment. The preschool curriculum stipulates that the environment must be accessible to all children and inspire social interaction and exploration. This overview outlines statutory preschool environment standards in Sweden; it does not process municipal childcare applications or determine individual fee caps."
+    },
+    {
+      "id": "fr-telecom-sans-engagement-sim-and-esim",
+      "url": "https://www.arcep.fr/demarches-et-services/utilisateurs.html",
+      "sourceOwner": "Autorité de régulation des communications électroniques, des postes et de la distribution de la presse (Arcep)",
+      "title": "Arcep: Régulation des communications électroniques et droits des utilisateurs",
+      "quote": "Découvrez l'Arcep, l'Autorité de régulation des communications électroniques, des postes et de la distribution de la presse. Quel est son rôle et ses missions ?",
+      "summary": "Under French telecommunications regulations overseen by the Autorité de régulation des communications électroniques, des postes et de la distribution de la presse (Arcep), regulatory frameworks govern electronic communications, mobile connectivity, and user services. This overview outlines general telecommunications regulation in France; it does not issue SIM cards or configure broadband connections."
+    },
+    {
+      "id": "country-argentina-portal",
+      "url": "https://www.argentina.gob.ar/",
+      "sourceOwner": "Gobierno de la República Argentina",
+      "title": "Argentina: Portal oficial del Estado argentino",
+      "quote": "Del DNI a la cédula verde o el Certificado Único de Discapacidad, te explicamos cómo y dónde tramitar los documentos de uso habitual.",
+      "summary": "The official Argentina government portal (argentina.gob.ar) provides a centralized entry point for citizens and residents to access administrative procedures, national identity documentation, and official public services. This record serves as a broad institutional starting point; it does not issue identification cards or driver documentation directly."
+    },
+    {
+      "id": "country-azerbaijan-portal",
+      "url": "https://president.az/en",
+      "sourceOwner": "Administration of the President of the Republic of Azerbaijan",
+      "title": "Azerbaijan: Official web-site of President of Azerbaijan Republic",
+      "quote": "Schedule for reception of citizens by heads of central executive authorities in cities and districts",
+      "summary": "The official website of the President of the Republic of Azerbaijan provides centralized information regarding state administration, public announcements, and reception schedules for executive authorities across cities and districts. This record serves as a broad national starting point; it does not issue official permits or adjudicate administrative requests."
+    },
+    {
+      "id": "country-belgium-portal",
+      "url": "https://www.belgium.be/en",
+      "sourceOwner": "Federal Public Service Chancellery of the Prime Minister (Belgium)",
+      "title": "Belgium: Official information and services of the federal authorities",
+      "quote": "Your Europe helps EU citizens access information on their rights and obligations, identify applicable administrative procedures and complete them.",
+      "summary": "The official portal of the Belgian federal government (belgium.be) provides centralized information on federal governance, official administrative procedures, and citizen rights and obligations. This record serves as a broad institutional starting point; it does not process individual driving licence applications or determine licence exchange eligibility."
+    }
+  ]
+}
+

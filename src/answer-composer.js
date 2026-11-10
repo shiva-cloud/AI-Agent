@@ -200,7 +200,7 @@ const ABBREVIATION={test:text=>ABBREVIATION_WORD.test(text) || INITIAL.test(text
 const CONNECTIVE=/^(?:However|Additionally|Moreover|Furthermore|In addition|Also|Importantly|Notably|Under (?:these|this|those) [^,]{0,40}),\s+/u;
 // Short, plain topic names for headlines; the engine's labels are Canada-first.
 const HEADLINE_LABELS={sin:'Identity & tax numbers',health:'Health coverage',housing:'Housing & renting',community:'Community services',arrival:'Your first days',employment:'Work & credentials',money:'Banking & money',family:'Family & school',telecom:'Phone & internet',groceries:'Groceries & food',driving:'Driving',transit:'Getting around',childcare:'Child care'};
-const LIMIT=/^This record does not\b/iu;
+const LIMIT=/^(?:This (?:record|pilot|guidance) does not\b|Independent human review is required\b|Step-by-step guidance is not available\b)/iu;
 const SOURCE_PREAMBLE=/^The\s+[^.]{3,80}?\s+(?:page|portal|website|document|guide|explainer)\s+(?:states|reports|explains|notes|confirms|says)\s+(?:that\s+)?/iu;
 const ACTION=/\b(?:you (?:can|should|must|may)|should|can (?:file|request|apply|place|open|refuse|ask|report|contact|leave)|must (?:supply|present|register|declare|apply|bring|submit|lodge|obtain)|apply (?:online|for|through|at|via)|register (?:at|with|online)|bring|keep|contact|visit|call|submit|update your|consider)\b/iu;
 const IMPERATIVE=/^(?:Use|Apply|Visit|Call|Bring|Keep|Contact|Register|Submit|Open|Update|Consider|Remember|Memorize|Learn|Ask|Check|File|Request|Place|Obtain|Book|Make|Get|Do not|Don’t|Don't)\b/u;
@@ -344,7 +344,7 @@ function composeSection(claim,source,index,terms,relevance) {
     lead,
     points:rest,
     steps:claim.kind==='checklist' && Array.isArray(claim.steps) ? [...claim.steps] : [],
-    limits:limits.map(l=>l.replace(LIMIT,'This guidance does not')),
+    limits:limits.map(l=>l.replace(/^This record does not\b/iu,'This guidance does not')),
     status:claim.status,
     reviewMethod:source?.reviewMethod ?? (claim.status==='approved'?'bulk_approval':'none'),
     relevance,

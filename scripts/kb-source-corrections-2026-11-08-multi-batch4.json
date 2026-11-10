@@ -1,0 +1,38 @@
+{
+  "id": "multi-batch4-2026-11-08",
+  "corrections": [
+    {
+      "id": "us-dos-90-day-rule-misrepresentation-presumption",
+      "url": "https://www.uscis.gov/policy-manual/volume-8-part-j-chapter-3",
+      "sourceOwner": "U.S. Citizenship and Immigration Services",
+      "title": "USCIS Policy Manual: Adjudicating Inadmissibility for Fraud or Willful Misrepresentation",
+      "quote": "To find an alien inadmissible for fraud or willful misrepresentation, [1] there must be at least some evidence that would permit a reasonable person to find that the alien used fraud or that he or she willfully misrepresented a material fact in an attempt to obtain a visa, other documentation, admission into the United States, or any other immigration benefit. [2]",
+      "summary": "Under the USCIS Policy Manual Volume 8 Part J, to find an applicant inadmissible for fraud or willful misrepresentation, there must be evidence that would permit a reasonable person to find that the applicant used fraud or willfully misrepresented a material fact in an attempt to obtain a visa, admission, or other immigration benefit. The evidence must show that the misrepresentation was made to an authorized official of the U.S. government. This record explains statutory misrepresentation inadmissibility standards; it does not assess waiver eligibility."
+    },
+    {
+      "id": "us-dept-of-education-plyler-school-registration-kyc",
+      "url": "https://www.justice.gov/crt/educational-opportunities-section",
+      "sourceOwner": "U.S. Department of Justice Civil Rights Division",
+      "title": "DOJ Civil Rights Division: Educational Opportunities Section and Federal Nondiscrimination Standards",
+      "quote": "Subsequent federal legislation and court decisions also mandate that school officials not discriminate against students on the basis of color, sex, national origin, language barrier, religion, or disability. The Educational Opportunities Section enforces these statutes and court decisions in a diverse array of cases involving elementary and secondary schools and institutions of higher education.",
+      "summary": "Under federal civil rights law enforced by the U.S. Department of Justice Civil Rights Division Educational Opportunities Section, federal statutes and court decisions mandate that school officials not discriminate against students on the basis of color, sex, national origin, language barrier, religion, or disability in elementary and secondary schools. This record explains federal nondiscrimination standards in public education; it does not process school admissions or enroll students."
+    },
+    {
+      "id": "us-fair-housing-act-tenant-kyc",
+      "url": "https://www.justice.gov/crt/fair-housing-act-1",
+      "sourceOwner": "U.S. Department of Justice Civil Rights Division",
+      "title": "DOJ: The Fair Housing Act Protections and Prohibited Housing Discrimination",
+      "quote": "The Fair Housing Act , 42 U.S.C. 3601 et seq. , prohibits discrimination by direct providers of housing, such as landlords and real estate companies as well as other entities, such as municipalities, banks or other lending institutions and homeowners insurance companies whose discriminatory practices make housing unavailable to persons because of: race or color religion sex national origin familial status , or disability .",
+      "summary": "Under the federal Fair Housing Act (42 U.S.C. 3601 et seq.) enforced by the Department of Justice and HUD, direct providers of housing such as landlords and real estate companies are prohibited from discriminatory practices that make housing unavailable based on race, color, religion, sex, national origin, familial status, or disability. This record outlines federal fair housing protections; it does not adjudicate tenancy disputes or award damages."
+    },
+    {
+      "id": "us-nyc-idnyc-municipal-id",
+      "url": "https://www.nyc.gov/site/idnyc/about/about.page",
+      "sourceOwner": "City of New York",
+      "title": "NYC IDNYC: Government-Issued Photo Identification for All New York City Residents",
+      "quote": "The free, municipal identification card for New York City residents, ages 10 and up, provides access to a wide variety of services and programs offered by the City. For cardholders 16 and older, cards are valid for five years from the date the application was approved.",
+      "summary": "Under City of New York guidelines, the free municipal identification card for New York City residents, ages 10 and up, provides access to services and programs offered by the City. For cardholders 16 and older, cards are valid for five years from the date the application was approved. The card is available to all New Yorkers regardless of immigration status. This record outlines municipal identification features; it does not issue IDNYC cards or establish federal legal status."
+    }
+  ]
+}
+

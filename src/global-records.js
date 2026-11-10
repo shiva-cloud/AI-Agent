@@ -39,7 +39,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.uscis.gov/green-card',
     quote: 'Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States.',
-    summary: 'Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States. Learn more about how and when to replace your Green Card. For policy guidance on adjustment of status, see Volume 7: Adjustment of Status of the USCIS Policy Manual.'
+    summary: "Having a Green Card (officially known as a Permanent Resident Card allows you to live and work permanently in the United States. Learn more about how and when to replace your Green Card. For policy guidance on adjustment of status, see Volume 7: Adjustment of Status of the USCIS Policy Manual."
   }),
 
   createGlobalRecord({
@@ -49,7 +49,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.ssa.gov/number-card/apply-new-card',
     quote: 'You must provide original valid primary identity documents to apply for an original Social Security Number.',
-    summary: 'Under federal Social Security regulations, every individual authorized to work in the United States must obtain a 9-digit Social Security Number (SSN) issued by the Social Security Administration (SSA). New immigrants and non-immigrant visa holders (such as H-1B, L-1, and O-1 workers) must visit a local Social Security card centre in person with completed Form SS-5 and original non-expired documents: (1) Valid foreign passport; (2) Most recent electronic Form I-94 arrival record showing employment-authorized status; (3) Official USCIS approval notice (Form I-797) or Employment Authorization Document (EAD card). Photocopies and notarized copies are strictly rejected. Under federal Fair Housing and privacy guidelines, landlords and screening agents cannot mandate an SSN if an applicant does not have one, and alternative credit proofs must be accepted. This record does not issue SSN cards.'
+    summary: "Under Social Security Administration (SSA) regulations, an individual who is authorized to work in the United States must obtain a 9-digit Social Security Number (SSN). Applicants in the United States can start the application online and then present original documentation at a local Social Security office proving age, identity, and lawful immigration status. Once approved, the SSA mails the Social Security card. This record does not issue SSN cards."
   }),
 
   createGlobalRecord({
@@ -59,7 +59,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.fdic.gov/resources/consumers/consumer-assistance-topics/bank-accounts.html',
     quote: 'Federal regulations require banks to verify customer identity under the Customer Identification Program.',
-    summary: 'Under Section 326 of the federal USA PATRIOT Act and FinCEN regulations, all FDIC-insured banks in the United States (such as Chase, Bank of America, Wells Fargo, and Citibank) must verify customer identity through a Customer Identification Program (CIP). Newcomers can open a personal checking or savings account without an SSN by presenting an Individual Taxpayer Identification Number (ITIN) or satisfying the foreign national KYC rule: (1) Primary document: valid unexpired foreign passport with US visa stamp and I-94; (2) Secondary document: government photo ID, foreign driver licence, or utility bill showing US residential address. Under the Bank Secrecy Act, banks must file a Currency Transaction Report (CTR) for physical cash deposits or withdrawals exceeding $10,000. Personal capital brought into the US is not taxed, but legitimate source of funds must be documented. This record does not open accounts or approve credit.'
+    summary: "Under Consumer Financial Protection Bureau (CFPB) guidance, consumers choosing a checking or savings account can use official checklists to gather required identification and documentation before opening an account and comparing account features and fees. This record outlines account-opening preparation; it does not open accounts or approve credit."
   }),
 
   createGlobalRecord({
@@ -69,7 +69,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.healthcare.gov/immigrants/coverage/',
     quote: 'Lawfully present immigrants are eligible for coverage through the Health Insurance Marketplace.',
-    summary: 'Under the Affordable Care Act (ACA), lawfully present immigrants (including permanent residents, refugee claimants, H-1B workers, and international students) are legally eligible to purchase subsidized health insurance through the federal Health Insurance Marketplace (HealthCare.gov) or state-based exchanges. New arrivals qualify for a 60-day Special Enrollment Period (SEP) starting from the date of moving to the United States to select a health plan without waiting for the annual open enrollment window. Federal law passed in 2025 narrows premium tax credit eligibility for many lawfully present immigrants from 1 January 2027 (generally keeping it for permanent residents and a few other groups), so check HealthCare.gov for your status. Subsidies (premium tax credits) reduce monthly premiums based on estimated annual household income relative to the federal poverty level. Immigrants without employer-sponsored health insurance must enroll promptly, as medical care costs in the US without insurance can cause catastrophic personal debt. This record does not issue insurance policies.'
+    summary: "Under the Affordable Care Act (ACA), lawfully present immigrants (including permanent residents, refugee claimants, H-1B workers, and international students) are legally eligible to purchase subsidized health insurance through the federal Health Insurance Marketplace (HealthCare.gov) or state-based exchanges. New arrivals qualify for a 60-day Special Enrollment Period (SEP) starting from the date of moving to the United States to select a health plan without waiting for the annual open enrollment window. Federal law passed in 2025 narrows premium tax credit eligibility for many lawfully present immigrants from 1 January 2027 (generally keeping it for permanent residents and a few other groups), so check HealthCare.gov for your status. Subsidies (premium tax credits) reduce monthly premiums based on estimated annual household income relative to the federal poverty level. Immigrants without employer-sponsored health insurance must enroll promptly, as medical care costs in the US without insurance can cause catastrophic personal debt. This record does not issue insurance policies."
   }),
 
   createGlobalRecord({
@@ -80,7 +80,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.hud.gov/program_offices/fair_housing_equal_opp/fair_housing_act_overview',
     quote: 'The Fair Housing Act prohibits discrimination in housing based on national origin, race, or family status.',
-    summary: 'Under the federal Fair Housing Act (Title VIII of the Civil Rights Act of 1968, enforced by HUD), landlords and property management companies cannot reject rental applicants or impose discriminatory lease terms on the basis of national origin, immigration status, or race. Landlords cannot deny housing solely because an immigrant lacks a US credit history; applicants have the right to provide alternative references, foreign bank statements, or proof of income. Tenancy agreements are governed by state residential tenancy codes: security deposit caps, holding rules (a few states require a separate or interest-bearing account) and return deadlines (often 14 to 30 days) differ by state. Landlords cannot execute self-help evictions or change locks without a formal court eviction order from a housing judge. This record does not resolve lease disputes.'
+    summary: "Under the federal Fair Housing Act (42 U.S.C. 3601 et seq.) enforced by the Department of Justice and HUD, direct providers of housing such as landlords and real estate companies are prohibited from discriminatory practices that make housing unavailable based on race, color, religion, sex, national origin, familial status, or disability. This record outlines federal fair housing protections; it does not adjudicate tenancy disputes or award damages."
   }),
 
   createGlobalRecord({
@@ -90,7 +90,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.uscis.gov/i-9',
     quote: 'Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States.',
-    summary: 'Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States. All U.S. employers must properly complete Form I-9 for every individual they hire for employment in the United States. On the form, an employee must attest to their employment authorization.'
+    summary: "Use Form I-9, Employment Eligibility Verification, to verify the identity and employment authorization of individuals hired for employment in the United States. All U.S. employers must properly complete Form I-9 for every individual they hire for employment in the United States. On the form, an employee must attest to their employment authorization."
   }),
 
   createGlobalRecord({
@@ -100,7 +100,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/',
     quote: 'Your credit reports and credit scores are both critical to your financial health, but they play very different roles.',
-    summary: 'Under Consumer Financial Protection Bureau (CFPB) guidance, newcomers build and protect credit through the credit reports and credit scores the Consumer Financial Protection Bureau describes as both critical to financial health but playing very different roles. A newcomer may be credit invisible or have a thin credit file with no credit file yet, and the CFPB consumer tools answer exactly the common issues newcomers meet: your credit application was denied because of your credit report or score; you do not have enough credit history and want to build your credit record; you think you may have been the victim of fraud or identity theft. The CFPB advises reviewing your credit reports at least once a year to make sure there are no errors that could lower your score or keep you from qualifying for credit, notes that requesting your credit reports will not hurt your credit score, and covers Fair Credit Reporting Act (FCRA) protections — credit reporting companies, fraud alerts, identity theft, military active duty alerts, security freezes, and tenant screening reports when housing was denied. This record does not calculate credit scores.'
+    summary: "Under Consumer Financial Protection Bureau (CFPB) guidance, newcomers build and protect credit through the credit reports and credit scores the Consumer Financial Protection Bureau describes as both critical to financial health but playing very different roles. A newcomer may be credit invisible or have a thin credit file with no credit file yet, and the CFPB consumer tools answer exactly the common issues newcomers meet: your credit application was denied because of your credit report or score; you do not have enough credit history and want to build your credit record; you think you may have been the victim of fraud or identity theft. The CFPB advises reviewing your credit reports at least once a year to make sure there are no errors that could lower your score or keep you from qualifying for credit, notes that requesting your credit reports will not hurt your credit score, and covers Fair Credit Reporting Act (FCRA) protections — credit reporting companies, fraud alerts, identity theft, military active duty alerts, security freezes, and tenant screening reports when housing was denied. This record does not calculate credit scores."
   }),
 
   createGlobalRecord({
@@ -110,7 +110,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://consumer.ftc.gov/features/scam-alerts',
     quote: 'Government agencies like USCIS, IRS, or police will never call and threaten deportation or demand immediate payment.',
-    summary: 'The Federal Trade Commission (FTC) and USCIS caution foreign nationals against prevalent immigrant fraud schemes: (1) Imposter Scams: callers spoofing DHS, USCIS, or IRS phone numbers claiming that visa documents contain errors and threatening immediate deportation unless funds are transferred via wire, gift cards, or cryptocurrency; (2) Notario Fraud: non-lawyers advertising as "notarios" who charge fees for immigration advice but have no legal standing to represent clients before USCIS or immigration courts; (3) Advance Rent Scams: fake apartment listings requiring non-refundable wire transfers before in-person property walkthroughs. Official US agencies never accept gift cards, never demand wire transfers over the phone, and communicate through official mail notices. Victims can report scams to the FTC at 1-877-FTC-HELP. This record does not prosecute fraud.'
+    summary: "Under Federal Trade Commission (FTC) consumer guidance, immigrants are warned against widespread fraud schemes targeting newcomers, including imposter scams where fraudsters impersonate attorneys or government officials offering guaranteed visas or appointments for payment via wire transfer, gift cards, or cryptocurrency. In the US, notary publics (notarios) are not authorized to give legal advice or provide immigration services. Suspected immigration scams can be reported directly to the FTC. This record does not prosecute fraud."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -123,7 +123,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/skilled-worker-visa',
     quote: 'A Skilled Worker visa allows you to come to or stay in the UK to do an eligible job with an approved employer.',
-    summary: 'A Skilled Worker visa allows you to come to or stay in the UK to do an eligible job with an approved employer - the visa has replaced the Tier 2 (General) work visa and also allows you to work in UK waters. To qualify, you must work for a UK employer that\'s been approved by the Home Office, have a \'certificate of sponsorship\' (CoS) from your employer with information about the role you\'ve been offered in the UK, do a job that\'s on the list of eligible occupations, and be paid a minimum salary - how much depends on the type of work you do and the date you got your CoS. You must have a confirmed job offer before you apply, and be able to speak, read, write and understand English. Your visa can last for up to 5 years before you need to extend it, you can apply to extend it as many times as you like as long as you still meet the eligibility requirements, and after five years you may be able to apply to settle permanently in the UK (\'indefinite leave to remain\'). This record does not grant visas.'
+    summary: "A Skilled Worker visa allows you to come to or stay in the UK to do an eligible job with an approved employer - the visa has replaced the Tier 2 (General) work visa and also allows you to work in UK waters. To qualify, you must work for a UK employer that's been approved by the Home Office, have a 'certificate of sponsorship' (CoS) from your employer with information about the role you've been offered in the UK, do a job that's on the list of eligible occupations, and be paid a minimum salary - how much depends on the type of work you do and the date you got your CoS. You must have a confirmed job offer before you apply, and be able to speak, read, write and understand English. Your visa can last for up to 5 years before you need to extend it, you can apply to extend it as many times as you like as long as you still meet the eligibility requirements, and after five years you may be able to apply to settle permanently in the UK ('indefinite leave to remain'). This record does not grant visas."
   }),
 
   createGlobalRecord({
@@ -133,7 +133,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/apply-national-insurance-number',
     quote: 'You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK.',
-    summary: 'You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK. You do not need a National Insurance number to start an application for benefits or a student loan. You do not need a National Insurance number to apply to the EU Settlement Scheme.'
+    summary: "You can start work before you receive your National Insurance number if you can prove you have the right to work in the UK. You do not need a National Insurance number to start an application for benefits or a student loan. You do not need a National Insurance number to apply to the EU Settlement Scheme."
   }),
 
   createGlobalRecord({
@@ -143,7 +143,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/',
     quote: 'Everyone in England can register with a GP surgery or change their GP surgery for free.',
-    summary: 'Everyone in England can register with a GP surgery, or change GP surgery, for free. You do not need ID, proof of address or proof of immigration status to register. Rules in Scotland, Wales and Northern Ireland are set separately.'
+    summary: "Everyone in England can register with a GP surgery, or change GP surgery, for free. You do not need ID, proof of address or proof of immigration status to register. Rules in Scotland, Wales and Northern Ireland are set separately."
   }),
 
   createGlobalRecord({
@@ -153,7 +153,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.fca.org.uk/consumers/banking/basic-bank-accounts',
     quote: 'Under the Payment Accounts Regulations, you have the right to open a fee-free basic bank account.',
-    summary: 'Under the Payment Accounts Regulations 2015 and Financial Conduct Authority (FCA) guidelines, the UK’s nine largest retail banks (including Barclays, HSBC, Lloyds, NatWest, and Santander) are legally required to offer a fee-free Basic Bank Account to any lawfully resident individual. Banks cannot reject an applicant simply because they do not have a UK credit history, are currently unemployed, or have limited funds. To satisfy customer due diligence (CDD) anti-money laundering requirements, newcomers must present: (1) Proof of identity: valid foreign passport plus proof of UK immigration status (an eVisa share code; BRPs have been replaced by eVisas); (2) Proof of residential address: tenancy agreement, utility bill, council tax letter, or an official bank introduction letter from an employer or university. Accounts cannot be refused for lack of UK employment. This record does not open accounts or approve credit.'
+    summary: "GOV.UK provides digital immigration status (eVisa) access and share codes for individuals to prove their immigration rights in the UK to employers, landlords, and financial institutions without requiring physical vignette stickers or biometric residence permits."
   }),
 
   createGlobalRecord({
@@ -164,7 +164,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/tenancy-deposit-protection',
     quote: 'Your landlord must return your deposit within 10 days of you both agreeing how much you\'ll get back.',
-    summary: 'The GOV.UK tenancy deposit protection overview states that a landlord must put a deposit in a government-approved tenancy deposit scheme (TDP) if the home is rented on an assured periodic tenancy (APT), and that APTs replaced assured shorthold tenancies on 1 May 2026. In England and Wales the deposit can be registered with the Deposit Protection Service, MyDeposits (including deposits that were held by Capita), or the Tenancy Deposit Scheme, and the landlord or letting agent must put the deposit in the scheme within 30 days of getting it. At the end of the tenancy the landlord must return the deposit within 10 days of the landlord and tenant both agreeing how much will be returned; Scotland and Northern Ireland run separate TDP schemes. This record does not arbitrate deposit claims.'
+    summary: "The GOV.UK tenancy deposit protection overview states that a landlord must put a deposit in a government-approved tenancy deposit scheme (TDP) if the home is rented on an assured periodic tenancy (APT), and that APTs replaced assured shorthold tenancies on 1 May 2026. In England and Wales the deposit can be registered with the Deposit Protection Service, MyDeposits (including deposits that were held by Capita), or the Tenancy Deposit Scheme, and the landlord or letting agent must put the deposit in the scheme within 30 days of getting it. At the end of the tenancy the landlord must return the deposit within 10 days of the landlord and tenant both agreeing how much will be returned; Scotland and Northern Ireland run separate TDP schemes. This record does not arbitrate deposit claims."
   }),
 
   createGlobalRecord({
@@ -174,7 +174,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/prove-right-to-work',
     quote: 'You\'ll need to prove your right to work in the UK to your employer before you start working for them. How you do this depends on your nationality and what kind of permission you have to work in the UK.',
-    summary: 'This GOV.UK page explains proving your right to work in the UK to your employer before you start working for them - how you do this depends on your nationality and what kind of permission you have to work in the UK. If you\'re a British or Irish citizen, you can prove your right to work with a British passport, an Irish passport or passport card - these can be current or expired - and if you do not have a passport or passport card, you may be able to use an online identity service provider (IDSP) to prove your right to work; ask your employer if they offer this. If you\'re not a British or Irish citizen, you can prove your right to work with a share code - you can get a share code online - or your eligible immigration documents; you can choose which option you use, and your employer cannot reject your application because you gave them an eligible immigration document instead of a share code. People with the right of abode in the UK (British citizens and some Commonwealth citizens) can use a certificate of entitlement to prove their right to work. This record does not verify individual right-to-work documents.'
+    summary: "This GOV.UK page explains proving your right to work in the UK to your employer before you start working for them - how you do this depends on your nationality and what kind of permission you have to work in the UK. If you're a British or Irish citizen, you can prove your right to work with a British passport, an Irish passport or passport card - these can be current or expired - and if you do not have a passport or passport card, you may be able to use an online identity service provider (IDSP) to prove your right to work; ask your employer if they offer this. If you're not a British or Irish citizen, you can prove your right to work with a share code - you can get a share code online - or your eligible immigration documents; you can choose which option you use, and your employer cannot reject your application because you gave them an eligible immigration document instead of a share code. People with the right of abode in the UK (British citizens and some Commonwealth citizens) can use a certificate of entitlement to prove their right to work. This record does not verify individual right-to-work documents."
   }),
 
   createGlobalRecord({
@@ -184,7 +184,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.moneyhelper.org.uk/en/everyday-money/credit/how-to-improve-your-credit-score',
     quote: 'Credit reference agencies compile your credit file to help lenders decide whether to lend to you.',
-    summary: 'Newcomers to the United Kingdom start with a blank credit file (no UK credit rating), which can create obstacles when opening credit cards, securing mobile contracts, or renting flats. Under UK consumer guidelines, individuals should establish credit by: (1) Registering on the local electoral roll (available to British, Irish, and qualifying Commonwealth citizens with valid leave); (2) Opening a basic current account and maintaining active direct debits; (3) Applying for a credit-builder credit card with low limits and paying the balance in full monthly. The three primary Credit Reference Agencies (CRAs) in the UK are Experian, Equifax, and TransUnion. Under the Data Protection Act 2018, consumers have the legal right to inspect their statutory credit report online for free. Newcomers should avoid unregulated loan sharks and high-cost short-term lenders. This record does not grant loans.'
+    summary: "Newcomers to the United Kingdom start with a blank credit file (no UK credit rating), which can create obstacles when opening credit cards, securing mobile contracts, or renting flats. Under UK consumer guidelines, individuals should establish credit by: (1) Registering on the local electoral roll (available to British and Irish citizens, qualifying Commonwealth citizens with valid leave, and some EU citizens; eligibility is wider in Scotland and Wales); (2) Opening a basic current account and maintaining active direct debits; (3) Applying for a credit-builder credit card with low limits and paying the balance in full monthly. The three primary Credit Reference Agencies (CRAs) in the UK are Experian, Equifax, and TransUnion. Under the Data Protection Act 2018, consumers have the legal right to inspect their statutory credit report online for free. Newcomers should avoid unregulated loan sharks and high-cost short-term lenders. This record does not grant loans."
   }),
 
   createGlobalRecord({
@@ -194,7 +194,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.actionfraud.police.uk/',
     quote: 'The Home Office and UK police will never call and threaten deportation or demand immediate payment.',
-    summary: 'Action Fraud (the UK’s national fraud and cyber crime reporting centre) and the Home Office alert newcomers against common immigrant scams: (1) Home Office Impersonation: scammers spoofing 020 government telephone numbers claiming immigration records are incomplete and threatening immediate deportation unless instant payments are made via cryptocurrency, Western Union, or Apple gift cards; (2) Rental Advance Scams: fake landlord advertisements on Gumtree and social media requesting wire deposits before keys can be inspected; (3) Unlicensed Immigration Advisors: individuals charging illegal fees for visa filings (all legitimate immigration advisors in the UK must be registered with the Office of the Immigration Services Commissioner OISC or be qualified solicitors). Official UK authorities never accept cryptocurrency or demand wire transfers over the telephone. Victims should contact Action Fraud at 0300 123 2040. This record does not investigate criminal complaints.'
+    summary: "In the UK, immigration advisers must be registered with the Immigration Advice Authority (IAA, formerly OISC) or belong to an approved designated professional body such as the Law Society or Bar Council. Using unregulated advisers risks invalid advice and financial exploitation."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -207,7 +207,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing',
     quote: 'General Skilled Migration points-tested visas provide permanent residency pathways for skilled workers.',
-    summary: 'Under the federal Migration Act 1958, skilled foreign workers settle in Australia through the General Skilled Migration (GSM) framework: Subclass 189 (Skilled Independent permanent visa), Subclass 190 (Skilled Nominated permanent visa by a state or territory), and Subclass 491 (Skilled Work Regional provisional 5-year visa). Candidates must lodge an Expression of Interest (EOI) via SkillSelect, achieve at least 65 points on the points test (evaluating age, English proficiency, qualifications, and employment history), obtain a positive skills assessment from an authorized assessing authority (such as ACS, VETASSESS, or Engineers Australia), and meet public interest criteria for health and character. Once a visa is granted, holders verify visa conditions and work entitlements using the Visa Entitlement Verification Online (VEVO) system. This record does not grant Australian visas.'
+    summary: "The Department of Home Affairs provides a list of Australian visas and the Visa Finder tool for individuals seeking to visit, work, study, or live in Australia. Applicants and visa holders can access ImmiAccount and Visa Entitlement Verification Online (VEVO) to check entitlements and verify conditions. This record outlines Australian visa resources; it does not process visa applications or issue visa grants."
   }),
 
   createGlobalRecord({
@@ -217,7 +217,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn',
     quote: 'How Australian residents can apply for a tax file number (TFN).',
-    summary: 'How Australian residents can apply for a tax file number (TFN). How people living outside Australia with income from an Australian source apply for a tax file number (TFN). How Norfolk Island residents of all ages can apply for a tax file number (TFN).'
+    summary: "How Australian residents can apply for a tax file number (TFN). How people living outside Australia with income from an Australian source apply for a tax file number (TFN). How Norfolk Island residents of all ages can apply for a tax file number (TFN)."
   }),
 
   createGlobalRecord({
@@ -227,7 +227,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://www.servicesaustralia.gov.au/medicare-card',
     quote: 'Medicare gives Australian residents access to a wide range of healthcare services at low or no cost.',
-    summary: 'Under the Health Insurance Act 1973, Medicare provides Australia’s universal public healthcare system covering public hospital treatments, subsidized doctor visits, and essential pharmaceuticals under the Pharmaceutical Benefits Scheme (PBS). Eligible residents (Australian permanent residents, New Zealand citizens, and applicants who have lodged an application for permanent residency with working rights) enroll by submitting Form MS004 to Services Australia with their passport and visa grant notice. Citizens from Reciprocal Health Care Agreement (RHCA) countries (including the UK, New Zealand, Ireland, and Italy) are entitled to essential emergency medical care. Temporary visa holders who are not covered by Medicare are legally mandated to maintain adequate Overseas Visitor Health Cover (OVHC) to comply with Visa Condition 8501. This record does not issue Medicare cards.'
+    summary: "Services Australia explains that Medicare enrolment provides a Medicare card and directs applicants to the full enrolment conditions. The card page covers getting, using and replacing a card, adding or removing people, and accessing a digital card through the myGov app. A replacement is available if the card expires or is lost, stolen or damaged. This record does not determine visa-based eligibility, insurance obligations or entitlement to free treatment."
   }),
 
   createGlobalRecord({
@@ -237,7 +237,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://www.austrac.gov.au/business/core-guidance/customer-identification-and-verification',
     quote: 'Reporting entities must identify and verify customers before providing designated financial services.',
-    summary: 'Under the federal Anti-Money Laundering and Counter-Terrorism Financing Act 2006 (AML/CTF Act) and Financial Transaction Reports Act, retail banks in Australia (such as Commonwealth Bank, Westpac, ANZ, and NAB) must verify customer identity using the 100-Point Identification Check. Newcomers arriving in Australia have a 6-week window from their arrival date during which presenting their foreign passport satisfies the full 100 points. After 6 weeks, applicants must accumulate 100 points using combination documents: (1) Primary document: valid foreign passport (70 points); (2) Secondary documents: Australian driver licence, international driving permit, utility bill, residential lease, or foreign credit card (25 to 40 points each). Banks report international funds transfers to AUSTRAC whatever the amount, and report cash transactions (notes and coins) of AUD 10,000 or more as threshold transactions. This record does not open bank accounts.'
+    summary: "Under the federal Anti-Money Laundering and Counter-Terrorism Financing Act 2006 (AML/CTF Act) and Financial Transaction Reports Act, retail banks in Australia (such as Commonwealth Bank, Westpac, ANZ, and NAB) must verify customer identity using the 100-Point Identification Check. Newcomers arriving in Australia have a 6-week window from their arrival date during which presenting their foreign passport satisfies the full 100 points. After 6 weeks, applicants must accumulate 100 points using combination documents: (1) Primary document: valid foreign passport (70 points); (2) Secondary documents: Australian driver licence, international driving permit, utility bill, residential lease, or foreign credit card (25 to 40 points each). Banks report international funds transfers to AUSTRAC whatever the amount, and report cash transactions (notes and coins) of AUD 10,000 or more as threshold transactions. This record does not open bank accounts."
   }),
 
   createGlobalRecord({
@@ -248,7 +248,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://www.fairtrading.nsw.gov.au/housing-and-property/renting',
     quote: 'Rental bonds must be lodged with the relevant state government bond authority within statutory deadlines.',
-    summary: 'Residential tenancies in Australia are regulated by state and territory residential tenancy legislation (such as NSW Fair Trading and Consumer Affairs Victoria). Landlords and real estate agents must lodge tenant security bonds with the state bond authority (such as NSW Rental Bonds Online or Victorian Residential Tenancies Bond Authority RTBA) within the state deadline (10 business days in NSW and Victoria). Bonds are capped by state law, for example 4 weeks rent in NSW and 1 month in Victoria for most properties. State laws strictly prohibit "rent bidding" (agents cannot solicit rent bids above advertised prices). Landlords cannot enter rented premises without formal statutory written notice (at least 7 to 14 days for routine inspections, between 8:00 a.m. and 8:00 p.m.). Evictions require formal notice and an order from a state administrative tribunal (such as NCAT in NSW or VCAT in Victoria). This record does not resolve lease disputes.'
+    summary: "NSW Fair Trading provides guidance on renting a place to live in New South Wales, covering how to start a tenancy, renting costs, getting repairs done, ending a tenancy, and getting your bond back. Tenants and landlords can access official dispute resolution routes when issues arise. This overview describes statutory tenancy resources in NSW; it does not resolve lease disputes or issue NCAT orders."
   }),
 
   createGlobalRecord({
@@ -258,7 +258,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://immi.homeaffairs.gov.au/visas/already-have-a-visa/check-visa-details-and-conditions',
     quote: 'Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions.',
-    summary: 'Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions. You can then use VEVO to prove you have a permanent visa.'
+    summary: "Visa Entitlement Verification Online (VEVO) allows visa holders, employers, education providers and other organisations to check visa details and conditions. You can then use VEVO to prove you have a permanent visa."
   }),
 
   createGlobalRecord({
@@ -268,7 +268,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://moneysmart.gov.au/managing-debt/credit-scores-and-credit-reports',
     quote: 'Your credit report is a record of your credit history.',
-    summary: 'Depending on the credit reporting agency, your score will be between zero and either 1,000 or 1,200. Your credit report is a record of your credit history. Your report may also include your credit score (not all credit reporting agencies do this).'
+    summary: "Depending on the credit reporting agency, your score will be between zero and either 1,000 or 1,200. Your credit report is a record of your credit history. Your report may also include your credit score (not all credit reporting agencies do this)."
   }),
 
   createGlobalRecord({
@@ -278,7 +278,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://www.scamwatch.gov.au/',
     quote: 'Immigration authorities will never threaten immediate deportation or demand payment by wire or gift card.',
-    summary: 'The Australian Competition and Consumer Commission (ACCC) Scamwatch and the Australian Federal Police (AFP) warn newcomers against prevalent immigration extortion schemes: (1) Fake Home Affairs or ATO Phone Scams: automated calls claiming an arrest warrant or deportation notice has been issued due to non-payment of taxes or visa errors, demanding immediate payment via Bitcoin or retail gift cards; (2) Unregistered Migration Agents: individuals operating without registration from the Office of the Migration Agents Registration Authority (OMARA); (3) Accommodation Deposit Scams on Gumtree and Flatmates. Official Australian government agencies never accept payment via retail vouchers or cryptocurrency and never threaten immediate physical arrest over telephone calls. Scam incidents should be reported to Scamwatch. This record does not investigate criminal offenses.'
+    summary: "Scamwatch and the Australian Taxation Office (ATO) remind individuals to be aware of communications claiming to be from the ATO or myGov. The National Anti-Scam Centre and Australian Cyber Security Centre provide resources to spot and avoid scams and protect personal information online. This guidance outlines scam prevention resources; it does not investigate fraud reports or provide legal recourse."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -291,7 +291,7 @@ export const globalRecords = [
     jurisdiction: 'Germany',
     url: 'https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card',
     quote: 'The EU Blue Card is the main residence permit for university graduates from outside the EU.',
-    summary: 'Under Section 18g of the German Residence Act (Aufenthaltsgesetz - AufenthG), foreign university graduates migrate to Germany through the EU Blue Card (Blaue Karte EU). Applicants must present a recognized university degree (verified via the Anabin database or ZAB Statement of Comparability) and an employment contract meeting national minimum gross annual salary thresholds. Blue Card holders can obtain permanent settlement permits (Niederlassungserlaubnis) on a fast-track timeline: after 21 months of employment with German language proficiency at B1 level, or after 27 months with basic A1 German. The Opportunity Card (Chancenkarte points system) allows candidates with recognized qualifications to reside in Germany for up to one year to secure qualified employment. This record does not issue residence permits.'
+    summary: "Under Section 18g of the German Residence Act (Aufenthaltsgesetz - AufenthG), foreign university graduates migrate to Germany through the EU Blue Card (Blaue Karte EU). Applicants must present a recognized university degree (verified via the Anabin database or ZAB Statement of Comparability) and an employment contract meeting national minimum gross annual salary thresholds. Blue Card holders can obtain permanent settlement permits (Niederlassungserlaubnis) on a fast-track timeline: after 21 months of employment with German language proficiency at B1 level, or after 27 months with basic A1 German. The Opportunity Card (Chancenkarte points system) allows candidates with recognized qualifications to reside in Germany for up to one year to secure qualified employment. This record does not issue residence permits."
   }),
 
   createGlobalRecord({
@@ -301,17 +301,17 @@ export const globalRecords = [
     jurisdiction: 'Germany',
     url: 'https://www.bmi.bund.de/EN/topics/administrative-reform/registration-law/registration-law-node.html',
     quote: 'Anyone who moves into an apartment in Germany must register with the registration authority within two weeks.',
-    summary: 'Under Section 17 of the Federal Act on Registration (Bundesmeldegesetz - BMG), every resident in Germany has the strict statutory obligation to register their residential address (Anmeldung) at the local Citizens Office (Bürgeramt or Einwohnermeldeamt) within 14 days of moving. To register, applicants must present: (1) Valid foreign passport; (2) A landlord confirmation certificate (Wohnungsgeberbestätigung) signed by the property owner confirming move-in date. Once registration is completed, the Bürgeramt issues an official registration certificate (Meldebestätigung), which is required to open a German bank account, contract internet, or obtain health insurance. The Federal Central Tax Office (BZSt) automatically generates and mails an 11-digit Tax Identification Number (Steueridentifikationsnummer / Steuer-ID) to the registered address. This record does not process registrations.'
+    summary: "Under Section 17 of the Federal Act on Registration (Bundesmeldegesetz - BMG), every resident in Germany has the strict statutory obligation to register their residential address (Anmeldung) at the local Citizens Office (Bürgeramt or Einwohnermeldeamt) within 14 days of moving. To register, applicants must present: (1) Valid foreign passport; (2) A landlord confirmation certificate (Wohnungsgeberbestätigung) signed by the property owner confirming move-in date. Once registration is completed, the Bürgeramt issues an official registration certificate (Meldebestätigung), which is required to open a German bank account, contract internet, or obtain health insurance. The Federal Central Tax Office (BZSt) automatically generates and mails an 11-digit Tax Identification Number (Steueridentifikationsnummer / Steuer-ID) to the registered address. This record does not process registrations."
   }),
 
   createGlobalRecord({
     id: 'de-gkv-statutory-health-insurance-kyc',
-    title: 'GKV-Spitzenverband: Statutory health insurance enrollment (Gesetzliche Krankenversicherung)',
+    title: 'German health portal: Choosing statutory or private health insurance',
     topic: 'health',
     jurisdiction: 'Germany',
-    url: 'https://www.gkv-spitzenverband.de/english/english.jsp',
-    quote: 'Health insurance is mandatory for all citizens and permanent residents in Germany.',
-    summary: 'Under Section 193 of the Insurance Contract Act (VVG) and Social Code Book V (SGB V), health insurance is legally mandatory for all residents in Germany. Employees earning below the compulsory insurance threshold (€77,400 a year in 2026; it is updated every January) must enroll in a statutory health insurance fund (Gesetzliche Krankenversicherung - GKV, such as Techniker Krankenkasse TK, AOK, or Barmer). Health insurance premiums (approximately 14.6% of gross salary plus statutory supplementary contributions) are split equally (50/50 parity) between employer and employee and deducted automatically via payroll. Insured members receive an electronic health card (elektronische Gesundheitskarte - eGK) with photo, enabling direct cashless access to physicians, specialists, and hospital treatments across Germany. Foreign bridge health insurance is required before employment commences. This record does not issue health cards.'
+    url: 'https://gesund.bund.de/en/krankenversicherung',
+    quote: 'It is compulsory to have health insurance in Germany.',
+    summary: "Germany's federal health portal describes statutory and private insurance. Employees' access to private insurance depends on an annually adjusted income threshold; eligible employees may instead retain statutory cover. Family co-insurance has conditions, including income limits. Switching between private and statutory cover is restricted. This record does not give a current salary threshold, premium rate, mandatory document checklist or blanket pre-employment travel-insurance requirement."
   }),
 
   createGlobalRecord({
@@ -321,7 +321,7 @@ export const globalRecords = [
     jurisdiction: 'Germany',
     url: 'https://www.bafin.de/EN/Verbraucher/Finanzwissen/Bank/Basiskonto/basiskonto_node_en.html',
     quote: 'Under the Payment Accounts Act, every consumer residing lawfully in the EU has the right to a basic account.',
-    summary: 'Under the Payment Accounts Act (Zahlungskontengesetz - ZKG) and Money Laundering Act (Geldwäschegesetz - GwG), BaFin regulates German banking KYC procedures. All retail banks in Germany (such as Deutsche Bank, Commerzbank, Sparkasse, and online banks like N26) must provide a basic payment account (Basiskonto) with core checking and payment capabilities to any consumer lawfully resident in the EU, regardless of credit history or income. To open an account, applicants verify identity using PostIdent at a Deutsche Post branch or VideoIdent online with: (1) Valid foreign passport; (2) Official German registration certificate (Meldebestätigung). International students usually prove their funds for the student visa with a blocked account (Sperrkonto) holding at least €11,904 for one year (€992 per month, 2026); other accepted proofs include a formal obligation letter (Verpflichtungserklärung), a bank guarantee or a recognised scholarship. This record does not open bank accounts.'
+    summary: "Under the Payment Accounts Act (Zahlungskontengesetz - ZKG) and Money Laundering Act (Geldwäschegesetz - GwG), BaFin regulates German banking KYC procedures. All retail banks in Germany (such as Deutsche Bank, Commerzbank, Sparkasse, and online banks like N26) must provide a basic payment account (Basiskonto) with core checking and payment capabilities to any consumer lawfully resident in the EU, regardless of credit history or income. To open an account, applicants verify identity using PostIdent at a Deutsche Post branch or VideoIdent online with: (1) Valid foreign passport; (2) Official German registration certificate (Meldebestätigung). International students usually prove their funds for the student visa with a blocked account (Sperrkonto) holding at least €11,904 for one year (€992 per month, 2026); other accepted proofs include a formal obligation letter (Verpflichtungserklärung), a bank guarantee or a recognised scholarship. This record does not open bank accounts."
   }),
 
   createGlobalRecord({
@@ -332,7 +332,7 @@ export const globalRecords = [
     jurisdiction: 'Germany',
     url: 'https://www.bmjv.de/DE/themen/kaufen_reisen_wohnen/mietrecht/mietrecht_node.html',
     quote: 'Die Höhe der Mietsicherheit darf – unabhängig von ihrer Form – höchstens das Dreifache der auf einen Monat entfallenden Grundmiete betragen ( § 551 Absatz 1 BGB ).',
-    summary: 'The Federal Ministry of Justice (BMJV) Mietrecht overview states that the height of the Mietsicherheit - whatever its form, a rent deposit account, a guarantee, or the handover of a bank savings book - may not exceed the threefold of the basic rent attributable to one month (Section 551 (1) BGB). The same overview further covers the permissible rent at lease start, the Mietpreisbremse, notices of termination and their prerequisites; what landlords ask for in an individual apartment application, such as a SCHUFA Bonitätsauskunft and proof of income, is beyond the ministry page. This record does not adjudicate tenancy disputes.'
+    summary: "The Federal Ministry of Justice (BMJV) Mietrecht overview states that the height of the Mietsicherheit - whatever its form, a rent deposit account, a guarantee, or the handover of a bank savings book - may not exceed the threefold of the basic rent attributable to one month (Section 551 (1) BGB). The same overview further covers the permissible rent at lease start, the Mietpreisbremse, notices of termination and their prerequisites; what landlords ask for in an individual apartment application, such as a SCHUFA Bonitätsauskunft and proof of income, is beyond the ministry page. This record does not adjudicate tenancy disputes."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -345,7 +345,7 @@ export const globalRecords = [
     jurisdiction: 'United Arab Emirates',
     url: 'https://icp.gov.ae/en/services/priority-services/golden-visa/',
     quote: 'The Golden Visa allows foreign talents and investors to live and work in the UAE with 10-year residency.',
-    summary: 'Under federal residency decrees administered by the Federal Authority for Identity, Citizenship, Customs and Port Security (ICP) and GDRFA Dubai, foreign professionals reside in the UAE through 10-Year Golden Visas (for specialized talents, executive directors with salaries over AED 30,000 monthly, scientists, and investors), 5-Year Green Visas, or standard 2-Year Employment Residence Visas sponsored by a licensed mainland or free zone entity. All residency holders must complete mandatory medical fitness screening (blood test for infectious diseases and chest X-ray) and biometric enrollment to obtain an Emirates ID card. The physical or digital Emirates ID issued by ICP is legally mandatory for opening bank accounts, signing lease contracts, paying utility bills, and accessing all governmental platforms. This record does not issue entry permits.'
+    summary: "Under federal residency decrees administered by the Federal Authority for Identity, Citizenship, Customs and Port Security (ICP) and GDRFA Dubai, foreign professionals reside in the UAE through 10-Year Golden Visas (for specialized talents, executive directors with salaries over AED 30,000 monthly, scientists, and investors), 5-Year Green Visas, or standard 2-Year Employment Residence Visas sponsored by a licensed mainland or free zone entity. All residency holders must complete mandatory medical fitness screening (blood test for infectious diseases and chest X-ray) and biometric enrollment to obtain an Emirates ID card. The physical or digital Emirates ID issued by ICP is legally mandatory for opening bank accounts, signing lease contracts, paying utility bills, and accessing all governmental platforms. This record does not issue entry permits."
   }),
 
   createGlobalRecord({
@@ -355,7 +355,7 @@ export const globalRecords = [
     jurisdiction: 'United Arab Emirates',
     url: 'https://www.mohre.gov.ae/en/our-services/wages-protection-system.aspx',
     quote: 'The Wages Protection System ensures workers receive their agreed wages through financial institutions.',
-    summary: 'Under Federal Decree-Law No. 33 of 2021 regarding the Regulation of Labour Relations, the Ministry of Human Resources and Emiratisation (MOHRE) mandates standardized electronic employment contracts for all private sector workers. To protect worker rights, the UAE enforces the Wages Protection System (WPS) under Central Bank UAE regulations, requiring employers to transfer employee wages electronically to authorized bank accounts or salary cards within designated pay periods. To open a personal retail bank account (with institutions like ENBD, ADCB, or FAB), residents must complete KYC verification with: (1) Original Emirates ID card; (2) Valid foreign passport with residency visa stamp; (3) Official salary certificate from the employer. Opening basic salary accounts does not require high minimum balance thresholds. This record does not open accounts or draft contracts.'
+    summary: "Under Federal Decree-Law No. 33 of 2021 regarding the Regulation of Labour Relations, the Ministry of Human Resources and Emiratisation (MOHRE) mandates standardized electronic employment contracts for all private sector workers. To protect worker rights, the UAE enforces the Wages Protection System (WPS) under Central Bank UAE regulations, requiring employers to transfer employee wages electronically to authorized bank accounts or salary cards within designated pay periods. To open a personal retail bank account (with institutions like ENBD, ADCB, or FAB), residents must complete KYC verification with: (1) Original Emirates ID card; (2) Valid foreign passport with residency visa stamp; (3) Official salary certificate from the employer. Opening basic salary accounts does not require high minimum balance thresholds. This record does not open accounts or draft contracts."
   }),
 
   createGlobalRecord({
@@ -366,7 +366,7 @@ export const globalRecords = [
     jurisdiction: 'United Arab Emirates',
     url: 'https://dubailand.gov.ae/en/services/ejari/',
     quote: 'Ejari is the mandatory system for legalizing rental contracts between landlords and tenants in Dubai.',
-    summary: 'Under Law No. 26 of 2007 (enforced by the Dubai Land Department and Real Estate Regulatory Agency RERA), all residential tenancy contracts in Dubai must be registered in the official Ejari system (or Tawtheeq in Abu Dhabi). An official Ejari certificate is legally required to activate residential utility services (DEWA electricity and water), obtain home internet, and sponsor family visas. Security deposits are standardly capped at 5% of annual rent for unfurnished residential units (or 10% for furnished units) and are refundable upon checkout. Under RERA Decree No. 43 of 2013, annual rent increases are strictly restricted according to the RERA Rental Calculator based on average market rents in the neighborhood. Landlords cannot evict tenants without 12 months statutory written notice served through a court notary public. This record does not register rental contracts.'
+    summary: "Under Law No. 26 of 2007 (enforced by the Dubai Land Department and Real Estate Regulatory Agency RERA), all residential tenancy contracts in Dubai must be registered in the official Ejari system (or Tawtheeq in Abu Dhabi). An official Ejari certificate is legally required to activate residential utility services (DEWA electricity and water), obtain home internet, and sponsor family visas. Security deposits are standardly capped at 5% of annual rent for unfurnished residential units (or 10% for furnished units) and are refundable upon checkout. Under RERA Decree No. 43 of 2013, annual rent increases are strictly restricted according to the RERA Rental Calculator based on average market rents in the neighborhood. Landlords cannot evict tenants without 12 months statutory written notice served through a court notary public. This record does not register rental contracts."
   }),
 
   createGlobalRecord({
@@ -376,7 +376,7 @@ export const globalRecords = [
     jurisdiction: 'United Arab Emirates',
     url: 'https://www.dha.gov.ae/en/health-insurance',
     quote: 'Under Dubai Health Insurance Law, employers must provide health insurance coverage for all employees.',
-    summary: 'Under Dubai Health Insurance Law No. 11 of 2013 and Abu Dhabi Law No. 23 of 2005, employers are legally obligated to provide basic health insurance coverage (Essential Benefits Plan - EBP) for all employed staff from the date of visa issuance without deducting insurance costs from employee salaries. Health insurance policies cover outpatient consultations, emergency hospitalizations, basic surgical procedures, maternity care, and essential pharmaceuticals subject to modest statutory copayments (typically 20% capped at AED 50 to AED 100 per clinic visit). Residents link their insurance policy directly to their biometric Emirates ID, which acts as the physical medical card at network clinics, hospitals, and pharmacies across the UAE. Sponsors who fail to provide insurance face monthly administrative fines per uncovered employee. This record does not issue insurance policies.'
+    summary: "Under Dubai Health Insurance Law No. 11 of 2013 and Abu Dhabi Law No. 23 of 2005, employers are legally obligated to provide basic health insurance coverage (Essential Benefits Plan - EBP) for all employed staff from the date of visa issuance without deducting insurance costs from employee salaries. Health insurance policies cover outpatient consultations, emergency hospitalizations, basic surgical procedures, maternity care, and essential pharmaceuticals subject to modest statutory copayments (typically 20% capped at AED 50 to AED 100 per clinic visit). Residents link their insurance policy directly to their biometric Emirates ID, which acts as the physical medical card at network clinics, hospitals, and pharmacies across the UAE. Sponsors who fail to provide insurance face monthly administrative fines per uncovered employee. This record does not issue insurance policies."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -389,7 +389,7 @@ export const globalRecords = [
     jurisdiction: 'New Zealand',
     url: 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/skilled-migrant-category-resident-visa',
     quote: 'The Skilled Migrant Category Resident Visa is a points-based visa for people who have skilled jobs in New Zealand.',
-    summary: 'Under the Immigration Act 2009, Immigration New Zealand (INZ) operates the Skilled Migrant Category (SMC) Resident Visa with three pathways: the Points-based pathway (6 points), the Skilled Work Experience pathway and the Trades and Technician pathway. On the Points-based pathway, applicants claim 3 to 6 points from either: (1) New Zealand occupational registration; (2) Recognized qualifications (international qualifications: Doctorate 6 pts, Master 5 pts, Honours/Postgraduate 4 pts, Bachelor 4 pts; New Zealand qualifications: 5 or 6 pts); or (3) Income (1.5 to 3 times the SMC wage threshold). Remaining points can come from skilled work experience in New Zealand (1 year 1 point, 1.5 years 2 points, 2 years 3 points). Temporary workers migrate on the Accredited Employer Work Visa (AEWV) tied to an employer with an approved job check. Resident visa holders can live, work and study in New Zealand, and can apply for a Permanent Resident Visa after holding a resident visa for at least 2 years in a row if they have met its conditions and shown commitment to New Zealand. This record does not grant visas.'
+    summary: "Under Immigration New Zealand rules, the Skilled Migrant Category (SMC) Resident Visa allows eligible applicants aged 55 or younger with a skilled job or job offer from an accredited employer to live, work and study indefinitely in New Zealand. Applicants submit an expression of interest (EOI) across SMC pathways (Points-based, Skilled Work Experience, or Trades and Technicians). This record outlines SMC requirements; it does not issue visa invitations or assess individual credentials."
   }),
 
   createGlobalRecord({
@@ -399,7 +399,7 @@ export const globalRecords = [
     jurisdiction: 'New Zealand',
     url: 'https://www.ird.govt.nz/tasks/apply-for-an-ird-number',
     quote: 'You will need an IRD number for opening a bank account, joining KiwiSaver, when you\'re earning income and more.',
-    summary: 'You will need an IRD number for opening a bank account, joining KiwiSaver, when you\'re earning income and more. Your business or organisation uses its IRD number to keep track of its tax. Your IRD number identifies you for all the tax-related events in your life.'
+    summary: "You will need an IRD number for opening a bank account, joining KiwiSaver, when you're earning income and more. Your business or organisation uses its IRD number to keep track of its tax. Your IRD number identifies you for all the tax-related events in your life."
   }),
 
   createGlobalRecord({
@@ -410,7 +410,7 @@ export const globalRecords = [
     jurisdiction: 'New Zealand',
     url: 'https://www.tenancy.govt.nz/rent-bond-and-bills/bond/',
     quote: 'In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services.',
-    summary: 'The tenant pays the bond, and the landlord lodges (deposits) it with Tenancy Services who hold it during the tenancy. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. Tenants and landlords must let Tenancy Services know if there is a change to bond information.'
+    summary: "The tenant pays the bond, and the landlord lodges (deposits) it with Tenancy Services who hold it during the tenancy. In most situations, landlords must lodge a general bond, pet bond or bond top-up payment with Tenancy Services. Tenants and landlords must let Tenancy Services know if there is a change to bond information."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -423,7 +423,7 @@ export const globalRecords = [
     jurisdiction: 'Ireland',
     url: 'https://enterprise.gov.ie/en/what-we-do/workplace-and-skills/employment-permits/permit-types/critical-skills-employment-permit/',
     quote: 'The Critical Skills Employment Permit replaces the Green Card type employment permit.',
-    summary: 'The Critical Skills Employment Permit replaces the Green Card type employment permit. Occupations such as ICT professionals, professional engineers and technologists are catered for under this type of employment permit. The list of eligible occupations is set out in the Critical Skills Occupations List.'
+    summary: "The Critical Skills Employment Permit replaces the Green Card type employment permit. Occupations such as ICT professionals, professional engineers and technologists are catered for under this type of employment permit. The list of eligible occupations is set out in the Critical Skills Occupations List."
   }),
 
   createGlobalRecord({
@@ -433,7 +433,7 @@ export const globalRecords = [
     jurisdiction: 'Ireland',
     url: 'https://www.gov.ie/en/service/12e6de-get-a-personal-public-service-pps-number/',
     quote: 'A Personal Public Service (PPS) number is a unique reference number that helps you access social welfare and public services.',
-    summary: 'Under Social Welfare Consolidation Act regulations, the Department of Social Protection (DSP) issues Personal Public Service (PPS) Numbers to residents in Ireland for taxation (Revenue Commissioners PAYE), healthcare, and public welfare services. Applicants apply online via MyWelfare.ie or in person with: (1) Valid foreign passport; (2) Proof of address (utility bill or registered tenancy); (3) Legitimate reason for needing a PPSN (job offer, driver licensing). Tenancy protections in Ireland are governed by the Residential Tenancies Board (RTB). Landlords must register all tenancies with the RTB. Security deposits are standardly capped at one month rent. Rent increases are capped at 2% or inflation, whichever is lower: Rent Pressure Zones covered the whole country from 20 June 2025, and a national rent-control system with new rules for tenancies starting on or after 1 March 2026 replaced them. This record does not issue PPS numbers.'
+    summary: "Under Social Welfare Consolidation Act regulations, the Department of Social Protection (DSP) issues Personal Public Service (PPS) Numbers to residents in Ireland for taxation (Revenue Commissioners PAYE), healthcare, and public welfare services. Applicants apply online via MyWelfare.ie or in person with: (1) Valid foreign passport; (2) Proof of address (utility bill or registered tenancy); (3) Legitimate reason for needing a PPSN (job offer, driver licensing). Tenancy protections in Ireland are governed by the Residential Tenancies Board (RTB). Landlords must register all tenancies with the RTB. Security deposits are standardly capped at one month rent. Rent increases are capped at 2% or inflation, whichever is lower: Rent Pressure Zones covered the whole country from 20 June 2025, and a national rent-control system with new rules for tenancies starting on or after 1 March 2026 replaced them. This record does not issue PPS numbers."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -447,7 +447,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://www.hud.gov/program_offices/fair_housing_equal_opp',
     quote: 'Security deposits must be held in interest-bearing escrow accounts and returned within statutory state deadlines with itemized deductions.',
-    summary: 'Under US residential tenancy laws and state housing codes, landlords are restricted in security deposit amounts (typically capped at 1 to 2 months rent depending on state jurisdiction like New York, California, or Illinois). Landlords must hold security deposits in dedicated interest-bearing escrow accounts separate from personal funds. Commingling security deposits with operating funds is strictly illegal. Upon lease termination, landlords must return the full deposit within statutory deadlines (usually 14 to 30 days) or provide a sworn, itemized statement of lawful deductions for actual damage beyond normal wear and tear. Arbitrary forfeiture of deposits is prohibited under state consumer protection statutes.'
+    summary: "Under USAGov consumer guidance, tenants experiencing disputes with a landlord should review their lease terms and seek assistance through state housing agencies or state attorney general offices that publish state-specific tenant rights handbooks and dispute resolution resources. This record provides general consumer guidance; it does not adjudicate tenancy disputes or determine lease enforceability."
   }),
 
   createGlobalRecord({
@@ -458,7 +458,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://www.gov.uk/tenancy-deposit-protection',
     quote: 'Your landlord or letting agent must put your deposit in the scheme within 30 days of getting it.',
-    summary: 'Under the Tenant Fees Act and the Housing Act deposit rules, landlords and letting agents in England and Wales cannot take a security deposit exceeding five weeks rent for tenancies with annual rent below fifty thousand pounds (or six weeks rent above that). Deposits must be registered with one of three government-approved tenancy deposit schemes (DPS, MyDeposits, or TDS) within 30 days of receipt, and landlords must issue statutory Prescribed Information to the tenant. The GOV.UK overview states deposits are protected when the home is let on an assured periodic tenancy and that APTs replaced assured shorthold tenancies on 1 May 2026. Failure to protect deposits invalidated no-fault eviction notices (section twenty-one) served before 1 May 2026, when no-fault evictions were abolished in England, and subjects landlords to statutory compensation orders of one to three times the deposit amount.'
+    summary: "Under the Tenant Fees Act and the Housing Act deposit rules, landlords and letting agents in England and Wales cannot take a security deposit exceeding five weeks rent for tenancies with annual rent below fifty thousand pounds (or six weeks rent above that). Deposits must be registered with one of three government-approved tenancy deposit schemes (DPS, MyDeposits, or TDS) within 30 days of receipt, and landlords must issue statutory Prescribed Information to the tenant. The GOV.UK overview states deposits are protected when the home is let on an assured periodic tenancy and that APTs replaced assured shorthold tenancies on 1 May 2026. Failure to protect deposits invalidated no-fault eviction notices (section twenty-one) served before 1 May 2026, when no-fault evictions were abolished in England, and subjects landlords to statutory compensation orders of one to three times the deposit amount."
   }),
 
   createGlobalRecord({
@@ -469,7 +469,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://www.fairtrading.nsw.gov.au/housing-and-property/renting/rental-bonds-online',
     quote: 'Rental bonds in Australia must be lodged directly with state bond authorities like NSW Fair Trading and RTBA within statutory time limits.',
-    summary: 'In all Australian states and territories (such as NSW Fair Trading, Consumer Affairs Victoria RTBA, and Queensland RTA), landlords and real estate agents cannot hold security deposits privately. The maximum residential bond is strictly capped by statute at 4 weeks rent (unless weekly rent exceeds statutory luxury thresholds). Agents must lodge bond monies within the deadline set by each state (for example 10 working days in NSW and 14 days in Western Australia) using official portals (such as Rental Bonds Online RBO in NSW). Tenants receive an official lodgement receipt directly from the statutory authority. At tenancy conclusion, tenants can initiate an online bond refund claim directly, and landlords cannot deduct funds without proof of damage or tribunal order.'
+    summary: "Under NSW Fair Trading tenancy rules in Australia, Rental Bonds Online allows tenants to lodge, view, and claim rental bonds securely. The bond amount agreed with the landlord or agent cannot be more than 4 weeks rent. Self-managing landlords or property agents must be registered with Rental Bonds Online and offer it as the primary option to lodge bonds. This overview explains statutory rental bond limits and lodgement in NSW; it does not adjudicate tenancy bond disputes."
   }),
 
   createGlobalRecord({
@@ -480,7 +480,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://www.gesetze-im-internet.de/bgb/__551.html',
     quote: 'Hat der Mieter dem Vermieter für die Erfüllung seiner Pflichten Sicherheit zu leisten, so darf diese vorbehaltlich des Absatzes 3 Satz 4 höchstens das Dreifache der auf einen Monat entfallenden Miete ohne die als Pauschale oder als Vorauszahlung ausgewiesenen Betriebskosten betragen.',
-    summary: 'Under Section 551 of the German Civil Code (Bürgerliches Gesetzbuch - BGB), residential landlords in Germany cannot demand a security deposit (Mietkaution) exceeding three months net cold rent (Kaltmiete, excluding utilities/heating). Tenants have an unconditional statutory right under German law to pay the Mietkaution in three equal monthly installments, with the first installment due only upon commencement of the tenancy. Landlords are legally required to keep the deposit in an insolvency-protected, interest-bearing escrow account (Kautionskonto) completely separate from their private assets. Landlords have a review period (commonly a few months) after move-out to reconcile utility bills (Nebenkostenabrechnung) before releasing the deposit.'
+    summary: "Under Section 551 of the German Civil Code (Bürgerliches Gesetzbuch - BGB), residential landlords in Germany cannot demand a security deposit (Mietkaution) exceeding three months net cold rent (Kaltmiete, excluding utilities/heating). Tenants have an unconditional statutory right under German law to pay the Mietkaution in three equal monthly installments, with the first installment due only upon commencement of the tenancy. Landlords are legally required to keep the deposit in an insolvency-protected, interest-bearing escrow account (Kautionskonto) completely separate from their private assets. Landlords have a review period (commonly a few months) after move-out to reconcile utility bills (Nebenkostenabrechnung) before releasing the deposit."
   }),
 
   createGlobalRecord({
@@ -491,7 +491,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://dubailand.gov.ae/en/eservices/ejari-overview/',
     quote: 'RERA tenancy guidelines cap residential security deposits at 5% for unfurnished and 10% for furnished residential premises.',
-    summary: 'Under Dubai Law No. 26 of 2007 (regulated by the Real Estate Regulatory Agency - RERA) and UAE tenancy practices, standard residential security deposits are established at 5% of the annual rent for unfurnished properties and 10% for furnished properties. Deposits are held to ensure property handover condition. Landlords or property management companies must inspect the unit upon tenancy conclusion and refund the deposit in full or provide verified invoices for necessary repairs. Security deposits cannot be arbitrarily converted into renewal fees or administrative levies. All tenancy terms and deposit receipts must be recorded on the official Ejari tenancy certificate registered with the Dubai Land Department (DLD).'
+    summary: "Under Dubai Law No. 26 of 2007 (regulated by the Real Estate Regulatory Agency - RERA) and UAE tenancy practices, standard residential security deposits are established at 5% of the annual rent for unfurnished properties and 10% for furnished properties. Deposits are held to ensure property handover condition. Landlords or property management companies must inspect the unit upon tenancy conclusion and refund the deposit in full or provide verified invoices for necessary repairs. Security deposits cannot be arbitrarily converted into renewal fees or administrative levies. All tenancy terms and deposit receipts must be recorded on the official Ejari tenancy certificate registered with the Dubai Land Department (DLD)."
   }),
 
   createGlobalRecord({
@@ -502,7 +502,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://www.tenancy.govt.nz/rent-bond-and-bills/bond/charging-a-bond/',
     quote: 'Landlords in New Zealand must lodge rental bonds with the Ministry of Business, Innovation and Employment (MBIE) within 23 working days.',
-    summary: 'Under the New Zealand Residential Tenancies Act 1986, the maximum rental bond that a landlord can request is strictly capped at four weeks rent. It is an unlawful act for a landlord to demand more than four weeks bond or to hold the bond money personally. Landlords must submit the bond together with a signed Bond Lodgement Form to MBIE Tenancy Services within 23 working days of receiving it. MBIE issues an official confirmation letter and bond number to both tenant and landlord. Bond refunds require signatures from both parties; if disputed, applications are adjudicated impartially by the Tenancy Tribunal.'
+    summary: "Under New Zealand tenancy law administered by Tenancy Services (MBIE), landlords may charge a bond to cover potential costs during the tenancy. Rules distinguish between a general bond and a pet bond, setting standards for when bonds can be charged, how much can be required, and online lodgement in Bond Hub or property management software. This record outlines New Zealand bond rules; it does not hold deposits or adjudicate bond refunds."
   }),
 
   createGlobalRecord({
@@ -513,7 +513,7 @@ export const globalRecords = [
     housingSubject: 'agreement',
     url: 'https://www.rtb.ie/beginning-a-tenancy',
     quote: 'The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy.',
-    summary: 'The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy. From time to time there may be changes to a tenancy registered with the RTB.'
+    summary: "The Residential Tenancies Act (2004, as amended) applies to every dwelling which is the subject of a tenancy. From time to time there may be changes to a tenancy registered with the RTB."
   }),
 
   createGlobalRecord({
@@ -524,7 +524,7 @@ export const globalRecords = [
     housingSubject: 'deposit',
     url: 'https://rtb.ie/renting/rights-responsibilities/security-deposits/',
     quote: 'A landlord cannot ask for a deposit that is more than one month\'s rent.',
-    summary: 'The Residential Tenancies Board security deposits page states that a security deposit is a sum of money paid by a tenant to a landlord before the tenancy begins - financial protection for the landlord to cover rent arrears, bills owing or damage beyond normal wear and tear at the end of the tenancy. A landlord cannot ask for a deposit that is more than one month\'s rent; the agreed amount should be documented, and both the tenant and landlord should get a signed and dated receipt. The deposit must be returned at the end of the tenancy unless deductions are necessary. This record does not adjudicate RTB dispute hearings.'
+    summary: "The Residential Tenancies Board security deposits page states that a security deposit is a sum of money paid by a tenant to a landlord before the tenancy begins - financial protection for the landlord to cover rent arrears, bills owing or damage beyond normal wear and tear at the end of the tenancy. A landlord cannot ask for a deposit that is more than one month's rent; the agreed amount should be documented, and both the tenant and landlord should get a signed and dated receipt. The deposit must be returned at the end of the tenancy unless deductions are necessary. This record does not adjudicate RTB dispute hearings."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -537,7 +537,7 @@ export const globalRecords = [
     jurisdiction: 'United States',
     url: 'https://www2.ed.gov/about/offices/list/ocr/letters/colleague-201405.pdf',
     quote: 'Under the landmark Supreme Court ruling in Plyler v. Doe, public school districts cannot deny admission based on immigration status.',
-    summary: 'Under the Equal Protection Clause and the US Supreme Court landmark precedent Plyler v. Doe (457 U.S. 202, 1982), every child in the United States has a fundamental constitutional right to attend free public elementary and secondary schools (K-12) regardless of their immigration status or their parents citizenship status. School districts are strictly prohibited under federal civil rights laws from requesting citizenship papers, green cards, visa stamps, or Social Security numbers as a condition of enrollment. Standard enrollment documents required are: (1) Proof of age (birth certificate, passport, or hospital record); (2) Proof of residential address within the school district (utility bill, lease, or mortgage statement); and (3) State-mandated childhood immunization and health examination records.'
+    summary: "Under federal civil rights law enforced by the U.S. Department of Justice Civil Rights Division Educational Opportunities Section, federal statutes and court decisions mandate that school officials not discriminate against students on the basis of color, sex, national origin, language barrier, religion, or disability in elementary and secondary schools. This record explains federal nondiscrimination standards in public education; it does not process school admissions or enroll students."
   }),
 
   createGlobalRecord({
@@ -547,7 +547,7 @@ export const globalRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/schools-admissions',
     quote: 'Children of compulsory school age who reside in the UK have a statutory right to a state-funded school place.',
-    summary: 'Under the Education Act 1996 and the statutory School Admissions Code administered by the Department for Education (DfE), every child residing in the United Kingdom between ages 5 and 16 has a legal right to a place in a state-funded maintained school or academy, regardless of their nationality or their parents immigration status. Families arriving mid-year submit an in-year school admissions application directly to their local authority (Local Education Authority - LEA) or to individual academy trusts. Schools cannot inquire about immigration status or refuse admission based on visa type. Required documents are proof of child date of birth (passport or birth certificate) and proof of residential address (council tax bill, tenancy agreement, or utility bill).'
+    summary: "Under UK Department for Education (DfE) guidance, families applying for a state-funded primary or secondary school place apply through their local council, including if they have just moved to England or are applying from another country. Applicants may need to supply proof of their new address, such as a rental agreement, and prove they will live in the area before the start of the next term. This record outlines application procedures; it does not assign school places."
   }),
 
   createGlobalRecord({
@@ -557,7 +557,7 @@ export const globalRecords = [
     jurisdiction: 'Australia',
     url: 'https://education.nsw.gov.au/public-schools/going-to-a-public-school/enrolment',
     quote: 'All children residing in Australia are entitled to enrol in their designated local public school based on residential address.',
-    summary: 'In Australia, school education is administered by state and territory education departments (such as NSW Department of Education and Victorian Department of Education). Children residing in Australia between ages 6 and 17 must attend school. Permanent residents and Australian citizens attend local public schools tuition-free (with voluntary subject contributions). Temporary visa holders (subclasses 482, 500, etc.) are entitled to enrol in public schools, though certain states charge temporary resident tuition fees. Enrolment requires: (1) Proof of child identity and date of birth (passport); (2) 100-point proof of residential address within the school catchment zone; and (3) Australian Immunisation Register (AIR) Immunisation History Statement.'
+    summary: "The NSW Department of Education explains how to enrol in a NSW public school, covering designated enrolment areas, preschool, and general enrolment for Kindergarten to Year 12. Enrolment procedures commencing from Term 1 2026 provide updated guidance for local area enrolments and flexible enrolments. Applications must be completed in English, and translated guides are available to assist parents. This overview explains public school enrolment procedures; it does not process individual school applications."
   }),
 
   createGlobalRecord({
@@ -567,7 +567,7 @@ export const globalRecords = [
     jurisdiction: 'Germany',
     url: 'https://www.kmk.org/themen/allgemeinbildende-schulen.html',
     quote: 'Under German state law, compulsory schooling (Schulpflicht) applies universally to all children residing in Germany.',
-    summary: 'Under the Basic Law (Grundgesetz) and State School Acts (Schulgesetze) across all 16 German federal states, compulsory schooling (Schulpflicht) applies to all children aged 6 to 18 living in Germany, irrespective of nationality or residence permit status. Parents are legally mandated to register their child at the assigned local primary school (Grundschule) or secondary school (Gymnasium, Realschule, Gesamtschule) promptly after completing city registration (Anmeldung). Required registration documentation includes: (1) Registration certificate (Meldebescheinigung); (2) Child birth certificate and passport; (3) Proof of statutory measles immunization under the Measles Protection Act (Masernschutzgesetz); and (4) Completion of the mandatory school entry medical examination (Schuleingangsuntersuchung).'
+    summary: "Under the German constitutional framework described by the Kultusministerkonferenz (KMK), education policy is primarily the responsibility of the 16 federal states (Länder). Each state organizes its school system independently, while the states coordinate through the KMK to ensure comparability of educational pathways and qualifications across Germany. This overview outlines general schooling coordination; it does not process school admissions or issue individual certificates."
   }),
 
   createGlobalRecord({
@@ -577,7 +577,7 @@ export const globalRecords = [
     jurisdiction: 'Ireland',
     url: 'https://www.gov.ie/en/service/bd21ba-enrol-your-child-in-a-primary-school/',
     quote: 'Children in Ireland have a constitutional right to free primary education under the Department of Education.',
-    summary: 'Under Article 42 of the Irish Constitution and the Education (Admission to Schools) Act 2018, all children living in Ireland are entitled to free education in state-funded schools (National Schools and Post-Primary Schools), and a child must receive an education from age 6 to 16, or until they complete 3 years of post-primary education. School boards cannot charge admission or application fees, nor discriminate based on nationality. Parents apply to the school in writing, and the school must reply in writing within 21 days. Schools may ask for documents such as a birth certificate and previous school reports, and cannot ask for a baptismal certificate; check the school admission policy for its own list. Schools provide specialized English as an Additional Language (EAL) learning support to newcomer immigrant pupils.'
+    summary: "Under Article 42 of the Irish Constitution and the Education (Admission to Schools) Act 2018, all children living in Ireland are entitled to free education in state-funded schools (National Schools and Post-Primary Schools), and a child must receive an education from age 6 to 16, or until they complete 3 years of post-primary education. School boards cannot charge admission or application fees, nor discriminate based on nationality. Parents apply to the school in writing, and the school must reply in writing within 21 days. Schools may ask for documents such as a birth certificate and previous school reports, and cannot ask for a baptismal certificate; check the school admission policy for its own list. Schools provide specialized English as an Additional Language (EAL) learning support to newcomer immigrant pupils."
   }),
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -585,12 +585,12 @@ export const globalRecords = [
   // ═════════════════════════════════════════════════════════════════════════════
   createGlobalRecord({
     id: 'nz-rbnz-retail-banking-kyc',
-    title: 'Reserve Bank of New Zealand: Retail banking KYC, Anti-Money Laundering (AML/CFT), and newcomer accounts',
+    title: 'New Zealand banks: Retail banking KYC, Anti-Money Laundering (AML/CFT), and newcomer accounts',
     topic: 'money',
     jurisdiction: 'New Zealand',
     url: 'https://www.rbnz.govt.nz/regulation-and-supervision/anti-money-laundering',
-    quote: 'Under the Anti-Money Laundering and Countering Financing of Terrorism Act 2009, banks in New Zealand verify customer identity and address.',
-    summary: 'Under the Anti-Money Laundering and Countering Financing of Terrorism Act 2009 (AML/CFT Act), registered trading banks in New Zealand (including ANZ NZ, ASB, BNZ, and Westpac) must conduct customer due diligence (KYC) before opening transactional bank accounts. Newcomers can apply online up to 90 days before arriving, but accounts remain credit-only until in-person identity verification. In-person activation requires: (1) Valid foreign passport with valid New Zealand visa; (2) Proof of residential address in New Zealand (tenancy agreement, utility bill, or letter from an approved employer); and (3) Tax residency declaration and overseas tax identification number (TIN) under Common Reporting Standard (CRS) rules. Basic transactional accounts carry no minimum balance requirements.'
+    quote: "On 1 July 2026, the Department of Internal Affairs took over from RBNZ as the sole regulator for New Zealand's Anti-Money Laundering and Countering Financing of Terrorism (AML/CFT) regime.",
+    summary: "Under the Anti-Money Laundering and Countering Financing of Terrorism Act 2009 (AML/CFT Act), registered trading banks in New Zealand (including ANZ NZ, ASB, BNZ, and Westpac) must conduct customer due diligence (KYC) before opening transactional bank accounts. Since 1 July 2026 the Department of Internal Affairs, not the Reserve Bank, supervises banks under the Act. Newcomers may be able to open an account before moving, but time limits and activation steps vary by bank. Banks commonly ask for: (1) Valid foreign passport with valid New Zealand visa; (2) A residential address (since 27 November 2025 the Act no longer requires address verification for standard customer due diligence, but it can still apply to enhanced due diligence and a bank may ask for proof); and (3) Tax residency declaration and overseas tax identification number (TIN) under Common Reporting Standard (CRS) rules."
   }),
 
   createGlobalRecord({
@@ -600,7 +600,7 @@ export const globalRecords = [
     jurisdiction: 'Ireland',
     url: 'https://www.centralbank.ie/consumer-hub/explainers/what-are-the-rules-on-opening-a-bank-account',
     quote: 'Under European Union Payment Accounts Regulations 2016, residents in the EU have a statutory right to a basic payment account.',
-    summary: 'Under the Criminal Justice (Money Laundering and Terrorist Financing) Acts 2010 to 2021 and European Union (Payment Accounts) Regulations 2016, all credit institutions in Ireland (such as AIB, Bank of Ireland, and PTSB) must verify customer identity and residential address. Under EU law, a consumer legally resident in the EU who has no other payment or current account in Ireland can open a basic bank account, with no everyday banking or maintenance fees for at least the first year (free for up to 5 years in total if the amount paid in each year is below the minimum wage). Each bank decides which documents it accepts. Usually it asks for: (1) photo ID (such as a valid passport, driving licence or Irish Residence Permit); and (2) a separate proof of address less than 6 months old (such as a utility bill or a document from a government department), or an insurance policy less than 12 months old. A bank may ask for a PPS number in some cases, for example for tax relief on mortgage interest.'
+    summary: "Under the Criminal Justice (Money Laundering and Terrorist Financing) Acts 2010 to 2021 and European Union (Payment Accounts) Regulations 2016, all credit institutions in Ireland (such as AIB, Bank of Ireland, and PTSB) must verify customer identity and residential address. Under EU law, a consumer legally resident in the EU who has no other payment or current account in Ireland can open a basic bank account, with no everyday banking or maintenance fees for at least the first year (free for up to 5 years in total if the amount paid in each year is below the minimum wage). Each bank decides which documents it accepts. Usually it asks for: (1) photo ID (such as a valid passport, driving licence or Irish Residence Permit); and (2) a separate proof of address less than 6 months old (such as a utility bill or a document from a government department), or an insurance policy less than 12 months old. A bank may ask for a PPS number in some cases, for example for tax relief on mortgage interest."
   }),
 
   createGlobalRecord({
@@ -610,17 +610,17 @@ export const globalRecords = [
     jurisdiction: 'New Zealand',
     url: 'https://www.tewhatuora.govt.nz/our-health-system/eligibility-for-publicly-funded-health-services/',
     quote: 'The New Zealand Government strongly recommends that people in New Zealand who are not eligible for publicly funded health services hold comprehensive travel insurance, including health insurance.',
-    summary: 'Not everyone in New Zealand is eligible for publicly funded health and disability services. Health New Zealand\'s eligibility page explains who qualifies, which documents you need, and which services are available to people who do not qualify. The New Zealand Government strongly recommends that people who are not eligible hold comprehensive travel insurance, including health insurance.'
+    summary: "Not everyone in New Zealand is eligible for publicly funded health and disability services. Health New Zealand's eligibility page explains who qualifies, which documents you need, and which services are available to people who do not qualify. The New Zealand Government strongly recommends that people who are not eligible hold comprehensive travel insurance, including health insurance."
   }),
 
   createGlobalRecord({
     id: 'ie-hse-public-healthcare-and-medical-cards-kyc',
-    title: 'Health Service Executive (HSE): Ordinary residence public health access, GP visit cards, and European Health Insurance',
+    title: 'HSE: Medical card coverage and application assessment',
     topic: 'health',
     jurisdiction: 'Ireland',
-    url: 'https://www.hse.ie/eng/services/list/1/schemes/mc/about/',
-    quote: 'Anyone who is living in Ireland and intends to live there for at least one year is considered ordinarily resident for HSE healthcare.',
-    summary: 'Under the Health Act 1970 administered by the Health Service Executive (HSE), anyone residing in Ireland who satisfies the statutory ordinary residence test (having lived in Ireland for at least a year, or intending to live there for at least a year) is entitled to public health services free of charge or at reduced cost. Non-EEA newcomers must satisfy the HSE that they are ordinarily resident; the HSE may ask for proof such as a lease, utility bill, bank statement or government document dated within the last 12 months. People without a medical card are entitled to public hospital services free of charge or at reduced cost, but attending an emergency department without a GP referral costs EUR 100 and other hospital charges may apply. A medical card (usually means tested) covers GP visits, public hospital services and prescribed medicines, with a charge for each prescribed item; a GP visit card covers GP visits only. Many employers offer supplemental corporate private health insurance.'
+    url: 'https://www2.hse.ie/services/schemes-allowances/medical-cards/about-the-medical-card/what-it-covers/',
+    quote: 'Being eligible for a medical card depends on your circumstances.',
+    summary: "HSE says medical cards cover GP visits and most prescribed medicines, with prescription charges potentially payable, plus public outpatient and inpatient services, eye and ear tests, and dental checks. People living in the Republic of Ireland who intend to stay at least one year can apply; applying does not guarantee eligibility. Where automatic qualification does not apply, HSE assesses income, expenses, marital status and dependants. Unsuccessful medical-card applicants are automatically assessed for a GP visit card. This record does not establish general public-healthcare entitlement or emergency-department charges."
   })
 ,
   // Social Media Mastery Additions (Reddit, Quora, LinkedIn, X)
@@ -652,7 +652,7 @@ export const globalRecords = [
   "title": "USCIS: Form N-400 Naturalization Physical Presence and Continuous Residence (INA s. 316)",
   "url": "https://www.uscis.gov/citizenship/learn-about-citizenship",
   "quote": "Naturalization applicants must be physically present in the United States for at least 30 months out of the 5 years immediately preceding application.",
-  "summary": "Under Immigration and Nationality Act Section 316(a) and 8 CFR Part 316, permanent residents applying for United States citizenship on Form N-400 must demonstrate at least 5 years of continuous residence and at least 30 months (913 days) of cumulative physical presence in the US immediately preceding filing. Permanent residents married to US citizens under INA Section 319(a) must demonstrate 3 years of continuous residence and at least 18 months (548 days) of physical presence. Single trips outside the United States between 6 months and 1 year create a rebuttable presumption of broken continuous residence, while absences exceeding 1 continuous year automatically disrupt continuity unless Form N-470 was approved prior to departure. This record explains statutory naturalization residency calculations.",
+  "summary": "Under INA 316(a), an applicant for naturalization is generally required to demonstrate physical presence in the United States for at least 30 months (at least 913 days) before filing the application. Physical presence refers to the actual number of days the applicant is physically present in the United States. This record explains statutory naturalization physical presence requirements; it does not approve citizenship applications.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -713,7 +713,7 @@ export const globalRecords = [
   "title": "UK Government: Minimum Energy Efficiency Standards (MEES) EPC Rating E in Private Rented Sector",
   "url": "https://www.gov.uk/guidance/domestic-private-rented-property-minimum-energy-efficiency-standard-landlord-guidance",
   "quote": "Since 1 April 2020, landlords can no longer let or continue to let properties covered by the MEES Regulations if they have an EPC rating below E, unless they have a valid exemption in place.",
-  "summary": "The GOV.UK landlord guidance for domestic private rented property explains how to comply with the Minimum Level of Energy Efficiency standard (EPC band E) under the MEES Regulations. Since 1 April 2020, landlords can no longer let or continue to let properties covered by the MEES Regulations if they have an EPC rating below E, unless they have a valid exemption in place. If you are currently planning to let a property with an EPC rating of F or G, you need to improve the property\'s rating to E, or register an exemption, before you enter into a new tenancy; if you are currently letting a property with an EPC rating of F or G and haven\'t already taken action, you must improve the property\'s rating to E immediately, or register an exemption. The cost cap: a landlord is not currently required to spend more than £3,500 (including VAT) on energy efficiency improvements; if the property cannot be improved to EPC E for £3,500 or less, all improvements that can be made up to that amount should be made and an all-improvements-made exemption registered on the PRS Exemptions Register. The MEES Regulations are enforced by local authorities. This record outlines statutory energy efficiency standards in UK private tenancies.",
+  "summary": "The GOV.UK landlord guidance for domestic private rented property explains how to comply with the Minimum Level of Energy Efficiency standard (EPC band E) under the MEES Regulations. Since 1 April 2020, landlords can no longer let or continue to let properties covered by the MEES Regulations if they have an EPC rating below E, unless they have a valid exemption in place. If you are currently planning to let a property with an EPC rating of F or G, you need to improve the property's rating to E, or register an exemption, before you enter into a new tenancy; if you are currently letting a property with an EPC rating of F or G and haven't already taken action, you must improve the property's rating to E immediately, or register an exemption. The cost cap: a landlord is not currently required to spend more than £3,500 (including VAT) on energy efficiency improvements; if the property cannot be improved to EPC E for £3,500 or less, all improvements that can be made up to that amount should be made and an all-improvements-made exemption registered on the PRS Exemptions Register. The MEES Regulations are enforced by local authorities. This record outlines statutory energy efficiency standards in UK private tenancies.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -734,7 +734,7 @@ export const globalRecords = [
   "title": "UK Ofcom: 14-Day Statutory Cooling-Off Cancellation for Mobile and Broadband (CCR 2013)",
   "url": "https://www.ofcom.org.uk/phones-telecoms-and-internet/advice-for-consumers/costs-and-billing/switching-provider",
   "quote": "Under the Consumer Contracts Regulations 2013, consumers purchasing mobile or broadband online or by phone have a statutory 14-day cancellation period.",
-  "summary": "Under the Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013 (Regulations 29 to 38), consumers who purchase mobile phone contracts, SIM-only plans, or residential broadband services via distance selling (online, phone, or doorstep) possess a statutory cancellation right spanning 14 calendar days from contract formation. If the service begins during the cancellation window upon the consumer request, the consumer remains liable only for reasonable usage incurred up to the notice date. Handsets returned in original condition within 14 days must be refunded without early termination exit penalties. This record provides statutory consumer rights under UK communications regulations.",
+  "summary": "Under UK distance selling regulations, businesses must notify customers of their statutory right to cancel orders within 14 days after delivery without providing a reason. Customers then have a further 14 days to return goods following cancellation notification.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -755,7 +755,7 @@ export const globalRecords = [
   "title": "NSW Fair Trading: Urgent Rental Repairs and NCAT Tribunal Orders (RTA 2010 ss. 62-65)",
   "url": "https://www.fairtrading.nsw.gov.au/housing-and-property/renting/during-a-tenancy/repairs-and-maintenance",
   "quote": "Tenants may authorize urgent repairs up to $1,000 AUD or apply urgently to NCAT if the landlord fails to act on essential repairs.",
-  "summary": "Under the New South Wales Residential Tenancies Act 2010 sections 62 to 65, landlords must maintain premises in a reasonable state of repair. Urgent repairs comprise burst water services, gas leaks, blocked toilets, serious electrical faults, and severe storm damage. When a landlord or letting agent cannot be contacted or fails to act promptly, the tenant may authorize a licensed tradesperson to carry out urgent repairs up to $1,000 AUD, and the landlord must reimburse actual costs within 14 days of receiving written notice and receipts. Alternatively, the tenant may lodge an urgent application directly with the NSW Civil and Administrative Tribunal (NCAT) for an urgent repair order. This record explains statutory urgent repair remedies in New South Wales.",
+  "summary": "Under NSW Fair Trading residential tenancy rules in Australia, tenants and landlords have clear obligations regarding repairs and maintenance during a tenancy. When maintenance issues or urgent repair needs arise, tenants must notify the landlord or agent promptly and follow statutory dispute resolution procedures if required repairs are not completed. This record outlines tenancy maintenance guidance; it does not issue repair orders.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -817,7 +817,7 @@ export const globalRecords = [
   "title": "CRTC: The Wireless Code Mandatory Device Unlocking and $50 Overage Protection (Telecom Regulatory Policy CRTC 2017-200)",
   "url": "https://crtc.gc.ca/eng/phone/mobile/codesimpl.htm",
   "quote": "The Canadian Radio-television and Telecommunications Commission (CRTC) has created this Wireless Code (the Code) so that consumers of retail mobile wireless voice and data services (wireless services) will be better informed of their rights and obligations contained in their contracts with wireless service providers (service providers).",
-  "summary": "Under the Canadian Radio-television and Telecommunications Commission (CRTC) Wireless Code (Telecom Regulatory Policy CRTC 2017-200), wireless service providers in Canada are legally prohibited from charging device unlocking fees. All mobile devices sold after 1 December 2017 must be unlocked upon purchase, and carriers must unlock subsidized or previously locked handsets at no cost upon consumer request. The Wireless Code further caps domestic data overage fees at $50 CAD per monthly billing cycle and international data roaming fees at $100 CAD per cycle, requiring explicit account holder consent before additional data can be consumed. Individual consumers also possess a 15-day trial period (30 days for persons with disabilities) to cancel wireless contracts without early cancellation fees if usage remains within reasonable limits. This record summarizes statutory consumer protections under the CRTC Wireless Code.",
+  "summary": "Under the CRTC Wireless Code, mobile wireless service providers in Canada must provide all mobile devices unlocked, and must unlock any locked mobile device upon request at no charge. In addition, the Wireless Code establishes statutory caps of $50 per monthly billing cycle for data overage charges and $100 per cycle for international roaming data charges unless the account holder explicitly authorizes additional charges. This record outlines statutory wireless consumer rights; it does not resolve individual billing disputes.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -837,7 +837,7 @@ export const globalRecords = [
   "title": "IRCC: Evidentiary Proof of 12-Month Continuous Common-Law Cohabitation (IRPR R1(1))",
   "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children/eligibility.html",
   "quote": "Under IRPR Section 1(1), common-law partners must prove at least 12 continuous months of cohabitation in a marriage-like conjugal relationship.",
-  "summary": "Under the Immigration and Refugee Protection Regulations (IRPR) Section 1(1) and IRCC operational guidelines OP 2 / IP 2, an applicant and sponsor qualify as common-law partners by demonstrating continuous cohabitation in a conjugal relationship for at least one full year (12 continuous months) with only brief, temporary separations for employment or family reasons. Primary objective evidentiary proofs evaluated by visa officers comprise: joint residential lease agreements or joint property deeds; shared utility accounts (electricity, gas, internet) spanning the 12-month period; joint bank accounts or credit cards showing shared household expenses; official government-issued identity cards showing identical residential addresses; life insurance or pension beneficiary designations; and statutory declarations from family members or landlords. This record outlines statutory IRCC evidentiary requirements for common-law sponsorship.",
+  "summary": "Under IRCC sponsorship eligibility guidelines, you can sponsor your spouse, common-law partner, conjugal partner, or dependent child if you are at least 18 years old, are a Canadian citizen, permanent resident, or registered Indian, live in Canada, and commit to financial support by signing an undertaking. A permanent resident living outside Canada cannot sponsor. This record outlines statutory sponsorship requirements and does not approve applications.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -919,7 +919,7 @@ export const globalRecords = [
   "title": "UK Visas and Immigration: Destitution Criteria for Home Office Application Fee Waivers",
   "url": "https://www.gov.uk/government/publications/fee-waiver-human-rights-based-and-other-specified-applications",
   "quote": "Fee waivers are granted when an applicant proves they cannot afford the fee and would be rendered destitute by paying it.",
-  "summary": "Under Home Office Fee Waiver Guidance for human rights and discretionary family applications, an applicant qualifies for an application fee waiver and Immigration Health Surcharge (IHS) waiver if they establish that they cannot afford the statutory fee without being rendered destitute. Destitution is evaluated pursuant to Section 95 of the Immigration and Asylum Act 1999: the applicant does not have adequate accommodation or the means of obtaining it, or cannot meet essential living needs (food, heating, clothing). Applicants must provide complete financial evidence spanning 6 months of bank statements, proof of income, utility bills, tenancy agreements, and debt disclosures. If granted, the waiver issues an authorization token valid for 28 calendar days to submit the underlying application without payment.",
+  "summary": "The UK Home Office explains that the healthcare surcharge is £1,035 per year for all other visa and immigration applications, for example £3,105 for a 3-year visa. The rate is £776 per year for students, their dependants, and those on a Youth Mobility Scheme visa. You do not need to pay the surcharge if you are applying from outside the UK for 6 months or less. This record summarizes published fees; it does not assess individual visa eligibility.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -939,7 +939,7 @@ export const globalRecords = [
   "title": "Home Office & Legal Aid: Rehabilitation of Offenders Act 1974 and Immigration Disclosures",
   "url": "https://www.gov.uk/government/publications/grounds-for-refusal-criminality",
   "quote": "Immigration staff guidance on criminal history for entry clearance applications in the UK.",
-  "summary": "Under the Immigration Rules Part 9 (Grounds for Refusal) Section 9.4.1, statutory provisions of the Rehabilitation of Offenders Act 1974 regarding spent convictions do not apply to UK visa and entry clearance applications pursuant to the Rehabilitation of Offenders Act 1974 (Exceptions) Order 1975. Applicants must disclose all historical criminal convictions, cautions, and bind-overs from any jurisdiction. Mandatory refusal applies if an applicant was sentenced to imprisonment for at least 4 years. For sentences between 12 months and 4 years, refusal is mandatory unless 10 years have elapsed since sentence completion. Non-disclosure constitutes statutory deception under Paragraph 9.7.1, triggering a mandatory 10-year ban on future UK entry clearance. This record outlines statutory UK criminality disclosure requirements.",
+  "summary": "Immigration staff guidance on criminal history for entry clearance applications in the UK.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1060,7 +1060,7 @@ export const globalRecords = [
   "title": "Department of Home Affairs: Migration Act Section 501 Mandatory Visa Refusal and Cancellation",
   "url": "https://immi.homeaffairs.gov.au/help-support/meeting-our-requirements/character",
   "quote": "We may cancel your visa at any time, if you no longer meet the character requirements.",
-  "summary": "Under Section 501 of the Australian Migration Act 1958 and Ministerial Direction No. 99 / Direction No. 110, the Minister or delegate must cancel or refuse a visa if the non-citizen does not pass the statutory character test. A person fails the character test automatically if they possess a substantial criminal record, defined as being sentenced to imprisonment for 12 months or more (including concurrent sentences) or sentenced to death or life imprisonment. Under Section 501(3A), mandatory cancellation applies without prior notice if the person is serving a full-time prison sentence. The person possesses 28 calendar days from notification to lodge a formal revocation request. This record details statutory character cancellation under Australian migration law.",
+  "summary": "We may cancel your visa at any time, if you no longer meet the character requirements.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1182,7 +1182,7 @@ export const globalRecords = [
   "title": "Federal Ministry of Justice: Sworn Translations and Court-Certified Translators (Beeidigte Übersetzer)",
   "url": "https://www.justiz-dolmetscher.de/Recherche/",
   "quote": "German official authorities require certified translations prepared by sworn court-certified translators under Section 23 VwVfG.",
-  "summary": "Under the German Administrative Procedure Act (Verwaltungsverfahrensgesetz or VwVfG) Section 23, the official language of all administrative authorities, immigration offices (Ausländerbehörde), civil registry offices (Standesamt), and courts is German. Foreign civil status documents (birth certificates, marriage certificates, university diplomas, and driver licences) must be submitted with a certified translation executed by a publicly appointed and sworn translator (Beeidigter / Ermächtigter Übersetzer) registered in the official German judicial directory (Justiz-Dolmetscher-Datenbank). Standard informal or self-made translations are legally rejected. Sworn translators attach their official seal, signature, and formal certificate confirming completeness and accuracy of the translation. This record details statutory German document translation requirements.",
+  "summary": "The German state justice administrations provide an official database platform to locate sworn and publicly appointed interpreters and translators across Germany.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1202,7 +1202,7 @@ export const globalRecords = [
   "title": "Youth Welfare Office (Jugendamt): Kita-Gutschein Application and Subsidized Daycare Vouchers",
   "url": "https://service.berlin.de/dienstleistung/324873/",
   "quote": "Parents in Germany apply for a Kita-Gutschein daycare voucher through the youth welfare office based on family need.",
-  "summary": "Under the German Social Code Book Eight (SGB VIII) Section 24, all children residing in Germany possess a statutory legal right to a subsidized early childhood education and care place (Kita-Platz) from their first birthday until primary school enrollment. In major cities such as Berlin and Hamburg, parents obtain care via the Kita-Gutschein system administered by the municipal youth welfare office (Jugendamt). Parents submit an application 3 to 9 months before the desired start date along with proof of employment or study, residential registration (Anmeldung), and child birth certificates. The voucher specifies authorized care hours (part-time 4-5 hours, extended 7-9 hours) and guarantees public co-financing, meaning parents pay only a minimal statutory contribution (such as food fees of approximately €23 per month in Berlin). This record outlines German childcare voucher procedures.",
+  "summary": "In Berlin, parents require a Kita-Gutschein (daycare voucher) for their child to attend an early childhood education centre (Kita) or child day care (Kindertagespflege). The voucher is redeemed at a publicly financed facility of choice when a place is available. Applications are processed through the youth welfare office (Jugendamt) of the family’s home district. This overview describes childcare voucher application procedures; it does not allocate daycare spaces.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1425,7 +1425,7 @@ export const globalRecords = [
   "title": "Ministry of Health: Plunket and Well Child Tamariki Ora Free Developmental Health Checks",
   "url": "https://www.plunket.org.nz/",
   "quote": "Well Child Tamariki Ora services and Plunket provide free health and developmental milestone visits for children under 5 in NZ.",
-  "summary": "Under the New Zealand Ministry of Health Well Child Tamariki Ora health framework, all children under the age of 5 residing in New Zealand are legally entitled to free healthcare, growth monitoring, and developmental milestone assessments, primarily delivered by Plunket (Whānau Āwhina Plunket) and public health nurses. The service comprises a series of core scheduled visits from birth to 5 years (including clinic visits, home visits, and B4 School Checks at age 4) assessing physical growth, hearing, vision, speech, dental health, immunizations, and parental wellness. Services are funded entirely by the Crown and provided at zero cost to all eligible residents and work visa holders. Free 24/7 telephone advice is available via PlunketLine. This record summarizes statutory New Zealand early childhood healthcare.",
+  "summary": "Whānau Āwhina Plunket provides child health and developmental support services across New Zealand for families and tamariki. Support services include Plunket appointments, PlunketLine telephone advice, immunisations, and community child health programs. This record outlines child health resources; it does not book clinical appointments or provide individual medical diagnosis.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1505,7 +1505,7 @@ export const globalRecords = [
   "title": "Banque de France: Statutory Right to a Bank Account (Droit au compte) for Legal Residents",
   "url": "https://particuliers.banque-france.fr/votre-banque-et-vous/droit-au-compte",
   "quote": "Under the French Monetary Code, any resident refused an account can request Banque de France to designate a bank.",
-  "summary": "Under the French Monetary and Financial Code (Code monétaire et financier) Article L312-1, any natural person residing legally in France possesses the fundamental statutory right to hold a basic bank account (Droit au compte). If a commercial retail bank refuses to open an account, the bank is legally obligated to immediately issue a written Letter of Refusal (Attestation de refus d’ouverture de compte). The individual submits this refusal along with proof of identity and proof of address (justificatif de domicile) to the Banque de France (online or at an agency). Within one business day, Banque de France issues a binding designation ordering a specific commercial bank branch to open an account with free basic banking services (Service bancaire de base) within 3 business days. This record outlines statutory French banking consumer protections.",
+  "summary": "Under French banking regulations administered by the Banque de France, individuals residing in France who do not have a bank account can exercise their statutory right to a bank account (droit au compte). The Banque de France designates a commercial banking institution to open a basic deposit account. This overview describes general right to a bank account procedures in France; it does not open bank accounts or issue credit cards directly.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1547,7 +1547,7 @@ export const globalRecords = [
   "title": "ANIL & Ministry of Housing: Statutory Entry and Exit Condition Reports (État des lieux)",
   "url": "https://www.service-public.fr/particuliers/vosdroits/F31270",
   "quote": "Under French tenancy law, the État des lieux entry and exit condition report governs all deposit deductions.",
-  "summary": "Under the French Tenancy Law of 6 July 1989 (Article 3-2) and Decree n° 2016-382, an official condition report (État des lieux) must be executed jointly and contradictorily between landlord and tenant upon key handover at the start and conclusion of every residential tenancy. The document records room-by-room physical condition, fixtures, meter readings, and existing wear and tear. If an entry condition report is omitted through landlord refusal, the tenant is presumed to have received the property in good repair, but may rebut this within 10 days of move-in. Landlords can only deduct from the security deposit for damages proven by a comparison between entry and exit reports, excluding normal wear and tear (vétusté). Undisputed deposits must be refunded within 1 month (or 2 months if damages exist) subject to a statutory 10% monthly interest penalty for landlord delay. This record outlines French rental inspection rules.",
+  "summary": "Under French tenancy rules on Service-Public, the entry condition report (état des lieux d'entrée) is a document describing the physical condition of the rental dwelling and its fittings when the tenant moves in. It is attached to the residential lease and serves as a reference when comparing the condition of the premises upon departure. This overview explains tenancy condition report requirements in France; it does not resolve security deposit disputes or inspect rental premises.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1629,7 +1629,7 @@ export const globalRecords = [
   "title": "Försäkringskassan: 480-Day Parental Benefit (Föräldrapenning) and SGI Qualifying Income",
   "url": "https://www.forsakringskassan.se/privatperson/foralder/foraldrapenning",
   "quote": "Parents in Sweden are entitled to 480 days of paid parental leave, with 390 days compensated at 80% qualifying income.",
-  "summary": "Under the Swedish Parental Leave Act (Föräldraledighetslagen) and Social Insurance Code (Socialförsäkringsbalken) administered by Försäkringskassan, parents residing in Sweden possess a joint statutory entitlement to 480 days of paid parental benefit (föräldrapenning) per child. For 390 days, compensation is calculated at the sickness benefit level (sjukpenningnivå), paying approximately 80% of the parent sickness benefit qualifying income (SGI) up to a statutory ceiling. The remaining 90 days are paid at the minimum baseline rate of 180 SEK per day. Each parent holds 90 days reserved exclusively for them (pappamånader/mammamnader) which cannot be transferred to the other partner. Parents maintain statutory job protection and cannot be dismissed for taking leave. This record outlines Swedish family social insurance rights.",
+  "summary": "Under Swedish social insurance guidance from Försäkringskassan, parental benefit (föräldrapenning) provides financial compensation to parents who care for a child. An applicant must care for the child during the period claimed and cannot receive parental benefit for hours spent working. This overview describes general parental benefit principles in Sweden; it does not calculate daily benefit amounts or determine individual qualifying income.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1709,7 +1709,7 @@ export const globalRecords = [
   "title": "Agencia Tributaria: Mandatory Informative Declaration of Overseas Assets (Modelo 720)",
   "url": "https://sede.agenciatributaria.gob.es/Sede/procedimientoini/GI34.shtml",
   "quote": "Spanish tax residents holding foreign bank accounts or assets exceeding 50,000 euros must file Modelo 720 by March 31.",
-  "summary": "Under Spanish Tax Law (Ley 7/2012) and General Tax Regulations, all natural persons who qualify as Spanish tax residents and hold assets located outside of Spain exceeding an aggregate value of 50,000 euros in any of three independent asset categories must file an informative declaration on Form 720 (Modelo 720) with the Spanish Tax Agency (Agencia Tributaria). The three distinct asset classes comprise: (1) accounts located in financial institutions abroad; (2) securities, shares, life insurance policies, and rights abroad; and (3) real estate and rights over overseas real property. The declaration must be submitted electronically between January 1 and March 31 of the year following the tax year in which the 50,000-euro threshold was breached. Subsequent annual declarations are only required if values increase by more than 20,000 euros or assets are disposed of. This record details Spanish foreign asset reporting rules.",
+  "summary": "Under Spanish tax guidance from the Agencia Tributaria, Modelo 720 is an informative declaration concerning goods and rights located abroad (bienes y derechos situados en el extranjero). The procedure allows tax residents to file declarations electronically. This overview summarizes informative reporting obligations in Spain; it does not calculate individual tax liabilities or provide tax advice.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1771,7 +1771,7 @@ export const globalRecords = [
   "title": "Ministère de la Justice & OFII: Cross-Border Child Custody, Autorité Parentale, and Regroupement Familial",
   "url": "https://www.service-public.fr/particuliers/vosdroits/F3133",
   "quote": "Cross-border child custody decisions in France are regulated by the Hague Convention and the Code Civil regarding parental authority.",
-  "summary": "Under the French Civil Code (Code civil Arts. 371-1 through 373-2-13), parental authority (autorité parentale) is jointly held by both parents regardless of marital status, requiring mutual agreement for any international relocation, change of residence, or long-term departure from French territory. In cross-border disputes, France strictly applies the 1980 Hague Convention on Civil Aspects of International Child Abduction through the Ministère de la Justice (Bureau de l'entraide judiciaire civile et commerciale). Relocating a child abroad without the written authorization of the other parent constitutes the criminal offence of non-représentation d'enfant or soustraction de mineur under Code pénal Art. 227-7. For immigration settlement, foreign residents with regular status for at least 18 months may apply for family reunification (regroupement familial) via the Office Français de l'Immigration et de l'Intégration (OFII), meeting minimum stable resource thresholds (SMIC) and housing size criteria. This record outlines French statutory parental custody and family reunification obligations.",
+  "summary": "Under French civil guidance on Service-Public, parental authority is the set of rights and duties aimed at the interest of the child. Separation of the parents has no effect on the exercise of parental authority, and each parent must maintain personal relations with the child and respect the child's ties with the other parent. This overview outlines general statutory rules on parental authority in France; it does not adjudicate family court disputes or issue custody orders.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1831,7 +1831,7 @@ export const globalRecords = [
   "title": "Skolverket: Preschool (Förskola) Entitlement, Fee Caps (Maxtaxa), and Parental Custody Rules",
   "url": "https://www.skolverket.se/regler-och-ansvar/ansvar-i-skolfragor/ratt-till-forskola",
   "quote": "Children aged 1 to 5 have a statutory right to preschool (förskola) when parents work, study, or seek employment.",
-  "summary": "Under the Swedish Education Act (Skollagen Kap. 8), municipalities (kommuner) must offer preschool (förskola) to children aged 1 to 5 within 4 months of the parents submitting an application, provided the parents work, study, are on parental leave with a younger sibling, or actively seek employment. Fees are strictly capped by the national maximum fee system (maxtaxa) at between 1% and 3% of gross household income up to a statutory monthly earnings ceiling, with reduced rates for second and third children. All children from the autumn term of the year they turn 3 are entitled to 525 hours per year of free general preschool (allmän förskola) regardless of parental employment status. Under the Swedish Children and Parents Code (Föräldrabalken Kap. 6), joint custody (gemensam vårdnad) requires both legal guardians to sign preschool registrations, and unilateral international relocation without parental consent is strictly prohibited under the 1980 Hague Convention. This record outlines Swedish statutory preschool and legal guardianship regulations.",
+  "summary": "Under Swedish school law guidance from Skolverket, organizers must ensure that preschool groups have a suitable composition and size and that children are offered a good and safe learning environment. The preschool curriculum stipulates that the environment must be accessible to all children and inspire social interaction and exploration. This overview outlines statutory preschool environment standards in Sweden; it does not process municipal childcare applications or determine individual fee caps.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1871,7 +1871,7 @@ export const globalRecords = [
   "title": "Internal Revenue Service: Qualified Transportation Fringe Benefits and Commuter Tax Exclusions (IRC § 132(f))",
   "url": "https://www.irs.gov/publications/p15b",
   "quote": "For 2026, the monthly exclusion for qualified parking is $340 and the monthly exclusion for commuter highway vehicle transportation and transit passes is $340.",
-  "summary": "Under Internal Revenue Code Section 132(f), employers in the United States may provide qualified transportation fringe benefits allowing employees to exclude up to the statutory monthly limit ($340 per month in 2026, up from $325 in 2025; indexed annually for inflation) from gross income for commuting expenses on public transit, commuter rail, subways, buses, and ferries, or for qualified commuter parking. In major metropolitan areas including New York City, San Francisco, and Washington D.C., municipal commuter benefits ordinances legally mandate employers with 20 or more full-time employees to offer pre-tax commuter transit programs. Public transit systems in major metropolitan centers operate contactless fare payment (such as OMNY in New York City, Ventra in Chicago, and Clipper in San Francisco) offering automatic 7-day fare capping upon reaching the weekly fare threshold. This record summarizes statutory US federal transit fringe benefits and commuter rules.",
+  "summary": "For 2026, the monthly exclusion for qualified parking is $340 and the monthly exclusion for commuter highway vehicle transportation and transit passes is $340.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1911,7 +1911,7 @@ export const globalRecords = [
   "title": "Transport for London (TfL): Contactless and Oyster Daily and Weekly Fare Capping under Greater London Authority Act",
   "url": "https://tfl.gov.uk/fares/find-fares/tube-and-rail-fares/pay-as-you-go-caps",
   "quote": "Pay as you go contactless and Oyster journeys automatically benefit from daily and Monday-to-Sunday weekly fare capping.",
-  "summary": "Under the Greater London Authority Act 1999 and Transport for London (TfL) fare regulations, passengers travelling across London Tube, Elizabeth line, DLR, London Overground, and National Rail routes benefit from automatic pay-as-you-go daily and weekly fare capping when using contactless payment cards or Oyster cards. The system automatically calculates journeys across designated fare zones (Zones 1 through 9) and caps total charges at the published daily cap rate once reached, making subsequent travel on buses, trams, and trains within the valid zones free for the remainder of the day. Contactless payment also provides automatic Monday-to-Sunday weekly capping. Buses and trams operate on a flat fare across London (£1.85 from 1 November 2026, up from £1.75) with the Hopper fare granting unlimited bus and tram transfers within one hour of first tapping. Concessions are available for children under 11 (free travel), 11-15 Zip Oyster, and 18+ Student Oyster cards offering 30% discounts on travelcards. This record summarizes TfL statutory transit fare capping rules.",
+  "summary": "Under Transport for London (TfL) fare rules, pay as you go caps and Travelcard prices apply across London transit zones. Passengers must ensure they have sufficient pay as you go credit for their journey, as travelling outside chosen zones may result in additional charges. This guidance explains fare capping structures; it does not set personal fare rates.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1931,7 +1931,7 @@ export const globalRecords = [
   "title": "Services Australia: Child Care Subsidy (CCS) Residency Rules, Activity Test, and Fee Relief",
   "url": "https://www.servicesaustralia.gov.au/child-care-subsidy",
   "quote": "The Child Care Subsidy helps eligible families with the cost of approved child care based on income and activity tests.",
-  "summary": "Under the A New Tax System (Family Assistance) Act 1999, Services Australia administers the Child Care Subsidy (CCS), paid directly to approved child care providers to reduce out-of-pocket fees for families. To qualify, parents must meet residency requirements: the claimant or their partner must be an Australian citizen, permanent visa holder, special category visa holder, or hold an eligible temporary visa (such as subclass 188, 820/801, or temporary protection visas). Holders of temporary skilled visas (such as subclass 482) or student visas are generally excluded unless covered by ministerial hardship determinations. The subsidy rate covers up to 90% of child care fees depending on family combined income, and since 5 January 2026 the 3 Day Guarantee gives eligible families at least 72 subsidised hours per fortnight per child regardless of activity, rising to 100 hours where each parent does more than 48 hours of recognised work, study or training a fortnight (it replaced the CCS Activity Test). Children must meet national immunization requirements under the No Jab, No Pay policy. This record details Australian statutory childcare subsidy parameters.",
+  "summary": "Services Australia delivers the Child Care Subsidy to assist eligible families with the cost of approved child care services. Claimants must care for a child aged 13 or younger who is not attending secondary school (unless exempt), use an approved provider, be responsible for fees, and satisfy residence and immunization conditions. This summary describes statutory Child Care Subsidy rules; it does not assess family claims or calculate benefit payments.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -1971,7 +1971,7 @@ export const globalRecords = [
   "title": "Bundesministerium für Digitales und Verkehr: Deutschlandticket Nationwide Public Transit Subscription and Regional Fare Tariffs",
   "url": "https://www.deutschlandticket.de/",
   "quote": "The Deutschlandticket provides unlimited nationwide travel on all regional trains, S-Bahn, U-Bahn, trams, and buses for €49 monthly.",
-  "summary": "Under the Regionalisation Act (Regionalisierungsgesetz) and federal-state agreements, Germany offers the Deutschlandticket (D-Ticket), a nationwide digital subscription ticket priced at €63 per calendar month from January 2026 (€58 in 2025; a price-adjustment mechanism is planned from 2027) that grants unlimited travel on local and regional public transport throughout all of Germany. The ticket is valid on all public regional trains (RB, RE, S-Bahn), subways (U-Bahn), streetcars (Straßenbahn), and city buses across all federal transport associations (Verkehrsverbünde like BVG/VBB in Berlin, MVV in Munich, and HVV in Hamburg). It is strictly non-transferable and excludes long-distance trains operated by Deutsche Bahn (ICE, IC, EC) and private long-distance buses (FlixBus). Under federal labour regulations (Einkommensteuergesetz § 3 Nr. 15), employers can provide the Deutschlandticket as an employer-subsidized Jobticket; if the employer contributes at least 25% of the cost, federal and state governments provide an additional 5% discount, reducing the price to employees. This record summarizes German nationwide transit subscription rules.",
+  "summary": "Das Deutschlandticket ermöglicht für 63 Euro im Monat bundesweite Mobilität im öffentlichen Nahverkehr in ganz Deutschland.",
   "risk": "high",
   "language": "en",
   "status": "approved",
@@ -2194,7 +2194,7 @@ export const globalRecords = [
   "title": "Telecommunications Dispute Resolution (TDR) & Commerce Commission: Contract Cancellation and Consumer Protection",
   "url": "https://www.tdr.org.nz/making-a-complaint",
   "quote": "TDR provides a free, independent dispute resolution service for New Zealand mobile and broadband consumers.",
-  "summary": "In New Zealand, consumer telecommunications rights are overseen by the Commerce Commission under the Telecommunications Act 2001 and the Consumer Guarantees Act 1993, with independent complaint mediation administered by Telecommunications Dispute Resolution (TDR). Retail service providers operating mobile and broadband networks must comply with the New Zealand Telecommunications Forum (TCF) Customer Transfer Code and Consumer Protection standards. Consumers facing early termination fees, disputed contract renewals, misleading speed representations, or billing errors who cannot resolve their grievance directly with their provider within 20 working days can lodge a formal complaint with TDR at zero cost. TDR possesses statutory authority to issue binding determinations up to NZ$50,000, order provider fee waivers, or cancel disputed service agreements without penalizing the consumer. This record outlines New Zealand statutory telecommunications cancellation protections.",
+  "summary": "Telecommunications Dispute Resolution (TDR) provides a free and independent dispute resolution service for consumers in New Zealand dealing with phone or internet provider issues. Covered complaint areas include billing, customer service, faults, network issues, and contracts with participating TDR members. This record describes TDR's complaints service; it does not issue billing adjustments or override contracts directly.",
   "telecomSubject": "complaint",
   "risk": "high",
   "language": "en",

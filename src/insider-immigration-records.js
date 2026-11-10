@@ -566,47 +566,47 @@ export const insiderImmigrationRecords = [
   // ── 3. EXPIRED PR CARD LAND BORDER ENTRY (IRPA s.19(2)) ──────────────────────
   createRecord({
     id: 'cbsa-expired-pr-card-land-border-entry',
-    title: 'CBSA: Right of entry for permanent residents with expired PR cards at land border (IRPA s.19(2))',
+    title: 'IRCC: Permanent resident status, 730-day residency rule, and expired PR card',
     topic: 'employment',
     jurisdiction: 'CA',
-    url: 'https://www.cbsa-asfc.gc.ca/travel-voyage/pr-rp-eng.html',
-    quote: 'A permanent resident of Canada has the right to enter and remain in Canada at any port of entry once identity and status are established.',
-    summary: 'Under Immigration and Refugee Protection Act (IRPA) section 19(2), a Canadian permanent resident has an absolute statutory right of entry into Canada at any Port of Entry upon establishing their identity. While commercial air, rail, and sea carriers are legally required under section 148 to deny boarding to passengers without an unexpired PR card or Permanent Resident Travel Document (PRTD), a permanent resident returning to Canada via a private vehicle or on foot at a US-Canada land border can present an expired PR card or Confirmation of Permanent Residence (COPR) with their passport. CBSA officers verify status electronically and cannot refuse entry, though residency obligations (730 days in 5 years) remain subject to review. This record does not replace a valid PR card.',
+    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/new-immigrants/pr-card/understand-pr-status.html',
+    quote: "To keep your PR status, you must have been in Canada for at least 730 days during the last five years. These 730 days don't need to be continuous. Some of your time outside Canada may count towards the 730 days you need.",
+    summary: 'Under Canadian immigration rules, you do not lose your permanent resident status when your PR card expires. To keep your PR status, you must have been in Canada for at least 730 days during the last five years (these 730 days do not need to be continuous). If you travel outside Canada without a valid PR card, you must apply for a permanent resident travel document before returning on a commercial vehicle. This record does not determine individual status.',
     risk: 'high'
   }),
 
   // ── 4. FLAGPOLING RESTRICTIONS & PGWP BAN ────────────────────────────────────
   createRecord({
     id: 'cbsa-flagpoling-restrictions-and-pgwp-ban',
-    title: 'CBSA: Border flagpoling restrictions and PGWP land border prohibition',
+    title: 'IRCC: How to apply for a post-graduation work permit (PGWP)',
     topic: 'employment',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/news/2024/06/canada-ends-flagpoling-for-post-graduation-work-permits.html',
-    quote: 'Effective June 21, 2024, foreign nationals can no longer apply for a post-graduation work permit (PGWP) at the border.',
-    summary: 'Foreign nationals are prohibited from applying for a Post-Graduation Work Permit (PGWP) at Canadian land ports of entry (flagpoling); PGWP applications must be submitted online inside Canada. For other eligible temporary permit applications, CBSA restricts flagpoling services to designated ports of entry during specific days of the week and limited operating hours (such as Tuesdays, Wednesdays, and Thursdays with strict daily applicant quotas at Southern Ontario bridges). Applicants who flagpole exit to the US and receive an administrative refusal from US Customs and Border Protection (CBP) before returning to the Canadian border post. This record does not process work permit applications.'
+    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/apply.html',
+    quote: 'In most cases, you must apply online for a PGWP. Step 1: Make sure you have what you need',
+    summary: 'Under IRCC guidelines, in most cases applicants must apply online for a post-graduation work permit (PGWP). Applicants must prepare electronic copies of documents and a valid payment card. This record does not issue work permits or decide applications.'
   }),
 
   // ── 5. NON-ACCOMPANYING FAMILY PERMANENT BAR (IRPR 117(9)(d)) ────────────────
   createRecord({
     id: 'ircc-family-class-exclusion-117-9-d',
-    title: 'IRCC: Permanent family class sponsorship exclusion for unexamined dependents (IRPR s.117(9)(d))',
+    title: 'IRCC: Family class sponsorship exclusions and unexamined family members (IRPR s.117(9)(d))',
     topic: 'family',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/permanent-residence/non-economic-classes/family-class-determining-spouse/family-members-not-declared.html',
-    quote: 'A foreign national shall not be considered a member of the family class by virtue of their relationship to a sponsor if the foreign national was a non-accompanying family member and was not examined.',
-    summary: 'Under Immigration and Refugee Protection Regulations (IRPR) section 117(9)(d), if a family member (spouse, common-law partner, or dependent child) was not declared or was declared as non-accompanying and not medically examined at the time the sponsor applied for and obtained permanent residence, that family member is excluded from the Family Class and cannot be sponsored, unless an officer determined they did not need to be examined (section 117(10)). Omitting a dependent to expedite processing or save fees can bar that person from family sponsorship permanently; the remaining route is an exceptional, discretionary Humanitarian and Compassionate (H&C) application under IRPA section 25(1). The temporary public policy that allowed certain undeclared family members to be sponsored ended on 10 September 2026 and now applies only to eligible applications received from 31 May 2019 to 10 September 2026. This record does not adjudicate family class applications.'
+    quote: "Family members who aren't declared and examined are excluded from the family class, which means you can't sponsor them at a later date.",
+    summary: 'Under IRCC family sponsorship rules, family members who are not declared and examined when applying for permanent residence are excluded from the family class, which means you cannot sponsor them at a later date. Failing to declare all family members can also place permanent resident status at risk. This overview outlines statutory family class declaration rules; it does not adjudicate sponsorship applications.'
   }),
 
   // ── 6. RTA SECTION 5(i) SHARED KITCHEN EXEMPTION ─────────────────────────────
   createRecord({
     id: 'ontario-rta-section-5-shared-kitchen-exemption',
-    title: 'Ontario RTA: Exemption for accommodation sharing kitchen or bathroom with owner (s.5(i))',
+    title: 'LTB: Residential Tenancies Act exemptions for shared kitchen or bathroom',
     topic: 'housing',
     jurisdiction: 'ON',
     housingSubject: 'agreement',
-    url: 'https://www.ontario.ca/laws/statute/06r17',
-    quote: 'This Act does not apply with respect to living accommodation whose occupant is required to share a bathroom or kitchen facility with the owner, spouse, child or parent.',
-    summary: 'Under Ontario Residential Tenancies Act (RTA) section 5(i), the Act does not apply to living accommodations where the occupant is required to share a kitchen or bathroom facility with the property owner, the owner spouse, child, or parent who resides in the building. Occupants in shared living arrangements are classified as common-law boarders or roommates rather than statutory tenants; they possess no Landlord and Tenant Board (LTB) jurisdiction, no statutory rent increase protections, and no protection against locks being changed upon reasonable notice. Tenancy dispute notices (Forms T1, T2, N12) cannot be filed with the LTB for exempt accommodations. This record does not resolve roommate disputes or enforce eviction orders.'
+    url: 'https://tribunalsontario.ca/documents/ltb/Brochures/A%20Guide%20to%20the%20Residential%20Tenancies%20Act.html',
+    quote: 'The Act does not apply if the tenant must share a kitchen or bathroom with the landlord.',
+    summary: 'Under the Landlord and Tenant Board (LTB) guide to the Ontario Residential Tenancies Act, the Act does not apply if the tenant must share a kitchen or bathroom with the landlord. In these exempt shared living arrangements, standard statutory tenancy protections, rent increase guidelines, and LTB dispute resolution processes do not apply. This record outlines statutory exemptions; it does not adjudicate roommate disputes.'
   }),
 
   // ── 7. POST-2018 RENT CONTROL VERIFICATION (RTA s.6.1) ───────────────────────
@@ -624,45 +624,45 @@ export const insiderImmigrationRecords = [
   // ── 8. TFSA NON-RESIDENT 1% PENALTY TAX (ITA s.207.02) ───────────────────────
   createRecord({
     id: 'cra-tfsa-non-resident-contribution-penalty',
-    title: 'CRA: Tax-Free Savings Account (TFSA) non-resident contribution penalty tax (ITA s.207.03)',
+    title: 'CRA: TFSA non-resident contribution penalty tax',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/who-open-a-tfsa.html',
-    quote: 'Contributions made while you are a non-resident of Canada are subject to a 1% per month tax for each month that the contribution stays in the account.',
-    summary: 'Under the Income Tax Act (ITA), individuals accumulate Tax-Free Savings Account (TFSA) contribution room only for calendar years in which they were at least 18 years of age, possessed a valid Social Insurance Number (SIN), and were a factual tax resident of Canada. Any contribution made while a non-resident is taxed at 1% per month for as long as it stays in the account (ITA s.207.03), until the whole contribution is withdrawn or the person becomes resident again; contributions above available room are taxed separately at 1% per month on the highest excess amount (ITA s.207.02). Automated CRA My Account portals frequently display incorrect retroactive room prior to processing a newcomer first annual tax return. Taxpayers who contributed by mistake should withdraw the full contribution, file Form RC243 (TFSA Return) and Schedule B by June 30 of the following year, and can ask the CRA to waive or cancel the tax if it arose from a reasonable error. This record does not calculate tax liabilities.'
+    url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/owing-tax/non-resident.html',
+    quote: 'Non-resident contributions are taxed in Canada at a rate of 1% per month for as long as the contribution remains in the account.',
+    summary: 'Under CRA rules, non-resident contributions to a Tax-Free Savings Account (TFSA) are taxed in Canada at a rate of 1% per month for as long as the contribution remains in the account. The 1% per month tax applies until the full contribution is withdrawn or the person becomes a Canadian tax resident. This record reports CRA tax rules; it does not assess individual tax liabilities.'
   }),
 
   // ── 9. CRA COST BASE STEP-UP AT FMV (ITA s.128.1) ────────────────────────────
   createRecord({
     id: 'cra-cost-base-step-up-landing-fmv',
-    title: 'CRA: Deemed acquisition of foreign property at Fair Market Value on becoming resident (ITA s.128.1)',
+    title: 'CRA: Deemed acquisition of foreign property at Fair Market Value on becoming resident',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants.html',
-    quote: 'When you become a resident of Canada, you are considered to have acquired your capital property at a cost equal to its fair market value on the date you became a resident.',
-    summary: 'Under Income Tax Act (ITA) section 128.1(1)(b), when an individual becomes a tax resident of Canada, they are deemed to have disposed of and immediately reacquired all their global capital property (foreign real estate, publicly traded shares, mutual funds, and cryptocurrency) at its Fair Market Value (FMV) on the exact date residency is established. This statutory cost base step-up ensures Canada does not tax capital gains that accrued prior to immigration; capital gains tax applies only to appreciation occurring after the Canadian landing date. Newcomers should obtain written independent appraisals, property valuations, and broker statements establishing FMV on their arrival date. This record does not calculate capital gains or provide tax advice.'
+    url: 'https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants/completing-return-newcomers.html',
+    quote: 'Property you owned before you arrived in Canada If you owned certain property at the time that you immigrated to Canada, the CRA considers you to have sold the property and to have immediately reacquired it at a cost equal to the fair market value (FMV) on the date that you became a resident of Canada. This is a deemed disposition. Your property could include items such as shares, jewellery, paintings or a collection.',
+    summary: 'Under CRA rules for property owned before arriving in Canada, if you owned certain property when you immigrated, the CRA considers you to have sold the property and immediately reacquired it at a cost equal to its fair market value (FMV) on the date you became a resident of Canada. This deemed disposition establishes a new cost base step-up, meaning capital gains tax applies only to appreciation after arrival. You should keep a record of the FMV of your property on the arrival date. This record does not calculate capital gains or prepare tax returns.'
   }),
 
   // ── 10. PARENTAL WIRE GIFTS & DEED OF GIFT ───────────────────────────────────
   createRecord({
     id: 'fintrac-overseas-parental-gift-deed',
-    title: 'FINTRAC & CRA: Foreign parental gift wires and gift documentation',
+    title: 'CRA & FINTRAC: Tax treatment of personal gifts, parental wire transfers, and documentation',
     topic: 'money',
     jurisdiction: 'CA',
-    url: 'https://fintrac-canafe.canada.ca/reporting-declaration/rpt/eft-eng',
-    quote: 'Reporting entities must report electronic funds transfers of $10,000 CAD or more sent or received across borders within 15 days.',
-    summary: 'Canada imposes no gift tax, inheritance tax, or wealth tax on genuine monetary transfers received from family members abroad. While incoming foreign wire transfers of $10,000 CAD or more are automatically reported by financial institutions to FINTRAC under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act (PCMLTFA), a genuine gift is generally not taxable income to the recipient, although income later earned on the money is taxable. To reduce the risk of bank anti-money laundering (AML) delays or CRA questions, recipients should keep a signed gift letter or deed (no specific form is required by law) from the parents confirming the transfer is a non-repayable gift, alongside foreign bank statements showing legitimate source of funds. Splitting transfers to avoid reporting is an offence (structured financial transactions, PCMLTFA s.77.3). This record does not verify banking compliance.'
+    url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/amounts-that-taxed.html',
+    quote: 'You do not have to report certain non-taxable amounts as income, including: lottery winnings of any amount, unless the prize can be considered income from employment, a business or property, or a prize for achievement most gifts and inheritances',
+    summary: 'Under CRA guidelines, individuals do not have to report certain non-taxable amounts as income, including most personal gifts and inheritances. While receiving a gift or parental wire transfer is generally not taxable income in Canada, recipients should keep documentation such as a deed of gift or bank records to satisfy banking and tax inquiries. This overview describes personal income tax rules; it does not provide legal representation or audit defense.'
   }),
 
   // ── 11. AUTO INSURANCE FOREIGN EXPERIENCE LETTER (FSRA) ─────────────────────
   createRecord({
     id: 'fsra-auto-insurance-foreign-experience-letter',
-    title: 'FSRA: Auto insurance rate discounts with foreign Claims-Free Letter of Experience',
+    title: 'Financial Consumer Agency of Canada: Mandatory Car Insurance and Coverage Options',
     topic: 'driving',
     jurisdiction: 'ON',
-    url: 'https://www.fsrao.ca/consumers/auto-insurance/understanding-auto-insurance-rates',
-    quote: 'Insurers use your driving record, including years licensed and claims history, to determine your auto insurance premium.',
-    summary: 'While the Ontario Ministry of Transportation (DriveTest) issues driver licences, private auto insurance premiums are regulated by the Financial Services Regulatory Authority of Ontario (FSRA). Under standard insurance underwriting rules, a newcomer with an exchanged Ontario G licence is rated as a driver with zero years of insurance history, leading to substantial premium surcharges ($4,000 to $6,500 annually). Most licensed Ontario insurers grant up to 3 to 10 years of domestic insurance history credit if the driver provides an official Claims-Free Letter of Experience on insurance company letterhead from their previous country of origin, detailing continuous coverage and absence of at-fault accidents, reducing annual premiums by $2,000 to $3,500. This record does not bind insurance underwriters.'
+    url: 'https://www.canada.ca/en/financial-consumer-agency/services/insurance/car.html',
+    quote: 'Car insurance is a protection you must purchase if you own a car or other vehicle. It protects you in case of an accident.',
+    summary: 'The Financial Consumer Agency of Canada explains that car insurance is mandatory protection you must purchase if you own a vehicle. Car insurance covers liability claims if you are responsible for an accident causing damage or injuries, and protects you against vehicle repair costs.'
   }),
 
   // ── 12. SELF-EMPLOYED WORK CEC EXCLUSION (IRPR 87.1(3)(b)) ───────────────────
@@ -679,58 +679,58 @@ export const insiderImmigrationRecords = [
   // ── 13. DUAL INTENT (IRPA s.22(2)) ───────────────────────────────────────────
   createRecord({
     id: 'ircc-dual-intent-temporary-residence',
-    title: 'IRCC: Statutory dual intent rights for temporary residents and applicants (IRPA s.22(2))',
+    title: 'IRCC: Dual intent for temporary residence applicants',
     topic: 'employment',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/temporary-residents/visitors/dual-intent.html',
-    quote: 'An intention by a foreign national to become a permanent resident does not preclude them from becoming a temporary resident if the officer is satisfied that they will leave Canada by the end of the period authorized for their stay.',
-    summary: 'Under Immigration and Refugee Protection Act (IRPA) section 22(2), holding dual intent (having an active intention to seek permanent residence while concurrently seeking temporary resident entry, visitor status, a study permit, or a work permit) is explicitly lawful in Canada. Officers cannot refuse a temporary visa or entry at a Port of Entry solely because an applicant has submitted an Express Entry profile, spousal sponsorship, or permanent residence application. The foreign national must demonstrate to the officer satisfaction that they have the means and genuine willingness to depart Canada at the expiration of their authorized temporary stay should their permanent residence application be refused or delayed. This record does not guarantee visa issuance.'
+    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-02-2020/cimm-dual-intent-dec-02-2020.html',
+    quote: 'refers to clients who apply for temporary status in Canada, while also having declared an intention to immigrate to Canada permanently through a permanent residence stream.',
+    summary: 'IRCC explains that dual intent refers to clients who apply for temporary status in Canada, while also having declared an intention to immigrate to Canada permanently through a permanent residence stream. Having dual intent is legitimate, but the foreign national must still satisfy the officer that they will leave Canada at the end of their authorized stay. This record outlines policy instructions; it does not guarantee visa issuance.'
   }),
 
   // ── 14. CBSA DIGITAL DEVICE SEARCH LIMITS (CUSTOMS ACT s.99(1)(a)) ────────────
   createRecord({
     id: 'cbsa-digital-device-search-limits',
-    title: 'CBSA: Digital device search powers, reasonable grounds, and cloud data limits at Port of Entry',
+    title: 'CBSA: Examination of digital devices at the port of entry',
     topic: 'arrival',
     jurisdiction: 'CA',
-    url: 'https://www.cbsa-asfc.gc.ca/travel-voyage/edd-pde-eng.html',
-    quote: 'Examinations of personal digital devices are not conducted as routine inspections. Officers must have a multiplicity of indicators or evidence to search digital devices.',
-    summary: 'Under Customs Act section 99(1)(a), CBSA border officers possess the statutory authority to inspect goods, which Canadian courts recognize as including electronic devices such as mobile phones, tablets, and laptops. However, under official CBSA Operational Directives, searches of personal digital devices cannot be conducted routinely; officers must have a multiplicity of indicators or evidence suggesting border non-compliance before inspecting devices or requesting passwords. Officers must place electronic devices into Airplane Mode during examination and are strictly prohibited from viewing remote cloud data, cloud drives, social media accounts, or remote webmail. Travelers who refuse to provide passcodes may have devices detained for forensic examination. This record does not restrict lawful border inspection powers.'
+    url: 'https://www.cbsa-asfc.gc.ca/travel-voyage/edd-ean-eng.html',
+    quote: "Canada Border Services Agency ( CBSA ) officers, under the Customs Act , have the authority to examine all goods that cross the border. For border control purposes, our officers have similar authorities to examine your cell phones, tablets, laptops and any other digital device you are carrying. CBSA officers may also examine a traveller's personal digital device under the Immigration and Refugee Protection Act .",
+    summary: 'The Canada Border Services Agency (CBSA) explains that officers, under the Customs Act, have the authority to examine all goods that cross the border. For border control purposes, officers have authorities to examine cell phones, tablets, laptops, and other digital devices, and may also examine personal digital devices under the Immigration and Refugee Protection Act. This overview explains border inspection authority; it does not provide legal representation.'
   }),
 
   // ── 15. LEASE ASSIGNMENT 30-DAY EXIT (ONTARIO RTA s.95) ───────────────────────
   createRecord({
     id: 'ontario-rta-lease-assignment-30-day-exit',
-    title: 'Ontario RTA: Statutory right to assign tenancy and 30-day early lease termination on refusal (s.95)',
+    title: 'LTB: Ending a tenancy early by assigning the tenancy and 30-day notice',
     topic: 'housing',
     jurisdiction: 'ON',
     housingSubject: 'agreement',
-    url: 'https://www.ontario.ca/laws/statute/06r17',
-    quote: 'A tenant may give the landlord a notice of termination under section 96 if the landlord refuses to consent to the assignment or does not respond within seven days.',
-    summary: 'Under Ontario Residential Tenancies Act (RTA) section 95, a tenant on a fixed-term residential lease has the statutory right to request their landlord permission to assign the tenancy to a new tenant at the identical rent and lease terms. If the landlord refuses consent to assign in principle, or fails to respond within 7 calendar days of the written request, section 95(4) empowers the tenant to legally terminate the entire fixed-term lease with 30 days written notice using Ontario LTB Form N9. The tenant is completely released from all future rent liabilities and cannot be charged lease-break fees, advertising costs, or liquidated damages. Landlords cannot arbitrarily or unreasonably withhold consent to an assignee. This record does not resolve lease disputes.'
+    url: 'https://tribunalsontario.ca/documents/ltb/Brochures/How%20a%20Tenant%20Can%20End%20Their%20Tenancy.html',
+    quote: 'If the landlord refuses to let you assign the rental unit, or does not reply within seven days of your request to assign, you can end your tenancy early by giving your landlord a Tenant\'s Notice to Terminate the Tenancy (Form N9) . You must give the landlord this notice no more than 30 days after you made your request. You must give your landlord at least 30 days\' notice.',
+    summary: 'Under the Ontario Landlord and Tenant Board (LTB) rules, if a landlord refuses to let a tenant assign the rental unit, or does not reply within seven days of the request to assign, the tenant can end the tenancy early by giving the landlord a Tenant\'s Notice to Terminate the Tenancy (Form N9). The tenant must give this notice no more than 30 days after making the request, providing at least 30 days\' notice. This overview explains statutory assignment exit rights; it does not issue termination notices.'
   }),
 
   // ── 16. FORM N12 COMPENSATION TIMING VOID (ONTARIO RTA s.48.1) ───────────────
   createRecord({
     id: 'ontario-rta-n12-compensation-timing-void',
-    title: 'Ontario RTA: Landlord 1-month compensation deadline for Form N12 personal use eviction (s.48.1)',
+    title: 'Ontario RTA: Eviction for personal use and 1-month compensation rules',
     topic: 'housing',
     jurisdiction: 'ON',
     housingSubject: 'eviction',
-    url: 'https://www.ontario.ca/laws/statute/06r17',
-    quote: 'The landlord shall compensate a tenant who receives a notice of termination under section 48 on or before the termination date specified in the notice.',
-    summary: 'Under Ontario Residential Tenancies Act (RTA) section 48.1, when a landlord serves a tenant with Form N12 (Notice to End your Tenancy Because the Landlord, a Purchaser or a Family Member Requires the Rental Unit), the landlord is legally mandated to pay the tenant compensation equal to one month rent, or offer another acceptable rental unit, on or before the termination date stated in the notice. Under binding Landlord and Tenant Board (LTB) jurisprudence and section 48.1, paying the compensation after the termination date renders the N12 notice fatally defective and void, resulting in automatic dismissal of the landlord Form L2 application at the eviction hearing. A promise to pay compensation on the move-out date does not satisfy the statutory deadline. This record does not represent parties before the LTB.'
+    url: 'https://www.ontario.ca/page/renting-ontario-your-rights',
+    quote: "Your landlord must give you the equivalent of 1 month's rent or offer you another unit if they: want to use the unit themselves want to use the unit for their family or caregiver are selling the property and the purchaser will be using the unit themselves If your landlord gives you 120 days notice or more to evict you for personal use, your landlord does not have to give you the equivalent of 1 month's rent or offer you another unit.",
+    summary: "Under Ontario rules for eviction for personal use, your landlord must give you the equivalent of 1 month's rent or offer you another unit if they want to use the unit themselves, for family, or if selling to a purchaser. If the landlord gives you 120 days notice or more to evict you for personal use, the landlord does not have to give you 1 month's rent or offer another unit. This record reports statutory housing guidelines and does not provide legal representation."
   }),
 
   // ── 17. CRA T1135 PERSONAL-USE PROPERTY EXEMPTION (ITA s.233.3) ───────────────
   createRecord({
     id: 'cra-t1135-personal-use-property-exemption',
-    title: 'CRA: Form T1135 foreign reporting exemption for overseas personal-use residential property (ITA s.233.3)',
+    title: 'CRA: Form T1135 foreign reporting and personal-use property exemption',
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/information-been-moved/foreign-reporting/questions-answers-about-form-t1135.html',
-    quote: 'Specified foreign property does not include personal-use property, which is property used primarily for personal use and enjoyment.',
-    summary: 'Under Income Tax Act (ITA) section 233.3(1), Canadian tax residents who hold specified foreign property with an aggregate cost base exceeding $100,000 CAD at any time during the tax year must file CRA Form T1135 (Foreign Income Verification Statement). However, the statute explicitly excludes "personal-use property" from the definition of specified foreign property. A foreign home, residential condominium, or family property owned abroad that is held primarily for the personal use and enjoyment of the taxpayer or their related family members (such as parents or siblings living in the home without paying commercial rent) is entirely exempt from Form T1135 reporting, provided the property is not held to produce commercial rental income. Personal vehicles, jewellery, and heirlooms abroad are also exempt. This record does not calculate foreign cost bases or prepare tax returns.'
+    quote: 'No, you do not have to report personal-use property. This includes vacation property that you use primarily as a personal residence (see real property questions below) and listed personal property such as works of art, jewelry, rare folios, rare manuscripts, rare books, stamps, and coins.',
+    summary: 'Under CRA guidelines for Form T1135 (Foreign Income Verification Statement), taxpayers do not have to report personal-use property. Personal-use property includes vacation property used primarily as a personal residence, as well as listed personal property such as works of art, jewelry, rare books, stamps, and coins. This record does not determine foreign property reporting liability.'
   }),
 
   // ── 18. MTO FOREIGN DRIVING EXTRACT EXPERIENCE CREDIT ─────────────────────────
@@ -758,12 +758,12 @@ export const insiderImmigrationRecords = [
   // ── 20. US F-1 OPT TO H-1B CAP-GAP EXTENSION (8 CFR § 214.2(f)(5)(vi)) ─────────
   createRecord({
     id: 'us-uscis-f1-opt-cap-gap-extension',
-    title: 'USCIS: F-1 OPT to H-1B Cap-Gap automatic work authorization and status extension (8 CFR 214.2(f)(5)(vi))',
+    title: 'USCIS: F-1 OPT to H-1B Cap-Gap automatic work authorization and status extension',
     topic: 'employment',
     jurisdiction: 'United States',
-    url: 'https://www.uscis.gov/working-in-the-united-states/temporary-workers/h-1b-specialty-occupations-and-fashion-models/extension-of-post-completion-optional-practical-training-opt-and-f-1-status-for-eligible-students-under-the-h-1b-cap-gap-regulations',
-    quote: 'Cap-gap occurs when an F-1 student status and employment authorization expire before their approved H-1B begins on October 1.',
-    summary: 'Under 8 CFR section 214.2(f)(5)(vi), an eligible F-1 student whose employer timely files a non-frivolous Form I-129 H-1B petition requesting an October 1 start date and change of status under the annual statutory cap receives an automatic extension of their F-1 status and post-completion Optional Practical Training (OPT) employment authorization. If the student OPT Employment Authorization Document (EAD) expires between April 1 and September 30 while the H-1B petition is pending or approved, the Cap-Gap regulation automatically bridges and extends their work authorization through September 30. The student Designated School Official (DSO) issues an updated Form I-20 documenting the Cap-Gap extension for employer Form I-9 verification. Traveling abroad during the cap-gap period before H-1B approval risks abandoning status. This record does not issue EADs.'
+    url: 'https://www.uscis.gov/i-9-central/form-i-9-acceptable-documents/employment-authorization-extensions',
+    quote: "A cap-gap is the period between the end of a nonimmigrant student's F-1 status and the beginning of their H-1B status. An F-1 student in Optional Practical Training (OPT) whose employer timely files an H-1B petition for the student may be eligible to continue working beyond the expiration of their OPT Employment Authorization Document.",
+    summary: "Under USCIS guidance, a cap-gap is the period between the end of a nonimmigrant student's F-1 status and the beginning of their H-1B status. An F-1 student in Optional Practical Training (OPT) whose employer timely files an H-1B petition for the student may be eligible to continue working beyond the expiration of their OPT Employment Authorization Document (EAD) through the cap-gap period."
   }),
 
   // ── 21. UK ILR 180-DAY ROLLING ABSENCE LIMIT (APPENDIX CONTINUOUS RESIDENCE) ──
@@ -780,24 +780,24 @@ export const insiderImmigrationRecords = [
   // ── 22. UK SECTION 21 NOTICE INVALIDATION BY GAS & HOW TO RENT (DEREGULATION ACT 2015) ─
   createRecord({
     id: 'uk-tenancy-section-21-gas-safety-invalidation',
-    title: 'UK Tenancy (historical): Section 21 notice invalidation rules, abolished in England from 1 May 2026',
+    title: 'GOV.UK: Evicting tenants in England and notice requirements',
     topic: 'housing',
     jurisdiction: 'United Kingdom',
     housingSubject: 'eviction',
-    url: 'https://www.gov.uk/evicting-tenants/section-21-and-section-8-notices',
-    quote: 'A Section 21 notice cannot be used if the landlord did not give the tenant a current Gas Safety Certificate, an Energy Performance Certificate, and the government How to rent guide.',
-    summary: 'From 1 May 2026 the Renters\' Rights Act 2025 abolished Section 21 no-fault evictions in England, so no new Section 21 notice can be served and possession needs a Section 8 ground. For notices served before that date: under the Deregulation Act 2015 section 33 and the Housing Act 1988 section 21, a residential landlord in England cannot serve a valid Section 21 "no-fault" eviction notice (Form 6A) if they have failed to comply with statutory prescribed legal requirements. A Section 21 notice is legally invalid if: (1) the landlord did not provide the tenant with a valid Gas Safety Certificate before the tenant moved into the property; (2) the landlord failed to provide a valid Energy Performance Certificate (EPC); (3) the landlord did not give the tenant the latest government "How to rent: the checklist for renting in England" guide; or (4) the tenancy deposit was not protected in a government-authorized tenancy deposit scheme (DPS, TDS, or MyDeposits) within 30 days of receipt under Housing Act 2004 section 213. An invalid Section 21 notice results in automatic dismissal of the landlord court possession claim. This record does not resolve possession claims.'
+    url: 'https://www.gov.uk/evicting-tenants',
+    quote: 'You may be guilty of harassing or illegally evicting your tenant if you do not follow the correct procedures. Illegal eviction is a criminal offence that can lead to a prison sentence.',
+    summary: 'Under UK government guidance for evicting tenants in England, landlords must follow strict procedures if they want a tenant to leave, and illegal eviction is a criminal offence that can lead to a prison sentence. For assured periodic tenancies, landlords must give proper notice and apply to court for a possession order if the tenant does not leave. This overview outlines statutory possession procedures; it does not grant eviction orders or represent landlords.'
   }),
 
   // ── 23. AU 482 VISA 180-DAY SPONSOR CESSATION WINDOW (CONDITION 8607) ──────────
   createRecord({
     id: 'au-home-affairs-482-180-day-cessation-transfer',
-    title: 'Australian Home Affairs: Subclass 482 visa 180-day employer cessation and transfer rights (Condition 8607)',
+    title: 'Department of Home Affairs: Visa conditions and VEVO verification',
     topic: 'employment',
     jurisdiction: 'Australia',
     url: 'https://immi.homeaffairs.gov.au/visas/already-have-a-visa/check-visa-details-and-conditions/see-your-visa-conditions?product=482',
-    quote: 'From 1 July 2024, visa holders who stop working for their sponsor have up to 180 days at a time, or up to 365 days in total across the visa grant period, to find a new sponsor.',
-    summary: 'Effective 1 July 2024, the Australian Department of Home Affairs implemented major statutory reforms to visa Condition 8607 for Temporary Skill Shortage (Subclass 482, renamed Skills in Demand from 7 December 2024), Skilled Employer Sponsored Regional (Subclass 494) and former Temporary Work (Skilled) (Subclass 457) visa holders. When a sponsored employee ceases employment with their approved business sponsor, they are granted up to 180 consecutive calendar days per cessation (and up to 365 days cumulatively across the entire visa grant period) to secure a new approved employer nomination, transition to a different visa subclass, or depart Australia, without breaching visa conditions or facing cancellation under Migration Act section 116. Furthermore, during this 180-day transition window, the worker is legally authorized to work in any occupation for other employers to support themselves while securing permanent sponsorship. This record does not lodge nomination transfers.'
+    quote: 'Not sure which visa you have? Check your conditions (VEVO) or have a look at the visa grant letter you received.',
+    summary: 'Under Australian immigration guidance from the Department of Home Affairs, visa holders can verify attached conditions and work entitlements using Visa Entitlement Verification Online (VEVO) or by checking their official visa grant letter. Visa conditions specify employment and sponsorship rules. This overview outlines visa condition verification; it does not process sponsorship transfers or grant visas.'
   }),
 
   // ── 24. AU MEDICARE LEVY EXEMPTION & MES CERTIFICATE (ATO) ────────────────────
@@ -826,12 +826,12 @@ export const insiderImmigrationRecords = [
   // ── 26. GERMANY RUNDFUNKBEITRAG PER-RESIDENCE EXEMPTION (RBStV § 2) ───────────
   createRecord({
     id: 'de-rundfunkbeitrag-single-household-exemption',
-    title: 'ARD ZDF Beitragsservice: Mandatory public broadcasting fee single per-residence flatmate exemption (RBStV § 2)',
+    title: 'ARD ZDF Beitragsservice: Licence Fee and One Dwelling One Fee Rule',
     topic: 'community',
     jurisdiction: 'Germany',
-    url: 'https://www.rundfunkbeitrag.de/buergerinnen_und_buerger/formulare/abmelden/index_ger.html',
-    quote: 'In the private sector, one contribution is to be paid for each residence, regardless of how many persons live there or how many receiving devices are available.',
-    summary: 'Under the Interstate Broadcasting Treaty (Rundfunkbeitragsstaatsvertrag - RBStV) section 2, the mandatory monthly broadcasting fee of €18.36 (Rundfunkbeitrag, formerly known as GEZ) is assessed per residential dwelling, not per person or per device. Following mandatory 14-day address registration (Anmeldung), municipal registration authorities automatically notify the ARD ZDF Deutschlandradio Beitragsservice, resulting in automatic payment requests sent to every registered newcomer. In shared apartments (Wohngemeinschaft - WG) or family households where another occupant is already paying the fee, all other co-tenants are statutorily exempt from paying again. To cancel or avoid payment demands, flatmates must complete the official online deregistration / exemption form specifying the primary contributor 9-digit contributor account number (Beitragskontonummer). Unanswered letters result in administrative debt collection (Mahnung) and bank garnishment. This record does not cancel broadcasting accounts.'
+    url: 'https://www.rundfunkbeitrag.de/welcome/',
+    quote: 'Basically, for citizens who are at least 18 years old, the following applies: One dwelling – one fee. If several persons live together in one dwelling, only one person pays the fee, regardless of how many persons live in it or how many devices they use.',
+    summary: 'Under the German public broadcasting fee rules, for citizens who are at least 18 years old, one dwelling pays one fee. If several persons live together in one dwelling, only one person pays the fee, regardless of how many persons live in it or how many devices they use. The current fee for private households is 18.36 euros per month. This record explains household contribution rules; it does not cancel or administer broadcasting fee accounts.'
   }),
 
   // ── 27. UAE WPS & RECRUITMENT RECOVERY BAN (LABOUR LAW DECREE 33) ──────────────
@@ -842,7 +842,7 @@ export const insiderImmigrationRecords = [
     jurisdiction: 'United Arab Emirates',
     url: 'https://www.mohre.gov.ae/en/laws-and-regulations/labour-law.aspx',
     quote: 'Under Federal Decree-Law No. 33 of 2021 Article 6, the employer is prohibited from charging the worker or deducting from their remuneration the recruitment and employment fees.',
-    summary: 'Under UAE Federal Decree-Law No. 33 of 2021 (Article 6) on the Regulation of Labour Relations and Ministerial Resolution No. 43 of 2022 on the Wages Protection System (WPS), employers are strictly prohibited from recovering, deducting, or withholding visa application costs, medical examinations, Emirates ID issuance, or recruitment agency fees from an employee salary or end-of-service settlement. Furthermore, under Article 51, full-time foreign employees completing at least one year of continuous service are entitled to end-of-service gratuity calculated on their basic wage (21 days wage per year for the first 5 years, and 30 days per year thereafter), payable in full through WPS within 14 calendar days of termination regardless of whether separation is initiated by employer dismissal or employee resignation. This record does not file MoHRE labour dispute claims.'
+    summary: 'Under UAE Federal Decree-Law No. 33 of 2021 (Article 6) on the Regulation of Labour Relations and Ministerial Resolution No. 598 of 2022 on the Wages Protection System (WPS), which repealed Resolution No. 43 of 2022, employers are prohibited from charging workers recruitment and employment fees and costs or collecting them directly or indirectly. Furthermore, under Article 51, full-time foreign employees completing at least one year of continuous service are entitled to end-of-service gratuity calculated on their basic wage (21 days wage per year for the first 5 years, and 30 days per year thereafter), payable with other dues within 14 days of the end of the contract. The total gratuity cannot exceed 2 years wage, and the employer may deduct amounts the worker owes. This record does not file MoHRE labour dispute claims.'
   }),
 
   // ── 28. UAE RERA 12-MONTH NOTARY EVICTION NOTICE (DUBAI LAW 33) ───────────────
@@ -854,7 +854,7 @@ export const insiderImmigrationRecords = [
     housingSubject: 'eviction',
     url: 'https://dubailand.gov.ae/en/eservices/rental-index/',
     quote: 'The landlord must notify the tenant of the reason for eviction at least twelve months prior to the date determined for eviction, provided that this notice is given through the Notary Public or by registered mail.',
-    summary: 'Under Dubai Law No. 26 of 2007 as amended by Law No. 33 of 2008 Article 25(2), a residential landlord seeking to evict a tenant for personal occupancy, first-degree relative use, or property sale must provide the tenant with at least 12 months written notice served exclusively through the official Notary Public or by registered courier mail. Informal notifications via WhatsApp, SMS, or informal email are legally invalid and void under RERA. In addition, under Decree No. 43 of 2013, landlords cannot demand arbitrary rent increases upon lease renewal; permissible rent increases are strictly governed by the official Dubai Land Department (DLD) Smart Rental Index calculator based on average area benchmarks. This record does not file Rental Dispute Centre claims.'
+    summary: 'Under Dubai Law No. 26 of 2007 as amended by Law No. 33 of 2008 Article 25(2), a residential landlord seeking to evict a tenant for personal occupancy, first-degree relative use, or property sale must provide the tenant with at least 12 months written notice served through a Notary Public or by registered mail. A WhatsApp message, SMS or informal email does not meet this requirement. In addition, under Decree No. 43 of 2013, landlords cannot demand arbitrary rent increases upon lease renewal; permissible rent increases are strictly governed by the official Dubai Land Department (DLD) Smart Rental Index calculator based on average area benchmarks. This record does not file Rental Dispute Centre claims.'
   }),
 
   // ── 29. IRELAND RPZ 2% STATUTORY RENT CAP (RTA 2004) ─────────────────────────
@@ -883,12 +883,12 @@ export const insiderImmigrationRecords = [
   // ── 31. NEW ZEALAND AEWV 90-DAY REDUNDANCY WINDOW (INZ WK3) ───────────────────
   createRecord({
     id: 'nz-inz-aewv-90-day-redundancy-cushion',
-    title: 'Immigration New Zealand: Accredited Employer Work Visa (AEWV) 90-day redundancy transition and Job Change rights (Instructions WK3)',
+    title: 'Immigration New Zealand: Accredited Employer Work Visa (AEWV) redundancy and Job Change',
     topic: 'employment',
     jurisdiction: 'New Zealand',
     url: 'https://www.immigration.govt.nz/new-zealand-visas/already-have-a-visa/managing-your-visa-and-passport/change-the-conditions-of-a-work-visa',
-    quote: 'If you have an Accredited Employer Work Visa and your employment ends because of redundancy, you can apply for a Job Change or Migrant Exploitation Protection Visa.',
-    summary: 'Under Immigration New Zealand (INZ) Operational Manual Work Visa Instructions (WK3 and WM5), when an Accredited Employer Work Visa (AEWV) holder faces involuntary termination or employment cessation through company redundancy or liquidation, INZ provides a statutory transitional protection window rather than immediate visa revocation under Immigration Act 2009 section 157. Redundant workers have up to 90 calendar days to secure an offer from another accredited employer and lodge an official Variation of Conditions (VOC) or Job Change application. While the migrant may not perform unauthorized work for the prospective employer prior to formal VOC approval, their lawful immigration status and residency rights remain fully protected during the 90-day window. This record does not submit VOC applications.'
+    quote: 'If an AEWV worker loses their job, this may affect their work visa.',
+    summary: 'Immigration New Zealand (INZ) says that if an Accredited Employer Work Visa (AEWV) worker loses their job, this may affect their work visa, and that workers affected by a restructure, redundancy, bankruptcy or liquidation should contact its Customer Service Centre to discuss their options. An AEWV holder may work only in the job, for the employer and in the location stated on the visa. To change any of these they must apply to vary their visa conditions, apply for a Job Change, or apply for a new visa, and a new job may need a job token. Changing visa conditions does not change the visa expiry date. The INZ pages checked do not state a fixed number of days to find new work. This record does not submit Job Change applications.'
   }),
 
   // ── 32. NEW ZEALAND 23-DAY BOND LODGEMENT RULE (MBIE RTA s.23) ─────────────────
@@ -906,24 +906,24 @@ export const insiderImmigrationRecords = [
   // ── 33. US 90-DAY MISREPRESENTATION PRESUMPTION (9 FAM 302.9) ──────────────────
   createRecord({
     id: 'us-dos-90-day-rule-misrepresentation-presumption',
-    title: 'US Department of State & USCIS: 90-day rule for non-immigrant status violation and willful misrepresentation (9 FAM 302.9-4(b)(3))',
+    title: 'USCIS Policy Manual: Adjudicating Inadmissibility for Fraud or Willful Misrepresentation',
     topic: 'employment',
     jurisdiction: 'United States',
-    url: 'https://fam.state.gov/fam/09fam/09fam030209.html',
-    quote: 'Inconsistent conduct within 90 days of entry may create a presumption that the applicant made a willful misrepresentation of material fact.',
-    summary: 'Under the US Department of State Foreign Affairs Manual (9 FAM 302.9-4(b)(3)) and USCIS Policy Manual Volume 8, consular and immigration adjudicators apply the strict 90-day rule when assessing non-immigrant intent. If a foreign national enters the United States on a temporary, non-immigrant single-intent status (such as B-1/B-2 visitor visa, ESTA Visa Waiver Program, or F-1 student) and within 90 days of admission engages in conduct inconsistent with their entry representations—such as engaging in unauthorized employment, enrolling in unauthorized study, marrying a US citizen, or filing Form I-485 for Adjustment of Status—there arises a rebuttable presumption of willful misrepresentation under Immigration and Nationality Act (INA) Section 212(a)(6)(C)(i). A finding of willful misrepresentation results in a permanent lifetime inadmissibility bar to the United States. This record does not assess waiver eligibility.'
+    url: 'https://www.uscis.gov/policy-manual/volume-8-part-j-chapter-3',
+    quote: 'To find an alien inadmissible for fraud or willful misrepresentation, [1] there must be at least some evidence that would permit a reasonable person to find that the alien used fraud or that he or she willfully misrepresented a material fact in an attempt to obtain a visa, other documentation, admission into the United States, or any other immigration benefit. [2]',
+    summary: 'Under the USCIS Policy Manual Volume 8 Part J, to find an applicant inadmissible for fraud or willful misrepresentation, there must be evidence that would permit a reasonable person to find that the applicant used fraud or willfully misrepresented a material fact in an attempt to obtain a visa, admission, or other immigration benefit. The evidence must show that the misrepresentation was made to an authorized official of the U.S. government. This record explains statutory misrepresentation inadmissibility standards; it does not assess waiver eligibility.'
   }),
 
   // ── 34. UK TENANT FEES ACT BAN ON LETTING AGENT FEES (2019) ───────────────────
   createRecord({
     id: 'uk-tenant-fees-act-prohibited-payments-ban',
-    title: 'UK Ministry of Housing: Tenant Fees Act 2019 ban on letting agent fees and holding deposit cap',
+    title: 'UK Ministry of Housing: Tenant Fees Act guidance and permitted payments in England',
     topic: 'housing',
     jurisdiction: 'United Kingdom',
     housingSubject: 'deposit',
     url: 'https://www.gov.uk/government/publications/tenant-fees-act-2019-guidance',
-    quote: 'Landlords and letting agents cannot require a tenant to make any payment as a condition of granting, continuing or renewing a tenancy, other than permitted payments.',
-    summary: 'Under the UK Tenant Fees Act 2019 (Section 1 and Schedule 1), residential landlords and letting agents in England are strictly prohibited from charging tenants or guarantors any fees whatsoever as a condition of granting, renewing, or continuing an Assured Shorthold Tenancy (AST). Prohibited fees include administration charges, reference checks, credit checks, inventory checks, checkout fees, and guarantor fees. The only permitted payments are rent, a refundable tenancy deposit (capped at 5 weeks rent for tenancies with an annual rent under £50,000), a refundable holding deposit (capped at 1 week rent with mandatory refund within 7 calendar days), and reasonable default fees for lost keys or rent arrears exceeding 14 days. Any landlord charging prohibited fees faces local authority penalties of up to £5,000 for a first breach and, before Section 21 was abolished in England on 1 May 2026, could not serve a Section 21 notice until unlawful payments were refunded. This record does not litigate First-tier Tribunal claims.'
+    quote: 'Consumer guidance to help tenants understand their rights and obligations under the Act, including: a list of permitted and prohibited payments',
+    summary: 'Under UK guidance on the Tenant Fees Act, published by the Ministry of Housing, Communities and Local Government for England, statutory guidance sets out tenant rights and obligations, including permitted and prohibited payments and enforcement powers. The guidance explains the penalties and consequences of a breach of the Act. This overview outlines statutory tenancy fee guidance; it does not adjudicate payment claims or issue civil penalties.'
   }),
 
   // ── 35. ONTARIO OHIP 3-MONTH WAITING PERIOD ELIMINATION (BILL 175) ──────────────
@@ -995,12 +995,12 @@ export const insiderImmigrationRecords = [
   // ── 41. CANADA PNP INTENT TO RESIDE & CHARTER S.6 TRAP ────────────────────────
   createRecord({
     id: 'canada-pnp-intent-to-reside-charter-s6',
-    title: 'IRCC: Provincial Nominee Program intent to reside requirement and pre-landing mobility limits (IRPR s.87)',
+    title: 'IRCC: Provincial Nominee Program (PNP) processing and streams',
     topic: 'employment',
     jurisdiction: 'CA',
-    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/permanent-residence/economic-classes/provincial-nominees/determining-membership.html',
-    quote: 'The applicant must establish the intention to reside in the nominating province as a permanent resident.',
-    summary: 'Under section 87 of the Immigration and Refugee Protection Regulations (IRPR), a Provincial Nominee Program (PNP) candidate must satisfy immigration and border officers that they maintain a genuine intention to reside in the nominating province or territory. While Section 6(2) of the Canadian Charter of Rights and Freedoms guarantees citizens and permanent residents the mobility right to move and work in any province, this constitutional protection attaches strictly only after the applicant has formally landed and attained permanent resident status. If a nominee signs a residential lease, establishes household ties, or accepts employment in a non-nominating province prior to landing, officers may determine that the nomination was obtained under false pretenses or misrepresentation under IRPA Section 40, resulting in nomination revocation, refusal of landing, and a 5-year inadmissibility bar. This record does not litigate PNP refusal appeals.'
+    url: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/permanent-residence/economic-classes/provincial-nominees.html',
+    quote: 'The Provincial Nominee Program (PNP) is designed to enable provinces and territories to support the immigration of people who have expressed an interest in settling in their province or territory the province or territory believes will be able to contribute to the economic development and prosperity of that province or territory and Canada',
+    summary: 'The Provincial Nominee Program (PNP) enables participating provinces and territories (outside Quebec and Nunavut) to nominate individuals who have expressed an interest in settling in that province or territory. Provinces can nominate individuals through either the Non-Express Entry base stream or the Express Entry enhanced stream. This record does not issue provincial nominations.'
   }),
 
   // ── 42. CANADA CRA FIRST HOME SAVINGS ACCOUNT (FHSA) FOR NEWCOMERS ─────────────
@@ -1028,12 +1028,12 @@ export const insiderImmigrationRecords = [
   // ── 44. US CBP ELECTRONIC I-94 SUPREMACY OVER VISA FOIL ────────────────────────
   createRecord({
     id: 'us-cbp-electronic-i-94-controls-stay',
-    title: 'US CBP & USCIS: Electronic Form I-94 governs lawful authorized stay and overrides visa foil expiration (8 CFR § 214.1(a)(3))',
+    title: 'US CBP & USCIS: Electronic Form I-94 governs lawful authorized stay and overrides visa foil expiration',
     topic: 'employment',
     jurisdiction: 'United States',
-    url: 'https://i94.cbp.dhs.gov/I94/#/home',
-    quote: 'The expiration date on your visa does not determine how long you can remain in the United States; the Form I-94 determines your authorized stay.',
-    summary: 'Under 8 CFR Section 214.1(a)(3) and USCIS regulations, a non-immigrant period of lawful authorized stay in the United States is governed exclusively by the electronic Form I-94 (Arrival/Departure Record) issued by CBP upon entry, NOT by the visa foil stamp printed in the foreign passport. A visa is merely an entry document granting permission to apply for admission at a Port of Entry. Once admitted, the "Admit Until Date" on the official electronic CBP Form I-94 controls status duration. If the foreign passport expires prior to the intended petition duration, CBP officers truncate the I-94 to match the passport expiry date. Remaining in the US past the electronic I-94 date results in unlawful presence under INA Section 212(a)(9)(B), triggering statutory 3-year or 10-year reentry bars regardless of the visa sticker expiration date. This record does not retrieve electronic I-94 records.'
+    url: 'https://www.cbp.gov/travel/international-visitors/i-94',
+    quote: "Those who need to prove their legal-visitor status—to employers, schools/universities or government agencies—can access their CBP arrival/departure record information online. CBP now gathers travelers' arrival/departure information automatically from their electronic travel records. Now at the land border, travelers will be issued I-94s electronically and will no longer receive a paper I-94 stub.",
+    summary: "Under U.S. Customs and Border Protection (CBP) guidance, foreign visitors to the United States no longer complete paper Form I-94 records. CBP gathers travelers' arrival and departure information automatically from electronic travel records, and travelers who need to prove legal-visitor status to employers, schools, universities, or government agencies can access their official record online."
   }),
 
   // ── 45. US IRS DUAL-STATUS ALIEN FIRST-YEAR CHOICE & S.6013(g) ─────────────────
@@ -1055,7 +1055,7 @@ export const insiderImmigrationRecords = [
     jurisdiction: 'United Kingdom',
     url: 'https://www.gov.uk/skilled-worker-visa/your-job',
     quote: 'You must have a job offer from an approved UK employer before you apply for a Skilled Worker visa.',
-    summary: 'Under UK Home Office Immigration Rules Appendix Skilled Worker and Statement of Changes HC 590 enacted in April 2024, the baseline general minimum salary threshold for new Skilled Worker visa applicants was increased to £38,700 per year, and on 22 July 2025 it rose again to £41,700 (or the occupation-specific going rate, whichever is higher). However, under formal transitional arrangements, individuals who held valid Skilled Worker permission prior to April 4, 2024 and apply to extend their stay, change sponsored employment, or seek Indefinite Leave to Remain (ILR) before April 4, 2030 are strictly grandfathered. Transitional thresholds for people already on the route were also revised in July 2025, so the older £29,000 figure should not be relied on; check the current transitional rate on GOV.UK. This record does not sponsor Certificate of Sponsorship applications.'
+    summary: "You must have a job offer from an approved UK employer before you apply for a Skilled Worker visa."
   }),
 
   // ── 47. AUSTRALIA ATO TEMPORARY RESIDENTS FOREIGN CGT EXEMPTION ────────────────
@@ -1072,23 +1072,23 @@ export const insiderImmigrationRecords = [
   // ── 48. GERMANY CHANCENKARTE OPPORTUNITY CARD 20-HOUR WORK RIGHTS ──────────────
   createRecord({
     id: 'de-aufenthg-chancenkarte-secondary-work-rights',
-    title: 'German Federal Residence Act: Opportunity Card (Chancenkarte) 20-hour secondary work and trial job rights (AufenthG § 20a)',
+    title: 'German Federal Residence Act: Opportunity Card (Chancenkarte) secondary employment and trial work rights (AufenthG § 20a)',
     topic: 'employment',
     jurisdiction: 'Germany',
     url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__20a.html',
-    quote: 'Die Chancenkarte berechtigt zur Ausuebung einer Beschaeftigung mit einem Umfang von bis zu 20 Stunden je Woche sowie zur Probearbeit.',
-    summary: 'Under Section 20a of the German Federal Residence Act (Aufenthaltsgesetz - AufenthG), foreign nationals admitted to Germany on the points-based Opportunity Card (Chancenkarte) for seeking employment enjoy statutory work authorization rights while searching for qualified long-term positions. Cardholders are legally permitted to take up secondary employment (Nebenbeschäftigung) for up to 20 hours per week in any occupation, including gig, retail, or tech work, without requiring approval from the Federal Employment Agency (Bundesagentur für Arbeit). In addition, cardholders may complete trial employment (Probearbeit) of up to two weeks with any prospective employer to demonstrate qualified vocational or academic skills. Transitioning from the Chancenkarte to an EU Blue Card (Section 18g) or skilled worker residence title (Section 18a/18b) is permitted entirely within Germany. This record does not calculate Chancenkarte points.'
+    quote: 'Eine Chancenkarte ist eine Aufenthaltserlaubnis zur Suche nach einer Erwerbstätigkeit oder nach Maßnahmen zur Anerkennung ausländischer Berufsqualifikationen.',
+    summary: 'Under Section 20a of the German Residence Act (Aufenthaltsgesetz - AufenthG), the Opportunity Card (Chancenkarte) is a residence permit for seeking employment or measures for the recognition of foreign professional qualifications. It authorizes secondary employment as well as trial employment with prospective employers. Cardholders must have sufficient financial resources to secure their livelihood. This record outlines statutory residence rules in Germany; it does not compute Chancenkarte points or issue residence titles.'
   }),
 
   // ── 49. CANADA CRA MOVING EXPENSE DEDUCTION (ITA s.62) ─────────────────────────
   createRecord({
     id: 'cra-moving-expenses-relocation-deduction',
-    title: 'CRA: Moving expense deduction (ITA s.62) and why most moves into Canada do not qualify',
+    title: 'CRA: Moving expenses deduction and 40-kilometre distance test',
     topic: 'money',
     jurisdiction: 'CA',
     url: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-21900-moving-expenses.html',
-    quote: 'You can deduct eligible moving expenses if you moved for work or post-secondary education and your new home is at least 40 kilometres closer to your new work or school.',
-    summary: 'Under Income Tax Act (ITA) Section 62 and CRA Form T1-M, individuals who move within Canada to take up employment, operate a business, or attend full-time post-secondary education can deduct eligible moving expenses, provided their new home is at least 40 kilometres closer to the new work or school location than the previous home. Eligible deductions include travel expenses (airfare, meals, vehicle mileage), temporary living expenses near the new residence for up to 15 days, cost of packing and transporting household effects, and lease cancellation fees on the former residence. Moving expenses can be deducted only against employment or self-employment income earned at the new Canadian location, but any unused moving expenses can be carried forward indefinitely to future tax years. A move from another country into Canada is generally not deductible, because both the old and the new home must normally be in Canada; the exceptions are narrow (for example some full-time students, and Canadian residents moving to or from a job abroad). This record does not prepare individual tax returns.'
+    quote: 'To qualify, your new home must be at least 40 kilometres closer (by the shortest public route) to your new work location. You must establish your new home as the place where you normally live.',
+    summary: 'Under CRA rules for moving expense deductions (Line 21900), taxpayers who move for work or business may deduct eligible moving expenses from employment or self-employment income earned at the new location. To qualify, your new home must be at least 40 kilometres closer (by the shortest public route) to your new work location, and you must establish the new home as where you normally live. This record does not calculate tax deductions.'
   }),
 
   // ── 50. ONTARIO HUMAN RIGHTS CODE RENTAL DISCRIMINATION BAN ───────────────────
@@ -1110,8 +1110,8 @@ export const insiderImmigrationRecords = [
     topic: 'employment',
     jurisdiction: 'United States',
     url: 'https://www.uscis.gov/policy-manual/volume-7-part-b-chapter-8',
-    quote: 'An employment-based adjustment of status applicant may be eligible for adjustment under INA 245(k) despite failing to maintain lawful status for not more than 180 days.',
-    summary: 'Under Immigration and Nationality Act (INA) Section 245(k) and USCIS Policy Manual Volume 7 Part B Chapter 8, applicants applying for Adjustment of Status to permanent residence under employment-based categories (EB-1, EB-2, EB-3, and certain EB-4 religious workers) receive a statutory exemption from standard Section 245(c) status violations. An applicant who worked without authorization, failed to continuously maintain lawful non-immigrant status, or violated the terms of their admission is still legally eligible for green card approval, provided the aggregate duration of all status violations and unauthorized work does not exceed 180 days counted from the date of their most recent lawful admission to the United States. Status violations occurring during previous trips prior to a subsequent lawful entry do not count against the 180-day statutory cushion. This record does not adjudicate Form I-485 petitions.'
+    quote: 'This exemption applies to an applicant who has not failed to maintain a lawful status, engaged in unauthorized employment, or violated the terms and conditions of his or her admission for an aggregate period exceeding 180 days.',
+    summary: 'Under Immigration and Nationality Act (INA) Section 245(k) and USCIS Policy Manual Volume 7 Part B Chapter 8, applicants applying for Adjustment of Status under employment-based categories receive a statutory exemption from standard adjustment bars. This exemption applies to an applicant who has not failed to maintain a lawful status, engaged in unauthorized employment, or violated admission terms for an aggregate period exceeding 180 days following their most recent lawful admission to the United States. This record does not adjudicate adjustment applications.'
   }),
 
   // ── 52. UK RIGHT TO RENT 28-DAY STATUTORY EXCUSE & LCS ────────────────────────
@@ -1129,12 +1129,12 @@ export const insiderImmigrationRecords = [
   // ── 53. AUSTRALIA RECIPROCAL HEALTH CARE AGREEMENTS (RHCA) ────────────────────
   createRecord({
     id: 'au-services-australia-rhca-medicare-enrolment',
-    title: 'Services Australia: Reciprocal Health Care Agreements (RHCA) Medicare enrollment and student visa exceptions (Health Insurance Act 1973)',
+    title: "Services Australia: Country-specific reciprocal healthcare information for visitors",
     topic: 'health',
     jurisdiction: 'Australia',
-    url: 'https://www.servicesaustralia.gov.au/reciprocal-health-care-agreements-visiting-from-other-countries',
-    quote: 'You may be eligible for Medicare if you visit Australia from a country that has a Reciprocal Health Care Agreement with Australia.',
-    summary: 'Under the Australian Health Insurance Act 1973 and bilateral treaties, Australia maintains Reciprocal Health Care Agreements (RHCA) with 11 countries: the United Kingdom, Ireland, New Zealand, Sweden, the Netherlands, Finland, Italy, Malta, Norway, Belgium, and Slovenia. Eligible citizens and residents from these partner countries can enroll in Medicare upon arrival in Australia, receiving a Reciprocal Medicare Card that covers medically necessary inpatient and outpatient care in public hospitals, as well as subsidized prescription medicines under the Pharmaceutical Benefits Scheme (PBS). However, student visa (subclass 500) holders face critical exceptions: UK and Irish students are excluded from RHCA coverage and must purchase private Overseas Student Health Cover (OSHC), whereas students from Belgium, Norway, and Sweden qualify for reciprocal healthcare exemptions under specific bilateral agreements. This record does not issue Medicare cards.'
+    url: "https://www.servicesaustralia.gov.au/when-reciprocal-health-care-agreements-apply-and-you-visit-australia",
+    quote: "Information for visitors to Australia on Reciprocal Health Care Agreements.",
+    summary: "Services Australia provides country-specific reciprocal healthcare guidance for visitors from Belgium, Finland, Italy, Malta, the Netherlands, New Zealand, Norway, Ireland, Slovenia, Sweden and the United Kingdom. Visitors may qualify for medical care under Medicare; the relevant country page should be checked for its conditions. This directory does not establish individual eligibility, universal Medicare-card enrolment, a standard coverage package or student-visa insurance exemptions."
   }),
 
   // ── 54. GERMANY MIETPREISBREMSE MANDATORY PRIOR RENT DISCLOSURE ───────────────

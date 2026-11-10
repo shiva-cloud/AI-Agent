@@ -71,6 +71,7 @@ test('an archive copy without the quote keeps the record withheld', async () => 
     assert.equal(result.ok, false);
     assert.equal(result.viaArchive, false);
     assert.equal(result.reason, 'archive_quote_not_on_page');
+    assert.equal(result.primaryReason, 'http_403');
     assert.equal(result.published, false);
   } finally { store.db.close(); }
 });
@@ -87,6 +88,7 @@ test('no archive snapshot at all reports the archive failure honestly', async ()
     const result = report.results[0];
     assert.equal(result.ok, false);
     assert.equal(result.reason, 'archive_http_404');
+    assert.equal(result.primaryReason, 'http_404');
   } finally { store.db.close(); }
 });
 
@@ -109,5 +111,24 @@ test('queue-only mode ranks the queue without fetching or publishing', async () 
     const stored = store.records().find(r => r.id === 'archive-fallback-fixture');
     assert.equal(stored.status, 'approved');
     assert.equal(stored.snapshotId, undefined);
+  } finally { store.db.close(); }
+});
+
+test('queue-only includes blocked and awaiting-approval records with actionable reasons', async () => {
+  const store = await seededStore(fixture());
+  try {
+    const record = fixture();
+    delete record.sourceId;
+    store.ingestion.ingest({ sourceId: 'src-archive-fixture', requestKey: 'pending-review', content: QUOTE, record });
+    const waiting = await verifyAndPublish(store, { queueOnly: true, now: NOW });
+    assert.equal(waiting.results[0].state, 'awaiting_approval');
+    assert.equal(waiting.results[0].pendingCandidates.length, 1);
+    store.db.prepare("UPDATE sources SET policy='unreviewed' WHERE id=?").run('src-archive-fixture');
+    const blocked = await verifyAndPublish(store, { queueOnly: true, now: NOW });
+    assert.equal(blocked.results[0].state, 'blocked');
+    assert.ok(blocked.results[0].blockers.length);
+    assert.ok(blocked.results[0].nextActions.length);
+    const check = await verifyAndPublish(store, { now: NOW, fetchImpl: () => { throw new Error('Blocked record must not fetch'); } });
+    assert.equal(check.checked, 0);
   } finally { store.db.close(); }
 });

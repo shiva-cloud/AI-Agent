@@ -1,0 +1,54 @@
+{
+  "id": "global-batch1-2026-11-08",
+  "corrections": [
+    {
+      "id": "uk-tenant-fees-act-prohibited-payments-ban",
+      "url": "https://www.gov.uk/government/publications/tenant-fees-act-2019-guidance",
+      "sourceOwner": "Ministry of Housing, Communities and Local Government",
+      "title": "UK Ministry of Housing: Tenant Fees Act guidance and permitted payments in England",
+      "quote": "Consumer guidance to help tenants understand their rights and obligations under the Act, including: a list of permitted and prohibited payments",
+      "summary": "Under UK guidance on the Tenant Fees Act, published by the Ministry of Housing, Communities and Local Government for England, statutory guidance sets out tenant rights and obligations, including permitted and prohibited payments and enforcement powers. The guidance explains the penalties and consequences of a breach of the Act. This overview outlines statutory tenancy fee guidance; it does not adjudicate payment claims or issue civil penalties."
+    },
+    {
+      "id": "au-rental-bonds-lodgement-and-refund-kyc",
+      "url": "https://www.fairtrading.nsw.gov.au/housing-and-property/renting/rental-bonds-online",
+      "sourceOwner": "NSW Fair Trading",
+      "title": "NSW Fair Trading: Rental Bonds Online, 4-week bond cap, and bond lodgement",
+      "quote": "details of the bond amount to be paid (as agreed with your landlord/agent) – however, it cannot be more than 4 weeks rent",
+      "summary": "Under NSW Fair Trading tenancy rules in Australia, Rental Bonds Online allows tenants to lodge, view, and claim rental bonds securely. The bond amount agreed with the landlord or agent cannot be more than 4 weeks rent. Self-managing landlords or property agents must be registered with Rental Bonds Online and offer it as the primary option to lodge bonds. This overview explains statutory rental bond limits and lodgement in NSW; it does not adjudicate tenancy bond disputes."
+    },
+    {
+      "id": "au-residential-tenancy-bond-authority-kyc",
+      "url": "https://www.fairtrading.nsw.gov.au/housing-and-property/renting",
+      "sourceOwner": "NSW Fair Trading",
+      "title": "NSW Fair Trading: Renting a place to live, starting a tenancy, and getting bonds back",
+      "quote": "Find out how to start a tenancy, renting costs and how to get repairs done. Learn how to end a tenancy, get your bond back and what to do if things go wrong.",
+      "summary": "NSW Fair Trading provides guidance on renting a place to live in New South Wales, covering how to start a tenancy, renting costs, getting repairs done, ending a tenancy, and getting your bond back. Tenants and landlords can access official dispute resolution routes when issues arise. This overview describes statutory tenancy resources in NSW; it does not resolve lease disputes or issue NCAT orders."
+    },
+    {
+      "id": "au-state-education-public-school-enrolment-kyc",
+      "url": "https://education.nsw.gov.au/public-schools/going-to-a-public-school/enrolment",
+      "sourceOwner": "NSW Department of Education",
+      "title": "NSW Department of Education: Public school enrolment and Kindergarten to Year 12 procedures",
+      "quote": "How to enrol in a NSW public school, designated enrolment areas, preschool and general enrolment for Kindergarten to Year 12, including online applications and forms.",
+      "summary": "The NSW Department of Education explains how to enrol in a NSW public school, covering designated enrolment areas, preschool, and general enrolment for Kindergarten to Year 12. Enrolment procedures commencing from Term 1 2026 provide updated guidance for local area enrolments and flexible enrolments. Applications must be completed in English, and translated guides are available to assist parents. This overview explains public school enrolment procedures; it does not process individual school applications."
+    },
+    {
+      "id": "au-accc-scamwatch-newcomer-protection",
+      "url": "https://www.scamwatch.gov.au/",
+      "sourceOwner": "Australian Competition and Consumer Commission",
+      "title": "ACCC Scamwatch: ATO and myGov impersonation scam warnings",
+      "quote": "With tax time 2026 fast approaching, Scamwatch and the Australian Taxation Office (ATO) are reminding Australians to be aware of communications claiming to be from the ATO or 'myGov'.",
+      "summary": "Scamwatch and the Australian Taxation Office (ATO) remind individuals to be aware of communications claiming to be from the ATO or myGov. The National Anti-Scam Centre and Australian Cyber Security Centre provide resources to spot and avoid scams and protect personal information online. This guidance outlines scam prevention resources; it does not investigate fraud reports or provide legal recourse."
+    },
+    {
+      "id": "us-consumer-ftc-newcomer-antifraud",
+      "url": "https://consumer.ftc.gov/features/scam-alerts",
+      "sourceOwner": "Federal Trade Commission",
+      "title": "FTC: Spotting scam payment demands and government imposter schemes",
+      "quote": "The FTC will never threaten you, say you must transfer your money to \"protect it,\" or tell you to withdraw cash or buy gold and give it to someone. That's a scam.",
+      "summary": "The Federal Trade Commission (FTC) warns consumers that official agencies will never threaten you, demand that you transfer money to protect it, or tell you to withdraw cash or buy gift cards or cryptocurrency. Unexpected demands that you pay by bank transfer, wire transfer, cryptocurrency, or gift cards to fix an urgent problem are characteristic signs of a scam. Consumers can report fraud and scams directly to the FTC. This guidance provides consumer education; it does not prosecute criminal offenses or recover lost funds."
+    }
+  ]
+}
+

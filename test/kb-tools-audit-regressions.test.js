@@ -2,6 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { safeIsoDate, todayIso } from '../src/text-input.js';
 import { missingFigures, verifyAgainstPage, fetchPageText } from '../src/source-verifier.js';
+
+test('source-fetch diagnostics retain transport codes without exposing exception messages', async () => {
+  const result = await fetchPageText('https://example.invalid', {
+    fetchImpl: async () => { throw new TypeError('secret proxy password', {cause:{code:'UND_ERR_SOCKET'}}); }
+  });
+  assert.equal(result.error,'network_error');
+  assert.equal(result.detail,'UND_ERR_SOCKET');
+  assert.ok(!JSON.stringify(result).includes('secret'));
+  const unsafe = await fetchPageText('https://example.invalid', {
+    fetchImpl: async () => { throw new TypeError('secret', {cause:{code:'https://user:password@example.invalid'}}); }
+  });
+  assert.equal(unsafe.detail,undefined);
+});
 import { evaluateStudyPermitCapAndPal } from '../src/study-permit-cap-pal-navigator.js';
 import { ToolInputError } from '../src/api-errors.js';
 import { createApp } from '../src/server.js';
@@ -66,21 +79,21 @@ test('study finances require actual amounts and reject malformed values', () => 
     assert.equal(result.financialAudit.financialBufferCad, null);
   }
   for (const value of ['bad', ' ', true, [], {}, -1, Infinity, 100000001]) {
-    assert.throws(() => evaluateStudyPermitCapAndPal({ liquidFundsAvailableCad: value }), ToolInputError);
+    assert.throws(() => evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06', liquidFundsAvailableCad: value }), ToolInputError);
   }
   for (const input of [{ province: 'INVALID' }, { studyLevel: {} }, { studyLevel: 'unknown' }, { familyMembersAccompanying: 1.5 }]) {
     assert.throws(() => evaluateStudyPermitCapAndPal(input), ToolInputError);
   }
-  const zero = evaluateStudyPermitCapAndPal({ tuitionFeeFirstYearCad: 0, liquidFundsAvailableCad: 0 });
+  const zero = evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06', tuitionFeeFirstYearCad: 0, liquidFundsAvailableCad: 0 });
   assert.equal(zero.financialAudit.liquidFundsAvailableCad, 0);
   assert.equal(zero.financialAudit.status, 'DEFICIT_RISK');
 });
 
 test('study boolean strings cannot accidentally grant exemptions and invalid categories/dates are rejected', () => {
-  assert.equal(evaluateStudyPermitCapAndPal({ isExtensionOfStudyPermit: 'false' }).isPalRequired, true);
-  assert.equal(evaluateStudyPermitCapAndPal({ isExtensionOfStudyPermit: 'true' }).isPalRequired, false);
+  assert.equal(evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06', isExtensionOfStudyPermit: 'false' }).isPalRequired, true);
+  assert.equal(evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06', isExtensionOfStudyPermit: 'true' }).isPalRequired, false);
   for (const field of ['isExtensionOfStudyPermit', 'isInCanadaApplication', 'isFamilyOfWorkOrStudyHolder']) {
-    for (const value of ['yes', '', null, 0, 1, [], {}]) assert.throws(() => evaluateStudyPermitCapAndPal({ [field]: value }), ToolInputError);
+    for (const value of ['yes', '', null, 0, 1, [], {}]) assert.throws(() => evaluateStudyPermitCapAndPal({ applicationDate: '2026-11-06', [field]: value }), ToolInputError);
   }
   for (const input of [{ fieldOfStudyCategory: {} }, { fieldOfStudyCategory: 'unknown' }, { cipCode: 'bad' },
     { cipCode: 11.0701 }, { assessmentDate: '2026-02-30' }, { assessmentDate: '' }]) {
@@ -96,6 +109,7 @@ test('study GET and POST do not invent finances or silently discard invalid alia
   try {
     for (const method of ['GET', 'POST']) {
       const request = async (input) => {
+        input = { applicationDate: '2026-11-06', ...input };
         const response = await fetch(method === 'GET' ? `${base}?${new URLSearchParams(input)}` : base,
           method === 'POST' ? { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) } : {});
         return { status: response.status, body: await response.json() };

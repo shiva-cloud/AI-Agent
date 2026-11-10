@@ -386,9 +386,16 @@ export function findPlaces(text) {
 
 /** Supported pilot cities named in the text; a neighbourhood counts as its city. */
 export function supportedCitiesIn(text) {
-  return [...new Set(findPlaces(text)
+  const allCities = [...new Set(findPlaces(text)
     .filter(place => place.status === 'supported' && (place.type === 'city' || place.type === 'neighbourhood'))
     .map(place => ancestorOfType(place.id, 'city')))];
+  if (allCities.length <= 1) return allCities;
+  const nonMissionText = String(text || '').replace(/\b(?:consulate(?: general)?|embassy|high commission|mission|vac|bls|vfs)\s+(?:of\s+[^,.]*?\s+)?in\s+(?:toronto|mississauga|brampton|vancouver|ottawa|montreal|calgary)\b/gi, ' ');
+  const nonMissionCities = [...new Set(findPlaces(nonMissionText)
+    .filter(place => place.status === 'supported' && (place.type === 'city' || place.type === 'neighbourhood'))
+    .map(place => ancestorOfType(place.id, 'city')))];
+  if (nonMissionCities.length > 0) return nonMissionCities;
+  return allCities;
 }
 
 /** Supported regions named in the text by their own aliases (not inferred from a city). */
@@ -444,22 +451,28 @@ export function describeLocationClarification(text, parsed) {
       if (!mentioned.includes(same)) mentioned.push(same);
     }
   }
+  const cities = supportedCitiesIn(text), regions = supportedRegionsIn(text);
   const unsupported = mentioned.filter(p => {
     if (p.status === 'known_unsupported') return true;
     if (p.status === 'outside_canada') {
       const parentCountry = p.type === 'country' ? p.name : ancestorOfType(p.id, 'country');
+      const hasCanadianDest = parsed?.city || parsed?.region || isExplicitCanada || cities.length > 0 || regions.length > 0;
+      if (hasCanadianDest && parsed?.licenceCountry && (parentCountry === parsed.licenceCountry || p.name === parsed.licenceCountry)) return false;
+      if (hasCanadianDest && parsed?.relocation?.originCountry && (parentCountry === parsed.relocation.originCountry || p.name === parsed.relocation.originCountry)) return false;
       const isSupportedGlobal = globalDestinations.some(([name]) => name === parentCountry);
       if (!isSupportedGlobal) return true;
       if (parsed.country === 'CA') return true;
     }
     return false;
   });
-  const cities = supportedCitiesIn(text), regions = supportedRegionsIn(text);
+  const EU_MEMBER_STATES = new Set(['Germany', 'France', 'Netherlands', 'Ireland', 'Sweden', 'Spain', 'Italy', 'Greece', 'Cyprus', 'Malta', 'Austria', 'Belgium', 'Denmark', 'Finland', 'Poland', 'Portugal']);
+  const filterMemberStateEU = list => (list.includes('European Union') && list.some(c => EU_MEMBER_STATES.has(c))) ? list.filter(c => c !== 'European Union') : list;
+
   // Destination countries the app supports, plus Canada when a Canadian place is named.
-  const countries = [...new Set([
+  const countries = filterMemberStateEU([...new Set([
     ...(cities.length || regions.length || /\b(?:canada|canadian)\b/i.test(text) ? ['Canada'] : []),
     ...globalDestinations.filter(([, pattern]) => pattern.test(text)).map(([name]) => name)
-  ])];
+  ])]);
   let reason, message, selectableCities = [];
   if (countries.length > 1 && !unsupported.some(p => p.status === 'known_unsupported')) {
     reason = 'conflicting_countries';
@@ -510,7 +523,7 @@ const outsideCanada = pattern(places.filter(place => place.status === 'outside_c
 // does not read the dangling preposition as an unknown destination; the real
 // destination after it is still parsed, and unknown countries keep their
 // clarification through the licence-country slot.
-const nonPlace = /^(?:a|an|the|in|and|or|with|for|after|while|before|prior|from|without|also|then|until|since|during|across|through|years?|months?|days?|times?|status|pr|visa|permit|application|my|your|our|their|this|that|which|what|me|here|free|new|dufferin|person|english|advance|cash|full|writing|order|general|particular|total|addition|case|terms|need|time|future|school|hospital|college|university|public|private|employment|healthcare|health|housing|childcare|daycare|libraries|library|online|work|search|express(?:\s+entry)?|teer|peel(?:\s+district)?|school\s+board|acro|french|bilingual|nclc|clb|ielts|celpip|noc|crs|fsw|cec|pnp|oinp|partner|partners|clinic|clinics|january|february|march|april|may|june|july|august|september|october|november|december|early|late|mid|winter|summer|spring|autumn|fall|[0-9]+|progress|between|languages?|tef|tcf|pte|europe|distance|degrees?|diplomas?|universit(?:y|ies)|programs?|streams?|draws?|rounds?|categories?|postings?|units?|custody|convictions?|speeding|tickets?|traffic|dui|rehabilitation|medicare|medicaid|superannuation|kiwisaver|pension|probation|probearbeit|fhsa|tfsa|rrsp|401k|ira|chancenkarte|bad(?:\s+faith)?|census(?:\s+metropolitan)?|publicly(?:\s+advertised)?|designated|ohip|msp|ramq|ahcip|ifhp|nhs|sin|ssn|any|annex|accordance|compliance|violation|respect|relation|excess|comparison|cryptocurrency|crypto|hardware|ledger|unhosted|medical|science|tech|supermarkets?|regional|one|two|three|four|five|ten|junior(?:\s+kindergarten)?|kindergarten|preschool|elementary|secondary|high\s+schools?|schools?|offices?|departments?|stores?|shops?|shopping|malls?|places?|courts?|sectors?|industries|commerce|business|government|banking|finance|technology|healthcare|german|french|spanish|dutch|swedish|canadian|australian|american|british|irish|immigration|emigration|migration|another|different|other|various|all|many|several|multiple|certain|every|each|such|same|similar|removal|local|foreign|international|domestic|global|national|federal|provincial|state|migrants?|immigrants?|citizens?|residents?|applicants?|newcomers?|integration|settlement|policy|law|practice|context|theory|reality|principles?|effect|force|area|areas|jurisdictions?|cases?|circumstances?|situations?|periods?|stages?|phases?|systems?|frameworks?|types?|forms?|ways?|regards?|fact|short|essence|parallel|consultants?|lawyers?|documents?|records?|intentions?|purposes?|discretion|entitlement|rules?|websites?|departments?|statistics?|outcomes?|countries|legislation|statutes?|policies|constitution|treaty|treaties|old|new|names?|jobs?|duties|birthdays?|selection|cross-border|entry|transit|disputes?|custody|networks?|records?|agreements?|filings?|interviews?|reviews?|assessments?|processing|decisions?|procedures?|requirements?|criteria|systems?|programs?|categories?|qualifications?|credentials?|degrees?|diplomas?|certificates?|standards?|tests?|exams?|scores?|results?|evidence|proof|funds?|assets?|accounts?|statements?|documents?|forms?|notices?|letters?|appeals?|hearings?|tribunals?|regulations?|laws?|rules?|guidelines?|instructions?|orders?|bans?|penalties?|fees?|costs?|expenses?|payments?|transfers?|taxes?|benefits?|services?|supports?|resources?|centers?|offices?|agencies?|departments?|ministries?|embassies?|consulates?|missions?|borders?|ports?|airports?|checkpoints?|flights?|travel|trips?|arrivals?|departures?|stays?|visits?|admissions?|landings?|settlements?|relocations?|moves?|refusals?|detention|dangerous|security-sensitive|citizenship-by-investment|residency|trade|social|either|neither|family|skilled-migration|regions?|official|evaluating|industry|industries|temporary|long-term|short-term|medium-term|accommodation|history|loss|losses|spousal|spouse|spouses|plain(?:\s+language|\s+english)?|simple(?:\s+terms|\s+words)?|layman(?:'s)?(?:\s+terms)?|chronological(?:\s+order)?|summary|detail|crisis|trouble|dispute|danger|urgent(?:\s+assistance)?|assistance|rental(?:\s+housing|\s+property|\s+market|\s+units?)?|two\s+countries|automated\s+screening|social\s+security(?:\s+contributions?)?|rent\s+arrears|accessibility(?:\s+modification)?|food\s+banks?|public\s+transit|telecom(?:\s+early\s+cancellation|\s+contract)?)\b/i;
+const nonPlace = /^(?:a|an|the|in|and|or|with|for|after|while|before|prior|from|without|also|then|until|since|during|across|through|years?|months?|days?|times?|status|pr|visa|permit|application|my|your|our|their|this|that|which|what|me|here|free|new|dufferin|person|english|advance|cash|full|writing|order|general|particular|total|addition|case|terms|need|time|future|school|hospital|college|university|public|private|employment|healthcare|health|housing|childcare|daycare|libraries|library|online|work|search|express(?:\s+entry)?|teer|peel(?:\s+district)?|school\s+board|acro|french|bilingual|nclc|clb|ielts|celpip|noc|crs|fsw|cec|pnp|oinp|partner|partners|clinic|clinics|january|february|march|april|may|june|july|august|september|october|november|december|early|late|mid|winter|summer|spring|autumn|fall|[0-9]+|progress|between|languages?|tef|tcf|pte|europe|distance|degrees?|diplomas?|universit(?:y|ies)|programs?|streams?|draws?|rounds?|categories?|postings?|units?|custody|convictions?|speeding|tickets?|traffic|dui|rehabilitation|medicare|medicaid|superannuation|kiwisaver|pension|probation|probearbeit|fhsa|tfsa|rrsp|401k|ira|chancenkarte|bad(?:\s+faith)?|census(?:\s+metropolitan)?|publicly(?:\s+advertised)?|designated|ohip|msp|ramq|ahcip|ifhp|nhs|sin|ssn|any|annex|accordance|compliance|violation|respect|relation|excess|comparison|cryptocurrency|crypto|hardware|ledger|unhosted|medical|science|tech|supermarkets?|regional|one|two|three|four|five|ten|junior(?:\s+kindergarten)?|kindergarten|preschool|elementary|secondary|high\s+schools?|schools?|offices?|departments?|stores?|shops?|shopping|malls?|places?|courts?|sectors?|industries|commerce|business|government|banking|finance|technology|healthcare|german|french|spanish|dutch|swedish|canada|canadian|australian|american|british|irish|immigration|emigration|migration|another|different|other|various|all|many|several|multiple|certain|every|each|such|same|similar|removal|local|foreign|international|domestic|global|national|federal|provincial|state|migrants?|immigrants?|citizens?|residents?|applicants?|newcomers?|integration|settlement|policy|law|practice|context|theory|reality|principles?|effect|force|area|areas|jurisdictions?|cases?|circumstances?|situations?|periods?|stages?|phases?|systems?|frameworks?|types?|forms?|ways?|regards?|fact|short|essence|parallel|consultants?|lawyers?|documents?|records?|intentions?|purposes?|discretion|entitlement|rules?|websites?|departments?|statistics?|outcomes?|countries|legislation|statutes?|policies|constitution|treaty|treaties|old|new|names?|jobs?|duties|birthdays?|selection|cross-border|entry|transit|disputes?|custody|networks?|records?|agreements?|filings?|interviews?|reviews?|assessments?|processing|decisions?|procedures?|requirements?|criteria|systems?|programs?|categories?|qualifications?|credentials?|degrees?|diplomas?|certificates?|standards?|tests?|exams?|scores?|results?|evidence|proof|funds?|assets?|accounts?|statements?|documents?|forms?|notices?|letters?|appeals?|hearings?|tribunals?|regulations?|laws?|rules?|guidelines?|instructions?|orders?|bans?|penalties?|fees?|costs?|expenses?|payments?|transfers?|taxes?|benefits?|services?|supports?|resources?|centers?|offices?|agencies?|departments?|ministries?|embassies?|consulates?|missions?|borders?|ports?|airports?|checkpoints?|flights?|travel|trips?|arrivals?|departures?|stays?|visits?|admissions?|landings?|settlements?|relocations?|moves?|refusals?|detention|dangerous|security-sensitive|citizenship-by-investment|residency|trade|social|either|neither|family|skilled-migration|regions?|official|evaluating|industry|industries|temporary|long-term|short-term|medium-term|accommodation|history|loss|losses|spousal|spouse|spouses|plain(?:\s+language|\s+english)?|simple(?:\s+terms|\s+words)?|layman(?:'s)?(?:\s+terms)?|chronological(?:\s+order)?|summary|detail|crisis|trouble|dispute|danger|urgent(?:\s+assistance)?|assistance|rental(?:\s+housing|\s+property|\s+market|\s+units?)?|two\s+countries|automated\s+screening|social\s+security(?:\s+contributions?)?|rent\s+arrears|accessibility(?:\s+modification)?|food\s+banks?|public\s+transit|telecom(?:\s+early\s+cancellation|\s+contract)?|duty[- ]free|customs|together|continuously)\b/i;
 
 // In a question about another destination country, "in London UK" or "in Sydney Australia"
 // names a city inside that country; the city itself is not a pilot place to resolve.
@@ -521,7 +534,7 @@ function namesGlobalCountrySoon(destination) {
 // Text after a location preposition that is not a known place or an ordinary word.
 function unrecognisedDestinations(text, isGlobal = false) {
   const found = [];
-  for(const match of text.matchAll(/(?<![-])\b(?:in|near|around|mov(?:e|ed|ing) to|relocat(?:e|ed|ing) to|arriv(?:e|ed|ing) in|live|lived|living in|settl(?:e|ed|ing) in|stay(?:ing|ed)? in)\s+(?=([a-z][a-z.\s'-]*))/gi)) {
+  for(const match of text.matchAll(/(?<![-])\b(?:in|near|around|mov(?:e|ed|ing) to|relocat(?:e|ed|ing) to|arriv(?:e|ed|ing) in|liv(?:e|ed|ing) in|settl(?:e|ed|ing) in|stay(?:ing|ed)? in)\s+(?=([a-z][a-z.\s'-]*))/gi)) {
     const destination=match[1].trim();
     if(isGlobal && (outsideCanada.test(destination) || namesGlobalCountrySoon(destination))) continue;
     if(!supportedPrefix.test(destination) && !globalDestinations.some(([,pattern])=>pattern.exec(destination)?.index===0) && !nonPlace.test(destination)) found.push(destination);
@@ -563,7 +576,8 @@ export function unrecognisedPlaceNames(text) {
 export function resolveClauseGeography(text) {
   if (typeof text !== 'string') return null;
   const pattern = /\b(?:from|moving from|relocating from|leaving|arriving from|travel(?:l?ing)? from|coming from|originating from|migrating from)\s+([a-zA-Z\s'-]+?)\s+(?:to|in|into)\s+([a-zA-Z\s'-]+?)(?=(?:[,.?!]|\s+(?:can|how|what|is|are|will|do|does|where|when|should|my|with|for|about|and|or|$)))/i;
-  const match = text.match(pattern);
+  const patternBeforeMoving = /\b(?:lived in|living in|resided in)\s+([a-zA-Z\s'-]+?)(?:\s+for\s+[0-9]+\s+(?:years?|months?))?\s+(?:before|prior to)\s+(?:moving to|relocating to|settling in|coming to)\s+([a-zA-Z\s'-]+?)(?=(?:[,.?!]|\s+(?:can|how|what|is|are|will|do|does|where|when|should|my|with|for|about|and|or|$)))/i;
+  const match = text.match(pattern) || text.match(patternBeforeMoving);
   if (!match) return null;
 
   const originClause = match[1].trim();

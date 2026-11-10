@@ -1,0 +1,46 @@
+{
+  "id": "uk-batch1-2026-11-08",
+  "sourceOwner": "UK Official Authority",
+  "corrections": [
+    {
+      "id": "uk-dfe-school-admissions-code-kyc",
+      "url": "https://www.gov.uk/schools-admissions/how-to-apply",
+      "sourceOwner": "Department for Education",
+      "title": "DfE: School admissions applications and moving to England",
+      "quote": "You apply through your local council even if you're applying for schools in another council area or you've just moved to England. If you're applying from another country, contact the local council in the area where you're going to live.",
+      "summary": "Under UK Department for Education (DfE) guidance, families applying for a state-funded primary or secondary school place apply through their local council, including if they have just moved to England or are applying from another country. Applicants may need to supply proof of their new address, such as a rental agreement, and prove they will live in the area before the start of the next term. This record outlines application procedures; it does not assign school places."
+    },
+    {
+      "id": "uk-tenancy-section-21-gas-safety-invalidation",
+      "url": "https://www.gov.uk/evicting-tenants",
+      "sourceOwner": "Ministry of Housing, Communities and Local Government",
+      "title": "GOV.UK: Evicting tenants in England and notice requirements",
+      "quote": "You may be guilty of harassing or illegally evicting your tenant if you do not follow the correct procedures. Illegal eviction is a criminal offence that can lead to a prison sentence.",
+      "summary": "Under UK government guidance for evicting tenants in England, landlords must follow strict procedures if they want a tenant to leave, and illegal eviction is a criminal offence that can lead to a prison sentence. For assured periodic tenancies, landlords must give proper notice and apply to court for a possession order if the tenant does not leave. This overview outlines statutory possession procedures; it does not grant eviction orders or represent landlords."
+    },
+    {
+      "id": "uk-england-assured-shorthold-tenancy-and-section-21",
+      "url": "https://www.gov.uk/private-renting-evictions",
+      "sourceOwner": "Ministry of Housing, Communities and Local Government",
+      "title": "GOV.UK: Private renting eviction rules and tenant deposit protections",
+      "quote": "Your landlord must follow strict procedures if they need you to leave their property. This depends on the type of tenancy agreement you have and the terms of it. If they do not, they may be guilty of illegally evicting or harassing you .",
+      "summary": "Under UK private renting rules in England, a landlord must follow strict legal procedures to evict a tenant, and failing to do so may constitute illegal eviction or harassment. Landlords must demonstrate that they followed correct procedures for tenancy deposits, including protecting the deposit in a government-approved scheme. This guidance explains statutory eviction protections; it does not resolve tenancy disputes."
+    },
+    {
+      "id": "uk-london-tfl-oyster-contactless",
+      "url": "https://tfl.gov.uk/fares/how-to-pay-and-where-to-buy-tickets-and-oyster",
+      "sourceOwner": "Transport for London",
+      "title": "TfL: Contactless, Oyster cards and ways to pay in London",
+      "quote": "Use contactless or an Oyster card to pay as you go",
+      "summary": "Transport for London (TfL) manages public transportation across London. You can pay as you go using contactless payment or an Oyster card, or buy paper tickets for Tube and rail journeys. Buses and trams offer travel pass options, and fares can be paid across London. This overview describes transit payment methods; it does not issue refunds or cards."
+    },
+    {
+      "id": "uk-tfl-transit-contactless-capping-and-fare-zones",
+      "url": "https://tfl.gov.uk/fares/find-fares/tube-and-rail-fares/caps-and-travelcard-prices",
+      "sourceOwner": "Transport for London",
+      "title": "TfL: Pay as you go caps and Travelcard prices",
+      "quote": "Travelling outside your chosen zones may result in additional charges.",
+      "summary": "Under Transport for London (TfL) fare rules, pay as you go caps and Travelcard prices apply across London transit zones. Passengers must ensure they have sufficient pay as you go credit for their journey, as travelling outside chosen zones may result in additional charges. This guidance explains fare capping structures; it does not set personal fare rates."
+    }
+  ]
+}

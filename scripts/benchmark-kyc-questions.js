@@ -1,5 +1,7 @@
 // KYC & Human Settlement Advisory Verification Benchmark
 // Tests core newcomer KYC scenarios across banking, housing, right-to-work, OHIP, driving, and anti-fraud.
+import { openStore } from '../src/store.js';
+import { answer } from '../src/engine.js';
 
 const BASE_URL = 'http://localhost:3000/v1/answers';
 
@@ -197,28 +199,49 @@ async function run() {
   console.log(`RUNNING EXPANDED KYC & SETTLEMENT ADVISORY BENCHMARK (${kycScenarios.length} SCENARIOS)`);
   console.log('================================================================');
 
+  let store = null;
+  let records = null;
+  let inMemory = false;
+  try {
+    const probe = await fetch(BASE_URL, { method: 'OPTIONS' }).catch(() => null);
+    if (!probe || !probe.ok) {
+      inMemory = true;
+      store = openStore();
+      records = store.records();
+    }
+  } catch {
+    inMemory = true;
+    store = openStore();
+    records = store.records();
+  }
+
   let passed = 0;
   for (const s of kycScenarios) {
-    let retries = 5;
-    let res, data;
-    while (retries > 0) {
-      try {
-        res = await fetch(BASE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: s.question, language: 'en' })
-        });
-        if (res.status === 429) {
-          const delay = parseInt(res.headers.get('retry-after') || '1', 10) * 1000 + 50;
-          await sleep(delay);
+    let data;
+    if (inMemory) {
+      data = answer({ question: s.question, language: 'en' }, records, new Date('2026-11-08T12:00:00Z'));
+    } else {
+      let retries = 5;
+      let res;
+      while (retries > 0) {
+        try {
+          res = await fetch(BASE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: s.question, language: 'en' })
+          });
+          if (res.status === 429) {
+            const delay = parseInt(res.headers.get('retry-after') || '1', 10) * 1000 + 50;
+            await sleep(delay);
+            retries--;
+            continue;
+          }
+          data = await res.json();
+          break;
+        } catch (err) {
+          await sleep(200);
           retries--;
-          continue;
         }
-        data = await res.json();
-        break;
-      } catch (err) {
-        await sleep(200);
-        retries--;
       }
     }
 

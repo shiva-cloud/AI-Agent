@@ -1,0 +1,69 @@
+{
+  "id": "source-corrections-2026-11-08-batch11",
+  "corrections": [
+    {
+      "id": "au-sydney-nsw-health-gp-medicare",
+      "url": "https://www.health.nsw.gov.au/services/Pages/default.aspx",
+      "sourceOwner": "NSW Ministry of Health",
+      "title": "NSW Health: Clinical services planning and healthcare services directory",
+      "quote": "Clinical services planning enables service delivery that is responsive to the health needs of the NSW population.",
+      "summary": "NSW Health provides public clinical services planning and directories across local health districts in New South Wales. This guidance outlines public service delivery responsive to population health needs and links to hospitals, community health centers, and emergency care."
+    },
+    {
+      "id": "alberta-driver-licensing-exchange",
+      "url": "https://www.alberta.ca/exchange-non-alberta-licences",
+      "sourceOwner": "Government of Alberta",
+      "title": "Government of Alberta: Exchanging a non-Alberta driver's licence",
+      "quote": "If you are living in Alberta permanently, you must exchange your current driver's licence within 90 days of becoming a resident.",
+      "summary": "Permanent residents moving to Alberta must exchange their current driver's licence for an Alberta licence within 90 days. Reciprocal licence exchange agreements exist with Canadian jurisdictions, the United States, and selected countries, while non-reciprocal licence holders require knowledge and road testing."
+    },
+    {
+      "id": "global-refusal-appeals-judicial-review-iad",
+      "url": "https://www.irb-cisr.gc.ca/en/immigration-appeals/Pages/index.aspx",
+      "sourceOwner": "Immigration and Refugee Board of Canada",
+      "title": "Immigration and Refugee Board of Canada: Immigration Appeal Division (IAD)",
+      "quote": "The Immigration Appeal Division (IAD) hears appeals on immigration-related matters, including sponsorships, removal orders and residency obligations.",
+      "summary": "The Immigration Appeal Division of the Immigration and Refugee Board of Canada adjudicates appeals on immigration matters, including refused family class sponsorships, removal orders issued against permanent residents, and residency obligation appeals."
+    },
+    {
+      "id": "uk-fca-retail-banking-kyc",
+      "url": "https://www.gov.uk/evisa",
+      "sourceOwner": "UK Home Office / GOV.UK",
+      "title": "GOV.UK: Online immigration status (eVisa) and share codes",
+      "quote": "You can view your eVisa and get a share code to prove your immigration status , for example when you get a new job or rent a home.",
+      "summary": "GOV.UK provides digital immigration status (eVisa) access and share codes for individuals to prove their immigration rights in the UK to employers, landlords, and financial institutions without requiring physical vignette stickers or biometric residence permits."
+    },
+    {
+      "id": "uk-consumer-contracts-14day-cooling-off-telecom-kyc",
+      "url": "https://www.gov.uk/online-and-distance-selling-for-businesses",
+      "sourceOwner": "Department for Business and Trade / GOV.UK",
+      "title": "GOV.UK: Online and distance selling cancellation and cooling-off periods",
+      "quote": "You must tell the customer they can cancel their order up to 14 days after their order is delivered. They do not need to give a reason for cancelling.",
+      "summary": "Under UK distance selling regulations, businesses must notify customers of their statutory right to cancel orders within 14 days after delivery without providing a reason. Customers then have a further 14 days to return goods following cancellation notification."
+    },
+    {
+      "id": "global-child-school-enrollment-and-age-caps",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children/who-you-can-sponsor.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: Dependent child definition and age limits for family sponsorship",
+      "quote": "they're under 22 years old and they don't have a spouse or common-law partner",
+      "summary": "Immigration, Refugees and Citizenship Canada defines a dependent child for sponsorship purposes as being under 22 years of age and without a spouse or common-law partner, or 22 years or older if financially dependent due to a physical or mental condition."
+    },
+    {
+      "id": "uk-action-fraud-newcomer-scam-shield",
+      "url": "https://www.gov.uk/find-an-immigration-adviser",
+      "sourceOwner": "Immigration Advice Authority / GOV.UK",
+      "title": "GOV.UK: Find and check an immigration adviser",
+      "quote": "All immigration advisers must be registered with IAA or be a member of an approved professional body .",
+      "summary": "In the UK, immigration advisers must be registered with the Immigration Advice Authority (IAA, formerly OISC) or belong to an approved designated professional body such as the Law Society or Bar Council. Using unregulated advisers risks invalid advice and financial exploitation."
+    },
+    {
+      "id": "global-immigration-consultants-fraud-guarantees",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigration-citizenship-representative/choose.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: How to choose an authorized immigration representative",
+      "quote": "If you choose a paid representative who's not authorized, we may return your application or refuse it",
+      "summary": "IRCC advises applicants that only authorized representatives are legally permitted to charge a fee for immigration or citizenship advice. Submitting an application through an unauthorized paid representative may result in return or refusal of the application."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "batch10-source-corrections-2026-11-08",
+  "corrections": [
+    {
+      "id": "de-berlin-bvg-transit-zones",
+      "url": "https://www.bvg.de/en/subscriptions-and-tickets",
+      "sourceOwner": "Berliner Verkehrsbetriebe (BVG)",
+      "title": "BVG Berlin: Fare Zones, Subscriptions, and Deutschlandticket Navigation",
+      "quote": "Whether it's a one-off or regular journey, or if you prefer analogue or digital – get everything you need to get around Berlin cheaply.",
+      "summary": "Berliner Verkehrsbetriebe (BVG) provides public transport options across Berlin for one-off and regular journeys, offering single tickets, one-day passes, monthly passes, and the Deutschland Ticket subscription. Tariff information and network options cover local connections across the Berlin metropolitan transit network. This overview describes Berlin public transport ticket categories; it does not sell tickets or process refunds."
+    },
+    {
+      "id": "es-madrid-padron-empadronamiento",
+      "url": "https://sede.madrid.es/portal/site/tramites",
+      "sourceOwner": "Ayuntamiento de Madrid",
+      "title": "Ayuntamiento de Madrid: Sede Electrónica Citizen Procedures and Padrón Municipal",
+      "quote": "A continuación se muestran todos los trámites y gestiones relacionados con las ciudadanas y los ciudadanos. Pulse en el que necesita para obtener todos los detalles.",
+      "summary": "Through the Sede Electrónica of the Ayuntamiento de Madrid, residents can access administrative procedures and citizen services, including municipal census registration (Padrón Municipal altas y cambios) and certificate requests (solicitud de certificado de empadronamiento). This portal provides information on municipal procedures in Madrid; it does not issue census certificates or process address changes directly."
+    },
+    {
+      "id": "es-telecom-law252007-prepaid-sim-and-fiber-broadband",
+      "url": "https://www.cnmc.es/ambitos-de-actuacion/telecomunicaciones",
+      "sourceOwner": "Comisión Nacional de los Mercados y la Competencia (CNMC)",
+      "title": "CNMC: Spanish Electronic Communications Market Supervision and Telecom Regulations",
+      "quote": "Garantizamos el correcto funcionamiento de los mercados de comunicaciones electrónicas a través del establecimiento y supervisión del cumplimiento de las obligaciones por los operadores",
+      "summary": "In Spain, the Comisión Nacional de los Mercados y la Competencia (CNMC) oversees electronic communications markets, supervising compliance by network operators and resolving conflicts across fixed, mobile, messaging, broadband, and Internet access services. This regulatory overview describes telecom supervision in Spain; it does not register SIM cards or configure broadband connections."
+    },
+    {
+      "id": "sg-telecom-imda-prepaid-sim-registration-and-postpaid",
+      "url": "https://www.imda.gov.sg/regulations-and-licensing-listing/prepaid-sim-registration",
+      "sourceOwner": "Infocomm Media Development Authority (IMDA)",
+      "title": "IMDA Singapore: Telecom Regulations, Licensing, and Consumer Protections",
+      "quote": "IMDA has put in place a number of guidelines, acts, and codes of practices to bring clarity to the industry as well as provide more informed choices for consumers.",
+      "summary": "In Singapore, the Infocomm Media Development Authority (IMDA) regulates telecommunications and licensing, administering statutory guidelines, acts, and codes of practice to govern industry standards and protect consumer interests across communication services. This overview describes regulatory authority frameworks in Singapore; it does not issue SIM cards or manage subscriptions."
+    },
+    {
+      "id": "au-vic-vcat-residential-tenancies-division",
+      "url": "https://www.vcat.vic.gov.au/case-types/residential-tenancies",
+      "sourceOwner": "Victorian Civil and Administrative Tribunal (VCAT)",
+      "title": "VCAT: Residential Tenancies Dispute Resolution Pathways and Applications",
+      "quote": "Find out how to apply and understand what steps to take before and after you apply to VCAT.",
+      "summary": "Under the Victorian Civil and Administrative Tribunal (VCAT), the Residential Tenancies division helps resolve disputes between renters and rental providers. Parties can learn about common tenancy disputes VCAT handles, find out required dispute types and section numbers, and understand what steps to take before and after applying. This overview describes statutory tenancy dispute mechanisms in Victoria; it does not represent parties or issue tribunal orders."
+    },
+    {
+      "id": "fr-service-public-carte-de-resident-10-ans-pr",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F11201",
+      "sourceOwner": "Direction de l'information légale et administrative (Service-Public.fr)",
+      "title": "Service-Public France: Carte de résident permanent d'un étranger en France",
+      "quote": "Cette carte vous ouvre un droit au séjour permanent en France, sous certaines conditions.",
+      "summary": "Under French immigration rules published on Service-Public, foreign residents holding qualifying residence documentation may request permanent resident status upon renewal. The permanent resident card confers a right to permanent residence in France under statutory conditions and authorizes unrestricted professional activity. This overview describes permanent residency procedures in France; it does not evaluate applications or issue residence cards."
+    },
+    {
+      "id": "fr-caf-apl-housing-allowance-and-visale",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F12006",
+      "sourceOwner": "Direction de l'information légale et administrative (Service-Public.fr)",
+      "title": "Service-Public France: Aide personnalisée au logement (APL) Caf et MSA",
+      "quote": "L'APL est versée par la caisse d'allocations familiales (Caf) ou la mutualité sociale agricole (MSA) selon votre régime de sécurité sociale.",
+      "summary": "Under French social assistance rules on Service-Public, the Aide personnalisée au logement (APL) provides financial assistance to reduce rental payments for eligible tenants. APL is paid by the Caisse d'allocations familiales (Caf) or the Mutualité sociale agricole (MSA) depending on social security affiliation. This overview outlines general housing allowance procedures in France; it does not process subsidy applications or calculate individual benefit payments."
+    }
+  ]
+}
+

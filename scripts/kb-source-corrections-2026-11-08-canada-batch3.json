@@ -1,0 +1,71 @@
+{
+  "id": "canada-batch3-2026-11-08",
+  "sourceOwner": "Government of Canada",
+  "corrections": [
+    {
+      "id": "ircc-dependent-child-sponsorship",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children/who-you-can-sponsor.html",
+      "title": "IRCC: Sponsoring a dependent child or orphaned family member",
+      "quote": "they meet 1 of these requirements: they're under 22 years old and they don't have a spouse or common-law partner",
+      "summary": "Under IRCC dependent child sponsorship rules, a child qualifies as a dependant if they are under 22 years old and do not have a spouse or common-law partner. Children 22 years or older may qualify if they cannot financially support themselves because of a mental or physical condition. This record outlines statutory IRCC sponsorship eligibility and does not decide custody.",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada"
+    },
+    {
+      "id": "ca-ircc-common-law-cohabitation-evidence-kyc",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/spouse-partner-children/eligibility.html",
+      "title": "IRCC: Sponsor eligibility and common-law partner sponsorship",
+      "quote": "You can sponsor your spouse, common-law partner, conjugal partner or dependent child if you Who can sponsor are at least 18 years old are a Canadian citizen, a permanent resident of Canada, or a person registered in Canada under the Canadian Indian Act live in Canada",
+      "summary": "Under IRCC sponsorship eligibility guidelines, you can sponsor your spouse, common-law partner, conjugal partner, or dependent child if you are at least 18 years old, are a Canadian citizen, permanent resident, or registered Indian, live in Canada, and commit to financial support by signing an undertaking. A permanent resident living outside Canada cannot sponsor. This record outlines statutory sponsorship requirements and does not approve applications.",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada"
+    },
+    {
+      "id": "canada-transit-visas-vs-visitor-visas-and-airside-entry",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/transit.html",
+      "title": "IRCC: Transit visa requirements and airside transit through Canada",
+      "quote": "your international flight stops at a Canadian airport on its way to another country you'll be connecting between 2 international flights at one or more Canadian airports your transit through Canada will last 48 hours or less you don't have a valid visitor visa",
+      "summary": "Under IRCC transit rules, foreign nationals need a transit visa if from a visa-required country, their international flight stops at a Canadian airport on its way to another country, or they connect between 2 international flights at one or more Canadian airports, transit lasts 48 hours or less, and they do not have a valid visitor visa. This record does not issue travel visas.",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada"
+    },
+    {
+      "id": "serviceontario-provincial-photo-card-non-drivers",
+      "url": "https://www.ontario.ca/page/ontario-photo-card",
+      "title": "ServiceOntario: Ontario Photo Card identity verification for non-drivers",
+      "quote": "The Ontario Photo Card is a wallet-sized card that provides government-issued identification to residents of Ontario who do not have a driver's licence, making it easier for them to do things such as open a bank account and any other activities that require official identification.",
+      "summary": "The Ontario Photo Card provides government-issued photo identification to residents of Ontario who do not have a driver licence, facilitating activities such as opening a bank account and accessing services that require official identification. You cannot hold an Ontario Photo Card and a driver licence at the same time. The card is valid for 5 years. This record does not issue identity cards.",
+      "sourceOwner": "Ministry of Public and Business Service Delivery (ServiceOntario)"
+    },
+    {
+      "id": "cra-moving-expenses-relocation-deduction",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-21900-moving-expenses.html",
+      "title": "CRA: Moving expenses deduction and 40-kilometre distance test",
+      "quote": "To qualify, your new home must be at least 40 kilometres closer (by the shortest public route) to your new work location. You must establish your new home as the place where you normally live.",
+      "summary": "Under CRA rules for moving expense deductions (Line 21900), taxpayers who move for work or business may deduct eligible moving expenses from employment or self-employment income earned at the new location. To qualify, your new home must be at least 40 kilometres closer (by the shortest public route) to your new work location, and you must establish the new home as where you normally live. This record does not calculate tax deductions.",
+      "sourceOwner": "Canada Revenue Agency"
+    },
+    {
+      "id": "cra-t1135-personal-use-property-exemption",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/information-been-moved/foreign-reporting/questions-answers-about-form-t1135.html",
+      "title": "CRA: Form T1135 foreign reporting and personal-use property exemption",
+      "quote": "No, you do not have to report personal-use property. This includes vacation property that you use primarily as a personal residence (see real property questions below) and listed personal property such as works of art, jewelry, rare folios, rare manuscripts, rare books, stamps, and coins.",
+      "summary": "Under CRA guidelines for Form T1135 (Foreign Income Verification Statement), taxpayers do not have to report personal-use property. Personal-use property includes vacation property used primarily as a personal residence, as well as listed personal property such as works of art, jewelry, rare books, stamps, and coins. This record does not determine foreign property reporting liability.",
+      "sourceOwner": "Canada Revenue Agency"
+    },
+    {
+      "id": "cra-newcomer-benefit-registration-rc151-rc66",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants.html",
+      "title": "CRA: Newcomer benefit registration and Form RC151 application",
+      "quote": "New residents of Canada must apply for the Canada Groceries and Essentials Benefit (CGEB), formerly the GST/HST credit You do not need to do your first tax return before you can get the CGEB benefit. You can apply using one of the methods below – only one application per household is required. If you are a new resident of Canada and have no children: Use the Web Form RC151, Canada Groceries and Essentials Benefit Application for Individuals Who Became Residents of Canada .",
+      "summary": "New residents of Canada must apply for the Canada Groceries and Essentials Benefit (CGEB, formerly the GST/HST credit) and do not need to do their first tax return before receiving payments. Newcomers without children can apply directly online using Web Form RC151 (Canada Groceries and Essentials Benefit Application for Individuals Who Became Residents of Canada). Only one application per household is required. This record does not calculate benefit payments.",
+      "sourceOwner": "Canada Revenue Agency"
+    },
+    {
+      "id": "ca-ab-child-care-subsidy",
+      "url": "https://www.alberta.ca/child-care-subsidy",
+      "title": "Alberta: Child Care Subsidy Program eligibility and kindergarten coverage",
+      "quote": "Subsidies are available to offset the cost of childcare for eligible families with children in full-time kindergarten up to grade 6.",
+      "summary": "Under the Alberta Child Care Subsidy Program, provincial subsidies are available to offset the cost of childcare for eligible families with children in full-time kindergarten up to grade 6. Subsidy rates vary based on family income, the childcare program, and monthly attendance hours. This record does not determine subsidy amounts or approve applications.",
+      "sourceOwner": "Government of Alberta"
+    }
+  ]
+}
+

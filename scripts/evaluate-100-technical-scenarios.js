@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs';
 
 const store = openStore('data/settlement.sqlite');
 const records = store.records();
-const date = new Date('2026-10-30');
+const date = new Date('2026-11-08T12:00:00Z');
 
 // 100 Realistic, highly specific technical personal profile scenario questions
 // covering: Family/Parents (20), Work Experience & CRS (25), Education & ECA (15),

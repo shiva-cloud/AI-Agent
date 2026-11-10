@@ -1,0 +1,69 @@
+{
+  "id": "batch8-2026-11-08",
+  "corrections": [
+    {
+      "id": "ircc-family-class-exclusion-117-9-d",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/application/application-forms-guides/guide-5289-sponsor-your-spouse-common-law-partner-conjugal-partner-dependent-child-complete-guide.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: Family class sponsorship exclusions and unexamined family members (IRPR s.117(9)(d))",
+      "quote": "Family members who aren't declared and examined are excluded from the family class, which means you can't sponsor them at a later date.",
+      "summary": "Under IRCC family sponsorship rules, family members who are not declared and examined when applying for permanent residence are excluded from the family class, which means you cannot sponsor them at a later date. Failing to declare all family members can also place permanent resident status at risk. This overview outlines statutory family class declaration rules; it does not adjudicate sponsorship applications."
+    },
+    {
+      "id": "ca-on-ltb-guideline-12-excluded-tenancies",
+      "url": "https://tribunalsontario.ca/documents/ltb/Brochures/A%20Guide%20to%20the%20Residential%20Tenancies%20Act.html",
+      "sourceOwner": "Tribunals Ontario",
+      "title": "LTB: Residential Tenancies Act exemptions and excluded tenancies",
+      "quote": "The Act does not apply if the tenant must share a kitchen or bathroom with the landlord.",
+      "summary": "Under the Landlord and Tenant Board (LTB) guide to the Ontario Residential Tenancies Act, the Act does not apply if the tenant must share a kitchen or bathroom with the landlord. Occupants in these shared living arrangements are exempt from standard statutory tenancy protections and cannot file disputes with the Landlord and Tenant Board. This overview outlines statutory tenancy exemptions; it does not resolve housing disputes."
+    },
+    {
+      "id": "ca-on-ltb-guideline-19-assignment-refusal-n9",
+      "url": "https://tribunalsontario.ca/documents/ltb/Brochures/How%20a%20Tenant%20Can%20End%20Their%20Tenancy.html",
+      "sourceOwner": "Tribunals Ontario",
+      "title": "LTB: Ending a tenancy early on assignment refusal and Form N9 notice",
+      "quote": "If the landlord refuses to let you assign the rental unit, or does not reply within seven days of your request to assign, you can end your tenancy early by giving your landlord a Tenant's Notice to Terminate the Tenancy (Form N9) . You must give the landlord this notice no more than 30 days after you made your request. You must give your landlord at least 30 days' notice.",
+      "summary": "Under the Ontario Landlord and Tenant Board (LTB) rules, if a landlord refuses to let a tenant assign the rental unit, or does not reply within seven days of the request to assign, the tenant can end the tenancy early by giving the landlord a Tenant's Notice to Terminate the Tenancy (Form N9). The tenant must give this notice no more than 30 days after making the request, providing at least 30 days' notice. This overview explains statutory assignment exit rights; it does not issue termination notices."
+    },
+    {
+      "id": "ca-on-subletting-vs-assignment-rights",
+      "url": "https://tribunalsontario.ca/documents/ltb/Brochures/A%20Guide%20to%20the%20Residential%20Tenancies%20Act.html",
+      "sourceOwner": "Tribunals Ontario",
+      "title": "LTB: Subletting vs assignment rules and landlord consent requirements",
+      "quote": "A tenant must have the landlord's approval for an assignment or a sublet but, in either case, the landlord must have a good reason for refusing.",
+      "summary": "Under the Ontario Landlord and Tenant Board (LTB) guide, a tenant must have the landlord's approval for an assignment or a sublet, but in either case the landlord must have a good reason for refusing. In an assignment, a new tenant takes over the agreement permanently, whereas in a sublet, the tenant vacates temporarily and returns before the tenancy ends. This record outlines assignment and sublet rules; it does not resolve tenancy disputes."
+    },
+    {
+      "id": "au-sydney-nsw-fair-trading-rental-bonds",
+      "url": "https://www.fairtrading.nsw.gov.au/housing-and-property/renting",
+      "sourceOwner": "NSW Fair Trading",
+      "title": "NSW Fair Trading: Renting a place to live, starting a tenancy, and bonds in Sydney",
+      "quote": "Find out how to start a tenancy, renting costs and how to get repairs done. Learn how to end a tenancy, get your bond back and what to do if things go wrong.",
+      "summary": "NSW Fair Trading provides guidance on renting in New South Wales, including how to start a tenancy, renting costs, getting repairs done, ending a tenancy, and getting your bond back. Tenants and landlords are provided formal dispute resolution pathways and guidance on statutory tenancy rights in Sydney and NSW. This record describes residential tenancy resources; it does not resolve lease disputes or issue tribunal orders."
+    },
+    {
+      "id": "au-nsw-residential-tenancies-act-ncat",
+      "url": "https://www.fairtrading.nsw.gov.au/housing-and-property/renting",
+      "sourceOwner": "NSW Fair Trading",
+      "title": "NSW Fair Trading: Residential tenancy rules, dispute resolution, and NCAT orders",
+      "quote": "Find out how to start a tenancy, renting costs and how to get repairs done. Learn how to end a tenancy, get your bond back and what to do if things go wrong.",
+      "summary": "Under New South Wales residential tenancy legislation, NSW Fair Trading provides statutory guidance for landlords and tenants on starting tenancies, managing rental costs, repair responsibilities, and ending a tenancy. When disputes arise that cannot be resolved through negotiation, parties can access formal dispute resolution mechanisms and tribunal remedies through NCAT. This overview explains tenancy rules in NSW; it does not represent parties in hearings."
+    },
+    {
+      "id": "au-ncat-urgent-repairs-residential-tenancies-kyc",
+      "url": "https://www.fairtrading.nsw.gov.au/housing-and-property/renting/during-a-tenancy/repairs-and-maintenance",
+      "sourceOwner": "NSW Fair Trading",
+      "title": "NSW Fair Trading: Living in a rental property, repairs, and maintenance obligations",
+      "quote": "What you need to know about living in a rental property, including getting repairs and maintenance done, paying rent, sharing with other tenants, keeping pets and what to do if things go wrong.",
+      "summary": "Under NSW Fair Trading residential tenancy rules in Australia, tenants and landlords have clear obligations regarding repairs and maintenance during a tenancy. When maintenance issues or urgent repair needs arise, tenants must notify the landlord or agent promptly and follow statutory dispute resolution procedures if required repairs are not completed. This record outlines tenancy maintenance guidance; it does not issue repair orders."
+    },
+    {
+      "id": "au-sydney-nsw-education-school-enrollment",
+      "url": "https://education.nsw.gov.au/public-schools/going-to-a-public-school/enrolment",
+      "sourceOwner": "NSW Department of Education",
+      "title": "NSW Department of Education: Public school enrolment and Kindergarten to Year 12 procedures",
+      "quote": "How to enrol in a NSW public school, designated enrolment areas, preschool and general enrolment for Kindergarten to Year 12, including online applications and forms.",
+      "summary": "The NSW Department of Education explains how to enrol in a NSW public school, including designated enrolment areas, preschool, and general enrolment for Kindergarten to Year 12. Parents and guardians can submit applications online and review enrolment policies applicable to their local intake area. This overview explains public school enrolment procedures; it does not process individual school applications."
+    }
+  ]
+}

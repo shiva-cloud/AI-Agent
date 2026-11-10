@@ -72,10 +72,11 @@ export function ingestionStore(db) {
     if(record.topic==='telecom' && !record.telecomSubject)throw new ValidationError('Telecom evidence requires a telecomSubject');
     if(record.topic==='housing' && !recordHousingSubject(record)) throw new ValidationError('Housing evidence requires a housingSubject');
     if(record.url!==s.url) throw new ValidationError('Evidence URL must exactly match its registered source');
-    // Canadian pilot places, plus any jurisdiction already held by a stored record
+    // Canadian pilot places, plus any jurisdiction or topic already held by a stored record
     // (the global records), so those can be re-imported and published.
     const knownJurisdiction=['CA','ON','BC',...Object.keys(cities)].includes(record.jurisdiction) || Boolean(db.prepare("SELECT 1 FROM records WHERE json_extract(body,'$.jurisdiction')=? LIMIT 1").get(record.jurisdiction));
-    if(!topics.includes(record.topic) || !knownJurisdiction) throw new ValidationError('Unsupported topic or jurisdiction');
+    const knownTopic=topics.includes(record.topic) || Boolean(db.prepare("SELECT 1 FROM records WHERE json_extract(body,'$.topic')=? LIMIT 1").get(record.topic));
+    if(!knownTopic || !knownJurisdiction) throw new ValidationError('Unsupported topic or jurisdiction');
     date(record.checkedAt,'Checked date');date(record.expiresAt,'Expiry date');
     const today=new Date().toISOString().slice(0,10);
     if(record.checkedAt>today || record.expiresAt<=record.checkedAt || record.expiresAt<today) throw new ValidationError('Evidence must be checked on or before today and have a current expiry');

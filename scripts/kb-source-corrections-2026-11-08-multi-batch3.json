@@ -1,0 +1,46 @@
+{
+  "id": "multi-batch3-2026-11-08",
+  "corrections": [
+    {
+      "id": "us-banking-cip-patriot-act-kyc",
+      "url": "https://www.consumerfinance.gov/consumer-tools/bank-accounts/",
+      "sourceOwner": "Consumer Financial Protection Bureau",
+      "title": "CFPB: Opening a Bank Account and Consumer Checklist",
+      "quote": "You may decide that a checking or savings account is right for you. Use this checklist to help you gather the information you’ll need to open an account and understand your choices.",
+      "summary": "Under Consumer Financial Protection Bureau (CFPB) guidance, consumers choosing a checking or savings account can use official checklists to gather required identification and documentation before opening an account and comparing account features and fees. This record outlines account-opening preparation; it does not open accounts or approve credit."
+    },
+    {
+      "id": "us-security-deposit-limits-and-escrow-kyc",
+      "url": "https://www.usa.gov/tenant-rights",
+      "sourceOwner": "USAGov",
+      "title": "USAGov: Tenant Rights and State Housing Resources",
+      "quote": "Before getting outside help, read your lease carefully. Make sure you are following the rental rules you agreed to. Find help from your state agency that addresses tenant rights . Depending on your state, you may find links to your attorney general or housing agency, your state tenant rights handbook, and more.",
+      "summary": "Under USAGov consumer guidance, tenants experiencing disputes with a landlord should review their lease terms and seek assistance through state housing agencies or state attorney general offices that publish state-specific tenant rights handbooks and dispute resolution resources. This record provides general consumer guidance; it does not adjudicate tenancy disputes or determine lease enforceability."
+    },
+    {
+      "id": "de-rundfunkbeitrag-single-household-exemption",
+      "url": "https://www.rundfunkbeitrag.de/welcome/",
+      "sourceOwner": "ARD, ZDF and Deutschlandradio Beitragsservice",
+      "title": "ARD ZDF Beitragsservice: Licence Fee and One Dwelling One Fee Rule",
+      "quote": "Basically, for citizens who are at least 18 years old, the following applies: One dwelling – one fee. If several persons live together in one dwelling, only one person pays the fee, regardless of how many persons live in it or how many devices they use.",
+      "summary": "Under the German public broadcasting fee rules, for citizens who are at least 18 years old, one dwelling pays one fee. If several persons live together in one dwelling, only one person pays the fee, regardless of how many persons live in it or how many devices they use. The current fee for private households is 18.36 euros per month. This record explains household contribution rules; it does not cancel or administer broadcasting fee accounts."
+    },
+    {
+      "id": "ca-nl-mcp-health-care-plan",
+      "url": "https://www.gov.nl.ca/hcs/mcp/",
+      "sourceOwner": "Department of Health and Community Services, Newfoundland and Labrador",
+      "title": "Newfoundland & Labrador Medical Care Plan (MCP): Registration, Eligibility & Coverage",
+      "quote": "To be eligible for registration all current MCP beneficiaries and new applicants must reside in the province. The Medical Care and Hospital Insurance Act defines a \"resident\" as a person \"who is lawfully entitled to be or to remain in Canada, makes his or her home in the province, and is ordinarily present in the province but does not include a tourist, transient or visitor to the province.\"",
+      "summary": "Under the Medical Care and Hospital Insurance Act administered by the Department of Health and Community Services, all beneficiaries and new applicants must reside in Newfoundland and Labrador to be eligible for registration under the Medical Care Plan (MCP). A resident is defined as a person lawfully entitled to be or remain in Canada who makes their home in the province and is ordinarily present, excluding tourists, transients, or visitors. This record outlines provincial health registration requirements; it does not issue health cards or determine individual coverage eligibility."
+    },
+    {
+      "id": "ca-cra-folio-s1-f3-c4-moving-expenses",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-21900-moving-expenses.html",
+      "sourceOwner": "Canada Revenue Agency",
+      "title": "CRA: Line 21900 Moving Expenses Deduction and Eligibility Rules",
+      "quote": "If you have moved to a new home to work or to run a business out of a new location , you can deduct eligible moving expenses from the employment or self-employment income you earned at your new work location, including amounts you received under the Wage Earner Protection Program for your employment at the new work location. To qualify, your new home must be at least 40 kilometres closer (by the shortest public route) to your new work location.",
+      "summary": "Under Canada Revenue Agency (CRA) rules, a person who moves to a new home to work or run a business from a new location can deduct eligible moving expenses from employment or self-employment income earned at the new work location. To qualify, the new home must be at least 40 kilometres closer by the shortest public route to the new work location. Generally, the move must be from one place in Canada to another place in Canada. This record outlines moving expense deduction rules; it does not calculate tax deductions or file returns."
+    }
+  ]
+}
+

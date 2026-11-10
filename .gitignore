@@ -15,3 +15,7 @@ release-*.zip
 
 # Release evidence snapshot (npm run release:db) is a build input, not source
 release/
+
+# Generated asset bundles (measured for size only; unreferenced in index.html)
+public/*.min.js
+public/*.min.css

@@ -101,6 +101,7 @@ function printReport(r) {
   line('  Records expiring within 14 days', r.warnings.expiringSoon);
   line('  Seed files out of sync with the database', r.warnings.driftFromSeed);
   line('  Approved without editorial review', r.warnings.notEditoriallyReviewed);
+  line('  Approved records withheld by publication checks', r.withheldApprovedRecords || []);
   if (r.reviewProgress) {
     const p = r.reviewProgress;
     console.log(`  Scheduled fact-check progress: ${p.checked} of ${p.total} done (${p.verified} verified, ${p.corrected} corrected, ${p['needs-human']} need a person), ${p.remaining} left`);
@@ -110,7 +111,11 @@ function printReport(r) {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   let report;
-  try {report=healthReport();}catch(error){console.error(JSON.stringify({ok:false,technicalHealth:'unavailable',publicationReadiness:{ready:false},code:error.errcode===5||error.errcode===6?'storage_busy':'health_check_failed'}));process.exitCode=1;}
+  try {
+    const dbIndex = process.argv.indexOf('--db');
+    if (dbIndex >= 0 && (!process.argv[dbIndex + 1] || process.argv[dbIndex + 1].startsWith('--'))) throw new Error('Missing database path');
+    report=healthReport(dbIndex >= 0 ? { dbPath: process.argv[dbIndex + 1] } : {});
+  }catch(error){console.error(JSON.stringify({ok:false,technicalHealth:'unavailable',publicationReadiness:{ready:false},code:error.errcode===5||error.errcode===6?'storage_busy':'health_check_failed'}));process.exitCode=1;}
   if(report){
   if (process.argv.includes('--json')) console.log(JSON.stringify(report, null, 2));
   else printReport(report);

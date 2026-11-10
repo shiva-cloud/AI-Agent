@@ -9,7 +9,7 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
 const store = openStore(process.env.DB_PATH || 'data/settlement.sqlite');
 try {
 const records = store.records();
-const date = new Date('2026-11-01');
+const date = new Date('2026-11-08T12:00:00Z');
 
 // Comprehensive 180-question test suite covering Basic to Advanced, Technical to Non-Technical, All 54 Countries & Core Canadian Domains
 

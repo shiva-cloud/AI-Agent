@@ -1,0 +1,23 @@
+{
+  "id": "us-batch2-2026-11-08",
+  "sourceOwner": "U.S. Citizenship and Immigration Services",
+  "corrections": [
+    {
+      "id": "us-h1b-60-day-grace-period-rule",
+      "url": "https://www.uscis.gov/working-in-the-united-states/information-for-employers-and-employees/options-for-nonimmigrant-workers-following-termination-of-employment",
+      "sourceOwner": "U.S. Citizenship and Immigration Services",
+      "title": "USCIS: 60-Day Discretionary Grace Period Following Nonimmigrant Employment Termination",
+      "quote": "Regulations permit a discretionary grace period that allows workers in E-1, E-2, E-3, H-1B, H-1B1, L-1, O-1, or TN classifications (and their dependents) to be considered as having maintained status in that same classification after the end of employment for up to 60 consecutive calendar days or until the end of the authorized nonimmigrant validity period, whichever is shorter (the \"maximum 60-day grace period\"). See 8 CFR 214.1(l)(2) .",
+      "summary": "USCIS regulations permit a discretionary grace period that allows workers in E-1, E-2, E-3, H-1B, H-1B1, L-1, O-1, or TN classifications (and their dependents) to be considered as having maintained status for up to 60 consecutive calendar days or until the end of the authorized nonimmigrant validity period, whichever is shorter, following the end of employment. See 8 CFR 214.1(l)(2). This guidance outlines nonimmigrant options; it does not grant legal status or guarantee petition approval."
+    },
+    {
+      "id": "us-uscis-n400-naturalization-physical-presence-kyc",
+      "url": "https://www.uscis.gov/policy-manual/volume-12-part-d-chapter-4",
+      "sourceOwner": "U.S. Citizenship and Immigration Services",
+      "title": "USCIS Policy Manual: Form N-400 Naturalization Physical Presence Requirements (INA 316)",
+      "quote": "An applicant for naturalization is generally required to have been physically present in the United States for at least half the time for which his or her continuous residence is required. Applicants for naturalization under INA 316(a) are required to demonstrate physical presence in the United States for at least 30 months (at least 913 days) before filing the application.",
+      "summary": "Under INA 316(a), an applicant for naturalization is generally required to demonstrate physical presence in the United States for at least 30 months (at least 913 days) before filing the application. Physical presence refers to the actual number of days the applicant is physically present in the United States. This record explains statutory naturalization physical presence requirements; it does not approve citizenship applications."
+    }
+  ]
+}
+

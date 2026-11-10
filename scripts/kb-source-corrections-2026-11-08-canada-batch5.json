@@ -1,0 +1,70 @@
+{
+  "id": "canada-batch5-2026-11-08",
+  "corrections": [
+    {
+      "id": "ircc-parent-sponsorship-pgp",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/family-sponsorship/sponsor-parents-grandparents/eligibility.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: Parents and Grandparents Program sponsorship eligibility",
+      "quote": "You can sponsor your biological or adopted parents and grandparents if you're invited to apply you're at least 18 years old you live in Canada",
+      "summary": "Under IRCC guidelines, you can sponsor your biological or adopted parents and grandparents if you are invited to apply, you are at least 18 years old, and you live in Canada. Sponsors must also meet other eligibility requirements, including providing proof of income to support family members. This overview outlines program eligibility; it does not issue invitations to apply or assess individual sponsor income."
+    },
+    {
+      "id": "fcac-secured-credit-card-kyc",
+      "url": "https://www.canada.ca/en/financial-consumer-agency/services/credit-cards/choose-credit-card.html",
+      "sourceOwner": "Financial Consumer Agency of Canada",
+      "title": "FCAC: Choosing a credit card and secured credit cards",
+      "quote": "Secured credit cards A secured credit card may be an option if you don't have a credit history or if you have bad credit. You must provide a security deposit to get a secured credit card.",
+      "summary": "The Financial Consumer Agency of Canada (FCAC) explains that a secured credit card may be an option if you do not have a credit history or if you have bad credit. To get a secured card, you must provide a security deposit to the card issuer. This resource explains card options; it does not issue credit or approve applications."
+    },
+    {
+      "id": "cra-tfsa-non-resident-contribution-penalty",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/owing-tax/non-resident.html",
+      "sourceOwner": "Canada Revenue Agency",
+      "title": "CRA: TFSA non-resident contribution penalty tax",
+      "quote": "Non-resident contributions are taxed in Canada at a rate of 1% per month for as long as the contribution remains in the account.",
+      "summary": "Under CRA rules, non-resident contributions to a Tax-Free Savings Account (TFSA) are taxed in Canada at a rate of 1% per month for as long as the contribution remains in the account. The 1% per month tax applies until the full contribution is withdrawn or the person becomes a Canadian tax resident. This record reports CRA tax rules; it does not assess individual tax liabilities."
+    },
+    {
+      "id": "ircc-dual-intent-temporary-residence",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-02-2020/cimm-dual-intent-dec-02-2020.html",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada",
+      "title": "IRCC: Dual intent for temporary residence applicants",
+      "quote": "refers to clients who apply for temporary status in Canada, while also having declared an intention to immigrate to Canada permanently through a permanent residence stream.",
+      "summary": "IRCC explains that dual intent refers to clients who apply for temporary status in Canada, while also having declared an intention to immigrate to Canada permanently through a permanent residence stream. Having dual intent is legitimate, but the foreign national must still satisfy the officer that they will leave Canada at the end of their authorized stay. This record outlines policy instructions; it does not guarantee visa issuance."
+    },
+    {
+      "id": "cbsa-digital-device-search-limits",
+      "url": "https://www.cbsa-asfc.gc.ca/travel-voyage/edd-ean-eng.html",
+      "sourceOwner": "Canada Border Services Agency",
+      "title": "CBSA: Examination of digital devices at the port of entry",
+      "quote": "Canada Border Services Agency ( CBSA ) officers, under the Customs Act , have the authority to examine all goods that cross the border. For border control purposes, our officers have similar authorities to examine your cell phones, tablets, laptops and any other digital device you are carrying. CBSA officers may also examine a traveller's personal digital device under the Immigration and Refugee Protection Act .",
+      "summary": "The Canada Border Services Agency (CBSA) explains that officers, under the Customs Act, have the authority to examine all goods that cross the border. For border control purposes, officers have authorities to examine cell phones, tablets, laptops, and other digital devices, and may also examine personal digital devices under the Immigration and Refugee Protection Act. This overview explains border inspection authority; it does not provide legal representation."
+    },
+    {
+      "id": "cra-my-account-interac-sign-in-partner-kyc",
+      "url": "https://www.canada.ca/en/revenue-agency/services/e-services/e-services-individuals/account-individuals.html",
+      "sourceOwner": "Canada Revenue Agency",
+      "title": "CRA: My Account sign-in options and Sign-In Partners",
+      "quote": "Do not use autofill for your online banking information if you are on a shared device. When you are on your Sign-In Partner's website, ensure it is your information that is entered and not that of somebody else.",
+      "summary": "The Canada Revenue Agency (CRA) outlines sign-in options for My Account for individuals, including using a Sign-In Partner with online banking credentials. Users are advised not to use autofill on shared devices and to ensure their own information is entered on their Sign-In Partner website. This record provides access guidance; it does not manage individual CRA accounts."
+    },
+    {
+      "id": "ontario-tenant-guarantor-and-key-deposit-kyc",
+      "url": "https://www.ontario.ca/page/guide-ontarios-standard-lease",
+      "sourceOwner": "Government of Ontario",
+      "title": "Ontario: Standard lease rules for rent deposits and key deposits",
+      "quote": "8. Rent deposit In this section, the landlord and tenant agree whether a rent deposit is required, and the amount. The law limits the amount and how it is to be treated. A rent deposit cannot be used as a damage deposit. 9. Key deposit In this section, the landlord and tenant agree whether a key deposit is required, and the amount. The law limits the amount and how it is to be treated.",
+      "summary": "Under the Ontario standard lease guide, the landlord and tenant agree whether a rent deposit is required, and the amount; the law limits the amount and how it is to be treated, and a rent deposit cannot be used as a damage deposit. Similarly, the landlord and tenant agree whether a key deposit is required, and the law limits the amount and how it is treated. This resource describes standard lease clauses; it does not adjudicate tenancy disputes."
+    },
+    {
+      "id": "fintrac-large-wire-transfer-kyc",
+      "url": "https://fintrac-canafe.canada.ca/individuals-individus/rpt-eng",
+      "sourceOwner": "Financial Transactions and Reports Analysis Centre of Canada",
+      "title": "FINTRAC: Electronic funds transfers and large transaction reporting",
+      "quote": "Electronic Funds Transfer Report When a reporting entity sends or receives an electronic funds transfer of $10,000 CAD or more either in a single transaction or in multiple transactions within a 24-hour period",
+      "summary": "Under FINTRAC reporting rules, a reporting entity must submit an Electronic Funds Transfer Report when sending or receiving an electronic funds transfer of $10,000 CAD or more, whether in a single transaction or in multiple transactions within a 24-hour period. This overview describes statutory reporting obligations; it does not process individual transactions."
+    }
+  ]
+}
+

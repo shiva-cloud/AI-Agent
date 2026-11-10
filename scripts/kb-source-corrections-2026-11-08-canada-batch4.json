@@ -1,0 +1,70 @@
+{
+  "id": "canada-batch4-2026-11-08",
+  "sourceOwner": "Government of Canada",
+  "corrections": [
+    {
+      "id": "ontario-rta-n12-compensation-timing-void",
+      "url": "https://www.ontario.ca/page/renting-ontario-your-rights",
+      "title": "Ontario RTA: Eviction for personal use and 1-month compensation rules",
+      "quote": "Your landlord must give you the equivalent of 1 month's rent or offer you another unit if they: want to use the unit themselves want to use the unit for their family or caregiver are selling the property and the purchaser will be using the unit themselves If your landlord gives you 120 days notice or more to evict you for personal use, your landlord does not have to give you the equivalent of 1 month's rent or offer you another unit.",
+      "summary": "Under Ontario rules for eviction for personal use, your landlord must give you the equivalent of 1 month's rent or offer you another unit if they want to use the unit themselves, for family, or if selling to a purchaser. If the landlord gives you 120 days notice or more to evict you for personal use, the landlord does not have to give you 1 month's rent or offer another unit. This record reports statutory housing guidelines and does not provide legal representation.",
+      "sourceOwner": "Ministry of Municipal Affairs and Housing"
+    },
+    {
+      "id": "ca-ns-residential-tenancies-program",
+      "url": "https://beta.novascotia.ca/programs-and-services/residential-tenancies-program",
+      "title": "Nova Scotia Residential Tenancies Program: Standard lease and dispute resolution",
+      "quote": "Starting a tenancy Guides Residential Tenancies Guides - Renting Forms for tenants Landlord and Tenant Consent for Email Rental Unit Condition Report Standard Form of Lease (Form P)",
+      "summary": "Under the Nova Scotia Residential Tenancies Program, residential tenancies are administered under the Residential Tenancies Act. Tenants and landlords use the Standard Form of Lease (Form P) when starting a tenancy, and disputes between landlord and tenant can be submitted to the Director for resolution using Form J. This record provides statutory tenancy information and does not provide legal representation.",
+      "sourceOwner": "Government of Nova Scotia (Residential Tenancies Program)"
+    },
+    {
+      "id": "cra-cost-base-step-up-landing-fmv",
+      "url": "https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants/completing-return-newcomers.html",
+      "title": "CRA: Deemed acquisition of foreign property at Fair Market Value on becoming resident",
+      "quote": "Property you owned before you arrived in Canada If you owned certain property at the time that you immigrated to Canada, the CRA considers you to have sold the property and to have immediately reacquired it at a cost equal to the fair market value (FMV) on the date that you became a resident of Canada. This is a deemed disposition. Your property could include items such as shares, jewellery, paintings or a collection.",
+      "summary": "Under CRA rules for property owned before arriving in Canada, if you owned certain property when you immigrated, the CRA considers you to have sold the property and immediately reacquired it at a cost equal to its fair market value (FMV) on the date you became a resident of Canada. This deemed disposition establishes a new cost base step-up, meaning capital gains tax applies only to appreciation after arrival. You should keep a record of the FMV of your property on the arrival date. This record does not calculate capital gains or prepare tax returns.",
+      "sourceOwner": "Canada Revenue Agency"
+    },
+    {
+      "id": "global-immigration-law-vs-policy-sovereign-authority",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/acts-regulations.html",
+      "title": "IRCC: Statutory mandate, Acts, and shared jurisdiction under IRPA and Constitution Act, 1867",
+      "quote": "The Minister for Immigration, Refugees and Citizenship Canada is responsible for the Citizenship Act of 1977 and shares responsibility with the Minister of Public Safety for the Immigration and Refugee Protection Act (IRPA). Jurisdiction over immigration is shared between the federal and the provincial and territorial governments under section 95 of the Constitution Act, 1867 .",
+      "summary": "Under Canadian statutory law, the Minister for Immigration, Refugees and Citizenship shares responsibility with the Minister of Public Safety for the Immigration and Refugee Protection Act (IRPA), and is responsible for the Citizenship Act of 1977. Jurisdiction over immigration is shared between federal, provincial, and territorial governments under Section 95 of the Constitution Act, 1867. This record outlines statutory authority and does not decide individual applications.",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada"
+    },
+    {
+      "id": "global-visa-vs-residence-permit-border-refusal",
+      "url": "https://www.cbsa-asfc.gc.ca/travel-voyage/declare-eng.html",
+      "title": "CBSA: Port of entry border declarations and inspection procedures",
+      "quote": "Upon arrival in Canada, you may be asked to undergo a more detailed process. This is a normal part of the border process which anyone entering or re-entering Canada may experience.",
+      "summary": "Under CBSA border inspection procedures, travellers arriving in Canada may be asked to undergo a more detailed inspection process as a normal part of border processing which anyone entering or re-entering Canada may experience. This record outlines port of entry inspection procedures and does not decide individual admissibility.",
+      "sourceOwner": "Canada Border Services Agency"
+    },
+    {
+      "id": "canada-cbsa-border-screening-quality-and-oversight",
+      "url": "https://www.cbsa-asfc.gc.ca/agency-agence/reports-rapports/menu-eng.html",
+      "title": "CBSA: Corporate reports, departmental results, audits and evaluations",
+      "quote": "These publications provide corporate information about the CBSA . Audits and evaluations Audit and evaluation reports",
+      "summary": "The Canada Border Services Agency (CBSA) publishes corporate reporting documents covering agency operations, including audit and evaluation reports, departmental results reports, and financial reports. This record provides access to official CBSA reporting frameworks and does not determine border admissibility.",
+      "sourceOwner": "Canada Border Services Agency"
+    },
+    {
+      "id": "global-immigration-fundamentals-migration-definitions",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals.html",
+      "title": "IRCC: Operational instructions, program delivery instructions, and manuals",
+      "quote": "Immigration, Refugees and Citizenship Canada (IRCC) and Canada Border Services Agency employees consult operational bulletins (OBs) and manuals for guidance in the exercise of their functions and in applying the Immigration and Refugee Protection Act, the Citizenship Act and their Regulations.",
+      "summary": "Immigration, Refugees and Citizenship Canada (IRCC) and CBSA employees consult operational bulletins (OBs) and manuals for guidance in the exercise of their functions and in applying the Immigration and Refugee Protection Act, Citizenship Act, and regulations. This record outlines the role of operational guidance in immigration administration and does not decide individual applications.",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada"
+    },
+    {
+      "id": "irpa-pr-card-validity-vs-permanent-resident-status-continuity",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/new-immigrants/pr-card/understand-pr-status.html",
+      "title": "IRCC: PR card expiry vs permanent resident status retention rules",
+      "quote": "You won't lose your PR status when your PR card expires. You will only lose your PR status if an officer determines you are no longer a PR after an inquiry or PRTD appeal following a refusal you voluntarily renounce your PR status a removal order made against you comes into force you become a Canadian citizen",
+      "summary": "Under IRCC permanent residence rules, you will not lose your permanent resident (PR) status when your PR card expires. You will only lose your PR status if an officer determines you are no longer a PR after an inquiry or PRTD appeal, you voluntarily renounce your PR status, a removal order comes into force, or you become a Canadian citizen. This record outlines statutory status retention and does not determine status or issue PR cards.",
+      "sourceOwner": "Immigration, Refugees and Citizenship Canada"
+    }
+  ]
+}

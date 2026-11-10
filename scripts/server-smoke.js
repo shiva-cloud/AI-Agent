@@ -10,6 +10,8 @@ let child,exited;
 try {
   const token=randomBytes(32).toString('hex');
   const env={...process.env,HOST:'127.0.0.1',PORT:'0',DB_PATH:join(root,'fixture.sqlite'),ADMIN_TOKEN:token,ANYROUTER_API_KEY:'',OPENROUTER_API_KEY:'',SEARCH_INDEX_PATH:'',PUBLIC_ORIGIN:''};
+  if (process.argv[2]) env.SEED_DB_PATH=resolve(process.argv[2]);
+  else delete env.SEED_DB_PATH;
   delete env.ADMIN_ACTORS_JSON;
   delete env.ADMIN_ACTORS_FILE;
   delete env.TRUSTED_PROXY_IPS;
@@ -20,7 +22,7 @@ try {
   const queuePath=join(root,'jobs.sqlite');
   const queue=openJobQueue(queuePath);queue.close();env.ADMIN_JOB_DB_PATH=queuePath;
   child=spawn(process.execPath,[resolve('src/server.js')],{cwd:root,env,stdio:['ignore','pipe','pipe'],windowsHide:true});
-  exited=new Promise(r=>child.once('exit',r));child.stderr.resume();
+  exited=new Promise(r=>child.once('exit',r));child.stderr.pipe(process.stderr);
   const port=await new Promise((resolve,reject)=>{
     const timer=setTimeout(()=>reject(new Error('Server startup deadline exceeded')),15000);
     let buffer='';const onData=chunk=>{buffer=(buffer+chunk.toString()).slice(-4096);const match=buffer.match(/Settlement pilot listening on port (\d+)/);if(match){clearTimeout(timer);resolve(Number(match[1]));}};

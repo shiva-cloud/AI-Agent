@@ -106,3 +106,26 @@ test('KB audit: a source-verified record is never rewritten by a superseded corr
   const unverified = {id: unverifiedId, topic: 'employment', jurisdiction: 'CA', title: 't', summary: 'Other text.', quote: 'q'};
   assert.ok(planCorrections([unverified]).problems.some(problem => problem.startsWith(`${unverifiedId}: text not found`)), 'without verification the mismatch is still reported');
 });
+
+test('November 7 medical correction supersedes old seed edits', () => {
+  const record=technicalImmigrationRecords.find(r=>r.id==='ircc-medical-excessive-demand');
+  assert.match(record.url,/excessive-demand-on-health-social-services\.html$/);
+  assert.match(record.summary,/medical officer performs the assessment/);
+  assert.doesNotMatch(record.summary,/controlled type 2 diabetes|treated hypertension/);
+  assert.ok(!planCorrections([record]).plan.some(p=>p.id===record.id));
+});
+
+test('November 8 health corrections survive historical correction replay', () => {
+  const record=globalRecords.find(r=>r.id==='ie-hse-public-healthcare-and-medical-cards-kyc');
+  assert.match(record.url,/(?:what-it-covers\/|about\/)$/);
+  assert.doesNotMatch(record.summary,/EUR 100|dated within the last 12 months/);
+  const result=planCorrections([record]);
+  assert.ok(!result.plan.some(p=>p.id===record.id));
+  assert.ok(!result.problems.some(p=>p.startsWith(`${record.id}:`)));
+  const german=globalRecords.find(r=>r.id==='de-gkv-statutory-health-insurance-kyc');
+  assert.equal(german.url,'https://gesund.bund.de/en/krankenversicherung');
+  assert.doesNotMatch(german.summary,/77,400|14\.6%|50\/50/);
+  const replay=planCorrections([german]);
+  assert.ok(!replay.plan.some(p=>p.id===german.id));
+  assert.ok(!replay.problems.some(p=>p.startsWith(`${german.id}:`)));
+});

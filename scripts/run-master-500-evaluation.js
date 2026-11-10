@@ -13,7 +13,7 @@ const records = store.records();
 console.log(`Loaded ${records.length} records from Knowledge Base (Approved + Seed).`);
 console.log(`Loaded ${master500EvaluationSuite.length} questions across master benchmark suite.\n`);
 
-const evalDate = new Date('2026-10-31T00:00:00Z');
+const evalDate = new Date('2026-11-08T12:00:00Z');
 const startTime = performance.now();
 
 const results = [];

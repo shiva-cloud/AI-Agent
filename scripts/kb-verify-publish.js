@@ -1,3 +1,5 @@
+import { DatabaseSync } from 'node:sqlite';
+import { ingestionStore } from '../src/ingestion.js';
 // Publishes withheld high-risk records after an automated check of their
 // official pages (src/source-verifier.js). For each record in the publish queue
 // it fetches the official page, and only if the quote is on the page word for
@@ -48,7 +50,7 @@ async function fetchAll(urls, { concurrency = 4, fetchImpl } = {}) {
 export async function verifyAndPublish(store, { apply = false, topic = null, limit = Infinity, fetchImpl, now = new Date(), queueOnly = false, onPublished = null, ids = null } = {}) {
   const today = now.toISOString().slice(0, 10);
   const queue = publishQueue(store.db, store.records(), store.ingestion.sources(), store.ingestion.candidates(), now);
-  const rows = queue.rows.filter(r => r.state === 'ready' && (!topic || r.topic === topic) && (!ids || ids.includes(r.id))).slice(0, limit);
+  const rows = queue.rows.filter(r => (queueOnly || r.state === 'ready') && (!topic || r.topic === topic) && (!ids || ids.includes(r.id))).slice(0, limit);
   // --queue-only: rank the queue and list blockers without touching the
   // network. Fetches stay limited to apply/check runs that actually verify.
   if (queueOnly) {
@@ -58,7 +60,7 @@ export async function verifyAndPublish(store, { apply = false, topic = null, lim
       t.checked++; t[r.state]++;
       byState[r.state] = (byState[r.state] || 0) + 1;
       return { id: r.id, topic: r.topic, jurisdiction: r.jurisdiction, url: r.url, state: r.state,
-        blockers: r.blockers, ok: false, viaArchive: false, reason: 'queue_only', detail: null, published: false };
+        blockers: r.blockers, withholdingReasons: r.withholdingReasons, nextActions: r.nextActions, pendingCandidates: r.pendingCandidates, ok: false, viaArchive: false, reason: 'queue_only', detail: null, published: false };
     });
     return { date: today, applied: false, queueOnly: true, withheldBefore: queue.total, checked: results.length,
       passed: 0, published: 0, byTopic, byReason: { queue_only: results.length }, byState, results };
@@ -76,17 +78,19 @@ export async function verifyAndPublish(store, { apply = false, topic = null, lim
   const results = [];
   for (const row of rows) {
     const page = pages.get(row.url);
-    let check = page.text ? verifyAgainstPage(row.draft, page.text) : { ok: false, reason: page.error };
+    let check = page.text ? verifyAgainstPage(row.draft, page.text) : { ok: false, reason: page.error, detail: page.detail ?? null };
+    const primaryReason = check.reason ?? null;
+    const primaryDetail = check.detail ?? null;
     let viaArchive = false;
     const archiveUrl = archiveTargets.get(row.id);
     if (!check.ok && archiveUrl) {
       const archived = archivePages.get(archiveUrl);
       check = archived?.text ? verifyAgainstPage(row.draft, archived.text)
-        : { ok: false, reason: `archive_${archived?.error ?? 'page_unavailable'}` };
+        : { ok: false, reason: `archive_${archived?.error ?? 'page_unavailable'}`, detail: archived?.detail ?? null };
       if (check.ok) viaArchive = true;
       else if (!String(check.reason).startsWith('archive_')) check = { ok: false, reason: `archive_${check.reason}`, detail: check.detail ?? null };
     }
-    const result = { id: row.id, topic: row.topic, jurisdiction: row.jurisdiction, url: row.url, ok: check.ok, viaArchive, reason: check.reason ?? null, detail: check.detail ?? null, published: false };
+    const result = { id: row.id, topic: row.topic, jurisdiction: row.jurisdiction, url: row.url, ok: check.ok, viaArchive, primaryReason, primaryDetail, reason: check.reason ?? null, detail: check.detail ?? null, published: false };
     if (check.ok && apply) {
       try {
         const record = { ...row.draft, quote: check.quote };
@@ -117,7 +121,12 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const queueOnly = args.includes('--queue-only');
   const dbPath = opt('--db') || process.env.DB_PATH || join(root, 'data', 'settlement.sqlite');
   if (!existsSync(dbPath)) { console.error(`Database not found: ${dbPath}`); process.exit(1); }
-  const store = openStore(dbPath);
+  const readOnlyDb = apply && !queueOnly ? null : new DatabaseSync(dbPath, { readOnly: true });
+  const store = readOnlyDb ? {
+    db: readOnlyDb,
+    records: () => readOnlyDb.prepare('SELECT body FROM records').all().map(row => JSON.parse(row.body)),
+    ingestion: ingestionStore(readOnlyDb)
+  } : openStore(dbPath);
   // The pre-publish backup. queue-only is a read-only listing; no backup then.
   const backupFile = apply && !queueOnly ? backup(store.db, dbPath) : null;
   const out = opt('--report') || join(root, 'data', 'kb-verify-publish-report.json');

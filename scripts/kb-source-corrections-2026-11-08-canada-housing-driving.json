@@ -1,0 +1,70 @@
+{
+  "id": "canada-housing-driving-2026-11-08",
+  "corrections": [
+    {
+      "id": "ca-on-reciprocal-drivers-license-exchange",
+      "url": "https://www.ontario.ca/page/exchange-out-province-drivers-licence",
+      "title": "Ontario: Exchange an out-of-province driver's licence",
+      "quote": "When you move to Ontario, you can use a valid licence from another province, state or country for 60 days . After 60 days, you need to switch to an Ontario driver's licence.",
+      "summary": "When you move to Ontario, you can use a valid licence from another province, state or country for 60 days. After 60 days, you need to switch to an Ontario driver licence. Drivers from jurisdictions with reciprocal agreements can exchange their licence without tests. Others may fast-track and receive credit for previous driving experience.",
+      "sourceOwner": "Government of Ontario"
+    },
+    {
+      "id": "ontario-foreign-driving-experience",
+      "url": "https://www.ontario.ca/page/exchange-out-province-drivers-licence",
+      "title": "DriveTest Ontario: Foreign driver licence experience and road tests",
+      "quote": "Effective July 1, 2026, you can can obtain credit for up to one year of driving experience, by showing a valid, original foreign driver's licence and authentication document.",
+      "summary": "In Ontario, effective July 1, 2026, you can obtain credit for up to one year of driving experience by showing a valid original foreign driver licence and authentication document. If you do not have an exchange agreement, you must complete the vision test, knowledge test and G2 road test, and wait at least 12 months before attempting the G road test.",
+      "sourceOwner": "Government of Ontario"
+    },
+    {
+      "id": "drivetest-kyc-document-authentication",
+      "url": "https://www.ontario.ca/page/exchange-out-province-drivers-licence",
+      "title": "DriveTest Ontario: Identity verification, consular extracts, and certified translations",
+      "quote": "The authentication document must: be an official letter from the foreign government or agency that issued the driver's licence confirm that the driver's licence is authentic be written in English or French",
+      "summary": "Ontario DriveTest requires proof of driving experience from countries without exchange agreements. The authentication document must be an official letter from the issuing foreign government confirming authenticity, written in English or French. Applicants must apply in person at DriveTest or ServiceOntario Bay and College.",
+      "sourceOwner": "Government of Ontario"
+    },
+    {
+      "id": "ontario-landlord-entry-privacy",
+      "url": "https://www.ontario.ca/page/renting-ontario-your-rights",
+      "title": "Ontario: Landlord right of entry, privacy, and no-pet clauses",
+      "quote": "Even if your landlord gives you written notice, you don't have to move out. Your landlord must first apply for and receive an eviction order from the LTB .",
+      "summary": "In Ontario, a landlord cannot evict a tenant directly or change the locks without an eviction order from the Landlord and Tenant Board (LTB). Even if the landlord provides written notice, the tenant has the right to attend an LTB hearing. The standard lease prohibits banning guests or pets unless exempted by condominium bylaws or causing damage.",
+      "sourceOwner": "Government of Ontario"
+    },
+    {
+      "id": "ontario-ltb-n12-compensation",
+      "url": "https://www.ontario.ca/page/renting-ontario-your-rights",
+      "title": "LTB: Notice to end tenancy for landlord personal use (Form N12)",
+      "quote": "Your landlord must give you the equivalent of 1 month's rent or offer you another unit if they: want to use the unit themselves want to use the unit for their family or caregiver",
+      "summary": "Under Ontario rules, if a landlord gives notice to end a tenancy for personal use (such as for themselves, their immediate family, or caregiver), they must give the tenant the equivalent of 1 month rent or offer another acceptable unit. If the landlord gives 120 days notice or more, the 1 month rent compensation is not required.",
+      "sourceOwner": "Government of Ontario"
+    },
+    {
+      "id": "ca-on-renting-without-credit-history",
+      "url": "https://www.ontario.ca/page/renting-ontario-your-rights",
+      "title": "Ontario Landlord and Tenant Board: Renter Rights Without Canadian Credit History",
+      "quote": "If you are entitled to a standard lease but didn't get one, ask your landlord in writing for a copy. Once you request it, they must give it to you within 21 calendar days.",
+      "summary": "In Ontario, tenants are entitled to the standard lease agreement. If a landlord fails to provide the standard lease within 21 calendar days of a written request, the tenant can withhold one month rent. If still not provided after 30 calendar days of withholding, the tenant may keep that withheld rent.",
+      "sourceOwner": "Government of Ontario"
+    },
+    {
+      "id": "alberta-rtdrs-tenancy-and-security-deposits",
+      "url": "https://www.alberta.ca/residential-tenancies.aspx",
+      "title": "Alberta Tenancy Rights: Residential Tenancies Act, RTDRS Dispute Resolution, and Security Deposits",
+      "quote": "Rights and responsibilities for landlords and tenants, and how to resolve disputes. Skip to On this page",
+      "summary": "Service Alberta outlines rights and responsibilities for landlords and tenants in residential tenancies. Tenants can find information for drafting tenancy agreements, move-in and move-out inspection reports, and legal resources. For resolving tenancy disputes before or through formal remedies, tenants and landlords can access the Residential Tenancy Dispute Resolution Service (RTDRS).",
+      "sourceOwner": "Government of Alberta"
+    },
+    {
+      "id": "quebec-tal-residential-lease-and-rent-control",
+      "url": "https://www.tal.gouv.qc.ca/en",
+      "title": "Quebec Residential Leases: TAL Authority, Security Deposit Prohibition, and Section G Rent Rules",
+      "quote": "Assignment of a lease or subleasing Assignment of lease agreement and notice to sublet the dwelling",
+      "summary": "In Quebec, the Tribunal administratif du logement (TAL) oversees residential leases, rent regulations, and tenant rights. The TAL provides procedures for lease agreements, rights and obligations of lessees and lessors, rent payments, urgent repairs, heating problems, and formal notice. Lessees have statutory procedures for assignment of a lease or subleasing.",
+      "sourceOwner": "Tribunal administratif du logement"
+    }
+  ]
+}
+

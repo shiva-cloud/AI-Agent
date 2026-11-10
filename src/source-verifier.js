@@ -110,6 +110,10 @@ export async function fetchPageText(url, { fetchImpl = fetch, timeoutMs = 20000,
     }
     return { text: htmlToText(body), error: null };
   } catch (e) {
-    return { text: null, error: e?.name === 'TimeoutError' ? 'timeout' : 'network_error' };
+    // Keep a bounded transport code for diagnosis, never the exception message
+    // or URL: either may contain credentials or proxy details.
+    const code = e?.cause?.code || e?.code;
+    const detail = typeof code === 'string' && /^[A-Z][A-Z0-9_]{1,63}$/.test(code) ? code : null;
+    return { text: null, error: e?.name === 'TimeoutError' ? 'timeout' : 'network_error', ...(detail ? {detail} : {}) };
   }
 }

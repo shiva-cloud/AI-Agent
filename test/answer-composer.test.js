@@ -76,3 +76,11 @@ test('verified answers carry a presentation; a grounded AI summary is used, an u
  assert.equal(invented.presentation.summarySource,'evidence');
  assert.ok(!JSON.stringify(invented).includes('guaranteed'));
 });
+
+test('pilot limitations stay below actionable guidance and never become next steps', () => {
+ const result={...fixture,claims:[{...fixture.claims[0],text:'Apply online using the official application guide. This pilot does not determine your documents or confirm eligibility. Independent human review is required. Step-by-step guidance is not available for this record.'}]};
+ const presentation=composePresentation(result);
+ assert.ok(presentation.summary.every(text=>!text.includes('This pilot')));
+ assert.equal(presentation.sections[0].limits.length,3);
+ assert.ok(presentation.nextSteps.every(step=>!step.text.includes('review is required')));
+});

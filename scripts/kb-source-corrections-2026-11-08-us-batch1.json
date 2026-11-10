@@ -1,0 +1,46 @@
+{
+  "id": "us-batch1-2026-11-08",
+  "sourceOwner": "US Federal Official Authority",
+  "corrections": [
+    {
+      "id": "us-uscis-f1-opt-cap-gap-extension",
+      "url": "https://www.uscis.gov/i-9-central/form-i-9-acceptable-documents/employment-authorization-extensions",
+      "sourceOwner": "U.S. Citizenship and Immigration Services",
+      "title": "USCIS: F-1 OPT to H-1B Cap-Gap automatic work authorization and status extension",
+      "quote": "A cap-gap is the period between the end of a nonimmigrant student’s F-1 status and the beginning of their H-1B status. An F-1 student in Optional Practical Training (OPT) whose employer timely files an H-1B petition for the student may be eligible to continue working beyond the expiration of their OPT Employment Authorization Document.",
+      "summary": "Under USCIS guidance, a cap-gap is the period between the end of a nonimmigrant student's F-1 status and the beginning of their H-1B status. An F-1 student in Optional Practical Training (OPT) whose employer timely files an H-1B petition for the student may be eligible to continue working beyond the expiration of their OPT Employment Authorization Document (EAD) through the cap-gap period."
+    },
+    {
+      "id": "us-uscis-245k-status-violation-exemption",
+      "url": "https://www.uscis.gov/policy-manual/volume-7-part-b-chapter-8",
+      "sourceOwner": "U.S. Citizenship and Immigration Services",
+      "title": "USCIS: Section 245(k) 180-day unauthorized work and status violation exemption for employment-based green cards (INA § 245(k))",
+      "quote": "This exemption applies to an applicant who has not failed to maintain a lawful status, engaged in unauthorized employment, or violated the terms and conditions of his or her admission for an aggregate period exceeding 180 days.",
+      "summary": "Under Immigration and Nationality Act (INA) Section 245(k) and USCIS Policy Manual Volume 7 Part B Chapter 8, applicants applying for Adjustment of Status under employment-based categories receive a statutory exemption from standard adjustment bars. This exemption applies to an applicant who has not failed to maintain a lawful status, engaged in unauthorized employment, or violated admission terms for an aggregate period exceeding 180 days following their most recent lawful admission to the United States. This record does not adjudicate adjustment applications."
+    },
+    {
+      "id": "us-cbp-electronic-i-94-controls-stay",
+      "url": "https://www.cbp.gov/travel/international-visitors/i-94",
+      "sourceOwner": "U.S. Customs and Border Protection",
+      "title": "US CBP & USCIS: Electronic Form I-94 governs lawful authorized stay and overrides visa foil expiration",
+      "quote": "Those who need to prove their legal-visitor status—to employers, schools/universities or government agencies—can access their CBP arrival/departure record information online. CBP now gathers travelers’ arrival/departure information automatically from their electronic travel records. Now at the land border, travelers will be issued I-94s electronically and will no longer receive a paper I-94 stub.",
+      "summary": "Under U.S. Customs and Border Protection (CBP) guidance, foreign visitors to the United States no longer complete paper Form I-94 records. CBP gathers travelers' arrival and departure information automatically from electronic travel records, and travelers who need to prove legal-visitor status to employers, schools, universities, or government agencies can access their official record online."
+    },
+    {
+      "id": "us-ssa-social-security-number-ssn-kyc",
+      "url": "https://www.ssa.gov/number-card/request-number-first-time",
+      "sourceOwner": "Social Security Administration",
+      "title": "Social Security Administration: Social Security Number (SSN) issuance and identity verification",
+      "quote": "A Social Security number is a 9-digit number that’s unique to you. You may need your Social Security number to: File taxes Start a job Open a bank account Apply for a loan Get a passport Claim government benefits",
+      "summary": "Under Social Security Administration (SSA) regulations, an individual who is authorized to work in the United States must obtain a 9-digit Social Security Number (SSN). Applicants in the United States can start the application online and then present original documentation at a local Social Security office proving age, identity, and lawful immigration status. Once approved, the SSA mails the Social Security card. This record does not issue SSN cards."
+    },
+    {
+      "id": "us-consumer-ftc-newcomer-antifraud",
+      "url": "https://consumer.ftc.gov/all-scams/scams-against-immigrants",
+      "sourceOwner": "Federal Trade Commission",
+      "title": "FTC: Protection against immigration scams and unauthorized legal practice",
+      "quote": "Scammers are impersonating attorneys and law firms, offering immigration services on social media. The posts on Facebook and other platforms might be in English or your preferred language. If you press like or leave a comment, they’ll contact you and guarantee you’ll get a work permit, green card, or citizenship — but it’s a scam.",
+      "summary": "Under Federal Trade Commission (FTC) consumer guidance, immigrants are warned against widespread fraud schemes targeting newcomers, including imposter scams where fraudsters impersonate attorneys or government officials offering guaranteed visas or appointments for payment via wire transfer, gift cards, or cryptocurrency. In the US, notary publics (notarios) are not authorized to give legal advice or provide immigration services. Suspected immigration scams can be reported directly to the FTC. This record does not prosecute fraud."
+    }
+  ]
+}

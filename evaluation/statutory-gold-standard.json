@@ -8,8 +8,9 @@
       "tool": "study-permit-cap-pal",
       "input": {
         "studyLevel": "masters",
+        "isPublicDli": true,
         "tuitionFeeFirstYearCad": 28000,
-        "liquidFundsAvailableCad": 52000
+        "liquidFundsAvailableCad": 55000
       },
       "expected": {
         "isPalRequired": false,
@@ -25,7 +26,7 @@
         "studyLevel": "college_diploma",
         "fieldOfStudyCategory": "trades_construction",
         "tuitionFeeFirstYearCad": 16000,
-        "liquidFundsAvailableCad": 40000
+        "liquidFundsAvailableCad": 45000
       },
       "expected": {
         "isPalRequired": true,
@@ -42,7 +43,12 @@
         "liquidFundsCad": 14000,
         "hasApprovedJobLeaveLetter": true,
         "yearsAtCurrentJob": 3,
+        "monthlyIncomeCad": 3500,
         "ownsRealEstateProperty": true,
+        "hasImmediateFamilyRemainingHome": true,
+        "allImmediateFamilyTravelingTogether": false,
+        "hasPriorCompliantTravelG7": true,
+        "hasPreviousVisaRefusal": false,
         "isDualIntentPrPending": true
       },
       "expected": {

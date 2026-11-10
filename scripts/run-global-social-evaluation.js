@@ -18,7 +18,7 @@ const records = store.records();
 console.log(`Knowledge Base Active Records: ${records.length} (Approved + Seed)`);
 console.log(`Evaluating ${globalSocialMasterSuite.length} social media questions...\n`);
 
-const evalDate = new Date('2026-10-31T00:00:00Z');
+const evalDate = new Date('2026-11-08T12:00:00Z');
 const overallStart = performance.now();
 
 const results = [];

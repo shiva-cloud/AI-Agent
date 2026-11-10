@@ -114,3 +114,17 @@ The Dockerfile is an optional packaging starting point. Run `npm run release:db`
 Ports deliberate mismatch note: the server always listens on `process.env.PORT || 3000` (loopback by default) and sends the PM2 ready signal after listen (`process.send('ready')`, matching `wait_ready: true`). The documented `npm start` path serves http://127.0.0.1:3000; the local container keeps the container port 3000 (Dockerfile health-check target) but publishes it on the host as `127.0.0.1:3100` (`compose.local.yaml`). PM2 is the one deliberate exception: `ecosystem.config.cjs` sets `PORT: 8080` under `env_production`, so a PM2-managed production process serves http://127.0.0.1:8080 — point any ingress, monitor (`RUNTIME_MONITOR_URL`) or load balancer at 8080 in that environment, never at 3000.
 
 See `docs/PLAN.md`, `docs/RESEARCH.md`, `docs/ARCHITECTURE.md`, `docs/LANGUAGE_POLICY.md`, `docs/INGESTION.md`, and `docs/STATUS.md`.
+
+### Release evidence export
+
+`npm run release:db` exports only evidence and publication provenance and validates publication readiness on the exported snapshot before replacing the release file. Operational tables and unknown tables are excluded. Incomplete editorial review blocks the release. For a private research snapshot, use `npm run release:db -- --research`. CI uses this option for its disposable fixture.
+
+Inspect the exact packaged snapshot with `npm run kb:health -- --db release/settlement.sqlite --publication-ready --json`.
+
+The **Release candidate** GitHub Actions workflow accepts the run ID containing a `reviewed-evidence` artifact with `settlement.sqlite`. It gates the exported database on publication readiness, runs the full suite with that snapshot, starts the server from the packaged seed, exercises the answer API, builds the image, and retains the validated database as an artifact. Supply the evidence artifact from a trusted review process. The workflow does not publish an image. Developer-authored evaluation fixtures still require a separate independently reviewed holdout before production accuracy can be claimed.
+
+### Independent evaluation review
+
+Run `node scripts/prepare-review-package.js release/settlement.sqlite` to generate `artifacts/evidence-review-package.json` and `artifacts/evaluation-review-template.json`. The first includes current records, withholding reasons, latest audit versions and available archived excerpts. The second is an unapproved worksheet of development questions. An independent reviewer must supply holdout questions and expected labels, supporting HTTPS sources and a rationale for each case, plus their name, review date and approval note. Keep the author and reviewer identities distinct. Reviewer identity and independence are attestations for the release owner to verify.
+
+Save approved labels as `evaluation-reviewed.json` alongside `settlement.sqlite` in the `reviewed-evidence` artifact. Validate with `node scripts/evaluate-reviewed.js evaluation-reviewed.json release/settlement.sqlite`. The public-corpus digest binds the labels to the evidence being evaluated. Regenerate and re-review when the corpus changes. Passing these cases establishes only the measured coverage, not a general accuracy guarantee.

@@ -1,0 +1,46 @@
+{
+  "id": "global-batch2-2026-11-08",
+  "corrections": [
+    {
+      "id": "de-aufenthg-chancenkarte-secondary-work-rights",
+      "url": "https://www.gesetze-im-internet.de/aufenthg_2004/__20a.html",
+      "sourceOwner": "Bundesministerium der Justiz und für Verbraucherschutz",
+      "title": "German Federal Residence Act: Opportunity Card (Chancenkarte) secondary employment and trial work rights (AufenthG § 20a)",
+      "quote": "Eine Chancenkarte ist eine Aufenthaltserlaubnis zur Suche nach einer Erwerbstätigkeit oder nach Maßnahmen zur Anerkennung ausländischer Berufsqualifikationen.",
+      "summary": "Under Section 20a of the German Residence Act (Aufenthaltsgesetz - AufenthG), the Opportunity Card (Chancenkarte) is a residence permit for seeking employment or measures for the recognition of foreign professional qualifications. It authorizes secondary employment as well as trial employment with prospective employers. Cardholders must have sufficient financial resources to secure their livelihood. This record outlines statutory residence rules in Germany; it does not compute Chancenkarte points or issue residence titles."
+    },
+    {
+      "id": "de-schulpflicht-school-registration-kyc",
+      "url": "https://www.kmk.org/themen/allgemeinbildende-schulen.html",
+      "sourceOwner": "Ständige Konferenz der Kultusminister der Länder in der Bundesrepublik Deutschland (KMK)",
+      "title": "Kultusministerkonferenz (KMK): Educational federalism and general schooling in Germany",
+      "quote": "Im Bildungsföderalismus ist die Bildungspolitik nach unserer Verfassung primär Aufgabe der 16 Länder.",
+      "summary": "Under the German constitutional framework described by the Kultusministerkonferenz (KMK), education policy is primarily the responsibility of the 16 federal states (Länder). Each state organizes its school system independently, while the states coordinate through the KMK to ensure comparability of educational pathways and qualifications across Germany. This overview outlines general schooling coordination; it does not process school admissions or issue individual certificates."
+    },
+    {
+      "id": "au-home-affairs-skilled-migration-kyc",
+      "url": "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing",
+      "sourceOwner": "Department of Home Affairs",
+      "title": "Department of Home Affairs: Australian visas list and Visa Finder",
+      "quote": "This is a list of Australian visas. If you are unsure which visa is right for you use our Visa Finder .",
+      "summary": "The Department of Home Affairs provides a list of Australian visas and the Visa Finder tool for individuals seeking to visit, work, study, or live in Australia. Applicants and visa holders can access ImmiAccount and Visa Entitlement Verification Online (VEVO) to check entitlements and verify conditions. This record outlines Australian visa resources; it does not process visa applications or issue visa grants."
+    },
+    {
+      "id": "fr-service-public-passeport-talent-creation-entreprise",
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F16922",
+      "sourceOwner": "Direction de l'information légale et administrative (Service-Public.fr)",
+      "title": "Service-Public France: Carte de séjour pluriannuelle talent-porteur de projet",
+      "quote": "La carte de séjour « talent-salarié qualifié » vous autorise à séjourner en France et vous autorise à exercer une activité professionnelle salari",
+      "summary": "Under French immigration provisions on Service-Public, the multi-year talent-porteur de projet residence card allows foreign nationals to stay in France and engage in a commercial activity linked to their project. The card can be issued under specific categories including business creation and innovative economic projects. This overview outlines general residence requirements in France; it does not issue visas or assess business plans."
+    },
+    {
+      "id": "country-spain-portal",
+      "url": "https://administracion.gob.es/",
+      "sourceOwner": "Ministerio para la Transformación Digital y de la Función Pública",
+      "title": "Spain: Punto de Acceso General electronic administration portal",
+      "quote": "Organigramas, estructuras y directorios de la Administración Pública y el Estado",
+      "summary": "Punto de Acceso General (administracion.gob.es) provides a single access point to Spanish public administration services, directories, procedures, and electronic registries. This entry point outlines public administrative resources in Spain; it does not issue driving licences or process individual administrative procedures directly."
+    }
+  ]
+}
+

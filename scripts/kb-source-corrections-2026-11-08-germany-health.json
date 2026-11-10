@@ -1,0 +1,21 @@
+{
+  "id": "germany-health-source-corrections-2026-11-08",
+  "corrections": [
+    {
+      "id": "de-berlin-gkv-health-insurance-setup",
+      "sourceOwner": "German Federal Ministry of Health - gesund.bund.de",
+      "url": "https://gesund.bund.de/en/krankenversicherung",
+      "title": "German health portal: Statutory insurance benefits and co-payments",
+      "quote": "It is compulsory to have health insurance in Germany.",
+      "summary": "Germany's federal health portal explains statutory and private health insurance. Statutory contributions depend on income, while standard benefits are shared across funds; supplementary contributions and optional benefits differ. The health card provides proof of insurance at GP appointments, and certain services require co-payments. This record does not promise universally free treatment or provide current contribution rates, co-payment amounts or individual enrolment eligibility."
+    },
+    {
+      "id": "de-gkv-statutory-health-insurance-kyc",
+      "sourceOwner": "German Federal Ministry of Health - gesund.bund.de",
+      "url": "https://gesund.bund.de/en/krankenversicherung",
+      "title": "German health portal: Choosing statutory or private health insurance",
+      "quote": "It is compulsory to have health insurance in Germany.",
+      "summary": "Germany's federal health portal describes statutory and private insurance. Employees' access to private insurance depends on an annually adjusted income threshold; eligible employees may instead retain statutory cover. Family co-insurance has conditions, including income limits. Switching between private and statutory cover is restricted. This record does not give a current salary threshold, premium rate, mandatory document checklist or blanket pre-employment travel-insurance requirement."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "kb-source-corrections-2026-11-08-batch12",
+  "corrections": [
+    {
+      "id": "au-sydney-nsw-education-school-enrollment",
+      "url": "https://education.nsw.gov.au/public-schools/going-to-a-public-school/enrolment",
+      "title": "NSW Department of Education: Public School Enrolment and Designated Intake Areas",
+      "quote": "The designated intake areas are determined by the Department of Education. These schools ensure that there are enough places for students who reside in their local enrolment area.",
+      "summary": "The NSW Department of Education determines designated intake areas to ensure sufficient student places for residents in local public school enrolment areas.",
+      "sourceOwner": "NSW Department of Education"
+    },
+    {
+      "id": "us-wa-rlta-residential-landlord-tenant-act",
+      "url": "https://app.leg.wa.gov/rcw/default.aspx?cite=59.18",
+      "title": "Washington State Legislature: Residential Landlord-Tenant Act (RCW Chapter 59.18)",
+      "quote": "59.18.010 Short title. HTML PDF 59.18.020 Rights and remedies — Obligation of good faith imposed.",
+      "summary": "Under Chapter 59.18 of the Revised Code of Washington, the Residential Landlord-Tenant Act establishes statutory rights and remedies for residential tenancies and imposes an obligation of good faith on both landlords and tenants.",
+      "sourceOwner": "Washington State Legislature"
+    },
+    {
+      "id": "us-nyc-tenant-protection-rent-stabilization",
+      "url": "https://www.nyc.gov/site/hpd/services-and-information/tenants-rights.page",
+      "title": "NYC Housing Preservation & Development: Tenants' Rights and Eviction Prevention",
+      "quote": "About Tenants' Rights Learn about tenants' rights and new tenant protections.",
+      "summary": "The New York City Department of Housing Preservation and Development provides official guidance on tenants rights, eviction prevention, and fair housing protections against discrimination.",
+      "sourceOwner": "New York City Department of Housing Preservation and Development"
+    },
+    {
+      "id": "de-justiz-sworn-certified-translations-beeidigte-kyc",
+      "url": "https://www.justiz-dolmetscher.de/Recherche/",
+      "title": "German Judicial Administration: Sworn Interpreters and Translators Database",
+      "quote": "Mit der Dolmetscher- und Übersetzerdatenbank haben die Landesjustizverwaltungen eine Plattform zur Information über die in den einzelnen Ländern der Bundesrepublik Deutschland allgemein beeidigten",
+      "summary": "The German state justice administrations provide an official database platform to locate sworn and publicly appointed interpreters and translators across Germany.",
+      "sourceOwner": "Landesjustizverwaltungen der Länder der Bundesrepublik Deutschland"
+    },
+    {
+      "id": "us-seattle-city-light-utilities",
+      "url": "https://www.seattle.gov/city-light/residential-services/start-stop-transfer-service",
+      "title": "Seattle City Light: Starting Residential Electric Service and Identity Verification",
+      "quote": "Federal regulations require identity verification for new residential customers setting up service. If you are starting new service online or over the phone",
+      "summary": "Seattle City Light provides electricity service for residents in Seattle. Federal regulations require identity verification for new residential customers setting up service online or over the phone.",
+      "sourceOwner": "City of Seattle - Seattle City Light"
+    },
+    {
+      "id": "country-czechia-portal",
+      "url": "https://vlada.gov.cz/en/",
+      "title": "Government of the Czech Republic: Official Portal and Prime Minister Advisories",
+      "quote": "The Czech Republic and Italy to strengthen cooperation in strategic areas",
+      "summary": "The official portal of the Government of the Czech Republic provides central information on government office activities, prime minister advisories, and state administration.",
+      "sourceOwner": "Government of the Czech Republic"
+    }
+  ]
+}
+

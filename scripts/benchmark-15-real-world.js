@@ -22,7 +22,7 @@ const realWorldQuestions = [
 
 const store = openStore();
 const records = store.records();
-const now = new Date('2026-10-31T12:00:00Z');
+const now = new Date('2026-11-08T12:00:00Z');
 
 console.log('Testing 15 Real-World Scenarios...\n');
 

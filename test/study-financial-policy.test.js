@@ -32,7 +32,7 @@ test('reviewed study finance table uses effective dates, household size and juri
   assert.equal(get('2026-09-01').livingCostsCad, 23448);
   assert.equal(get('2026-11-06', 2).livingCostsCad, 35888);
   assert.equal(get('2026-11-06', 7).livingCostsCad, 68372);
-  for (const args of [['2024-12-31'], ['2026-11-07'], ['2026-11-06', 0, 'QC']]) {
+  for (const args of [['2024-12-31'], ['2026-11-09'], ['2026-11-08', 0, 'QC']]) {
     assert.equal(get(...args).status, 'POLICY_REVIEW_REQUIRED');
     assert.equal(get(...args).livingCostsCad, null);
   }
