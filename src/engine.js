@@ -508,7 +508,7 @@ export function parse(input) {
   // Cash wages, under-the-table pay or wage payment in cash are employment questions,
   // not money/banking questions, unless banking terms (bank account, wire, mortgage, cra) are present.
   if (intents.includes('employment') && intents.includes('money')
-    && /\b(?:cash\s+jobs?|paid\s+in\s+cash|cash\s+wages?|under[- ]the[- ]table|cash\s+salary)\b/i.test(q)
+    && /\b(?:cash\s+jobs?|paid\s+in\s+cash|pay(?:ing|s)?\s+(?:me\s+)?(?:in\s+)?cash|cash\s+wages?|under[- ]the[- ]table|cash\s+salary)\b/i.test(q)
     && !/\b(?:bank|credit|loan|mortgage|tax|cra|invest|wire|remittance|e677|fintrac)\b/i.test(q)) {
     const mIdx = intents.indexOf('money');
     if (mIdx !== -1) intents.splice(mIdx, 1);

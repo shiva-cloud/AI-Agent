@@ -78,3 +78,12 @@ test('objective statutory eligibility inquiries do not create missing personal e
   assert.equal(parsed.requestedOutput,'source_guidance');
   assert.ok(!parsed.facets.some(f=>f.reason==='missing_personal_eligibility'));
 });
+
+test('non-licensing mentions of lawyer counsel or doctor sick notes do not create missing occupation requirements facets',()=>{
+  const lawyerAid=parse({question:'What are my realistic work permit options in Toronto if I cannot afford a lawyer or consultant?'});
+  assert.ok(!lawyerAid.facets.some(f=>f.reason==='missing_occupation_requirements'));
+  const sickNote=parse({question:'Does Ontario legislation prohibit employers from demanding a doctor sick note for short-term sick leaves in Toronto?'});
+  assert.ok(!sickNote.facets.some(f=>f.reason==='missing_occupation_requirements'));
+  const genuineLicensing=parse({question:'How do foreign lawyers qualify as solicitors in the United Kingdom and seek employment?'});
+  assert.ok(genuineLicensing.facets.some(f=>f.reason==='missing_occupation_requirements'));
+});

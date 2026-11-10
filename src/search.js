@@ -11,7 +11,7 @@ export const STATUTORY_PROPER_TERMS = new Set([
 
 const SETTLEMENT_SYNSETS = [
   [/\b(?:rent hike|raised rent|raise rent|increase rent|rent increase|rent surge)\b/i, ['rent', 'increase', 'guideline', 'percentage', 'lawful']],
-  [/\b(?:cash|money in hand|currency|dollars)\b/i, ['currency', 'monetary', 'declare', 'customs', 'ten', 'thousand']],
+  [/\b(?:carry(?:ing)?\s+cash|declar(?:e|ing|ation)\s+(?:cash|money|currency)|bringing\s+cash|cash\b[^?.!]{0,60}\b(?:border|airport|customs)|(?:border|airport|customs)\b[^?.!]{0,60}\bcash|currency\s+declaration|10,?000\s+(?:cash|dollars))\b/i, ['currency', 'monetary', 'declare', 'customs', 'ten', 'thousand']],
   [/\b(?:fired|laid off|let go|termination|severance|job loss)\b/i, ['termination', 'severance', 'notice', 'standards', 'pay']],
   [/\b(?:doctor|physician|clinic|gp|hospital|sick)\b/i, ['health', 'insurance', 'coverage', 'physician', 'services']],
   [/\b(?:pgwp|post[- ]grad)\b/i, ['pgwp', 'graduation', 'work', 'permit', 'dli', 'eligibility']],

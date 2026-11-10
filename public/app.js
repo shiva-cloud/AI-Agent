@@ -407,7 +407,10 @@ $('#question-form').addEventListener('submit', async e => {
   const canonicalQ = normalizeToCanonicalEnglish(rawQ, userLang);
   const countryVal = $('#country')?.value || undefined;
   let cityVal = $('#city')?.value;
-  if (!countryVal && !cityVal && sessionState.lastCity && !/\b(?:toronto|mississ?auga|brampton|vancouver)\b/i.test(canonicalQ)) {
+  const explicitForeignInQuery = /\b(?:united states|usa?|united kingdom|uk|britain|england|scotland|wales|australia|germany|deutschland|uae|united arab emirates|dubai|abu dhabi|new zealand|ireland|singapore|france|netherlands|sweden|spain|berlin|munich|frankfurt|london|sydney|melbourne|brisbane|auckland|dublin|paris|amsterdam|stockholm|madrid|barcelona)\b/i.test(canonicalQ);
+  if (explicitForeignInQuery && !countryVal) {
+    cityVal = undefined;
+  } else if (!countryVal && !cityVal && sessionState.lastCity && !/\b(?:toronto|mississ?auga|brampton|vancouver)\b/i.test(canonicalQ)) {
     cityVal = sessionState.lastCity;
     if ($('#city')) $('#city').value = cityVal;
   }
