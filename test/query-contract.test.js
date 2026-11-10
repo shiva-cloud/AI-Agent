@@ -161,4 +161,14 @@ test('police certificates, utility costs, customs, portal errors, and relationsh
   assert.deepEqual(tuitionRefund.intents,['money']);
   const dualRes=parse({question:'Who can use dual residency services in North Rhine-Westphalia / Cologne?'});
   assert.deepEqual(dualRes.intents,['money']);
+  const detentionRev=parse({question:'How can I verify the eligibility requirements for detention review in California / Los Angeles after a policy change?'});
+  assert.deepEqual(detentionRev.intents,['community']);
+  const provNom=parse({question:'How can I verify the eligibility requirements for provincial nomination in Portugal / Lisbon with limited savings?'});
+  assert.deepEqual(provNom.intents,['employment']);
+  const secScreen=parse({question:'Which official agency should I contact about security screening in Abu Dhabi, and what evidence should I prepare?'});
+  assert.deepEqual(secScreen.intents,['employment']);
+  const probateQ=parse({question:'How can I verify the eligibility requirements for probate in Scotland / Edinburgh with a pending appeal?'});
+  assert.deepEqual(probateQ.intents,['money']);
+  const affidavitsQ=parse({question:'How can I verify the eligibility requirements for affidavits in Victoria / Melbourne with an urgent deadline?'});
+  assert.deepEqual(affidavitsQ.intents,['health']);
 });
