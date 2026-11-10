@@ -67,6 +67,7 @@ function words(text) {
     .replace(/\b(?:tax identification numbers?|tax identification|tax file numbers?)\b/gi, 'identity')
     .replace(/\b(?:provincial photo id|state id|photo id|municipal id|city id|photo identification)\b/gi, 'identity')
     .replace(/\b(?:identifies|identify|identifier|identification|identity)\b/gi, 'identity')
+    .replace(/\b(?:two\s+countries\s+claim\s+tax\s+residen(?:ce|cy)|dual\s+tax\s+residen(?:ce|cy)|double\s+tax(?:ation)?(?:\s+(?:agreements?|treat(?:y|ies)|conventions?|relief))?)\b/gi, 'doubletax')
     .replace(/\b(?:vat|sales tax|goods and services tax|gst|hst|corporate tax|business tax|dual tax|tax residency|tax return|taxation)\b/gi, 'tax')
     .replace(/\b(?:overseas|out[- ]of[- ]country)\b/gi, 'foreign')
     .replace(/\b(?:driver licence|driving licence|driver license|driving license|licence exchange|license exchange|licence conversion|license conversion|licence transfer|license transfer)\b/gi, 'licence')

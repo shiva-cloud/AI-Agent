@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { appSource } from './app-source.js';
+import { resolveQuestionLocation } from '../public/app/data.js';
 
 test('UI/UX Overhaul: Sidebar Navigation Show/Hide State and Badges', () => {
   const html = readFileSync('public/index.html', 'utf8');
@@ -50,4 +51,14 @@ test('UI/UX Overhaul: Responsive Grid and Overflow Shield in CSS', () => {
   assert.ok(css.includes('overflow-x: hidden !important'), 'overflow-x hidden missing in styles.css');
   assert.ok(css.includes('grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)) !important'), 'Responsive grid wrapping missing in styles.css');
   assert.ok(css.includes('position: sticky !important'), 'Sticky tool switcher bar missing in styles.css');
+});
+
+test('UI Sticky Location Guard clears foreign queries across Big-12 regions without breaking Canadian licence exchange or pronoun "us"', () => {
+  assert.equal(resolveQuestionLocation('What is the Kaution limit in Bavaria?', undefined, 'Toronto', 'Toronto').city, undefined);
+  assert.equal(resolveQuestionLocation('How do I apply for a share code in Manchester?', undefined, 'Toronto', 'Toronto').city, undefined);
+  assert.equal(resolveQuestionLocation('How do I get an SSN in the US?', undefined, 'Toronto', 'Toronto').city, undefined);
+  assert.equal(resolveQuestionLocation('What are tenancy deposit rules in Italy?', undefined, '', 'Toronto').city, undefined);
+  assert.equal(resolveQuestionLocation('Can I exchange my UK driving licence?', undefined, 'Toronto', 'Toronto').city, 'Toronto');
+  assert.equal(resolveQuestionLocation('Tell us about OHIP waiting periods', undefined, 'Toronto', 'Toronto').city, 'Toronto');
+  assert.equal(resolveQuestionLocation('What is the rent deposit rule in London, Ontario?', undefined, 'Toronto', 'Toronto').city, 'Toronto');
 });

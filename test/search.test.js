@@ -51,6 +51,19 @@ test('all selected claims retain citations even behind multiple unavailable matc
  const r=answer({question:'SIN application'},docs,now);
  assert.equal(r.claims.length,1);assert.ok(r.sources.some(s=>s.id==='available'));
 });
+test('work-permit expiry after renewal application expands maintained-status terms and outranks study-permit limits',()=>{
+ const q='My work permit expired yesterday after I applied to renew it. Can I keep working while waiting?';
+ const terms=queryTerms(q);
+ assert.ok(terms.includes('maintained'));
+ assert.ok(terms.includes('irpr'));
+ assert.ok(terms.includes('r186'));
+ const base={...seeds.find(r=>r.topic==='employment'),status:'approved'};
+ const r186={...base,id:'ircc-employer-kyc-right-to-work',jurisdiction:'CA',title:'IRCC: Maintained status during processing and right to work under R186(u)',summary:'Under IRPR R186(u), a work permit holder may continue working under the same conditions as their previous work permit until a decision is made on their extension application if they applied to extend their stay in Canada as a worker before permit expiry.',quote:'IRPR R186(u) maintained status right to work'};
+ const student={...base,id:'global-student-work-limits-pgwp-rules',jurisdiction:'CA',title:'IRCC: Working off campus as an international student - the 24 hours per week limit',summary:'International students with a valid study permit or who applied to extend before it expired may work up to 24 hours per week while waiting.',quote:'24 hours per week off campus work limit'};
+ const ranked=retrieve(parse({question:q,city:'Toronto'}),[student,r186],now);
+ assert.equal(ranked[0].id,'ircc-employer-kyc-right-to-work');
+});
+
 test('frozen English development regression set passes with explicit measurement limits',()=>{
  const set=JSON.parse(readFileSync(new URL('../evaluation/english-pilot.json',import.meta.url),'utf8'));
  const report=evaluate(set,seeds);assert.deepEqual(report.failures,[]);assert.equal(report.citationLinkCompleteness,1);assert.match(report.limitations,/Not production accuracy/);

@@ -2678,3 +2678,26 @@ export const TOOL_SWITCHER_CONFIG = {
     { id: 'auto-insurance-card', title: '🛡️ Auto Insurance & Foreign Driving History Credit' }
   ]
 };
+
+const FOREIGN_DESTINATION_PLACE_PATTERN = /\b(?:united states|usa|u\.s(?:\.a)?\.?|america|california|new york(?:\s+city)?|nyc|texas|florida|washington\s+state|illinois|massachusetts|miami|los angeles|chicago|san francisco|seattle|boston|austin|houston|united kingdom|uk|u\.k\.?|great britain|britain|england|scotland|(?<!new south\s+)wales|northern ireland|belfast|manchester|birmingham|edinburgh|glasgow|london|cardiff|australia|australian|sydney|melbourne|brisbane|perth|adelaide|canberra|new south wales|nsw|queensland|qld|western australia|south australia|tasmania|germany|german|deutschland|berlin|munich|frankfurt|hamburg|cologne|dusseldorf|stuttgart|bavaria|bayern|north rhine-westphalia|nrw|hesse|baden-w[üu]rttemberg|uae|u\.a\.e\.?|united arab emirates|dubai|abu dhabi|sharjah|ajman|ras al khaimah|fujairah|umm al quwain|new zealand|auckland|wellington|christchurch|hamilton|canterbury|(?<!northern\s+)ireland|dublin|cork|galway|limerick|singapore|changi|france|paris|lyon|marseille|[îi]le-de-france|netherlands|holland|amsterdam|rotterdam|the hague|utrecht|north holland|south holland|sweden|stockholm|gothenburg|malm[öo]|spain|madrid|barcelona|valencia|seville|catalonia|andalusia|european union|italy|rome|milan|lombardy|portugal|lisbon|japan|tokyo|osaka|south korea|seoul|taiwan|taipei|switzerland|zurich|austria|vienna|belgium|brussels|denmark|copenhagen|norway|oslo|finland|helsinki|poland|warsaw|brazil)\b/i;
+
+const EXPLICIT_CANADIAN_CONTEXT = /\b(?:canada|canadian|ontario|british columbia|alberta|quebec|manitoba|saskatchewan|nova scotia|new brunswick|toronto|mississ?auga|brampton|vancouver|calgary|edmonton|ottawa|montreal|winnipeg|halifax|ohip|\bsin\b|\bmsp\b|drivetest|serviceontario|icbc|cra|ircc)\b/i;
+
+export function resolveQuestionLocation(canonicalQ, countryVal, cityVal, lastCity) {
+  if (countryVal) {
+    return { city: cityVal || undefined, shouldSyncDropdown: false };
+  }
+  const q = typeof canonicalQ === 'string' ? canonicalQ : '';
+  const explicitForeignInQuery = FOREIGN_DESTINATION_PLACE_PATTERN.test(q) || /\b(?:in|for|across|from|to)\s+(?:the\s+)?us\b/i.test(q) || /\bUS\b/.test(q);
+  const explicitCanadianInQuery = EXPLICIT_CANADIAN_CONTEXT.test(q);
+  const originLicenceExchange = !/\b(?:in|across|within|move\s+to|moving\s+to)\s+(?:the\s+)?(?:united states|usa|u\.s(?:\.a)?\.?|united kingdom|uk|germany|australia|uae|dubai|new zealand|ireland|singapore|france|netherlands|sweden|spain)\b/i.test(q)
+    && /\b(?:exchange|convert|transfer|credit|recogni[sz]e)\b[^?.!]{0,45}\blicen[cs]e\b/i.test(q);
+
+  if (explicitForeignInQuery && !explicitCanadianInQuery && !originLicenceExchange) {
+    return { city: undefined, shouldSyncDropdown: false };
+  }
+  if (!cityVal && lastCity && !/\b(?:toronto|mississ?auga|brampton|vancouver)\b/i.test(q)) {
+    return { city: lastCity, shouldSyncDropdown: true };
+  }
+  return { city: cityVal || undefined, shouldSyncDropdown: false };
+}

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parse,answer} from '../src/engine.js';
+import {parse,retrieve,answer} from '../src/engine.js';
+import {seeds} from '../src/knowledge.js';
 import {normalizeEnglishQuestion} from '../src/question-normalization.js';
 
 test('English typography and whitespace normalize without changing underlying query semantics',()=>{
@@ -49,4 +50,22 @@ test('automated, border, or security screening never triggers housing or tenancy
  const parsed=parse({question:'Where should a dependent spouse in Brisbane, Australia start when dealing with procedural fairness in automated screening?'});
  assert.ok(!parsed.intents.includes('housing'));
  assert.deepEqual(parsed.housingSubjects,[]);
+});
+
+test('Toronto housing and arrival retrieval excludes Brampton and Mississauga municipal bylaws tagged at provincial scope',()=>{
+ const now=new Date('2026-10-28T12:00:00Z');
+ const base={...seeds.find(r=>r.topic==='housing'&&r.jurisdiction==='ON'),status:'approved'};
+ const ontarioDeposit={...base,id:'ontario-rent-deposits-test',housingSubject:'deposit',title:'Ontario LTB: Rent deposits and key deposits',summary:'Ontario Residential Tenancies Act limits rent deposits to last month rent and key deposits to replacement cost.',quote:'One month rent deposit limit'};
+ const bramptonRrl={...base,id:'brampton-rental-licensing-no-credit-and-tenant-scam-prevention',housingSubject:'deposit',title:'Brampton Rental Market: Residential Rental Licensing (RRL) bylaw, no-credit tenant screening, and deposit protections',summary:'Under the City of Brampton Residential Rental Licensing Pilot Program (Bylaw 2024-001), key deposits cannot exceed replacement cost.',quote:'Under Brampton Bylaw 2024-001 and the Ontario Residential Tenancies Act'};
+ const torontoRanked=retrieve(parse({question:'Can my landlord ask for a $500 key deposit and my SIN in Toronto?',city:'Toronto'}),[ontarioDeposit,bramptonRrl],now);
+ assert.ok(!torontoRanked.some(r=>r.id===bramptonRrl.id));
+ const bramptonRanked=retrieve(parse({question:'Can my landlord ask for a $500 key deposit and my SIN in Brampton?',city:'Brampton'}),[ontarioDeposit,bramptonRrl],now);
+ assert.ok(bramptonRanked.some(r=>r.id===bramptonRrl.id));
+});
+
+test('rental Kaution queries in Germany map strictly to deposit housingSubject',()=>{
+ const parsed=parse({question:'What is the rental Kaution limit in Bavaria?'});
+ assert.equal(parsed.country,'Germany');
+ assert.equal(parsed.region,'Bavaria');
+ assert.deepEqual(parsed.housingSubjects,['deposit']);
 });

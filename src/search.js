@@ -1,6 +1,6 @@
 // Local lexical baseline. This is not embedding-based or semantic retrieval.
-const stopwords=new Set('a an the and or to of in on at for from with is are be can could should would how what where when do does i my me we our you your please after before get about it this that'.split(' '));
-const variants={libraries:'library',services:'service',newcomers:'newcomer',applications:'apply',application:'apply',applying:'apply',applied:'apply',coverage:'insurance',healthcare:'health',medical:'health',renting:'rent',rental:'rent',tenants:'tenant',landlords:'landlord',evicted:'eviction',evict:'eviction',evictions:'eviction',children:'child',schools:'school',jobs:'job',groceries:'grocery',licences:'licence',license:'licence',licenses:'licence',documents:'document',requirements:'requirement',waiting:'wait',hikes:'increase',hike:'increase',raises:'increase',doctors:'doctor',clinics:'clinic',fired:'termination',terminated:'termination',cheques:'check',cheque:'check',currencies:'currency',cash:'currency',flat:'apartment',flats:'apartment',letting:'lease',lettings:'lease',solicitor:'lawyer',solicitors:'lawyer',creche:'childcare',creches:'childcare',tube:'transit',tram:'transit',underground:'transit',bills:'utility',utilities:'utility',cancellations:'cancellation',cancelling:'cancel',misrepresentation:'misrepresentation',unlocking:'unlock',disputes:'dispute',contracts:'contract',complaints:'complaint',documentation:'document',identification:'identity'};
+const stopwords = new Set('a an the and or to of in on at for from with is are be can could should would how what where when do does i my me we our you your please after before get about it this that'.split(' '));
+const variants = { libraries: 'library', services: 'service', newcomers: 'newcomer', applications: 'apply', application: 'apply', applying: 'apply', applied: 'apply', coverage: 'insurance', healthcare: 'health', medical: 'health', renting: 'rent', rental: 'rent', tenants: 'tenant', landlords: 'landlord', evicted: 'eviction', evict: 'eviction', evictions: 'eviction', children: 'child', schools: 'school', jobs: 'job', groceries: 'grocery', licences: 'licence', license: 'licence', licenses: 'licence', documents: 'document', requirements: 'requirement', waiting: 'wait', hikes: 'increase', hike: 'increase', raises: 'increase', doctors: 'doctor', clinics: 'clinic', fired: 'termination', terminated: 'termination', cheques: 'check', cheque: 'check', currencies: 'currency', cash: 'currency', flat: 'apartment', flats: 'apartment', letting: 'lease', lettings: 'lease', solicitor: 'lawyer', solicitors: 'lawyer', creche: 'childcare', creches: 'childcare', tube: 'transit', tram: 'transit', underground: 'transit', bills: 'utility', utilities: 'utility', cancellations: 'cancellation', cancelling: 'cancel', misrepresentation: 'misrepresentation', unlocking: 'unlock', disputes: 'dispute', contracts: 'contract', complaints: 'complaint', documentation: 'document', identification: 'identity' };
 
 export const STATUTORY_PROPER_TERMS = new Set([
   'sin', 'ohip', 'msp', 'ejari', 'omny', 'anmeldung', 'wws', 'buergeramt', 'bürgeramt',
@@ -32,6 +32,7 @@ const SETTLEMENT_SYNSETS = [
   [/\b(?:soft landing|pr landing|first landing|when I land|landing in|documents? (?:to|should I) carry|landing documents?)\b/i, ['landing', 'arriving', 'arrival', 'copr', 'permanent', 'resident', 'settlement', 'first', 'two', 'weeks', 'documents', 'cbsa', 'border', 'entry']],
   [/\b(?:flagpoling|flagpole|border run)\b/i, ['flagpoling', 'border', 'cbsa', 'port', 'entry', 'permit']],
   [/\b(?:implied status|maintained status|section 186|section 3c|3c leave)\b/i, ['maintained', 'status', 'irpr', 'extension', 'work', 'permit', '3c', 'leave']],
+  [/\b(?:work\s+permit\b[^?.!]{0,80}\b(?:expir(?:ed|es|ing|y)|renew(?:al|ing|ed)?|extend(?:ing|ed|sion)?|waiting)|(?:renew(?:ing|al)?|extend(?:ing|sion)?)\s+(?:a|my|the)?\s*work\s+permit|(?:applied|applying|submitted)\s+(?:to|for)\s+(?:a\s+)?(?:renew(?:al)?|extend|extension)\b[^?.!]{0,70}\b(?:keep\s+working|continue\s+working|still\s+work|allowed\s+to\s+work|can\s+i\s+work))\b/i, ['maintained', 'implied', 'status', 'irpr', 'r186', 'r183', 'extension', 'conditions', 'decision']],
   [/\b(?:visitor record|extend stay|status restoration)\b/i, ['visitor', 'record', 'restoration', 'ircc', 'ninety', 'days']],
   [/\b(?:renoviction|n12|n13|landlord own use)\b/i, ['eviction', 'n12', 'n13', 'compensation', 'bad', 'faith', 'ltb']],
   [/\b(?:sick child|sick toddler|urgent care|walk-in|walk[- ]in (?:clinic|cent(?:er|re)|care|doctor|medical)|emergency room|without doctor)\b/i, ['health', 'ohip', 'msp', 'coverage', 'care', 'clinic', 'physician']],
@@ -104,13 +105,13 @@ const SETTLEMENT_SYNSETS = [
 ];
 
 export function tokenize(text) {
-  return (text.normalize('NFKC').toLowerCase().match(/[a-z0-9]+/g)||[]).filter(t=>!stopwords.has(t)).map(t=>variants[t]||t);
+  return (text.normalize('NFKC').toLowerCase().match(/[a-z0-9]+/g) || []).filter(t => !stopwords.has(t)).map(t => variants[t] || t);
 }
 export function queryTerms(question) {
-  const terms=tokenize(question);
-  if(/\bsin\b|social insurance number/i.test(question)) terms.push('social','insurance','sin');
-  if(/\bohip\b/i.test(question)) terms.push('ontario','health','insurance');
-  if(/\bmsp\b/i.test(question)) terms.push('bc','health','insurance');
+  const terms = tokenize(question);
+  if (/\bsin\b|social insurance number/i.test(question)) terms.push('social', 'insurance', 'sin');
+  if (/\bohip\b/i.test(question)) terms.push('ontario', 'health', 'insurance');
+  if (/\bmsp\b/i.test(question)) terms.push('bc', 'health', 'insurance');
   for (const [pattern, synset] of SETTLEMENT_SYNSETS) {
     if (pattern.test(question)) terms.push(...synset);
   }
@@ -118,18 +119,18 @@ export function queryTerms(question) {
   // re-entry and resuming work/study. Scope these synonyms to both concepts;
   // expanding every PGWP or employment-leave question would dilute relevance.
   if (/\b(?:maintained|implied) status\b/i.test(question) &&
-      /\b(?:travel|outside|leav(?:e|ing)|re[- ]?entr(?:y|ies)|re[- ]?enter|return)\b/i.test(question)) {
-    terms.push('leave','leaves','leaving','re','entry','return','resume');
+    /\b(?:travel|outside|leav(?:e|ing)|re[- ]?entr(?:y|ies)|re[- ]?enter|return)\b/i.test(question)) {
+    terms.push('leave', 'leaves', 'leaving', 're', 'entry', 'return', 'resume');
   }
   return [...new Set(terms)];
 }
 // Records are immutable snapshot objects (the same references are served until
 // the evidence version changes), so tokenizing each one once per object keeps
 // the lexical fallback O(corpus) cheap on every request.
-const recordTokens=new WeakMap();
-const tokensOf=record=>{let words=recordTokens.get(record);if(words===undefined){words=tokenize(`${record.title} ${record.summary} ${record.quote} ${record.topic}`);recordTokens.set(record,words);}return words;};
-export function rankLexically(records,terms=[]) {
-  return rankTokenized(records.map(record=>({record,words:tokensOf(record)})),terms);
+const recordTokens = new WeakMap();
+const tokensOf = record => { let words = recordTokens.get(record); if (words === undefined) { words = tokenize(`${record.title} ${record.summary} ${record.quote} ${record.topic}`); recordTokens.set(record, words); } return words; };
+export function rankLexically(records, terms = []) {
+  return rankTokenized(records.map(record => ({ record, words: tokensOf(record) })), terms);
 }
 export function getTermWeight(term) {
   if (!term || typeof term !== 'string') return 1.0;
@@ -180,22 +181,22 @@ export function rankHybrid(records, query, terms = []) {
   }).sort((a, b) => b.hybridScore - a.hybridScore);
 }
 
-export function rankTokenized(documents,terms=[]) {
-  const corpus=documents.map(({record,words})=>{
-    const counts=new Map();
-    words.forEach(word=>counts.set(word,(counts.get(word)||0)+1));
-    return {record,words,counts};
+export function rankTokenized(documents, terms = []) {
+  const corpus = documents.map(({ record, words }) => {
+    const counts = new Map();
+    words.forEach(word => counts.set(word, (counts.get(word) || 0) + 1));
+    return { record, words, counts };
   });
-  const avg=corpus.reduce((n,d)=>n+d.words.length,0)/(corpus.length||1),k1=1.2,b=0.75;
-  const frequencies=new Map(terms.map(term=>[term,corpus.filter(d=>d.counts.has(term)).length]));
-  return corpus.map(d=>{
-    const matches=terms.filter(term=>d.counts.has(term));
-    const score=matches.reduce((sum,term)=>{
-      const df=frequencies.get(term),tf=d.counts.get(term);
-      const idf=Math.log(1+(corpus.length-df+0.5)/(df+0.5));
-      const weight=getTermWeight(term);
-      return sum+(idf*(tf*(k1+1))/(tf+k1*(1-b+b*d.words.length/(avg||1)))) * weight;
-    },0);
-    return {...d.record,lexicalScore:Number(score.toFixed(6)),matchedTerms:matches};
+  const avg = corpus.reduce((n, d) => n + d.words.length, 0) / (corpus.length || 1), k1 = 1.2, b = 0.75;
+  const frequencies = new Map(terms.map(term => [term, corpus.filter(d => d.counts.has(term)).length]));
+  return corpus.map(d => {
+    const matches = terms.filter(term => d.counts.has(term));
+    const score = matches.reduce((sum, term) => {
+      const df = frequencies.get(term), tf = d.counts.get(term);
+      const idf = Math.log(1 + (corpus.length - df + 0.5) / (df + 0.5));
+      const weight = getTermWeight(term);
+      return sum + (idf * (tf * (k1 + 1)) / (tf + k1 * (1 - b + b * d.words.length / (avg || 1)))) * weight;
+    }, 0);
+    return { ...d.record, lexicalScore: Number(score.toFixed(6)), matchedTerms: matches };
   });
 }

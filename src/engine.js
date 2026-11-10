@@ -732,6 +732,13 @@ export function retrieve(parsed, records, now = new Date(), searchIndex) {
     // Reject out-of-scope records before expensive English/policy validation.
     // Every record that can reach ranking still passes the full validator.
     if (!r || !scope.has(r.jurisdiction) || !parsed.intents.includes(r.topic)) return false;
+    // Municipal bylaws or checklists tagged at provincial scope must stay scoped to their
+    // named Canadian city when the user asked about a different Canadian city (e.g. Brampton RRL in Toronto).
+    if (!isGlobal && parsed.city) {
+      const terms = new Set(parsed.queryTerms || []);
+      if ((r.id === 'brampton-rental-licensing-no-credit-and-tenant-scam-prevention' || /^brampton\b/i.test(r.title || '')) && parsed.city !== 'Brampton' && !terms.has('brampton')) return false;
+      if ((r.id === 'peel-mississauga-newcomer-arrival-orientation-and-settlement-framework' || /^mississauga\b/i.test(r.title || '')) && parsed.city !== 'Mississauga' && !terms.has('mississauga') && !terms.has('peel')) return false;
+    }
     // The origin country is in scope for exchanging its licence or for leaving it.
     // Its tax or health rules do not apply to someone asking about another destination country.
     if (parsed.licenceCountry && parsed.licenceCountry !== parsed.country && r.jurisdiction === parsed.licenceCountry && !['driving', 'community'].includes(r.topic)) return false;

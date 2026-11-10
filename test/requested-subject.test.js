@@ -82,4 +82,7 @@ test('subject context in the title and ordinary paraphrases retain relevant evid
   assert.equal(subjectEvidenceMatcher('Who can use language classes services in Toronto?')({
     title:'Settlement services',summary:'We provide employment training and language translation services.'
   }),false);
+  assert.equal(subjectEvidenceMatcher('Before I submit anything about two countries claim tax residence in Hamburg, Germany?')({
+    title:'EU Foreign Tax Credits and Double Taxation Agreements',summary:'Double taxation agreements prevent dual income taxation.'
+  }),true);
 });
