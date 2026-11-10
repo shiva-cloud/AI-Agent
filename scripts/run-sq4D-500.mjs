@@ -1,4 +1,4 @@
-﻿// scripts/run-sq4D-500.mjs
+// scripts/run-sq4D-500.mjs
 // Evaluates Set 38 (SQ4D-500): 500 fresh, non-duplicate Social Batch-4 questions (4th sample)
 // from corpus/global_immigration_social_questions_60001_80000.md across the remaining unseen pool.
 // Guarantees 0 duplicates across all prior evaluation sets in docs/*RESULTS*.json.
@@ -226,38 +226,38 @@ const topGaps = Object.entries(gapReasons)
   .sort((a, b) => b[1] - a[1])
   .slice(0, 6)
   .map(([r, c]) => `${r} (${c})`)
-  .join(' Â· ');
+  .join(' · ');
 
 const distinctCountries = Object.keys(bySuiteCountry).length;
 
-const mdReport = `# SQ4D-500 (corpus social batch-4 à¤šà¥Œà¤¥à¤¾ sample) â€” 500-à¤ªà¥à¤°à¤¶à¥à¤¨ à¤¸à¥‡à¤Ÿ (à¤¡à¥à¤ªà¥à¤²à¤¿à¤•à¥‡à¤Ÿ-à¤®à¥à¤•à¥à¤¤) â€” 10 à¤¨à¤µà¤‚à¤¬à¤° 2026
+const mdReport = `# SQ4D-500 (corpus social batch-4 चौथा sample) — 500-प्रश्न सेट (डुप्लिकेट-मुक्त) — 10 नवंबर 2026
 
-à¤¨à¤¿à¤°à¥à¤¦à¥‡à¤¶ *"cnt"* / *"next 500 question not duplicate"* à¤•à¤¾ à¤¨à¤¯à¤¾ à¤šà¤•à¥à¤° (à¤¸à¥‡à¤Ÿ 38)à¥¤  
-à¤¸à¥à¤°à¥‹à¤¤ = corpus **batch-4 à¤¸à¥‹à¤¶à¤² à¤«à¤¼à¤¾à¤‡à¤² à¤•à¤¾ à¤šà¥Œà¤¥à¤¾ sample** (\`global_immigration_social_questions_60001_80000.md\`; à¤ªà¤¿à¤›à¤²à¥‡ à¤¨à¤®à¥‚à¤¨à¥‹à¤‚ à¤•à¥‡ **${dupVsPrev}** à¤ªà¥à¤°à¤¶à¥à¤¨ à¤›à¥‹à¤¡à¤¼à¤•à¤° à¤¶à¥‡à¤· **${unseenPool.length}** à¤…à¤¨à¤¦à¥‡à¤–à¥‡ à¤ªà¥à¤² à¤¸à¥‡ à¤¸à¤®-à¤¦à¥‚à¤°à¥€ à¤«à¥ˆà¤²à¤¾à¤ˆ **500**)à¥¤
+निर्देश *"cnt"* / *"next 500 question not duplicate"* का नया चक्र (सेट 38)।  
+स्रोत = corpus **batch-4 सोशल फ़ाइल का चौथा sample** (\`global_immigration_social_questions_60001_80000.md\`; पिछले नमूनों के **${dupVsPrev}** प्रश्न छोड़कर शेष **${unseenPool.length}** अनदेखे पुल से सम-दूरी फैलाई **500**)।
 
-**à¤šà¤²à¤¾à¤¨à¥‡-à¤•à¤¾ à¤¢à¤‚à¤—:** in-process runner (\`scripts/run-sq4D-500.mjs\`) â€” **test-copy DB** (\`data/test-settlement.sqlite\`, ${records.length} à¤°à¤¿à¤•à¥‰à¤°à¥à¤¡à¥à¤¸) à¤ªà¤° \`src/engine.answer()\`; à¤…à¤¸à¤²à¥€ \`settlement.sqlite\` à¤…à¤›à¥‚à¤¤à¤¾; fixed clock \`2026-11-10T12:00Z\`à¥¤  
+**चलाने-का ढंग:** in-process runner (\`scripts/run-sq4D-500.mjs\`) — **test-copy DB** (\`data/test-settlement.sqlite\`, ${records.length} रिकॉर्ड्स) पर \`src/engine.answer()\`; असली \`settlement.sqlite\` अछूता; fixed clock \`2026-11-10T12:00Z\`।  
 Raw data: [CORPUSSQ4D500_RESULTS_2026-11-10.json](CORPUSSQ4D500_RESULTS_2026-11-10.json)
 
 ---
 
-## 1. à¤¡à¥à¤ªà¥à¤²à¤¿à¤•à¥‡à¤Ÿ-à¤ªà¥à¤°à¤®à¤¾à¤£
+## 1. डुप्लिकेट-प्रमाण
 
-| à¤œà¤¾à¤à¤š | à¤ªà¤°à¤¿à¤£à¤¾à¤® |
+| जाँच | परिणाम |
 |---|---|
-| à¤ªà¤¿à¤›à¤²à¥‡ à¤¸à¤­à¥€ à¤ªà¤°à¤¿à¤£à¤¾à¤® à¤¸à¥‡à¤Ÿà¥‹à¤‚ à¤¸à¥‡ à¤²à¥‹à¤¡ à¤…à¤¦à¥à¤µà¤¿à¤¤à¥€à¤¯ à¤ªà¥à¤°à¤¶à¥à¤¨ (${resultFiles.length} à¤«à¤¼à¤¾à¤‡à¤²à¥‡à¤‚) | **${previousSeen.size}** |
-| Batch-4 à¤¸à¥‡ à¤ªà¤¹à¤²à¥‡ à¤ªà¤°à¥€à¤•à¥à¤·à¤¿à¤¤ à¤›à¥‹à¤¡à¤¼à¥‡ à¤—à¤ à¤ªà¥à¤°à¤¶à¥à¤¨ | ${dupVsPrev} |
-| à¤¶à¥‡à¤· à¤…à¤¨à¤¦à¥‡à¤–à¥‡ à¤ªà¥à¤² à¤¸à¥‡ à¤šà¤¯à¤¨à¤¿à¤¤ | **500** (${unseenPool.length} à¤®à¥‡à¤‚ à¤¸à¥‡ à¤¸à¤®-à¤¦à¥‚à¤°à¥€) |
-| **à¤ªà¤¿à¤›à¤²à¥‡ à¤¸à¤­à¥€ ${previousSeen.size} à¤ªà¥à¤°à¤¶à¥à¤¨à¥‹à¤‚ à¤¸à¥‡ à¤•à¥à¤°à¥‰à¤¸-à¤¡à¥à¤ªà¥à¤²à¤¿à¤•à¥‡à¤Ÿ** | **0** |
-| à¤¬à¥ˆà¤š à¤•à¥‡ à¤­à¥€à¤¤à¤° à¤†à¤ªà¤¸à¥€ à¤¡à¥à¤ªà¥à¤²à¤¿à¤•à¥‡à¤Ÿ | **0** |
-| à¤¨à¤¿à¤·à¥à¤ªà¤¾à¤¦à¤¨ à¤¸à¤®à¤¯ à¤à¤µà¤‚ à¤¤à¥à¤°à¥à¤Ÿà¤¿à¤¯à¤¾à¤ | **500/500** (${elapsedSec} à¤¸à¥‡à¤•à¤‚à¤¡) Â· **0 error** |
+| पिछले सभी परिणाम सेटों से लोड अद्वितीय प्रश्न (${resultFiles.length} फ़ाइलें) | **${previousSeen.size}** |
+| Batch-4 से पहले परीक्षित छोड़े गए प्रश्न | ${dupVsPrev} |
+| शेष अनदेखे पुल से चयनित | **500** (${unseenPool.length} में से सम-दूरी) |
+| **पिछले सभी ${previousSeen.size} प्रश्नों से क्रॉस-डुप्लिकेट** | **0** |
+| बैच के भीतर आपसी डुप्लिकेट | **0** |
+| निष्पादन समय एवं त्रुटियाँ | **500/500** (${elapsedSec} सेकंड) · **0 error** |
 
-> à¤…à¤¬ à¤¤à¤• à¤•à¥à¤² à¤¸à¤‚à¤šà¤¯à¥€ à¤…à¤¦à¥à¤µà¤¿à¤¤à¥€à¤¯ à¤ªà¤°à¥€à¤•à¥à¤·à¤¿à¤¤ à¤ªà¥à¤°à¤¶à¥à¤¨: **${newCumulativeTotal}**à¥¤
+> अब तक कुल संचयी अद्वितीय परीक्षित प्रश्न: **${newCumulativeTotal}**।
 
 ---
 
-## 2. à¤•à¥à¤² à¤¸à¥à¤¥à¤¿à¤¤à¤¿ â€” Social Batch-4 à¤•à¥€ 4-à¤¸à¥‡à¤Ÿ à¤ªà¥à¤°à¤—à¤¤à¤¿ (${distinctCountries} à¤¦à¥‡à¤¶)
+## 2. कुल स्थिति — Social Batch-4 की 4-सेट प्रगति (${distinctCountries} देश)
 
-| à¤¸à¥à¤¥à¤¿à¤¤à¤¿ | à¤¸à¥‡à¤Ÿ-1 (CORPUS500) | SQ4B-500 | SQ4C-500 | **SQ4D-500 (à¤…à¤¬)** |
+| स्थिति | सेट-1 (CORPUS500) | SQ4B-500 | SQ4C-500 | **SQ4D-500 (अब)** |
 |---|---|---|---|---|
 | \`guidance\` | 23 (4.6%) | 26 (5.2%) | 28 (5.6%) | **${statusCounts.guidance} (${gPct}%)** |
 | \`partial\` | 56 | 59 | 41 | **${statusCounts.partial}** |
@@ -266,29 +266,29 @@ Raw data: [CORPUSSQ4D500_RESULTS_2026-11-10.json](CORPUSSQ4D500_RESULTS_2026-11-
 | \`error\` | 0 | 0 | 0 | **0** |
 | **Serviceable (Guidance + Partial)** | 79 (15.8%) | 85 (17.0%) | 69 (13.8%) | **${servCount} (${servPct}%)** |
 
-à¤²à¥‡à¤Ÿà¥‡à¤‚à¤¸à¥€: **à¤®à¤§à¥à¤¯ ${medianMs}ms Â· p95 ${p95Ms}ms Â· à¤…à¤§à¤¿à¤•à¤¤à¤® ${maxMs}ms**à¥¤
+लेटेंसी: **मध्य ${medianMs}ms · p95 ${p95Ms}ms · अधिकतम ${maxMs}ms**।
 
 ---
 
-## 3. à¤—à¤¾à¤‡à¤¡à¥‡à¤‚à¤¸ à¤µà¤¾à¤²à¥‡ à¤¦à¥‡à¤¶ (${Object.values(bySuiteCountry).filter(x => x.guidance > 0).length} à¤¦à¥‡à¤¶)
+## 3. गाइडेंस वाले देश (${Object.values(bySuiteCountry).filter(x => x.guidance > 0).length} देश)
 
-| à¤¦à¥‡à¤¶ | Guidance / à¤•à¥à¤² | Partial | Clarification | Unavailable |
+| देश | Guidance / कुल | Partial | Clarification | Unavailable |
 |---|---|---|---|---|
 ${coveredRows}
 
 ---
 
-## 4. à¤¸à¥à¤¤à¤°-à¤µà¤¾à¤° à¤à¤µà¤‚ à¤µà¤¿à¤·à¤¯-à¤µà¤¾à¤° à¤µà¤¿à¤µà¤°à¤£
+## 4. स्तर-वार एवं विषय-वार विवरण
 
-| à¤¸à¥à¤¤à¤° | à¤•à¥à¤² | Guidance (%) | Partial | Clarification | Unavailable |
+| स्तर | कुल | Guidance (%) | Partial | Clarification | Unavailable |
 |---|---|---|---|---|---|
 ${levelRows}
 
-| à¤µà¤¿à¤·à¤¯ | à¤•à¥à¤² | Guidance | Partial | Clarification | Unavailable |
+| विषय | कुल | Guidance | Partial | Clarification | Unavailable |
 |---|---|---|---|---|---|
 ${topicRows}
 
-**à¤—à¥ˆà¤ª à¤•à¤¾à¤°à¤£ à¤µà¤¿à¤¤à¤°à¤£:** ${topGaps}à¥¤
+**गैप कारण वितरण:** ${topGaps}।
 `;
 
 fs.writeFileSync(outMdPath, mdReport);
