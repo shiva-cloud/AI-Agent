@@ -72,3 +72,9 @@ test('AI failure cannot remove the answerability contract or its missing facets'
   assert.equal(result.ai.status,'fallback');assert.equal(result.status,'guidance');
   assert.deepEqual(result.answerability,answer(input,seeds,now).answerability);
 });
+
+test('objective statutory eligibility inquiries do not create missing personal eligibility facets',()=>{
+  const parsed=parse({question:'What are the statutory eligibility requirements for OHIP in Toronto?'});
+  assert.equal(parsed.requestedOutput,'source_guidance');
+  assert.ok(!parsed.facets.some(f=>f.reason==='missing_personal_eligibility'));
+});

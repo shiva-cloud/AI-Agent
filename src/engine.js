@@ -1050,7 +1050,8 @@ export function answer(input, records, now = new Date(), searchIndex, options = 
   for (const [key, match] of leads) if (match) {
     // Internal diagnostic metadata is intentionally excluded from public JSON.
     Object.defineProperty(result, key, { value: match, enumerable: false });
-    if (!result.claims.length || !result.claims.some(c => c.status === 'approved')) {
+    const hasApprovedClaims = result.claims.length > 0 && result.claims.some(c => c.status === 'approved');
+    if (key === 'globalSettlementMatch' || !hasApprovedClaims) {
       result.gaps.push({ topic: match.topic || null, reason: 'awaiting_human_review' });
     }
   }
