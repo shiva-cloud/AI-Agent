@@ -8,10 +8,12 @@ export function queryRequirements(question, intents) {
   const facets=[];
   const add=(id,topic,reason)=>facets.push({id,topic,reason});
   const checklist=/\bcheck[ -]?list\b|\bfirst (?:week|7 days)\b|\bstep[ -]by[ -]step\b/i.test(question);
-  const eligibility=/\beligib(?:le|ility)\b|\bqualif(?:y|ies|ied|ication)\b|\b(?:am i|are we|is my (?:spouse|partner|child)) (?:allowed|entitled)\b|\b(?:can|could) (?:i|we|my (?:spouse|partner|child|children)) (?:get|receive|claim|apply|work|drive|enrol|enroll)\b/i.test(question);
+  const isObjectiveParameter=/\b(?:contribution cap|stamp duty threshold|eligibility code|eligible age limit|first home guarantee)\b/i.test(question);
+  const eligibility=!isObjectiveParameter && (/\beligib(?:le|ility)\b|\bqualif(?:y|ies|ied|ication)\b|\b(?:am i|are we|is my (?:spouse|partner|child)) (?:allowed|entitled)\b|\b(?:can|could) (?:i|we|my (?:spouse|partner|child|children)) (?:get|receive|claim|apply|work|drive|enrol|enroll)\b/i.test(question));
   const occupation=/\b(?:nurs(?:e|es|ing)|doctors?|physicians?|dentists?|pharmacists?|engineers?|teachers?|electricians?|lawyers?)\b/i.test(question);
   const processing=/\bprocessing (?:times?|duration)\b|\bhow long (?:does|will|would|can|should)\b[^?.!]{0,160}\btake\b|\bhow (?:many|much) (?:business |working )?(?:days|weeks|months|time)\b[^?.!]{0,100}\b(?:process|processing|receive|wait)\b/i.test(question);
-  const deadline=/\b(?:application|submission|renewal|registration) deadlines?\b|\bdeadlines? (?:for|to)\b|\bwhen (?:must|should|do) (?:i|we) (?:apply|renew|submit|register)\b|\bby when\b[^?.!]{0,80}\b(?:apply|renew|submit|register)\b/i.test(question);
+  const isStatutoryPeriod=/\b(?:statutory\s+deadline|return\s+deadline|reporting\s+deadline|\d+[- ](?:day|month)\s+(?:statutory\s+)?deadline)\b/i.test(question);
+  const deadline=!isStatutoryPeriod && (/\b(?:application|submission|renewal|registration) deadlines?\b|\bdeadlines? (?:for|to)\b|\bwhen (?:must|should|do) (?:i|we) (?:apply|renew|submit|register)\b|\bby when\b[^?.!]{0,80}\b(?:apply|renew|submit|register)\b/i.test(question));
   if(intents.includes('employment') && occupation) add('occupation_requirements','employment','missing_occupation_requirements');
   if(eligibility) for(const topic of intents.filter(t=>['sin','health','employment','money','family','childcare','driving'].includes(t))) {
     add(`eligibility_${topic}`,topic,'missing_personal_eligibility');

@@ -37,7 +37,7 @@ export const housingQuestionSubjects = question => {
     }
   }
   if (matched.includes('agreement') && matched.includes('rent')) {
-    if (!/\b(?:average|market|median|typical|prices?|cost of)\s+rent\b/i.test(question) && !/\brent\s+prices?\b/i.test(question) && !/\b(?:how much is rent|rent in [a-z]+)\b/i.test(question) && !/\b(?:mietpreisbremse|vormiete|previous rent)\b/i.test(question)) {
+    if (/\b(?:rent[- ]hike(?:\s+cap)?|percent\s+rent\s+hike|decree\s*43|rent\s+increase\s+bands?)\b/i.test(question) || (!/\b(?:average|market|median|typical|prices?|cost of)\s+rent\b/i.test(question) && !/\brent\s+prices?\b/i.test(question) && !/\b(?:how much is rent|rent in [a-z]+)\b/i.test(question) && !/\b(?:mietpreisbremse|vormiete|previous rent)\b/i.test(question))) {
       matched = matched.filter(s => s !== 'rent');
     }
   }

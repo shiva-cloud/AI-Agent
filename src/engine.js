@@ -396,7 +396,7 @@ export function parse(input) {
     if (eIdx !== -1) intents.splice(eIdx, 1);
   }
   // German Bürgeramt Anmeldung registration for Steuer-ID is an identity/registration (sin) topic, not money/income tax.
-  if (intents.includes('sin') && intents.includes('money') && /\b(?:anmeldung|b[uü]rgeramt|steuer[- ]id|tax id(?:entification)?(?: number)?)\b/i.test(q)
+  if (intents.includes('sin') && intents.includes('money') && /\b(?:anmeldung|b[uü]rgeramt)\b/i.test(q)
     && !/\b(?:income tax|tax return|tax bracket|vat|steuersatz|finanzamt|capital gains)\b/i.test(q)) {
     const mIdx = intents.indexOf('money');
     if (mIdx !== -1) intents.splice(mIdx, 1);
@@ -413,8 +413,8 @@ export function parse(input) {
     const eIdx = intents.indexOf('employment');
     if (eIdx !== -1) intents.splice(eIdx, 1);
   }
-  // UK Child Benefit and HICBC is family benefits (family), not financial banking.
-  if (intents.includes('family') && intents.includes('money') && /\b(?:hicbc|high income child benefit charge|child benefit)\b/i.test(q)
+  // UK HICBC Child Benefit taper is family benefits (family), not financial banking.
+  if (intents.includes('family') && intents.includes('money') && /\b(?:hicbc|high income child benefit charge)\b/i.test(q)
     && !/\b(?:bank account|credit score|mortgage|wire transfer|loan)\b/i.test(q)) {
     const mIdx = intents.indexOf('money');
     if (mIdx !== -1) intents.splice(mIdx, 1);
@@ -471,6 +471,14 @@ export function parse(input) {
     const eIdx = intents.indexOf('employment');
     if (eIdx !== -1) intents.splice(eIdx, 1);
   }
+  // Tenancy rent increase notice (written notice of rent increase, Form 10, 60 days notice) is housing tenancy,
+  // not employment termination notice.
+  if (intents.includes('housing') && intents.includes('employment') && /\b(?:rent\s+increases?|tenancy|landlords?|tenants?)\b/i.test(q)
+    && /\b(?:written\s+notice|60\s+days?\s+notice|90\s+days?\s+notice|notice\s+of\s+rent\s+increase)\b/i.test(q)
+    && !/\b(?:fired|dismissal|severance|paycheque|paycheck|boss|job)\b/i.test(q)) {
+    const eIdx = intents.indexOf('employment');
+    if (eIdx !== -1) intents.splice(eIdx, 1);
+  }
   // Overtime banking agreements are employment standards compensation, not retail banking.
   if (intents.includes('money') && intents.includes('employment') && /\b(?:bank(?:ing)?\s+overtime|overtime\s+bank(?:ing)?|time\s+bank(?:ing)?)\b/i.test(q)
     && !/\b(?:bank account|chequing|savings|mortgage|wire transfer|credit card|loan)\b/i.test(q)) {
@@ -487,6 +495,23 @@ export function parse(input) {
     && !/\b(?:work permit|lmia|minimum wage|overtime|severance|wrongful dismissal)\b/i.test(q)) {
     const eIdx = intents.indexOf('employment');
     if (eIdx !== -1) intents.splice(eIdx, 1);
+  }
+  // Sponsorship proof of income / Notice of Assessment duration is family sponsorship (family),
+  // not general banking/investment money questions.
+  if (intents.includes('family') && intents.includes('money')
+    && /\b(?:sponsor(?:ing|ship)?|pgp|super visa|parents and grandparents)\b/i.test(q)
+    && /\b(?:noa|notice of assessment|tax returns?|cra)\b/i.test(q)
+    && !/\b(?:bank accounts?|credit card|mortgage|wire transfer|remittance|crypto)\b/i.test(q)) {
+    const mIdx = intents.indexOf('money');
+    if (mIdx !== -1) intents.splice(mIdx, 1);
+  }
+  // Cash wages, under-the-table pay or wage payment in cash are employment questions,
+  // not money/banking questions, unless banking terms (bank account, wire, mortgage, cra) are present.
+  if (intents.includes('employment') && intents.includes('money')
+    && /\b(?:cash\s+jobs?|paid\s+in\s+cash|cash\s+wages?|under[- ]the[- ]table|cash\s+salary)\b/i.test(q)
+    && !/\b(?:bank|credit|loan|mortgage|tax|cra|invest|wire|remittance|e677|fintrac)\b/i.test(q)) {
+    const mIdx = intents.indexOf('money');
+    if (mIdx !== -1) intents.splice(mIdx, 1);
   }
   // 900-series temporary Social Insurance Number expiry is identity/SIN, not generic employment dispute.
   if (intents.includes('employment') && intents.includes('sin') && /\b(?:900[- ]series|temporary\s+sin|sin\s+expiry|social\s+insurance\s+number)\b/i.test(q)
@@ -932,12 +957,27 @@ export function answer(input, records, now = new Date(), searchIndex, options = 
       }
       const conflicts = new Set(usable.filter(r => usable.some(s => s.id !== r.id && s.topic === r.topic && s.jurisdiction === r.jurisdiction && s.claimKey && s.claimKey === r.claimKey && s.summary !== r.summary)).map(r => r.id));
       if (conflicts.size) result.gaps.push({ topic, reason: 'conflicting_evidence' });
-      else for (const r of usable.slice(0, 2)) {
-        // P1-5: an ordered checklist is provided only when the question asks
-        // for one AND the evidence itself declares ordered steps. Support is
-        // never inferred from keywords alone.
-        const kind = parsed.requestedOutput === 'checklist' && Array.isArray(r.steps) && r.steps.length ? 'checklist' : 'source_guidance';
-        result.claims.push({ id: `claim-${result.claims.length + 1}`, text: r.summary, evidenceId: r.id, status: r.status, kind, topic: r.topic, ...(kind === 'checklist' ? { steps: r.steps } : {}) });
+      else {
+        const chosen = [];
+        if (topic === 'housing' && parsed.housingSubjects.length > 1) {
+          for (const subj of parsed.housingSubjects) {
+            const match = usable.find(r => recordHousingSubjects(r).includes(subj) && !chosen.includes(r));
+            if (match) chosen.push(match);
+          }
+          for (const r of usable) {
+            if (chosen.length >= 2) break;
+            if (!chosen.includes(r)) chosen.push(r);
+          }
+        } else {
+          chosen.push(...usable.slice(0, 2));
+        }
+        for (const r of chosen) {
+          // P1-5: an ordered checklist is provided only when the question asks
+          // for one AND the evidence itself declares ordered steps. Support is
+          // never inferred from keywords alone.
+          const kind = parsed.requestedOutput === 'checklist' && Array.isArray(r.steps) && r.steps.length ? 'checklist' : 'source_guidance';
+          result.claims.push({ id: `claim-${result.claims.length + 1}`, text: r.summary, evidenceId: r.id, status: r.status, kind, topic: r.topic, ...(kind === 'checklist' ? { steps: r.steps } : {}) });
+        }
       }
       const selectedIds = new Set(result.claims.map(c => c.evidenceId));
       const cited = [...new Map([...relevant.filter(r => selectedIds.has(r.id)), ...relevant.slice(0, 3)].map(r => [r.id, r])).values()];
@@ -994,6 +1034,9 @@ export function answer(input, records, now = new Date(), searchIndex, options = 
           result.gaps.push({ topic: parsed.intents[0] || null, reason: 'missing_or_unsupported_geography' });
         }
       }
+    }
+    if (narrativeCrisis && result.claims.some(c => c.topic === narrativeCrisis.topic && c.status === 'approved')) {
+      result.gaps = result.gaps.filter(g => !(g.topic === narrativeCrisis.topic && g.reason === 'awaiting_human_review'));
     }
     result.status = result.claims.length ? (result.gaps.length ? 'partial' : 'guidance') : 'unavailable';
     // Internal diagnostic metadata is intentionally excluded from public JSON.

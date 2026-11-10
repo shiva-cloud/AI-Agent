@@ -355,3 +355,4 @@ md += `
 fs.writeFileSync(outMdPath, md, 'utf8');
 console.log(`Saved Markdown report to ${outMdPath}`);
 store.db.close();
+
