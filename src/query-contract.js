@@ -8,7 +8,8 @@ export function queryRequirements(question, intents) {
   const facets=[];
   const add=(id,topic,reason)=>facets.push({id,topic,reason});
   const checklist=/\bcheck[ -]?list\b|\bfirst (?:week|7 days)\b|\bstep[ -]by[ -]step\b/i.test(question);
-  const isObjectiveParameter=/\b(?:contribution cap|stamp duty threshold|eligibility code|eligible age limit|first home guarantee)\b/i.test(question);
+  const isPersonal=/\b(?:am i|are we|can (?:i|we|my)|could (?:i|we|my)|is my|who qualifies)\b/i.test(question);
+  const isObjectiveParameter=!isPersonal && /\b(?:contribution cap|stamp duty threshold|eligibility code|eligible age limit|first home guarantee|statutory\s+eligibility|eligibility\s+(?:criteria|rules?|requirements?|standards?)|general\s+eligibility)\b/i.test(question);
   const eligibility=!isObjectiveParameter && (/\beligib(?:le|ility)\b|\bqualif(?:y|ies|ied|ication)\b|\b(?:am i|are we|is my (?:spouse|partner|child)) (?:allowed|entitled)\b|\b(?:can|could) (?:i|we|my (?:spouse|partner|child|children)) (?:get|receive|claim|apply|work|drive|enrol|enroll)\b/i.test(question));
   const occupation=/\b(?:nurs(?:e|es|ing)|doctors?|physicians?|dentists?|pharmacists?|engineers?|teachers?|electricians?|lawyers?)\b/i.test(question);
   const processing=/\bprocessing (?:times?|duration)\b|\bhow long (?:does|will|would|can|should)\b[^?.!]{0,160}\btake\b|\bhow (?:many|much) (?:business |working )?(?:days|weeks|months|time)\b[^?.!]{0,100}\b(?:process|processing|receive|wait)\b/i.test(question);
