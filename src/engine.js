@@ -694,8 +694,23 @@ export function retrieve(parsed, records, now = new Date(), searchIndex) {
     : [];
   // Global destinations scope strictly to target country, region, city, and licence country.
   // Canadian pilot questions scope to CA, province, and city.
+  const COUNTRY_CODE_ALIASES = {
+    'United Kingdom': ['UK', 'GB'],
+    'United States': ['US', 'USA'],
+    'United Arab Emirates': ['UAE', 'AE'],
+    'Australia': ['AU'],
+    'Germany': ['DE'],
+    'France': ['FR'],
+    'New Zealand': ['NZ'],
+    'Ireland': ['IE'],
+    'Netherlands': ['NL'],
+    'Singapore': ['SG'],
+    'Spain': ['ES'],
+    'Sweden': ['SE']
+  };
+  const countryAliases = parsed.country && COUNTRY_CODE_ALIASES[parsed.country] ? COUNTRY_CODE_ALIASES[parsed.country] : [];
   const scope = isGlobal
-    ? new Set([parsed.country, parsed.region, effectiveRegion, parsed.city, parsed.licenceCountry, ...nationalBaselines, ...euScope].filter(Boolean))
+    ? new Set([parsed.country, ...countryAliases, parsed.region, effectiveRegion, parsed.city, parsed.licenceCountry, ...nationalBaselines, ...euScope].filter(Boolean))
     : new Set(['CA', parsed.region, effectiveRegion, parsed.city, parsed.licenceCountry, ...nationalBaselines].filter(Boolean));
   const scoped = safeRecords.filter(r => {
     // Reject out-of-scope records before expensive English/policy validation.
@@ -716,8 +731,8 @@ export function retrieve(parsed, records, now = new Date(), searchIndex) {
     ...r,
     available: ['research_seed', 'approved'].includes(r.status) && r.checkedAt <= date && r.expiresAt >= date && (!r.effectiveFrom || r.effectiveFrom <= date) && (!r.effectiveTo || date < r.effectiveTo),
     reason: r.status === 'pending' ? 'awaiting_human_review' : r.status === 'rejected' ? 'rejected' : r.checkedAt > date ? 'future_check_date' : r.expiresAt < date ? 'stale' : (r.effectiveFrom && r.effectiveFrom > date) || (r.effectiveTo && date >= r.effectiveTo) ? 'outside_effective_dates' : 'source_guidance',
-    scopeScore: r.jurisdiction === parsed.city ? 3 : (activeRegion && r.jurisdiction === activeRegion) ? 2.5 : (isGlobal && r.jurisdiction === parsed.country) ? 2 : 1,
-    score: r.lexicalScore + (r.jurisdiction === parsed.city ? 0.75 : (activeRegion && r.jurisdiction === activeRegion) ? (isGlobal ? 0.8 : 0.45) : (isGlobal && r.jurisdiction === parsed.country) ? 0.3 : 0),
+    scopeScore: r.jurisdiction === parsed.city ? 3 : (activeRegion && r.jurisdiction === activeRegion) ? 2.5 : (isGlobal && (r.jurisdiction === parsed.country || countryAliases.includes(r.jurisdiction))) ? 2 : 1,
+    score: r.lexicalScore + (r.jurisdiction === parsed.city ? 0.75 : (activeRegion && r.jurisdiction === activeRegion) ? (isGlobal ? 0.8 : 0.45) : (isGlobal && (r.jurisdiction === parsed.country || countryAliases.includes(r.jurisdiction))) ? 0.3 : 0),
     retrievalVersion: r.retrievalVersion || 'lexical-bm25-0.1'
   })).sort((a, b) => b.score - a.score || b.scopeScore - a.scopeScore || a.id.localeCompare(b.id));
 }
@@ -964,6 +979,13 @@ export function answer(input, records, now = new Date(), searchIndex, options = 
             const match = usable.find(r => recordHousingSubjects(r).includes(subj) && !chosen.includes(r));
             if (match) chosen.push(match);
           }
+          for (const r of usable) {
+            if (chosen.length >= 2) break;
+            if (!chosen.includes(r)) chosen.push(r);
+          }
+        } else if (parsed.requestedOutput === 'checklist') {
+          const stepRecord = usable.find(r => Array.isArray(r.steps) && r.steps.length > 0);
+          if (stepRecord) chosen.push(stepRecord);
           for (const r of usable) {
             if (chosen.length >= 2) break;
             if (!chosen.includes(r)) chosen.push(r);

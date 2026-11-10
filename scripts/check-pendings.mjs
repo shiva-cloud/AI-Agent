@@ -5,24 +5,24 @@ const tables = store.db.prepare("SELECT name FROM sqlite_master WHERE type='tabl
 console.log('Tables:', tables.map(t => t.name));
 
 for (const t of tables) {
-  if (t.name.startsWith('sqlite_') || t.name.includes('fts')) continue;
-  try {
-    const count = store.db.prepare(`SELECT count(*) as c FROM ${t.name}`).get().c;
-    console.log(`Table ${t.name}: ${count} rows`);
-  } catch (err) {
-    console.log(`Table ${t.name}: error ${err.message}`);
-  }
+    if (t.name.startsWith('sqlite_') || t.name.includes('fts')) continue;
+    try {
+        const count = store.db.prepare(`SELECT count(*) as c FROM ${t.name}`).get().c;
+        console.log(`Table ${t.name}: ${count} rows`);
+    } catch (err) {
+        console.log(`Table ${t.name}: error ${err.message}`);
+    }
 }
 
 // Check records table body statuses
 const allRows = store.db.prepare("SELECT body FROM records").all();
 const statusMap = {};
 for (const r of allRows) {
-  try {
-    const obj = JSON.parse(r.body);
-    const s = obj.status || 'no_status';
-    statusMap[s] = (statusMap[s] || 0) + 1;
-  } catch (e) {}
+    try {
+        const obj = JSON.parse(r.body);
+        const s = obj.status || 'no_status';
+        statusMap[s] = (statusMap[s] || 0) + 1;
+    } catch (e) { }
 }
 console.log('All record status counts in DB:', statusMap);
 
