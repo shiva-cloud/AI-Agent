@@ -11,9 +11,11 @@ export function queryRequirements(question, intents) {
   const isPersonal=/\b(?:am i|are we|can (?:i|we|my)|could (?:i|we|my)|is my|who qualifies)\b/i.test(question);
   const isObjectiveParameter=!isPersonal && /\b(?:contribution cap|stamp duty threshold|eligibility code|eligible age limit|first home guarantee|statutory\s+eligibility|eligibility\s+(?:criteria|rules?|requirements?|standards?)|general\s+eligibility)\b/i.test(question);
   const eligibility=!isObjectiveParameter && (/\beligib(?:le|ility)\b|\bqualif(?:y|ies|ied|ication)\b|\b(?:am i|are we|is my (?:spouse|partner|child)) (?:allowed|entitled)\b|\b(?:can|could) (?:i|we|my (?:spouse|partner|child|children)) (?:get|receive|claim|apply|work|drive|enrol|enroll)\b/i.test(question));
+  const hasLicensingAsk = /\b(?:licen[cs](?:e|es|ed|ing)|credential(?:s|\s+assessment)?|registrat(?:ion|ed)|degree\s+recognition|regulated\s+profession|nursing\s+board|cno|nmc|ahpra|nclex)\b/i.test(question);
   const qWithoutServices = question
     .replace(/\b(?:afford|hire|retain|consult|pay(?:ing)?\s+for|need(?:ing)?|without|speak\s+(?:with|to))\s+(?:a\s+|an\s+)?lawyers?\b/gi, ' ')
-    .replace(/\b(?:doctor(?:'s)?\s+(?:sick\s+)?notes?|family\s+doctors?|see(?:ing)?\s+(?:a\s+)?doctors?|visit(?:ing)?\s+(?:a\s+)?doctors?)\b/gi, ' ');
+    .replace(/\b(?:doctor(?:'s)?\s+(?:sick\s+)?notes?|family\s+doctors?|see(?:ing)?\s+(?:a\s+)?doctors?|visit(?:ing)?\s+(?:a\s+)?doctors?)\b/gi, ' ')
+    .replace(hasLicensingAsk ? /$^/ : /(?:^|\b(?:for|as|to|involving|with|by)\s+)(?:a\s+|an\s+)?foreign[- ]trained\s+nurses?\b/gi, ' ');
   const occupation=/\b(?:nurs(?:e|es|ing)|doctors?|physicians?|dentists?|pharmacists?|engineers?|teachers?|electricians?|lawyers?)\b/i.test(qWithoutServices);
   const processing=/\bprocessing (?:times?|duration)\b|\bhow long (?:does|will|would|can|should)\b[^?.!]{0,160}\btake\b|\bhow (?:many|much) (?:business |working )?(?:days|weeks|months|time)\b[^?.!]{0,100}\b(?:process|processing|receive|wait)\b/i.test(question);
   const isStatutoryPeriod=/\b(?:statutory\s+deadline|return\s+deadline|reporting\s+deadline|\d+[- ](?:day|month)\s+(?:statutory\s+)?deadline)\b/i.test(question);
