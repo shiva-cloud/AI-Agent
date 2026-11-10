@@ -9,7 +9,7 @@ export const globalDestinations = [
   ['New Zealand', /\b(?:new zealand|kiwi|nz|aewv|accredited employer work visa|smc|skilled migrant category|ird number|tenancy tribunal|auckland|wellington|christchurch|hamilton|pswv|green list|plunket|at hop)\b/iu],
   ['Ireland', /(?<!\bnorthern\s+)\b(?:ireland|irish|eire|dublin|cork|galway|limerick|stamp 4|stamp 2|stamp 1g|csep|critical skills employment permit|pps number|ppsn|rent pressure zones?|rpz|leap card|(?<!\b(?:bc|branch)\s+)rtb|wrc)\b/iu],
   ['Singapore', /\b(?:singapore|singaporean|changi|ica|cpf|mom|singpass|student'?s pass|employment pass|\bep\b|\bs pass\b|\bone pass\b|singapore pr|pts scheme|ltvp)\b/iu],
-  ['France', /\b(?:france|(?<!bilingual\s+)french(?!\s+(?:(?:language|conversation)\s+)?(?:classes|courses|lessons|training|exams?|tests?|proficiency|scores?|points?|skills?|ability|evaluations?|assessment|category|categories|stream|streams|draws?|invitations?|profiles?|speakers?|speaking|benchmark|clb|nclc)\b)|paris|lyon|marseille|vls[- ]ts|passeport talent|ofii|carte de séjour|carte vitale|ameli|navigo|rece)\b/iu],
+  ['France', /\b(?:france|(?<!bilingual\s+)french(?!(?:[- ]|\s+)(?:(?:language|conversation)(?:[- ]|\s+))?(?:classes|courses|lessons|training|exams?|tests?|proficiency|scores?|points?|skills?|ability|evaluations?|assessment|category|categories|stream|streams|draws?|invitations?|profiles?|speakers?|speaking|benchmark|clb|nclc|pathways?|rounds?|targets?|candidates?|express\s+entry)\b)|paris|lyon|marseille|vls[- ]ts|passeport talent|ofii|carte de séjour|carte vitale|ameli|navigo|rece)\b/iu],
   ['Netherlands', /\b(?:netherlands|dutch|holland|amsterdam|rotterdam|the hague|utrecht|bsn|ind|kennismigrant|search year visa|zoekjaar|huurcommissie|digid|ovpay)\b/iu],
   ['Sweden', /\b(?:sweden|swedish|stockholm|gothenburg|malmo|personnummer|migrationsverket|uppehållstillstånd|bankid|swish)\b/iu],
   ['Spain', /\b(?:spain|spanish|madrid|barcelona|valencia|seville|nie|empadronamiento|tarjeta de identidad de extranjero|tie(?![- ]breaker)|nomada digital|beckham law)\b/iu],
@@ -25,7 +25,7 @@ export const explicitCountryPatterns = [
   ['New Zealand', /\b(?:new zealand|nz|auckland|wellington|christchurch|hamilton)\b/iu],
   ['Ireland', /(?<!\bnorthern\s+)\b(?:ireland|irish|eire|dublin|cork|galway|limerick)\b/iu],
   ['Singapore', /\b(?:singapore|singaporean)\b/iu],
-  ['France', /\b(?:france|french(?!\s+(?:(?:language|conversation)\s+)?(?:classes|courses|lessons|training|exams?|tests?|proficiency|scores?|points?|skills?|ability|evaluations?|assessment|category|categories|stream|streams|draws?|invitations?|profiles?|speakers?|speaking|benchmark|clb|nclc)\b)|paris|lyon|marseille)\b/iu],
+  ['France', /\b(?:france|french(?!(?:[- ]|\s+)(?:(?:language|conversation)(?:[- ]|\s+))?(?:classes|courses|lessons|training|exams?|tests?|proficiency|scores?|points?|skills?|ability|evaluations?|assessment|category|categories|stream|streams|draws?|invitations?|profiles?|speakers?|speaking|benchmark|clb|nclc|pathways?|rounds?|targets?|candidates?|express\s+entry)\b)|paris|lyon|marseille)\b/iu],
   ['Netherlands', /\b(?:netherlands|dutch|holland|amsterdam|rotterdam|the hague|utrecht)\b/iu],
   ['Sweden', /\b(?:sweden|swedish|stockholm|gothenburg|malmo)\b/iu],
   ['Spain', /\b(?:spain|spanish|madrid|barcelona|valencia|seville)\b/iu],
@@ -151,11 +151,28 @@ export function isValidCityForCountry(city, country) {
   return countryList.includes(safeCity) || regionList.includes(safeCity) || allSupportedCities.has(safeCity);
 }
 
+export const COUNTRY_ALIASES = Object.freeze({
+  ca: 'CA', canada: 'CA', can: 'CA',
+  us: 'United States', usa: 'United States', 'u.s.': 'United States', 'u.s': 'United States', 'u.s.a.': 'United States', 'u.s.a': 'United States', america: 'United States',
+  uk: 'United Kingdom', gb: 'United Kingdom', gbr: 'United Kingdom', 'u.k.': 'United Kingdom', 'u.k': 'United Kingdom', 'great britain': 'United Kingdom', britain: 'United Kingdom',
+  au: 'Australia', aus: 'Australia',
+  de: 'Germany', deu: 'Germany', deutschland: 'Germany',
+  ae: 'United Arab Emirates', uae: 'United Arab Emirates', 'u.a.e.': 'United Arab Emirates', 'u.a.e': 'United Arab Emirates',
+  nz: 'New Zealand', nzl: 'New Zealand',
+  ie: 'Ireland', irl: 'Ireland', eire: 'Ireland',
+  sg: 'Singapore', sgp: 'Singapore',
+  fr: 'France', fra: 'France',
+  nl: 'Netherlands', nld: 'Netherlands', holland: 'Netherlands',
+  se: 'Sweden', swe: 'Sweden',
+  es: 'Spain', esp: 'Spain',
+  eu: 'European Union', eur: 'European Union'
+});
+
 export function resolveInputCountry(value) {
   if (value === undefined) return null;
   if (typeof value !== 'string' || !value.trim() || value.length > 80) throw new ValidationError('Choose a supported destination country');
   const normalized = value.trim().toLowerCase();
-  if (normalized === 'ca' || normalized === 'canada') return 'CA';
+  if (Object.hasOwn(COUNTRY_ALIASES, normalized)) return COUNTRY_ALIASES[normalized];
   const country = destinationCountries.find(name => name.toLowerCase() === normalized);
   if (!country) throw new ValidationError('Choose a supported destination country');
   return country;

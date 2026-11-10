@@ -14,6 +14,7 @@ export function queryRequirements(question, intents) {
   const hasLicensingAsk = /\b(?:licen[cs](?:e|es|ed|ing)|credential(?:s|\s+assessment)?|registrat(?:ion|ed)|degree\s+recognition|regulated\s+profession|nursing\s+board|cno|nmc|ahpra|nclex)\b/i.test(question);
   const qWithoutServices = question
     .replace(/\b(?:afford|hire|retain|consult|pay(?:ing)?\s+for|need(?:ing)?|without|speak\s+(?:with|to))\s+(?:a\s+|an\s+)?lawyers?\b/gi, ' ')
+    .replace(/\b(?:diy\s+or\s+lawyer|lawyer\s+or\s+diy|self[- ]apply\s+or\s+lawyer|lawyer\s+or\s+(?:do\s+it\s+)?myself|consult\s+(?:a\s+)?lawyer\s+or\s+not)\b/gi, ' ')
     .replace(/\b(?:doctor(?:'s)?\s+(?:sick\s+)?notes?|family\s+doctors?|see(?:ing)?\s+(?:a\s+)?doctors?|visit(?:ing)?\s+(?:a\s+)?doctors?)\b/gi, ' ')
     .replace(hasLicensingAsk ? /$^/ : /(?:^|\b(?:for|as|to|involving|with|by)\s+)(?:a\s+|an\s+)?foreign[- ]trained\s+nurses?\b/gi, ' ');
   const occupation=/\b(?:nurs(?:e|es|ing)|doctors?|physicians?|dentists?|pharmacists?|engineers?|teachers?|electricians?|lawyers?)\b/i.test(qWithoutServices);
