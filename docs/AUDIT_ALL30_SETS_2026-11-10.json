@@ -1,0 +1,14 @@
+{
+ "auditDate": "2026-11-10",
+ "auditVersion": "31-files (sets 1-31 incl. gmsB7)",
+ "rule": "normalized text (lowercase, non-alnum -> space, trim) exact-match dedup across all persisted result files of testing series",
+ "rawQuestionRecords": 15642,
+ "distinctNormalized": 15142,
+ "onlyDuplicateGroup": {
+  "set26+set28": 500
+ },
+ "set31SharedWithAnyOther": 0,
+ "note": "set-28 in this series (my-temp mktF-500-results.json) is 100% duplicate of set-26 (runner bug mkE-not-in-union), documented in AI_GMSAG500 report. The concurrent second session has its own mktF run (docs/CORPUSMKT500F raw, first id MKT6-80006) with 0 overlap vs set-26 — that run is duplicate-free.",
+ "set31ExternalDups": 0,
+ "valid": "set-31 (gmsB7): 2800 prior same-file (set-11/13/17/23/27/29) excluded; vs all other sets 0 duplicates; verified against complete union incl. sets 25-30."
+}

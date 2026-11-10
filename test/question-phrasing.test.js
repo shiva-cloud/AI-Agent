@@ -44,3 +44,9 @@ test('cash wages and reduced hours on closed work permits route cleanly to emplo
  const parsed=parse({question:'My boss is cutting my hours on a closed work permit and paying me in cash in Toronto'});
  assert.deepEqual(parsed.intents,['employment']);
 });
+
+test('automated, border, or security screening never triggers housing or tenancy agreement subjects',()=>{
+ const parsed=parse({question:'Where should a dependent spouse in Brisbane, Australia start when dealing with procedural fairness in automated screening?'});
+ assert.ok(!parsed.intents.includes('housing'));
+ assert.deepEqual(parsed.housingSubjects,[]);
+});

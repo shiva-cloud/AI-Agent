@@ -87,3 +87,12 @@ test('non-licensing mentions of lawyer counsel or doctor sick notes do not creat
   const genuineLicensing=parse({question:'How do foreign lawyers qualify as solicitors in the United Kingdom and seek employment?'});
   assert.ok(genuineLicensing.facets.some(f=>f.reason==='missing_occupation_requirements'));
 });
+
+test('persona boilerplate and family doctor mentions do not inject phantom multi-topic intents',()=>{
+  const familyDoc=parse({question:'What common misconceptions about family doctor waitlist alternatives should a temporary foreign worker in Melbourne avoid?'});
+  assert.deepEqual(familyDoc.intents,['health']);
+  const bareNewcomer=parse({question:'What is the difference between misclassification as independent contractor and the closest related process for an elderly newcomer in Auckland?'});
+  assert.deepEqual(bareNewcomer.intents,['employment']);
+  const realEmploymentWorker=parse({question:'As a temporary foreign worker in Toronto, can my employer withhold my overtime wages?'});
+  assert.deepEqual(realEmploymentWorker.intents,['employment']);
+});
