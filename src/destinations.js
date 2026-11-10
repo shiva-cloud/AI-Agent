@@ -63,6 +63,10 @@ export const destinationRegions = Object.freeze({
   'New Zealand': Object.freeze(['Auckland', 'Wellington', 'Canterbury']),
   'France': Object.freeze(['Île-de-France', 'Auvergne-Rhône-Alpes', 'Provence-Alpes-Côte d\'Azur']),
   'Spain': Object.freeze(['Catalonia', 'Community of Madrid', 'Andalusia', 'Valencian Community']),
+  'Sweden': Object.freeze(['Stockholm', 'Gothenburg', 'Malmo']),
+  'Netherlands': Object.freeze(['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht', 'North Holland', 'South Holland']),
+  'Ireland': Object.freeze(['Dublin', 'Cork', 'Galway', 'Limerick']),
+  'Singapore': Object.freeze(['Singapore']),
   'India': Object.freeze(['Punjab', 'Maharashtra', 'Delhi NCR', 'Gujarat'])
 });
 
@@ -114,7 +118,21 @@ export const cityToRegion = Object.freeze({
   // France
   'Paris': 'Île-de-France',
   'Lyon': 'Auvergne-Rhône-Alpes',
-  'Marseille': 'Provence-Alpes-Côte d\'Azur'
+  'Marseille': 'Provence-Alpes-Côte d\'Azur',
+  // Sweden
+  'Stockholm': 'Stockholm',
+  'Gothenburg': 'Gothenburg',
+  'Malmo': 'Malmo',
+  // Netherlands
+  'Amsterdam': 'North Holland',
+  'Rotterdam': 'South Holland',
+  'The Hague': 'South Holland',
+  'Utrecht': 'Utrecht',
+  // Ireland
+  'Dublin': 'Dublin',
+  'Cork': 'Cork',
+  'Galway': 'Galway',
+  'Limerick': 'Limerick'
 });
 
 export const allSupportedCities = new Set(Object.values(destinationCities).flat());

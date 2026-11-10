@@ -1,5 +1,6 @@
 // scripts/run-100k-suite-evaluator.mjs
 // Runs full project in browser (Playwright Edge) on 100k samples + evaluates 1,200 evenly sampled questions from the 120k suite.
+/* global document */
 
 import { createReadStream, writeFileSync, mkdirSync } from 'node:fs';
 import { createInterface } from 'node:readline';

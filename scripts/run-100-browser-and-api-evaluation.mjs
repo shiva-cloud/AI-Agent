@@ -1,4 +1,5 @@
 // scripts/run-100-browser-and-api-evaluation.mjs
+/* global document */
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { chromium } from 'playwright';
