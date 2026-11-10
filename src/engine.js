@@ -571,7 +571,7 @@ export function parse(input) {
   const isGlobalDestination = Boolean(detectedGlobal && !hasCanadianGeo && !hasGlobalConflict);
   const foreignCountry = Boolean(!hasCanadianGeo && !detectedGlobal && origin.originCountry);
   const isSupportedForeign = foreignCountry && (destinationCountries.includes(origin.originCountry) || origin.originCountry === 'Canada' || origin.originCountry === 'CA');
-  const country = inputGlobal ? inputGlobal : (isGlobalDestination ? detectedGlobal : (foreignCountry && isSupportedForeign ? origin.originCountry : 'CA'));
+  const country = inputGlobal ? inputGlobal : (relocation?.isDestSupported && relocation.destCountry ? (relocation.destCountry === 'Canada' ? 'CA' : relocation.destCountry) : (isGlobalDestination ? detectedGlobal : (foreignCountry && isSupportedForeign ? origin.originCountry : 'CA')));
 
   const CA_PROVINCE_CODES = {
     'ontario': 'ON', 'on': 'ON',
@@ -1047,13 +1047,19 @@ export function answer(input, records, now = new Date(), searchIndex, options = 
     ['questionBankMatch', qbMatch], ['marketGapMatch', mkt1Match || mkt2Match || mkt3Match],
     ['globalSettlementMatch', gmsMatch], ['crisisMatch', crisisMatch]
   ];
+  const isExplicitCatalogQuery = Boolean(input?.questionBankId || input?.marketGapId || input?.gmsId);
   for (const [key, match] of leads) if (match) {
     // Internal diagnostic metadata is intentionally excluded from public JSON.
     Object.defineProperty(result, key, { value: match, enumerable: false });
-    result.gaps.push({ topic: match.topic || null, reason: 'awaiting_human_review' });
+    if (isExplicitCatalogQuery || !result.claims.some(c => c.status === 'approved')) {
+      result.gaps.push({ topic: match.topic || null, reason: 'awaiting_human_review' });
+    }
   }
-  if (leads.some(([, match]) => match) && result.status !== 'clarification')
-    result.status = result.claims.length ? 'partial' : 'unavailable';
+  if (leads.some(([, match]) => match) && result.status !== 'clarification') {
+    if (isExplicitCatalogQuery || !result.claims.some(c => c.status === 'approved')) {
+      result.status = result.claims.length ? 'partial' : 'unavailable';
+    }
+  }
   result.message = result.claims.length ? result.message || 'Here is starting guidance from the available sources.' : 'A verified answer to this question is not yet available.';
   // A question placed abroad must not be handed Canadian phone numbers just
   // because the parser's default country is CA.
