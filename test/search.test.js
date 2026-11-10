@@ -31,6 +31,9 @@ test('settlement domain synsets expand colloquial search terms (Pillar 3)',()=>{
  const cashTerms = queryTerms('How much cash can I bring through airport?');
  assert.ok(cashTerms.includes('declare'));
  assert.ok(cashTerms.includes('monetary'));
+ const wageTerms = queryTerms('My boss is paying me in cash and cutting my hours');
+ assert.ok(!wageTerms.includes('customs'));
+ assert.ok(!wageTerms.includes('declare'));
  const jobTerms = queryTerms('I got fired without notice');
  assert.ok(jobTerms.includes('termination'));
  assert.ok(jobTerms.includes('severance'));

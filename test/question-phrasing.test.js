@@ -39,3 +39,8 @@ test('phrasing changes do not bypass unsupported destination and language gates'
  assert.throws(()=>parse({question:'Toronto library',language:'hi'}));
  assert.equal(parse({question:'Can we bake bread in Toronto?'}).intents.length,0);
 });
+
+test('cash wages and reduced hours on closed work permits route cleanly to employment without customs/banking intent collision',()=>{
+ const parsed=parse({question:'My boss is cutting my hours on a closed work permit and paying me in cash in Toronto'});
+ assert.deepEqual(parsed.intents,['employment']);
+});
