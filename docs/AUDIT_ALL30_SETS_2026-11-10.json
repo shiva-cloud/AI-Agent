@@ -1,9 +1,9 @@
 {
  "auditDate": "2026-11-10",
- "auditVersion": "34-files (sets 1-34)",
+ "auditVersion": "35-files (sets 1-35)",
  "rule": "normalized text (lowercase, non-alnum -> space, trim) exact-match dedup across all persisted result files of testing series",
- "rawQuestionRecords": 17142,
- "distinctNormalized": 16642,
+ "rawQuestionRecords": 17642,
+ "distinctNormalized": 17142,
  "onlyDuplicateGroup": {
   "set26+set28": 500
  },
@@ -11,5 +11,5 @@
  "set32_note": "within-series 0 dups (f30/f31/f32 all zero-share); cross-session: set-32 (mktG) questions = 500/500 the second session docs mktF run, and all 500 statuses match exactly (137g/32p/328c/3u both) — cross-process determinism proof; structural cause: both sessions excluded the same 2500 same-file samples -> same even-spacing stride.",
  "note": "set-28 in this series (my-temp mktF-500-results.json) is 100% duplicate of set-26 (runner bug mkE-not-in-union), documented in AI_GMSAG500 report. The concurrent second session has its own mktF run (docs/CORPUSMKT500F raw, first id MKT6-80006) with 0 overlap vs set-26 — that run is duplicate-free.",
  "set31ExternalDups": 0,
- "valid": "set-31: 0 dups. set-32: 0 dups within series; cross-session overlap documented above. set-33: 0 dups. set-34 (gmsB8): 3300 prior same-file excluded, 0 dups."
+ "valid": "set-31..set-35 (gmsB7, mktG, gmsA7, gmsB8, mktH): each excludes prior same-file samples (incl. mktG within market-gap chain), 0 cross-set dups each; set-32 cross-session overlap documented above."
 }

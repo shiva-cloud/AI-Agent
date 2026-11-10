@@ -101,7 +101,11 @@ const SETTLEMENT_SYNSETS = [
   [/\b(?:retroactive\s+(?:rule\s+changes?|policies?)|transitional\s+provisions?|grandfather(?:ing)?)\b/i, ['transitional', 'provisions', 'retroactive', 'rule', 'changes', 'policy', 'recourse']],
   [/\b(?:employer[- ]specific\s+permit|closed\s+work\s+permit|employer[- ]tied\s+visa|employer[- ]sponsored\s+visa)\b/i, ['employer', 'permit', 'work', 'closed', 'specific', 'sponsor', 'compliance']],
   [/\b(?:ministerial\s+discretion|humanitarian\s+and\s+compassionate|h\s*&\s*c)\b/i, ['ministerial', 'discretion', 'humanitarian', 'compassionate', 'irpa', 'hardship']],
-  [/\b(?:workplace\s+injur(?:y|ies)|workplace\s+accidents?|workers?\s+compensation|occupational\s+injur(?:y|ies))\b/i, ['injury', 'workplace', 'accident', 'compensation', 'safety', 'claims']]
+  [/\b(?:workplace\s+injur(?:y|ies)|workplace\s+accidents?|workers?\s+compensation|occupational\s+injur(?:y|ies))\b/i, ['injury', 'workplace', 'accident', 'compensation', 'safety', 'claims']],
+  [/\b(?:relationship\s+evidence|proof\s+of\s+relationship|genuine\s+relationship)\b/i, ['spousal', 'partner', 'sponsorship', 'common', 'law', 'cohabitation', 'family', 'reunification']],
+  [/\b(?:police\s+(?:certificates?|clearances?|checks?)|criminal\s+record\s+checks?|vulnerable\s+sector\s+checks?|pcc)\b/i, ['police', 'certificate', 'clearance', 'pcc', 'criminal', 'record', 'check', 'ircc']],
+  [/\b(?:employer\s+threats?|threatens?\s+(?:me|my|workers?|employees?|deportation))\b/i, ['vulnerable', 'worker', 'abuse', 'open', 'work', 'permit', 'irpr', '207', 'reprisal']],
+  [/\b(?:online\s+immigration\s+account|government\s+(?:login|portal(?:\s+errors?)?)|lost\s+(?:government\s+)?login|gckey|ircc\s+(?:account|portal|webform)|visa\s+portal(?:\s+errors?)?)\b/i, ['ircc', 'portal', 'webform', 'online', 'application', 'account', 'technical', 'failure']]
 ];
 
 export function tokenize(text) {

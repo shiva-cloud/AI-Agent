@@ -85,4 +85,22 @@ test('subject context in the title and ordinary paraphrases retain relevant evid
   assert.equal(subjectEvidenceMatcher('Before I submit anything about two countries claim tax residence in Hamburg, Germany?')({
     title:'EU Foreign Tax Credits and Double Taxation Agreements',summary:'Double taxation agreements prevent dual income taxation.'
   }),true);
+  assert.equal(subjectEvidenceMatcher('What common misconceptions about pension portability after return migration should an elderly newcomer in Auckland, New Zealand avoid?')({
+    title:'Inland Revenue (IRD): Foreign rental income and FIF rules',summary:'Tax residents must declare foreign rental income.'
+  }),false);
+  assert.equal(subjectEvidenceMatcher('I was told two different things about interpreter is related to alleged abuser in British Columbia, Canada. How can I check the applicable rule?')({
+    title:'IRCC: Citizenship by descent first-generation limit',summary:'Canadian citizenship by descent rules.'
+  }),false);
+  assert.equal(subjectEvidenceMatcher('How do I get help with employer threats in Toronto?')({
+    title:'IRCC: Open work permit for vulnerable workers facing abuse (IRPR s. 207.1)',summary:'Workers facing abuse or threats by an employer can apply for an open work permit.'
+  }),true);
+  assert.equal(subjectEvidenceMatcher('How do I fix a government portal error in Toronto?')({
+    title:'IRCC Webform Protocol for Online Application Portal Bugs and Technical Failures',summary:'Report online application portal bugs and technical failures via IRCC webform.'
+  }),true);
+  assert.equal(subjectEvidenceMatcher('What are the rules on utility costs in Germany?')({
+    title:'BGB § 556: Annual utility bills (Nebenkosten)',summary:'Landlords must settle utility bills within 12 months.'
+  }),true);
+  assert.equal(subjectEvidenceMatcher('Where do I request a police certificate in Toronto?')({
+    title:'Global Police Clearance Certificates',summary:'Official police certificate and criminal record check requirements.'
+  }),true);
 });

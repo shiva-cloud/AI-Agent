@@ -45,7 +45,8 @@ const SUBJECT_PATTERNS = [
   /^i need a step-by-step plan for (.+?)\s+in\b/i,
   /^how do i avoid scams or unnecessary fees while resolving (.+?)\s+(?:in|around)\b/i,
   /^could (.+?) affect my right to remain or work in\b/i,
-  /^is (.+?) handled locally or nationally in\b/i
+  /^is (.+?) handled locally or nationally in\b/i,
+  /^i was told two (?:different|contradictory) things about (.+?)\s+(?:in|around)\b/i
 ];
 
 const QUALIFIERS = new Set(['service', 'services', 'process', 'eligibility', 'requirement', 'requirements', 'application', 'applications', 'apply', 'applying', 'applied', 'calculator', 'lost', 'stolen', 'missing', 'plan', 'plans', 'bill', 'bills', 'billing', 'options', 'consumer', 'consumers', 'official', 'photo', 'provincial', 'state', 'number', 'numbers', 'card', 'cards', 'document', 'documents', 'documentation', 'device', 'devices', 'refuse', 'refuses', 'refusing', 'refusal', 'rejected', 'rejection', 'denied', 'denial', 'small', 'verbal', 'safe', 'intake', 'placement', 'unlawful', 'breach', 'language', 'access', 'crisis', 'landlord', 'landlords', 'tenant', 'tenants', 'agency', 'agencies', 'party', 'parties', 'first', 'today', 'after', 'without', 'leave', 'leaves', 'around', 'status', 'statuses', 'different', 'move', 'moved', 'moving', 'arrival', 'mobile', 'internet', 'broadband', 'phone', 'request', 'charges', 'recovery', 'abroad', 'papers', 'permission', 'and', 'for', 'with', 'across', 'into', 'under', 'over', 'between', 'while', 'about', 'from', 'renovation', 'renovations', 'demolition', 'snowstorm', 'weather', 'discount', 'discounts', 'waiting', 'pending', 'delay', 'delays', 'appointment', 'appointments', 'centre', 'membership', 'memberships', 'travelling', 'traveling', 'travel', 'leaving', 'paying', 'listing', 'listings', 'enrolment', 'enrollment', 'entry', 'support', 'supports', 'school', 'schools', 'clinic', 'clinics', 'hospital', 'hospitals', 'local', 'versus', 'vs', 'reunification', 'guidance', 'classification', 'pathway', 'pathways', 'family', 'care', 'rights', 'right', 'related', 'authority', 'authorities', 'authorization', 'authorizations', 'information', 'policy', 'provisions', 'standards', 'standard', 'procedures', 'procedure', 'matters', 'matter', 'assistance', 'help', 'conditions', 'condition', 'law', 'laws', 'statutory', 'statute', 'statutes', 'renewal', 'renewing', 'renewals', 'renew', 'extending', 'extension', 'extensions', 'extend', 'visa', 'visas', 'licence', 'license', 'licensing', 'regulated', 'transitional', 'changes', 'change']);
@@ -128,6 +129,10 @@ function words(text) {
     .replace(/\b(?:bank account|basic payment account|checking account|girokonto|basiskonto)\b/gi, 'bank account')
     .replace(/\b(?:moving with pets|importing pets|travel with pets|bringing a dog|bringing a cat)\b/gi, 'pet')
     .replace(/\b(?:foreign degree recognition|credential recognition|degree recognition|diploma recognition|qualification recognition|educational credential assessment|ECA)\b/gi, 'recognize')
+    .replace(/\b(?:employer\s+(?:abuse|threats?)|threatens?\s+(?:deportation|workers?)|vulnerable\s+workers?(?:\s+open\s+work\s+permit)?)\b/gi, 'vulnerable worker abuse')
+    .replace(/\b(?:online\s+application\s+portal\s+(?:bugs?|technical\s+failures?)|(?:government|visa|immigration|application)\s+portal\s+(?:errors?|bugs?|outages?|glitches?|failures?))\b/gi, 'portal outage')
+    .replace(/\b(?:police\s+(?:certificates?|clearances?|checks?)|criminal\s+record\s+checks?|vulnerable\s+sector\s+checks?|pcc)\b/gi, 'police certificate')
+    .replace(/\b(?:utility\s+(?:bills?|costs?|charges?|billing)|water\s+(?:bills?|billing|charges?|connections?))\b/gi, 'utility bill')
     .replace(/\b(?:employer[- ]linked\s+)?work\s+permi(?:t|ssion)s?\b/gi, 'work permit')
     .replace(/\b(?:emergency treatment without insurance|uninsured emergency|emtala|emergency medical treatment)\b/gi, 'emergency health')
     .replace(/\b(?:family doctor(?: registration)?|family physician|registering with a gp|gp registration|find a doctor)\b/gi, 'doctor')
@@ -186,6 +191,7 @@ export function requestedSubject(question) {
     const match = pattern.exec(text);
     if (match) return match[1].trim();
   }
+  if (/\bpension\s+portability\b/i.test(text)) return 'pension portability';
   return null;
 }
 

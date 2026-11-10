@@ -69,3 +69,43 @@ test('rental Kaution queries in Germany map strictly to deposit housingSubject',
  assert.equal(parsed.region,'Bavaria');
  assert.deepEqual(parsed.housingSubjects,['deposit']);
 });
+
+test('refugee claimant or dependent spouse persona boilerplate never overrides housing rent increases or injects family intent',()=>{
+ const rentParsed=parse({question:'What is the difference between illegal rent increase challenge and the closest related process for a refugee claimant in Victoria / Melbourne, Australia?'});
+ assert.ok(rentParsed.intents.includes('housing'));
+ assert.ok(!rentParsed.intents.includes('community'));
+ const settlementParsed=parse({question:'Where should a dependent spouse in British Columbia / Vancouver, Canada start when dealing with settlement agency service eligibility, and what basic documents should be gathered?'});
+ assert.deepEqual(settlementParsed.intents,['community']);
+ const policyConflict=parse({question:'I am a visitor in Wellington, New Zealand; how should I handle conflict between policy guide and regulation when I need an interpreter, including documents, fees, and next steps?'});
+ assert.ok(policyConflict.intents.includes('employment'));
+});
+
+test('rental listing impersonation maps to agreement housingSubject while foreign rental income and pending visa applications do not trigger housing subjects',()=>{
+ const listingFraud=parse({question:'Which deadlines, appeal rights, or exceptions might apply to rental listing impersonation for a visitor in Hesse / Frankfurt, Germany?'});
+ assert.deepEqual(listingFraud.housingSubjects,['agreement']);
+ const foreignRentalTax=parse({question:'What common misconceptions about foreign rental income and expenses should a dependent spouse in Queensland / Brisbane, Australia avoid?'});
+ assert.deepEqual(foreignRentalTax.intents,['money']);
+ assert.deepEqual(foreignRentalTax.housingSubjects,[]);
+ const pendingApp=parse({question:'If sponsor and applicant separate during pending application in Singapore, Singapore, what independent evidence could help?'});
+ assert.deepEqual(pendingApp.housingSubjects,[]);
+});
+
+test('refugee claimant or dependent spouse persona boilerplate never overrides housing rent increases or injects family intent',()=>{
+ const rentParsed=parse({question:'What is the difference between illegal rent increase challenge and the closest related process for a refugee claimant in Victoria / Melbourne, Australia?'});
+ assert.ok(rentParsed.intents.includes('housing'));
+ assert.ok(!rentParsed.intents.includes('community'));
+ const settlementParsed=parse({question:'Where should a dependent spouse in British Columbia / Vancouver, Canada start when dealing with settlement agency service eligibility, and what basic documents should be gathered?'});
+ assert.deepEqual(settlementParsed.intents,['community']);
+ const policyConflict=parse({question:'I am a visitor in Wellington, New Zealand; how should I handle conflict between policy guide and regulation when I need an interpreter, including documents, fees, and next steps?'});
+ assert.ok(policyConflict.intents.includes('employment'));
+});
+
+test('rental listing impersonation maps to agreement housingSubject while foreign rental income and pending visa applications do not trigger housing subjects',()=>{
+ const listingFraud=parse({question:'Which deadlines, appeal rights, or exceptions might apply to rental listing impersonation for a visitor in Hesse / Frankfurt, Germany?'});
+ assert.deepEqual(listingFraud.housingSubjects,['agreement']);
+ const foreignRentalTax=parse({question:'What common misconceptions about foreign rental income and expenses should a dependent spouse in Queensland / Brisbane, Australia avoid?'});
+ assert.deepEqual(foreignRentalTax.intents,['money']);
+ assert.deepEqual(foreignRentalTax.housingSubjects,[]);
+ const pendingApp=parse({question:'If sponsor and applicant separate during pending application in Singapore, Singapore, what independent evidence could help?'});
+ assert.deepEqual(pendingApp.housingSubjects,[]);
+});

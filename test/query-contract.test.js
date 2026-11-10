@@ -95,4 +95,31 @@ test('persona boilerplate and family doctor mentions do not inject phantom multi
   assert.deepEqual(bareNewcomer.intents,['employment']);
   const realEmploymentWorker=parse({question:'As a temporary foreign worker in Toronto, can my employer withhold my overtime wages?'});
   assert.deepEqual(realEmploymentWorker.intents,['employment']);
+  const founderMedical=parse({question:'What is the difference between disability accommodation at medical appointments and the closest related process for a small business founder in Canterbury / Christchurch, New Zealand?'});
+  assert.deepEqual(founderMedical.intents,['health']);
+  const prLanguage=parse({question:'What common misconceptions about adult language training eligibility should a new permanent resident in Ireland / Dublin, European Union avoid?'});
+  assert.deepEqual(prLanguage.intents,['community']);
+  const communityFoodBank=parse({question:'People in my community keep giving different answers about food bank access without ID in Jurong, Singapore.'});
+  assert.deepEqual(communityFoodBank.intents,['groceries']);
+  const pensionPortability=parse({question:'What common misconceptions about pension portability after return migration should an elderly newcomer in Auckland, New Zealand avoid?'});
+  assert.deepEqual(pensionPortability.intents,['money']);
+  const partnerStatusBoilerplate=parse({question:'I am worried about renoviction in Brampton, Canada if my partner and I have different statuses.'});
+  assert.deepEqual(partnerStatusBoilerplate.intents,['housing']);
+});
+
+test('police certificates, utility costs, customs, portal errors, and relationship evidence map to intended topics',()=>{
+  const pcc=parse({question:'How do I apply for a police certificate in Toronto?'});
+  assert.ok(pcc.intents.includes('employment'));
+  const util=parse({question:'What are the rules for utility costs and water billing in Germany?'});
+  assert.ok(util.intents.includes('housing'));
+  const customs=parse({question:'What do I need for customs clearance and secondary inspection when arriving in Canada?'});
+  assert.ok(customs.intents.includes('arrival'));
+  const portal=parse({question:'How do I report a government portal error or online immigration account login issue in Toronto?'});
+  assert.ok(portal.intents.includes('arrival'));
+  const relEvidence=parse({question:'What counts as relationship evidence or proof of relationship in Toronto?'});
+  assert.ok(relEvidence.intents.includes('family'));
+  const pgwpWage=parse({question:'What post graduation pathways and wage obligations apply in Toronto?'});
+  assert.ok(pgwpWage.intents.includes('employment'));
+  const resCalc=parse({question:'Is there a residency day calculator in Toronto?'});
+  assert.ok(resCalc.intents.includes('community'));
 });
