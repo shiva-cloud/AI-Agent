@@ -1047,17 +1047,20 @@ export function answer(input, records, now = new Date(), searchIndex, options = 
     ['questionBankMatch', qbMatch], ['marketGapMatch', mkt1Match || mkt2Match || mkt3Match],
     ['globalSettlementMatch', gmsMatch], ['crisisMatch', crisisMatch]
   ];
-  const isExplicitCatalogQuery = Boolean(input?.questionBankId || input?.marketGapId || input?.gmsId);
   for (const [key, match] of leads) if (match) {
     // Internal diagnostic metadata is intentionally excluded from public JSON.
     Object.defineProperty(result, key, { value: match, enumerable: false });
-    if (isExplicitCatalogQuery || !result.claims.some(c => c.status === 'approved')) {
+    if (!result.claims.length || !result.claims.some(c => c.status === 'approved')) {
       result.gaps.push({ topic: match.topic || null, reason: 'awaiting_human_review' });
     }
   }
   if (leads.some(([, match]) => match) && result.status !== 'clarification') {
-    if (isExplicitCatalogQuery || !result.claims.some(c => c.status === 'approved')) {
-      result.status = result.claims.length ? 'partial' : 'unavailable';
+    if (!result.claims.length) {
+      result.status = 'unavailable';
+    } else if (result.gaps.length > 0) {
+      result.status = 'partial';
+    } else {
+      result.status = 'guidance';
     }
   }
   result.message = result.claims.length ? result.message || 'Here is starting guidance from the available sources.' : 'A verified answer to this question is not yet available.';
