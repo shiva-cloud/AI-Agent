@@ -7,7 +7,7 @@ import { authorityAndProceduralRecords } from './data/authority-and-procedural-r
 
 const dbPaths = ['data/test-settlement.sqlite', 'data/settlement.sqlite'];
 
-const reviewer = 'Settlement Intelligence Lead Auditor';
+const reviewer = 'Settlement Intelligence Technical Editorial Team';
 const note = 'Verified official statutory operational policy, ministerial instructions, and authority directories.';
 const auditNote = 'Approved authoritative statutory operational policy and procedural fairness standards.';
 const at = new Date().toISOString();

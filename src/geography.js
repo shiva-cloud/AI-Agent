@@ -87,7 +87,7 @@ export const places = Object.freeze([
   {id: 'Brisbane', type: 'city', name: 'Brisbane', parent: 'Australia', status: 'outside_canada', aliases: ['brisbane']},
   {id: 'Perth', type: 'city', name: 'Perth', parent: 'Australia', status: 'outside_canada', aliases: ['perth']},
 
-  {id: 'United States', type: 'country', name: 'United States', parent: null, status: 'outside_canada', aliases: ['usa', 'united states']},
+  {id: 'United States', type: 'country', name: 'United States', parent: null, status: 'outside_canada', aliases: ['usa', 'united states', 'the us']},
   {id: 'New York', type: 'city', name: 'New York', parent: 'United States', status: 'outside_canada', aliases: ['new york']},
   {id: 'Los Angeles', type: 'city', name: 'Los Angeles', parent: 'United States', status: 'outside_canada', aliases: ['los angeles', 'la']},
   {id: 'Chicago', type: 'city', name: 'Chicago', parent: 'United States', status: 'outside_canada', aliases: ['chicago']},
@@ -575,8 +575,8 @@ export function unrecognisedPlaceNames(text) {
  */
 export function resolveClauseGeography(text) {
   if (typeof text !== 'string') return null;
-  const pattern = /\b(?:from|moving from|relocating from|leaving|arriving from|travel(?:l?ing)? from|coming from|originating from|migrating from)\s+([a-zA-Z\s'-]+?)\s+(?:to|in|into)\s+([a-zA-Z\s'-]+?)(?=(?:[,.?!]|\s+(?:can|how|what|is|are|will|do|does|where|when|should|my|with|for|about|and|or|$)))/i;
-  const patternBeforeMoving = /\b(?:lived in|living in|resided in)\s+([a-zA-Z\s'-]+?)(?:\s+for\s+[0-9]+\s+(?:years?|months?))?\s+(?:before|prior to)\s+(?:moving to|relocating to|settling in|coming to)\s+([a-zA-Z\s'-]+?)(?=(?:[,.?!]|\s+(?:can|how|what|is|are|will|do|does|where|when|should|my|with|for|about|and|or|$)))/i;
+  const pattern = /\b(?:from|moving from|relocating from|leaving|arriving from|travel(?:l?ing)? from|coming from|originating from|migrating from)\s+([a-zA-Z\s'-]+?)\s+(?:to|in|into)\s+([a-zA-Z\s'-]+?)(?=(?:[,.?!]|\s+(?:can|how|what|is|are|will|do|does|where|when|should|my|with|for|about|and|or|on|as|under|via|$)))/i;
+  const patternBeforeMoving = /\b(?:lived in|living in|resided in)\s+([a-zA-Z\s'-]+?)(?:\s+for\s+[0-9]+\s+(?:years?|months?))?\s+(?:before|prior to)\s+(?:moving to|relocating to|settling in|coming to)\s+([a-zA-Z\s'-]+?)(?=(?:[,.?!]|\s+(?:can|how|what|is|are|will|do|does|where|when|should|my|with|for|about|and|or|on|as|under|via|$)))/i;
   const match = text.match(pattern) || text.match(patternBeforeMoving);
   if (!match) return null;
 
@@ -584,7 +584,7 @@ export function resolveClauseGeography(text) {
   const destClause = match[2].trim();
 
   let originMatches = findPlaces(originClause);
-  const destMatches = findPlaces(destClause);
+  let destMatches = findPlaces(destClause);
 
   if (!originMatches.length) {
     const fallback = originCountryContext(`from ${originClause}`);
@@ -600,6 +600,22 @@ export function resolveClauseGeography(text) {
     }
   }
 
+  if (!destMatches.length) {
+    const fallback = originCountryContext(`from ${destClause}`);
+    if (fallback?.originCountry) {
+      const destName = fallback.originCountry;
+      const isCanada = destName === 'Canada' || destName === 'CA';
+      destMatches = [{
+        id: isCanada ? 'CA' : destName,
+        type: 'country',
+        name: destName,
+        parent: null,
+        status: isCanada ? 'supported' : 'outside_canada',
+        aliases: []
+      }];
+    }
+  }
+
   if (!originMatches.length || !destMatches.length) return null;
 
   const origin = originMatches[0];
@@ -610,7 +626,7 @@ export function resolveClauseGeography(text) {
   const destCity = ancestorOfType(destination.id, 'city') || (destination.type === 'city' ? destination.id : null);
   const destRegion = ancestorOfType(destination.id, 'region') || (destination.type === 'region' ? destination.id : null);
 
-  const isDestSupported = destination.status === 'supported' || destCountry === 'Canada' || destCountry === 'CA';
+  const isDestSupported = destination.status === 'supported' || destCountry === 'Canada' || destCountry === 'CA' || globalDestinations.some(([c]) => c === destCountry);
 
   return {
     hasRelocation: true,

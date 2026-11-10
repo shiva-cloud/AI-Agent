@@ -138,3 +138,4 @@ export const authorityAndProceduralRecords = [
     summary: 'Official statutory directory for newcomers to Germany. Maps BAMF and Ausländerbehörde for residence permits, Bürgeramt for municipal registration (Anmeldung), and statutory Krankenkassen for mandatory health insurance.'
   })
 ];
+
